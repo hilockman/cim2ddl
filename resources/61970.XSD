@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>Top package for IEC 61970.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation=""/>
+	<xs:element name="IEC61970CIMVersion" type="IEC61970CIMVersion"/>
+	<xs:complexType name="IEC61970CIMVersion">
+		<xs:sequence>
+			<xs:element name="date" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="version" type="String" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

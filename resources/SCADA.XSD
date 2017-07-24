@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>Contains entities to model information used by Supervisory Control and Data Acquisition (SCADA) applications. Supervisory control supports operator control of equipment, such as opening or closing a breaker. Data acquisition gathers telemetered data from various sources.  The subtypes of the Telemetry entity deliberately match the UCA and IEC 61850 definitions. 
+This package also supports alarm presentation but it is not expected to be used by other applications.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Domain.XSD"/>
+	<xs:include schemaLocation="Meas.XSD"/>
+	<xs:include schemaLocation="Core.XSD"/>
+	<xs:simpleType name="Source">
+		<xs:annotation>
+			<xs:documentation>Source gives information related to the origin of a value.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PROCESS">
+				<xs:annotation>
+					<xs:documentation>The value is provided by input from the process I/O or being calculated from some function.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DEFAULTED">
+				<xs:annotation>
+					<xs:documentation>The value contains a default value.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SUBSTITUTED">
+				<xs:annotation>
+					<xs:documentation>The value is provided by input of an operator or by an automatic source.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RemotePoint" type="RemotePoint"/>
+	<xs:complexType name="RemotePoint">
+		<xs:annotation>
+			<xs:documentation>For a RTU remote points correspond to telemetered values or control outputs. Other units (e.g. control centers) usually also contain calculated values.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="RemoteControl" type="RemoteControl"/>
+	<xs:complexType name="RemoteControl">
+		<xs:annotation>
+			<xs:documentation>Remote controls are ouputs that are sent by the remote unit to actuators in the process.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RemotePoint">
+				<xs:sequence>
+					<xs:element name="actuatorMaximum" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The maximum set point value accepted by the remote control point.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="actuatorMinimum" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The minimum set point value accepted by the remote control point.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="remoteControlled" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Set to true if the actuator is remotely controlled.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Control" type="Control" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The Control for the RemoteControl point.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CommunicationLink" type="CommunicationLink"/>
+	<xs:complexType name="CommunicationLink">
+		<xs:annotation>
+			<xs:documentation>The connection to remote units is through one or more communication links. Reduntant links may exist. The CommunicationLink class inherit PowerSystemResource. The intention is to allow CommunicationLinks to have Measurements. These Measurements can be used to model link status as operational, out of service, unit failure etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="PowerSystemResource">
+				<xs:sequence>
+					<xs:element name="RemoteUnits" type="RemoteUnit" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>RTUs may be attached to communication links.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="RemoteUnit" type="RemoteUnit"/>
+	<xs:complexType name="RemoteUnit">
+		<xs:annotation>
+			<xs:documentation>A remote unit can be a RTU, IED, substation control system, control center etc. The communication with the remote unit can be through various standard protocols (e.g. IEC 61870, IEC 61850) or non standard protocols (e.g. DNP, RP570 etc.). A remote unit contain remote data points that might be telemetered, collected or calculated. The RemoteUnit class inherit PowerSystemResource. The intention is to allow RemotUnits to have Measurements. These Measurements can be used to model unit status as operational, out of service, unit failure etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="PowerSystemResource">
+				<xs:sequence>
+					<xs:element name="remoteUnitType" type="RemoteUnitType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Type of remote unit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RemotePoints" type="RemotePoint" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Remote unit this point belongs to.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="RemoteUnitType">
+		<xs:annotation>
+			<xs:documentation>Type of remote unit.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RTU">
+				<xs:annotation>
+					<xs:documentation>Remote terminal unit.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SubstationControlSystem">
+				<xs:annotation>
+					<xs:documentation>Substation control system.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ControlCenter">
+				<xs:annotation>
+					<xs:documentation>Control center.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IED">
+				<xs:annotation>
+					<xs:documentation>Intelligent electronic device (IED).</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RemoteSource" type="RemoteSource"/>
+	<xs:complexType name="RemoteSource">
+		<xs:annotation>
+			<xs:documentation>Remote sources are state variables that are telemetered or calculated within the remote unit.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RemotePoint">
+				<xs:sequence>
+					<xs:element name="deadband" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The smallest change in value to be reported.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="scanInterval" type="Seconds" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The time interval between scans.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sensorMaximum" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The maximum value the telemetry item can return.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sensorMinimum" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The minimum value the telemetry item can return.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
