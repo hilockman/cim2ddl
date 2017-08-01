@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.znd.ei</groupId>
+  <version>1.0</version>
+  <artifactId>ei-cim</artifactId>
+  <packaging>pom</packaging>
+  <name>Energy Internet Common Information Model</name>
+ 
+  <modules>
+    <module>ei-model</module>
+    <module>ei-persist</module>
+    <module>ei-webservice</module>
+    <module>ei-console</module>
+  </modules>
+  
+  <properties>
+    <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+    <hsqldb.version>1.8.0.7</hsqldb.version>
+	<spring.version>4.2.9.RELEASE</spring.version>
+	<jetty.version>9.4.6.v20170531</jetty.version>
+  </properties>
+  
+  <build>
+    <pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    </pluginManagement>
+  </build>
+
+	<dependencyManagement>
+	  <dependencies>	
+	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>	
+	  </dependencies>		
+	</dependencyManagement>
+		
+	<dependencies>
+		<dependency>
+		  <groupId>junit</groupId>
+		  <artifactId>junit</artifactId>
+		  <version>4.12</version>
+		  <scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
