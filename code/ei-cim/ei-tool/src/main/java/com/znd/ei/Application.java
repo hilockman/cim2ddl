@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.znd.ei.service.StorageProperties;
+import com.znd.ei.codegen.service.StorageProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)

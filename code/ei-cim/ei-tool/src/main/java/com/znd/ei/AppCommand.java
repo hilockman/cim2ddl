@@ -5,10 +5,9 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 
-import com.znd.ei.service.ClasssCreateService;
+import com.znd.ei.codegen.service.ClassCreateService;
 
 /**
  * 
@@ -20,11 +19,8 @@ import com.znd.ei.service.ClasssCreateService;
 @Component
 public class AppCommand  {
 	static  Logger logger = Logger.getLogger(AppCommand.class.getName());
-	private ClasssCreateService classCreator;
-	
 	@Autowired
-	public AppCommand(ClasssCreateService classCreator, ApplicationArguments args) {
-		this.classCreator = classCreator;
+	public AppCommand(ClassCreateService classCreator, ApplicationArguments args) {
 		boolean create = args.containsOption("createCode");
 		if (create) {
 			logger.log(Level.INFO, "Create code");

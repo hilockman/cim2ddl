@@ -7,9 +7,9 @@
     <artifactId>ei-cim</artifactId>
     <version>1.0</version>
   </parent>
-  <groupId>com.znd.ei</groupId>
+
   <artifactId>ei-tool</artifactId>
- 	<packaging>jar</packaging> 
+  <packaging>jar</packaging> 
   <name>ei-tool</name>
 
   <properties>
