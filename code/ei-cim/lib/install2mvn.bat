@@ -1,0 +1,1 @@
+mvn install:install-file -DgroupId=com.znd -DartifactId=ZhongNDMemDB -Dversion=1.0 -Dpackaging=jar -Dfile=ZhongNDMemDB.jar
