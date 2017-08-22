@@ -1962,3 +1962,319 @@ Caused by: java.lang.NullPointerException: null
 2017-08-18 16:57:38.596  INFO 16324 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3257f74d: startup date [Fri Aug 18 16:57:33 CST 2017]; root of context hierarchy
 2017-08-18 16:57:38.596  INFO 16324 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
 2017-08-18 16:57:38.596  INFO 16324 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:33:44.931  INFO 13608 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 13608 (D:\GitHub\cim2ddl\code\ei-cim\ei-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-tool)
+2017-08-21 16:33:44.977  INFO 13608 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-08-21 16:33:45.031  INFO 13608 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@32260bbb: startup date [Mon Aug 21 16:33:45 CST 2017]; root of context hierarchy
+2017-08-21 16:33:46.350  INFO 13608 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2017-08-21 16:33:46.361  INFO 13608 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-08-21 16:33:46.362  INFO 13608 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-08-21 16:33:46.443  INFO 13608 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-08-21 16:33:46.444  INFO 13608 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1417 ms
+2017-08-21 16:33:46.581  INFO 13608 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-08-21 16:33:46.589  INFO 13608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-08-21 16:33:46.589  INFO 13608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-08-21 16:33:46.590  INFO 13608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-08-21 16:33:46.591  INFO 13608 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-08-21 16:33:47.200  INFO 13608 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:33:47.218  INFO 13608 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-08-21 16:33:47.285  INFO 13608 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-08-21 16:33:47.288  INFO 13608 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-08-21 16:33:47.289  INFO 13608 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-08-21 16:33:47.339  INFO 13608 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-08-21 16:33:47.470  INFO 13608 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-08-21 16:33:47.796  INFO 13608 --- [main] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2017-08-21 16:33:48.183  INFO 13608 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:33:48.820  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@32260bbb: startup date [Mon Aug 21 16:33:45 CST 2017]; root of context hierarchy
+2017-08-21 16:33:48.890  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.Compute> com.znd.ei.computing.web.ComputingController.getAllComputes()
+2017-08-21 16:33:48.893  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/add],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.ComputingController.addCompute(java.lang.String,java.lang.String)
+2017-08-21 16:33:48.895  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.FState> com.znd.ei.computing.web.PRStateController.getAllComputes()
+2017-08-21 16:33:48.897  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/load],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.PRStateController.loadFromMemDB()
+2017-08-21 16:33:48.899  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/table],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.memdb.dao.MemTable> com.znd.ei.memdb.web.MemDbController.getTable(java.lang.String)
+2017-08-21 16:33:48.901  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/tables],methods=[GET]}" onto public java.lang.String[] com.znd.ei.memdb.web.MemDbController.getTables()
+2017-08-21 16:33:48.909  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memfstate/records],methods=[GET]}" onto public java.lang.Iterable com.znd.ei.memdb.web.MemFStateControl.getRecords()
+2017-08-21 16:33:48.912  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-08-21 16:33:48.914  INFO 13608 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-08-21 16:33:48.952  INFO 13608 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:33:48.955  INFO 13608 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:33:48.991  INFO 13608 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:33:49.204  INFO 13608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-08-21 16:33:49.258  INFO 13608 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2017-08-21 16:33:49.264  INFO 13608 --- [main] com.znd.ei.Application                   : Started Application in 4.606 seconds (JVM running for 8.108)
+2017-08-21 16:33:49.266  INFO 13608 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@32260bbb: startup date [Mon Aug 21 16:33:45 CST 2017]; root of context hierarchy
+2017-08-21 16:33:49.268  INFO 13608 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-08-21 16:33:49.271  INFO 13608 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:34:17.656  INFO 11616 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 11616 (D:\GitHub\cim2ddl\code\ei-cim\ei-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-tool)
+2017-08-21 16:34:17.659  INFO 11616 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-08-21 16:34:17.700  INFO 11616 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@35eb86b9: startup date [Mon Aug 21 16:34:17 CST 2017]; root of context hierarchy
+2017-08-21 16:34:19.112  INFO 11616 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2017-08-21 16:34:19.126  INFO 11616 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-08-21 16:34:19.129  INFO 11616 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-08-21 16:34:19.229  INFO 11616 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-08-21 16:34:19.230  INFO 11616 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1533 ms
+2017-08-21 16:34:19.352  INFO 11616 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-08-21 16:34:19.357  INFO 11616 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-08-21 16:34:19.358  INFO 11616 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-08-21 16:34:19.359  INFO 11616 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-08-21 16:34:19.360  INFO 11616 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-08-21 16:34:19.877  INFO 11616 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:34:19.893  INFO 11616 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-08-21 16:34:19.976  INFO 11616 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-08-21 16:34:19.979  INFO 11616 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-08-21 16:34:19.982  INFO 11616 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-08-21 16:34:20.034  INFO 11616 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-08-21 16:34:20.151  INFO 11616 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-08-21 16:34:20.539  INFO 11616 --- [main] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2017-08-21 16:34:20.916  INFO 11616 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:34:21.443  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@35eb86b9: startup date [Mon Aug 21 16:34:17 CST 2017]; root of context hierarchy
+2017-08-21 16:34:21.522  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.Compute> com.znd.ei.computing.web.ComputingController.getAllComputes()
+2017-08-21 16:34:21.525  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/add],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.ComputingController.addCompute(java.lang.String,java.lang.String)
+2017-08-21 16:34:21.529  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/load],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.PRStateController.loadFromMemDB()
+2017-08-21 16:34:21.529  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.FState> com.znd.ei.computing.web.PRStateController.getAllComputes()
+2017-08-21 16:34:21.532  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/table],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.memdb.dao.MemTable> com.znd.ei.memdb.web.MemDbController.getTable(java.lang.String)
+2017-08-21 16:34:21.536  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/tables],methods=[GET]}" onto public java.lang.String[] com.znd.ei.memdb.web.MemDbController.getTables()
+2017-08-21 16:34:21.541  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memfstate/records],methods=[GET]}" onto public java.lang.Iterable com.znd.ei.memdb.web.MemFStateControl.getRecords()
+2017-08-21 16:34:21.546  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-08-21 16:34:21.548  INFO 11616 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-08-21 16:34:21.592  INFO 11616 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:34:21.593  INFO 11616 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:34:21.638  INFO 11616 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:34:21.853  INFO 11616 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-08-21 16:34:21.911  INFO 11616 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2017-08-21 16:34:21.917  INFO 11616 --- [main] com.znd.ei.Application                   : Started Application in 4.619 seconds (JVM running for 7.25)
+2017-08-21 16:34:21.919  INFO 11616 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@35eb86b9: startup date [Mon Aug 21 16:34:17 CST 2017]; root of context hierarchy
+2017-08-21 16:34:21.922  INFO 11616 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-08-21 16:34:21.924  INFO 11616 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:34:44.656  INFO 9296 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 9296 (D:\GitHub\cim2ddl\code\ei-cim\ei-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-tool)
+2017-08-21 16:34:44.659  INFO 9296 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-08-21 16:34:44.706  INFO 9296 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@674d5255: startup date [Mon Aug 21 16:34:44 CST 2017]; root of context hierarchy
+2017-08-21 16:34:46.158  INFO 9296 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2017-08-21 16:34:46.172  INFO 9296 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-08-21 16:34:46.174  INFO 9296 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-08-21 16:34:46.270  INFO 9296 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-08-21 16:34:46.271  INFO 9296 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1569 ms
+2017-08-21 16:34:46.412  INFO 9296 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-08-21 16:34:46.419  INFO 9296 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-08-21 16:34:46.420  INFO 9296 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-08-21 16:34:46.421  INFO 9296 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-08-21 16:34:46.421  INFO 9296 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-08-21 16:34:46.929  INFO 9296 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:34:46.945  INFO 9296 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-08-21 16:34:47.032  INFO 9296 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-08-21 16:34:47.035  INFO 9296 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-08-21 16:34:47.037  INFO 9296 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-08-21 16:34:47.082  INFO 9296 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-08-21 16:34:47.215  INFO 9296 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-08-21 16:34:47.601  INFO 9296 --- [main] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2017-08-21 16:34:47.978  INFO 9296 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:34:48.059  INFO 9296 --- [main] com.znd.ei.AppCommand                    : Create code
+2017-08-21 16:34:48.109  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:System, alias:系统
+2017-08-21 16:34:48.118  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:3 豪秒
+2017-08-21 16:34:48.119  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Zone, alias:分区
+2017-08-21 16:34:48.121  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.166  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Radial, alias:环辐网
+2017-08-21 16:34:48.191  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:34:48.191  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACBus, alias:交流母线
+2017-08-21 16:34:48.194  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:34:48.194  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACLine, alias:交流线路
+2017-08-21 16:34:48.197  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:34:48.216  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Wind, alias:变压器绕组
+2017-08-21 16:34:48.220  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.221  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Gen, alias:发电机
+2017-08-21 16:34:48.223  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.224  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Load, alias:负荷
+2017-08-21 16:34:48.226  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:34:48.242  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:HVDC, alias:高压直流系统
+2017-08-21 16:34:48.243  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.244  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Converter, alias:变换器
+2017-08-21 16:34:48.245  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.246  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:DCBus, alias:直流母线
+2017-08-21 16:34:48.247  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.247  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:DCLine, alias:直流线路
+2017-08-21 16:34:48.249  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.269  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:TCSC, alias:可控串联补偿装置
+2017-08-21 16:34:48.271  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.271  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:UPFC, alias:统一潮流控制器
+2017-08-21 16:34:48.323  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.323  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:DevMState, alias:设备多状态
+2017-08-21 16:34:48.325  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.326  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACIsland, alias:交流电岛
+2017-08-21 16:34:48.327  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.328  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACLineEdge, alias:交流线路边
+2017-08-21 16:34:48.330  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.358  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:WindEdge, alias:变压器绕组边
+2017-08-21 16:34:48.360  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.361  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Trip, alias:开断故障信息
+2017-08-21 16:34:48.386  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.390  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:TripMIsland, alias:开断故障下孤岛信息
+2017-08-21 16:34:48.392  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.393  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:TripOvlDev, alias:开断故障下越限信息
+2017-08-21 16:34:48.394  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.421  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CommRParam, alias:可靠性公共参数
+2017-08-21 16:34:48.422  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.423  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CommonFault, alias:共因故障
+2017-08-21 16:34:48.424  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.425  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:R2StateComp, alias:两状态可靠性设备
+2017-08-21 16:34:48.427  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.427  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:RMStateComp, alias:多状态可靠性设备
+2017-08-21 16:34:48.428  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.462  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:MCSampleState, alias:蒙特卡罗抽样状态
+2017-08-21 16:34:48.463  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.464  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FState, alias:抽样状态
+2017-08-21 16:34:48.466  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.466  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateFDev, alias:抽样状态下故障设备
+2017-08-21 16:34:48.469  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.470  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateMState, alias:抽样状态下多状态
+2017-08-21 16:34:48.512  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.513  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateMIsland, alias:抽样状态下孤岛损失
+2017-08-21 16:34:48.515  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.515  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateOvlDev, alias:抽样状态下越限设备
+2017-08-21 16:34:48.516  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.517  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateOvlAd, alias:抽样状态下越限调整
+2017-08-21 16:34:48.520  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.540  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FSecurity, alias:安全评价
+2017-08-21 16:34:48.541  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.542  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CopGen, alias:停运发电
+2017-08-21 16:34:48.543  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:34:48.544  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CopTable, alias:停运概率
+2017-08-21 16:34:48.545  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:34:48.545  INFO 9296 --- [main] c.z.e.c.service.MemClsssCreateService    : 类创建完成！
+2017-08-21 16:34:49.015  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@674d5255: startup date [Mon Aug 21 16:34:44 CST 2017]; root of context hierarchy
+2017-08-21 16:34:49.096  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/add],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.ComputingController.addCompute(java.lang.String,java.lang.String)
+2017-08-21 16:34:49.099  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.Compute> com.znd.ei.computing.web.ComputingController.getAllComputes()
+2017-08-21 16:34:49.102  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.FState> com.znd.ei.computing.web.PRStateController.getAllComputes()
+2017-08-21 16:34:49.103  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/load],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.PRStateController.loadFromMemDB()
+2017-08-21 16:34:49.105  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/table],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.memdb.dao.MemTable> com.znd.ei.memdb.web.MemDbController.getTable(java.lang.String)
+2017-08-21 16:34:49.109  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/tables],methods=[GET]}" onto public java.lang.String[] com.znd.ei.memdb.web.MemDbController.getTables()
+2017-08-21 16:34:49.114  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memfstate/records],methods=[GET]}" onto public java.lang.Iterable com.znd.ei.memdb.web.MemFStateControl.getRecords()
+2017-08-21 16:34:49.115  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-08-21 16:34:49.119  INFO 9296 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-08-21 16:34:49.159  INFO 9296 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:34:49.160  INFO 9296 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:34:49.198  INFO 9296 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:34:49.392  INFO 9296 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-08-21 16:34:49.456  INFO 9296 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2017-08-21 16:34:49.461  INFO 9296 --- [main] com.znd.ei.Application                   : Started Application in 5.167 seconds (JVM running for 7.754)
+2017-08-21 16:34:49.463  INFO 9296 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@674d5255: startup date [Mon Aug 21 16:34:44 CST 2017]; root of context hierarchy
+2017-08-21 16:34:49.465  INFO 9296 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-08-21 16:34:49.468  INFO 9296 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:35:28.452  INFO 5024 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 5024 (D:\GitHub\cim2ddl\code\ei-cim\ei-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-tool)
+2017-08-21 16:35:28.458  INFO 5024 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-08-21 16:35:28.509  INFO 5024 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@526d4ff3: startup date [Mon Aug 21 16:35:28 CST 2017]; root of context hierarchy
+2017-08-21 16:35:29.908  INFO 5024 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2017-08-21 16:35:29.920  INFO 5024 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-08-21 16:35:29.922  INFO 5024 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-08-21 16:35:30.020  INFO 5024 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-08-21 16:35:30.021  INFO 5024 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1515 ms
+2017-08-21 16:35:30.154  INFO 5024 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-08-21 16:35:30.159  INFO 5024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-08-21 16:35:30.160  INFO 5024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-08-21 16:35:30.160  INFO 5024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-08-21 16:35:30.161  INFO 5024 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-08-21 16:35:30.692  INFO 5024 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:35:30.710  INFO 5024 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-08-21 16:35:30.798  INFO 5024 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-08-21 16:35:30.800  INFO 5024 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-08-21 16:35:30.803  INFO 5024 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-08-21 16:35:30.863  INFO 5024 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-08-21 16:35:30.990  INFO 5024 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-08-21 16:35:31.444  INFO 5024 --- [main] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2017-08-21 16:35:31.833  INFO 5024 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-08-21 16:35:31.915  INFO 5024 --- [main] com.znd.ei.AppCommand                    : Create code
+2017-08-21 16:35:31.947  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:System, alias:系统
+2017-08-21 16:35:31.958  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:3 豪秒
+2017-08-21 16:35:31.959  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Zone, alias:分区
+2017-08-21 16:35:31.961  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:31.961  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Radial, alias:环辐网
+2017-08-21 16:35:31.963  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:31.963  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACBus, alias:交流母线
+2017-08-21 16:35:31.966  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:31.967  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACLine, alias:交流线路
+2017-08-21 16:35:31.976  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:3 豪秒
+2017-08-21 16:35:31.977  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Wind, alias:变压器绕组
+2017-08-21 16:35:31.979  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:31.980  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Gen, alias:发电机
+2017-08-21 16:35:31.983  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:35:31.985  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Load, alias:负荷
+2017-08-21 16:35:31.988  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:35:31.993  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:HVDC, alias:高压直流系统
+2017-08-21 16:35:31.997  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:35:31.997  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Converter, alias:变换器
+2017-08-21 16:35:32.002  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.003  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:DCBus, alias:直流母线
+2017-08-21 16:35:32.005  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.008  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:DCLine, alias:直流线路
+2017-08-21 16:35:32.010  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.014  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:TCSC, alias:可控串联补偿装置
+2017-08-21 16:35:32.016  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.017  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:UPFC, alias:统一潮流控制器
+2017-08-21 16:35:32.023  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:35:32.027  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:DevMState, alias:设备多状态
+2017-08-21 16:35:32.029  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:35:32.032  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACIsland, alias:交流电岛
+2017-08-21 16:35:32.034  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.038  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:ACLineEdge, alias:交流线路边
+2017-08-21 16:35:32.043  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.044  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:WindEdge, alias:变压器绕组边
+2017-08-21 16:35:32.049  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.050  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:Trip, alias:开断故障信息
+2017-08-21 16:35:32.052  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.055  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:TripMIsland, alias:开断故障下孤岛信息
+2017-08-21 16:35:32.061  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.061  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:TripOvlDev, alias:开断故障下越限信息
+2017-08-21 16:35:32.063  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.065  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CommRParam, alias:可靠性公共参数
+2017-08-21 16:35:32.067  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.071  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CommonFault, alias:共因故障
+2017-08-21 16:35:32.075  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.078  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:R2StateComp, alias:两状态可靠性设备
+2017-08-21 16:35:32.079  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.083  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:RMStateComp, alias:多状态可靠性设备
+2017-08-21 16:35:32.084  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:35:32.085  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:MCSampleState, alias:蒙特卡罗抽样状态
+2017-08-21 16:35:32.087  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.090  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FState, alias:抽样状态
+2017-08-21 16:35:32.094  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:2 豪秒
+2017-08-21 16:35:32.095  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateFDev, alias:抽样状态下故障设备
+2017-08-21 16:35:32.096  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.096  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateMState, alias:抽样状态下多状态
+2017-08-21 16:35:32.098  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.099  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateMIsland, alias:抽样状态下孤岛损失
+2017-08-21 16:35:32.102  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.103  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateOvlDev, alias:抽样状态下越限设备
+2017-08-21 16:35:32.109  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.112  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FStateOvlAd, alias:抽样状态下越限调整
+2017-08-21 16:35:32.114  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.118  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:FSecurity, alias:安全评价
+2017-08-21 16:35:32.119  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:0 豪秒
+2017-08-21 16:35:32.120  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CopGen, alias:停运发电
+2017-08-21 16:35:32.125  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.126  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : name:CopTable, alias:停运概率
+2017-08-21 16:35:32.131  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : FileOutputStream执行耗时:1 豪秒
+2017-08-21 16:35:32.132  INFO 5024 --- [main] c.z.e.c.service.MemClsssCreateService    : 类创建完成！
+2017-08-21 16:35:32.650  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@526d4ff3: startup date [Mon Aug 21 16:35:28 CST 2017]; root of context hierarchy
+2017-08-21 16:35:32.722  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.Compute> com.znd.ei.computing.web.ComputingController.getAllComputes()
+2017-08-21 16:35:32.725  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/computing/add],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.ComputingController.addCompute(java.lang.String,java.lang.String)
+2017-08-21 16:35:32.727  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/all],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.computing.domain.FState> com.znd.ei.computing.web.PRStateController.getAllComputes()
+2017-08-21 16:35:32.728  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/prstate/load],methods=[GET]}" onto public java.lang.String com.znd.ei.computing.web.PRStateController.loadFromMemDB()
+2017-08-21 16:35:32.730  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/table],methods=[GET]}" onto public java.lang.Iterable<com.znd.ei.memdb.dao.MemTable> com.znd.ei.memdb.web.MemDbController.getTable(java.lang.String)
+2017-08-21 16:35:32.732  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memdb/tables],methods=[GET]}" onto public java.lang.String[] com.znd.ei.memdb.web.MemDbController.getTables()
+2017-08-21 16:35:32.735  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/memfstate/records],methods=[GET]}" onto public java.lang.Iterable com.znd.ei.memdb.web.MemFStateControl.getRecords()
+2017-08-21 16:35:32.742  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-08-21 16:35:32.746  INFO 5024 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-08-21 16:35:32.786  INFO 5024 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:35:32.788  INFO 5024 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:35:32.823  INFO 5024 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-08-21 16:35:32.988  INFO 5024 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-08-21 16:35:33.048  INFO 5024 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2017-08-21 16:35:33.055  INFO 5024 --- [main] com.znd.ei.Application                   : Started Application in 4.934 seconds (JVM running for 7.58)
+2017-08-21 16:35:33.057  INFO 5024 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@526d4ff3: startup date [Mon Aug 21 16:35:28 CST 2017]; root of context hierarchy
+2017-08-21 16:35:33.060  INFO 5024 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-08-21 16:35:33.063  INFO 5024 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
