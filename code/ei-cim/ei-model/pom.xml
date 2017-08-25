@@ -53,11 +53,7 @@
 		    <systemPath>${project.basedir}/lib/ZhongNDMemDB.jar</systemPath>
 		</dependency>
 -->
-		<dependency>
-		    <groupId>com.znd</groupId>
-		    <artifactId>ZhongNDMemDB</artifactId>
-		    <version>1.0</version>
-		</dependency>	
+	
 	</dependencies>
 
 </project>

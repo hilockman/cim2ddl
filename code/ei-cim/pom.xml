@@ -20,7 +20,11 @@
 		<module>ei-persist</module>
 		<module>ei-webservice</module>
 		<module>ei-console</module>
-		<module>ei-tool</module>
+    	<module>ei-memdb-core</module>
+  	  <module>ei-memdb</module>
+	  <module>ei-memdb-tool</module>
+	  <module>ei-memdb-check</module>
+    <module>ei-computing-reliability</module>
   </modules>
 
 	<properties>
@@ -30,6 +34,7 @@
 		<java.version>1.8</java.version>
 		<!-- spring.version>4.2.1.RELEASE</spring.version -->
 		<!-- spring-data.version>Gosling-RELEASE</spring-data.version -->
+		<znd.version>1.0</znd.version>
 	</properties>
 
 	<dependencyManagement>

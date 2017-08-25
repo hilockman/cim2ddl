@@ -17,9 +17,7 @@
 	</properties>
 
 	<dependencies>
-
-
-
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -36,6 +34,12 @@
 			<artifactId>ei-model</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.znd.ei</groupId>
+			<artifactId>ei-memdb</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
