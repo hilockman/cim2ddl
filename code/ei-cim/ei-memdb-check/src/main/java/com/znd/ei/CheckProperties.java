@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(CheckProperties.class)
 public class CheckProperties {
 
+	private List<String> excludeTableNames = new ArrayList<String>();
     private List<String> excludeFieldNames = new ArrayList<String>();
     private String excludeFieldPattern;
 	public List<String> getExcludeFieldNames() {
@@ -27,6 +28,14 @@ public class CheckProperties {
 
 	public void setExcludeFieldPattern(String excludeFieldPattern) {
 		this.excludeFieldPattern = excludeFieldPattern;
+	}
+
+	public List<String> getExcludeTableNames() {
+		return excludeTableNames;
+	}
+
+	public void setExcludeTableNames(List<String> excludeTableNames) {
+		this.excludeTableNames = excludeTableNames;
 	}
     
 

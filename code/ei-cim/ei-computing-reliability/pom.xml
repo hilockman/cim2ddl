@@ -45,9 +45,10 @@
 		<dependency>
 		    <groupId>redis.clients</groupId>
 		    <artifactId>jedis</artifactId>
-		    <version>3.0.0</version>
-		    
-		</dependency><!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		    <version>3.0.0</version>		    
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
 		<dependency>
 		    <groupId>commons-logging</groupId>
 		    <artifactId>commons-logging</artifactId>

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 
-import com.znd.ei.reliability.server.ReliabilityProperites;
+import com.znd.ei.reliability.config.ReliabilityProperites;
 
 @SpringBootApplication
 @EnableConfigurationProperties(ReliabilityProperites.class)

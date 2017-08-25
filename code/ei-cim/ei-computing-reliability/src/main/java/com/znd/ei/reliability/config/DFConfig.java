@@ -11,7 +11,7 @@ import com.ZhongND.RedisDF.Service.ServiceFactory;
 
 @Configuration
 @EnableAutoConfiguration
-public class MessageBusConfig {
+public class DFConfig {
 
 	@Bean
 	public RedisService redisService() {

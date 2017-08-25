@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.znd.ei.reliability.server.MCSampleService;
+import com.znd.ei.reliability.model.ComputingResult;
+import com.znd.ei.reliability.server.impl.MCSampleService;
 
 @Controller
 @RequestMapping(path = "/reliability")
@@ -21,9 +22,8 @@ public class ReliabilityController {
 	}
 
 	@GetMapping(path = "/mcsample")
-	public @ResponseBody String mcsample() {
-		mCSampleService.run();
-		return "MC Sample ok!";
+	public @ResponseBody ComputingResult mcsample() {
+		return mCSampleService.run();
 	}
 	
 }

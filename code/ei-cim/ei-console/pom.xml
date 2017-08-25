@@ -30,16 +30,27 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.znd.ei</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-model</artifactId>
-			<version>1.0</version>
+			<version>${project.version}</version>
 		</dependency>
+		
 		<dependency>
-			<groupId>com.znd.ei</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-memdb</artifactId>
-			<version>1.0</version>
+			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-computing-reliability</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>3.0.0</version>		    
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

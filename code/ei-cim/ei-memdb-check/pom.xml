@@ -8,7 +8,7 @@
     <version>1.0</version>
   </parent>
   <artifactId>ei-memdb-check</artifactId>
-  <name>ei-memdbcheck</name>
+  <name>ei-memdb-check</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
