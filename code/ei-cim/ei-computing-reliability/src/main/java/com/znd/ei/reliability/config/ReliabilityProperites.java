@@ -13,6 +13,8 @@ public class ReliabilityProperites {
 	private Lock busyLock = new ReentrantLock();    //注意这个地方
 	
 	private String messageType="Reliability";
+	
+	private String appName = "ComputeReliability";
 
 	public String getMessageType() {
 		return messageType;
@@ -28,6 +30,14 @@ public class ReliabilityProperites {
 
 	public void setBusyLock(Lock busyLock) {
 		this.busyLock = busyLock;
+	}
+
+	public String getAppName() {
+		return appName;
+	}
+
+	public void setAppName(String appName) {
+		this.appName = appName;
 	}
 
 
