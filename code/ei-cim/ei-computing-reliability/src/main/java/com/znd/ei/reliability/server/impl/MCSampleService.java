@@ -10,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ZhongND.RedisDF.Control.RedisControl;
-import com.ZhongND.RedisDF.Control.Content.ControlKey;
 import com.ZhongND.RedisDF.Control.Content.ControlList;
 import com.ZhongND.RedisDF.Control.Content.PubMessage;
 import com.ZhongND.RedisDF.Service.DFService;
-import com.ZhongND.RedisDF.Service.Impl.DFServiceImpl;
 import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
 import com.znd.ei.reliability.config.ReliabilityProperites;
 import com.znd.ei.reliability.model.ComputingResult;
@@ -57,7 +55,7 @@ public class MCSampleService implements TaskPublisher {
 		return formTestList(rcount);
 	}
 
-	public ComputingResult run(boolean lockFlag) throws JedisDBException {
+	public ComputingResult run(boolean lockFlag, boolean randomTask, int taskCount) throws JedisDBException {
 		LOGGER.info("Call Monte Carlo sample algorithm.");
 		// 调用抽样算法
 		// 上传模型
@@ -86,7 +84,12 @@ public class MCSampleService implements TaskPublisher {
 			properties.getBusyLock().lock();
 		}
 
-		List<String> listValue = formTestList();
+		List<String> listValue = null;
+		if (randomTask)
+			listValue = formTestList();
+		else
+			listValue = formTestList(taskCount);
+		
 		String messageType = properties.getMessageType();
 		String messageKey = UUID.randomUUID().toString();
 		LOGGER.info("GET List:" + messageType);
@@ -107,7 +110,7 @@ public class MCSampleService implements TaskPublisher {
 
 	@Override
 	public ComputingResult run() throws JedisDBException {
-		return run(false);
+		return run(false, true, 0);
 	}
 
 }
