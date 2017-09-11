@@ -21,11 +21,11 @@
 		<module>ei-webservice</module>
 		<module>ei-console</module>
     	<module>ei-memdb-core</module>
-  	  <module>ei-memdb</module>
-	  <module>ei-memdb-tool</module>
-	  <module>ei-memdb-check</module>
-    <module>ei-computing-reliability</module>
-    <module>ei-test</module>
+	  	<module>ei-memdb</module>
+		<module>ei-memdb-tool</module>
+		<module>ei-memdb-check</module>
+	    <module>ei-computing-reliability</module>
+	    <module>ei-test</module>
   </modules>
 
 	<properties>
