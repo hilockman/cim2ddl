@@ -5,11 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ZhongND.RedisDF.Control.RedisControl;
-import com.ZhongND.RedisDF.Control.Content.ControlList;
-import com.ZhongND.RedisDF.Listener.Event.EventContent;
 import com.ZhongND.RedisDF.Service.DFService;
-import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
+import com.ZhongND.RedisDF.exectueDF.ExectueDF;
+import com.ZhongND.RedisDF.exectueDF.ResultObject;
+import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
+import com.ZhongND.RedisDF.messageDF.Listener.MessageContent;
 import com.znd.ei.reliability.config.ReliabilityProperites;
 import com.znd.ei.reliability.server.TaskSubscribe;
 
@@ -28,7 +29,7 @@ public class EvaluateService extends TaskSubscribe {
 	private DFService dFService;
 	
 	@Autowired
-	public EvaluateService(DFService dFService, ReliabilityProperites properties) throws JedisDBException {
+	public EvaluateService(DFService dFService, ReliabilityProperites properties) throws RedissonDBException {
 		super(dFService);
 		// TODO Auto-generated constructor stub
 		this.dFService = dFService;
@@ -37,7 +38,7 @@ public class EvaluateService extends TaskSubscribe {
 	}
 
 	@Override
-	public void processEvent(EventContent eventContent) throws JedisDBException {
+	public void processEvent(MessageContent eventContent) throws RedissonDBException {
 
 		if (properties == null) {
 			LOGGER.error("NULL properties, processEvent too early.");
@@ -53,24 +54,29 @@ public class EvaluateService extends TaskSubscribe {
 		properties.getBusyLock().lock();
 		LOGGER.info("Busy Flag Locked");
 		
-		RedisControl redisControl = dFService.registry(properties.getAppName());
-		ControlList list = redisControl.controlList();
+		ExectueDF redisControl = dFService.registry(properties.getAppName());
+		RedissonDBList list = redisControl.RedissonDBList();
 		if (list == null) {
 			LOGGER.info("Fail to get list :" + messageType);
 		}
 
 		String messageKey = eventContent.getEventContent();
-		String str = null;
+		ResultObject<String, String> rt = null;
 		int sum = 0;
 		try {
 			LOGGER.info("Start pop: messageKey=" + messageKey);
-			while ((str = list.lpop(messageKey)) != null) {
+			while ((rt =  list.LPOP(messageKey)) != null) {
+				String str = rt.getValue();
+				if (str == null)
+					break;
+				
 				LOGGER.info(String.format(
 						"Receive task : %s, %d task processed, key=%s", str, ++sum, messageKey));
 			}
-		} catch (JedisDBException e) {
+		} catch (RedissonDBException e) {
 			throw e;
 		} finally {
+			list.closedSyncControlClient();
 			properties.getBusyLock().unlock();
 			LOGGER.info("Busy Flag unLocked");
 		}

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.znd.ei.reliability.model.ComputingResult;
 import com.znd.ei.reliability.server.impl.MCSampleService;
 
@@ -26,7 +26,7 @@ public class ReliabilityController {
 	public @ResponseBody ComputingResult mcsample() {
 		try {
 			return mCSampleService.run();
-		} catch (JedisDBException e) {
+		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ComputingResult("Error", "Failt to Sample");

@@ -4,10 +4,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 
+@Component
 @ConfigurationProperties("reliability")
-@EnableConfigurationProperties(ReliabilityProperites.class)
+//@EnableConfigurationProperties(ReliabilityProperites.class)
 public class ReliabilityProperites {
 
 	private Lock busyLock = new ReentrantLock();    //注意这个地方

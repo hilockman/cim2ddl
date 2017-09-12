@@ -8,7 +8,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.znd.ei.reliability.server.impl.MCSampleService;
 
 /**
@@ -43,7 +43,7 @@ public class AppCommand  {
 				try {
 					service.run(true, true, 1);
 					System.out.println("++++++++++++Succeed "+(i+1)+" times, sum times is "+times);
-				} catch (JedisDBException e) {
+				} catch (RedissonDBException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

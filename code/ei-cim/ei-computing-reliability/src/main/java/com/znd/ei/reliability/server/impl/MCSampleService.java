@@ -1,7 +1,9 @@
 package com.znd.ei.reliability.server.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -9,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ZhongND.RedisDF.Control.RedisControl;
-import com.ZhongND.RedisDF.Control.Content.ControlList;
-import com.ZhongND.RedisDF.Control.Content.PubMessage;
 import com.ZhongND.RedisDF.Service.DFService;
-import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
+import com.ZhongND.RedisDF.exectueDF.ExectueDF;
+import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
+import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.znd.ei.reliability.config.ReliabilityProperites;
 import com.znd.ei.reliability.model.ComputingResult;
 import com.znd.ei.reliability.server.TaskPublisher;
@@ -29,13 +31,13 @@ public class MCSampleService implements TaskPublisher {
 
 	@Autowired
 	public MCSampleService(DFService dFService, ReliabilityProperites properties)
-			throws JedisDBException {
+			throws RedissonDBException {
 		this.dFService = dFService;
 		// redisControl = dFService.registry(properties.getAppName());
 		this.properties = properties;
 	}
 
-	private RedisControl createControl() throws JedisDBException {
+	private ExectueDF createControl() throws RedissonDBException {
 		return dFService.registry(properties.getAppName());
 	}
 
@@ -55,7 +57,7 @@ public class MCSampleService implements TaskPublisher {
 		return formTestList(rcount);
 	}
 
-	public ComputingResult run(boolean lockFlag, boolean randomTask, int taskCount) throws JedisDBException {
+	public ComputingResult run(boolean lockFlag, boolean randomTask, int taskCount) throws RedissonDBException {
 		LOGGER.info("Call Monte Carlo sample algorithm.");
 		// 调用抽样算法
 		// 上传模型
@@ -91,25 +93,30 @@ public class MCSampleService implements TaskPublisher {
 			listValue = formTestList(taskCount);
 		
 		String messageType = properties.getMessageType();
-		String messageKey = UUID.randomUUID().toString();
+		//String messageKey = UUID.randomUUID().toString();
+		String messageKey = messageType;
 		LOGGER.info("GET List:" + messageType);
-		RedisControl redisControl = createControl();
-		ControlList list = redisControl.controlList();
+		 ExectueDF redisControl = createControl();
+		 RedissonDBList list = redisControl.RedissonDBList();
 		LOGGER.info("GETTEd List:" + messageType);
 
-		list.rpush(messageKey, listValue);
+		Map<String, List<String>> objMap = new HashMap<String, List<String>>();
+		objMap.put(messageKey, listValue);
+		list.BatchRPUSH(objMap);
+		list.closedSyncControlClient();
 		properties.getBusyLock().unlock();
 		String log = String.format("%d Task uploaded.", listValue.size());
 		LOGGER.info(log);
 		ComputingResult result = new ComputingResult("OK", log);
-		PubMessage msg = redisControl.pubMessage();
+		RedissonPubManager msg = redisControl.RedissonPubManager();
 		String strMessage = msg.setMessage(messageType, messageKey);
 		msg.pubMessage(strMessage);
+		msg.closed();
 		return result;
 	}
 
 	@Override
-	public ComputingResult run() throws JedisDBException {
+	public ComputingResult run() throws RedissonDBException {
 		return run(false, true, 0);
 	}
 

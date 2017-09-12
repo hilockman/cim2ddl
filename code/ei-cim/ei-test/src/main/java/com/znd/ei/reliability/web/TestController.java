@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.znd.ei.reliability.model.ComputingResult;
 import com.znd.ei.reliability.server.impl.MCSampleService;
 
@@ -47,7 +47,7 @@ public class TestController {
 			
 			return new ComputingResult("OK", String.format("Finished %d, fail %d, succeed %d, comsumed time %d ms."
 					, times, fail, succeed,endMili-startMili));
-		} catch (JedisDBException e) {
+		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ComputingResult("Error", "Failt to Sample");

@@ -3,10 +3,10 @@ package com.znd.ei.reliability.server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ZhongND.RedisDF.Listener.Event.EventCallBack;
-import com.ZhongND.RedisDF.Listener.Event.EventContent;
 import com.ZhongND.RedisDF.Service.DFService;
-import com.ZhongND.RedisDF.db.DBAccess.Exception.JedisDBException;
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
+import com.ZhongND.RedisDF.messageDF.Listener.MessageContent;
+import com.ZhongND.RedisDF.messageDF.Listener.Event.EventCallBack;
 import com.znd.ei.Application;
 
 public abstract class TaskSubscribe {
@@ -17,14 +17,15 @@ public abstract class TaskSubscribe {
 		this.setDFService(dFService);
 		try {
 			dFService.registry(new EventCallBack() {
+
+
 				@Override
-				public void CallBack(int number, EventContent eventContent) {
-					
+				public void CallBack(int number, MessageContent eventContent) {
 					LOGGER.info("Number:"+number+",收到事件:" + eventContent.getControlCode() + "  "
 							+ eventContent.getEventContent());
 					try {
 						processEvent(eventContent);
-					} catch (JedisDBException e) {
+					} catch (RedissonDBException e) {
 						// TODO Auto-generated catch block
 						//e.printStackTrace();
 						LOGGER.error(e.getMessage());
@@ -43,17 +44,16 @@ public abstract class TaskSubscribe {
 //							}
 //							
 //						}
-//					}).start();
-					
+//					}).start();					
 				}
 			}, false);
-		} catch (JedisDBException e) {
+		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void processEvent(EventContent eventContent) throws JedisDBException
+	public void processEvent(MessageContent eventContent) throws RedissonDBException
 	{
 		
 	}

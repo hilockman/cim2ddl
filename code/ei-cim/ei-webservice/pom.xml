@@ -4,7 +4,6 @@
   
   <artifactId>ei-webservice</artifactId>
   <packaging>war</packaging>
-  <version>1.0</version>
   <name>ei-webservice Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <parent>
@@ -55,6 +54,7 @@
 		<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 		</configuration>
 	  </plugin>
+      
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
