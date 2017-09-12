@@ -9,4 +9,5 @@ public interface ConnectionFactory {
 	void registerApplication(String name, AppTemplate app);
 
 	DBOperations getDBOperations();
+	ListOperations getListOperations();
 }
