@@ -1,4 +1,4 @@
-package com.znd.ei.adf.apl;
+package com.znd.ei.ads.apl;
 
 public class ApplicationInfo {
 	private String inputCC;

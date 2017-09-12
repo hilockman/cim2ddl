@@ -1,6 +1,6 @@
-package com.znd.ei.adf.apl;
+package com.znd.ei.ads.apl;
 
-import com.znd.ei.adf.acp.DataFactory;
+import com.znd.ei.ads.acp.DataFactory;
 
 public abstract class AppTemplate<T> {
 	private DataFactory dataFactory;

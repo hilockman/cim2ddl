@@ -1,16 +1,16 @@
-package com.znd.ei.adf.acp;
+package com.znd.ei.ads.acp;
 
 public abstract class DataFactory<T> {
 
-	private Connection connection;
+	private ConnectionFactory connection;
 	
 	public abstract T download();
 	public abstract void upload(T o);
 	
-	public Connection getConnection() {
+	public ConnectionFactory getConnection() {
 		return connection;
 	}
-	public void setConnection(Connection connection) {
+	public void setConnection(ConnectionFactory connection) {
 		this.connection = connection;
 	}
 }

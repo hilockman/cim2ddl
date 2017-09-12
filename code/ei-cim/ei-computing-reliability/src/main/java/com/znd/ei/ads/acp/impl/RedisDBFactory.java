@@ -1,6 +1,6 @@
-package com.znd.ei.adf.acp.impl;
+package com.znd.ei.ads.acp.impl;
 
-import com.znd.ei.adf.acp.DataFactory;
+import com.znd.ei.ads.acp.DataFactory;
 public class RedisDBFactory extends DataFactory<RedisDB> {
 	@Override
 	public RedisDB download() {
