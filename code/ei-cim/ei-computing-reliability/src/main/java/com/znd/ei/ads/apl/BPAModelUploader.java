@@ -16,7 +16,7 @@ public class BPAModelUploader extends AppTemplate<RedisDB> {
 	
 	@AplFunction
 	public void upload() {		
-		
+		DBOperations operations = connectionFactory.getDBOperations();
 		RedisDB db = new RedisDB();
 		flushData(db);
 	}
