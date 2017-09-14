@@ -18,6 +18,7 @@ import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.ZhongND.RedisDF.exectueDF.ExectueDF;
 import com.ZhongND.RedisDF.exectueDF.ResultObject;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
+import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.ZhongND.RedisDF.messageDF.Listener.MessageContent;
 import com.ZhongND.RedisDF.messageDF.Listener.Event.EventCallBack;
@@ -25,13 +26,19 @@ import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.BusOperations;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.DBOperations;
+import com.znd.ei.ads.acp.DefaultSimpleOperations;
 import com.znd.ei.ads.acp.ListOperations;
+import com.znd.ei.ads.acp.StringRefOperations;
+import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.RedisDBData;
-import com.znd.ei.ads.apl.AppTemplate;
+import com.znd.ei.ads.adf.StringData;
+import com.znd.ei.ads.adf.StringRefData;
 
 public class DFRedissonConnection implements ConnectionFactory {
+
+
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DFRedissonConnection.class);
 
@@ -214,6 +221,57 @@ public class DFRedissonConnection implements ConnectionFactory {
 		}
 
 	}
+	
+	public class StringRefOperationsImp extends StringRefOperations {
+
+
+		@Override
+		public StringRefData read(StringRefData o) throws ACPException,
+				UnsupportedOperation {
+			
+			try {
+				ExectueDF redisControl = dfService.registry(o.getAppName());
+				RedissonDBString rstr = redisControl.RedissonDBString();
+				ResultObject<String, String> rt = rstr.GET(o.getName());
+				if (rt != null)
+					o.setContent(rt.getValue());
+				
+				return o;
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new ACPException(e.getMessage());
+			}
+		}
+
+		@Override
+		public void write(StringRefData o) throws ACPException,
+				UnsupportedOperation {
+			try {
+				ExectueDF redisControl = dfService.registry(o.getAppName());
+				RedissonDBString rstr = redisControl.RedissonDBString();
+				rstr.SET(o.getName(), o.getContent());
+
+			} catch (RedissonDBException e) {
+				e.printStackTrace();
+				throw new ACPException(e.getMessage());
+			}
+		}
+
+	}
+	private class DefaultSimpleOperationsImp extends DefaultSimpleOperations {
+
+		@Override
+		public StringData read(StringData o) throws ACPException,UnsupportedOperation {
+				return o;
+		}
+
+		@Override
+		public void write(StringData o) throws ACPException,UnsupportedOperation {
+			throw new UnsupportedOperation();
+		}
+		
+	}
 
 	private class BusOperationsImp implements BusOperations {
 
@@ -287,6 +345,18 @@ public class DFRedissonConnection implements ConnectionFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	public DefaultSimpleOperations getDefaultSimpleOperations() {
+		// TODO Auto-generated method stub
+		return new DefaultSimpleOperationsImp();
+	}
+
+	@Override
+	public StringRefOperations getStringRefOperations() {
+		// TODO Auto-generated method stub
+		return new StringRefOperationsImp();
 	}
 
 }

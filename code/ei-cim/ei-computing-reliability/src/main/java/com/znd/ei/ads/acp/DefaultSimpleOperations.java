@@ -1,10 +1,13 @@
 package com.znd.ei.ads.acp;
 
-public abstract class DefaultSimpleOperations extends AbstractOperations<String> {
+import com.znd.ei.ads.adf.StringData;
+
+public abstract class DefaultSimpleOperations extends AbstractOperations<StringData> {
 
 	public DefaultSimpleOperations() {
-		super(String.class);
+		super(StringData.class);
 		// TODO Auto-generated constructor stub
 	}
 
+	
 }

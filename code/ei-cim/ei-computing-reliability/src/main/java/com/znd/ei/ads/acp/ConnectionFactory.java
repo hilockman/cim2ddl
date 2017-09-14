@@ -9,5 +9,9 @@ public interface ConnectionFactory {
 
 	BusOperations getBusOperations();
 	
+	DefaultSimpleOperations getDefaultSimpleOperations();
+	
+	StringRefOperations getStringRefOperations();
+	
 	void register(DataFieldStorage manager);
 }
