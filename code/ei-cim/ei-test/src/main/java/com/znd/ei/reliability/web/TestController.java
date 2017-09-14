@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
-import com.znd.ei.reliability.model.ComputingResult;
+import com.znd.ei.ads.acp.ACPResult;
 import com.znd.ei.reliability.server.impl.MCSampleService;
 
 @Controller
@@ -27,7 +27,7 @@ public class TestController {
 	}
 
 	@GetMapping(path = "/mcsample")
-	public @ResponseBody ComputingResult mcsample(@RequestParam Integer times, @RequestParam Integer taskCount) {
+	public @ResponseBody ACPResult mcsample(@RequestParam Integer times, @RequestParam Integer taskCount) {
 		try {
 			int fail = 0;
 			int succeed = 0;
@@ -35,7 +35,7 @@ public class TestController {
 			long startMili=System.currentTimeMillis();// 当前时间对应的毫秒数
 			for (int i = 0; i < times; i++) {
 				log.info("Sample index:"+i);
-				ComputingResult rt = mCSampleService.run(true, false, taskCount);
+				ACPResult rt = mCSampleService.run(true, false, taskCount);
 				if (rt.getCode().equalsIgnoreCase("OK")) {
 					succeed++;
 				} else
@@ -45,12 +45,12 @@ public class TestController {
 			
 			long endMili=System.currentTimeMillis();		
 			
-			return new ComputingResult("OK", String.format("Finished %d, fail %d, succeed %d, comsumed time %d ms."
+			return new ACPResult("OK", String.format("Finished %d, fail %d, succeed %d, comsumed time %d ms."
 					, times, fail, succeed,endMili-startMili));
 		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ComputingResult("Error", "Failt to Sample");
+			return new ACPResult("Error", "Failt to Sample");
 		}
 	}
 	

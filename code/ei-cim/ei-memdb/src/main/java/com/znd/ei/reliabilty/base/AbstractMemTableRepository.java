@@ -151,7 +151,7 @@ public abstract class AbstractMemTableRepository<T> implements
 		return entities;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Iterable<T> findAll() {
 		List entities = new ArrayList<T>();

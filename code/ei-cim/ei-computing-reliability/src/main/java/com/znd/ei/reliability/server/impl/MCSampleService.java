@@ -16,8 +16,8 @@ import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.ZhongND.RedisDF.exectueDF.ExectueDF;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
+import com.znd.ei.ads.acp.ACPResult;
 import com.znd.ei.reliability.config.ReliabilityProperites;
-import com.znd.ei.reliability.model.ComputingResult;
 import com.znd.ei.reliability.server.TaskPublisher;
 
 @Service
@@ -57,7 +57,7 @@ public class MCSampleService implements TaskPublisher {
 		return formTestList(rcount);
 	}
 
-	public ComputingResult run(boolean lockFlag, boolean randomTask, int taskCount) throws RedissonDBException {
+	public ACPResult run(boolean lockFlag, boolean randomTask, int taskCount) throws RedissonDBException {
 		LOGGER.info("Call Monte Carlo sample algorithm.");
 		// 调用抽样算法
 		// 上传模型
@@ -77,7 +77,7 @@ public class MCSampleService implements TaskPublisher {
 
 		if (!lockFlag) {
 			if (!properties.getBusyLock().tryLock()) {
-				ComputingResult rt = new ComputingResult("Fail",
+				ACPResult rt = new ACPResult("Fail",
 						"Server is busy.");
 				LOGGER.warn(rt.toString());
 				return rt;
@@ -107,7 +107,7 @@ public class MCSampleService implements TaskPublisher {
 		properties.getBusyLock().unlock();
 		String log = String.format("%d Task uploaded.", listValue.size());
 		LOGGER.info(log);
-		ComputingResult result = new ComputingResult("OK", log);
+		ACPResult result = new ACPResult("OK", log);
 		RedissonPubManager msg = redisControl.RedissonPubManager();
 		String strMessage = msg.setMessage(messageType, messageKey);
 		msg.pubMessage(strMessage);
@@ -116,7 +116,7 @@ public class MCSampleService implements TaskPublisher {
 	}
 
 	@Override
-	public ComputingResult run() throws RedissonDBException {
+	public ACPResult run() throws RedissonDBException {
 		return run(false, true, 0);
 	}
 

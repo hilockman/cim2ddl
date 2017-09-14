@@ -1,13 +1,13 @@
 package com.znd.ei.ads.acp;
 
-import com.znd.ei.ads.apl.AppTemplate;
-import com.znd.ei.ads.apl.DBOperations;
+import com.znd.ei.ads.adf.DataFieldStorage;
 
 public interface ConnectionFactory {
-
-	
-	void registerApplication(String name, AppTemplate app);
-
 	DBOperations getDBOperations();
+	
 	ListOperations getListOperations();
+
+	BusOperations getBusOperations();
+	
+	void register(DataFieldStorage manager);
 }

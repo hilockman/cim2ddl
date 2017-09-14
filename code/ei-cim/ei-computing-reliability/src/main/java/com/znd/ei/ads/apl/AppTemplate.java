@@ -1,17 +1,15 @@
 package com.znd.ei.ads.apl;
 
-import com.znd.ei.ads.acp.DataFactory;
+import com.znd.ei.ads.acp.ACPException;
+import com.znd.ei.ads.acp.ConnectionFactory;
+import com.znd.ei.ads.acp.IOOperations;
+import com.znd.ei.ads.adf.DataFieldStorage;
+import com.znd.ei.ads.adf.DataItem;
 
-public abstract class AppTemplate<T> {
-	private DataFactory dataFactory;
+public abstract class AppTemplate {
+	private ConnectionFactory connectionFactory;	
 	private ApplicationInfo applicationInfo;
-
-
-	//上传数据结果
-	public void flushData(T o) {
-		dataFactory.upload(o);
-	}
-
+	private DataFieldStorage storage;
 
 	public ApplicationInfo getApplicationInfo() {
 		return applicationInfo;
@@ -22,15 +20,33 @@ public abstract class AppTemplate<T> {
 		this.applicationInfo = applicationInfo;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void writeDataField(String cc, DataItem data, IOOperations io) throws ACPException {
 
-	public DataFactory getDataFactory() {
-		return dataFactory;
+		data.setAppName(applicationInfo.getName());
+		data.setCode(applicationInfo.getOutputCC());
+		
+		io.write(data);
 	}
 
 
-	public void setDataFactory(DataFactory dataFactory) {
-		this.dataFactory = dataFactory;
+	public ConnectionFactory getConnectionFactory() {
+		return connectionFactory;
 	}
-	
+
+
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
+
+
+	public DataFieldStorage getStorage() {
+		return storage;
+	}
+
+
+	public void setStorage(DataFieldStorage storage) {
+		this.storage = storage;
+	}
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
-import com.znd.ei.reliability.model.ComputingResult;
+import com.znd.ei.ads.acp.ACPResult;
 import com.znd.ei.reliability.server.impl.MCSampleService;
 
 @Controller
@@ -23,13 +23,13 @@ public class ReliabilityController {
 	}
 
 	@GetMapping(path = "/mcsample")
-	public @ResponseBody ComputingResult mcsample() {
+	public @ResponseBody ACPResult mcsample() {
 		try {
 			return mCSampleService.run();
 		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ComputingResult("Error", "Failt to Sample");
+			return new ACPResult("Error", "Failt to Sample");
 		}
 	}
 	

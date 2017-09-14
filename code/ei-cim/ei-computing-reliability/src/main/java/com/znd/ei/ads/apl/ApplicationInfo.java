@@ -1,6 +1,7 @@
 package com.znd.ei.ads.apl;
 
 public class ApplicationInfo {
+	private String name;
 	private String inputCC;
 	private String outputCC;
 	
@@ -15,5 +16,11 @@ public class ApplicationInfo {
 	}
 	public void setOutputCC(String outputCC) {
 		this.outputCC = outputCC;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }
