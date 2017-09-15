@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.znd.ei.ads.acp.ACPException;
-import com.znd.ei.ads.acp.ListOperations;
+import com.znd.ei.ads.acp.ListDataOperations;
 @SuppressWarnings("rawtypes")
 public class ListData  extends DataItem  {
 
-	private ListOperations operation;
+	private ListDataOperations operation;
 	private List content = new ArrayList<String>();
 
 	public List getContent() {
@@ -26,17 +26,13 @@ public class ListData  extends DataItem  {
 	
 
 	
-	public String lpop() {
+	public String lpop() throws ACPException {
 		if (operation == null)
 			return null; 
 		
-		try {
-			return operation.lpop(getName());
-		} catch (ACPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	
+		return operation.lpop(getName());
+
 	}
 	
 	public void close() {
@@ -51,11 +47,11 @@ public class ListData  extends DataItem  {
 		}
 	}
 
-	public ListOperations getOperation() {
+	public ListDataOperations getOperation() {
 		return operation;
 	}
 
-	public void setOperation(ListOperations operation) {
+	public void setOperation(ListDataOperations operation) {
 		this.operation = operation;
 	}
 }

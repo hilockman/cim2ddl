@@ -1,10 +1,10 @@
 package com.znd.ei.ads.adf;
 
-import com.znd.ei.ads.acp.ListOperations;
+import com.znd.ei.ads.acp.ListDataOperations;
 
 
 public class StringRefData extends DataItem {
-	private ListOperations operation;
+	private ListDataOperations operation;
 
 	private String content;
 	

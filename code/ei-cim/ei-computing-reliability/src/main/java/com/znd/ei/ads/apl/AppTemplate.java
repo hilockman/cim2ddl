@@ -3,28 +3,29 @@ package com.znd.ei.ads.apl;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.IOOperations;
+import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.DataItem;
 
 public abstract class AppTemplate {
 	private ConnectionFactory connectionFactory;	
-	private ApplicationInfo applicationInfo;
+	private AppInfo appInfo;
 	private DataFieldStorage storage;
 
-	public ApplicationInfo getApplicationInfo() {
-		return applicationInfo;
+	public AppInfo getAppInfo() {
+		return appInfo;
 	}
 
 
-	public void setApplicationInfo(ApplicationInfo applicationInfo) {
-		this.applicationInfo = applicationInfo;
+	public void setAppInfo(AppInfo applicationInfo) {
+		this.appInfo = applicationInfo;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void writeDataField(String cc, DataItem data, IOOperations io) throws ACPException {
+	public void writeDataField(String cc, DataItem data, IOOperations io) throws ACPException, UnsupportedOperation {
 
-		data.setAppName(applicationInfo.getName());
-		data.setCode(applicationInfo.getOutputCC());
+		data.setAppName(appInfo.getName());
+		data.setCode(cc);
 		
 		io.write(data);
 	}

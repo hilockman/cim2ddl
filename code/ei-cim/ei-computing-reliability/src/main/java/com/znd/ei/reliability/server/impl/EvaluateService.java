@@ -76,7 +76,7 @@ public class EvaluateService extends TaskSubscribe {
 		} catch (RedissonDBException e) {
 			throw e;
 		} finally {
-			list.closedSyncControlClient();
+			list.closed();
 			properties.getBusyLock().unlock();
 			LOGGER.info("Busy Flag unLocked");
 		}

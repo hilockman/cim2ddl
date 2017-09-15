@@ -3,15 +3,17 @@ package com.znd.ei.ads.acp;
 import com.znd.ei.ads.adf.DataFieldStorage;
 
 public interface ConnectionFactory {
-	DBOperations getDBOperations();
+	MemDbOperations getMemDBOperations();
 	
-	ListOperations getListOperations();
+	ListDataOperations getListOperations();
 
 	BusOperations getBusOperations();
 	
-	DefaultSimpleOperations getDefaultSimpleOperations();
+	StringDataOperations getStringDataOperations();
 	
-	StringRefOperations getStringRefOperations();
+	StringRefDataOperations getStringRefOperations();
 	
 	void register(DataFieldStorage manager);
+	
+	MapDataOperations getMapDataOperations();
 }

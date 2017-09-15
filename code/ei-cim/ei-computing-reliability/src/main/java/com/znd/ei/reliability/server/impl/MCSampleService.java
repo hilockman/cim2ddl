@@ -100,10 +100,8 @@ public class MCSampleService implements TaskPublisher {
 		 RedissonDBList list = redisControl.RedissonDBList();
 		LOGGER.info("GETTEd List:" + messageType);
 
-		Map<String, List<String>> objMap = new HashMap<String, List<String>>();
-		objMap.put(messageKey, listValue);
-		list.BatchRPUSH(objMap);
-		list.closedSyncControlClient();
+		list.RPUSH(messageKey, listValue);
+		list.closed();
 		properties.getBusyLock().unlock();
 		String log = String.format("%d Task uploaded.", listValue.size());
 		LOGGER.info(log);

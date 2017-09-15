@@ -10,4 +10,7 @@ public class ACPException extends Exception {
 	public ACPException(String message) {
 		super(message);
 	}
+	public ACPException(Throwable e) {
+		super(e);
+	}
 }

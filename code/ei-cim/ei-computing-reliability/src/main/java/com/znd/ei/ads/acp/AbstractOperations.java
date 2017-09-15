@@ -2,14 +2,14 @@ package com.znd.ei.ads.acp;
 
 public abstract class AbstractOperations<T> implements IOOperations<T> {
  
-	private Class<T> clazz; 
+	private Class<T> dataType; 
 	public AbstractOperations(Class c) {
-		clazz = c;
+		dataType = c;
 	}
 	
 	public T create() {
 		try {
-			return clazz.newInstance();
+			return dataType.newInstance();
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -19,5 +19,9 @@ public abstract class AbstractOperations<T> implements IOOperations<T> {
 		}
 		
 		return null;
+	}
+
+	public Class<T> getDataType() {
+		return dataType;
 	}
 }
