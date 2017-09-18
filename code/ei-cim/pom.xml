@@ -31,7 +31,8 @@
    		<module>ei-acp-dfredisson</module>
    		<module>ei-ads-web</module>
    		<module>ei-ads-console</module>
-	</modules>
+   		<module>ei-acp-springredis</module>
+  </modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>

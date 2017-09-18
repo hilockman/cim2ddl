@@ -14,16 +14,21 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-    <dependency>
+    <!-- dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-acp-dfredisson</artifactId>
     	<version>${project.version}</version>
-    </dependency>
-    
+    </dependency-->
+    <dependency>
+    	<groupId>com.znd.ei</groupId>
+    	<artifactId>ei-acp-springredis</artifactId>
+    	<version>${project.version}</version>
+    </dependency>     
     <dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-ads</artifactId>
     	<version>${project.version}</version>
     </dependency> 
+    
   </dependencies>
 </project>

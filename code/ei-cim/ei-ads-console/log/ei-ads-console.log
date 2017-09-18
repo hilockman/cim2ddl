@@ -3003,3 +3003,786 @@ Verify the connector's configuration, identify and stop any process that's liste
 2017-09-18 23:11:46.379  INFO 11588 --- [redisson-32-3] interfaceLogger                          : ≥…π¶¡¨Ω”Redis?Server
 2017-09-18 23:14:56.106  INFO 11588 --- [Thread-6] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@64cb1cc: startup date [Mon Sep 18 23:08:20 CST 2017]; root of context hierarchy
 2017-09-18 23:14:56.117  INFO 11588 --- [Thread-6] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-19 00:22:16.814  INFO 8520 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 8520 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:22:16.817  INFO 8520 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:22:16.899  INFO 8520 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@65d6b83b: startup date [Tue Sep 19 00:22:16 CST 2017]; root of context hierarchy
+2017-09-19 00:22:17.583  INFO 8520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:22:18.704  INFO 8520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-19 00:22:18.715  INFO 8520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:22:18.716  INFO 8520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:22:18.814  INFO 8520 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:22:18.814  INFO 8520 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1922 ms
+2017-09-19 00:22:18.975  INFO 8520 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:22:18.980  INFO 8520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:22:18.981  INFO 8520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:22:18.981  INFO 8520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:22:18.983  INFO 8520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:22:19.055  WARN 8520 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'aplManager' defined in class path resource [com/znd/ei/ads/ADSCofnig.class]: Unsatisfied dependency expressed through method 'aplManager' parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.znd.ei.ads.acp.ConnectionFactory' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2017-09-19 00:22:19.057  INFO 8520 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2017-09-19 00:22:19.067  WARN 8520 --- [main] o.s.b.c.e.EventPublishingRunListener     : Error calling ApplicationEventListener
+
+java.lang.ClassCastException: org.springframework.boot.context.event.ApplicationFailedEvent cannot be cast to org.springframework.boot.web.context.WebServerInitializedEvent
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:159) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.boot.context.event.EventPublishingRunListener.finished(EventPublishingRunListener.java:114) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.callFinishedListener(SpringApplicationRunListeners.java:79) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.finished(SpringApplicationRunListeners.java:72) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:803) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1245) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1233) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at com.znd.ei.ads.Application.main(Application.java:10) [classes/:na]
+
+2017-09-19 00:22:19.070  INFO 8520 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2017-09-19 00:22:19.183 ERROR 8520 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of method aplManager in com.znd.ei.ads.ADSCofnig required a bean of type 'com.znd.ei.ads.acp.ConnectionFactory' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.znd.ei.ads.acp.ConnectionFactory' in your configuration.
+
+2017-09-19 00:25:12.475  INFO 12012 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 12012 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:25:12.477  INFO 12012 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:25:12.544  INFO 12012 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@65d6b83b: startup date [Tue Sep 19 00:25:12 CST 2017]; root of context hierarchy
+2017-09-19 00:25:13.252  INFO 12012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:25:14.142  INFO 12012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-19 00:25:14.171  INFO 12012 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:25:14.173  INFO 12012 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:25:14.359  INFO 12012 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:25:14.359  INFO 12012 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1817 ms
+2017-09-19 00:25:14.488  INFO 12012 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:25:14.494  INFO 12012 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:25:14.495  INFO 12012 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:25:14.495  INFO 12012 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:25:14.495  INFO 12012 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:25:14.673  INFO 12012 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:25:14.711  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:25:14.712  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:25:14.714  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:25:14.715  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:25:14.715  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:25:14.716  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : apl : Áä∂ÊÄÅÊäΩÊ†∑ is activated.
+2017-09-19 00:25:14.717  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:25:14.717  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:25:14.717  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:25:14.717  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:25:14.718  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:25:14.718  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ÊµãËØïÂàõÂª∫‰ªªÂä°ÂàóË°® is activated.
+2017-09-19 00:25:14.718  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:25:14.719  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:25:14.719  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:25:14.719  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ÊµãËØïÂ§ÑÁêÜÂàóË°® is activated.
+2017-09-19 00:25:14.719  INFO 12012 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:25:14.720  INFO 12012 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:25:15.108  INFO 12012 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@65d6b83b: startup date [Tue Sep 19 00:25:12 CST 2017]; root of context hierarchy
+2017-09-19 00:25:15.190  INFO 12012 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:25:15.191  INFO 12012 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:25:15.222  INFO 12012 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:25:15.223  INFO 12012 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:25:15.284  INFO 12012 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:25:15.707  INFO 12012 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:25:15.721  INFO 12012 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:25:15.783  INFO 12012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http)
+2017-09-19 00:25:15.786  INFO 12012 --- [main] com.znd.ei.ads.Application               : Started Application in 3.695 seconds (JVM running for 4.071)
+2017-09-19 00:33:52.223  INFO 3964 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 3964 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:33:52.229  INFO 3964 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:33:52.296  INFO 3964 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@65d6b83b: startup date [Tue Sep 19 00:33:52 CST 2017]; root of context hierarchy
+2017-09-19 00:33:53.052  INFO 3964 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:33:53.832  INFO 3964 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-19 00:33:53.848  INFO 3964 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:33:53.850  INFO 3964 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:33:53.975  INFO 3964 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:33:53.975  INFO 3964 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1693 ms
+2017-09-19 00:33:54.099  INFO 3964 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:33:54.105  INFO 3964 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:33:54.106  INFO 3964 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:33:54.106  INFO 3964 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:33:54.106  INFO 3964 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:33:54.285  INFO 3964 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:33:54.324  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:33:54.325  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:33:54.327  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:33:54.328  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:33:54.328  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:33:54.328  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : apl : Áä∂ÊÄÅÊäΩÊ†∑ is activated.
+2017-09-19 00:33:54.329  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:33:54.329  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:33:54.330  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:33:54.330  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:33:54.330  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:33:54.330  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ÊµãËØïÂàõÂª∫‰ªªÂä°ÂàóË°® is activated.
+2017-09-19 00:33:54.331  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:33:54.332  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:33:54.332  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:33:54.332  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ÊµãËØïÂ§ÑÁêÜÂàóË°® is activated.
+2017-09-19 00:33:54.332  INFO 3964 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:33:54.332  INFO 3964 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:33:54.676  INFO 3964 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@65d6b83b: startup date [Tue Sep 19 00:33:52 CST 2017]; root of context hierarchy
+2017-09-19 00:33:54.754  INFO 3964 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:33:54.755  INFO 3964 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:33:54.786  INFO 3964 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:33:54.786  INFO 3964 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:33:54.835  INFO 3964 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:33:55.232  INFO 3964 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:33:55.248  INFO 3964 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:33:55.309  INFO 3964 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http)
+2017-09-19 00:33:55.312  INFO 3964 --- [main] com.znd.ei.ads.Application               : Started Application in 3.425 seconds (JVM running for 3.781)
+2017-09-19 00:34:05.652  INFO 3964 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:34:05.724  INFO 3964 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:34:05.735  INFO 3964 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:34:05.737  INFO 3964 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:34:05.908  INFO 3964 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:0a02f830-391a-47e4-9365-e1c8e62ab88f>
+2017-09-19 00:34:05.908  INFO 3964 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:0a02f830-391a-47e4-9365-e1c8e62ab88f
+2017-09-19 00:34:05.909  INFO 3964 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:0a02f830-391a-47e4-9365-e1c8e62ab88f
+2017-09-19 00:34:05.910  INFO 3964 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:0a02f830-391a-47e4-9365-e1c8e62ab88f
+2017-09-19 00:40:15.952  INFO 11796 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 11796 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:40:15.964  INFO 11796 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:40:16.056  INFO 11796 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2df62e85: startup date [Tue Sep 19 00:40:16 CST 2017]; root of context hierarchy
+2017-09-19 00:40:16.894  INFO 11796 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:40:17.563  INFO 11796 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-19 00:40:17.578  INFO 11796 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:40:17.580  INFO 11796 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:40:17.665  INFO 11796 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:40:17.666  INFO 11796 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1614 ms
+2017-09-19 00:40:17.808  INFO 11796 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:40:17.816  INFO 11796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:40:17.817  INFO 11796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:40:17.819  INFO 11796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:40:17.823  INFO 11796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:40:18.053  INFO 11796 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:40:18.102  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ◊¥Ã¨≥È—˘ is activated.
+2017-09-19 00:40:18.110  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:40:18.113  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:40:18.115  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:40:18.116  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:40:18.117  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:40:18.120  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:40:18.129  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:40:18.130  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:40:18.131  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:40:18.133  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¶¿Ì¡–±Ì is activated.
+2017-09-19 00:40:18.136  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:40:18.139  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:40:18.142  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¥Ω®»ŒŒÒ¡–±Ì is activated.
+2017-09-19 00:40:18.144  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:40:18.145  INFO 11796 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:40:18.146  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:40:18.147  INFO 11796 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:40:18.471  INFO 11796 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2df62e85: startup date [Tue Sep 19 00:40:16 CST 2017]; root of context hierarchy
+2017-09-19 00:40:18.551  INFO 11796 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:40:18.559  INFO 11796 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:40:18.589  INFO 11796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:40:18.594  INFO 11796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:40:18.630  INFO 11796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:40:18.931  INFO 11796 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:40:18.950  INFO 11796 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:40:19.038  INFO 11796 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http)
+2017-09-19 00:40:19.048  INFO 11796 --- [main] com.znd.ei.ads.Application               : Started Application in 3.452 seconds (JVM running for 7.081)
+2017-09-19 00:40:35.422  INFO 13756 --- [Thread-6] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@77b8ccf1: startup date [Mon Sep 18 23:11:12 CST 2017]; root of context hierarchy
+2017-09-19 00:40:35.575  INFO 13756 --- [Thread-6] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-19 00:40:43.063  INFO 8340 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 8340 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:40:43.069  INFO 8340 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:40:43.128  INFO 8340 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2326ae2e: startup date [Tue Sep 19 00:40:43 CST 2017]; root of context hierarchy
+2017-09-19 00:40:43.797  INFO 8340 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:40:44.441  INFO 8340 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2017-09-19 00:40:44.458  INFO 8340 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:40:44.460  INFO 8340 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:40:44.570  INFO 8340 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:40:44.583  INFO 8340 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1459 ms
+2017-09-19 00:40:44.737  INFO 8340 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:40:44.750  INFO 8340 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:40:44.755  INFO 8340 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:40:44.762  INFO 8340 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:40:44.764  INFO 8340 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:40:44.959  INFO 8340 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:40:45.016  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ◊¥Ã¨≥È—˘ is activated.
+2017-09-19 00:40:45.021  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:40:45.025  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:40:45.027  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:40:45.028  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:40:45.029  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:40:45.032  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:40:45.035  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:40:45.037  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:40:45.038  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:40:45.044  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¶¿Ì¡–±Ì is activated.
+2017-09-19 00:40:45.048  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:40:45.049  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:40:45.050  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¥Ω®»ŒŒÒ¡–±Ì is activated.
+2017-09-19 00:40:45.051  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:40:45.060  INFO 8340 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:40:45.061  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:40:45.063  INFO 8340 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:40:45.372  INFO 8340 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2326ae2e: startup date [Tue Sep 19 00:40:43 CST 2017]; root of context hierarchy
+2017-09-19 00:40:45.480  INFO 8340 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:40:45.488  INFO 8340 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:40:45.528  INFO 8340 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:40:45.531  INFO 8340 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:40:45.566  INFO 8340 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:40:45.879  INFO 8340 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:40:45.894  INFO 8340 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:40:45.964  INFO 8340 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http)
+2017-09-19 00:40:45.970  INFO 8340 --- [main] com.znd.ei.ads.Application               : Started Application in 3.22 seconds (JVM running for 6.484)
+2017-09-19 00:40:56.823  INFO 8340 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:40:56.824  INFO 11796 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:40:56.879  INFO 8340 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:40:56.904  INFO 11796 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:40:56.958  INFO 8340 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:40:56.973  INFO 11796 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:40:56.993  INFO 8340 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:40:57.004  INFO 11796 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:40:57.110  INFO 8340 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c>
+2017-09-19 00:40:57.110  INFO 11796 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c>
+2017-09-19 00:40:57.157  INFO 11796 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c
+2017-09-19 00:40:57.159  INFO 11796 --- [container-4] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3>
+2017-09-19 00:40:57.191  INFO 11796 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3
+2017-09-19 00:40:57.153  INFO 8340 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c
+2017-09-19 00:40:57.195  INFO 11796 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3
+2017-09-19 00:40:57.197  INFO 11796 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3
+2017-09-19 00:40:57.189  INFO 11796 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c
+2017-09-19 00:40:57.159  INFO 8340 --- [container-4] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3>
+2017-09-19 00:40:57.221  INFO 11796 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c
+2017-09-19 00:40:57.196  INFO 8340 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c
+2017-09-19 00:40:57.244  INFO 8340 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:264594e4-70df-496c-9ab7-10468101bc4c
+2017-09-19 00:40:57.244  INFO 8340 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3
+2017-09-19 00:40:57.253  INFO 8340 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3
+2017-09-19 00:40:57.256  INFO 8340 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:00566aeb-1e78-457d-99c5-c3e57fe81ad3
+2017-09-19 00:42:13.285  INFO 11796 --- [container-5] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:13.285  INFO 8340 --- [container-5] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:13.299  INFO 11796 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:13.312  INFO 8340 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:13.313  INFO 11796 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:13.314  INFO 11796 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:13.314  INFO 8340 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:13.316  INFO 8340 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:13.330  INFO 8340 --- [container-6] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182>
+2017-09-19 00:42:13.331  INFO 11796 --- [container-6] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182>
+2017-09-19 00:42:13.334  INFO 8340 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182
+2017-09-19 00:42:13.336  INFO 11796 --- [container-7] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c>
+2017-09-19 00:42:13.338  INFO 8340 --- [container-7] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c>
+2017-09-19 00:42:13.337  INFO 11796 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182
+2017-09-19 00:42:13.343  INFO 8340 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182
+2017-09-19 00:42:13.345  INFO 11796 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c
+2017-09-19 00:42:13.346  INFO 11796 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182
+2017-09-19 00:42:13.348  INFO 11796 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c
+2017-09-19 00:42:13.346  INFO 8340 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c
+2017-09-19 00:42:13.347  INFO 8340 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182
+2017-09-19 00:42:13.348  INFO 11796 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:c9d576ef-8c65-4a3c-a6bb-8dbac84ae182
+2017-09-19 00:42:13.351  INFO 8340 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c
+2017-09-19 00:42:13.375  INFO 8340 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c
+2017-09-19 00:42:13.349  INFO 11796 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:5651dc77-d923-4bf7-a65a-c89e6c920f1c
+2017-09-19 00:42:21.525  INFO 11796 --- [container-8] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:21.524  INFO 8340 --- [container-8] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:21.538  INFO 8340 --- [container-8] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:21.537  INFO 11796 --- [container-8] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:21.540  INFO 8340 --- [container-8] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:21.543  INFO 11796 --- [container-8] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:21.553  INFO 8340 --- [container-8] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:21.554  INFO 11796 --- [container-8] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:21.560  INFO 11796 --- [container-9] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3>
+2017-09-19 00:42:21.571  INFO 8340 --- [container-10] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f>
+2017-09-19 00:42:21.571  INFO 8340 --- [container-9] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3>
+2017-09-19 00:42:21.572  INFO 8340 --- [container-10] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f
+2017-09-19 00:42:21.572  INFO 11796 --- [container-9] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3
+2017-09-19 00:42:21.573  INFO 8340 --- [container-9] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3
+2017-09-19 00:42:21.575  INFO 11796 --- [container-9] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3
+2017-09-19 00:42:21.574  INFO 8340 --- [container-10] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f
+2017-09-19 00:42:21.575  INFO 11796 --- [container-10] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f>
+2017-09-19 00:42:21.576  INFO 8340 --- [container-9] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3
+2017-09-19 00:42:21.583  INFO 11796 --- [container-9] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3
+2017-09-19 00:42:21.585  INFO 8340 --- [container-10] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f
+2017-09-19 00:42:21.591  INFO 11796 --- [container-10] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f
+2017-09-19 00:42:21.592  INFO 8340 --- [container-9] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d9e53c7b-f8ab-4adb-8a49-808c03b9eff3
+2017-09-19 00:42:21.604  INFO 11796 --- [container-10] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f
+2017-09-19 00:42:21.618  INFO 11796 --- [container-10] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:e81a6595-bd30-42f0-b0a7-83ee7350877f
+2017-09-19 00:42:37.613  INFO 8340 --- [container-11] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:37.612  INFO 11796 --- [container-11] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:37.631  INFO 8340 --- [container-11] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:37.641  INFO 11796 --- [container-11] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:37.649  INFO 8340 --- [container-11] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:37.655  INFO 11796 --- [container-11] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:37.664  INFO 8340 --- [container-11] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:37.674  INFO 11796 --- [container-11] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:37.699  INFO 8340 --- [container-12] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b>
+2017-09-19 00:42:37.703  INFO 11796 --- [container-12] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b>
+2017-09-19 00:42:37.710  INFO 11796 --- [container-12] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b
+2017-09-19 00:42:37.712  INFO 11796 --- [container-12] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b
+2017-09-19 00:42:37.700  INFO 8340 --- [container-12] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b
+2017-09-19 00:42:37.715  INFO 8340 --- [container-12] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b
+2017-09-19 00:42:37.713  INFO 11796 --- [container-12] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b
+2017-09-19 00:42:37.716  INFO 8340 --- [container-13] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:2548930b-11b6-43a1-a129-622836096369>
+2017-09-19 00:42:37.716  INFO 8340 --- [container-12] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:4f84b9bd-1db1-4ab3-b4e4-1a45ff0cd98b
+2017-09-19 00:42:37.723  INFO 8340 --- [container-13] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:2548930b-11b6-43a1-a129-622836096369
+2017-09-19 00:42:37.730  INFO 8340 --- [container-13] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:2548930b-11b6-43a1-a129-622836096369
+2017-09-19 00:42:37.745  INFO 8340 --- [container-13] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:2548930b-11b6-43a1-a129-622836096369
+2017-09-19 00:42:37.746  INFO 11796 --- [container-13] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:2548930b-11b6-43a1-a129-622836096369>
+2017-09-19 00:42:37.763  INFO 11796 --- [container-13] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:2548930b-11b6-43a1-a129-622836096369
+2017-09-19 00:42:37.764  INFO 11796 --- [container-13] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:2548930b-11b6-43a1-a129-622836096369
+2017-09-19 00:42:37.775  INFO 11796 --- [container-13] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:2548930b-11b6-43a1-a129-622836096369
+2017-09-19 00:42:47.673  INFO 11796 --- [container-14] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:47.675  INFO 8340 --- [container-14] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:47.689  INFO 11796 --- [container-14] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:47.692  INFO 11796 --- [container-14] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:47.690  INFO 8340 --- [container-14] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:47.705  INFO 8340 --- [container-14] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:47.706  INFO 11796 --- [container-14] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:47.707  INFO 8340 --- [container-14] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:47.725  INFO 8340 --- [container-15] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1>
+2017-09-19 00:42:47.736  INFO 8340 --- [container-15] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1
+2017-09-19 00:42:47.735  INFO 11796 --- [container-15] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1>
+2017-09-19 00:42:47.744  INFO 8340 --- [container-15] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1
+2017-09-19 00:42:47.754  INFO 8340 --- [container-15] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1
+2017-09-19 00:42:47.754  INFO 11796 --- [container-15] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1
+2017-09-19 00:42:47.758  INFO 11796 --- [container-15] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1
+2017-09-19 00:42:47.764  INFO 11796 --- [container-15] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:3e779946-e3e1-4720-9af9-3caa7cfc49b1
+2017-09-19 00:42:47.808  INFO 11796 --- [container-16] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773>
+2017-09-19 00:42:47.808  INFO 8340 --- [container-16] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773>
+2017-09-19 00:42:47.822  INFO 8340 --- [container-16] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773
+2017-09-19 00:42:47.819  INFO 11796 --- [container-16] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773
+2017-09-19 00:42:47.826  INFO 11796 --- [container-16] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773
+2017-09-19 00:42:47.824  INFO 8340 --- [container-16] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773
+2017-09-19 00:42:47.834  INFO 8340 --- [container-16] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773
+2017-09-19 00:42:47.831  INFO 11796 --- [container-16] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:55350f8f-1291-45fa-8838-323202ab0773
+2017-09-19 00:42:49.153  INFO 8340 --- [container-17] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:49.153  INFO 11796 --- [container-17] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:49.167  INFO 8340 --- [container-17] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:49.173  INFO 11796 --- [container-17] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:49.175  INFO 8340 --- [container-17] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:49.175  INFO 11796 --- [container-17] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:49.176  INFO 8340 --- [container-17] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:49.183  INFO 11796 --- [container-17] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:49.205  INFO 8340 --- [container-18] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f>
+2017-09-19 00:42:49.201  INFO 11796 --- [container-18] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f>
+2017-09-19 00:42:49.208  INFO 8340 --- [container-18] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f
+2017-09-19 00:42:49.211  INFO 11796 --- [container-18] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f
+2017-09-19 00:42:49.219  INFO 11796 --- [container-18] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f
+2017-09-19 00:42:49.220  INFO 11796 --- [container-18] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f
+2017-09-19 00:42:49.218  INFO 8340 --- [container-18] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f
+2017-09-19 00:42:49.237  INFO 8340 --- [container-18] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:9817c57f-c5be-4981-8c68-27a3528f5d8f
+2017-09-19 00:42:49.238  INFO 8340 --- [container-19] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571>
+2017-09-19 00:42:49.242  INFO 8340 --- [container-19] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571
+2017-09-19 00:42:49.258  INFO 8340 --- [container-19] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571
+2017-09-19 00:42:49.242  INFO 11796 --- [container-19] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571>
+2017-09-19 00:42:49.265  INFO 8340 --- [container-19] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571
+2017-09-19 00:42:49.271  INFO 11796 --- [container-19] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571
+2017-09-19 00:42:49.275  INFO 11796 --- [container-19] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571
+2017-09-19 00:42:49.285  INFO 11796 --- [container-19] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:de241fdf-3c9c-408f-aa29-4b382ca8f571
+2017-09-19 00:42:50.718  INFO 8340 --- [container-20] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:50.718  INFO 11796 --- [container-20] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:50.738  INFO 8340 --- [container-20] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:50.740  INFO 11796 --- [container-20] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:50.741  INFO 8340 --- [container-20] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:50.746  INFO 11796 --- [container-20] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:50.747  INFO 8340 --- [container-20] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:50.751  INFO 11796 --- [container-20] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:50.771  INFO 8340 --- [container-21] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377>
+2017-09-19 00:42:50.770  INFO 11796 --- [container-21] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377>
+2017-09-19 00:42:50.776  INFO 11796 --- [container-21] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377
+2017-09-19 00:42:50.778  INFO 11796 --- [container-21] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377
+2017-09-19 00:42:50.774  INFO 8340 --- [container-21] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377
+2017-09-19 00:42:50.781  INFO 11796 --- [container-21] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377
+2017-09-19 00:42:50.781  INFO 11796 --- [container-22] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641>
+2017-09-19 00:42:50.785  INFO 8340 --- [container-21] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377
+2017-09-19 00:42:50.790  INFO 8340 --- [container-22] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641>
+2017-09-19 00:42:50.800  INFO 8340 --- [container-21] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:b08d7d98-6a0a-4028-8dc9-bf36905cd377
+2017-09-19 00:42:50.803  INFO 8340 --- [container-22] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641
+2017-09-19 00:42:50.796  INFO 11796 --- [container-22] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641
+2017-09-19 00:42:50.809  INFO 8340 --- [container-22] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641
+2017-09-19 00:42:50.824  INFO 11796 --- [container-22] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641
+2017-09-19 00:42:50.829  INFO 8340 --- [container-22] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641
+2017-09-19 00:42:50.833  INFO 11796 --- [container-22] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d2fea141-ca76-4dd1-aacf-47550d4ea641
+2017-09-19 00:42:51.083  INFO 11796 --- [container-23] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:51.090  INFO 11796 --- [container-23] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:51.094  INFO 11796 --- [container-23] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:51.083  INFO 8340 --- [container-23] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:51.110  INFO 8340 --- [container-23] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:51.108  INFO 11796 --- [container-23] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:51.114  INFO 8340 --- [container-23] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:51.120  INFO 8340 --- [container-23] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:51.137  INFO 8340 --- [container-24] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481>
+2017-09-19 00:42:51.138  INFO 11796 --- [container-24] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481>
+2017-09-19 00:42:51.138  INFO 8340 --- [container-24] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481
+2017-09-19 00:42:51.141  INFO 11796 --- [container-24] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481
+2017-09-19 00:42:51.146  INFO 8340 --- [container-24] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481
+2017-09-19 00:42:51.149  INFO 11796 --- [container-24] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481
+2017-09-19 00:42:51.154  INFO 8340 --- [container-24] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481
+2017-09-19 00:42:51.153  INFO 11796 --- [container-25] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d>
+2017-09-19 00:42:51.155  INFO 11796 --- [container-24] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:0edabd6d-7211-4e57-bf8f-abb83c04e481
+2017-09-19 00:42:51.154  INFO 8340 --- [container-25] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d>
+2017-09-19 00:42:51.156  INFO 11796 --- [container-25] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d
+2017-09-19 00:42:51.158  INFO 8340 --- [container-25] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d
+2017-09-19 00:42:51.160  INFO 11796 --- [container-25] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d
+2017-09-19 00:42:51.166  INFO 11796 --- [container-25] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d
+2017-09-19 00:42:51.166  INFO 8340 --- [container-25] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d
+2017-09-19 00:42:51.176  INFO 8340 --- [container-25] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:6039a58d-752a-4403-8c1e-997217b1787d
+2017-09-19 00:42:53.279  INFO 8340 --- [container-26] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:53.278  INFO 11796 --- [container-26] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:42:53.289  INFO 11796 --- [container-26] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:53.304  INFO 11796 --- [container-26] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:53.289  INFO 8340 --- [container-26] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:53.306  INFO 11796 --- [container-26] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:53.307  INFO 8340 --- [container-26] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:53.315  INFO 8340 --- [container-26] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:42:53.330  INFO 11796 --- [container-27] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28>
+2017-09-19 00:42:53.335  INFO 11796 --- [container-27] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28
+2017-09-19 00:42:53.335  INFO 11796 --- [container-28] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6>
+2017-09-19 00:42:53.337  INFO 8340 --- [container-27] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28>
+2017-09-19 00:42:53.338  INFO 8340 --- [container-28] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6>
+2017-09-19 00:42:53.349  INFO 8340 --- [container-27] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28
+2017-09-19 00:42:53.353  INFO 8340 --- [container-28] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6
+2017-09-19 00:42:53.338  INFO 11796 --- [container-27] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28
+2017-09-19 00:42:53.339  INFO 11796 --- [container-28] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6
+2017-09-19 00:42:53.357  INFO 11796 --- [container-27] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28
+2017-09-19 00:42:53.354  INFO 8340 --- [container-27] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28
+2017-09-19 00:42:53.355  INFO 8340 --- [container-28] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6
+2017-09-19 00:42:53.360  INFO 11796 --- [container-28] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6
+2017-09-19 00:42:53.365  INFO 8340 --- [container-27] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:60e4b07a-8aed-4cd0-b17d-fda2c89e2c28
+2017-09-19 00:42:53.376  INFO 8340 --- [container-28] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6
+2017-09-19 00:42:53.380  INFO 11796 --- [container-28] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:5e5d78bf-f5f1-4dd7-9857-3300509094b6
+2017-09-19 00:43:37.371  INFO 8340 --- [container-29] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:43:37.378  INFO 8340 --- [container-29] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:37.371  INFO 11796 --- [container-29] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:43:37.386  INFO 8340 --- [container-29] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:37.390  INFO 11796 --- [container-29] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:37.403  INFO 8340 --- [container-29] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:37.407  INFO 11796 --- [container-29] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:37.426  INFO 11796 --- [container-29] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:37.452  INFO 11796 --- [container-30] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4>
+2017-09-19 00:43:37.451  INFO 8340 --- [container-30] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4>
+2017-09-19 00:43:37.455  INFO 11796 --- [container-30] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4
+2017-09-19 00:43:37.458  INFO 8340 --- [container-30] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4
+2017-09-19 00:43:37.460  INFO 8340 --- [container-30] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4
+2017-09-19 00:43:37.472  INFO 8340 --- [container-30] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4
+2017-09-19 00:43:37.458  INFO 11796 --- [container-30] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4
+2017-09-19 00:43:37.481  INFO 11796 --- [container-30] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:5e7144b9-cfc6-4b87-ae1e-4be07bd9e3f4
+2017-09-19 00:43:37.500  INFO 8340 --- [container-31] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029>
+2017-09-19 00:43:37.505  INFO 11796 --- [container-31] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029>
+2017-09-19 00:43:37.510  INFO 8340 --- [container-31] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029
+2017-09-19 00:43:37.512  INFO 11796 --- [container-31] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029
+2017-09-19 00:43:37.514  INFO 8340 --- [container-31] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029
+2017-09-19 00:43:37.527  INFO 11796 --- [container-31] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029
+2017-09-19 00:43:37.527  INFO 8340 --- [container-31] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029
+2017-09-19 00:43:37.531  INFO 11796 --- [container-31] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:94de241a-39e2-45af-a782-e1ddc31c1029
+2017-09-19 00:43:39.582  INFO 11796 --- [container-32] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:43:39.582  INFO 8340 --- [container-32] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:43:39.591  INFO 11796 --- [container-32] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:39.594  INFO 11796 --- [container-32] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:39.592  INFO 8340 --- [container-32] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:39.618  INFO 8340 --- [container-32] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:39.619  INFO 11796 --- [container-32] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:39.620  INFO 8340 --- [container-32] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:39.682  INFO 11796 --- [container-33] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777>
+2017-09-19 00:43:39.682  INFO 8340 --- [container-33] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777>
+2017-09-19 00:43:39.689  INFO 11796 --- [container-33] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777
+2017-09-19 00:43:39.691  INFO 8340 --- [container-33] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777
+2017-09-19 00:43:39.694  INFO 11796 --- [container-33] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777
+2017-09-19 00:43:39.696  INFO 8340 --- [container-33] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777
+2017-09-19 00:43:39.700  INFO 11796 --- [container-33] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777
+2017-09-19 00:43:39.702  INFO 8340 --- [container-33] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:715e3c35-0c48-4e75-82f6-cbf8f01b6777
+2017-09-19 00:43:39.723  INFO 8340 --- [container-34] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991>
+2017-09-19 00:43:39.724  INFO 11796 --- [container-34] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991>
+2017-09-19 00:43:39.725  INFO 8340 --- [container-34] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991
+2017-09-19 00:43:39.739  INFO 11796 --- [container-34] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991
+2017-09-19 00:43:39.740  INFO 8340 --- [container-34] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991
+2017-09-19 00:43:39.754  INFO 8340 --- [container-34] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991
+2017-09-19 00:43:39.745  INFO 11796 --- [container-34] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991
+2017-09-19 00:43:39.759  INFO 11796 --- [container-34] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d7a6bb2d-9b56-49a0-b84b-9738907ae991
+2017-09-19 00:43:43.451  INFO 8340 --- [container-35] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:43:43.451  INFO 11796 --- [container-35] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:43:43.468  INFO 11796 --- [container-35] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:43.467  INFO 8340 --- [container-35] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:43.475  INFO 11796 --- [container-35] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:43.475  INFO 8340 --- [container-35] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:43.479  INFO 8340 --- [container-35] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:43.478  INFO 11796 --- [container-35] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:43:43.501  INFO 11796 --- [container-36] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da>
+2017-09-19 00:43:43.501  INFO 8340 --- [container-37] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da>
+2017-09-19 00:43:43.504  INFO 11796 --- [container-36] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da
+2017-09-19 00:43:43.502  INFO 8340 --- [container-36] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83>
+2017-09-19 00:43:43.507  INFO 11796 --- [container-36] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da
+2017-09-19 00:43:43.504  INFO 8340 --- [container-37] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da
+2017-09-19 00:43:43.514  INFO 11796 --- [container-37] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83>
+2017-09-19 00:43:43.508  INFO 8340 --- [container-36] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83
+2017-09-19 00:43:43.518  INFO 11796 --- [container-36] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da
+2017-09-19 00:43:43.520  INFO 8340 --- [container-37] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da
+2017-09-19 00:43:43.520  INFO 11796 --- [container-37] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83
+2017-09-19 00:43:43.521  INFO 8340 --- [container-36] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83
+2017-09-19 00:43:43.529  INFO 8340 --- [container-37] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:425acd3c-7921-4d0d-b1fc-1ba100ab98da
+2017-09-19 00:43:43.538  INFO 8340 --- [container-36] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83
+2017-09-19 00:43:43.534  INFO 11796 --- [container-37] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83
+2017-09-19 00:43:43.548  INFO 11796 --- [container-37] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:c23cbc08-ff8f-47cf-9f47-44b241348b83
+2017-09-19 00:44:28.936  INFO 11796 --- [Thread-7] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2df62e85: startup date [Tue Sep 19 00:40:16 CST 2017]; root of context hierarchy
+2017-09-19 00:44:28.953  INFO 11796 --- [Thread-7] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-09-19 00:44:28.956  INFO 11796 --- [Thread-7] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-19 00:44:28.962  INFO 11796 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService
+2017-09-19 00:44:31.602  INFO 8340 --- [Thread-7] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2326ae2e: startup date [Tue Sep 19 00:40:43 CST 2017]; root of context hierarchy
+2017-09-19 00:44:31.605  INFO 8340 --- [Thread-7] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-09-19 00:44:31.608  INFO 8340 --- [Thread-7] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-19 00:44:31.615  INFO 8340 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService
+2017-09-19 00:46:24.253  INFO 2908 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 2908 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:46:24.263  INFO 2908 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:46:24.325  INFO 2908 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1fe634f0: startup date [Tue Sep 19 00:46:24 CST 2017]; root of context hierarchy
+2017-09-19 00:46:24.952  INFO 2908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:46:25.640  INFO 2908 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-19 00:46:25.658  INFO 2908 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:46:25.660  INFO 2908 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:46:25.755  INFO 2908 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:46:25.760  INFO 2908 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1438 ms
+2017-09-19 00:46:25.892  INFO 2908 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:46:25.899  INFO 2908 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:46:25.900  INFO 2908 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:46:25.902  INFO 2908 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:46:25.903  INFO 2908 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:46:26.120  INFO 2908 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:46:26.188  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ◊¥Ã¨≥È—˘ is activated.
+2017-09-19 00:46:26.202  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:46:26.211  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:46:26.215  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:46:26.218  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:46:26.219  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:46:26.221  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:46:26.228  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:46:26.230  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:46:26.232  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:46:26.233  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¥Ω®»ŒŒÒ¡–±Ì is activated.
+2017-09-19 00:46:26.236  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:46:26.245  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:46:26.246  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:46:26.247  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¶¿Ì¡–±Ì is activated.
+2017-09-19 00:46:26.249  INFO 2908 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:46:26.253  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:46:26.255  INFO 2908 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:46:26.624  INFO 2908 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1fe634f0: startup date [Tue Sep 19 00:46:24 CST 2017]; root of context hierarchy
+2017-09-19 00:46:26.713  INFO 2908 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:46:26.719  INFO 2908 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:46:26.784  INFO 2908 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:46:26.798  INFO 2908 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:46:26.854  INFO 2908 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:46:27.266  INFO 2908 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:46:27.296  INFO 2908 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:46:27.375  INFO 2908 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http)
+2017-09-19 00:46:27.383  INFO 2908 --- [main] com.znd.ei.ads.Application               : Started Application in 3.431 seconds (JVM running for 7.064)
+2017-09-19 00:46:44.624  INFO 32 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 32 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:46:44.631  INFO 32 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:46:44.679  INFO 32 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@b747559: startup date [Tue Sep 19 00:46:44 CST 2017]; root of context hierarchy
+2017-09-19 00:46:45.375  INFO 32 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:46:46.036  INFO 32 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2017-09-19 00:46:46.053  INFO 32 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:46:46.055  INFO 32 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:46:46.147  INFO 32 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:46:46.179  INFO 32 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1503 ms
+2017-09-19 00:46:46.389  INFO 32 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:46:46.404  INFO 32 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:46:46.407  INFO 32 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:46:46.408  INFO 32 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:46:46.415  INFO 32 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:46:46.628  INFO 32 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:46:46.677  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ◊¥Ã¨≥È—˘ is activated.
+2017-09-19 00:46:46.687  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:46:46.689  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:46:46.690  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:46:46.691  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:46:46.692  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:46:46.698  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:46:46.701  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:46:46.702  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:46:46.703  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:46:46.708  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¥Ω®»ŒŒÒ¡–±Ì is activated.
+2017-09-19 00:46:46.711  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:46:46.714  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:46:46.716  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:46:46.719  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¶¿Ì¡–±Ì is activated.
+2017-09-19 00:46:46.720  INFO 32 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:46:46.721  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:46:46.722  INFO 32 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:46:47.027  INFO 32 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@b747559: startup date [Tue Sep 19 00:46:44 CST 2017]; root of context hierarchy
+2017-09-19 00:46:47.147  INFO 32 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:46:47.152  INFO 32 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:46:47.191  INFO 32 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:46:47.201  INFO 32 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:46:47.238  INFO 32 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:46:47.535  INFO 32 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:46:47.549  INFO 32 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:46:47.611  INFO 32 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http)
+2017-09-19 00:46:47.618  INFO 32 --- [main] com.znd.ei.ads.Application               : Started Application in 3.278 seconds (JVM running for 6.678)
+2017-09-19 00:46:56.452  INFO 2908 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:46:56.451  INFO 32 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:46:56.459  INFO 2908 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:46:56.466  INFO 2908 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:46:56.482  INFO 2908 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:46:56.462  INFO 32 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:46:56.485  INFO 32 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:46:56.497  INFO 32 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:46:56.550  INFO 32 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3>
+2017-09-19 00:46:56.563  INFO 32 --- [container-4] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a>
+2017-09-19 00:46:56.563  INFO 32 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3
+2017-09-19 00:46:56.566  INFO 32 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a
+2017-09-19 00:46:56.570  INFO 32 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a
+2017-09-19 00:46:56.579  INFO 32 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a
+2017-09-19 00:46:56.567  INFO 32 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3
+2017-09-19 00:46:56.592  INFO 32 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3
+2017-09-19 00:46:56.563  INFO 2908 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3>
+2017-09-19 00:46:56.564  INFO 2908 --- [container-4] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a>
+2017-09-19 00:46:56.619  INFO 2908 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3
+2017-09-19 00:46:56.629  INFO 2908 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a
+2017-09-19 00:46:56.635  INFO 2908 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3
+2017-09-19 00:46:56.637  INFO 2908 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:08f2ca30-18f1-476a-94bf-6e2bb3f534e3
+2017-09-19 00:46:56.636  INFO 2908 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a
+2017-09-19 00:46:56.648  INFO 2908 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d5a0ee38-4641-405a-a82a-a3ac6dddad1a
+2017-09-19 00:51:26.559  INFO 2908 --- [Thread-7] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1fe634f0: startup date [Tue Sep 19 00:46:24 CST 2017]; root of context hierarchy
+2017-09-19 00:51:26.597  INFO 2908 --- [Thread-7] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-09-19 00:51:26.611  INFO 2908 --- [Thread-7] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-19 00:51:26.620  INFO 2908 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService
+2017-09-19 00:51:33.236  INFO 32 --- [Thread-7] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@b747559: startup date [Tue Sep 19 00:46:44 CST 2017]; root of context hierarchy
+2017-09-19 00:51:33.249  INFO 32 --- [Thread-7] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-09-19 00:51:33.253  INFO 32 --- [Thread-7] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-19 00:51:33.258  INFO 32 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService
+2017-09-19 00:51:40.434  INFO 10476 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 10476 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:51:40.440  INFO 10476 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:51:40.498  INFO 10476 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1731294: startup date [Tue Sep 19 00:51:40 CST 2017]; root of context hierarchy
+2017-09-19 00:51:41.382  INFO 10476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:51:42.608  INFO 10476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2017-09-19 00:51:42.633  INFO 10476 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:51:42.642  INFO 10476 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:51:43.014  INFO 10476 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:51:43.169  INFO 10476 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2674 ms
+2017-09-19 00:51:43.640  INFO 10476 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:51:43.651  INFO 10476 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:51:43.693  INFO 10476 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:51:43.697  INFO 10476 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:51:43.699  INFO 10476 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:51:44.156  INFO 10476 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:51:44.231  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ◊¥Ã¨≥È—˘ is activated.
+2017-09-19 00:51:44.235  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:51:44.240  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:51:44.243  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:51:44.243  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:51:44.244  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:51:44.245  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:51:44.247  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:51:44.247  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:51:44.248  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:51:44.253  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¥Ω®»ŒŒÒ¡–±Ì is activated.
+2017-09-19 00:51:44.255  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:51:44.259  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:51:44.261  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:51:44.266  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¶¿Ì¡–±Ì is activated.
+2017-09-19 00:51:44.267  INFO 10476 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:51:44.269  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:51:44.276  INFO 10476 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:51:45.014  INFO 10476 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1731294: startup date [Tue Sep 19 00:51:40 CST 2017]; root of context hierarchy
+2017-09-19 00:51:45.201  INFO 10476 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:51:45.316  INFO 10476 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:51:45.385  INFO 10476 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:51:45.430  INFO 10476 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:51:45.501  INFO 10476 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:51:46.098  INFO 10476 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:51:46.143  INFO 10476 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:51:46.257  INFO 10476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http)
+2017-09-19 00:51:46.416  INFO 10476 --- [main] com.znd.ei.ads.Application               : Started Application in 6.366 seconds (JVM running for 9.464)
+2017-09-19 00:51:59.102  INFO 3812 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 3812 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by wangheng in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-19 00:51:59.108  INFO 3812 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-19 00:51:59.233  INFO 3812 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@5a463862: startup date [Tue Sep 19 00:51:59 CST 2017]; root of context hierarchy
+2017-09-19 00:52:00.032  INFO 3812 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2017-09-19 00:52:00.719  INFO 3812 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-19 00:52:00.738  INFO 3812 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-19 00:52:00.740  INFO 3812 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-19 00:52:00.832  INFO 3812 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-19 00:52:00.837  INFO 3812 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1606 ms
+2017-09-19 00:52:00.981  INFO 3812 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-19 00:52:00.998  INFO 3812 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-19 00:52:01.007  INFO 3812 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-19 00:52:01.012  INFO 3812 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-19 00:52:01.017  INFO 3812 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-19 00:52:01.259  INFO 3812 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 
+2017-09-19 00:52:01.332  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ◊¥Ã¨≥È—˘ is activated.
+2017-09-19 00:52:01.350  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_BPAModel io=MemDBDataOperations.
+2017-09-19 00:52:01.353  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRModel io=MemDBDataOperations.
+2017-09-19 00:52:01.356  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_PRSettings io=StringRefDataOperations.
+2017-09-19 00:52:01.363  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:52:01.365  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-19 00:52:01.367  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : apl : StateEstimate is activated.
+2017-09-19 00:52:01.373  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstimateTask io=ListDataOperations.
+2017-09-19 00:52:01.375  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_EstemateResult io=MapDataOperations.
+2017-09-19 00:52:01.383  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-19 00:52:01.388  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¥Ω®»ŒŒÒ¡–±Ì is activated.
+2017-09-19 00:52:01.390  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=create_TestTasks io=StringDataOperations.
+2017-09-19 00:52:01.399  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:52:01.401  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-19 00:52:01.403  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : apl : ≤‚ ‘¥¶¿Ì¡–±Ì is activated.
+2017-09-19 00:52:01.407  INFO 3812 --- [main] com.znd.ei.ads.adf.DataFieldStorage      : Succeed to regist data field : cc=created_TestTasks io=ListDataOperations.
+2017-09-19 00:52:01.412  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-19 00:52:01.414  INFO 3812 --- [main] com.znd.ei.ads.apl.AplManager            : apl : BPAModelUploader is activated.
+2017-09-19 00:52:01.716  INFO 3812 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@5a463862: startup date [Tue Sep 19 00:51:59 CST 2017]; root of context hierarchy
+2017-09-19 00:52:01.829  INFO 3812 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-19 00:52:01.834  INFO 3812 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-19 00:52:01.867  INFO 3812 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:52:01.870  INFO 3812 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:52:01.907  INFO 3812 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-19 00:52:02.221  INFO 3812 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-19 00:52:02.253  INFO 3812 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-09-19 00:52:02.327  INFO 3812 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http)
+2017-09-19 00:52:02.335  INFO 3812 --- [main] com.znd.ei.ads.Application               : Started Application in 3.799 seconds (JVM running for 6.844)
+2017-09-19 00:52:08.814  INFO 3812 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:52:08.815  INFO 10476 --- [container-2] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:52:08.831  INFO 3812 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:52:08.836  INFO 10476 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:52:08.848  INFO 3812 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:52:08.852  INFO 10476 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:52:08.853  INFO 3812 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:52:08.860  INFO 10476 --- [container-2] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:52:08.910  INFO 3812 --- [container-2] c.z.e.a.a.s.SpringRedisConnection        : SendMessage:created_TestTasks:created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:52:08.914  INFO 10476 --- [container-2] c.z.e.a.a.s.SpringRedisConnection        : SendMessage:created_TestTasks:created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:08.937  INFO 3812 --- [container-4] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4>
+2017-09-19 00:52:08.942  INFO 3812 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:08.944  INFO 3812 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18>
+2017-09-19 00:52:08.945  INFO 3812 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:08.965  INFO 3812 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:08.961  INFO 10476 --- [container-3] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18>
+2017-09-19 00:52:08.970  INFO 10476 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:52:08.975  INFO 10476 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:52:08.977  INFO 10476 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:52:08.965  INFO 3812 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:52:08.993  INFO 10476 --- [container-4] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4>
+2017-09-19 00:52:09.064  INFO 10476 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:09.081  INFO 10476 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:09.092  INFO 10476 --- [container-4] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:64343a62-7d3f-4744-a642-616d222716a4
+2017-09-19 00:52:09.051  INFO 3812 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:52:09.161  INFO 3812 --- [container-3] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:d04a2b05-e286-4ce8-ba18-c350dc711e18
+2017-09-19 00:53:20.218  INFO 10476 --- [container-5] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:53:20.233  INFO 3812 --- [container-5] com.znd.ei.ads.acp.springredis.Receiver  : Received <create_TestTasks:{"count":100}>
+2017-09-19 00:53:20.240  INFO 10476 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:53:20.250  INFO 3812 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:53:20.251  INFO 10476 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:53:20.252  INFO 3812 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:53:20.253  INFO 3812 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:53:20.253  INFO 10476 --- [container-5] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=create_TestTasks, content={"count":100}
+2017-09-19 00:53:20.266  INFO 3812 --- [container-5] c.z.e.a.a.s.SpringRedisConnection        : SendMessage:created_TestTasks:created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.270  INFO 10476 --- [container-5] c.z.e.a.a.s.SpringRedisConnection        : SendMessage:created_TestTasks:created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963
+2017-09-19 00:53:20.273  INFO 3812 --- [container-6] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93>
+2017-09-19 00:53:20.277  INFO 10476 --- [container-6] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93>
+2017-09-19 00:53:20.277  INFO 3812 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.280  INFO 10476 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.280  INFO 3812 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.285  INFO 10476 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.287  INFO 3812 --- [container-7] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963>
+2017-09-19 00:53:20.282  INFO 10476 --- [container-7] com.znd.ei.ads.acp.springredis.Receiver  : Received <created_TestTasks:created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963>
+2017-09-19 00:53:20.290  INFO 3812 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.295  INFO 10476 --- [container-6] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:50646c52-a0e7-466a-b429-889ef4812c93
+2017-09-19 00:53:20.298  INFO 3812 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963
+2017-09-19 00:53:20.306  INFO 10476 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : DataField Receive: cc=created_TestTasks, content=created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963
+2017-09-19 00:53:20.322  INFO 10476 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963
+2017-09-19 00:53:20.319  INFO 3812 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Begin to update data field: cc=created_TestTasks, content=created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963
+2017-09-19 00:53:20.334  INFO 10476 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963
+2017-09-19 00:53:20.336  INFO 3812 --- [container-7] com.znd.ei.ads.adf.DataFieldStorage      : Success to update data field: cc=created_TestTasks, content=created_TestTasks:ddc2f0dc-4c2d-4a69-bb56-e7e066633963

@@ -17,7 +17,7 @@ public class TestProcessTasks  extends AppTemplate{
 		int count = 0;
 		try {
 			while ((str = testTask.lpop()) != null) {
-				System.out.println("Process Task :"+str+", count="+(++count));
+				System.out.println("Process Task :"+str+", count="+(++count)+", batch="+testTask.getKey());
 			}
 		} catch (ACPException e) {
 			// TODO Auto-generated catch block
