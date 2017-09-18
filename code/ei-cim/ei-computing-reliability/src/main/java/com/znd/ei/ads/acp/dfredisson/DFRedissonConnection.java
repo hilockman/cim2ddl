@@ -1,5 +1,7 @@
 package com.znd.ei.ads.acp.dfredisson;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +26,12 @@ import com.znd.ei.ads.acp.BusOperations;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
-import com.znd.ei.ads.acp.MemDbOperations;
+import com.znd.ei.ads.acp.MemDBDataOperations;
 import com.znd.ei.ads.acp.StringDataOperations;
 import com.znd.ei.ads.acp.StringRefDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
+import com.znd.ei.ads.adf.DataItem;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
@@ -37,15 +40,15 @@ import com.znd.ei.ads.adf.StringRefData;
 
 public class DFRedissonConnection implements ConnectionFactory {
 
-
-
-
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DFRedissonConnection.class);
 
 	private RedisService redisService;
 	private DFService dfService;
 	private ADFService adfService;
+	private ExectueDF executeDF;
+
+	
 
 	public DFRedissonConnection() {
 
@@ -53,6 +56,7 @@ public class DFRedissonConnection implements ConnectionFactory {
 			this.redisService = ServiceFactory.getService();
 			this.adfService = ADFServiceEntry.getADFService();
 			this.dfService = redisService.getDFService();
+			setRedisControl(dfService.registry("acp"));
 
 		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
@@ -61,7 +65,7 @@ public class DFRedissonConnection implements ConnectionFactory {
 
 	}
 
-	private class MemDbOperationsImp extends MemDbOperations {
+	private class MemDBOperationsImp extends MemDBDataOperations {
 
 	
 		@Override
@@ -84,8 +88,8 @@ public class DFRedissonConnection implements ConnectionFactory {
 			}
 
 			try {
-				memdb.uploadModel(db.getName());
-				memdb.pubMessage(db.getCode(), db.getName());
+				memdb.uploadModel(db.getKey());
+				memdb.pubMessage(db.getContentCode(), db.getKey());
 			} catch (RedisMemDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -120,7 +124,7 @@ public class DFRedissonConnection implements ConnectionFactory {
 			}
 
 			try {
-				memdb.downloadModel(db.getName());
+				memdb.downloadModel(db.getKey());
 			} catch (RedisMemDBException e) {
 				e.printStackTrace();
 				throw new ACPException("RedisMemDB.downloadModel : "
@@ -143,15 +147,13 @@ public class DFRedissonConnection implements ConnectionFactory {
 	
 	
 	public class MapDataOperationsImp extends MapDataOperations {
-		private ExectueDF redisControl;
 		private RedissonDBMap operation;
 		
 		@Override
 		public MapData read(MapData data) throws ACPException,
 				UnsupportedOperation {
 			try {
-				redisControl = dfService.registry(data.getAppName());
-				operation = redisControl.RedissonDBMap();
+				operation = executeDF.RedissonDBMap();
 				data.setOperation(this);
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
@@ -166,9 +168,8 @@ public class DFRedissonConnection implements ConnectionFactory {
 
 
 			try {
-				redisControl = dfService.registry(data.getAppName());
-				operation = redisControl.RedissonDBMap();
-				operation.LockHMSET(data.getName(), data.getContent());
+				operation = executeDF.RedissonDBMap();
+				operation.LockHMSET(data.getKey(), data.getContent());
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -180,9 +181,9 @@ public class DFRedissonConnection implements ConnectionFactory {
 			}
 			operation.closed();
 
-			RedissonPubManager msgBroker = redisControl.RedissonPubManager();
-			String strMessage = msgBroker.setMessage(data.getCode(),
-					data.getName());
+			RedissonPubManager msgBroker = executeDF.RedissonPubManager();
+			String strMessage = msgBroker.setMessage(data.getContentCode(),
+					data.getKey());
 			try {
 				msgBroker.pubMessage(strMessage);
 			} catch (RedissonDBException e) {
@@ -226,16 +227,13 @@ public class DFRedissonConnection implements ConnectionFactory {
 
 	private class ListDataOperationsImp extends ListDataOperations {
 
-		private ExectueDF redisControl;
 		private RedissonDBList operation;
 		
 		@Override
 		public ListData read(ListData data) throws ACPException {
-			// TODO Auto-generated method stub
 						
 			try {
-				redisControl = dfService.registry(data.getAppName());
-				operation = redisControl.RedissonDBList();
+				operation = executeDF.RedissonDBList();
 				data.setOperation(this);
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
@@ -248,15 +246,12 @@ public class DFRedissonConnection implements ConnectionFactory {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void write(ListData data) throws ACPException {
-			ExectueDF redisControl = null;
 			RedissonDBList list = null;
 
 			try {
-				redisControl = dfService.registry(data.getAppName());
-				list = redisControl.RedissonDBList();
-				list.LockRPUSH(data.getName(), data.getContent());
+				list = executeDF.RedissonDBList();
+				list.LockRPUSH(data.getKey(), data.getContent());
 			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				throw new ACPException("Fail to list.BatchRPUSH : "
 						+ e.getMessage());
@@ -266,21 +261,7 @@ public class DFRedissonConnection implements ConnectionFactory {
 			}
 			list.closed();
 
-			RedissonPubManager msgBroker = redisControl.RedissonPubManager();
-			String strMessage = msgBroker.setMessage(data.getCode(),
-					data.getName());
-			try {
-				msgBroker.pubMessage(strMessage);
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new ACPException(
-						"Fail to RedissonPubManager.setMessage : "
-								+ e.getMessage());
-			} finally {
-				if (msgBroker != null)
-					msgBroker.closed();
-			}
+			publishData(data);
 		}
 
 		@Override
@@ -313,9 +294,8 @@ public class DFRedissonConnection implements ConnectionFactory {
 				UnsupportedOperation {
 			
 			try {
-				ExectueDF redisControl = dfService.registry(o.getAppName());
-				RedissonDBString rstr = redisControl.RedissonDBString();
-				ResultObject<String, String> rt = rstr.GET(o.getName());
+				RedissonDBString rstr = executeDF.RedissonDBString();
+				ResultObject<String, String> rt = rstr.GET(o.getKey());
 				if (rt != null)
 					o.setContent(rt.getValue());
 				
@@ -334,72 +314,70 @@ public class DFRedissonConnection implements ConnectionFactory {
 		public void write(StringRefData o) throws ACPException,
 				UnsupportedOperation {
 			try {
-				ExectueDF redisControl = dfService.registry(o.getAppName());
-				RedissonDBString rstr = redisControl.RedissonDBString();
-				rstr.LockSET(o.getName(), o.getContent());
+				RedissonDBString rstr = executeDF.RedissonDBString();
+				rstr.LockSET(o.getKey(), o.getContent());
 				rstr.closed();
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException(e.getMessage());
 			}
+			
+			publishData(o);
 		}
 
 	}
-	private class DefaultSimpleOperationsImp extends StringDataOperations {
+	private class StringDataOperationsImp extends StringDataOperations {
 
 		@Override
 		public StringData read(StringData o) throws ACPException,UnsupportedOperation {
-				return o;
+			return o;
 		}
 
 		@Override
 		public void write(StringData o) throws ACPException,UnsupportedOperation {
-			throw new UnsupportedOperation();
+			publishData(o);
 		}
 		
 	}
 
-	private class BusOperationsImp implements BusOperations {
+//	private class BusOperationsImp implements BusOperations {
+//
+//		@Override
+//		public void sendMessage(String contentCode, String content,
+//				String appName) throws ACPException {
+//			publishData(contentCode, content);
+//		}
+//
+//	}
+	void publishData(String contentCode, String key) throws ACPException {
 
-		@Override
-		public void sendMessage(String contentCode, String content,
-				String appName) {
-			ExectueDF exetueDF = null;
-			try {
-				exetueDF = dfService.registry(appName);
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-				return;
-			}
-			RedissonPubManager msg = exetueDF.RedissonPubManager();
-			String strMessage = msg.setMessage(contentCode, content);
-			try {
-				msg.pubMessage(strMessage);
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				msg.closed();
-			}
+		if (contentCode == null || contentCode.isEmpty()) {
+			throw new ACPException("Null or empty contentCode");
 		}
-
+		RedissonPubManager msg = executeDF.RedissonPubManager();
+		String strMessage = msg.setMessage(contentCode, key);
+		try {
+			msg.pubMessage(strMessage);
+		} catch (RedissonDBException e) {
+			e.printStackTrace();
+			throw new ACPException(e);
+		} finally {
+			msg.closed();
+		}
 	}
 
 
-
-	public ExectueDF createControl() {
-		// TODO Auto-generated method stub
-		return null;
+	void publishData(DataItem data) throws ACPException {
+		publishData(data.getContentCode(), data.getKey());
 	}
 
 	@Override
-	public MemDbOperations getMemDBOperations() {
-		return new MemDbOperationsImp();
+	public MemDBDataOperations getMemDBDataOperations() {
+		return new MemDBOperationsImp();
 	}
 
 	@Override
 	public ListDataOperations getListOperations() {
-		// TODO Auto-generated method stub
 		return new ListDataOperationsImp();
 	}
 
@@ -411,20 +389,22 @@ public class DFRedissonConnection implements ConnectionFactory {
 		this.dfService = dfService;
 	}
 
-	@Override
-	public BusOperations getBusOperations() {
-		return new BusOperationsImp();
-	}
+//	@Override
+//	public BusOperations getBusOperations() {
+//		return new BusOperationsImp();
+//	}
 
 	@Override
 	public void register(DataFieldStorage storage) {
 		try {
-			dfService.registry(new EventCallBack() {
+			final String appName = storage.getServerName();
+			dfService.registry(appName, new EventCallBack() {
 				@Override
 				public void CallBack(int number, MessageContent eventContent) {
 					LOGGER.info("Number:"+number+",收到事件:" + eventContent.getControlCode() + "  "
 							+ eventContent.getEventContent());
 					try {
+						
 						storage.receivedMessage(eventContent.getControlCode(), eventContent.getEventContent());
 					} catch (ACPException e) {
 						// TODO Auto-generated catch block
@@ -444,7 +424,7 @@ public class DFRedissonConnection implements ConnectionFactory {
 	@Override
 	public StringDataOperations getStringDataOperations() {
 		// TODO Auto-generated method stub
-		return new DefaultSimpleOperationsImp();
+		return new StringDataOperationsImp();
 	}
 
 	@Override
@@ -457,6 +437,14 @@ public class DFRedissonConnection implements ConnectionFactory {
 	public MapDataOperations getMapDataOperations() {
 		// TODO Auto-generated method stub
 		return new MapDataOperationsImp();
+	}
+
+	public ExectueDF getRedisControl() {
+		return executeDF;
+	}
+
+	public void setRedisControl(ExectueDF redisControl) {
+		this.executeDF = redisControl;
 	}
 
 }

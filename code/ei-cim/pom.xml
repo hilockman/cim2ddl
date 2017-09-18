@@ -26,7 +26,12 @@
 		<module>ei-memdb-check</module>
 	    <module>ei-computing-reliability</module>
 	    <module>ei-test</module>
-  </modules>
+   		<module>ei-ads</module>
+   		<module>ei-apl-reliability</module>
+   		<module>ei-acp-dfredisson</module>
+   		<module>ei-ads-web</module>
+   		<module>ei-ads-console</module>
+	</modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>

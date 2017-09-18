@@ -15,42 +15,42 @@ public abstract class TaskSubscribe {
 
 	public TaskSubscribe(DFService dFService) {
 		this.setDFService(dFService);
-		try {
-			dFService.registry(new EventCallBack() {
-
-
-				@Override
-				public void CallBack(int number, MessageContent eventContent) {
-					LOGGER.info("Number:"+number+",收到事件:" + eventContent.getControlCode() + "  "
-							+ eventContent.getEventContent());
-					try {
-						processEvent(eventContent);
-					} catch (RedissonDBException e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
-						LOGGER.error(e.getMessage());
-					}
-
-//					new Thread(new Runnable() {
-//						
-//						@Override
-//						public void run() {
-//							try {
-//								processEvent(eventContent);
-//							} catch (JedisDBException e) {
-//								// TODO Auto-generated catch block
-//								//e.printStackTrace();
-//								LOGGER.warn("ERROR:"+e.getMessage());
-//							}
-//							
-//						}
-//					}).start();					
-				}
-			}, false);
-		} catch (RedissonDBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			dFService.registry(new EventCallBack() {
+//
+//
+//				@Override
+//				public void CallBack(int number, MessageContent eventContent) {
+//					LOGGER.info("Number:"+number+",收到事件:" + eventContent.getControlCode() + "  "
+//							+ eventContent.getEventContent());
+//					try {
+//						processEvent(eventContent);
+//					} catch (RedissonDBException e) {
+//						// TODO Auto-generated catch block
+//						//e.printStackTrace();
+//						LOGGER.error(e.getMessage());
+//					}
+//
+////					new Thread(new Runnable() {
+////						
+////						@Override
+////						public void run() {
+////							try {
+////								processEvent(eventContent);
+////							} catch (JedisDBException e) {
+////								// TODO Auto-generated catch block
+////								//e.printStackTrace();
+////								LOGGER.warn("ERROR:"+e.getMessage());
+////							}
+////							
+////						}
+////					}).start();					
+//				}
+//			}, false);
+//		} catch (RedissonDBException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void processEvent(MessageContent eventContent) throws RedissonDBException
