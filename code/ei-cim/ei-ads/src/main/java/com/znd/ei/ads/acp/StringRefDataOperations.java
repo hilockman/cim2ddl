@@ -9,6 +9,8 @@ public abstract class StringRefDataOperations extends AbstractOperations<StringR
 		// TODO Auto-generated constructor stub
 	}
 
+	public abstract String get(String key);
+
 
 
 }

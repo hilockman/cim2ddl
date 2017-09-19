@@ -1,7 +1,5 @@
 package com.znd.ei.ads.acp.springredis;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
 import com.znd.ei.ads.acp.ACPException;
-import com.znd.ei.ads.acp.ConnectionFactory;
+import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.MemDBDataOperations;
@@ -19,35 +17,38 @@ import com.znd.ei.ads.acp.StringDataOperations;
 import com.znd.ei.ads.acp.StringRefDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
-import com.znd.ei.ads.adf.DataItem;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
 import com.znd.ei.ads.adf.StringData;
 import com.znd.ei.ads.adf.StringRefData;
 
-public class SpringRedisConnection implements ConnectionFactory{
+public class SpringRedisConnection extends AbstractConnectionFactory {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SpringRedisConnection.class);
+	
+	@Autowired
+	StringRedisTemplate stringRedisTemplate;
+	
 	public class MapDataOperationsImp extends MapDataOperations {
 
 		private HashOperations<String, String, String> operations;
+		
+		public MapDataOperationsImp() {
+			operations = (HashOperations) stringRedisTemplate.opsForHash();
+		}
+		
 		@Override
 		public MapData read(MapData data) throws ACPException,
 				UnsupportedOperation {
-			operations = (HashOperations) stringRedisTemplate.opsForHash();
-			data.setOperation(this);
-			return null;
+			data.setContent(operations.entries(data.getKey()));
+			return data;
 		}
 
 		@Override
 		public void write(MapData data) throws ACPException,
 				UnsupportedOperation {
-			operations = (HashOperations) stringRedisTemplate.opsForHash();
-			Map<String, String> map = data.getContent();
-			
 			operations.putAll(data.getKey(), data.getContent());
-			publishData(data);
 		}
 
 		@Override
@@ -55,31 +56,30 @@ public class SpringRedisConnection implements ConnectionFactory{
 				UnsupportedOperation {
 			return operations.get(key, mkey);
 		}
-
-		@Override
-		public void close() {
-			// TODO Auto-generated method stub
-
-		}
-
 	}
 
 
 	public class StringRefDataOperationsImp extends StringRefDataOperations {
-
+		private ValueOperations<String, String> operations;
+		public StringRefDataOperationsImp() {
+			operations = stringRedisTemplate.opsForValue();
+		}
 		@Override
 		public StringRefData read(StringRefData data) throws ACPException,
-				UnsupportedOperation {
-			ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
-			data.setContent(operations.get(data.getKey()));
+				UnsupportedOperation {			
+			data.setContent(get(data.getKey()));
 			return data;
 		}
 
 		@Override
 		public void write(StringRefData data) throws ACPException,
 				UnsupportedOperation {
-			ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
 			operations.set(data.getKey(), data.getContent());
+		}
+		
+		@Override
+		public String get(String key) {
+			return operations.get(key);
 		}
 
 	}
@@ -95,7 +95,6 @@ public class SpringRedisConnection implements ConnectionFactory{
 		@Override
 		public void write(StringData data) throws ACPException,
 				UnsupportedOperation {
-			publishData(data);
 		}
 
 	}
@@ -118,16 +117,18 @@ public class SpringRedisConnection implements ConnectionFactory{
 
 	}
 
-	@Autowired
-	StringRedisTemplate stringRedisTemplate;
+
 	
 	class ListDataOperationsImp extends ListDataOperations {
 		ListOperations<String, String> operation;
+		public ListDataOperationsImp() {
+			operation = stringRedisTemplate.opsForList();
+		}
 		@Override
 		public ListData read(ListData o) throws ACPException,
 				UnsupportedOperation {
-			operation = stringRedisTemplate.opsForList();
-			o.setOperation(this);
+			
+			o.setContent(operation.range(o.getKey(), 0, -1));
 			return o;
 		}
 
@@ -135,7 +136,6 @@ public class SpringRedisConnection implements ConnectionFactory{
 		public void write(ListData o) throws ACPException, UnsupportedOperation {
 			operation = stringRedisTemplate.opsForList();
 			operation.rightPushAll(o.getKey(), o.getContent());
-			publishData(o);
 		}
 
 		@Override
@@ -154,7 +154,7 @@ public class SpringRedisConnection implements ConnectionFactory{
 		return new MemDBDataOperationsImp();
 	}
 	
-	void publishData(String contentCode, String key) throws ACPException {
+	public void publishData(String contentCode, String key) throws ACPException {
 		if (contentCode == null || contentCode.isEmpty()) {
 			throw new ACPException("Null or empty contentCode");
 		}
@@ -163,12 +163,10 @@ public class SpringRedisConnection implements ConnectionFactory{
 		stringRedisTemplate.convertAndSend("chat", message);		
 	}
 	
-	public void publishData(DataItem data) throws ACPException {
-		publishData(data.getContentCode(), data.getKey());
-	}
+
 
 	@Override
-	public ListDataOperations getListOperations() {
+	public ListDataOperations getListDataOperations() {
 		return new ListDataOperationsImp();
 	}
 

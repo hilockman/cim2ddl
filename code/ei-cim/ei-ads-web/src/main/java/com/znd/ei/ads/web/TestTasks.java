@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ACPResult;
 import com.znd.ei.ads.acp.ConnectionFactory;
@@ -23,17 +24,13 @@ public class TestTasks {
 	
 	@GetMapping(path = "/tasks")
 	public @ResponseBody ACPResult tasks() {
-		StringDataOperations operations  = connectionFactory.getStringDataOperations();
-		StringData data = new StringData();
-		Gson gson = new Gson();
 		int count = 100;
 		TaskConfig config = new TaskConfig(count);
-		data.setContent(gson.toJson(config));
+		String content = Utils.toString(config);
 		
 		try {
-			data.setContentCode("create_TestTasks");
-			operations.write(data);
-		} catch (ACPException | UnsupportedOperation e) {
+			connectionFactory.publishData("create_TestTasks", content);
+		} catch (ACPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};

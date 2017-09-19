@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.ACPException;
-import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.IOOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
@@ -32,19 +31,30 @@ import com.znd.ei.ads.apl.annotations.Out;
  * @author wangheng 应用管理用于应用注册
  *
  */
-public  final class AplManager {
+public  final class AplContainer {
 
+	
+	public static void main(String [] args) {
+		System.out.println(new String().getClass().equals(String.class));
+	}
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(AplManager.class);
+			.getLogger(AplContainer.class);
 
 	final class ParamInfo {
 		public String cc;
 		public Class<?> paramType;
 		public boolean bIn;
+		public DataFieldStorage.DataField dataField;
+		
+		boolean isItemDataType() {
+			return dataField.dataType.equals(paramType);
+		}
+		
 	}
 
 	final class AppCallInfo {
-		public AppTemplate app;
+		public AppInfo appInfo;
+		public Object app;
 		public Method method;
 		public List<String> inputCCs = new ArrayList<String>();
 		public List<String> outputCCs = new ArrayList<String>();
@@ -55,12 +65,9 @@ public  final class AplManager {
 	
 	private Map<String, List<AppCallInfo>> cc2AplCallInfos = new HashMap<String, List<AppCallInfo>>();
 
-	private ConnectionFactory connectionFactory;
+	private ArrayList<Object> apls = new ArrayList<Object>();
 
-	private ArrayList<AppTemplate> apls = new ArrayList<AppTemplate>();
-
-	public AplManager(ConnectionFactory connectionFactory) {
-		this.connectionFactory = connectionFactory;
+	public AplContainer() {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -77,7 +84,7 @@ public  final class AplManager {
 
 			Apl apl = (Apl) a;
 
-			AppTemplate app = (AppTemplate) c.newInstance();
+			Object app = c.newInstance();
 			AppInfo appInfo = new AppInfo();
 			String name = apl.value();
 			if (name == null || name.isEmpty()) {
@@ -85,9 +92,9 @@ public  final class AplManager {
 			}
 			appInfo.setName(name);
 			appInfo.setDesc(apl.desc());
-			app.setConnectionFactory(connectionFactory);
-			app.setStorage(storage);
-			app.setAppInfo(appInfo);
+//			app.setConnectionFactory(connectionFactory);
+//			app.setStorage(storage);
+//			app.setAppInfo(appInfo);
 			apls.add(app);
 			LOGGER.info(String.format(
 					"apl : %s is activated.",
@@ -103,6 +110,7 @@ public  final class AplManager {
 				}
 
 				AppCallInfo acInfo = new AppCallInfo();
+				acInfo.appInfo = appInfo;
 				acInfo.app = app;
 				acInfo.ccOper = af.ccOper();
 				acInfo.method = m;
@@ -120,6 +128,8 @@ public  final class AplManager {
 						paramInfo.bIn = false;
 						cc = out.value();
 						acInfo.outputCCs.add(cc);
+						
+						paramInfo.dataField = storage.register(out, paramInfo.paramType, param.getName());
 					}
 
 					In in = param.getAnnotation(In.class);
@@ -133,6 +143,7 @@ public  final class AplManager {
 							cc2AplCallInfos.put(cc, appCallInfos);
 						}
 						appCallInfos.add(acInfo);
+						paramInfo.dataField = storage.register(in, paramInfo.paramType, param.getName());
 					}
 					paramInfo.cc = cc;
 					
@@ -144,11 +155,10 @@ public  final class AplManager {
 					paramTypeNames.add(paramInfo.cc
 							+ (paramInfo.bIn ? "/I" : "/O"));
 					acInfo.paramInfos[pos++] = paramInfo;
-					storage.register(cc, paramInfo.paramType);
+					//storage.register(cc, paramInfo.paramType);
 				}
 				LOGGER.info(String.format(
-						"AplFunction : %s.%s is found, param : %s.", app
-								.getAppInfo().getName(), m.getName(), "["
+						"AplFunction : %s.%s is found, param : %s.", appInfo.getName(), m.getName(), "["
 								+ String.join(" ", paramTypeNames) + "]"));
 			}
 
@@ -169,8 +179,7 @@ public  final class AplManager {
 			return;
 		}
 
-		DataItem dataItem = storage.getData(contentCode);
-		if (dataItem == null)
+		if (!storage.contain(contentCode))
 			return;
 
 		// 调用业务逻辑
@@ -205,18 +214,19 @@ public  final class AplManager {
 				continue;
 
 			//业务逻辑参数初始化
-			DataItem dataItems[] = new DataItem[appCallInfo.paramInfos.length];
+			Object dataItems[] = new DataItem[appCallInfo.paramInfos.length];
 			int pos = 0;
-			List<DataItem> outputDataItems = new ArrayList<DataItem>();
+			List<ParamInfo> outputDataItems = new ArrayList<ParamInfo>();
 			for (ParamInfo paramInfo : appCallInfo.paramInfos) {
 				if (paramInfo.bIn) { //输入参数
-					dataItems[pos++] = storage.getData(paramInfo.cc);
+					dataItems[pos++] = paramInfo.dataField.dataItem;
 				} else { //输出参数
 					try {
-						DataItem item = (DataItem) paramInfo.paramType.newInstance();
-						item.setContentCode(paramInfo.cc);
+						paramInfo.dataField.initDataItem();
+						Object item = paramInfo.dataField.dataItem;
 						dataItems[pos++] = item;
-						outputDataItems.add(item);
+						outputDataItems.add(paramInfo);
+						
 					} catch (InstantiationException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -225,25 +235,27 @@ public  final class AplManager {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						throw new ACPException(e.getMessage());
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}
 			
-			AppInfo appInfo = appCallInfo.app.getAppInfo();
+			AppInfo appInfo = appCallInfo.appInfo;
 			String appName = appInfo.getName();
 			String methodName = appCallInfo.method.getName();
 			try {
 				//调用业务逻辑，填充数据
 				appCallInfo.method.invoke(appCallInfo.app, dataItems);
 				
-				//调用总线，发布数据
-				for (DataItem item : outputDataItems) {
-					IOOperations io = storage.createIO(item.getContentCode());
-					if (item.getKey() == null || item.getKey().isEmpty()) { //自动分配一个key						
-						item.setKey(item.getContentCode()+":"+UUID.randomUUID().toString());					
-					}
-					if (io != null)
-						io.write(item);
+				//通过总线，发布数据
+				for (ParamInfo paramInfo : outputDataItems) {
+					DataFieldStorage.DataField df = paramInfo.dataField;
+					df.write();			
 				}
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block

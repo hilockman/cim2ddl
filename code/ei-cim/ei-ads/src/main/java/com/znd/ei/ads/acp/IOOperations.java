@@ -5,4 +5,5 @@ public interface IOOperations<T> {
 	void write(T data)  throws ACPException, UnsupportedOperation;
 	T create();
 	Class<T> getDataType();
+	void close()  throws ACPException ;
 }

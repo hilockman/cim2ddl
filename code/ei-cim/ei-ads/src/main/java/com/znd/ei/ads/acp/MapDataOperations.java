@@ -11,6 +11,4 @@ public abstract class MapDataOperations extends AbstractOperations<MapData> {
 
 	public abstract String get(String key, String mkey) throws ACPException, UnsupportedOperation;
 
-	public abstract void close();
-
 }

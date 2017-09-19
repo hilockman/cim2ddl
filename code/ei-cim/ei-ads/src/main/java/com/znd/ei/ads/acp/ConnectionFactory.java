@@ -5,7 +5,7 @@ import com.znd.ei.ads.adf.DataFieldStorage;
 public interface ConnectionFactory {
 	MemDBDataOperations getMemDBDataOperations();
 	
-	ListDataOperations getListOperations();
+	ListDataOperations getListDataOperations();
 
 	//BusOperations getBusOperations();
 	
@@ -16,4 +16,7 @@ public interface ConnectionFactory {
 	void register(DataFieldStorage manager);
 	
 	MapDataOperations getMapDataOperations();
+	
+	void publishData(String contentCode, String key) throws ACPException;
+
 }

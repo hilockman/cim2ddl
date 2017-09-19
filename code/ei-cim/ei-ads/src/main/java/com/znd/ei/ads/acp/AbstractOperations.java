@@ -24,4 +24,10 @@ public abstract class AbstractOperations<T> implements IOOperations<T> {
 	public Class<T> getDataType() {
 		return dataType;
 	}
+	
+	
+	public void close()  throws ACPException {
+		
+	}
+	
 }

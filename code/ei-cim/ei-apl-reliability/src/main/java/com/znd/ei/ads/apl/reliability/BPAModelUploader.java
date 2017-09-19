@@ -2,19 +2,23 @@ package com.znd.ei.ads.apl.reliability;
 
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.UnsupportedOperation;
-import com.znd.ei.ads.adf.ContentCodeDefines;
 import com.znd.ei.ads.adf.MemDBData;
-import com.znd.ei.ads.apl.AppTemplate;
+import com.znd.ei.ads.adf.StringData;
 import com.znd.ei.ads.apl.annotations.Apl;
+import com.znd.ei.ads.apl.annotations.In;
+import com.znd.ei.ads.apl.annotations.Out;
 
 @Apl(value = "BPAModelUploader")
-public class BPAModelUploader extends AppTemplate {
+public class BPAModelUploader {
 
-	public void upload() throws ACPException, UnsupportedOperation {
-		MemDBData db = new MemDBData();
-		db.setKey("MemDB.Bpa");
-		
-		writeDataField(ContentCodeDefines.created_BPAModel, db, getConnectionFactory().getMemDBDataOperations());
-		
+	public void upload(@In("create_BPAModel") StringData createConfig,
+			@Out("created_BPAModel") MemDBData bPAModel) throws ACPException,
+			UnsupportedOperation {
+
+		bPAModel.setKey("MemDB.Bpa");
+
+		// writeDataField(ContentCodeDefines.created_BPAModel, db,
+		// getConnectionFactory().getMemDBDataOperations());
+
 	}
 }

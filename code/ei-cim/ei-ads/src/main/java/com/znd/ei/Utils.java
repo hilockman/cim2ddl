@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.google.gson.Gson;
+
 public class Utils {
 
 	@SuppressWarnings("rawtypes")
@@ -101,7 +103,7 @@ public class Utils {
 				String protocol = url.getProtocol();
 				// 如果是以文件的形式保存在服务器上
 				if ("file".equals(protocol)) {
-					System.err.println("file类型的扫描");
+					System.err.println("file类型的扫描:"+url);
 					// 获取包的物理路径
 					String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
 					// 以文件的方式扫描整个包下的文件 并添加到集合中
@@ -171,5 +173,15 @@ public class Utils {
 		}
 
 		return classes;
+	}
+	
+	public static <T> T toObject(String str, Class<T> clazz) {
+		Gson gson = new Gson();
+		return gson.fromJson(str, clazz);
+	}
+	
+	public static String toString(Object obj) {
+		Gson gson = new Gson();
+		return gson.toJson(obj);
 	}
 }

@@ -8,7 +8,6 @@ import com.znd.ei.ads.acp.ListDataOperations;
 @SuppressWarnings("rawtypes")
 public class ListData  extends DataItem  {
 
-	private ListDataOperations operation;
 	private List content = new ArrayList<String>();
 
 	public List getContent() {
@@ -21,37 +20,17 @@ public class ListData  extends DataItem  {
 	
 	
 	public ListData() {
-		this.operation = null;
 	}
 	
 
 	
 	public String lpop() throws ACPException {
-		if (operation == null)
+		if (operations == null)
 			return null; 
 		
 	
-		return operation.lpop(getKey());
+		return ((ListDataOperations)operations).lpop(getKey());
 
 	}
 	
-	public void close() {
-		if (operation == null)
-			return;
-		
-		try {
-			operation.close();
-		} catch (ACPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public ListDataOperations getOperation() {
-		return operation;
-	}
-
-	public void setOperation(ListDataOperations operation) {
-		this.operation = operation;
-	}
 }

@@ -30,7 +30,7 @@ public class MapData extends DataItem {
 	
 	
 	public String get(String key) throws ACPException, UnsupportedOperation {
-		if (content.containsKey(key)) {
+		if (content != null) {
 			return content.get(key);
 		} else if (operation != null) {
 			return operation.get(getKey(), key);
@@ -40,11 +40,5 @@ public class MapData extends DataItem {
 	
 	public void set(String key, String value) {
 		content.put(key, value);
-	}
-	
-	public void close() {
-		if (operation != null) {
-			operation.close();
-		}
 	}
 }

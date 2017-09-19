@@ -21,5 +21,14 @@ public @interface In {
 	 * 内容控制码，在ContentCodeDefines中定义
 	 * @return
 	 */
-	String value() default "";
+	String value();
+	
+	/**
+	 * 是否自动加载
+	 * true为自动加载，即从数据总线自动下载数据到本地
+	 * false为不自动加载，即不从数据总线下载数据到本地
+	 * 默认值，为false
+	 * @return
+	 */
+	boolean autoLoad() default false;
 }

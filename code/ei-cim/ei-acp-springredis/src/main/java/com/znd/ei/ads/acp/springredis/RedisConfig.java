@@ -67,9 +67,6 @@ public class RedisConfig {
 	@Bean
 	public RedisConnectionFactory redisConnectionFactory() {
 		List<String> clusterNodes = redisProperties.getNodes();
-		for (String node: clusterNodes) {
-			System.out.println("node : " +node);
-		}
 		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes));
 		return connectionFactory;
 	}
