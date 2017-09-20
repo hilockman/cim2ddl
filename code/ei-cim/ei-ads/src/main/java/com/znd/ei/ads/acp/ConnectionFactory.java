@@ -17,6 +17,33 @@ public interface ConnectionFactory {
 	
 	MapDataOperations getMapDataOperations();
 	
+	/**
+	 * 发送消息
+	 * @param contentCode
+	 * @param key
+	 * @throws ACPException
+	 */
 	void publishData(String contentCode, String key) throws ACPException;
+	
+
+
+	/**
+	 * 发送消息和数据
+	 * @param contentCode
+	 * @param key
+	 * @param content
+	 * @param singleton , true 表示接收者唯一, false 表示接收者不唯一
+	 * @throws ACPException
+	 */
+	void publishData(String contentCode, String key, String content, boolean singleton) throws ACPException;
+	
+	/**
+	 * 发送消息和数据
+	 * @param contentCode
+	 * @param key
+	 * @param content
+	 * @throws ACPException
+	 */
+	void publishData(String contentCode, String key, String content) throws ACPException;
 
 }

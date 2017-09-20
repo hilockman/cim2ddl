@@ -191,4 +191,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	public void register(DataFieldStorage manager) {
 		
 	}
+
+
+
 }

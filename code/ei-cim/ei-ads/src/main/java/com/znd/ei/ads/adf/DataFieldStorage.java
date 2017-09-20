@@ -165,9 +165,7 @@ public final class DataFieldStorage {
 			IOOperations io = createIO();
 			// dataItem.setContentCode(contentCode);
 			dataItem.setOperations(io);
-			if (autoLoad) {
-				io.read(dataItem);
-			}
+
 		}
 
 		public void initDataItem(String key) throws IllegalAccessException,
@@ -175,6 +173,9 @@ public final class DataFieldStorage {
 				InstantiationException, ACPException, UnsupportedOperation {
 			initDataItem();
 			dataItem.setKey(key);
+			if (autoLoad) {				
+				dataItem.getOperations().read(dataItem);
+			}			
 		}
 
 		/**
@@ -383,6 +384,7 @@ public final class DataFieldStorage {
 		LOGGER.info("Begin to update data field: cc={}, content={}",
 				contentCode, content);
 
+	
 		DataField df = dataFields.get(contentCode);
 		try {
 			df.initDataItem(content);

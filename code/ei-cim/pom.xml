@@ -32,6 +32,7 @@
    		<module>ei-ads-web</module>
    		<module>ei-ads-console</module>
    		<module>ei-acp-springredis</module>
+    <module>test-redisson-mapreduce</module>
   </modules>
 
 	<properties>

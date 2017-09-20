@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.redisson.api.RBucket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.ZhongND.RedisDF.Service.ServiceFactory;
 import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.ZhongND.RedisDF.exectueDF.ExectueDF;
 import com.ZhongND.RedisDF.exectueDF.ResultObject;
+import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBKey;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBMap;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
@@ -29,7 +31,6 @@ import com.ZhongND.RedisDF.messageDF.Listener.Event.EventCallBack;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
-import com.znd.ei.ads.acp.IOOperations;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.MemDBDataOperations;
@@ -388,6 +389,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			throw new ACPException("Null or empty contentCode");
 		}
 		RedissonPubManager msg = executeDF.RedissonPubManager();
+
 		String strMessage = msg.setMessage(contentCode, key);
 		try {
 			msg.pubMessage(strMessage);
@@ -396,7 +398,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			throw new ACPException(e);
 		} finally {
 			msg.closed();
-		}
+		}		
 	}
 
 
@@ -491,6 +493,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	public void setRedisControl(ExectueDF redisControl) {
 		this.executeDF = redisControl;
 	}
+
+
+
 
 
 }
