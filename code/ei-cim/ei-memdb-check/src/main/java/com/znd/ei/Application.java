@@ -51,6 +51,7 @@ public class Application {
 			
 			
         	for (MemTable t: tables) {
+        		System.out.println("check table : "+t.getName());
     			for (Pattern excludePattern: excludeTablePatterns) {
     	   		    Matcher isMatch = excludePattern.matcher(t.getName());
          		   

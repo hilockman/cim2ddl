@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.ZhongND.memdb.JMemDBApi;
-import com.ZhongND.memdb.MDBDefine;
+import com.znd.ei.memdb.connection.Connection;
 
-@Repository
 public class MemDbReprositoryImp implements MemDbRepository {
 	private static List<MemTable> tables;
 	private static HashMap<String, MemTable> tableMap;
 
-	private static String dbname;
+	private Connection connection;
+	private String dbname;
 	static {
-		dbname = MDBDefine.g_strPRDBEntry;
+
+	}
+	
+	public MemDbReprositoryImp(Connection connection) {
+		this.setConnection(connection);
+	
+		String dbname = connection.getEntryName();
 		JMemDBApi.initMemDB(dbname, 0, 1);
 		int tableNum = JMemDBApi.getTableNum(dbname);
 		System.out
@@ -74,7 +78,6 @@ public class MemDbReprositoryImp implements MemDbRepository {
 			tables.add(table);
 			tableMap.put(table.getName(), table);
 		}
-
 	}
 
 	public List<MemTable> getTables() {
@@ -137,6 +140,14 @@ public class MemDbReprositoryImp implements MemDbRepository {
 			JMemDBApi.clearTable(dbname, i);
 		}
 		
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
 	}
 
 }

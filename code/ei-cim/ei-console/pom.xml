@@ -41,13 +41,13 @@
 			<artifactId>ei-memdb</artifactId>
 			<version>${project.version}</version>
 		</dependency>
- -->
+ 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-computing-reliability</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+	-->	
 
 	</dependencies>
 	<build>

@@ -24,16 +24,15 @@
 	  	<module>ei-memdb</module>
 		<module>ei-memdb-tool</module>
 		<module>ei-memdb-check</module>
-	    <module>ei-computing-reliability</module>
-	    <module>ei-test</module>
-   		<module>ei-ads</module>
+   		<module>ei-ads-core</module>
    		<module>ei-apl-reliability</module>
    		<module>ei-acp-dfredisson</module>
    		<module>ei-ads-web</module>
    		<module>ei-ads-console</module>
    		<module>ei-acp-springredis</module>
-    <module>test-redisson-mapreduce</module>
-  </modules>
+       <module>test-redisson-mapreduce</module>
+		<module>ei-base</module>
+	</modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
