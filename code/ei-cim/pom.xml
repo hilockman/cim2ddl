@@ -32,7 +32,8 @@
    		<module>ei-acp-springredis</module>
        <module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
-	</modules>
+    <module>test-nio-client</module>
+  </modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>

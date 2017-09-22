@@ -16,10 +16,10 @@ public class MemDbReprositoryImp implements MemDbRepository {
 	static {
 
 	}
-	
+
 	public MemDbReprositoryImp(Connection connection) {
 		this.setConnection(connection);
-	
+
 		String dbname = connection.getEntryName();
 		JMemDBApi.initMemDB(dbname, 0, 1);
 		int tableNum = JMemDBApi.getTableNum(dbname);
@@ -100,34 +100,60 @@ public class MemDbReprositoryImp implements MemDbRepository {
 
 	@Override
 	public void saveRecord(MemTable table, String[] values) throws MemDbError {
-		int rt = JMemDBApi.insertRecord(dbname, table.getIndex(), values) ;
+		int rt = JMemDBApi.insertRecord(dbname, table.getIndex(), values);
 		if (rt < 0)
 			throw new MemDbError(rt, "saveRecord");
 		JMemDBApi.maint(dbname, 0);
 	}
 
 	@Override
-	public void saveRecords(MemTable table, List<String[]> records) throws MemDbError {
+	public void saveRecords(MemTable table, List<String[]> records)
+			throws MemDbError {
 		for (int i = 0; i < records.size(); i++) {
-			int rt = JMemDBApi.appendRecord(dbname, 0, table.getIndex(), records.get(i));
+			int rt = JMemDBApi.appendRecord(dbname, 0, table.getIndex(),
+					records.get(i));
 			if (rt < 0)
 				throw new MemDbError(rt, "saveRecord");
-			
+
+		}
+
+		JMemDBApi.maint(dbname, 0);
+	}
+
+	public void deleteRecords(MemTable table, List<String[]> records) throws MemDbError {
+		
+		for (String[] record: records) {
+			int recordIndex = JMemDBApi.findRecordbyRow(dbname, table.getIndex(),record);	
+			JMemDBApi.removeRecord(dbname, table.getIndex(), recordIndex);
+		}
+		
 	}
 	
-	JMemDBApi.maint(dbname, 0);	
-}
+	public void deleteRecord(MemTable table, String[] record) throws MemDbError {
+		
+		List<String[]> records = new ArrayList<String[]>();
+		records.add(record);
+		deleteRecords(table, records);
+	}	
 
+
+	public void clearTable(MemTable table) {
+		JMemDBApi.clearTable(dbname, table.getIndex());
+	}
 	@Override
 	public List<String[]> findAllRecords(MemTable table) throws MemDbError {
 		int count = JMemDBApi.getTableRecordNum(dbname, table.getIndex());
-		List<String[]>  records = new ArrayList<String[]>();
+		List<String[]> records = new ArrayList<String[]>();
 		for (int i = 0; i < count; i++) {
-			records.add(JMemDBApi.getRecordRowValueArray(dbname, table.getIndex(), i));
+			records.add(JMemDBApi.getRecordRowValueArray(dbname,
+					table.getIndex(), i));
 		}
-		
+
 		return records;
 	}
+	
+	
+	
 
 	@Override
 	public long getRecordCount(MemTable table) {
@@ -139,7 +165,7 @@ public class MemDbReprositoryImp implements MemDbRepository {
 		for (int i = 0; i < tables.size(); i++) {
 			JMemDBApi.clearTable(dbname, i);
 		}
-		
+
 	}
 
 	public Connection getConnection() {

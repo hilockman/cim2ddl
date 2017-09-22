@@ -2,9 +2,11 @@ package org.test.redisson.mapreduce;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
 import org.redisson.RedissonNode;
 import org.redisson.api.RMap;
+import org.redisson.api.RScheduledExecutorService;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.mapreduce.RMapReduce;
 import org.redisson.config.Config;
@@ -55,6 +57,7 @@ public class App
 
 		RedissonClient redisson = ctx.getBean(RedissonClient.class);
 	    RMap<String, String> map = redisson.getMap("wordsMap");
+	    //map.clear();
 	    map.put("line1", "Alice was beginning to get very tired"); 
 	    map.put("line2", "of sitting by her sister on the bank and");
 	    map.put("line3", "of having nothing to do once or twice she");
@@ -62,21 +65,32 @@ public class App
 	    map.put("line5", "but it had no pictures or conversations in it");
 	    map.put("line6", "and what is the use of a book");
 	    map.put("line7", "thought Alice without pictures or conversation");
-
-	    
 	    Config config = ctx.getBean(Config.class);
+	    
 	    RedissonNodeConfig nodeConfig = new RedissonNodeConfig(config);
-	    Map<String, Integer> workers = new HashMap<String, Integer>();
-	    workers.put("test", 2);
-	    nodeConfig.setExecutorServiceWorkers(workers);
-	    RedissonNode node = RedissonNode.create(nodeConfig);
-	    node.start();
+	    
+	    String serviceName = "test1";
+	    System.out.println(serviceName);
+	    RScheduledExecutorService es = redisson.getExecutorService(serviceName);
+	    nodeConfig.setExecutor(es);
+	    
+//	   int n =  es.countActiveWorkers();
+//	   boolean bt = es.isTerminated();
+//	   boolean bs = es.isShutdown();
+	   
+
+//	    Map<String, Integer> workers = new HashMap<String, Integer>();
+//	    workers.put("test1", 2);
+//	    nodeConfig.setExecutorServiceWorkers(workers);
+//	    RedissonNode node = RedissonNode.create(nodeConfig);
+//	    node.start();
 	    
 	    RMapReduce<String, String, String, Integer> mapReduce
 	             = map.<String, Integer>mapReduce()
 	                  .mapper(new WordMapper())
 	                  .reducer(new WordReducer());
 	    
+	    System.out.println("Start statistic ...");
 
 	    // 统计词频
 	    Map<String, Integer> mapToNumber = mapReduce.execute();
@@ -84,7 +98,7 @@ public class App
 	    // 统计字数
 	    Integer totalWordsAmount = mapReduce.execute(new WordCollator());
 	    
-		
+		System.out.println(totalWordsAmount);
 		System.exit(SpringApplication.exit(ctx));
     }
 }

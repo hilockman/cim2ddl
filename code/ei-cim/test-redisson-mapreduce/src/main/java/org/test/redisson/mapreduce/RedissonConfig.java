@@ -6,9 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import org.redisson.Redisson;
-import org.redisson.RedissonNode;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,28 +37,49 @@ public class RedissonConfig {
 	}
 	String FILE_NAME = "ClusterServersConfig.cfg";
 
+	
+	String read(Reader r) throws IOException {
+		BufferedReader reader = new BufferedReader(r);
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		String content;
+		while ((content = reader.readLine()) != null) {
+			stringBuilder.append(content);
+		}
+		String str = stringBuilder.toString();
+		return str;		
+	}
+	
+	String read(InputStream is) throws IOException {
+		return read(new InputStreamReader(is));
+		
+	}
+	
+	String readFile(File file) throws IOException {
+		return read(new FileReader(file));
+	}
 	@SuppressWarnings("static-access")
 	@Bean
 	public Config config() {
 		Config config = new Config();
 
-		FileInputStream is = null;
+		FileInputStream fis = null;
 		try {
-			File file = ResourceUtils.getFile("classpath:" + FILE_NAME);
+//			ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+//			Resource[] resources = resolver.getResources("/resources/*.cfg");
+			InputStream is = this.getClass().getResourceAsStream("/"+FILE_NAME);
+			
+			String content = read(is);
+			//System.out.println((char)is.read());
+//			config = config.fromJSON(is);
+	        
+			//File file = ResourceUtils.getFile("classpath:" + FILE_NAME);
 //			 is = new FileInputStream(file);
 //
 //			 config.fromJSON(is);
 
-			@SuppressWarnings("resource")
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(
-					file));
-			StringBuilder stringBuilder = new StringBuilder();
-			String content;
-			while ((content = bufferedReader.readLine()) != null) {
-				stringBuilder.append(content);
-			}
-			String str = stringBuilder.toString();
-			config = config.fromJSON(str);
+
+			config = config.fromJSON(content);
 
 			// is = new FileInputStream(file);
 
@@ -68,9 +91,9 @@ public class RedissonConfig {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if (is != null) {
+			if (fis != null) {
 				try {
-					is.close();
+					fis.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

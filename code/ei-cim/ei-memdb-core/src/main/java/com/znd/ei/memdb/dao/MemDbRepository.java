@@ -11,7 +11,10 @@ public interface MemDbRepository {
 	public void saveRecords(MemTable table, List<String []> records) throws MemDbError;
 	public List<String []> findAllRecords(MemTable table) throws MemDbError;
 	public long getRecordCount(MemTable table);
-	
+	public void deleteRecords(MemTable table, List<String[]> records) throws MemDbError;
+	public void deleteRecord(MemTable table, String[] record) throws MemDbError;
+	public void clearTable(MemTable table);
+		
 	/**
 	 * 清除数据库
 	 */

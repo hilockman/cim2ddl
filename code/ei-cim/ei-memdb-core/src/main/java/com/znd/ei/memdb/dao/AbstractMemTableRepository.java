@@ -192,8 +192,13 @@ public abstract class AbstractMemTableRepository<T> implements
 
 	@Override
 	public void delete(T entity) {
-		// TODO Auto-generated method stub
-
+		String[] record = null;
+		try {
+			memDbRepository.deleteRecord(table, record);
+		} catch (MemDbError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
