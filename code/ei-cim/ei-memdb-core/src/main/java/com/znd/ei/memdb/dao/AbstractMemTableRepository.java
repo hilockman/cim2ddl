@@ -7,10 +7,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-
 public abstract class AbstractMemTableRepository<T> implements
 		MemTableRepository<T> {
-	private MemDbRepository memDbRepository;
+	private MemTableOperations memTableOperations;
 
 	private MemTable table;
 
@@ -26,7 +25,7 @@ public abstract class AbstractMemTableRepository<T> implements
 	@PostConstruct
 	public void init() throws NoSuchMethodException, SecurityException {
 		String className = clazz.getSimpleName();
-		table = memDbRepository.findTableByName(className);
+		table = memTableOperations.findTableByName(className);
 		if (table == null) {
 			System.out.println("Find no table by class name : " + className);
 		}
@@ -61,11 +60,11 @@ public abstract class AbstractMemTableRepository<T> implements
 
 			if (table != null)
 				fieldInfo.setMemField(table.findFieldByName(name));
-			
+
 			fieldInfo.setField(f);
 
 			Class fzz = f.getType();
-			
+
 			if (fzz == Short.class) {
 				fieldInfo.setValueParser(ValueParse.Short_Parser);
 			} else if (fzz == Double.class) {
@@ -75,7 +74,7 @@ public abstract class AbstractMemTableRepository<T> implements
 			} else if (fzz == Float.class) {
 				fieldInfo.setValueParser(ValueParse.Float_Parse);
 			}
-			
+
 			fieldInfos[i] = fieldInfo;
 		}
 
@@ -125,7 +124,7 @@ public abstract class AbstractMemTableRepository<T> implements
 
 			}
 
-			memDbRepository.saveRecords(table, records);
+			memTableOperations.saveRecords(table, records);
 		} catch (MemDbError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,15 +143,15 @@ public abstract class AbstractMemTableRepository<T> implements
 	public Iterable<T> findAll() {
 		List entities = new ArrayList<T>();
 		try {
-			List<String []> records = memDbRepository.findAllRecords(table);
+			List<String[]> records = memTableOperations.findAllRecords(table);
 			for (int i = 0; i < records.size(); i++) {
-				
-				T entity = (T)clazz.newInstance();
+
+				T entity = (T) clazz.newInstance();
 				for (int j = 0; j < fieldInfos.length; j++) {
 					FieldInfo f = fieldInfos[j];
 					if (f == null)
 						continue;
-					
+
 					MemField mfield = f.getMemField();
 					if (mfield == null)
 						continue;
@@ -162,11 +161,11 @@ public abstract class AbstractMemTableRepository<T> implements
 						continue;
 
 					String[] values = records.get(i);
-					
+
 					String value = values[f.getMemField().getIndex()];
 					field.set(entity, f.toObject(value));
-				}		
-				
+				}
+
 				entities.add(entity);
 			}
 		} catch (MemDbError e) {
@@ -187,13 +186,18 @@ public abstract class AbstractMemTableRepository<T> implements
 
 	@Override
 	public long count() {
-		return memDbRepository.getRecordCount(table);
+		return memTableOperations.getRecordCount(table);
 	}
 
 	@Override
 	public void delete(T entity) {
-		// TODO Auto-generated method stub
-
+		String[] record = null;
+		try {
+			memTableOperations.deleteRecord(table, record);
+		} catch (MemDbError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -206,5 +210,13 @@ public abstract class AbstractMemTableRepository<T> implements
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public MemTableOperations getMemDbRepository() {
+		return memTableOperations;
+	}
+
+	public void setMemDbRepository(MemTableOperations memDbRepository) {
+		this.memTableOperations = memDbRepository;
 	}
 }

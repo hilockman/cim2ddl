@@ -21,6 +21,7 @@
       "masterConnectionMinimumIdleSize":10,
       "masterConnectionPoolSize":64,
       "readMode":"SLAVE",
+      "subscriptionMode":"SLAVE",
       "nodeAddresses":[
          "redis://192.168.1.50:7000",
          "redis://192.168.1.50:7001",
@@ -32,7 +33,8 @@
       "scanInterval":2000
    },
    "threads":20,
+   "nettyThreads": 20,
+   "codec":null,
    "useLinuxNativeEpoll":false,
-   "executorServiceThreads": 0,
-   "executorServiceWorkers": {"myExecutor1":3, "myExecutor2":5}
+   "executorServiceWorkers": {"test1":3, "myExecutor2":5}
 }

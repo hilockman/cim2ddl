@@ -32,7 +32,11 @@
    		<module>ei-acp-springredis</module>
        <module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
+<<<<<<< HEAD
     <module>test-java</module>
+=======
+    <module>test-nio-client</module>
+>>>>>>> bb1d42bbd2cde2b76bcff11e54ee1ed16cb30341
   </modules>
 
 	<properties>
