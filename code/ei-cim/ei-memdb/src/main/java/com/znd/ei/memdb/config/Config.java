@@ -44,8 +44,7 @@ public class Config {
 		String packageName = "com.znd.ei.memdb.reliability";
 		conn.setTargetPackage(packageName);
 		MemTableOperations ops = new MemTableOperationsImp(conn);
-		
-		
+			
 		return ops;
 	}
 }
