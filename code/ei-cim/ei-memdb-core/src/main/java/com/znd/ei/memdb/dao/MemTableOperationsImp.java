@@ -7,17 +7,15 @@ import java.util.List;
 import com.ZhongND.memdb.JMemDBApi;
 import com.znd.ei.memdb.connection.Connection;
 
-public class MemDbReprositoryImp implements MemDbRepository {
+public class MemTableOperationsImp implements MemTableOperations {
 	private static List<MemTable> tables;
 	private static HashMap<String, MemTable> tableMap;
 
 	private Connection connection;
 	private String dbname;
-	static {
 
-	}
 
-	public MemDbReprositoryImp(Connection connection) {
+	public MemTableOperationsImp(Connection connection) {
 		this.setConnection(connection);
 
 		String dbname = connection.getEntryName();

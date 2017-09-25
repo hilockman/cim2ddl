@@ -4,6 +4,7 @@ public class Connection {
 
 	private String entryName;
 	private String desc;
+	private String targetPackage;
 
 	public String getEntryName() {
 		return entryName;
@@ -19,5 +20,13 @@ public class Connection {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public String getTargetPackage() {
+		return targetPackage;
+	}
+
+	public void setTargetPackage(String targetPackage) {
+		this.targetPackage = targetPackage;
 	}
 }

@@ -11,9 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import com.znd.ei.memdb.dao.MemDbRepository;
+import com.ZhongND.memdb.MDBDefine;
+import com.znd.ei.memdb.connection.Connection;
+import com.znd.ei.memdb.dao.MemTableOperations;
 import com.znd.ei.memdb.dao.MemField;
 import com.znd.ei.memdb.dao.MemTable;
+import com.znd.ei.memdb.dao.MemTableOperationsImp;
 
 @SpringBootApplication
 @EnableConfigurationProperties(CheckProperties.class)
@@ -23,10 +26,26 @@ public class Application {
     	System.exit(SpringApplication.exit(SpringApplication.run(Application.class, args)));
     }
     
+	@Bean
+	public MemTableOperations[] pROps() {
+		String[] entryNames = MDBDefine.g_strDBEntryArray;
+		String[] descs = MDBDefine.g_strDBEntryDespArray;
+		MemTableOperations [] opss = new MemTableOperations[entryNames.length];
+		int index = 0;
+		for (String entryName : entryNames) {
+			Connection conn = new Connection();			
+			conn.setEntryName(entryName);
+			conn.setDesc(descs[index]);
+			MemTableOperations ops = new MemTableOperationsImp(conn);
+			opss[index++] = ops;
+		}
+		
+		return opss;
+	}
+	
     @Bean
-    public CommandLineRunner init(MemDbRepository repository, CheckProperties properties) {
+    public CommandLineRunner init(MemTableOperations[] opss, CheckProperties properties) {
         return (args) -> {
-        	List<MemTable> tables = repository.getTables();
 			List<String> names = properties.getExcludeFieldNames();
 			List<Pattern> excludeFieldPatterns = new ArrayList<Pattern>();			
 			if (!names.isEmpty()) {
@@ -49,31 +68,38 @@ public class Application {
 				excludeTablePatterns.add(Pattern.compile(patternString,Pattern.CASE_INSENSITIVE));
 			}
 			
-			
-        	for (MemTable t: tables) {
-        		System.out.println("check table : "+t.getName());
-    			for (Pattern excludePattern: excludeTablePatterns) {
-    	   		    Matcher isMatch = excludePattern.matcher(t.getName());
-         		   
-        		    if (isMatch.matches()) {
-        		    	System.out.println("表名:"+t.getName()+"("+t.getDescription()+")为保留名称,"+t.getName()+"("+t.getDescription()+")");
-        		    }
-    			}
-    			
-        		List<MemField> fields = t.getFields();
-        		for (MemField f: fields) {
- 			 
-        			//System.out.println("Field:"+f.getName()+", Table:"+t.getName());
-    			
-        			for (Pattern excludePattern: excludeFieldPatterns) {
-        	   		    Matcher isMatch = excludePattern.matcher(f.getName());
-             		   
-            		    if (isMatch.matches()) {
-            		    	System.out.println("字段名:"+f.getName()+"("+f.getDescription()+")为保留名称, "+t.getName()+"("+t.getDescription()+")");
-            		    }
-        			}
-        		}
-        	}
+			for (MemTableOperations ops : opss) {
+				Connection conn = ops.getConnection();
+				System.out.println(String.format("*********Check memdb : name=%s desc=%s***********", conn.getEntryName(), conn.getDesc()));
+		       	List<MemTable> tables = ops.getTables();
+
+				
+	        	for (MemTable t: tables) {
+	        		System.out.println("check table : "+t.getName());
+	    			for (Pattern excludePattern: excludeTablePatterns) {
+	    	   		    Matcher isMatch = excludePattern.matcher(t.getName());
+	         		   
+	        		    if (isMatch.matches()) {
+	        		    	System.out.println("表名:"+t.getName()+"("+t.getDescription()+")为保留名称,"+t.getName()+"("+t.getDescription()+")");
+	        		    }
+	    			}
+	    			
+	        		List<MemField> fields = t.getFields();
+	        		for (MemField f: fields) {
+	 			 
+	        			//System.out.println("Field:"+f.getName()+", Table:"+t.getName());
+	    			
+	        			for (Pattern excludePattern: excludeFieldPatterns) {
+	        	   		    Matcher isMatch = excludePattern.matcher(f.getName());
+	             		   
+	            		    if (isMatch.matches()) {
+	            		    	System.out.println("字段名:"+f.getName()+"("+f.getDescription()+")为保留名称, "+t.getName()+"("+t.getDescription()+")");
+	            		    }
+	        			}
+	        		}
+	        	}
+			}
+ 
         };
     } 
 }

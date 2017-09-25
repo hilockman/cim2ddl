@@ -1,4 +1,4 @@
-package com.znd.ei.memdb.web;
+package com.znd.ei.memdb.reliabilty.web;
 
 import java.util.Arrays;
 
@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.znd.ei.memdb.dao.MemDbRepository;
+import com.znd.ei.memdb.dao.MemTableOperations;
 import com.znd.ei.memdb.dao.MemTable;
 
 @Controller
 @RequestMapping(path = "/memdb")
-public class MemDbController {
+public class PRMemDbController {
 	@Autowired
-	private MemDbRepository memDbRepository;
+	private MemTableOperations pRMemTableOperations;
 
 	@GetMapping(path = "/tables")
 	public @ResponseBody String[] getTables() {
-		return memDbRepository.getTableNames();
+		return pRMemTableOperations.getTableNames();
 	}
 
 	@GetMapping(path = "/table")
 	public @ResponseBody Iterable<MemTable> getTable(@RequestParam String name) {
 		if (name != null && !name.isEmpty()) {
-			return  Arrays.asList(new MemTable[]{memDbRepository.findTableByName(name)});
+			return  Arrays.asList(new MemTable[]{pRMemTableOperations.findTableByName(name)});
 		} else
-			return memDbRepository.getTables();
+			return pRMemTableOperations.getTables();
 	}
 	
 	
 	@GetMapping(path = "/clear")
 	public @ResponseBody String clear() {
-		memDbRepository.clearDb();
+		pRMemTableOperations.clearDb();
 		return "clear!";
 	}
 }

@@ -19,13 +19,13 @@ import org.springframework.util.FileSystemUtils;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.znd.ei.codegen.domain.FieldInfo;
 import com.znd.ei.common.Utils;
-import com.znd.ei.memdb.dao.MemDbRepository;
+import com.znd.ei.memdb.dao.MemTableOperations;
 import com.znd.ei.memdb.dao.MemField;
 import com.znd.ei.memdb.dao.MemTable;
 
 @Service
 public class MemClsssCreateService implements ClassCreateService {
-	private MemDbRepository memDbRepository;
+	private MemTableOperations memDbRepository;
 	private Path rootLocation;
 	private static final Logger log = LoggerFactory
 			.getLogger(MemClsssCreateService.class);
@@ -33,7 +33,7 @@ public class MemClsssCreateService implements ClassCreateService {
 	private StorageProperties properties;
 
 	@Autowired
-	public MemClsssCreateService(MemDbRepository memDbRepository,
+	public MemClsssCreateService(MemTableOperations memDbRepository,
 			StorageProperties properties) {
 		rootLocation = Paths.get(properties.getLocation());
 		this.setMemDbRepository(memDbRepository);
@@ -41,11 +41,11 @@ public class MemClsssCreateService implements ClassCreateService {
 
 	}
 
-	public MemDbRepository getMemDbRepository() {
+	public MemTableOperations getMemDbRepository() {
 		return memDbRepository;
 	}
 
-	public void setMemDbRepository(MemDbRepository memDbRepository) {
+	public void setMemDbRepository(MemTableOperations memDbRepository) {
 		this.memDbRepository = memDbRepository;
 	}
 

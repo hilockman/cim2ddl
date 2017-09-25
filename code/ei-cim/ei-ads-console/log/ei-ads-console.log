@@ -11264,3 +11264,203 @@ org.redisson.client.RedisTimeoutException: Command execution timeout for /192.16
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138) [netty-common-4.1.13.Final.jar:4.1.13.Final]
 	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]
 
+2017-09-25 15:55:00.448  INFO 16028 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 16028 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-25 15:55:00.465  INFO 16028 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-25 15:55:00.516  INFO 16028 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@41f69e84: startup date [Mon Sep 25 15:55:00 CST 2017]; root of context hierarchy
+2017-09-25 15:55:02.682  INFO 16028 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'aplManager' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=ADSCofnig; factoryMethodName=aplManager; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/znd/ei/ads/ADSCofnig.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=config; factoryMethodName=aplManager; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/znd/ei/ads/Config.class]]
+2017-09-25 15:55:02.684  INFO 16028 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'dataFieldStorage' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=ADSCofnig; factoryMethodName=dataFieldStorage; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/znd/ei/ads/ADSCofnig.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=config; factoryMethodName=dataFieldStorage; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/znd/ei/ads/Config.class]]
+2017-09-25 15:55:04.156  INFO 16028 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-25 15:55:04.176  INFO 16028 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-25 15:55:04.177  INFO 16028 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-25 15:55:04.289  INFO 16028 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-25 15:55:04.290  INFO 16028 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3777 ms
+2017-09-25 15:55:04.478  INFO 16028 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-25 15:55:04.484  INFO 16028 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-25 15:55:04.484  INFO 16028 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-25 15:55:04.485  INFO 16028 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-25 15:55:04.485  INFO 16028 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-25 15:55:17.018  WARN 16028 --- [main] interfaceLogger                          : 获取连接方式：ClusterServers
+2017-09-25 15:55:17.132  INFO 16028 --- [main] org.redisson.Version                     : Redisson 2.10.0
+2017-09-25 15:55:17.907  INFO 16028 --- [redisson-netty-1-4] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7005] added for slot ranges: [[10923-16383]]
+2017-09-25 15:55:17.909  INFO 16028 --- [redisson-netty-1-7] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7001] added for slot ranges: [[5461-10922]]
+2017-09-25 15:55:17.938  INFO 16028 --- [redisson-netty-1-14] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7001
+2017-09-25 15:55:17.964  INFO 16028 --- [redisson-netty-1-4] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7005
+2017-09-25 15:55:17.963  INFO 16028 --- [redisson-netty-1-10] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7000] added for slot ranges: [[0-5460]]
+2017-09-25 15:55:17.964  INFO 16028 --- [redisson-netty-1-7] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7005
+2017-09-25 15:55:17.970  INFO 16028 --- [redisson-netty-1-7] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7002
+2017-09-25 15:55:17.970  INFO 16028 --- [redisson-netty-1-12] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7000
+2017-09-25 15:55:17.974  INFO 16028 --- [redisson-netty-1-7] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7002 added for slot ranges: [[10923-16383]]
+2017-09-25 15:55:17.988  INFO 16028 --- [redisson-netty-1-10] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7004
+2017-09-25 15:55:17.990  INFO 16028 --- [redisson-netty-1-10] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7004 added for slot ranges: [[5461-10922]]
+2017-09-25 15:55:17.993  INFO 16028 --- [redisson-netty-1-8] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7003
+2017-09-25 15:55:17.993  INFO 16028 --- [redisson-netty-1-10] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7000
+2017-09-25 15:55:17.995  INFO 16028 --- [redisson-netty-1-11] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7001
+2017-09-25 15:55:17.996  INFO 16028 --- [redisson-netty-1-8] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7003 added for slot ranges: [[0-5460]]
+2017-09-25 15:55:18.000  INFO 16028 --- [main] interfaceLogger                          : 成功连接Redis Server
+2017-09-25 15:55:20.345  WARN 16028 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataFieldStorage' defined in class path resource [com/znd/ei/ads/Config.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.znd.ei.ads.adf.DataFieldStorage]: Factory method 'dataFieldStorage' threw exception; nested exception is java.lang.NoSuchMethodError: com.znd.ei.ads.adf.DataFieldStorage.<init>(Lcom/znd/ei/ads/ServerProperties;Lcom/znd/ei/ads/acp/ConnectionFactory;Lcom/znd/ei/ads/apl/AplManager;)V
+2017-09-25 15:55:20.347  INFO 16028 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2017-09-25 15:55:20.390  WARN 16028 --- [main] o.s.b.c.e.EventPublishingRunListener     : Error calling ApplicationEventListener
+
+java.lang.ClassCastException: org.springframework.boot.context.event.ApplicationFailedEvent cannot be cast to org.springframework.boot.web.context.WebServerInitializedEvent
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:159) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.boot.context.event.EventPublishingRunListener.finished(EventPublishingRunListener.java:114) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.callFinishedListener(SpringApplicationRunListeners.java:79) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.finished(SpringApplicationRunListeners.java:72) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:803) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1245) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1233) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at com.znd.ei.ads.Application.main(Application.java:10) [classes/:na]
+
+2017-09-25 15:55:20.393  INFO 16028 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2017-09-25 15:55:20.395 ERROR 16028 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataFieldStorage' defined in class path resource [com/znd/ei/ads/Config.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.znd.ei.ads.adf.DataFieldStorage]: Factory method 'dataFieldStorage' threw exception; nested exception is java.lang.NoSuchMethodError: com.znd.ei.ads.adf.DataFieldStorage.<init>(Lcom/znd/ei/ads/ServerProperties;Lcom/znd/ei/ads/acp/ConnectionFactory;Lcom/znd/ei/ads/apl/AplManager;)V
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:586) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1261) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1109) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:499) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:755) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:868) ~[spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549) ~[spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:122) ~[spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:386) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1245) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1233) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at com.znd.ei.ads.Application.main(Application.java:10) [classes/:na]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.znd.ei.ads.adf.DataFieldStorage]: Factory method 'dataFieldStorage' threw exception; nested exception is java.lang.NoSuchMethodError: com.znd.ei.ads.adf.DataFieldStorage.<init>(Lcom/znd/ei/ads/ServerProperties;Lcom/znd/ei/ads/acp/ConnectionFactory;Lcom/znd/ei/ads/apl/AplManager;)V
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:182) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:575) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	... 18 common frames omitted
+Caused by: java.lang.NoSuchMethodError: com.znd.ei.ads.adf.DataFieldStorage.<init>(Lcom/znd/ei/ads/ServerProperties;Lcom/znd/ei/ads/acp/ConnectionFactory;Lcom/znd/ei/ads/apl/AplManager;)V
+	at com.znd.ei.ads.Config.dataFieldStorage(Config.java:23) ~[ei-ads-1.0.jar:na]
+	at com.znd.ei.ads.Config$$EnhancerBySpringCGLIB$$c6bb30ba.CGLIB$dataFieldStorage$1(<generated>) ~[ei-ads-1.0.jar:na]
+	at com.znd.ei.ads.Config$$EnhancerBySpringCGLIB$$c6bb30ba$$FastClassBySpringCGLIB$$399124a9.invoke(<generated>) ~[ei-ads-1.0.jar:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228) ~[spring-core-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:360) ~[spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at com.znd.ei.ads.Config$$EnhancerBySpringCGLIB$$c6bb30ba.dataFieldStorage(<generated>) ~[ei-ads-1.0.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_131]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_131]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_131]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_131]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:155) ~[spring-beans-5.0.0.RC3.jar:5.0.0.RC3]
+	... 19 common frames omitted
+
+2017-09-25 15:59:24.973  INFO 9976 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 9976 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-25 15:59:24.976  INFO 9976 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-25 15:59:25.019  INFO 9976 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@4278a03f: startup date [Mon Sep 25 15:59:25 CST 2017]; root of context hierarchy
+2017-09-25 15:59:30.295  INFO 15452 --- [main] com.znd.ei.ads.Application               : Starting Application on wangheng with PID 15452 (D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-ads-console)
+2017-09-25 15:59:30.300  INFO 15452 --- [main] com.znd.ei.ads.Application               : No active profile set, falling back to default profiles: default
+2017-09-25 15:59:30.353  INFO 15452 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@4ee203eb: startup date [Mon Sep 25 15:59:30 CST 2017]; root of context hierarchy
+2017-09-25 15:59:32.069  INFO 15452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2017-09-25 15:59:32.081  INFO 15452 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-25 15:59:32.082  INFO 15452 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-25 15:59:32.192  INFO 15452 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-25 15:59:32.192  INFO 15452 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1842 ms
+2017-09-25 15:59:32.347  INFO 15452 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-25 15:59:32.353  INFO 15452 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-25 15:59:32.354  INFO 15452 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-25 15:59:32.354  INFO 15452 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-25 15:59:32.354  INFO 15452 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-25 15:59:32.631  WARN 15452 --- [main] interfaceLogger                          : 获取连接方式：ClusterServers
+2017-09-25 15:59:32.728  INFO 15452 --- [main] org.redisson.Version                     : Redisson 2.10.0
+2017-09-25 15:59:33.357  INFO 15452 --- [redisson-netty-1-4] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7005] added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:33.363  INFO 15452 --- [redisson-netty-1-7] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7001] added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:33.363  INFO 15452 --- [redisson-netty-1-1] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:33.366  INFO 15452 --- [redisson-netty-1-11] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:33.381  INFO 15452 --- [redisson-netty-1-10] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7000] added for slot ranges: [[0-5460]]
+2017-09-25 15:59:33.385  INFO 15452 --- [redisson-netty-1-2] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:33.392  INFO 15452 --- [redisson-netty-1-18] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:33.400  INFO 15452 --- [redisson-netty-1-10] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:33.402  INFO 15452 --- [redisson-netty-1-7] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7003
+2017-09-25 15:59:33.402  INFO 15452 --- [redisson-netty-1-10] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7004
+2017-09-25 15:59:33.402  INFO 15452 --- [redisson-netty-1-9] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7002
+2017-09-25 15:59:33.410  INFO 15452 --- [redisson-netty-1-10] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7004 added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:33.411  INFO 15452 --- [redisson-netty-1-7] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7003 added for slot ranges: [[0-5460]]
+2017-09-25 15:59:33.411  INFO 15452 --- [redisson-netty-1-9] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7002 added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:33.411  INFO 15452 --- [redisson-netty-1-11] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:33.416  INFO 15452 --- [main] interfaceLogger                          : 成功连接Redis Server
+2017-09-25 15:59:35.767  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : apl : BPAModelUploader is activated.
+2017-09-25 15:59:35.768  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : apl : StateEstimate is activated.
+2017-09-25 15:59:35.786  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : AplFunction : StateEstimate.estimate is found, param : [created_EstimateTask/I created_EstemateResult/O].
+2017-09-25 15:59:35.787  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : apl : 状态抽样 is activated.
+2017-09-25 15:59:35.788  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : AplFunction : StateSample.sample is found, param : [created_BPAModel/I created_PRModel/I created_PRSettings/I created_EstimateTask/O].
+2017-09-25 15:59:35.793  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : apl : 测试创建任务列表 is activated.
+2017-09-25 15:59:35.794  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : AplFunction : TestCreateTasks.createTask is found, param : [create_TestTasks/I created_TestTasks/O].
+2017-09-25 15:59:35.795  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : apl : 测试处理列表 is activated.
+2017-09-25 15:59:35.795  INFO 15452 --- [main] com.znd.ei.ads.apl.AplContainer          : AplFunction : TestProcessTasks.processTask is found, param : [created_TestTasks/I].
+2017-09-25 15:59:35.814  INFO 15452 --- [main] org.redisson.Version                     : Redisson 2.10.0
+2017-09-25 15:59:35.927  INFO 15452 --- [redisson-netty-18-4] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7005] added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:35.950  INFO 15452 --- [redisson-netty-18-3] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:35.962  INFO 15452 --- [redisson-netty-18-7] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7001] added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:35.973  INFO 15452 --- [redisson-netty-18-8] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:35.987  INFO 15452 --- [redisson-netty-18-13] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:36.003  INFO 15452 --- [redisson-netty-18-10] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7000] added for slot ranges: [[0-5460]]
+2017-09-25 15:59:36.009  INFO 15452 --- [redisson-netty-18-4] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:36.024  INFO 15452 --- [redisson-netty-18-10] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7002
+2017-09-25 15:59:36.025  INFO 15452 --- [redisson-netty-18-10] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7002 added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:36.026  INFO 15452 --- [redisson-netty-18-10] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7004
+2017-09-25 15:59:36.027  INFO 15452 --- [redisson-netty-18-10] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7004 added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:36.028  INFO 15452 --- [redisson-netty-18-10] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:36.029  INFO 15452 --- [redisson-netty-18-9] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7003
+2017-09-25 15:59:36.031  INFO 15452 --- [redisson-netty-18-11] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:36.032  INFO 15452 --- [redisson-netty-18-9] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7003 added for slot ranges: [[0-5460]]
+2017-09-25 15:59:36.033  INFO 15452 --- [main] interfaceLogger                          : 成功连接Redis Server
+2017-09-25 15:59:36.037  INFO 15452 --- [main] interfaceLogger                          : 客户端 wangheng  完成事件总线 EVENT-CHANNEL 注册
+2017-09-25 15:59:36.041  INFO 15452 --- [Subscribe-EVENT-CHANNEL] org.redisson.Version                     : Redisson 2.10.0
+2017-09-25 15:59:36.130  INFO 15452 --- [redisson-netty-33-4] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7005] added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:36.148  INFO 15452 --- [redisson-netty-33-7] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7001] added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:36.156  INFO 15452 --- [redisson-netty-33-14] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:36.159  INFO 15452 --- [main] interfaceLogger                          : 客户端 wangheng  完成事件总线 EVENT-CHANNEL 注册消息发送
+2017-09-25 15:59:36.181  INFO 15452 --- [redisson-netty-33-10] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7000] added for slot ranges: [[0-5460]]
+2017-09-25 15:59:36.186  INFO 15452 --- [redisson-netty-33-19] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:36.189  INFO 15452 --- [redisson-netty-33-8] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:36.189  INFO 15452 --- [redisson-netty-33-9] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:36.207  INFO 15452 --- [redisson-netty-33-10] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:36.207  INFO 15452 --- [redisson-netty-33-10] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7002
+2017-09-25 15:59:36.208  INFO 15452 --- [redisson-netty-33-10] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7002 added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:36.209  INFO 15452 --- [redisson-netty-33-10] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7004
+2017-09-25 15:59:36.210  INFO 15452 --- [redisson-netty-33-10] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7004 added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:36.212  INFO 15452 --- [redisson-netty-33-9] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7003
+2017-09-25 15:59:36.214  INFO 15452 --- [redisson-netty-33-11] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:36.217  INFO 15452 --- [redisson-netty-33-9] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7003 added for slot ranges: [[0-5460]]
+2017-09-25 15:59:36.218  INFO 15452 --- [Subscribe-EVENT-CHANNEL] interfaceLogger                          : 成功连接Redis Server
+2017-09-25 15:59:36.225  INFO 15452 --- [Subscribe-EVENT-CHANNEL] org.redisson.Version                     : Redisson 2.10.0
+2017-09-25 15:59:36.332  INFO 15452 --- [redisson-netty-48-4] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7005] added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:36.345  INFO 15452 --- [redisson-netty-48-1] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:36.374  INFO 15452 --- [redisson-netty-48-7] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7001] added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:36.394  INFO 15452 --- [redisson-netty-48-10] o.r.cluster.ClusterConnectionManager     : slaves: [redis://192.168.1.50:7000] added for slot ranges: [[0-5460]]
+2017-09-25 15:59:36.399  INFO 15452 --- [redisson-netty-48-3] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:36.416  INFO 15452 --- [redisson-netty-48-10] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7005
+2017-09-25 15:59:36.417  INFO 15452 --- [redisson-netty-48-10] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:36.421  INFO 15452 --- [redisson-netty-48-6] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7003
+2017-09-25 15:59:36.421  INFO 15452 --- [redisson-netty-48-7] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7002
+2017-09-25 15:59:36.422  INFO 15452 --- [redisson-netty-48-9] o.r.c.pool.MasterConnectionPool          : 10 connections initialized for /192.168.1.50:7004
+2017-09-25 15:59:36.422  INFO 15452 --- [redisson-netty-48-10] o.r.c.pool.PubSubConnectionPool          : 1 connections initialized for /192.168.1.50:7000
+2017-09-25 15:59:36.423  INFO 15452 --- [redisson-netty-48-11] o.r.connection.pool.SlaveConnectionPool  : 10 connections initialized for /192.168.1.50:7001
+2017-09-25 15:59:36.423  INFO 15452 --- [redisson-netty-48-7] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7002 added for slot ranges: [[10923-16383]]
+2017-09-25 15:59:36.423  INFO 15452 --- [redisson-netty-48-6] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7003 added for slot ranges: [[0-5460]]
+2017-09-25 15:59:36.423  INFO 15452 --- [redisson-netty-48-9] o.r.cluster.ClusterConnectionManager     : master: redis://192.168.1.50:7004 added for slot ranges: [[5461-10922]]
+2017-09-25 15:59:36.424  INFO 15452 --- [Subscribe-EVENT-CHANNEL] interfaceLogger                          : 成功连接Redis Server
+2017-09-25 15:59:36.428  INFO 15452 --- [Subscribe-EVENT-CHANNEL] interfaceLogger                          : 收到新的节点：wangheng 注册事件总线通道 EVENT-CHANNEL 启用！
+2017-09-25 15:59:38.780  INFO 15452 --- [Subscribe-EVENT-CHANNEL] interfaceLogger                          : 客户端[wangheng：192.168.1.24 ]启动---EVENT-CHANNEL---服务，监听序号-----1627609668-----
+2017-09-25 15:59:38.908  INFO 15452 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@4ee203eb: startup date [Mon Sep 25 15:59:30 CST 2017]; root of context hierarchy
+2017-09-25 15:59:39.031  INFO 15452 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-25 15:59:39.033  INFO 15452 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-25 15:59:39.075  INFO 15452 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-25 15:59:39.075  INFO 15452 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-25 15:59:39.126  INFO 15452 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-25 15:59:39.416  INFO 15452 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-25 15:59:39.508  INFO 15452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http)
+2017-09-25 15:59:39.517  INFO 15452 --- [main] com.znd.ei.ads.Application               : Started Application in 9.573 seconds (JVM running for 10.085)
