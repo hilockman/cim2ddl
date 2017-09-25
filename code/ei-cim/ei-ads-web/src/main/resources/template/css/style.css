@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin: 0;padding: 0}
+p{font-family:'微软雅黑';color: red}
+
+#test-red p {color: blue}
