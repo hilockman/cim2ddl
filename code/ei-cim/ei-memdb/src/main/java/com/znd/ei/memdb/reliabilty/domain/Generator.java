@@ -10,7 +10,7 @@ import javax.persistence.Id;
 *发电机	*
 ***********************/
 @Entity
-public class Gen
+public class Generator
 {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)

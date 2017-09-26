@@ -3669,3 +3669,319 @@ Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo can
 2017-08-23 15:43:30.221  INFO 4776 --- [main] com.znd.ei.Application                   : Started Application in 2.598 seconds (JVM running for 5.145)
 2017-08-23 15:43:30.222  INFO 4776 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3587571e: startup date [Wed Aug 23 15:43:27 CST 2017]; root of context hierarchy
 2017-08-23 15:43:30.223  INFO 4776 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-26 17:24:00.020  INFO 8236 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 8236 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-09-26 17:24:00.035  INFO 8236 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-09-26 17:24:00.078  INFO 8236 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:24:00 CST 2017]; root of context hierarchy
+2017-09-26 17:24:01.551  INFO 8236 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-09-26 17:24:01.563  INFO 8236 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-26 17:24:01.564  INFO 8236 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-26 17:24:01.673  INFO 8236 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-26 17:24:01.673  INFO 8236 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1598 ms
+2017-09-26 17:24:01.787  INFO 8236 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-26 17:24:01.792  INFO 8236 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-26 17:24:01.792  INFO 8236 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-26 17:24:01.792  INFO 8236 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-26 17:24:01.792  INFO 8236 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-26 17:24:01.905  WARN 8236 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'appCommand' defined in file [D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes\com\znd\ei\AppCommand.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'memClsssCreateService' defined in file [D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes\com\znd\ei\codegen\service\MemClsssCreateService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.znd.ei.memdb.dao.MemTableOperations' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2017-09-26 17:24:01.907  INFO 8236 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2017-09-26 17:24:01.961  WARN 8236 --- [main] o.s.b.c.e.EventPublishingRunListener     : Error calling ApplicationEventListener
+
+java.lang.ClassCastException: org.springframework.boot.context.event.ApplicationFailedEvent cannot be cast to org.springframework.boot.web.context.WebServerInitializedEvent
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:159) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.boot.context.event.EventPublishingRunListener.finished(EventPublishingRunListener.java:114) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.callFinishedListener(SpringApplicationRunListeners.java:79) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.finished(SpringApplicationRunListeners.java:72) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:803) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1245) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1233) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at com.znd.ei.Application.main(Application.java:14) [classes/:na]
+
+2017-09-26 17:24:01.966  INFO 8236 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2017-09-26 17:24:02.145 ERROR 8236 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.znd.ei.codegen.service.MemClsssCreateService required a bean of type 'com.znd.ei.memdb.dao.MemTableOperations' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.znd.ei.memdb.dao.MemTableOperations' in your configuration.
+
+2017-09-26 17:25:36.110  INFO 4396 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 4396 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-09-26 17:25:36.112  INFO 4396 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-09-26 17:25:36.155  INFO 4396 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:25:36 CST 2017]; root of context hierarchy
+2017-09-26 17:25:37.297  INFO 4396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-09-26 17:25:37.309  INFO 4396 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-26 17:25:37.310  INFO 4396 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-26 17:25:37.459  INFO 4396 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-26 17:25:37.459  INFO 4396 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1308 ms
+2017-09-26 17:25:37.558  INFO 4396 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-26 17:25:37.563  INFO 4396 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-26 17:25:37.563  INFO 4396 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-26 17:25:37.563  INFO 4396 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-26 17:25:37.564  INFO 4396 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-26 17:25:37.596  WARN 4396 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'appCommand' defined in file [D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes\com\znd\ei\AppCommand.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'memClsssCreateService' defined in file [D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes\com\znd\ei\codegen\service\MemClsssCreateService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.znd.ei.memdb.dao.MemTableOperations' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2017-09-26 17:25:37.598  INFO 4396 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2017-09-26 17:25:37.611  WARN 4396 --- [main] o.s.b.c.e.EventPublishingRunListener     : Error calling ApplicationEventListener
+
+java.lang.ClassCastException: org.springframework.boot.context.event.ApplicationFailedEvent cannot be cast to org.springframework.boot.web.context.WebServerInitializedEvent
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:159) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) [spring-context-5.0.0.RC3.jar:5.0.0.RC3]
+	at org.springframework.boot.context.event.EventPublishingRunListener.finished(EventPublishingRunListener.java:114) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.callFinishedListener(SpringApplicationRunListeners.java:79) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplicationRunListeners.finished(SpringApplicationRunListeners.java:72) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:803) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1245) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1233) [spring-boot-2.0.0.M3.jar:2.0.0.M3]
+	at com.znd.ei.Application.main(Application.java:14) [classes/:na]
+
+2017-09-26 17:25:37.616  INFO 4396 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2017-09-26 17:25:37.707 ERROR 4396 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.znd.ei.codegen.service.MemClsssCreateService required a bean of type 'com.znd.ei.memdb.dao.MemTableOperations' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.znd.ei.memdb.dao.MemTableOperations' in your configuration.
+
+2017-09-26 17:27:11.615  INFO 16464 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 16464 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-09-26 17:27:11.617  INFO 16464 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-09-26 17:27:11.656  INFO 16464 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:27:11 CST 2017]; root of context hierarchy
+2017-09-26 17:27:12.848  INFO 16464 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-09-26 17:27:12.860  INFO 16464 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-26 17:27:12.861  INFO 16464 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-26 17:27:12.964  INFO 16464 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-26 17:27:12.964  INFO 16464 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1310 ms
+2017-09-26 17:27:13.072  INFO 16464 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-26 17:27:13.077  INFO 16464 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-26 17:27:13.077  INFO 16464 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-26 17:27:13.077  INFO 16464 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-26 17:27:13.078  INFO 16464 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-26 17:27:13.433  INFO 16464 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:27:11 CST 2017]; root of context hierarchy
+2017-09-26 17:27:13.493  INFO 16464 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-26 17:27:13.495  INFO 16464 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-26 17:27:13.517  INFO 16464 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:27:13.517  INFO 16464 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:27:13.555  INFO 16464 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:27:13.709  INFO 16464 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-26 17:27:13.872  INFO 16464 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http)
+2017-09-26 17:27:13.877  INFO 16464 --- [main] com.znd.ei.Application                   : Started Application in 2.544 seconds (JVM running for 2.896)
+2017-09-26 17:27:13.878  INFO 16464 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:27:11 CST 2017]; root of context hierarchy
+2017-09-26 17:27:13.880  INFO 16464 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-26 17:27:58.565  INFO 14308 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 14308 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-09-26 17:27:58.567  INFO 14308 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-09-26 17:27:58.618  INFO 14308 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:27:58 CST 2017]; root of context hierarchy
+2017-09-26 17:27:59.805  INFO 14308 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-09-26 17:27:59.821  INFO 14308 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-26 17:27:59.823  INFO 14308 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-26 17:27:59.996  INFO 14308 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-26 17:27:59.996  INFO 14308 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1381 ms
+2017-09-26 17:28:00.131  INFO 14308 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-26 17:28:00.135  INFO 14308 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-26 17:28:00.135  INFO 14308 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-26 17:28:00.136  INFO 14308 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-26 17:28:00.136  INFO 14308 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-26 17:28:00.267  INFO 14308 --- [main] com.znd.ei.AppCommand                    : Create code
+2017-09-26 17:28:00.313  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:System, alias:系统
+2017-09-26 17:28:00.322  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:5 豪秒
+2017-09-26 17:28:00.322  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Zone, alias:分区
+2017-09-26 17:28:00.324  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.324  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Radial, alias:环辐网
+2017-09-26 17:28:00.325  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.326  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACBus, alias:交流母线
+2017-09-26 17:28:00.328  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:28:00.328  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACLine, alias:交流线路
+2017-09-26 17:28:00.330  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.331  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Wind, alias:变压器绕组
+2017-09-26 17:28:00.332  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.333  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Generator, alias:发电机
+2017-09-26 17:28:00.335  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:28:00.335  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:PowerLoad, alias:负荷
+2017-09-26 17:28:00.337  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:28:00.337  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:HVDC, alias:高压直流系统
+2017-09-26 17:28:00.339  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:28:00.339  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Converter, alias:变换器
+2017-09-26 17:28:00.340  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.340  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:DCBus, alias:直流母线
+2017-09-26 17:28:00.341  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.341  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:DCLine, alias:直流线路
+2017-09-26 17:28:00.342  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.342  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:TCSC, alias:可控串联补偿装置
+2017-09-26 17:28:00.343  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.343  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:UPFC, alias:统一潮流控制器
+2017-09-26 17:28:00.344  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.344  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:DevMState, alias:设备多状态
+2017-09-26 17:28:00.346  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:28:00.346  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACIsland, alias:交流电岛
+2017-09-26 17:28:00.347  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.347  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACLineEdge, alias:交流线路边
+2017-09-26 17:28:00.348  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.348  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:WindEdge, alias:变压器绕组边
+2017-09-26 17:28:00.349  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.349  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Trip, alias:开断故障信息
+2017-09-26 17:28:00.350  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.350  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:TripMIsland, alias:开断故障下孤岛信息
+2017-09-26 17:28:00.351  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.351  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:TripOvlDev, alias:开断故障下越限信息
+2017-09-26 17:28:00.352  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.352  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CommRParam, alias:可靠性公共参数
+2017-09-26 17:28:00.352  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.352  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ManualFault, alias:人工事件
+2017-09-26 17:28:00.353  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.353  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CommonFault, alias:共因故障
+2017-09-26 17:28:00.354  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.354  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:R2StateComp, alias:两状态可靠性设备
+2017-09-26 17:28:00.355  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.355  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:RMStateComp, alias:多状态可靠性设备
+2017-09-26 17:28:00.356  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.356  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:MCSampleState, alias:蒙特卡罗抽样状态
+2017-09-26 17:28:00.357  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.357  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FState, alias:抽样状态
+2017-09-26 17:28:00.358  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.358  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateFDev, alias:抽样状态下故障设备
+2017-09-26 17:28:00.359  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.359  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateMState, alias:抽样状态下多状态
+2017-09-26 17:28:00.360  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.360  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateMIsland, alias:抽样状态下孤岛损失
+2017-09-26 17:28:00.361  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.362  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateOvlDev, alias:抽样状态下越限设备
+2017-09-26 17:28:00.363  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.363  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateOvlAd, alias:抽样状态下越限调整
+2017-09-26 17:28:00.364  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:28:00.364  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FSecurity, alias:安全评价
+2017-09-26 17:28:00.365  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.365  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CopGen, alias:停运发电
+2017-09-26 17:28:00.366  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.367  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CopTable, alias:停运概率
+2017-09-26 17:28:00.367  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:28:00.367  INFO 14308 --- [main] c.z.e.c.service.MemClsssCreateService    : 类创建完成！
+2017-09-26 17:28:00.619  INFO 14308 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:27:58 CST 2017]; root of context hierarchy
+2017-09-26 17:28:00.681  INFO 14308 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-26 17:28:00.682  INFO 14308 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-26 17:28:00.703  INFO 14308 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:28:00.703  INFO 14308 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:28:00.740  INFO 14308 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:28:00.875  INFO 14308 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-26 17:28:00.937  INFO 14308 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http)
+2017-09-26 17:28:00.942  INFO 14308 --- [main] com.znd.ei.Application                   : Started Application in 2.69 seconds (JVM running for 3.021)
+2017-09-26 17:28:00.944  INFO 14308 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:27:58 CST 2017]; root of context hierarchy
+2017-09-26 17:28:00.946  INFO 14308 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-09-26 17:31:03.899  INFO 8948 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 8948 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-09-26 17:31:03.902  INFO 8948 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-09-26 17:31:03.956  INFO 8948 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:31:03 CST 2017]; root of context hierarchy
+2017-09-26 17:31:05.245  INFO 8948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-09-26 17:31:05.256  INFO 8948 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-09-26 17:31:05.257  INFO 8948 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-09-26 17:31:05.374  INFO 8948 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-09-26 17:31:05.375  INFO 8948 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1422 ms
+2017-09-26 17:31:05.512  INFO 8948 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-09-26 17:31:05.516  INFO 8948 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-09-26 17:31:05.517  INFO 8948 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-09-26 17:31:05.518  INFO 8948 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-09-26 17:31:05.518  INFO 8948 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-09-26 17:31:05.634  INFO 8948 --- [main] com.znd.ei.AppCommand                    : Create code
+2017-09-26 17:31:05.641  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:System, alias:系统
+2017-09-26 17:31:05.647  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:3 豪秒
+2017-09-26 17:31:05.648  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Zone, alias:分区
+2017-09-26 17:31:05.700  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:52 豪秒
+2017-09-26 17:31:05.701  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Radial, alias:环辐网
+2017-09-26 17:31:05.702  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.702  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACBus, alias:交流母线
+2017-09-26 17:31:05.705  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:31:05.706  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACLine, alias:交流线路
+2017-09-26 17:31:05.707  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.708  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Wind, alias:变压器绕组
+2017-09-26 17:31:05.709  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.709  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Generator, alias:发电机
+2017-09-26 17:31:05.711  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:31:05.711  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:PowerLoad, alias:负荷
+2017-09-26 17:31:05.712  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.713  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:HVDC, alias:高压直流系统
+2017-09-26 17:31:05.714  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.715  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Converter, alias:变换器
+2017-09-26 17:31:05.716  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.717  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:DCBus, alias:直流母线
+2017-09-26 17:31:05.717  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.717  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:DCLine, alias:直流线路
+2017-09-26 17:31:05.718  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.719  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:TCSC, alias:可控串联补偿装置
+2017-09-26 17:31:05.721  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.721  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:UPFC, alias:统一潮流控制器
+2017-09-26 17:31:05.722  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.723  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:DevMState, alias:设备多状态
+2017-09-26 17:31:05.725  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:2 豪秒
+2017-09-26 17:31:05.725  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACIsland, alias:交流电岛
+2017-09-26 17:31:05.726  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.727  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ACLineEdge, alias:交流线路边
+2017-09-26 17:31:05.728  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.728  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:WindEdge, alias:变压器绕组边
+2017-09-26 17:31:05.729  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.730  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:Trip, alias:开断故障信息
+2017-09-26 17:31:05.731  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.731  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:TripMIsland, alias:开断故障下孤岛信息
+2017-09-26 17:31:05.732  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.732  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:TripOvlDev, alias:开断故障下越限信息
+2017-09-26 17:31:05.733  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.733  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CommRParam, alias:可靠性公共参数
+2017-09-26 17:31:05.734  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.735  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:ManualFault, alias:人工事件
+2017-09-26 17:31:05.736  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.736  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CommonFault, alias:共因故障
+2017-09-26 17:31:05.737  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.737  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:R2StateComp, alias:两状态可靠性设备
+2017-09-26 17:31:05.738  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.738  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:RMStateComp, alias:多状态可靠性设备
+2017-09-26 17:31:05.739  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.739  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:MCSampleState, alias:蒙特卡罗抽样状态
+2017-09-26 17:31:05.740  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.740  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FState, alias:抽样状态
+2017-09-26 17:31:05.741  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.741  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateFDev, alias:抽样状态下故障设备
+2017-09-26 17:31:05.742  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.743  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateMState, alias:抽样状态下多状态
+2017-09-26 17:31:05.744  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.744  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateMIsland, alias:抽样状态下孤岛损失
+2017-09-26 17:31:05.745  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.745  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateOvlDev, alias:抽样状态下越限设备
+2017-09-26 17:31:05.746  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.746  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FStateOvlAd, alias:抽样状态下越限调整
+2017-09-26 17:31:05.747  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.747  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:FSecurity, alias:安全评价
+2017-09-26 17:31:05.748  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:0 豪秒
+2017-09-26 17:31:05.748  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CopGen, alias:停运发电
+2017-09-26 17:31:05.749  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.749  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : Create name:CopTable, alias:停运概率
+2017-09-26 17:31:05.750  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 执行耗时:1 豪秒
+2017-09-26 17:31:05.750  INFO 8948 --- [main] c.z.e.c.service.MemClsssCreateService    : 类创建完成！
+2017-09-26 17:31:06.028  INFO 8948 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:31:03 CST 2017]; root of context hierarchy
+2017-09-26 17:31:06.081  INFO 8948 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-09-26 17:31:06.082  INFO 8948 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-09-26 17:31:06.113  INFO 8948 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:31:06.114  INFO 8948 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:31:06.147  INFO 8948 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-09-26 17:31:06.274  INFO 8948 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-26 17:31:06.327  INFO 8948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http)
+2017-09-26 17:31:06.331  INFO 8948 --- [main] com.znd.ei.Application                   : Started Application in 2.737 seconds (JVM running for 3.076)
+2017-09-26 17:31:06.333  INFO 8948 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Tue Sep 26 17:31:03 CST 2017]; root of context hierarchy
+2017-09-26 17:31:06.334  INFO 8948 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown

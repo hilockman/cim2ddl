@@ -13,12 +13,14 @@ public abstract class AbstractMemTableRepository<T> implements
 
 	private MemTable table;
 
-	private Class clazz;
+	private Class<?> clazz;
 
 	private FieldInfo[] fieldInfos;
 
-	public AbstractMemTableRepository(Class<T> clazz) {
+	public AbstractMemTableRepository(Class<T> clazz,
+			MemTableOperations memTableOperations) {
 		this.clazz = clazz;
+		this.memTableOperations = memTableOperations;
 
 	}
 
@@ -108,8 +110,10 @@ public abstract class AbstractMemTableRepository<T> implements
 
 				String[] values = getTemplateRecord();
 
-				for (int i = 0; i < fieldInfos.length; i++) {
-					FieldInfo f = fieldInfos[i];
+				for (FieldInfo f : fieldInfos) {
+					if (f == null)
+						continue;
+						
 					MemField mfield = f.getMemField();
 					if (mfield == null)
 						continue;
@@ -118,8 +122,12 @@ public abstract class AbstractMemTableRepository<T> implements
 					if (field == null)
 						continue;
 
-					values[f.getMemField().getIndex()] = f.getField()
-							.get(entity).toString();
+					Object value = f.getField()
+					.get(entity);
+					if (value == null)
+						continue;
+					
+					values[mfield.getIndex()] = value.toString();
 				}
 
 			}

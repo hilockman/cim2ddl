@@ -13,19 +13,18 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileSystemUtils;
 
-import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.znd.ei.codegen.domain.FieldInfo;
 import com.znd.ei.common.Utils;
-import com.znd.ei.memdb.dao.MemTableOperations;
 import com.znd.ei.memdb.dao.MemField;
 import com.znd.ei.memdb.dao.MemTable;
+import com.znd.ei.memdb.dao.MemTableOperations;
 
-@Service
+@Component
 public class MemClsssCreateService implements ClassCreateService {
-	private MemTableOperations memDbRepository;
+	private MemTableOperations ops;
 	private Path rootLocation;
 	private static final Logger log = LoggerFactory
 			.getLogger(MemClsssCreateService.class);
@@ -33,26 +32,26 @@ public class MemClsssCreateService implements ClassCreateService {
 	private StorageProperties properties;
 
 	@Autowired
-	public MemClsssCreateService(MemTableOperations memDbRepository,
+	public MemClsssCreateService(MemTableOperations pROps,
 			StorageProperties properties) {
 		rootLocation = Paths.get(properties.getLocation());
-		this.setMemDbRepository(memDbRepository);
+		this.setMemDbRepository(pROps);
 		this.properties = properties;
 
 	}
 
 	public MemTableOperations getMemDbRepository() {
-		return memDbRepository;
+		return ops;
 	}
 
 	public void setMemDbRepository(MemTableOperations memDbRepository) {
-		this.memDbRepository = memDbRepository;
+		this.ops = memDbRepository;
 	}
 
 	@Override
 	public void createClasses() {
 
-		List<MemTable> tables = memDbRepository.getTables();
+		List<MemTable> tables = ops.getTables();
 		List<String> excludeClasses = properties.getExcludeClasses();
 		Pattern pattern = null;
 		if (excludeClasses != null && !excludeClasses.isEmpty()) {

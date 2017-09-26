@@ -1,4 +1,4 @@
-package com.znd.ei.memdb.config;
+package com.znd.ei.codegen.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
