@@ -1,4 +1,4 @@
-package com.znd.ei.memdb.dao;
+package com.znd.ei.memdb;
 
 public enum MemDbDataType {
 

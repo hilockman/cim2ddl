@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,21 +19,22 @@ import org.springframework.util.FileSystemUtils;
 
 import com.znd.ei.codegen.domain.FieldInfo;
 import com.znd.ei.common.Utils;
-import com.znd.ei.memdb.dao.MemField;
-import com.znd.ei.memdb.dao.MemTable;
-import com.znd.ei.memdb.dao.MemTableOperations;
+import com.znd.ei.memdb.DbEntry;
+import com.znd.ei.memdb.DbEntryOperations;
+import com.znd.ei.memdb.MemField;
+import com.znd.ei.memdb.MemTable;
 
 @Component
-public class MemClsssCreateService implements ClassCreateService {
-	private MemTableOperations ops;
+public class MemClassCreateService implements ClassCreateService {
+	private DbEntryOperations ops;
 	private Path rootLocation;
 	private static final Logger log = LoggerFactory
-			.getLogger(MemClsssCreateService.class);
+			.getLogger(MemClassCreateService.class);
 
 	private StorageProperties properties;
 
 	@Autowired
-	public MemClsssCreateService(MemTableOperations pROps,
+	public MemClassCreateService(DbEntryOperations pROps,
 			StorageProperties properties) {
 		rootLocation = Paths.get(properties.getLocation());
 		this.setMemDbRepository(pROps);
@@ -40,11 +42,11 @@ public class MemClsssCreateService implements ClassCreateService {
 
 	}
 
-	public MemTableOperations getMemDbRepository() {
+	public DbEntryOperations getMemDbRepository() {
 		return ops;
 	}
 
-	public void setMemDbRepository(MemTableOperations memDbRepository) {
+	public void setMemDbRepository(DbEntryOperations memDbRepository) {
 		this.ops = memDbRepository;
 	}
 
@@ -60,12 +62,12 @@ public class MemClsssCreateService implements ClassCreateService {
 					+ ")", Pattern.CASE_INSENSITIVE);
 		}
 
-		for (MemTable table: tables) {
+		for (MemTable table : tables) {
 			if (pattern != null) {
 				Matcher m = pattern.matcher(table.getName());
 				if (m.matches()) {
-					log.info(">>>>>>>>>Omit Class:" + table.getName() + ", alias:"
-							+ table.getDescription());
+					log.info(">>>>>>>>>Omit Class:" + table.getName()
+							+ ", alias:" + table.getDescription());
 					continue;
 				}
 			}
@@ -148,15 +150,11 @@ public class MemClsssCreateService implements ClassCreateService {
 
 		List<MemField> fields = table.getFields();
 		List<FieldInfo> fieldInfos = new ArrayList<FieldInfo>();
-		FieldInfo idInfo = new FieldInfo();
-		idInfo.setName("Id");
-		idInfo.setTypeName("Integer");
-		idInfo.setStandardName("id");
-		List<String> annotations = new ArrayList<String>();
-		annotations.add("@Id");
-		annotations.add("@GeneratedValue(strategy=GenerationType.AUTO)");
-		idInfo.setAnnotations(annotations);
-		fieldInfos.add(idInfo);
+		addField(fieldInfos, "Id", "id", "Integer", "@Id",
+				"@GeneratedValue(strategy=GenerationType.AUTO)");
+		addField(fieldInfos,
+				Utils.upperCaseFirstLetter(DbEntry.MEM_INDEX_COLUMN_NAME),
+				DbEntry.MEM_INDEX_COLUMN_NAME, "Integer");
 
 		for (int i = 0; i < fields.size(); i++) {
 			MemField f = fields.get(i);
@@ -266,6 +264,18 @@ public class MemClsssCreateService implements ClassCreateService {
 		long end = System.currentTimeMillis();
 		log.info("执行耗时:" + (end - begin) + " 豪秒");
 
+	}
+
+	private void addField(List<FieldInfo> fieldInfos, String name,
+			String standardName, String typeName, String... annotations) {
+
+		FieldInfo idInfo = new FieldInfo();
+		idInfo.setName(name);
+		idInfo.setTypeName(typeName);
+		idInfo.setStandardName(standardName);
+		List<String> list = Arrays.asList(annotations);
+		idInfo.setAnnotations(list);
+		fieldInfos.add(idInfo);
 	}
 
 }

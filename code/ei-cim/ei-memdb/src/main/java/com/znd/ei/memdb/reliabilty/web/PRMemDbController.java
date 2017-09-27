@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.znd.ei.memdb.dao.MemTableOperations;
-import com.znd.ei.memdb.dao.MemTable;
+import com.znd.ei.memdb.DbEntryOperations;
+import com.znd.ei.memdb.MemTable;
 
 @Controller
 @RequestMapping(path = "/memdb")
 public class PRMemDbController {
 	@Autowired
-	private MemTableOperations pRMemTableOperations;
+	private DbEntryOperations pRMemTableOperations;
 
 	@GetMapping(path = "/tables")
 	public @ResponseBody String[] getTables() {

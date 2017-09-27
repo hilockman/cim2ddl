@@ -1,4 +1,4 @@
-package com.znd.ei.memdb.dao;
+package com.znd.ei.memdb;
 
 
 public interface MemTableRepository<T> {
@@ -10,7 +10,7 @@ public interface MemTableRepository<T> {
 	 * @param entity
 	 * @return the saved entity
 	 */
-	<S extends T> S save(S entity);
+	<S extends T> S saveOrUpdate(S entity);
 
 	/**
 	 * Saves all given entities.
@@ -19,7 +19,7 @@ public interface MemTableRepository<T> {
 	 * @return the saved entities
 	 * @throws IllegalArgumentException in case the given entity is {@literal null}.
 	 */
-	<S extends T> Iterable<S> save(Iterable<S> entities);
+	<S extends T> Iterable<S> saveOrUpdate(Iterable<S> entities);
 
 
 	/**

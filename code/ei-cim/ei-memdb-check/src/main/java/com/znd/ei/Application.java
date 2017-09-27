@@ -12,11 +12,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 import com.ZhongND.memdb.MDBDefine;
-import com.znd.ei.memdb.connection.Connection;
-import com.znd.ei.memdb.dao.MemTableOperations;
-import com.znd.ei.memdb.dao.MemField;
-import com.znd.ei.memdb.dao.MemTable;
-import com.znd.ei.memdb.dao.MemTableOperationsImp;
+import com.znd.ei.memdb.Connection;
+import com.znd.ei.memdb.DbEntry;
+import com.znd.ei.memdb.DbEntryCollection;
+import com.znd.ei.memdb.DbEntryOperations;
+import com.znd.ei.memdb.DbException;
+import com.znd.ei.memdb.MemField;
+import com.znd.ei.memdb.MemTable;
 
 @SpringBootApplication
 @EnableConfigurationProperties(CheckProperties.class)
@@ -27,16 +29,13 @@ public class Application {
     }
     
 	@Bean
-	public MemTableOperations[] pROps() {
+	public DbEntryOperations[] pROps(DbEntryCollection c) throws DbException {
 		String[] entryNames = MDBDefine.g_strDBEntryArray;
-		String[] descs = MDBDefine.g_strDBEntryDespArray;
-		MemTableOperations [] opss = new MemTableOperations[entryNames.length];
+		DbEntryOperations [] opss = new DbEntryOperations[entryNames.length];
 		int index = 0;
+		
 		for (String entryName : entryNames) {
-			Connection conn = new Connection();			
-			conn.setEntryName(entryName);
-			conn.setDesc(descs[index]);
-			MemTableOperations ops = new MemTableOperationsImp(conn);
+			DbEntryOperations ops = c.findOrCreateDbEntry(entryName);
 			opss[index++] = ops;
 		}
 		
@@ -44,7 +43,7 @@ public class Application {
 	}
 	
     @Bean
-    public CommandLineRunner init(MemTableOperations[] opss, CheckProperties properties) {
+    public CommandLineRunner init(DbEntryOperations[] opss, CheckProperties properties) {
         return (args) -> {
 			List<String> names = properties.getExcludeFieldNames();
 			List<Pattern> excludeFieldPatterns = new ArrayList<Pattern>();			
@@ -68,9 +67,9 @@ public class Application {
 				excludeTablePatterns.add(Pattern.compile(patternString,Pattern.CASE_INSENSITIVE));
 			}
 			
-			for (MemTableOperations ops : opss) {
+			for (DbEntryOperations ops : opss) {
 				Connection conn = ops.getConnection();
-				System.out.println(String.format("*********Check memdb : name=%s desc=%s***********", conn.getEntryName(), conn.getDesc()));
+				System.out.println(String.format("*********Check memdb : name=%s desc=%s***********", conn.getName(), conn.getDesc()));
 		       	List<MemTable> tables = ops.getTables();
 
 				

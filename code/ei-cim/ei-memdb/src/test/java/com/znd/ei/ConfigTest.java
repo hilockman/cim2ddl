@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.znd.ei.memdb.dao.MemTableOperations;
+import com.znd.ei.memdb.DbEntryOperations;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ConfigTest {
 
 	@Autowired
-	MemTableOperations pRperations;
+	DbEntryOperations pRperations;
 	
     @Test
     public void contexLoads() throws Exception {

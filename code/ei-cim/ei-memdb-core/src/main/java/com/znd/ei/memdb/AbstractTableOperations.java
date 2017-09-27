@@ -1,35 +1,37 @@
-package com.znd.ei.memdb.dao;
+package com.znd.ei.memdb;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-public abstract class AbstractMemTableRepository<T> implements
+public class AbstractTableOperations<T> implements
 		MemTableRepository<T> {
-	private MemTableOperations memTableOperations;
+	private DbEntryOperations dbEntryOps;
 
 	private MemTable table;
 
 	private Class<?> clazz;
 
+	private Field memIndexField;
 	private FieldInfo[] fieldInfos;
 
-	public AbstractMemTableRepository(Class<T> clazz,
-			MemTableOperations memTableOperations) {
+	public AbstractTableOperations(Class<T> clazz,
+			DbEntryOperations dbEntryOps) {
 		this.clazz = clazz;
-		this.memTableOperations = memTableOperations;
+		this.dbEntryOps = dbEntryOps;
 
 	}
 
 	@PostConstruct
-	public void init() throws NoSuchMethodException, SecurityException {
+	public void init() throws NoSuchMethodException, SecurityException, DbException {
 		String className = clazz.getSimpleName();
-		table = memTableOperations.findTableByName(className);
+		table = dbEntryOps.findTableByName(className);
 		if (table == null) {
-			System.out.println("Find no table by class name : " + className);
+			throw new DbException("Find no table by class name : " + className);
 		}
 		Field[] fields = clazz.getDeclaredFields();
 		fieldInfos = new FieldInfo[fields.length];
@@ -38,35 +40,25 @@ public abstract class AbstractMemTableRepository<T> implements
 		for (int i = 0; i < fieldNum; i++) {
 			Field f = fields[i];
 			String name = f.getName();
-			if (name.compareToIgnoreCase("id") == 0) {
-				fields[i] = null;
+			if (name.compareToIgnoreCase(DbEntry.MEM_INDEX_COLUMN_NAME) == 0) {
+//				fields[i] = null;
+				memIndexField = f;
 				break;
 			}
 		}
 		for (int i = 0; i < fieldNum; i++) {
 			Field f = fields[i];
-			if (f == null)
-				continue;
-
-			String name = f.getName();
-
-			StringBuffer sb = new StringBuffer();
-			sb.append("set").append(name.substring(0, 1).toUpperCase())
-					.append(name.substring(1));
-			StringBuffer sb1 = new StringBuffer();
-			sb1.append("get").append(name.substring(0, 1).toUpperCase())
-					.append(name.substring(1));
+//			if (f == null)
+//				continue;
 
 			FieldInfo fieldInfo = new FieldInfo();
 			f.setAccessible(true);
-
-			if (table != null)
-				fieldInfo.setMemField(table.findFieldByName(name));
-
 			fieldInfo.setField(f);
+			String name = f.getName();
+			MemField mf = table.findFieldByName(name);
+			fieldInfo.setMemField(mf);
 
-			Class fzz = f.getType();
-
+			Class<?> fzz = f.getType();
 			if (fzz == Short.class) {
 				fieldInfo.setValueParser(ValueParse.Short_Parser);
 			} else if (fzz == Double.class) {
@@ -82,6 +74,37 @@ public abstract class AbstractMemTableRepository<T> implements
 
 	}
 
+
+
+	private String[] getTemplateRecord() {
+		String[] strs = new String[table.getFields().size()];
+		Arrays.fill(strs, "");
+		return strs;
+	}
+
+	private void setMemIndex(Object obj, Integer id) {
+		if (memIndexField == null)
+			return;
+		try {
+			memIndexField.set(obj, id);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private Integer getMemIndex(Object obj) {
+		if (memIndexField == null)
+			return null;
+		try {
+			return (Integer) memIndexField.get(obj);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * Saves a given entity. Use the returned instance for further operations as
 	 * the save operation might have changed the entity instance completely.
@@ -89,28 +112,30 @@ public abstract class AbstractMemTableRepository<T> implements
 	 * @param entity
 	 * @return the saved entity
 	 */
-	public <S extends T> S save(S entity) {
+	public <S extends T> S saveOrUpdate(S entity) {
 		List<S> entities = new ArrayList<S>();
 		entities.add(entity);
-		save(entities);
+		saveOrUpdate(entities);
 		return entities.get(0);
 	}
-
-	private String[] getTemplateRecord() {
-		return new String[table.getFields().size()];
-	}
-
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public <S extends T> Iterable<S> save(Iterable<S> entities) {
-		List<String[]> records = new ArrayList<String[]>();
+	public <S extends T> Iterable<S> saveOrUpdate(Iterable<S> entities) {
+		List<String[]> newRecords = new ArrayList<String[]>();
+		List<String[]> updateRecords = new ArrayList<String[]>();
 		Iterator it = entities.iterator();
 		try {
+			List<S> newObjects = new ArrayList<S>(); 
+			List<S> updateObjects  = new ArrayList<S>();
+			
 			while (it.hasNext()) {
 				S entity = (S) it.next();
 
 				String[] values = getTemplateRecord();
 
 				for (FieldInfo f : fieldInfos) {
+			
 					if (f == null)
 						continue;
 						
@@ -129,11 +154,30 @@ public abstract class AbstractMemTableRepository<T> implements
 					
 					values[mfield.getIndex()] = value.toString();
 				}
+				
+				Integer index = getMemIndex(entity);
+
+				if (index != null) {
+					updateRecords.add(values);
+					updateObjects.add(entity);	
+				} else {
+					newRecords.add(values);
+					newObjects.add(entity);					
+				}
 
 			}
 
-			memTableOperations.saveRecords(table, records);
-		} catch (MemDbError e) {
+
+			List<Integer> rowIndexes = dbEntryOps.saveRecords(table, newRecords);
+			for (int i = 0; i < rowIndexes.size(); i++) {
+				S e = newObjects.get(i);
+				setMemIndex(e, rowIndexes.get(i));
+			}
+			
+			
+			dbEntryOps.updateRecords(table, updateRecords);
+			
+		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -151,10 +195,11 @@ public abstract class AbstractMemTableRepository<T> implements
 	public Iterable<T> findAll() {
 		List entities = new ArrayList<T>();
 		try {
-			List<String[]> records = memTableOperations.findAllRecords(table);
+			List<String[]> records = dbEntryOps.findAllRecords(table);
 			for (int i = 0; i < records.size(); i++) {
 
 				T entity = (T) clazz.newInstance();
+				setMemIndex(entity, i);
 				for (int j = 0; j < fieldInfos.length; j++) {
 					FieldInfo f = fieldInfos[j];
 					if (f == null)
@@ -176,7 +221,7 @@ public abstract class AbstractMemTableRepository<T> implements
 
 				entities.add(entity);
 			}
-		} catch (MemDbError e) {
+		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -194,15 +239,15 @@ public abstract class AbstractMemTableRepository<T> implements
 
 	@Override
 	public long count() {
-		return memTableOperations.getRecordCount(table);
+		return dbEntryOps.getRecordCount(table);
 	}
 
 	@Override
 	public void delete(T entity) {
 		String[] record = null;
 		try {
-			memTableOperations.deleteRecord(table, record);
-		} catch (MemDbError e) {
+			dbEntryOps.deleteRecord(table, record);
+		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -216,15 +261,63 @@ public abstract class AbstractMemTableRepository<T> implements
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-
+		dbEntryOps.clearTable(table);
 	}
 
-	public MemTableOperations getMemDbRepository() {
-		return memTableOperations;
+	public DbEntryOperations getMemDbRepository() {
+		return dbEntryOps;
 	}
 
-	public void setMemDbRepository(MemTableOperations memDbRepository) {
-		this.memTableOperations = memDbRepository;
+	public void setMemDbRepository(DbEntryOperations memDbRepository) {
+		this.dbEntryOps = memDbRepository;
 	}
+}
+
+
+
+class FieldInfo {
+	public FieldInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	private Field field;
+	private MemField memField;
+
+	@SuppressWarnings("rawtypes")
+	private ValueParse valueParser;
+
+	public Field getField() {
+		return field;
+	}
+
+	public void setField(Field field) {
+		this.field = field;
+	}
+
+	public MemField getMemField() {
+		return memField;
+	}
+
+	public void setMemField(MemField memField) {
+		this.memField = memField;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public ValueParse getValueParser() {
+		return valueParser;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setValueParser(ValueParse valueParser) {
+		this.valueParser = valueParser;
+	}
+	
+	public Object toObject(String value) {
+		if (valueParser == null)
+			return value;
+		else
+			return valueParser.toObject(value);
+	}
+
 }

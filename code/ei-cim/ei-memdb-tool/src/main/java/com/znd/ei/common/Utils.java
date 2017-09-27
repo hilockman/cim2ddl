@@ -16,4 +16,10 @@ public class Utils {
 		}
 		path.delete();
 	}
+
+	public static String upperCaseFirstLetter(String str) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(str.substring(0, 1).toUpperCase()).append(str.substring(1));
+		return sb.toString();
+	}
 }

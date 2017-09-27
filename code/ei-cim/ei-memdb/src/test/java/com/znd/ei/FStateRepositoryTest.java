@@ -24,9 +24,45 @@ public class FStateRepositoryTest {
     
     @Test 
     public void saveAndRead() throws Exception {
-    	FState state = new FState();
-    	state.setId(1);
-    	repository.save(state);
+    	repository.deleteAll();
+    	
+    	for (int i = 0; i < 10; i ++) {
+        	FState state = new FState();
+        	
+        	state.setId(1);
+        	state.setFDevNum(10+i);
+        	state = repository.saveOrUpdate(state);
+        	
+        	assertThat(state.getMemIndex() == i);    		
+    	}
+
+    	
+    	assertThat(repository.count() == 10);
+    }
+    
+    @Test 
+    public void update() throws Exception {
+    	repository.deleteAll();
+    	FState [] states = new FState[10];
+    	for (int i = 0; i < 10; i ++) {
+        	FState state = new FState();
+        	
+        	state.setId(1);
+        	state.setFDevNum(10+i);
+        	state = repository.saveOrUpdate(state);
+        	
+        	assertThat(state.getMemIndex() == i);  
+        	states[i] = state;
+    	}
+    	
+    	for (int i = 0; i < 10; i++) {
+    		
+        	FState state = states[i];
+        	System.out.println("update row:"+state.getMemIndex());
+        	state.setBalanceCutGen(100.00+i);
+        	repository.saveOrUpdate(state);    		
+    	}
+
     	assertThat(repository.count() > 0);
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<BpaPRAdequacySetting>
+    <Base>
+        <BpaDatFile>C:\Users\jiangyi\Desktop\1\算例\RTS79\RTS79.dat</BpaDatFile>
+        <BpaSwiFile>C:\Users\jiangyi\Desktop\1\算例\RTS79\RTS79.swi</BpaSwiFile>
+        <BpaRParamFile>C:\Users\jiangyi\Desktop\1\算例\RTS79\RTS79.xml</BpaRParamFile>
+        <TinyGenThreshold>0.000000</TinyGenThreshold>
+        <LowVoltThreshold>0.000000</LowVoltThreshold>
+        <ZIL>0.000010</ZIL>
+        <SampleType>1</SampleType>
+        <MaxGenFault>20</MaxGenFault>
+        <MaxBranFault>20</MaxBranFault>
+        <LineELimit>1</LineELimit>
+        <TranELimit>1</TranELimit>
+        <GenPELimit>1</GenPELimit>
+        <UPFCELimit>1</UPFCELimit>
+        <AuxLoadAdjust>1</AuxLoadAdjust>
+        <EQGenAdjust>0</EQGenAdjust>
+        <EQLoadAdjust>0</EQLoadAdjust>
+        <MCSSimulateTime>2000000</MCSSimulateTime>
+        <MCSMinStateProb>0.000000</MCSMinStateProb>
+        <FSTMaxStateNum>100000</FSTMaxStateNum>
+        <FSTMaxCumuProb>0.990000</FSTMaxCumuProb>
+        <FSTMinStateProb>1.000000</FSTMinStateProb>
+        <STSMaxStateNum>100000</STSMaxStateNum>
+        <ANAMinStateProb>1.000000</ANAMinStateProb>
+        <Dc2AcFactor>1.100000</Dc2AcFactor>
+        <MinIslandGLRatio>0.500000</MinIslandGLRatio>
+        <MultiThread>1</MultiThread>
+        <UPFCAdjustRatedCapacity>1</UPFCAdjustRatedCapacity>
+        <GenBusLoadAsAux>0</GenBusLoadAsAux>
+    </Base>
+</BpaPRAdequacySetting>

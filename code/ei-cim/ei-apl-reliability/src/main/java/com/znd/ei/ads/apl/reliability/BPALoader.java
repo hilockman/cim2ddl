@@ -8,8 +8,8 @@ import com.znd.ei.ads.apl.annotations.Apl;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
 
-@Apl(value = "BPAModelUploader")
-public class BPAModelUploader {
+@Apl(value = "BPALoader")
+public class BPALoader {
 
 	public void upload(@In("create_BPAModel") StringData createConfig,
 			@Out("created_BPAModel") MemDBData bPAModel) throws ACPException,
