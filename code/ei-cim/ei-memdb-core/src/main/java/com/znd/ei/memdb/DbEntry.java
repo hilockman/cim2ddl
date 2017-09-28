@@ -1,7 +1,6 @@
 package com.znd.ei.memdb;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,8 +11,8 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	
 	public static String MEM_INDEX_COLUMN_NAME = "memIndex";
 	
-	private static List<MemTable> tables;
-	private static HashMap<String, MemTable> tableMap;
+	private List<MemTable> tables;
+	private HashMap<String, MemTable> tableMap;
 
 	private Connection connection;
 	private String dbname;

@@ -26,7 +26,7 @@
     </dependency-->     
     <dependency>
     	<groupId>com.znd.ei</groupId>
-    	<artifactId>ei-ads</artifactId>
+    	<artifactId>ei-ads-core</artifactId>
     	<version>${project.version}</version>
     </dependency>    
   </dependencies>

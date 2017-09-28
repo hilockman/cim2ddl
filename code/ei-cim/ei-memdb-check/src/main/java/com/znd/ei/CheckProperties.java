@@ -13,6 +13,7 @@ public class CheckProperties {
 	private List<String> excludeTableNames = new ArrayList<String>();
     private List<String> excludeFieldNames = new ArrayList<String>();
     private String excludeFieldPattern;
+    private String fieldPattern;
 	public List<String> getExcludeFieldNames() {
 		return excludeFieldNames;
 	}
@@ -36,6 +37,14 @@ public class CheckProperties {
 
 	public void setExcludeTableNames(List<String> excludeTableNames) {
 		this.excludeTableNames = excludeTableNames;
+	}
+
+	public String getFieldPattern() {
+		return fieldPattern;
+	}
+
+	public void setFieldPattern(String fieldPattern) {
+		this.fieldPattern = fieldPattern;
 	}
     
 

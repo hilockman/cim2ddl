@@ -34,21 +34,22 @@ public class MemClassCreateService implements ClassCreateService {
 	private StorageProperties properties;
 
 	@Autowired
-	public MemClassCreateService(DbEntryOperations pROps,
+	public MemClassCreateService(DbEntryOperations bPAOps,
 			StorageProperties properties) {
 		rootLocation = Paths.get(properties.getLocation());
-		this.setMemDbRepository(pROps);
+		this.ops = bPAOps;
+		//this.setMemDbRepository(bPAOps);
 		this.properties = properties;
 
 	}
 
-	public DbEntryOperations getMemDbRepository() {
-		return ops;
-	}
-
-	public void setMemDbRepository(DbEntryOperations memDbRepository) {
-		this.ops = memDbRepository;
-	}
+//	public DbEntryOperations getMemDbRepository() {
+//		return ops;
+//	}
+//
+//	public void setMemDbRepository(DbEntryOperations memDbRepository) {
+//		this.ops = memDbRepository;
+//	}
 
 	@Override
 	public void createClasses() {

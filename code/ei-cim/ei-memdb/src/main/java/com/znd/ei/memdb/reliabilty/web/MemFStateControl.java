@@ -12,11 +12,11 @@ import com.znd.ei.memdb.reliabilty.dao.FStateRepository;
 @RequestMapping(path = "/memfstate")
 public class MemFStateControl {
 	@Autowired
-	private FStateRepository memFStateRepository;
+	private FStateRepository pROps;
 	
 	
 	@GetMapping(path = "/records")
 	public @ResponseBody Iterable getRecords() {
-		return memFStateRepository.findAll();
+		return pROps.findAll();
 	}
 }

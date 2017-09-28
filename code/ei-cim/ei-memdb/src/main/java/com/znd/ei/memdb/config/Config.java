@@ -43,6 +43,9 @@ public class Config {
 		return c.findOrCreateDbEntry(MDBDefine.g_strPRDBEntry);
 	}
 	
-
+	@Bean
+	public DbEntryOperations bPAOps(DbEntryCollection c) throws DbException {
+		return c.findOrCreateDbEntry(MDBDefine.g_strBpaDBEntry);
+	}
 
 }

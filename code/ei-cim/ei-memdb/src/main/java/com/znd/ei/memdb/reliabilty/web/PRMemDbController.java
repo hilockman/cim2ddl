@@ -16,25 +16,25 @@ import com.znd.ei.memdb.MemTable;
 @RequestMapping(path = "/memdb")
 public class PRMemDbController {
 	@Autowired
-	private DbEntryOperations pRMemTableOperations;
+	private DbEntryOperations pROps;
 
 	@GetMapping(path = "/tables")
 	public @ResponseBody String[] getTables() {
-		return pRMemTableOperations.getTableNames();
+		return pROps.getTableNames();
 	}
 
 	@GetMapping(path = "/table")
 	public @ResponseBody Iterable<MemTable> getTable(@RequestParam String name) {
 		if (name != null && !name.isEmpty()) {
-			return  Arrays.asList(new MemTable[]{pRMemTableOperations.findTableByName(name)});
+			return  Arrays.asList(new MemTable[]{pROps.findTableByName(name)});
 		} else
-			return pRMemTableOperations.getTables();
+			return pROps.getTables();
 	}
 	
 	
 	@GetMapping(path = "/clear")
 	public @ResponseBody String clear() {
-		pRMemTableOperations.clearDb();
+		pROps.clearDb();
 		return "clear!";
 	}
 }

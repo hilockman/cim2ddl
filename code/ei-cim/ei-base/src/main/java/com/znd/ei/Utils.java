@@ -16,12 +16,9 @@ import com.google.gson.Gson;
 
 public class Utils {
 
-	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
-		Set<Class<?>> classes = getClasses("com.znd.ei.adf");
-		for (Class c : classes) {
-			System.out.println(c.getName());
-		}
+		Integer i = Integer.valueOf("0");
+		System.out.println(i);
 	}
 
 	/**

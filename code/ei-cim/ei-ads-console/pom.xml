@@ -25,12 +25,26 @@
     	<artifactId>ei-acp-springredis</artifactId>
     	<version>${project.version}</version>
     </dependency-->   
-    
+       
     <dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-apl-reliability</artifactId>
     	<version>${project.version}</version>
     </dependency> 
+    
+ 		<!-- Use MySQL Connector-J -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		   
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>    
   </dependencies>
   
  	<build>
