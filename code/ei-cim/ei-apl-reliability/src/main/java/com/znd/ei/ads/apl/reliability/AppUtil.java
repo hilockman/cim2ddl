@@ -18,6 +18,8 @@ public class AppUtil {
 	public static final String GC_BPA_2_PR = "GCBPA2PR";
 	public static final String GC_STATE_SAMPLE = "GCStateSample";
 
+	public static final String GC_STATE_ESTIMATE = "GCStateEstimate";
+	public static final String GC_RELIABILITY_INDEX = "GCReliabilityIndex";
 	/**
 	 * 
 	 * @param appPath
