@@ -15,15 +15,15 @@ import com.znd.ei.memdb.DbEntryOperations;
 public class ConfigTest {
 
 	@Autowired
-	DbEntryOperations pRperations;
+	DbEntryOperations pROps;
 	
     @Test
     public void contexLoads() throws Exception {
-        assertThat(pRperations).isNotNull();
+        assertThat(pROps).isNotNull();
     }
     
     @Test
     public void tableCount() throws Exception {
-    	assertThat(pRperations.getTableNames()).contains("FState", "FStateFDev");
+    	assertThat(pROps.getTableNames()).contains("FState", "FStateFDev");
     }
 }

@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
@@ -25,7 +27,7 @@ import com.znd.ei.ads.apl.annotations.Out;
  * @author wangheng 本地数据域存储
  *
  */
-
+@Component
 public final class DataFieldStorage {
 	
 	public static void main(String [] args) {
@@ -66,6 +68,7 @@ public final class DataFieldStorage {
 
 	private Map<String, Method> dataType2IOMethod = new HashMap<String, Method>();
 	
+	@Autowired
 	public DataFieldStorage(ServerProperties serverProperties,
 			ConnectionFactory connectionFactory, AplContainer aplManager) {
 		this.serverProperties = serverProperties;
@@ -205,6 +208,9 @@ public final class DataFieldStorage {
 		}
 
 		void clear() {
+			if (dataItem != null)
+				dataItem.clear();
+			
 			dataItem = null;
 		}
 	}
@@ -387,7 +393,11 @@ public final class DataFieldStorage {
 	
 		DataField df = dataFields.get(contentCode);
 		try {
-			df.initDataItem(content);
+			if (df.isEmpty()) //数据域为空，则初始化
+				df.initDataItem(content);
+			else if (!df.dataItem.getKey().equals(content)) { //数据域不为空，数据key值与消息不一致
+				df.clear(); 
+			}
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | InstantiationException e) {
 

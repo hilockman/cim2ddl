@@ -14,15 +14,28 @@ import com.znd.ei.memdb.DbException;
 import com.znd.ei.memdb.MemTable;
 import com.znd.ei.memdb.bpa.dao.ACLineRepository;
 import com.znd.ei.memdb.bpa.domain.BpaDat_ACLine;
+import com.znd.ei.memdb.reliabilty.dao.FStateRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AppUtilTest {
 
-	String dataRootPath = "D:/ZNDProject/data";
-	String execRootPath = "D:/ZNDProject/bin_x64";
+	static public String rootPath = "E:/ZNDProject";
+	static {
+		String str = System.getenv("ZND_HOME");
+		if (str != null && !str.isEmpty()) {
+			rootPath = str;
+		}
+	}
+
+	String dataRootPath = rootPath + "/data";
+	String execRootPath = rootPath + "/bin_x64";
+
 	@Autowired
-	private ACLineRepository repository;
+	private ACLineRepository aclineRepository;
+
+	@Autowired
+	private FStateRepository fStateRepository;
 
 	@Autowired
 	private DbEntryOperations bPAOps;
@@ -30,34 +43,105 @@ public class AppUtilTest {
 	@Autowired
 	private DbEntryOperations pROps;
 
-	@Test
-	public void testBpaLoader() throws Exception {
-		System.out
-				.println("----------------------start testBpaLoader-----------------------------");
+	private void callBpaLoader() {
 		AppUtil.execute(AppUtil.GC_BPA_LOADER, execRootPath, dataRootPath
 				+ "/RTS79.dat", dataRootPath + "/RTS79.swi");
-		Iterable<BpaDat_ACLine> states = repository.findAll();
-		int n = 0;
-		for (BpaDat_ACLine state : states) {
-			System.out.println(state);
-			n++;
-		}
-		System.out.println("Load BpaDat_ACLine:" + n);
+	}
 
-		List<MemTable> tables = bPAOps.getTables();
+	private void callBpa2Pr() {
+		AppUtil.execute(AppUtil.GC_BPA_2_PR, execRootPath, dataRootPath
+				+ "/RTS79.dat", dataRootPath + "/RTS79.swi", dataRootPath
+				+ "/RTS79.xml");
+	}
+
+	private void callStateSample() {
+		AppUtil.execBuilder(AppUtil.GC_STATE_SAMPLE).addParam(execRootPath)
+		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
+				.addParam("全部")
+				// 抽样类型 nPRSampleMethod
+				.addParam("1").
+				// 抽样最大发电机故障重数 nMaxGenFault
+				addParam("20")
+				// 抽样最大支路故障重数 nMaxBranFault
+				.addParam("20")
+				// MCS最大抽样仿真时长 nMCSSimulateTime
+				.addParam("2000000").
+				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
+				addParam("0.000000").
+				// FST[快速排序]累积概率 fFSTMaxCumuProb
+				addParam("0.990000")
+				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
+				.addParam("1.000000")
+				// FST[快速排序]最大状态数 nFSTMaxStateNum
+				.addParam("100000")
+				// STS[状态抽样]最大状态数 nSTSMaxStateNum
+				.addParam("100000")
+				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
+				.addParam("1.000000").exec();
+	}
+
+	private void callStateEstimate() {
+		AppUtil.execBuilder(AppUtil.GC_STATE_ESTIMATE).addParam(execRootPath)
+		// 直流潮流2 交流潮流系数 fDc2AcFactor
+				.addParam("1.100000")
+				// 线路消限 bLineELimit
+				.addParam("1")
+				// 主变消限 bTranELimit
+				.addParam("1")
+				// 调整发电机消限 bGenPELimit
+				.addParam("1")
+				// 调整UPFC消限 bUPFCELimit
+				.addParam("1")
+				// 厂用电参与消限 bAuxLoadAdjust
+				.addParam("1")
+				// 等值发电机参与消限 bEQGenAdjust
+				.addParam("0")
+				// 等值负荷参与消限 bEQLoadAdjust
+				.addParam("0")
+				// 孤岛的最小容载比 fMinIslandGLRatio
+				.addParam("0.500000")
+				// UPFC采用变容法 bUPFCAdjustRC
+				.addParam("1").exec();
+
+	}
+
+	private void callReliabilityIndex() {
+		AppUtil.execBuilder(AppUtil.GC_RELIABILITY_INDEX)
+				.addParam(execRootPath)
+				// 直流潮流2 交流潮流系数 fDc2AcFactor
+				.addParam("1.100000").exec();
+	}
+
+	private void printDbEntry(DbEntryOperations ops) throws DbException {
+		List<MemTable> tables = ops.getTables();
 		for (MemTable table : tables) {
-			long count = bPAOps.getRecordCount(table);
+			long count = ops.getRecordCount(table);
 			if (count == 0)
 				continue;
 
 			System.out.println(String.format("Table :%s, desc:%s, count:%d",
 					table.getName(), table.getDescription(), count));
-			List<String[]> rt = bPAOps.findAllRecords(table);
+			List<String[]> rt = ops.findAllRecords(table);
 			for (String[] records : rt) {
 				System.out.println(String.join(" ", records));
 				break;
 			}
 		}
+	}
+
+	@Test
+	public void testBpaLoader() throws Exception {
+		System.out
+				.println("----------------------start testBpaLoader-----------------------------");
+		callBpaLoader();
+
+		Iterable<BpaDat_ACLine> states = aclineRepository.findAll();
+		for (BpaDat_ACLine state : states) {
+			System.out.println(state);
+		}
+
+		printDbEntry(bPAOps);
+
 		System.out
 				.println("----------------------end testBpaLoader-----------------------------");
 
@@ -70,26 +154,15 @@ public class AppUtilTest {
 		bPAOps.clearDb();
 		pROps.clearDb();
 
-		AppUtil.execute(AppUtil.GC_BPA_LOADER, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi");
-		AppUtil.execute(AppUtil.GC_BPA_2_PR, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi", dataRootPath
-				+ "/RTS79.xml");
+		callBpaLoader();
+		callBpa2Pr();
+		// AppUtil.execute(AppUtil.GC_BPA_LOADER, execRootPath, dataRootPath
+		// + "/RTS79.dat", dataRootPath + "/RTS79.swi");
+		// AppUtil.execute(AppUtil.GC_BPA_2_PR, execRootPath, dataRootPath
+		// + "/RTS79.dat", dataRootPath + "/RTS79.swi", dataRootPath
+		// + "/RTS79.xml");
 
-		List<MemTable> tables = pROps.getTables();
-		for (MemTable table : tables) {
-			long count = pROps.getRecordCount(table);
-			if (count == 0)
-				continue;
-
-			System.out.println(String.format("Table :%s, desc:%s, count:%d",
-					table.getName(), table.getDescription(), count));
-			List<String[]> rt = pROps.findAllRecords(table);
-			for (String[] records : rt) {
-				System.out.println(String.join(" ", records));
-				break;
-			}
-		}
+		printDbEntry(pROps);
 
 		System.out
 				.println("----------------------end testBpa2Pr-----------------------------");
@@ -102,31 +175,30 @@ public class AppUtilTest {
 		bPAOps.clearDb();
 		pROps.clearDb();
 
-		AppUtil.execute(AppUtil.GC_BPA_LOADER, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi");
-		AppUtil.execute(AppUtil.GC_BPA_2_PR, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi", dataRootPath
-				+ "/RTS79.xml");
-		AppUtil.execBuilder(AppUtil.GC_STATE_SAMPLE).addParam(execRootPath)
-				.addParam("全部").addParam("1").addParam("20").addParam("20")
-				.addParam("2000000").addParam("0.000000").addParam("0.990000")
-				.addParam("1.000000").addParam("100000").addParam("100000")
-				.addParam("1.000000").exec();
+		callBpaLoader();
+		callBpa2Pr();
 
-		List<MemTable> tables = pROps.getTables();
-		for (MemTable table : tables) {
-			long count = pROps.getRecordCount(table);
-			if (count == 0)
-				continue;
+		callStateSample();
+		// AppUtil.execBuilder(AppUtil.GC_STATE_SAMPLE).addParam(execRootPath)
+		// .addParam("全部").addParam("1").addParam("20").addParam("20")
+		// .addParam("2000000").addParam("0.000000").addParam("0.990000")
+		// .addParam("1.000000").addParam("100000").addParam("100000")
+		// .addParam("1.000000").exec();
 
-			System.out.println(String.format("Table :%s, desc:%s, count:%d",
-					table.getName(), table.getDescription(), count));
-			List<String[]> rt = pROps.findAllRecords(table);
-			for (String[] records : rt) {
-				System.out.println(String.join(" ", records));
-				break;
-			}
-		}
+		// List<MemTable> tables = pROps.getTables();
+		// for (MemTable table : tables) {
+		// long count = pROps.getRecordCount(table);
+		// if (count == 0)
+		// continue;
+		//
+		// System.out.println(String.format("Table :%s, desc:%s, count:%d",
+		// table.getName(), table.getDescription(), count));
+		// List<String[]> rt = pROps.findAllRecords(table);
+		// for (String[] records : rt) {
+		// System.out.println(String.join(" ", records));
+		// break;
+		// }
+		// }
 
 		System.out
 				.println("----------------------end testStateSample-----------------------------");
@@ -139,70 +211,13 @@ public class AppUtilTest {
 		bPAOps.clearDb();
 		pROps.clearDb();
 
-		AppUtil.execute(AppUtil.GC_BPA_LOADER, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi");
-		AppUtil.execute(AppUtil.GC_BPA_2_PR, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi", dataRootPath
-				+ "/RTS79.xml");
-		AppUtil.execBuilder(AppUtil.GC_STATE_SAMPLE).addParam(execRootPath)
-		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
-				.addParam("全部")
-				// 抽样类型 nPRSampleMethod
-				.addParam("1").
-				// 抽样最大发电机故障重数 nMaxGenFault
-				addParam("20")
-				// 抽样最大支路故障重数 nMaxBranFault
-				.addParam("20")
-				// MCS最大抽样仿真时长 nMCSSimulateTime
-				.addParam("2000000").
-				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
-				addParam("0.000000").
-				// FST[快速排序]累积概率 fFSTMaxCumuProb
-				addParam("0.990000")
-				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
-				.addParam("1.000000")
-				// FST[快速排序]最大状态数 nFSTMaxStateNum
-				.addParam("100000")
-				// STS[状态抽样]最大状态数 nSTSMaxStateNum
-				.addParam("100000")
-				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
-				.addParam("1.000000").exec();
-		AppUtil.execBuilder(AppUtil.GC_STATE_ESTIMATE).addParam(execRootPath)
-		// 直流潮流2 交流潮流系数 fDc2AcFactor
-				.addParam("1.100000")
-				// 线路消限 bLineELimit
-				.addParam("1")
-				// 主变消限 bTranELimit
-				.addParam("1")
-				// 调整发电机消限 bGenPELimit
-				.addParam("1")
-				// 调整UPFC消限 bUPFCELimit
-				.addParam("1")
-				// 厂用电参与消限 bAuxLoadAdjust
-				.addParam("1")
-				// 等值发电机参与消限 bEQGenAdjust
-				.addParam("0")
-				// 等值负荷参与消限 bEQLoadAdjust
-				.addParam("0")
-				// 孤岛的最小容载比 fMinIslandGLRatio
-				.addParam("0.500000")
-				// UPFC采用变容法 bUPFCAdjustRC
-				.addParam("1").exec();
+		callBpaLoader();
+		callBpa2Pr();
 
-		List<MemTable> tables = pROps.getTables();
-		for (MemTable table : tables) {
-			long count = pROps.getRecordCount(table);
-			if (count == 0)
-				continue;
+		callStateSample();
+		callStateEstimate();
 
-			System.out.println(String.format("Table :%s, desc:%s, count:%d",
-					table.getName(), table.getDescription(), count));
-			List<String[]> rt = pROps.findAllRecords(table);
-			for (String[] records : rt) {
-				System.out.println(String.join(" ", records));
-				break;
-			}
-		}
+		printDbEntry(pROps);
 
 		System.out
 				.println("----------------------end testStateEstimate-----------------------------");
@@ -214,78 +229,18 @@ public class AppUtilTest {
 				.println("----------------------start testReliabilityIndex-----------------------------");
 		bPAOps.clearDb();
 		pROps.clearDb();
-
-		AppUtil.execute(AppUtil.GC_BPA_LOADER, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi");
-		AppUtil.execute(AppUtil.GC_BPA_2_PR, execRootPath, dataRootPath
-				+ "/RTS79.dat", dataRootPath + "/RTS79.swi", dataRootPath
-				+ "/RTS79.xml");
-		AppUtil.execBuilder(AppUtil.GC_STATE_SAMPLE).addParam(execRootPath)
-		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
-				.addParam("全部")
-				// 抽样类型 nPRSampleMethod
-				.addParam("1").
-				// 抽样最大发电机故障重数 nMaxGenFault
-				addParam("20")
-				// 抽样最大支路故障重数 nMaxBranFault
-				.addParam("20")
-				// MCS最大抽样仿真时长 nMCSSimulateTime
-				.addParam("2000000").
-				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
-				addParam("0.000000").
-				// FST[快速排序]累积概率 fFSTMaxCumuProb
-				addParam("0.990000")
-				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
-				.addParam("1.000000")
-				// FST[快速排序]最大状态数 nFSTMaxStateNum
-				.addParam("100000")
-				// STS[状态抽样]最大状态数 nSTSMaxStateNum
-				.addParam("100000")
-				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
-				.addParam("1.000000").exec();
-		AppUtil.execBuilder(AppUtil.GC_STATE_ESTIMATE).addParam(execRootPath)
-		// 直流潮流2 交流潮流系数 fDc2AcFactor
-				.addParam("1.100000")
-				// 线路消限 bLineELimit
-				.addParam("1")
-				// 主变消限 bTranELimit
-				.addParam("1")
-				// 调整发电机消限 bGenPELimit
-				.addParam("1")
-				// 调整UPFC消限 bUPFCELimit
-				.addParam("1")
-				// 厂用电参与消限 bAuxLoadAdjust
-				.addParam("1")
-				// 等值发电机参与消限 bEQGenAdjust
-				.addParam("0")
-				// 等值负荷参与消限 bEQLoadAdjust
-				.addParam("0")
-				// 孤岛的最小容载比 fMinIslandGLRatio
-				.addParam("0.500000")
-				// UPFC采用变容法 bUPFCAdjustRC
-				.addParam("1").exec();
 		
-		AppUtil.execBuilder(AppUtil.GC_RELIABILITY_INDEX).addParam(execRootPath)
-		// 直流潮流2 交流潮流系数 fDc2AcFactor
-				.addParam("1.100000")
-				.exec();
+		callBpaLoader();
+		
+		callBpa2Pr();
+		callStateSample();
+		callStateEstimate();
+		callReliabilityIndex();
 
-		List<MemTable> tables = pROps.getTables();
-		for (MemTable table : tables) {
-			long count = pROps.getRecordCount(table);
-			if (count == 0)
-				continue;
-
-			System.out.println(String.format("Table :%s, desc:%s, count:%d",
-					table.getName(), table.getDescription(), count));
-			List<String[]> rt = pROps.findAllRecords(table);
-			for (String[] records : rt) {
-				System.out.println(String.join(" ", records));
-				break;
-			}
-		}
+		printDbEntry(pROps);
 
 		System.out
 				.println("----------------------end testReliabilityIndex-----------------------------");
 	}
+
 }

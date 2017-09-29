@@ -54,6 +54,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	private ADFService adfService;
 	private ExectueDF executeDF;
 
+	//private String modelZone = "test";
+	
 	@Autowired
 	private ServerProperties serverProperties;
 
@@ -78,9 +80,11 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		public MemDBOperationsImp() throws ACPException {
 			try {
-				if (adfService != null)
+				if (adfService != null) {
+					LOGGER.info("adfService..registry");
 					operations = adfService
 							.registry(serverProperties.getName());
+				}
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException("Fail to adf registy : "
@@ -92,8 +96,10 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public void write(MemDBData db) throws ACPException {
 			if (operations == null)
 				return;
-
+			String key = operations.createMemDBKey(db.getArea(), db.getEntryName());
+			db.setKey(key);
 			try {
+				LOGGER.info(String.format("uploadModel:%s", key));
 				operations.uploadModel(db.getKey());
 				// memdb.pubMessage(db.getContentCode(), db.getKey());
 			} catch (RedisMemDBException e) {
@@ -112,6 +118,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		@Override
 		public MemDBData read(MemDBData db) throws ACPException {
 			try {
+				System.out.println("read db : "+db.getKey());
 				operations.downloadModel(db.getKey());
 			} catch (RedisMemDBException e) {
 				e.printStackTrace();
@@ -136,6 +143,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
+	private static long LIFE_CYCLE_TIME = 0;
 	public class MapDataOperationsImp extends MapDataOperations {
 		private RedissonDBMap operation;
 
@@ -152,7 +160,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 			try {
 				if (operation != null) {
-					rt = operation.LockHGETALL(data.getKey());
+					rt = operation.LockHGETALL(data.getKey(), LIFE_CYCLE_TIME);
 
 					Set<Entry<String, String>> set = rt.getValue();
 					Map<String, String> m = new HashMap<String, String>();
@@ -177,7 +185,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			if (operation != null)
 				return;
 			try {
-				operation.LockHMSET(data.getKey(), data.getContent());
+				operation.LockHMSET(data.getKey(), LIFE_CYCLE_TIME, data.getContent());
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -208,7 +216,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				return null;
 
 			try {
-				ResultObject<String, String> rt = operation.LockHGET(key, mkey);
+				ResultObject<String, String> rt = operation.LockHGET(key, LIFE_CYCLE_TIME, mkey);
 				if (rt != null)
 					return rt.getValue();
 
@@ -253,7 +261,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 			try {
 				ResultObject<String, List<String>> rt = operations
-						.LockLRANGE(data.getKey());
+						.LockLRANGE(data.getKey(), LIFE_CYCLE_TIME);
 				if (rt != null)
 					data.setContent(rt.getValue());
 			} catch (RedissonDBException e) {
@@ -269,7 +277,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public void write(ListData data) throws ACPException {
 
 			try {
-				operations.LockRPUSH(data.getKey(), data.getContent());
+				operations.LockRPUSH(data.getKey(), LIFE_CYCLE_TIME, data.getContent());
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException("Fail to list.BatchRPUSH : "
@@ -281,7 +289,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public String lpop(String key) throws ACPException {
 			ResultObject<String, String> rt = null;
 			try {
-				if ((rt = operations.LockLPOP(key)) != null) {
+				if ((rt = operations.LockLPOP(key, LIFE_CYCLE_TIME)) != null) {
 					String str = rt.getValue();
 					return str;
 				}
@@ -323,7 +331,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				UnsupportedOperation {
 			try {
 				if (operations != null)
-					operations.LockSET(o.getKey(), o.getContent());
+					operations.LockSET(o.getKey(), LIFE_CYCLE_TIME, o.getContent());
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException(e.getMessage());
@@ -335,7 +343,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public String get(String key) {
 			ResultObject<String, String> rt = null;
 			try {
-				rt = operations.LockGET(key);
+				rt = operations.LockGET(key, LIFE_CYCLE_TIME);
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				return null;

@@ -21,6 +21,12 @@ public class TestTasks {
 	
 	@Autowired
 	ConnectionFactory connectionFactory;
+
+	@GetMapping()
+	public @ResponseBody ACPResult home() {
+		
+		return new ACPResult("OK", String.format("url:"+"/test/tasks  /test/uploadBPA"));
+	}
 	
 	@GetMapping(path = "/tasks")
 	public @ResponseBody ACPResult tasks() {
@@ -36,4 +42,20 @@ public class TestTasks {
 		};
 		return new ACPResult("OK", String.format("created %s tasks.", count));
 	}
+	
+	@GetMapping(path = "/uploadBPA")
+	public @ResponseBody ACPResult uploadBPA() {
+		int count = 100;
+		TaskConfig config = new TaskConfig(count);
+		String content = Utils.toString(config);
+		
+		try {
+			connectionFactory.publishData("create_BPAModel", content);
+		} catch (ACPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+		return new ACPResult("OK", String.format("created %s tasks.", count));
+	}
+
 }

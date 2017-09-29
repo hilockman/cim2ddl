@@ -12,15 +12,15 @@ import com.znd.ei.ads.apl.AplContainer;
 @EnableAutoConfiguration
 public class ADSCofnig {
 
-	@Bean
-	public AplContainer aplManager() {
-		AplContainer manager = new AplContainer();
-		return manager;
-	}
-	
-	@Bean
-	public DataFieldStorage dataFieldStorage(ServerProperties serverProperties, ConnectionFactory acpConnection, AplContainer aplManager) {
-		DataFieldStorage dataFieldStorage = new DataFieldStorage(serverProperties, acpConnection, aplManager);
-		return dataFieldStorage;
-	}
+//	@Bean
+//	public AplContainer aplManager() {
+//		AplContainer manager = new AplContainer();
+//		return manager;
+//	}
+//	
+//	@Bean
+//	public DataFieldStorage dataFieldStorage(ServerProperties serverProperties, ConnectionFactory acpConnection, AplContainer aplManager) {
+//		DataFieldStorage dataFieldStorage = new DataFieldStorage(serverProperties, acpConnection, aplManager);
+//		return dataFieldStorage;
+//	}
 }

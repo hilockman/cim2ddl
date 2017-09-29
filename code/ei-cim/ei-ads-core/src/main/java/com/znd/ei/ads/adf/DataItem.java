@@ -22,5 +22,9 @@ public class DataItem {
 		this.operations = operations;
 	}
 
+	public  void clear() {
+		
+	}
+
 
 }

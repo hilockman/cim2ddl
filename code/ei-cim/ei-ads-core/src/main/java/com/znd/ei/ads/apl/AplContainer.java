@@ -10,14 +10,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.ACPException;
-import com.znd.ei.ads.acp.IOOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.DataItem;
@@ -31,6 +30,7 @@ import com.znd.ei.ads.apl.annotations.Out;
  * @author wangheng 应用管理用于应用注册
  *
  */
+@Component
 public  final class AplContainer {
 
 	

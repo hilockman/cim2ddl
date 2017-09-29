@@ -14,7 +14,7 @@ import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
 
-@Apl(desc = "状态抽样")
+//@Apl(desc = "状态抽样")
 public class StateSample{
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(StateSample.class);
@@ -43,7 +43,7 @@ public class StateSample{
 		boolean randomTask = true;
 		int taskCount = 100;
 		
-		LOGGER.info("Call Monte Carlo sample algorithm.");
+		LOGGER.info("----------------------Start MCSample------------------------");
 		// 调用抽样算法
 		// 上传模型
 		// String strDBEntry = "MemDB.PR";
@@ -86,7 +86,8 @@ public class StateSample{
 		// LOGGER.error(log);
 		// }
 
-		// return result;
+		// return result;		
+		LOGGER.info("----------------------End MCSample------------------------");
 	}
 
 //	public void run(boolean lockFlag, boolean randomTask, int taskCount)
