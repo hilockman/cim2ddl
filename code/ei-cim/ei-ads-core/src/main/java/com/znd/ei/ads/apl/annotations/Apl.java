@@ -6,6 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 应用类，用于注册业务方法
  * @author wangheng
@@ -15,6 +17,7 @@ import java.lang.annotation.Target;
 //Retention注解决定MyAnnotation注解的生命周期
 @Target( { ElementType.METHOD, ElementType.TYPE })
 @Inherited
+@Component
 public @interface Apl {
 	String value() default "";
 	String desc() default "";

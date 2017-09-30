@@ -6,7 +6,7 @@ import com.znd.ei.ads.apl.annotations.Apl;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 
-@Apl(desc = "测试处理列表")
+//@Apl(desc = "测试处理列表")
 public class TestProcessTasks {
 	@AplFunction
 	public void processTask(@In("created_TestTasks") ListData testTask) {

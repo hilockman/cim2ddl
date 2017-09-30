@@ -2,7 +2,7 @@ package com.znd.ei.ads.adf;
 
 import com.znd.ei.ads.acp.IOOperations;
 
-public class DataItem {
+public abstract class DataItem {
 	protected IOOperations operations;
 	private String key;
 
@@ -26,5 +26,6 @@ public class DataItem {
 		
 	}
 
+	public abstract boolean isEmpty();
 
 }

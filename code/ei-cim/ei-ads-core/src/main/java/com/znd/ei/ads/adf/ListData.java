@@ -32,5 +32,11 @@ public class ListData  extends DataItem  {
 		return ((ListDataOperations)operations).lpop(getKey());
 
 	}
+
+	@Override
+	public boolean isEmpty() {
+		
+		return content == null || content.isEmpty();
+	}
 	
 }

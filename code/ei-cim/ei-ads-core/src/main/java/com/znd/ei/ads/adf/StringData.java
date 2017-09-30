@@ -18,4 +18,12 @@ public class StringData extends DataItem {
 	public <T> T toObject(Class<T> clazz) {
 		return Utils.toObject(getContent(), clazz);
 	}
+
+	@Override
+	public boolean isEmpty() {
+		String content = getContent();
+		return content == null || content.isEmpty();
+	}
+	
+	
 }

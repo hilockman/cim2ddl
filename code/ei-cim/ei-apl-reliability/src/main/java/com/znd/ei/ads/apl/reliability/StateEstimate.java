@@ -19,7 +19,7 @@ import com.znd.ei.ads.apl.annotations.Out;
  * @author wangheng
  *
  */
-@Apl
+//@Apl
 public class StateEstimate {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(StateEstimate.class);

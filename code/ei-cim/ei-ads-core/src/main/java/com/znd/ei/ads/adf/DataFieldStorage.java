@@ -8,6 +8,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,10 +73,14 @@ public final class DataFieldStorage {
 	@Autowired
 	public DataFieldStorage(ServerProperties serverProperties,
 			ConnectionFactory connectionFactory, AplContainer aplManager) {
+
 		this.serverProperties = serverProperties;
 		this.connectionFactory = connectionFactory;
 		this.aplManager = aplManager;
+	}
 
+	@PostConstruct
+	public void init() {
 		try {
 			registerIO();
 			aplManager.loadApls(this);
@@ -90,9 +96,7 @@ public final class DataFieldStorage {
 			e.printStackTrace();
 		}
 		connectionFactory.register(this);
-
 	}
-
 	private Map<String, DataField> dataFields = new HashMap<String, DataField>();
 
 	// private Map<String, Method> cc2Operations = new HashMap<String,
@@ -190,18 +194,19 @@ public final class DataFieldStorage {
 		 * @throws IllegalAccessException
 		 * @throws UnsupportedOperation
 		 */
-		public void write() throws IllegalAccessException,
+		public void publishToBus() throws IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException,
 				ACPException, UnsupportedOperation {
 			//IOOperations io = createIO();
-			if (dataItem != null) {
+			if (dataItem != null && !dataItem.isEmpty()) {
 				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
 					dataItem.setKey(contentCode + ":"
 							+ UUID.randomUUID().toString());
 				}
 				IOOperations io = dataItem.getOperations();
+				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
 				io.write(dataItem);
-
+				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
 				connectionFactory.publishData(contentCode, dataItem.getKey());
 			}
 
@@ -393,10 +398,18 @@ public final class DataFieldStorage {
 	
 		DataField df = dataFields.get(contentCode);
 		try {
-			if (df.isEmpty()) //数据域为空，则初始化
+			if (df.isEmpty()){ //数据域为空，则初始化
 				df.initDataItem(content);
-			else if (!df.dataItem.getKey().equals(content)) { //数据域不为空，数据key值与消息不一致
-				df.clear(); 
+				LOGGER.info("Success to update data field: cc={}, content={}",
+						contentCode, content);
+			} else if (!df.dataItem.getKey().equals(content)) { //数据域不为空，数据key值与消息不一致
+				if (!df.isEmpty())
+					df.clear(); 
+				df.initDataItem(content);
+				LOGGER.info("Success to update data field: cc={}, content={}",
+						contentCode, content);
+			} else {
+				LOGGER.info("Data file is not empty and key is same, omit update.");
 			}
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | InstantiationException e) {
@@ -405,8 +418,7 @@ public final class DataFieldStorage {
 			throw new ACPException(e);
 		}
 
-		LOGGER.info("Success to update data field: cc={}, content={}",
-				contentCode, content);
+		
 		aplManager.bootAplCaller(contentCode, this);
 	}
 

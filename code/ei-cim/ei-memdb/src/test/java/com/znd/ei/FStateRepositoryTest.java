@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.znd.ei.memdb.reliabilty.dao.FStateRepository;
+import com.znd.ei.memdb.reliabilty.dao.FStateDao;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FStateRepositoryTest {
 
 	@Autowired
-	private FStateRepository repository;
+	private FStateDao repository;
 	
     @Test
     public void contexLoads() throws Exception {

@@ -5,14 +5,13 @@ import org.springframework.stereotype.Component;
 
 import com.znd.ei.memdb.AbstractTableOperations;
 import com.znd.ei.memdb.DbEntryOperations;
-import com.znd.ei.memdb.reliabilty.domain.FState;
-
+import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
 @Component
-public class FStateRepository extends AbstractTableOperations<FState> {
+public class FStateOvlDevDao extends AbstractTableOperations<FStateOvlDev> {
 
 	@Autowired
-	public FStateRepository(DbEntryOperations pROps) {
-		super(FState.class, pROps);
+	public FStateOvlDevDao(DbEntryOperations pROps) {
+		super(FStateOvlDev.class, pROps);
 	}
 
 }

@@ -400,6 +400,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		String strMessage = msg.setMessage(contentCode, key);
 		try {
+			
 			msg.pubMessage(strMessage);
 		} catch (RedissonDBException e) {
 			e.printStackTrace();

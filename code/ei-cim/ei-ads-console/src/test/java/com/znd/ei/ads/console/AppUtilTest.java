@@ -14,7 +14,7 @@ import com.znd.ei.memdb.DbException;
 import com.znd.ei.memdb.MemTable;
 import com.znd.ei.memdb.bpa.dao.ACLineRepository;
 import com.znd.ei.memdb.bpa.domain.BpaDat_ACLine;
-import com.znd.ei.memdb.reliabilty.dao.FStateRepository;
+import com.znd.ei.memdb.reliabilty.dao.FStateDao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,7 +35,7 @@ public class AppUtilTest {
 	private ACLineRepository aclineRepository;
 
 	@Autowired
-	private FStateRepository fStateRepository;
+	private FStateDao fStateRepository;
 
 	@Autowired
 	private DbEntryOperations bPAOps;

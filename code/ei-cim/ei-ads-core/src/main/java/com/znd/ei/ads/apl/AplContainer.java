@@ -13,6 +13,8 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.znd.ei.Utils;
@@ -67,12 +69,19 @@ public  final class AplContainer {
 
 	private ArrayList<Object> apls = new ArrayList<Object>();
 
-	public AplContainer() {
+	private ApplicationContext context;
+	
+	private DataFieldStorage dataFieldStorage;
+	@Autowired
+	public AplContainer(ApplicationContext context) {
+		this.context = context;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void loadApls(DataFieldStorage storage) throws InstantiationException,
 			IllegalAccessException, ACPException {
+		this.dataFieldStorage = storage;
+		
 		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl");
 
 		Iterator<Class<?>> it = classes.iterator();
@@ -84,7 +93,9 @@ public  final class AplContainer {
 
 			Apl apl = (Apl) a;
 
-			Object app = c.newInstance();
+			//Object app = c.newInstance();
+			//从spring上下文获得apl对象
+			Object app = context.getBean(c);
 			AppInfo appInfo = new AppInfo();
 			String name = apl.value();
 			if (name == null || name.isEmpty()) {
@@ -217,9 +228,11 @@ public  final class AplContainer {
 			Object dataItems[] = new DataItem[appCallInfo.paramInfos.length];
 			int pos = 0;
 			List<ParamInfo> outputDataItems = new ArrayList<ParamInfo>();
+			List<DataFieldStorage.DataField> inputDataFields = new ArrayList<DataFieldStorage.DataField>();
 			for (ParamInfo paramInfo : appCallInfo.paramInfos) {
 				if (paramInfo.bIn) { //输入参数
 					dataItems[pos++] = paramInfo.dataField.dataItem;
+					inputDataFields.add(paramInfo.dataField);
 				} else { //输出参数
 					try {
 						paramInfo.dataField.initDataItem();
@@ -255,7 +268,12 @@ public  final class AplContainer {
 				//通过总线，发布数据
 				for (ParamInfo paramInfo : outputDataItems) {
 					DataFieldStorage.DataField df = paramInfo.dataField;
-					df.write();			
+					df.publishToBus();			
+				}
+				
+				//清理输入数据区域
+				for (DataFieldStorage.DataField df : inputDataFields) {
+					//appCallInfo.finddf.contentCode;
 				}
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block

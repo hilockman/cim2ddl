@@ -11,7 +11,7 @@ import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
 
-@Apl(desc = "测试创建任务列表")
+//@Apl(desc = "测试创建任务列表")
 public class TestCreateTasks {
 
 	@AplFunction

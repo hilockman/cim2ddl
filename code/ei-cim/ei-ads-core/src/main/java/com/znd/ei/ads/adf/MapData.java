@@ -41,4 +41,9 @@ public class MapData extends DataItem {
 	public void set(String key, String value) {
 		content.put(key, value);
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return content == null || content.isEmpty();
+	}
 }

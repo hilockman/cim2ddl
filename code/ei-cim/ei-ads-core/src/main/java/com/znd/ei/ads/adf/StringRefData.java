@@ -24,4 +24,9 @@ public class StringRefData extends DataItem {
 	public <T> T toObject(Class<T> clazz) {
 		return Utils.toObject(getContent(), clazz);
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return content == null || content.isEmpty();
+	}
 }
