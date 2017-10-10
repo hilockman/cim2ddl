@@ -1,5 +1,8 @@
 package com.znd.ei.ads.acp.springredis;
 
+import java.util.Arrays;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,6 +193,16 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	@Override
 	public void register(DataFieldStorage manager) {
 		
+	}
+
+	@Override
+	public void deleteKeys(String... keys) {
+		stringRedisTemplate.delete(Arrays.asList(keys));
+	}
+
+	@Override
+	public Set<String> findKeys(String pattern) {
+		return stringRedisTemplate.keys(pattern);
 	}
 
 

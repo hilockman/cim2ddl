@@ -215,7 +215,7 @@ public class AbstractTableOperations<T> implements
 
 					String[] values = records.get(i);
 
-					String value = values[f.getMemField().getIndex()];
+					String value = values[mfield.getIndex()];
 					field.set(entity, f.toObject(value));
 				}
 

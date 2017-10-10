@@ -2,10 +2,12 @@ package com.znd.ei.ads.apl.reliability;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ZhongND.memdb.MDBDefine;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.ACPException;
+import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
@@ -37,6 +40,7 @@ import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
+
 //import com.znd.ei.memdb.reliabilty.domain.System;
 @Apl
 public class ReliabilityApl {
@@ -60,26 +64,20 @@ public class ReliabilityApl {
 	@Autowired
 	FStateFDevDao fStateFDevDao;
 
-	// @Autowired
-	// CopGenDao copGenDao;
-	//
-	// @Autowired
-	// CopTableDao copTableDao;
-
 	@Autowired
 	FStateMIslandDao mIslandDao;
-
-//	@Autowired
-//	FStateMStateDao mStateDao;
 
 	@Autowired
 	FStateOvlAdDao ovlAdDao;
 
 	@Autowired
 	FStateOvlDevDao ovlDevDao;
-	
+
 	@Autowired
 	SystemDao systemDao;
+
+	@Autowired
+	AbstractConnectionFactory connectionFactory;
 
 	private String modelArea = "RTS79";
 
@@ -117,7 +115,13 @@ public class ReliabilityApl {
 				// STS[状态抽样]最大状态数 nSTSMaxStateNum
 				.addParam("100000")
 				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
-				.addParam("1.000000").exec();
+				.addParam("1.000000").logger(new AppLogger() {
+
+					@Override
+					public void print(String log) {
+						LOGGER.info(log);
+					}
+				}).exec();
 	}
 
 	private void callStateEstimate() {
@@ -141,7 +145,13 @@ public class ReliabilityApl {
 				// 孤岛的最小容载比 fMinIslandGLRatio
 				.addParam("0.500000")
 				// UPFC采用变容法 bUPFCAdjustRC
-				.addParam("1").exec();
+				.addParam("1").logger(new AppLogger() {
+
+					@Override
+					public void print(String log) {
+						LOGGER.info(log);
+					}
+				}).exec();
 
 	}
 
@@ -149,7 +159,13 @@ public class ReliabilityApl {
 		AppUtil.execBuilder(AppUtil.GC_RELIABILITY_INDEX)
 				.addParam(execRootPath)
 				// 直流潮流2 交流潮流系数 fDc2AcFactor
-				.addParam("1.100000").exec();
+				.addParam("1.100000").logger(new AppLogger() {
+
+					@Override
+					public void print(String log) {
+						LOGGER.info(log);
+					}
+				}).exec();
 	}
 
 	private void printDbEntry(DbEntryOperations ops) throws DbException {
@@ -169,7 +185,7 @@ public class ReliabilityApl {
 		}
 	}
 
-	@AplFunction
+	@AplFunction(desc = "BPA模型加载")
 	public void loadBPA(@In("create_BPAModel") StringData createConfig,
 			@Out("created_BPAModel") MemDBData bPAModel) throws ACPException,
 			UnsupportedOperation {
@@ -188,10 +204,11 @@ public class ReliabilityApl {
 
 	}
 
-	@AplFunction
+	@AplFunction(desc = "BPA网络模型转可靠性网络模型")
 	public void bpa2Pr(@In("created_BPAModel") MemDBData bPAModel,
-			@Out("created_PRModel") MemDBData pRModel) throws ACPException,
-			UnsupportedOperation {
+			@Out("created_PRModel") MemDBData pRModel,
+			@Out("created_StateSampleTask") ListData tasks)
+			throws ACPException, UnsupportedOperation {
 
 		LOGGER.info("----------------start BPA2PR------------------------");
 		callBpa2Pr();
@@ -202,16 +219,60 @@ public class ReliabilityApl {
 		// writeDataField(ContentCodeDefines.created_BPAModel, db,
 		// getConnectionFactory().getMemDBDataOperations());
 
+		List<String> strs = new ArrayList<String>();
+		strs.add(state_sample);
+		tasks.setContent(strs);		
+		tasks.setKey(pRModel.getArea() + ":task:"
+				+ state_sample);
 		LOGGER.info("----------------end BPA2PR------------------------");
 
 	}
 
-	@AplFunction
+	public final static String state_estimate = "state-estimate";
+	public final static String state_sample = "state-sample";
+	public final static String reliability_index = "reliability-index";
+
+	@AplFunction(desc = "状态抽样")
 	public void stateSample(@In("created_BPAModel") MemDBData bPAModel,
 			@In("created_PRModel") MemDBData pRModel,
-			@Out("created_StateEstimateTask") ListData sateEstimateTask,
+			@In("created_StateSampleTask") ListData stateSampleTasks,
+			@Out("created_StateEstimateTask") ListData sateEstimateTasks,
 			@Out("created_StateSampleResult") MapData stateSampleResult) {
+		String str = null;
+		try {
+			str = stateSampleTasks.lpop();
+		} catch (ACPException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (str == null)
+			return;
+		
+		
 		LOGGER.info("----------------start stateSample------------------------");
+		// 清除前一次计算结果
+
+		// String[] keys ={state_estimate_task, state_sample_result,
+		// reliability_index_task, state_estimate_result,
+		// reliability_index_result};
+		// for (int i = 0; i < keys.length; i++) {
+		// keys[i] = pRModel.getArea() + ":" + keys[i];
+
+		// }
+
+		
+		Set<String> keys = new HashSet<String>();
+		keys.addAll(connectionFactory.findKeys(pRModel.getArea() + ":result:*"));
+		// keys.addAll(connectionFactory.findKeys(pRModel.getArea() +
+		// "*-result"));
+		keys.addAll(connectionFactory.findKeys(pRModel.getArea() + ":task:*"));
+		// keys.addAll(connectionFactory.findKeys(pRModel.getArea() +
+		// "*-task"));
+		if (keys.size() > 0) {
+			LOGGER.info("清除缓存keys:" + String.join(",", keys));
+			connectionFactory.deleteKeys(keys.toArray(new String[0]));
+		}
+
 		callStateSample();
 		int count = 0;
 		Iterable<FState> fStates = fStateDao.findAll();
@@ -226,20 +287,17 @@ public class ReliabilityApl {
 				LOGGER.info(state.toString());
 
 		}
-		System.out.println("FState count=" + count);
+		LOGGER.info("FState count=" + count);
 
 		Iterable<FStateFDev> fStateFDevs = fStateFDevDao.findAll();
 		count = 0;
 		for (FStateFDev dev : fStateFDevs) {
 			StateSampleResult rt = resultMap.get(dev.getFState());
 			if (rt == null) {
-				// LOGGER.error("Fail find state for def :" + dev);
-				count++;
 				continue;
-			} else {
-				rt.devs.add(dev);
-
 			}
+			count++;
+			rt.devs.add(dev);
 
 			if (count == 1)
 				LOGGER.info(dev.toString());
@@ -253,15 +311,18 @@ public class ReliabilityApl {
 		Map<String, String> rtMap = new HashMap<String, String>();
 		while (it.hasNext()) {
 			Entry<Integer, StateSampleResult> e = it.next();
-			rtMap.put(String.valueOf(e.getKey()), Utils.toString(e.getValue()));
-
+			String content = Utils.toString(e.getValue());
+			rtMap.put(String.valueOf(e.getKey()), content);
+			tasks.add(content);
 		}
+
 		if (!tasks.isEmpty()) {
-			sateEstimateTask.setContent(tasks);
-			sateEstimateTask.setKey(pRModel.getArea() + ":state-estimate-task");
+			sateEstimateTasks.setContent(tasks);
+			sateEstimateTasks.setKey(pRModel.getArea() + ":task:"
+					+ state_estimate);
 			stateSampleResult.setContent(rtMap);
-			stateSampleResult
-					.setKey(pRModel.getArea() + ":state-sample-result");
+			stateSampleResult.setKey(pRModel.getArea() + ":result:"
+					+ state_sample);
 
 		}
 		LOGGER.info("StateEstimateTask count=" + tasks.size());
@@ -269,12 +330,13 @@ public class ReliabilityApl {
 		LOGGER.info("----------------end stateSample------------------------");
 	}
 
-	@AplFunction
-	void stateEstimate(@In("created_PRModel") MemDBData pRModel,
+	@AplFunction(desc = "状态后评估")
+	public void stateEstimate(
+			@In("created_PRModel") MemDBData pRModel,
 			@In("created_StateEstimateTask") ListData estimateTask,
 			@In("created_StateSampleResult") MapData stateSampleResult,
-			@Out("created_StateEsteimateResult") MapData stateEstimateResult,
-			@Out("created_ReliabilityIndexTask") ListData reliabilityIndexTasks) {
+			@Out("created_ReliabilityIndexTask") ListData reliabilityIndexTasks,
+			@Out("created_StateEsteimateResult") MapData stateEstimateResult) {
 		LOGGER.info("----------------start stateEstimate------------------------");
 		// TODO:
 		// String statIndex = null;
@@ -287,14 +349,15 @@ public class ReliabilityApl {
 		int count = 0;
 		Iterable<FState> fStates = fStateDao.findAll();
 		Map<Integer, StateEstimateResult> resultMap = new HashMap<Integer, StateEstimateResult>();
-		List<String> taskList = new ArrayList<String>();
+		// List<String> taskList = new ArrayList<String>();
 		for (FState state : fStates) {
 			StateEstimateResult rt = new StateEstimateResult();
-			taskList.add(String.valueOf(count));
+			rt.state = state;
+			// taskList.add(String.valueOf(count));
 			resultMap.put(count, rt);
 			count++;
 			if (count == 1)
-				System.out.println(state);
+				LOGGER.info(state.toString());
 
 		}
 		LOGGER.info("FState count=" + count);
@@ -304,13 +367,10 @@ public class ReliabilityApl {
 		for (FStateFDev dev : fStateFDevs) {
 			StateEstimateResult rt = resultMap.get(dev.getFState());
 			if (rt == null) {
-				// LOGGER.error("Fail find state for def :" + dev);
-				count++;
 				continue;
-			} else {
-				rt.devs.add(dev);
-
 			}
+			count++;
+			rt.devs.add(dev);
 
 			if (count == 1)
 				LOGGER.info(dev.toString());
@@ -318,62 +378,56 @@ public class ReliabilityApl {
 		}
 		LOGGER.info("FStateFDev count=" + count);
 
-
 		Iterable<FStateMIsland> mIslands = mIslandDao.findAll();
 		count = 0;
 		for (FStateMIsland mIsland : mIslands) {
 			StateEstimateResult rt = resultMap.get(mIsland.getFState());
 			if (rt == null) {
-				count++;
 				continue;
-			} else {
-				rt.mislands.add(mIsland);
-
 			}
+			count++;
+
+			rt.mislands.add(mIsland);
 
 			if (count == 1)
 				LOGGER.info(mIsland.toString());
 
 		}
 		LOGGER.info("FStateMIsland count=" + count);
-		
-		
+
 		Iterable<FStateOvlAd> ovlAds = ovlAdDao.findAll();
 		count = 0;
 		for (FStateOvlAd ovlAd : ovlAds) {
 			StateEstimateResult rt = resultMap.get(ovlAd.getFState());
 			if (rt == null) {
-				count++;
 				continue;
-			} else {
-				rt.ovlAds.add(ovlAd);
-
 			}
+
+			count++;
+			rt.ovlAds.add(ovlAd);
 
 			if (count == 1)
 				LOGGER.info(ovlAd.toString());
 
 		}
 		LOGGER.info("FStateOvlAd count=" + count);
-		
-	    Iterable<FStateOvlDev> ovlDevs = ovlDevDao.findAll();
+
+		Iterable<FStateOvlDev> ovlDevs = ovlDevDao.findAll();
 		count = 0;
 		for (FStateOvlDev ovlDev : ovlDevs) {
 			StateEstimateResult rt = resultMap.get(ovlDev.getFState());
 			if (rt == null) {
-				count++;
 				continue;
-			} else {
-				rt.ovlDevs.add(ovlDev);
-
 			}
+
+			count++;
+			rt.ovlDevs.add(ovlDev);
 
 			if (count == 1)
 				LOGGER.info(ovlDev.toString());
 
 		}
 		LOGGER.info("FStateOvlDev count=" + count);
-		
 
 		Iterator<Entry<Integer, StateEstimateResult>> it = resultMap.entrySet()
 				.iterator();
@@ -384,36 +438,44 @@ public class ReliabilityApl {
 			rtMap.put(String.valueOf(e.getKey()), Utils.toString(e.getValue()));
 
 		}
+
+		tasks.add("reliabilityIndex");
+
 		if (!tasks.isEmpty()) {
 			reliabilityIndexTasks.setContent(tasks);
-			reliabilityIndexTasks.setKey(pRModel.getArea()
-					+ ":reliability-index-task");
+
+			reliabilityIndexTasks.setKey(pRModel.getArea() + ":task:"
+					+ reliability_index);
 			stateEstimateResult.setContent(rtMap);
-			stateEstimateResult.setKey(pRModel.getArea()
-					+ ":state-estimate-result");
+
+			stateEstimateResult.setKey(pRModel.getArea() + ":result:"
+					+ state_estimate);
 		}
 		LOGGER.info("StateEstimateTask count=" + tasks.size());
 		LOGGER.info("----------------end stateEstimate------------------------");
 	}
 
-	@AplFunction
-	void reliabilityIndex(@In("created_PRModel") MemDBData pRModel,
+	@AplFunction(desc = "可靠性指标计算")
+	public void reliabilityIndex(
+			@In("created_PRModel") MemDBData pRModel,
 			@In("created_ReliabilityIndexTask") ListData reliabilityIndexTask,
 			@Out("created_ReliabilityIndexResult") MapData reliabilityIndexResult) {
 		LOGGER.info("----------------start reliabilityIndex------------------------");
-		//TODO:
+		// TODO:
 		//
-		
+
 		callReliabilityIndex();
-		
-		
-		Iterable<com.znd.ei.memdb.reliabilty.domain.System> syss = systemDao.findAll();
+
+		Iterable<com.znd.ei.memdb.reliabilty.domain.System> syss = systemDao
+				.findAll();
 		Map<String, String> rtMap = new HashMap<String, String>();
 		int count = 0;
 		for (com.znd.ei.memdb.reliabilty.domain.System sys : syss) {
 			rtMap.put(String.valueOf(count++), Utils.toString(sys));
 		}
-		reliabilityIndexResult.setKey(pRModel.getArea()+":reliability-index-result");
+
+		reliabilityIndexResult.setKey(pRModel.getArea() + ":result:"
+				+ reliability_index);
 		reliabilityIndexResult.setContent(rtMap);
 		LOGGER.info("----------------end reliabilityIndex------------------------");
 

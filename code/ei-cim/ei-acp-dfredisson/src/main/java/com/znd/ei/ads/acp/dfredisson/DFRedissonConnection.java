@@ -1,15 +1,16 @@
 package com.znd.ei.ads.acp.dfredisson;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.redisson.api.RBucket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.ZhongND.RedisADF.ADFService.ADFService;
 import com.ZhongND.RedisADF.ADFService.ADFServiceEntry;
@@ -21,7 +22,6 @@ import com.ZhongND.RedisDF.Service.ServiceFactory;
 import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.ZhongND.RedisDF.exectueDF.ExectueDF;
 import com.ZhongND.RedisDF.exectueDF.ResultObject;
-import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBKey;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBMap;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
@@ -58,6 +58,12 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	
 	@Autowired
 	private ServerProperties serverProperties;
+	
+	@Value("${ads.defaultlifecycle}")
+	private  long defaultLifeCycle = 1000000l;
+	
+	@Value("${ads.memdb.lifecycle}")
+	private long memDbLifeCycle = 10000000l;
 
 	public DFRedissonConnection() {
 
@@ -100,7 +106,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			db.setKey(key);
 			try {
 				LOGGER.info(String.format("uploadModel:%s", key));
-				operations.uploadModel(db.getKey());
+				operations.uploadModel(db.getKey(), memDbLifeCycle);
 				// memdb.pubMessage(db.getContentCode(), db.getKey());
 			} catch (RedisMemDBException e) {
 				// TODO Auto-generated catch block
@@ -143,7 +149,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private static long LIFE_CYCLE_TIME = 0;
+	
 	public class MapDataOperationsImp extends MapDataOperations {
 		private RedissonDBMap operation;
 
@@ -160,7 +166,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 			try {
 				if (operation != null) {
-					rt = operation.LockHGETALL(data.getKey(), LIFE_CYCLE_TIME);
+					rt = operation.LockHGETALL(data.getKey(), defaultLifeCycle);
 
 					Set<Entry<String, String>> set = rt.getValue();
 					Map<String, String> m = new HashMap<String, String>();
@@ -182,10 +188,11 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public void write(MapData data) throws ACPException,
 				UnsupportedOperation {
 
-			if (operation != null)
+			if (operation == null)
 				return;
 			try {
-				operation.LockHMSET(data.getKey(), LIFE_CYCLE_TIME, data.getContent());
+				operation.LockHMSET(data.getKey(), defaultLifeCycle, data.getContent());
+				LOGGER.info("LockHMSET : "+data.getKey());
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -216,7 +223,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				return null;
 
 			try {
-				ResultObject<String, String> rt = operation.LockHGET(key, LIFE_CYCLE_TIME, mkey);
+				ResultObject<String, String> rt = operation.LockHGET(key, defaultLifeCycle, mkey);
 				if (rt != null)
 					return rt.getValue();
 
@@ -261,7 +268,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 			try {
 				ResultObject<String, List<String>> rt = operations
-						.LockLRANGE(data.getKey(), LIFE_CYCLE_TIME);
+						.LockLRANGE(data.getKey(), defaultLifeCycle);
 				if (rt != null)
 					data.setContent(rt.getValue());
 			} catch (RedissonDBException e) {
@@ -277,7 +284,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public void write(ListData data) throws ACPException {
 
 			try {
-				operations.LockRPUSH(data.getKey(), LIFE_CYCLE_TIME, data.getContent());
+				operations.LockRPUSH(data.getKey(), defaultLifeCycle, data.getContent());
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException("Fail to list.BatchRPUSH : "
@@ -289,7 +296,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public String lpop(String key) throws ACPException {
 			ResultObject<String, String> rt = null;
 			try {
-				if ((rt = operations.LockLPOP(key, LIFE_CYCLE_TIME)) != null) {
+				if ((rt = operations.LockLPOP(key, defaultLifeCycle)) != null) {
 					String str = rt.getValue();
 					return str;
 				}
@@ -306,6 +313,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				operations = null;
 			}
 		}
+
+		
 
 	}
 
@@ -331,7 +340,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				UnsupportedOperation {
 			try {
 				if (operations != null)
-					operations.LockSET(o.getKey(), LIFE_CYCLE_TIME, o.getContent());
+					operations.LockSET(o.getKey(), defaultLifeCycle, o.getContent());
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException(e.getMessage());
@@ -343,7 +352,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public String get(String key) {
 			ResultObject<String, String> rt = null;
 			try {
-				rt = operations.LockGET(key, LIFE_CYCLE_TIME);
+				rt = operations.LockGET(key, defaultLifeCycle);
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				return null;
@@ -504,7 +513,29 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 
-
-
+	@Override
+	public void deleteKeys(String... keys) {
+		try {
+			executeDF.RedissonDBKey().BatchDEL(keys);
+		} catch (RedissonDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Set<String> findKeys(String pattern) {
+		Set<String> keys = new HashSet<String>(); 
+		try {
+			List<ResultObject<String, String>> rt = executeDF.RedissonDBKey().FindKeys(pattern);
+			for (ResultObject<String, String> e : rt) {
+				keys.add(e.getValue());
+			}
+		} catch (RedissonDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return keys;
+	}
 
 }

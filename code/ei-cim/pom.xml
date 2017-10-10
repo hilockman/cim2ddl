@@ -28,14 +28,14 @@
    		<module>ei-apl-reliability</module>
    		<module>ei-acp-dfredisson</module>
    		<module>ei-ads-web</module>
-   		<module>ei-ads-console</module>
-   		<module>ei-acp-springredis</module>
+    		<module>ei-acp-springredis</module>
        <module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
     <module>test-java</module>
     <module>test-nio-client</module>
     <module>test-proxy</module>
-	</modules>
+    <module>ei-ads-console</module>
+	 </modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>

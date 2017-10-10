@@ -20,4 +20,6 @@ public @interface AplFunction {
 	public static String AND = "and";
 	public static String OR = "or";
 	String ccOper() default AND;
+	String desc() default "";
+	String value() default "";
 }

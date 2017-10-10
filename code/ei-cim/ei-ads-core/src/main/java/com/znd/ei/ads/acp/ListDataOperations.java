@@ -12,4 +12,6 @@ public abstract class ListDataOperations extends AbstractOperations<ListData> {
 	public abstract String lpop(String key) throws ACPException;
 
 
+
+
 }

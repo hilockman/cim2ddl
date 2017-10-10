@@ -1,5 +1,7 @@
 package com.znd.ei.ads.acp;
 
+import java.util.Set;
+
 import com.znd.ei.ads.adf.DataFieldStorage;
 
 public interface ConnectionFactory {
@@ -46,4 +48,17 @@ public interface ConnectionFactory {
 	 */
 	void publishData(String contentCode, String key, String content) throws ACPException;
 
+	
+	/**
+	 * 删除keys
+	 * @param arge
+	 */
+	void deleteKeys(String... keys);
+	
+	/**
+	 * 查找keys
+	 * @param pattern
+	 * @return
+	 */
+	Set<String> findKeys(String pattern);
 }

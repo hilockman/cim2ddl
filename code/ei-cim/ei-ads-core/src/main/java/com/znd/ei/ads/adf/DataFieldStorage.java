@@ -105,6 +105,22 @@ public final class DataFieldStorage {
 	public boolean contain(String contentCode) {
 		return dataFields.containsKey(contentCode);
 	}
+	
+	/**
+	 * 数据域是否准备好
+	 * @param contentCode
+	 * @return
+	 */
+	public boolean prepared(String contentCode) {
+		if (!contain(contentCode))
+			return false;
+		
+		DataField df = dataFields.get(contentCode);
+		if (df != null && !df.isEmpty())
+			return true;
+		
+		return false;
+	}
 
 	public String getServerName() {
 		if (serverProperties.getPort() == null)
@@ -143,42 +159,26 @@ public final class DataFieldStorage {
 			return (IOOperations) ioMethod.invoke(connectionFactory);
 		}
 
-		DataItem createData() throws InstantiationException,
-				IllegalAccessException {
-			dataItem = (DataItem) dataType.newInstance();
-			return dataItem;
+		public DataItem createData() throws InstantiationException,
+				IllegalAccessException, IllegalArgumentException, InvocationTargetException, ACPException {
+			DataItem d = (DataItem) dataType.newInstance();
+			IOOperations io = createIO();
+			// dataItem.setContentCode(contentCode);
+			d.setOperations(io);
+			return d;
 		}
 
 		boolean isEmpty() {
 			return dataItem == null;
 		}
 
-		/**
-		 * 初始化数据存储
-		 * 
-		 * @param key
-		 * @throws IllegalAccessException
-		 * @throws IllegalArgumentException
-		 * @throws InvocationTargetException
-		 * @throws ACPException
-		 * @throws InstantiationException
-		 * @throws UnsupportedOperation
-		 */
-		public void initDataItem() throws IllegalAccessException,
-				IllegalArgumentException, InvocationTargetException,
-				ACPException, InstantiationException, UnsupportedOperation {
-			dataItem = createData();
+		
 
-			IOOperations io = createIO();
-			// dataItem.setContentCode(contentCode);
-			dataItem.setOperations(io);
-
-		}
 
 		public void initDataItem(String key) throws IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException,
 				InstantiationException, ACPException, UnsupportedOperation {
-			initDataItem();
+			dataItem = createData();
 			dataItem.setKey(key);
 			if (autoLoad) {				
 				dataItem.getOperations().read(dataItem);
@@ -194,16 +194,20 @@ public final class DataFieldStorage {
 		 * @throws IllegalAccessException
 		 * @throws UnsupportedOperation
 		 */
+		@SuppressWarnings("unchecked")
 		public void publishToBus() throws IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException,
 				ACPException, UnsupportedOperation {
 			//IOOperations io = createIO();
 			if (dataItem != null && !dataItem.isEmpty()) {
+				if (contentCode == null) {
+					LOGGER.error("cc is empty.");
+				}
 				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
 					dataItem.setKey(contentCode + ":"
 							+ UUID.randomUUID().toString());
 				}
-				IOOperations io = dataItem.getOperations();
+				IOOperations<DataItem> io = dataItem.getOperations();
 				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
 				io.write(dataItem);
 				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
@@ -404,7 +408,8 @@ public final class DataFieldStorage {
 						contentCode, content);
 			} else if (!df.dataItem.getKey().equals(content)) { //数据域不为空，数据key值与消息不一致
 				if (!df.isEmpty())
-					df.clear(); 
+					clear(df);
+					 
 				df.initDataItem(content);
 				LOGGER.info("Success to update data field: cc={}, content={}",
 						contentCode, content);
@@ -420,6 +425,13 @@ public final class DataFieldStorage {
 
 		
 		aplManager.bootAplCaller(contentCode, this);
+	}
+
+	public void clear(DataField df) {
+		synchronized(df) {
+			LOGGER.info("清除数据域:"+df.contentCode);
+			df.clear();
+		}
 	}
 
 	public DataField getDataField(String contentCode) {

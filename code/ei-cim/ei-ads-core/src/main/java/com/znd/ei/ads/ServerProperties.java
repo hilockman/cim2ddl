@@ -9,6 +9,7 @@ public class ServerProperties {
     private Integer port;
 
     private String name = "ads";
+    
 
 	public Integer getPort() {
 		return port;

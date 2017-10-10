@@ -20,12 +20,8 @@ public class AppUtil {
 
 	public static final String GC_STATE_ESTIMATE = "GCStateEstimate";
 	public static final String GC_RELIABILITY_INDEX = "GCReliabilityIndex";
-	/**
-	 * 
-	 * @param appPath
-	 * @param T
-	 */
-	public static void execute(String appPath, String... args) {
+	
+	public static void execute(String appPath, AppLogger appLogger, String... args) {
 		StringBuffer cmd = new StringBuffer();
 		cmd.append(appPath);
 
@@ -33,32 +29,54 @@ public class AppUtil {
 		for (String param : params) {
 			cmd.append(" "+param);
 		}
-		System.out.println(cmd);
+		if (appLogger != null) {
+			appLogger.print(cmd.toString());
+		} else
+			System.out.println(cmd);
+		
 		try {
 			Process process = Runtime.getRuntime().exec(cmd.toString());
 			InputStream is = process.getInputStream();
-			print(is);
+			print(is, appLogger);
 			
 			InputStream eis = process.getErrorStream();
-			print(eis);
+			print(eis, appLogger);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	
 	}
 	
-	public static void print(InputStream is) throws IOException {
+	/**
+	 * 
+	 * @param appPath
+	 * @param T
+	 */
+	public static void execute(String appPath, String... args) {
+		execute(appPath, null, args);
+	}
+
+	public static void print(InputStream is, AppLogger appLogger) throws IOException {
 		BufferedReader bri = new BufferedReader(new InputStreamReader(is, "gbk"));
 		
 		String message = new String("");
 		while ((message = bri.readLine()) != null) {
-			System.out.println(message);
+			if (appLogger == null)
+				System.out.println(message);
+			else
+				appLogger.print(message);
 		}
 
 		bri.close();	
 	}
 	
+	public static void print(InputStream is) throws IOException {
+		print(is, null);	
+	}
+	
 	public static AppExecuteBuilder execBuilder(String appPath) {
 		return new AppExecuteBuilder(appPath);
 	}
+
+
 }
