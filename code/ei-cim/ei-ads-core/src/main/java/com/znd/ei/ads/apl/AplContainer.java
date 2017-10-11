@@ -284,6 +284,7 @@ public final class AplContainer {
 
 		// 调用业务逻辑
 		for (final AppCallInfo appCallInfo : appCallInfos) {
+			//正在工作则不响应
 			if (appCallInfo.isWorking)
 				continue;
 
@@ -384,14 +385,9 @@ public final class AplContainer {
 						for (ParamInfo paramInfo : outputDataItems) {
 							DataFieldStorage.DataField df = paramInfo.dataField;
 
-							try {
+
 								df.publishToBus();
-							} catch (IllegalArgumentException
-									| InvocationTargetException | ACPException
-									| UnsupportedOperation e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+			
 						}
 						
 
@@ -400,7 +396,7 @@ public final class AplContainer {
 								"------------------结束调用:%s------------------",
 								appCallInfo.desc));
 					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e) {
+							| InvocationTargetException | ACPException | UnsupportedOperation  e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						LOGGER.error(e.getMessage() + ", app=" + appName

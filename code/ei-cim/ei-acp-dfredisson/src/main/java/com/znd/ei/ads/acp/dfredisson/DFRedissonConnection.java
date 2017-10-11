@@ -244,6 +244,18 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
+		@Override
+		public Long getSize(String key) {
+			ResultObject<String, Integer> rt = null;
+			try {
+				rt = operation.HLEN(key, defaultLifeCycle);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return rt.getValue().longValue();
+		}
+
 	}
 
 	private class ListDataOperationsImp extends ListDataOperations {

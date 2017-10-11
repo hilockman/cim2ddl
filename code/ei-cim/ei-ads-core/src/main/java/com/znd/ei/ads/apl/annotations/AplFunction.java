@@ -17,9 +17,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Inherited
 public @interface AplFunction {
+	String value() default "";
 	public static String AND = "and";
 	public static String OR = "or";
 	String ccOper() default AND;
 	String desc() default "";
-	String value() default "";
+
 }

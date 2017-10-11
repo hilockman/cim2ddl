@@ -59,6 +59,11 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 				UnsupportedOperation {
 			return operations.get(key, mkey);
 		}
+
+		@Override
+		public Long getSize(String key) {
+			return operations.size(key);
+		}
 	}
 
 

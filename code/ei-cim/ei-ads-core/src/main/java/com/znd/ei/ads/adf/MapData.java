@@ -46,4 +46,8 @@ public class MapData extends DataItem {
 	public boolean isEmpty() {
 		return content == null || content.isEmpty();
 	}
+
+	public Long size() {
+		return operation.getSize(getKey());
+	}
 }
