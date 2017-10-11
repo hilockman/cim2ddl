@@ -364,7 +364,7 @@ public class ReliabilityApl {
 
 		MapDataOperations ops = connectionFactory.getMapDataOperations();
 		Long n = ops.getSize(t.getKey());
-		while (n.equals(t.getCount())) {
+		while (!n.equals(t.getCount())) {
 			n = ops.getSize(t.getKey());
 			try {
 				Thread.sleep(5);
@@ -373,7 +373,7 @@ public class ReliabilityApl {
 				e.printStackTrace();
 			}
 		}
-		if (n == t.getCount()) {
+		if (n.equals(t.getCount())) {
 			reliabilityIndexTask.setContent("reliabilityIndexTask");
 		}
 		LOGGER.info("----------------end watchStateEstimate------------------------");
