@@ -29,4 +29,14 @@ public class StringRefData extends DataItem {
 	public boolean isEmpty() {
 		return content == null || content.isEmpty();
 	}
+
+	@Override
+	public void clear() {
+		content = null;
+	}
+
+	@Override
+	public boolean canClear() {
+		return true;
+	}
 }

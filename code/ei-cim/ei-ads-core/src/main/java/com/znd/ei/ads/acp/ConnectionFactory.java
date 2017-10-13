@@ -61,4 +61,11 @@ public interface ConnectionFactory {
 	 * @return
 	 */
 	Set<String> findKeys(String pattern);
+	
+	/**
+	 * key exist or not
+	 * @param key
+	 * @return
+	 */
+	public boolean hasKey(String key);
 }

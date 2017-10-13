@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.znd.ei.Utils;
+import com.znd.ei.ads.ADSProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
@@ -82,6 +83,9 @@ public final class AplContainer {
 		 */
 		public boolean canClear(DataField df) {
 
+			if (df.dataItem != null && !df.dataItem.canClear())
+				return false;
+			
 			List<AppCallInfo> appCallers = findRelatedAppCalls(df, this);
 			return appCallers.isEmpty();
 		}
@@ -95,6 +99,9 @@ public final class AplContainer {
 
 	private DataFieldStorage dataFieldStorage;
 
+	@Autowired
+	ADSProperties adsProperties;
+	
 	@Autowired
 	public AplContainer(ApplicationContext context) {
 		this.context = context;
@@ -140,9 +147,10 @@ public final class AplContainer {
 	public void loadApls(DataFieldStorage storage)
 			throws InstantiationException, IllegalAccessException, ACPException {
 		this.dataFieldStorage = storage;
-
+		List skips = adsProperties.getAplSkip();
 		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl");
 
+		LOGGER.info("Skip apls : {}", String.join(",", skips));
 		Iterator<Class<?>> it = classes.iterator();
 		while (it.hasNext()) {
 			Class c = it.next();
@@ -162,6 +170,8 @@ public final class AplContainer {
 			}
 			appInfo.setName(name);
 			appInfo.setDesc(apl.desc());
+
+			
 			// app.setConnectionFactory(connectionFactory);
 			// app.setStorage(storage);
 			// app.setAppInfo(appInfo);
@@ -178,6 +188,8 @@ public final class AplContainer {
 				if (af == null) {
 					continue;
 				}
+				
+			
 
 				AppCallInfo acInfo = new AppCallInfo();
 				acInfo.appInfo = appInfo;
@@ -193,6 +205,12 @@ public final class AplContainer {
 				if (acInfo.desc.isEmpty()) {
 					acInfo.desc = acInfo.name;
 				}
+				
+				if (skips.contains(acInfo.name)) {
+					LOGGER.info("Skip app :name={},desc={}", acInfo.name, acInfo.desc);
+					continue;
+				}	
+				
 				Parameter[] params = m.getParameters();
 				acInfo.paramInfos = new ParamInfo[params.length];
 				int pos = 0;
@@ -259,7 +277,7 @@ public final class AplContainer {
 			LOGGER.info(e.getKey());
 			List<AppCallInfo> l = e.getValue();
 			for (AppCallInfo c : l)
-				LOGGER.info(" " + c.desc);
+				LOGGER.info(" {}({})", c.desc, c.name);
 		}
 		LOGGER.info(String.format("--------------------Apl : cc count=%d, apl count=%s------------------", cc2AplCallInfos.size(), apls.size()));
 	}

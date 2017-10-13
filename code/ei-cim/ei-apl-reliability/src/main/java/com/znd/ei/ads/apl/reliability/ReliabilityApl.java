@@ -54,6 +54,7 @@ public class ReliabilityApl {
 		if (str != null && !str.isEmpty()) {
 			rootPath = str;
 		}
+		
 	}
 
 	String dataRootPath = rootPath + "/data";
@@ -229,6 +230,7 @@ public class ReliabilityApl {
 	}
 
 	public final static String state_estimate = "state-estimate";
+	public final static String state_estimate_watch = "state-estimate-watch";
 	public final static String state_sample = "state-sample";
 	public final static String reliability_index = "reliability-index";
 
@@ -309,21 +311,33 @@ public class ReliabilityApl {
 		}
 
 		if (!taskList.isEmpty()) {
-			sateEstimateTasks.setContent(taskList);
-			sateEstimateTasks.setKey(pRModel.getArea() + ":task:"
-					+ state_estimate);
-			stateSampleResult.setContent(rtMap);
-			stateSampleResult.setKey(pRModel.getArea() + ":result:"
-					+ state_sample);
+			String statEstimateTaskKey = pRModel.getArea() + ":task:"
+					+ state_estimate;
+			if (!connectionFactory.hasKey(statEstimateTaskKey)) {
+				sateEstimateTasks.setContent(taskList);
+				sateEstimateTasks.setKey(statEstimateTaskKey);
+			}
 
-			
-			List<String> counts = new ArrayList<String>();
-			ResultWatchTask t = new ResultWatchTask();
-			t.setCount(Long.valueOf(taskList.size()));
-			t.setKey(pRModel.getArea() + ":result:"
-					+ state_estimate);
-			counts.add(Utils.toString(t));
-			watchTask.setContent(counts);
+			String statSampleResultKey = pRModel.getArea() + ":result:"
+					+ state_sample;
+			if (!connectionFactory.hasKey(statSampleResultKey)) {
+				stateSampleResult.setContent(rtMap);
+				stateSampleResult.setKey(statSampleResultKey);
+			}
+
+			String stateEstimateWatchKey = pRModel.getArea() + ":task:"
+					+ state_estimate_watch;
+			if (!connectionFactory.hasKey(stateEstimateWatchKey)) {
+				List<String> counts = new ArrayList<String>();
+				ResultWatchTask t = new ResultWatchTask();
+				t.setCount(Long.valueOf(taskList.size()));
+				String statEstimateResultKey = pRModel.getArea() + ":result:"
+						+ state_estimate;
+				t.setKey(statEstimateResultKey);
+				counts.add(Utils.toString(t));
+				watchTask.setKey(stateEstimateWatchKey);
+				watchTask.setContent(counts);
+			}
 
 		}
 		LOGGER.info("StateEstimateTask count=" + taskList.size());
@@ -333,21 +347,25 @@ public class ReliabilityApl {
 	class ResultWatchTask {
 		private String key;
 		private Long count;
-		
+
 		public String getKey() {
 			return key;
 		}
+
 		public void setKey(String key) {
 			this.key = key;
 		}
+
 		public Long getCount() {
 			return count;
 		}
+
 		public void setCount(Long count) {
 			this.count = count;
 		}
-		
+
 	}
+
 	@AplFunction(value = "WatchStateEstimate", desc = "监控状态后评估")
 	public void watchStateEstimate(
 			@In("created_StateEsteimateResultWatch") ListData watchTask,
@@ -358,22 +376,31 @@ public class ReliabilityApl {
 			return;
 
 		ResultWatchTask t = Utils.toObject(task, ResultWatchTask.class);
-		
 
 		LOGGER.info("----------------start watchStateEstimate------------------------");
 
 		MapDataOperations ops = connectionFactory.getMapDataOperations();
 		Long n = ops.getSize(t.getKey());
-		while (!n.equals(t.getCount())) {
+		Long start = System.currentTimeMillis();
+		Long now = start;
+		Long timeout = t.getCount() * 3000;//设置超时
+		LOGGER.info("设置计算超时:"+timeout);
+		while (!n.equals(t.getCount()) && (now - start) < timeout) {
 			n = ops.getSize(t.getKey());
+			
 			try {
 				Thread.sleep(5);
+				now = System.currentTimeMillis();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		if (n.equals(t.getCount())) {
+		
+		if (now -start >= timeout) {
+			LOGGER.info("计算超时:"+timeout);
+		} else if (n.equals(t.getCount())) {
+			LOGGER.info("发布可靠性指标任务");
 			reliabilityIndexTask.setContent("reliabilityIndexTask");
 		}
 		LOGGER.info("----------------end watchStateEstimate------------------------");
@@ -391,13 +418,11 @@ public class ReliabilityApl {
 		String statIndex = null;
 		int taskCount = 0;
 		while ((statIndex = estimateTask.lpop()) != null) {
-			System.out.println("Process estimate task : "+statIndex);
+			System.out.println("Process estimate task : " + statIndex);
 			taskCount++;
 		}
-		
-		System.out.println("Process estimate task count :"+taskCount);
 
-
+		System.out.println("Process estimate task count :" + taskCount);
 
 		int count = 0;
 		Iterable<FState> fStates = fStateDao.findAll();

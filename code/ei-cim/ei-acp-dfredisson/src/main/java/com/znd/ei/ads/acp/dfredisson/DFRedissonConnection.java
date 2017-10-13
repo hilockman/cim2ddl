@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.ZhongND.RedisADF.ADFService.ADFService;
 import com.ZhongND.RedisADF.ADFService.ADFServiceEntry;
+import com.ZhongND.RedisADF.rmdb.MemDBContext;
 import com.ZhongND.RedisADF.rmdb.RedisMemDB;
 import com.ZhongND.RedisADF.rmdb.Impl.RedisMemDBException;
 import com.ZhongND.RedisDF.Service.DFService;
@@ -125,6 +126,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public MemDBData read(MemDBData db) throws ACPException {
 			try {
 				System.out.println("read db : "+db.getKey());
+				MemDBContext context = operations.resloveMemDBKey(db.getKey());
+				db.setArea(context.getStrArea());
+				db.setEntryName(context.getStrDBEntry());
 				operations.downloadModel(db.getKey());
 			} catch (RedisMemDBException e) {
 				e.printStackTrace();
@@ -548,6 +552,19 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			return null;
 		}
 		return keys;
+	}
+
+
+	@Override
+	public boolean hasKey(String key) {
+		ResultObject<String, Boolean> rt = null;
+		try {
+			rt = executeDF.RedissonDBKey().EXISTS(key);
+		} catch (RedissonDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rt.getValue();
 	}
 
 }

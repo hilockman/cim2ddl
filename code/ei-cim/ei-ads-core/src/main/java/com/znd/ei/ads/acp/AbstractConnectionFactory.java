@@ -45,6 +45,8 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
 		}
 		publishData(contentCode, key);
 	}
+
+
 	
 	
 	

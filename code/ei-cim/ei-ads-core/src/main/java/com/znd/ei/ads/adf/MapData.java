@@ -50,4 +50,17 @@ public class MapData extends DataItem {
 	public Long size() {
 		return operation.getSize(getKey());
 	}
+
+	@Override
+	public void clear() {
+		if (content != null)
+			content.clear();
+		
+		content = null;
+	}
+
+	@Override
+	public boolean canClear() {
+		return true;
+	}
 }

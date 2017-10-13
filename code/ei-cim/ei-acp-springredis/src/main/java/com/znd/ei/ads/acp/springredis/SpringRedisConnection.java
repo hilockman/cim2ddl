@@ -210,6 +210,11 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 		return stringRedisTemplate.keys(pattern);
 	}
 
+	@Override
+	public boolean hasKey(String key) {
+		return stringRedisTemplate.hasKey(key);
+	}
+
 
 
 }

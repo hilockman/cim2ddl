@@ -24,6 +24,16 @@ public class StringData extends DataItem {
 		String content = getContent();
 		return content == null || content.isEmpty();
 	}
+
+	@Override
+	public void clear() {
+		
+	}
+
+	@Override
+	public boolean canClear() {
+		return true;
+	}
 	
 	
 }

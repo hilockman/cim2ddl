@@ -22,9 +22,10 @@ public abstract class DataItem {
 		this.operations = operations;
 	}
 
-	public  void clear() {
-		
-	}
+	public abstract void clear();
+	
+	public abstract boolean canClear();
+
 
 	public abstract boolean isEmpty();
 

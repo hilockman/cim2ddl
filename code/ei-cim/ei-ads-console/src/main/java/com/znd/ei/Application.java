@@ -30,6 +30,7 @@ public class Application {
 		return (args) -> {
 			new Thread(() -> {
 				System.out.println("***********MemStarter -s****************");
+				AppUtil.execBuilder("MemStarter").addParam("-k").exec();
 				AppUtil.execBuilder("MemStarter").addParam("-s").exec();
 				System.out.println("***********MemStarter exit****************");
 			}).start();

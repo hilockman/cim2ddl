@@ -30,4 +30,9 @@ public class MemDBData extends DataItem {
 		return area == null || entryName == null || area.isEmpty()
 				|| entryName.isEmpty();
 	}
+
+	@Override
+	public boolean canClear() {
+		return false;
+	}
 }

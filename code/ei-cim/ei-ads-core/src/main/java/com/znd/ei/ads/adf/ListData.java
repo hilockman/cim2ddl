@@ -38,5 +38,18 @@ public class ListData  extends DataItem  {
 		
 		return content == null || content.isEmpty();
 	}
+
+	@Override
+	public void clear() {
+		if (content != null)
+			content.clear();
+		
+		content = null;
+	}
+
+	@Override
+	public boolean canClear() {
+		return true;
+	}
 	
 }
