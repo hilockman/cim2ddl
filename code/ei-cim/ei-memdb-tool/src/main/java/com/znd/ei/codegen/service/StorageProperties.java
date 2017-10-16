@@ -18,7 +18,7 @@ public class StorageProperties {
 	
     private List<DbInfo> dbInfos = new ArrayList<>();
     
-    private boolean enableEntityAnnotation;
+    private boolean enableEntityAnnotation = true;
 
     private List<String> excludeClasses = new ArrayList<String>();
     

@@ -26,7 +26,7 @@ import com.znd.ei.memdb.MemTable;
 
 @Component
 public class MemClassCreateService implements ClassCreateService {
-//	private DbEntryOperations ops;
+	// private DbEntryOperations ops;
 	private Path rootLocation;
 	private static final Logger log = LoggerFactory
 			.getLogger(MemClassCreateService.class);
@@ -34,39 +34,40 @@ public class MemClassCreateService implements ClassCreateService {
 	private StorageProperties properties;
 
 	@Autowired
-	public MemClassCreateService(/*DbEntryOperations bPAOps,*/
-			StorageProperties properties) {
+	public MemClassCreateService(/* DbEntryOperations bPAOps, */
+	StorageProperties properties) {
 		rootLocation = Paths.get(properties.getTarget());
-//		this.ops = bPAOps;
-		//this.setMemDbRepository(bPAOps);
+		// this.ops = bPAOps;
+		// this.setMemDbRepository(bPAOps);
 		this.properties = properties;
 
 	}
 
-//	public DbEntryOperations getMemDbRepository() {
-//		return ops;
-//	}
-//
-//	public void setMemDbRepository(DbEntryOperations memDbRepository) {
-//		this.ops = memDbRepository;
-//	}
-	
+	// public DbEntryOperations getMemDbRepository() {
+	// return ops;
+	// }
+	//
+	// public void setMemDbRepository(DbEntryOperations memDbRepository) {
+	// this.ops = memDbRepository;
+	// }
+
 	private Path getRootLocation() {
 		return Paths.get(properties.getTarget());
 	}
 
-	private void createClasses(Pattern pattern , DbInfo dbInfo) {
+	private void createClasses(Pattern pattern, DbInfo dbInfo) {
 
 		DbEntryOperations ops = DbEntryOperations.find(dbInfo.getEntryName());
 		String packageName = dbInfo.getPackageName();
-		Path location = Paths.get(properties.getTarget()+"/"+packageName.replaceAll(".", "/"));
+		Path location = Paths.get(properties.getTarget() + "/"
+				+ packageName.replaceAll(".", "/"));
 		try {
 			Files.createDirectories(location);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<MemTable> tables = ops.getTables();
 		for (MemTable table : tables) {
 			if (pattern != null) {
@@ -79,15 +80,15 @@ public class MemClassCreateService implements ClassCreateService {
 			}
 			log.info("Create name:" + table.getName() + ", alias:"
 					+ table.getDescription());
-			store(table,location, packageName);
+			store(table, location, packageName);
 		}
 
 		log.info("类创建完成！");
 	}
+
 	@Override
 	public void createClasses() {
 
-		
 		List<String> excludeClasses = properties.getExcludeClasses();
 		Pattern pattern = null;
 		if (excludeClasses != null && !excludeClasses.isEmpty()) {
@@ -96,7 +97,6 @@ public class MemClassCreateService implements ClassCreateService {
 					+ ")", Pattern.CASE_INSENSITIVE);
 		}
 
-		
 		List<DbInfo> dbInfos = properties.getDbInfos();
 		for (DbInfo dbInfo : dbInfos) {
 			createClasses(pattern, dbInfo);
@@ -137,7 +137,7 @@ public class MemClassCreateService implements ClassCreateService {
 	public void store(MemTable table, Path location, String packageName) {
 
 		String str = location.toString();
-//		String packageName = toPackageName(str);
+		// String packageName = toPackageName(str);
 		String fileName = str + "/" + table.getName() + ".java";
 
 		CodeTemplateContext context = new CodeTemplateContext();
@@ -149,11 +149,13 @@ public class MemClassCreateService implements ClassCreateService {
 				// 写入包信息
 				w.write("package " + packageName + ";");
 				w.write();
-				w.write("import javax.persistence.Entity;");
-				w.write("import javax.persistence.GeneratedValue;");
-				w.write("import javax.persistence.GenerationType;");
-				w.write("import javax.persistence.Id;");
-				w.write();
+				if (properties.isEnableEntityAnnotation()) {
+					w.write("import javax.persistence.Entity;");
+					w.write("import javax.persistence.GeneratedValue;");
+					w.write("import javax.persistence.GenerationType;");
+					w.write("import javax.persistence.Id;");
+					w.write();
+				}
 
 				w.write("");
 				w.write("/**********************");
@@ -173,8 +175,13 @@ public class MemClassCreateService implements ClassCreateService {
 
 		List<MemField> fields = table.getFields();
 		List<FieldInfo> fieldInfos = new ArrayList<FieldInfo>();
-		addField(fieldInfos, "Id", "id", "Integer", "@Id",
-				"@GeneratedValue(strategy=GenerationType.AUTO)");
+		if (properties.isEnableEntityAnnotation()) {
+			addField(fieldInfos, "Id", "id", "Integer", "@Id",
+					"@GeneratedValue(strategy=GenerationType.AUTO)");
+		} else {
+			addField(fieldInfos, "Id", "id", "Integer");
+		}
+
 		addField(fieldInfos,
 				Utils.upperCaseFirstLetter(DbEntry.MEM_INDEX_COLUMN_NAME),
 				DbEntry.MEM_INDEX_COLUMN_NAME, "Integer");
