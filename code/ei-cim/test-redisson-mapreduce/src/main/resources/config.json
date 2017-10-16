@@ -31,7 +31,8 @@
       ],
       "scanInterval":2000
    },
-   "threads":20,
+   "threads":8,
+   "nettyThreads": 8,
    "useLinuxNativeEpoll":false,
    "executorServiceThreads": 0,
    "executorServiceWorkers": {"myExecutor1":3, "myExecutor2":5}

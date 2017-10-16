@@ -1,4 +1,4 @@
-package org.test.redisson.mapreduce;
+package org.redisson.test.mapreduce;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,11 +13,11 @@ import java.io.Reader;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.redisson.test.mapreduce.App.TestJson;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
-import org.test.redisson.mapreduce.App.TestJson;
 
 import com.google.gson.Gson;
 

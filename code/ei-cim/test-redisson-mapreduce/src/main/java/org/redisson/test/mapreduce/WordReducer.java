@@ -1,4 +1,4 @@
-package org.test.redisson.mapreduce;
+package org.redisson.test.mapreduce;
 
 import java.util.Iterator;
 
@@ -6,7 +6,12 @@ import org.redisson.api.mapreduce.RReducer;
 
 public class WordReducer  implements RReducer<String, Integer> {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1043243453245L;
+
+	@Override
     public Integer reduce(String reducedKey, Iterator<Integer> iter) {
         int sum = 0;
         while (iter.hasNext()) {

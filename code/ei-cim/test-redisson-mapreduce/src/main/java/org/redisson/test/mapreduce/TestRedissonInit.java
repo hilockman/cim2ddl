@@ -1,4 +1,4 @@
-package org.test.redisson.mapreduce;
+package org.redisson.test.mapreduce;
 
 import org.redisson.Redisson;
 import org.redisson.RedissonNode;
@@ -17,7 +17,7 @@ public class TestRedissonInit implements RedissonNodeInitializer {
 		// ...
 		// 或
 		redisson.getRemoteService("myRemoteService").register(
-				MyRemoteService.class, new MyRemoteServiceImpl());
+				StatSampleSeverice.class, new StatSampleSevericeImpl());
 		// 或
 		redisson.getTopic("myNotificationTopic").publish(
 				"New node has joined. id:" + redissonNode.getId()

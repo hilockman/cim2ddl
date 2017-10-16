@@ -4377,3 +4377,395 @@ Consider defining a bean of type 'com.znd.ei.memdb.dao.MemTableOperations' in yo
 2017-09-28 13:36:01.276  INFO 16504 --- [main] com.znd.ei.Application                   : Started Application in 3.077 seconds (JVM running for 3.377)
 2017-09-28 13:36:01.277  INFO 16504 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2a32de6c: startup date [Thu Sep 28 13:35:58 CST 2017]; root of context hierarchy
 2017-09-28 13:36:01.279  INFO 16504 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-10-16 16:01:17.772  INFO 13480 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 13480 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-10-16 16:01:17.788  INFO 13480 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-10-16 16:01:17.835  INFO 13480 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@8f4ea7c: startup date [Mon Oct 16 16:01:17 CST 2017]; root of context hierarchy
+2017-10-16 16:01:19.453  INFO 13480 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-10-16 16:01:19.476  INFO 13480 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-10-16 16:01:19.476  INFO 13480 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-10-16 16:01:19.585  INFO 13480 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-10-16 16:01:19.585  INFO 13480 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1750 ms
+2017-10-16 16:01:19.741  INFO 13480 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-10-16 16:01:19.757  INFO 13480 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-10-16 16:01:19.757  INFO 13480 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-10-16 16:01:19.757  INFO 13480 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-10-16 16:01:19.757  INFO 13480 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-10-16 16:01:20.225  INFO 13480 --- [main] com.znd.ei.AppCommand                    : Create code
+2017-10-16 16:01:20.257  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Case, alias:潮流控制语句
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:15 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Area, alias:区域表(AREA)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_I, alias:区域交换功率控制表(I)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Zone, alias:分区表(ZONE)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Sub, alias:BPA厂站表(BPASub)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_ACBus, alias:节点表(ACBus)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_ACLine, alias:交流线路表(ACLine)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_LineHG, alias:线路高抗表(LineHG)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Wind, alias:变压器绕组表(Wind)
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.272  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_DCBus, alias:直流母线表(DCBus)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_DCLine, alias:直流线路表(DCLine)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_R, alias:带负荷调节变压器控制器表(R)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_RZ, alias:线路串补表(RZ)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_P, alias:发电负荷调整表(P)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_ZIL, alias:小支路清除信息表(ZIL)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Gen, alias:电网-发电机表
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Load, alias:电网-负荷表
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Tran, alias:电网-变压器表
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_EdgeLine, alias:电网边-线路
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_EdgeWind, alias:电网边-变压器绕组
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_EdgeLineHG, alias:电网边-高抗
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Radiate, alias:辐射网络
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaScc_FMove, alias:线路故障点移动计算结果
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Case, alias:稳定计算控制卡(CASE)
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.288  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_F1, alias:稳定计算控制继续卡(F1)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_F0, alias:监视曲线控制卡(F0)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FF, alias:稳定计算控制卡(FF)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Gen, alias:发电机模型表(MC/MF/MG)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Damp, alias:发电机阻尼模型表(M)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_WGEGen, alias:GE风机模型表(WINDG_GE)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GenLn, alias:发电机等值负荷(LN)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Exc68, alias:1968年IEEE励磁系统模型表(E)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Exc81, alias:1981年IEEE励磁系统模型表(F)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_ExcMV, alias:新励磁系统模型表(FM-FV)
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.304  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FZ, alias:励磁系统继续卡(FZ)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:31 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FCA, alias:励磁系统继续卡(F+)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FCB, alias:励磁系统继续卡(F#)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_ExcX, alias:新励磁系统模型表(FX)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssS, alias:PSS模型表(S)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSH, alias:PSS模型SH表(SH)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSI, alias:PSS模型SI表(SI)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSA, alias:PSS模型SA表(SA)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSB, alias:PSS模型SB表(SB)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssST, alias:暂态稳定器表(ST)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GG, alias:调速器和原动机组合模型表(GG)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GH, alias:水轮机调速器和原动机模型表(GH)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GC, alias:调速器和原动机组合模型表(GC)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GS, alias:汽轮机调速模型1表(GS)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GL, alias:汽轮机调速模型2表(GL)
+2017-10-16 16:01:20.335  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.350  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GW, alias:水轮机调速模型表(GW)
+2017-10-16 16:01:20.350  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.350  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GA, alias:电液伺服系统模型表(GA)
+2017-10-16 16:01:20.350  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.350  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GI, alias:调节系统模型1表(GI)
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:16 豪秒
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GJ, alias:调节系统模型2表(GJ)
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GK, alias:调节系统模型3表(GK)
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GM, alias:调节系统模型4表(GM)
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GD, alias:电调型(功率反馈)调速器模型表(GD)
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.366  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GZ, alias:电调型(功率反馈)调速器模型表(GZ)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:16 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TA, alias:无再热器汽轮机模型表(TA)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TB, alias:单再热器汽轮机模型表(TB)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TC, alias:双再热器汽轮机模型表(TC)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TD, alias:单再热器汽轮机模型表(TD)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TE, alias:单再热器汽轮机模型表(TE)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TF, alias:双再热器汽轮机模型表(TF)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TW, alias:水轮机模型表(TW)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GX, alias:锅炉的主汽压力变化模型表(GX)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_IGV, alias:修改调速器频率参考信息表(IGV)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FGV, alias:发电机机械功率周期波动表(FGV)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_LO, alias:线路零序参数模型(LO)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_XO, alias:变压器零序模型(XO)
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.382  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_LOHG, alias:线路高抗零序参数模型(LOHG)
+2017-10-16 16:01:20.397  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:15 豪秒
+2017-10-16 16:01:20.397  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_XR, alias:对地支路零序模型(XR)
+2017-10-16 16:01:20.397  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.397  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_D, alias:直流控制系统模型(D)
+2017-10-16 16:01:20.397  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.397  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_V, alias:静止无功补偿器(SVC)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:32 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_VG, alias:静止无功发生器(STATCOM)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_LAB, alias:静态负荷模型表(LA/LB)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_MI, alias:感应马达模型(MI)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_ML, alias:新感应马达模型(ML)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_MJ, alias:新感应马达模型(MJ)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_MK, alias:新感应马达模型(MK)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_UF, alias:自动减负荷模型(UF)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_UV, alias:自动减负荷模型(UV)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RE, alias:发电机电压保护(RE)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RW, alias:发电机转速保护(RW)
+2017-10-16 16:01:20.429  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.444  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RA, alias:低压线路断开保护(RA)
+2017-10-16 16:01:20.444  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.444  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RU, alias:低频线路断开保护(RU)
+2017-10-16 16:01:20.444  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:01:20.444  INFO 13480 --- [main] c.z.e.c.service.MemClassCreateService    : 类创建完成！
+2017-10-16 16:01:20.825  INFO 13480 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@8f4ea7c: startup date [Mon Oct 16 16:01:17 CST 2017]; root of context hierarchy
+2017-10-16 16:01:20.981  INFO 13480 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-10-16 16:01:20.981  INFO 13480 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-10-16 16:01:21.012  INFO 13480 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-16 16:01:21.012  INFO 13480 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-16 16:01:21.075  INFO 13480 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-16 16:01:21.247  INFO 13480 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-10-16 16:01:21.387  INFO 13480 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http)
+2017-10-16 16:01:21.387  INFO 13480 --- [main] com.znd.ei.Application                   : Started Application in 4.13 seconds (JVM running for 4.457)
+2017-10-16 16:01:21.387  INFO 13480 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@8f4ea7c: startup date [Mon Oct 16 16:01:17 CST 2017]; root of context hierarchy
+2017-10-16 16:01:21.387  INFO 13480 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-10-16 16:02:08.267  INFO 13796 --- [main] com.znd.ei.Application                   : Starting Application on wangheng with PID 13796 (D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool\target\classes started by ThinkPad in D:\GitHub\cim2ddl\code\ei-cim\ei-memdb-tool)
+2017-10-16 16:02:08.267  INFO 13796 --- [main] com.znd.ei.Application                   : No active profile set, falling back to default profiles: default
+2017-10-16 16:02:08.314  INFO 13796 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@37afeb11: startup date [Mon Oct 16 16:02:08 CST 2017]; root of context hierarchy
+2017-10-16 16:02:09.486  INFO 13796 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2017-10-16 16:02:09.501  INFO 13796 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-10-16 16:02:09.501  INFO 13796 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.16
+2017-10-16 16:02:09.610  INFO 13796 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-10-16 16:02:09.610  INFO 13796 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1296 ms
+2017-10-16 16:02:09.751  INFO 13796 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-10-16 16:02:09.766  INFO 13796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-10-16 16:02:09.766  INFO 13796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-10-16 16:02:09.766  INFO 13796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-10-16 16:02:09.766  INFO 13796 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-10-16 16:02:09.969  INFO 13796 --- [main] com.znd.ei.AppCommand                    : Create code
+2017-10-16 16:02:09.985  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Case, alias:潮流控制语句
+2017-10-16 16:02:09.985  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:09.985  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Area, alias:区域表(AREA)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_I, alias:区域交换功率控制表(I)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Zone, alias:分区表(ZONE)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Sub, alias:BPA厂站表(BPASub)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_ACBus, alias:节点表(ACBus)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_ACLine, alias:交流线路表(ACLine)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_LineHG, alias:线路高抗表(LineHG)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Wind, alias:变压器绕组表(Wind)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_DCBus, alias:直流母线表(DCBus)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_DCLine, alias:直流线路表(DCLine)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_R, alias:带负荷调节变压器控制器表(R)
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.001  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_RZ, alias:线路串补表(RZ)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:15 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_P, alias:发电负荷调整表(P)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_ZIL, alias:小支路清除信息表(ZIL)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Gen, alias:电网-发电机表
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Load, alias:电网-负荷表
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Tran, alias:电网-变压器表
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_EdgeLine, alias:电网边-线路
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_EdgeWind, alias:电网边-变压器绕组
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_EdgeLineHG, alias:电网边-高抗
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaDat_Radiate, alias:辐射网络
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaScc_FMove, alias:线路故障点移动计算结果
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Case, alias:稳定计算控制卡(CASE)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_F1, alias:稳定计算控制继续卡(F1)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_F0, alias:监视曲线控制卡(F0)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FF, alias:稳定计算控制卡(FF)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Gen, alias:发电机模型表(MC/MF/MG)
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.016  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Damp, alias:发电机阻尼模型表(M)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_WGEGen, alias:GE风机模型表(WINDG_GE)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GenLn, alias:发电机等值负荷(LN)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Exc68, alias:1968年IEEE励磁系统模型表(E)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_Exc81, alias:1981年IEEE励磁系统模型表(F)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_ExcMV, alias:新励磁系统模型表(FM-FV)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FZ, alias:励磁系统继续卡(FZ)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FCA, alias:励磁系统继续卡(F+)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FCB, alias:励磁系统继续卡(F#)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_ExcX, alias:新励磁系统模型表(FX)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssS, alias:PSS模型表(S)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSH, alias:PSS模型SH表(SH)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSI, alias:PSS模型SI表(SI)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSA, alias:PSS模型SA表(SA)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssSB, alias:PSS模型SB表(SB)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_PssST, alias:暂态稳定器表(ST)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GG, alias:调速器和原动机组合模型表(GG)
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.032  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GH, alias:水轮机调速器和原动机模型表(GH)
+2017-10-16 16:02:10.049  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:1 豪秒
+2017-10-16 16:02:10.049  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GC, alias:调速器和原动机组合模型表(GC)
+2017-10-16 16:02:10.051  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:2 豪秒
+2017-10-16 16:02:10.051  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GS, alias:汽轮机调速模型1表(GS)
+2017-10-16 16:02:10.052  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:1 豪秒
+2017-10-16 16:02:10.052  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GL, alias:汽轮机调速模型2表(GL)
+2017-10-16 16:02:10.053  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:1 豪秒
+2017-10-16 16:02:10.053  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GW, alias:水轮机调速模型表(GW)
+2017-10-16 16:02:10.054  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.055  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GA, alias:电液伺服系统模型表(GA)
+2017-10-16 16:02:10.056  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:1 豪秒
+2017-10-16 16:02:10.056  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GI, alias:调节系统模型1表(GI)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:20 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GJ, alias:调节系统模型2表(GJ)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GK, alias:调节系统模型3表(GK)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GM, alias:调节系统模型4表(GM)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GD, alias:电调型(功率反馈)调速器模型表(GD)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GZ, alias:电调型(功率反馈)调速器模型表(GZ)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TA, alias:无再热器汽轮机模型表(TA)
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.076  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TB, alias:单再热器汽轮机模型表(TB)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:15 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TC, alias:双再热器汽轮机模型表(TC)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TD, alias:单再热器汽轮机模型表(TD)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TE, alias:单再热器汽轮机模型表(TE)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TF, alias:双再热器汽轮机模型表(TF)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_TW, alias:水轮机模型表(TW)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_GX, alias:锅炉的主汽压力变化模型表(GX)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_IGV, alias:修改调速器频率参考信息表(IGV)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_FGV, alias:发电机机械功率周期波动表(FGV)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_LO, alias:线路零序参数模型(LO)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_XO, alias:变压器零序模型(XO)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_LOHG, alias:线路高抗零序参数模型(LOHG)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_XR, alias:对地支路零序模型(XR)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_D, alias:直流控制系统模型(D)
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.091  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_V, alias:静止无功补偿器(SVC)
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:47 豪秒
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_VG, alias:静止无功发生器(STATCOM)
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_LAB, alias:静态负荷模型表(LA/LB)
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_MI, alias:感应马达模型(MI)
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_ML, alias:新感应马达模型(ML)
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.138  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_MJ, alias:新感应马达模型(MJ)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:16 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_MK, alias:新感应马达模型(MK)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_UF, alias:自动减负荷模型(UF)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_UV, alias:自动减负荷模型(UV)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RE, alias:发电机电压保护(RE)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RW, alias:发电机转速保护(RW)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RA, alias:低压线路断开保护(RA)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : Create name:BpaSwi_RU, alias:低频线路断开保护(RU)
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 执行耗时:0 豪秒
+2017-10-16 16:02:10.154  INFO 13796 --- [main] c.z.e.c.service.MemClassCreateService    : 类创建完成！
+2017-10-16 16:02:10.482  INFO 13796 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@37afeb11: startup date [Mon Oct 16 16:02:08 CST 2017]; root of context hierarchy
+2017-10-16 16:02:10.560  INFO 13796 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-10-16 16:02:10.567  INFO 13796 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-10-16 16:02:10.583  INFO 13796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-16 16:02:10.583  INFO 13796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-16 16:02:10.630  INFO 13796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-16 16:02:10.755  INFO 13796 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-10-16 16:02:10.833  INFO 13796 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http)
+2017-10-16 16:02:10.833  INFO 13796 --- [main] com.znd.ei.Application                   : Started Application in 2.926 seconds (JVM running for 3.26)
+2017-10-16 16:02:10.833  INFO 13796 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@37afeb11: startup date [Mon Oct 16 16:02:08 CST 2017]; root of context hierarchy
+2017-10-16 16:02:10.848  INFO 13796 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown

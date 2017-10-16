@@ -1,12 +1,9 @@
-package org.test.redisson.mapreduce;
+package org.redisson.test.mapreduce;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 
-import org.redisson.RedissonNode;
+import org.redisson.api.RExecutorService;
 import org.redisson.api.RMap;
-import org.redisson.api.RScheduledExecutorService;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.mapreduce.RMapReduce;
 import org.redisson.config.Config;
@@ -68,11 +65,15 @@ public class App
 	    Config config = ctx.getBean(Config.class);
 	    
 	    RedissonNodeConfig nodeConfig = new RedissonNodeConfig(config);
+	   // redisson.getExecutorService(RExecutorService.MAPREDUCE_NAME).registerWorkers(5);
+	   // String serviceName = "test1";
+	   // System.out.println(serviceName);
+	   // RScheduledExecutorService es = redisson.getExecutorService(serviceName);
+	    //nodeConfig.setExecutor(es);
+	   // es.MAPREDUCE_NAME;
 	    
-	    String serviceName = "test1";
-	    System.out.println(serviceName);
-	    RScheduledExecutorService es = redisson.getExecutorService(serviceName);
-	    nodeConfig.setExecutor(es);
+	    //RScheduledExecutorService mes = redisson.getExecutorService(RExecutorService.MAPREDUCE_NAME);
+	    //nodeConfig.setMapReduceWorkers(5);
 	    
 //	   int n =  es.countActiveWorkers();
 //	   boolean bt = es.isTerminated();
@@ -85,10 +86,12 @@ public class App
 //	    RedissonNode node = RedissonNode.create(nodeConfig);
 //	    node.start();
 	    
+	    int n = nodeConfig.getMapReduceWorkers();
 	    RMapReduce<String, String, String, Integer> mapReduce
 	             = map.<String, Integer>mapReduce()
 	                  .mapper(new WordMapper())
 	                  .reducer(new WordReducer());
+	    
 	    
 	    System.out.println("Start statistic ...");
 

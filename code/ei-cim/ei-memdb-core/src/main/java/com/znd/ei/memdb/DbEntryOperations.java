@@ -1,6 +1,8 @@
 package com.znd.ei.memdb;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface DbEntryOperations {
 	List<MemTable> getTables();
@@ -22,4 +24,9 @@ public interface DbEntryOperations {
 	void clearDb();
 	
 	Connection getConnection();
+	
+	Map<String, DbEntryOperations> ALL_DB_OPS = new HashMap<String, DbEntryOperations>();
+	public static DbEntryOperations find(String entryName) {
+		return ALL_DB_OPS.get(entryName);
+	}
 }

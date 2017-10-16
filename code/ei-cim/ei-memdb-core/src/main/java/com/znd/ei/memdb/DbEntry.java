@@ -22,6 +22,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		this.setConnection(connection);
 
 		dbname = connection.getName();
+		DbEntryOperations.ALL_DB_OPS.put(dbname, this);
 		JMemDBApi.initMemDB(dbname, 0, 1);
 		int tableNum = JMemDBApi.getTableNum(dbname);
 		System.out

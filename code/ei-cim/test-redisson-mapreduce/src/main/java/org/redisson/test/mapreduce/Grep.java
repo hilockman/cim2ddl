@@ -1,4 +1,4 @@
-package org.test.redisson.mapreduce;
+package org.redisson.test.mapreduce;
 
 /*
  * Copyright (c) 2001, 2014, Oracle and/or its affiliates. All rights reserved.

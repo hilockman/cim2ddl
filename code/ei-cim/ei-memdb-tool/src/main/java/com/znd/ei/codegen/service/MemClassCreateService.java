@@ -26,7 +26,7 @@ import com.znd.ei.memdb.MemTable;
 
 @Component
 public class MemClassCreateService implements ClassCreateService {
-	private DbEntryOperations ops;
+//	private DbEntryOperations ops;
 	private Path rootLocation;
 	private static final Logger log = LoggerFactory
 			.getLogger(MemClassCreateService.class);
@@ -34,10 +34,10 @@ public class MemClassCreateService implements ClassCreateService {
 	private StorageProperties properties;
 
 	@Autowired
-	public MemClassCreateService(DbEntryOperations bPAOps,
+	public MemClassCreateService(/*DbEntryOperations bPAOps,*/
 			StorageProperties properties) {
-		rootLocation = Paths.get(properties.getLocation());
-		this.ops = bPAOps;
+		rootLocation = Paths.get(properties.getTarget());
+//		this.ops = bPAOps;
 		//this.setMemDbRepository(bPAOps);
 		this.properties = properties;
 
@@ -50,19 +50,24 @@ public class MemClassCreateService implements ClassCreateService {
 //	public void setMemDbRepository(DbEntryOperations memDbRepository) {
 //		this.ops = memDbRepository;
 //	}
+	
+	private Path getRootLocation() {
+		return Paths.get(properties.getTarget());
+	}
 
-	@Override
-	public void createClasses() {
+	private void createClasses(Pattern pattern , DbInfo dbInfo) {
 
-		List<MemTable> tables = ops.getTables();
-		List<String> excludeClasses = properties.getExcludeClasses();
-		Pattern pattern = null;
-		if (excludeClasses != null && !excludeClasses.isEmpty()) {
-			log.info("--ExcludeClasses:" + excludeClasses);
-			pattern = Pattern.compile("(" + String.join("|", excludeClasses)
-					+ ")", Pattern.CASE_INSENSITIVE);
+		DbEntryOperations ops = DbEntryOperations.find(dbInfo.getEntryName());
+		String packageName = dbInfo.getPackageName();
+		Path location = Paths.get(properties.getTarget()+"/"+packageName.replaceAll(".", "/"));
+		try {
+			Files.createDirectories(location);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
+		
+		List<MemTable> tables = ops.getTables();
 		for (MemTable table : tables) {
 			if (pattern != null) {
 				Matcher m = pattern.matcher(table.getName());
@@ -74,11 +79,28 @@ public class MemClassCreateService implements ClassCreateService {
 			}
 			log.info("Create name:" + table.getName() + ", alias:"
 					+ table.getDescription());
-			store(table);
+			store(table,location, packageName);
 		}
 
 		log.info("类创建完成！");
+	}
+	@Override
+	public void createClasses() {
 
+		
+		List<String> excludeClasses = properties.getExcludeClasses();
+		Pattern pattern = null;
+		if (excludeClasses != null && !excludeClasses.isEmpty()) {
+			log.info("--ExcludeClasses:" + excludeClasses);
+			pattern = Pattern.compile("(" + String.join("|", excludeClasses)
+					+ ")", Pattern.CASE_INSENSITIVE);
+		}
+
+		
+		List<DbInfo> dbInfos = properties.getDbInfos();
+		for (DbInfo dbInfo : dbInfos) {
+			createClasses(pattern, dbInfo);
+		}
 	}
 
 	@Override
@@ -112,10 +134,10 @@ public class MemClassCreateService implements ClassCreateService {
 	}
 
 	@Override
-	public void store(MemTable table) {
+	public void store(MemTable table, Path location, String packageName) {
 
-		String str = rootLocation.toString();
-		String packageName = toPackageName(str);
+		String str = location.toString();
+//		String packageName = toPackageName(str);
 		String fileName = str + "/" + table.getName() + ".java";
 
 		CodeTemplateContext context = new CodeTemplateContext();

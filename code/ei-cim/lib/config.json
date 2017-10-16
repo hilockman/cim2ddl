@@ -1,4 +1,5 @@
 {
+"mapReduceWorkers":5,
    "clusterServersConfig":{
       "idleConnectionTimeout":100000,
       "pingTimeout":2000,
@@ -32,9 +33,10 @@
       ],
       "scanInterval":2000
    },
-   "threads":20,
-   "nettyThreads": 20,
+   "threads":8,
+   "nettyThreads": 8,
    "codec":null,
    "useLinuxNativeEpoll":false,
-   "executorServiceWorkers": {"test1":3, "myExecutor2":5}
+   "executorServiceWorkers": {"stateSample":3, "myExecutor2":5},
+    "redissonNodeInitializer": {"class":"org.redisson.test.mapreduce.MyRedissonNodeInitializer"}
 }

@@ -7,3 +7,9 @@ code/ei-cim/test-redisson-mapreduce/.classpath
 code/ei-cim/test-redisson-mapreduce/.classpath
 code/ei-cim/test-redisson-mapreduce/.classpath
 *.log
+code/ei-cim/ei-memdb-core/src/main/java/com/znd/ei/memdb/DbEntryOperations.java
+*.log
+*.log
+*.log
+code/ei-cim/ei-memdb-tool/log/myapp.log
+*.log
