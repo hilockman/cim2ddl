@@ -25,7 +25,7 @@ public interface DbEntryOperations {
 	
 	Connection getConnection();
 	
-	Map<String, DbEntryOperations> ALL_DB_OPS = new HashMap<String, DbEntryOperations>();
+	public static final Map<String, DbEntryOperations> ALL_DB_OPS = new HashMap<String, DbEntryOperations>();
 	public static DbEntryOperations find(String entryName) {
 		return ALL_DB_OPS.get(entryName);
 	}

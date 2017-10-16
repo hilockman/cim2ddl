@@ -8,7 +8,7 @@ public interface ClassCreateService {
 
 	void createClasses();
 	
-    void deleteAll();
+    //void deleteAll();
     
     void store(MemTable table, Path location, String packageName);
     

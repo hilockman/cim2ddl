@@ -116,15 +116,15 @@ public class MemClassCreateService implements ClassCreateService {
 		return pathName.replaceAll("[/|\\\\]", ".");
 	}
 
-	@Override
-	public void deleteAll() {
-
-		FileSystemUtils.deleteRecursively(rootLocation.toFile());
-
-		String strs[] = rootLocation.toString().split("[/|\\\\]");
-		File path = Paths.get(strs[0]).toAbsolutePath().toFile();
-		Utils.deleteAllFilesOfDir(path);
-	}
+//	@Override
+//	public void deleteAll() {
+//
+//		FileSystemUtils.deleteRecursively(rootLocation.toFile());
+//
+//		String strs[] = rootLocation.toString().split("[/|\\\\]");
+//		File path = Paths.get(strs[0]).toAbsolutePath().toFile();
+////		Utils.deleteAllFilesOfDir(path);
+//	}
 
 	private String lowerCaseFirstLetter(String name) {
 		StringBuffer buff = new StringBuffer();
@@ -136,10 +136,11 @@ public class MemClassCreateService implements ClassCreateService {
 	@Override
 	public void store(MemTable table, Path location, String packageName) {
 
+		
 		String str = location.toString();
 		// String packageName = toPackageName(str);
 		String fileName = str + "/" + table.getName() + ".java";
-
+		Utils.deleteAllFilesOfDir(new File(fileName));
 		CodeTemplateContext context = new CodeTemplateContext();
 
 		context.add(new CodeBlock() { // 包声明

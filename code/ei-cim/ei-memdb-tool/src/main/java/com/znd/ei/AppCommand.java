@@ -8,6 +8,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
 
 import com.znd.ei.codegen.service.ClassCreateService;
+import com.znd.ei.memdb.DbEntryOperations;
 
 /**
  * 
@@ -20,11 +21,11 @@ import com.znd.ei.codegen.service.ClassCreateService;
 public class AppCommand  {
 	static  Logger logger = Logger.getLogger(AppCommand.class.getName());
 	@Autowired
-	public AppCommand(ClassCreateService classCreator, ApplicationArguments args) {
+	public AppCommand(ClassCreateService classCreator, DbEntryOperations[] opss, ApplicationArguments args) {
 		boolean create = args.containsOption("createCode");
 		if (create) {
 			logger.log(Level.INFO, "Create code");
-			classCreator.deleteAll();
+			//classCreator.deleteAll();
 			classCreator.init();
 			classCreator.createClasses();
 			
@@ -32,7 +33,7 @@ public class AppCommand  {
 		}
 		
 		if (args.containsOption("clear")) {
-			classCreator.deleteAll();
+			//classCreator.deleteAll();
 			classCreator.init();			
 		}
 		//System.out.println("arguments:"+args.toString());
