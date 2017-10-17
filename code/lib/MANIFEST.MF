@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Implementation-Title: ei-ads-console
+Implementation-Version: 1.0
+Built-By: ThinkPad
+Implementation-Vendor-Id: com.znd.ei
+Spring-Boot-Version: 2.0.0.M3
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: org.springframework.boot.loader.JarLauncher
+Start-Class: com.znd.ei.Application
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Created-By: Apache Maven 3.5.0
+Build-Jdk: 1.8.0_131
+Implementation-URL: http://maven.apache.org
+

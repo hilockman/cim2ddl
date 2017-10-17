@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                               http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.znd.ei</groupId>
+	<version>1.0</version>
+	<artifactId>ei-cim</artifactId>
+	<packaging>pom</packaging>
+	<name>Energy Internet Common Information Model</name>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.M3</version>
+		<relativePath/>
+	</parent>
+
+ 
+	<modules>
+		<module>ei-model</module>
+		<module>ei-persist</module>
+		<module>ei-webservice</module>
+		<module>ei-console</module>
+    	<module>ei-memdb-core</module>
+	  	<module>ei-memdb</module>
+		<module>ei-memdb-tool</module>
+		<module>ei-memdb-check</module>
+   		<module>ei-ads-core</module>
+   		<module>ei-apl-reliability</module>
+   		<module>ei-acp-dfredisson</module>
+   		<module>ei-ads-web</module>
+    		<module>ei-acp-springredis</module>
+       <module>test-redisson-mapreduce</module>
+		<module>ei-base</module>
+    <module>test-java</module>
+    <module>test-nio-client</module>
+    <module>test-proxy</module>
+    <module>ei-ads-console</module>
+    <module>ei-memdb-web</module>
+  </modules>
+
+	<properties>
+		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+		<hsqldb.version>1.8.0.7</hsqldb.version>
+		<jetty.version>9.4.6.v20170531</jetty.version>
+		<java.version>1.8</java.version>
+		<!-- spring.version>4.2.1.RELEASE</spring.version -->
+		<!-- spring-data.version>Gosling-RELEASE</spring-data.version -->
+		<znd.version>3.0</znd.version>
+		<target.dir>../../lib</target.dir>
+		<config.dir>../../config</config.dir>		
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-webapp</artifactId>
+				<version>${jetty.version}</version>
+			</dependency>
+
+			<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-framework-bom</artifactId> 
+				<version>${spring.version}</version> <scope>import</scope> <type>pom</type> 
+				</dependency> <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-releasetrain</artifactId> 
+				<version>${spring-data.version}</version> <scope>import</scope> <type>pom</type> 
+				</dependency> -->
+			<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+			<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+				<version>6.0.6</version> </dependency> -->
+				
+<!-- Import dependency management from Spring Boot -->
+<!-- 
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.5.6.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+ -->
+		</dependencies>
+	</dependencyManagement>
+ 
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+ 
+	<build>
+	<!-- 
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>	
+	 -->			
+	</build>
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>     
+    </repositories>	
+    <pluginRepositories> 	
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </pluginRepository>     
+    </pluginRepositories>
+    
+</project>
