@@ -292,28 +292,28 @@ public class BpaSwi_GZ
     
   public String toString()
   {
-    return "BpaSwi_GZ ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gZ_Tsm"=gZ_Tsm,
-	"gZ_Ropen"=gZ_Ropen,
-	"gZ_Rclose"=gZ_Rclose,
-	"gZ_EHC_MAX"=gZ_EHC_MAX,
-	"gZ_EHC_MIN"=gZ_EHC_MIN,
-	"gZ_T_Open"=gZ_T_Open,
-	"gZ_T_Close"=gZ_T_Close,
-	"gZ_DB_Value"=gZ_DB_Value,
-	"gZ_CV_MAX"=gZ_CV_MAX,
-	"gZ_CV_MIN"=gZ_CV_MIN,
-	"gZ_Kpe"=gZ_Kpe,
-	"gZ_Tpe"=gZ_Tpe,
-	"gZ_Mode"=gZ_Mode,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GZ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gZ_Tsm = " + gZ_Tsm
+	 + ", gZ_Ropen = " + gZ_Ropen
+	 + ", gZ_Rclose = " + gZ_Rclose
+	 + ", gZ_EHC_MAX = " + gZ_EHC_MAX
+	 + ", gZ_EHC_MIN = " + gZ_EHC_MIN
+	 + ", gZ_T_Open = " + gZ_T_Open
+	 + ", gZ_T_Close = " + gZ_T_Close
+	 + ", gZ_DB_Value = " + gZ_DB_Value
+	 + ", gZ_CV_MAX = " + gZ_CV_MAX
+	 + ", gZ_CV_MIN = " + gZ_CV_MIN
+	 + ", gZ_Kpe = " + gZ_Kpe
+	 + ", gZ_Tpe = " + gZ_Tpe
+	 + ", gZ_Mode = " + gZ_Mode
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

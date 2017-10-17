@@ -279,27 +279,27 @@ public class BpaDat_Area
     
   public String toString()
   {
-    return "BpaDat_Area ["+	"id"=id,
-	"memIndex"=memIndex,
-	"area_Name"=area_Name,
-	"cardKey"=cardKey,
-	"slackBusName"=slackBusName,
-	"slackBuskV"=slackBuskV,
-	"outP"=outP,
-	"mK_TJ"=mK_TJ,
-	"mK_Pper"=mK_Pper,
-	"mK_KL"=mK_KL,
-	"mK_Pmin"=mK_Pmin,
-	"mK_RS"=mK_RS,
-	"mK_XS"=mK_XS,
-	"mK_XM"=mK_XM,
-	"mK_RR"=mK_RR,
-	"mK_XR"=mK_XR,
-	"mK_VI"=mK_VI,
-	"mK_TI"=mK_TI,
-	"mK_A"=mK_A,
-	"mK_B"=mK_B,
-	"mK_IM"=mK_IM+"]"
+    return "BpaDat_Area ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", area_Name = " + area_Name
+	 + ", cardKey = " + cardKey
+	 + ", slackBusName = " + slackBusName
+	 + ", slackBuskV = " + slackBuskV
+	 + ", outP = " + outP
+	 + ", mK_TJ = " + mK_TJ
+	 + ", mK_Pper = " + mK_Pper
+	 + ", mK_KL = " + mK_KL
+	 + ", mK_Pmin = " + mK_Pmin
+	 + ", mK_RS = " + mK_RS
+	 + ", mK_XS = " + mK_XS
+	 + ", mK_XM = " + mK_XM
+	 + ", mK_RR = " + mK_RR
+	 + ", mK_XR = " + mK_XR
+	 + ", mK_VI = " + mK_VI
+	 + ", mK_TI = " + mK_TI
+	 + ", mK_A = " + mK_A
+	 + ", mK_B = " + mK_B
+	 + ", mK_IM = " + mK_IM+"]";
   }
     
 }

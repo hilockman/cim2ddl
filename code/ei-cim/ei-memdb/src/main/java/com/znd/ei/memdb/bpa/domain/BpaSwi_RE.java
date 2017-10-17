@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机电压保护(RE)	*
 ***********************/
-@Entity
 public class BpaSwi_RE
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -102,7 +94,7 @@ public class BpaSwi_RE
   //发电机母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -112,7 +104,7 @@ public class BpaSwi_RE
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -122,7 +114,7 @@ public class BpaSwi_RE
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -132,7 +124,7 @@ public class BpaSwi_RE
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -142,7 +134,7 @@ public class BpaSwi_RE
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -152,7 +144,7 @@ public class BpaSwi_RE
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -162,7 +154,7 @@ public class BpaSwi_RE
     this.gen_ID = gen_ID;
   }
     
-  public Double getRE_VOL1() 
+  public Double getRE_VOL1()
   {
     return rE_VOL1;
   }
@@ -172,7 +164,7 @@ public class BpaSwi_RE
     this.rE_VOL1 = rE_VOL1;
   }
     
-  public Double getRE_VOL2() 
+  public Double getRE_VOL2()
   {
     return rE_VOL2;
   }
@@ -182,7 +174,7 @@ public class BpaSwi_RE
     this.rE_VOL2 = rE_VOL2;
   }
     
-  public Double getRE_VOL3() 
+  public Double getRE_VOL3()
   {
     return rE_VOL3;
   }
@@ -192,7 +184,7 @@ public class BpaSwi_RE
     this.rE_VOL3 = rE_VOL3;
   }
     
-  public Double getRE_VOL4() 
+  public Double getRE_VOL4()
   {
     return rE_VOL4;
   }
@@ -202,7 +194,7 @@ public class BpaSwi_RE
     this.rE_VOL4 = rE_VOL4;
   }
     
-  public Double getRE_VOL5() 
+  public Double getRE_VOL5()
   {
     return rE_VOL5;
   }
@@ -212,7 +204,7 @@ public class BpaSwi_RE
     this.rE_VOL5 = rE_VOL5;
   }
     
-  public Double getRE_VOL6() 
+  public Double getRE_VOL6()
   {
     return rE_VOL6;
   }
@@ -222,7 +214,7 @@ public class BpaSwi_RE
     this.rE_VOL6 = rE_VOL6;
   }
     
-  public Double getRE_VOL7() 
+  public Double getRE_VOL7()
   {
     return rE_VOL7;
   }
@@ -232,7 +224,7 @@ public class BpaSwi_RE
     this.rE_VOL7 = rE_VOL7;
   }
     
-  public Double getRE_VOL8() 
+  public Double getRE_VOL8()
   {
     return rE_VOL8;
   }
@@ -242,7 +234,7 @@ public class BpaSwi_RE
     this.rE_VOL8 = rE_VOL8;
   }
     
-  public Double getRE_VOL9() 
+  public Double getRE_VOL9()
   {
     return rE_VOL9;
   }
@@ -252,7 +244,7 @@ public class BpaSwi_RE
     this.rE_VOL9 = rE_VOL9;
   }
     
-  public Double getRE_VOL10() 
+  public Double getRE_VOL10()
   {
     return rE_VOL10;
   }
@@ -262,7 +254,7 @@ public class BpaSwi_RE
     this.rE_VOL10 = rE_VOL10;
   }
     
-  public Double getRE_TIME1() 
+  public Double getRE_TIME1()
   {
     return rE_TIME1;
   }
@@ -272,7 +264,7 @@ public class BpaSwi_RE
     this.rE_TIME1 = rE_TIME1;
   }
     
-  public Double getRE_TIME2() 
+  public Double getRE_TIME2()
   {
     return rE_TIME2;
   }
@@ -282,7 +274,7 @@ public class BpaSwi_RE
     this.rE_TIME2 = rE_TIME2;
   }
     
-  public Double getRE_TIME3() 
+  public Double getRE_TIME3()
   {
     return rE_TIME3;
   }
@@ -292,7 +284,7 @@ public class BpaSwi_RE
     this.rE_TIME3 = rE_TIME3;
   }
     
-  public Double getRE_TIME4() 
+  public Double getRE_TIME4()
   {
     return rE_TIME4;
   }
@@ -302,7 +294,7 @@ public class BpaSwi_RE
     this.rE_TIME4 = rE_TIME4;
   }
     
-  public Double getRE_TIME5() 
+  public Double getRE_TIME5()
   {
     return rE_TIME5;
   }
@@ -312,7 +304,7 @@ public class BpaSwi_RE
     this.rE_TIME5 = rE_TIME5;
   }
     
-  public Double getRE_TIME6() 
+  public Double getRE_TIME6()
   {
     return rE_TIME6;
   }
@@ -322,7 +314,7 @@ public class BpaSwi_RE
     this.rE_TIME6 = rE_TIME6;
   }
     
-  public Double getRE_TIME7() 
+  public Double getRE_TIME7()
   {
     return rE_TIME7;
   }
@@ -332,7 +324,7 @@ public class BpaSwi_RE
     this.rE_TIME7 = rE_TIME7;
   }
     
-  public Double getRE_TIME8() 
+  public Double getRE_TIME8()
   {
     return rE_TIME8;
   }
@@ -342,7 +334,7 @@ public class BpaSwi_RE
     this.rE_TIME8 = rE_TIME8;
   }
     
-  public Double getRE_TIME9() 
+  public Double getRE_TIME9()
   {
     return rE_TIME9;
   }
@@ -352,7 +344,7 @@ public class BpaSwi_RE
     this.rE_TIME9 = rE_TIME9;
   }
     
-  public Double getRE_TIME10() 
+  public Double getRE_TIME10()
   {
     return rE_TIME10;
   }
@@ -362,7 +354,7 @@ public class BpaSwi_RE
     this.rE_TIME10 = rE_TIME10;
   }
     
-  public Double getRE_TBRK() 
+  public Double getRE_TBRK()
   {
     return rE_TBRK;
   }
@@ -372,7 +364,7 @@ public class BpaSwi_RE
     this.rE_TBRK = rE_TBRK;
   }
     
-  public String getRE_NAME_CON() 
+  public String getRE_NAME_CON()
   {
     return rE_NAME_CON;
   }
@@ -382,7 +374,7 @@ public class BpaSwi_RE
     this.rE_NAME_CON = rE_NAME_CON;
   }
     
-  public Double getRE_KV_CON() 
+  public Double getRE_KV_CON()
   {
     return rE_KV_CON;
   }
@@ -392,7 +384,7 @@ public class BpaSwi_RE
     this.rE_KV_CON = rE_KV_CON;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -400,6 +392,40 @@ public class BpaSwi_RE
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_RE ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", rE_VOL1 = " + rE_VOL1
+	 + ", rE_VOL2 = " + rE_VOL2
+	 + ", rE_VOL3 = " + rE_VOL3
+	 + ", rE_VOL4 = " + rE_VOL4
+	 + ", rE_VOL5 = " + rE_VOL5
+	 + ", rE_VOL6 = " + rE_VOL6
+	 + ", rE_VOL7 = " + rE_VOL7
+	 + ", rE_VOL8 = " + rE_VOL8
+	 + ", rE_VOL9 = " + rE_VOL9
+	 + ", rE_VOL10 = " + rE_VOL10
+	 + ", rE_TIME1 = " + rE_TIME1
+	 + ", rE_TIME2 = " + rE_TIME2
+	 + ", rE_TIME3 = " + rE_TIME3
+	 + ", rE_TIME4 = " + rE_TIME4
+	 + ", rE_TIME5 = " + rE_TIME5
+	 + ", rE_TIME6 = " + rE_TIME6
+	 + ", rE_TIME7 = " + rE_TIME7
+	 + ", rE_TIME8 = " + rE_TIME8
+	 + ", rE_TIME9 = " + rE_TIME9
+	 + ", rE_TIME10 = " + rE_TIME10
+	 + ", rE_TBRK = " + rE_TBRK
+	 + ", rE_NAME_CON = " + rE_NAME_CON
+	 + ", rE_KV_CON = " + rE_KV_CON
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

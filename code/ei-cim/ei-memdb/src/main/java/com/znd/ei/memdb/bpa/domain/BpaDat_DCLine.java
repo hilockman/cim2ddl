@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *直流线路表(DCLine)	*
 ***********************/
-@Entity
 public class BpaDat_DCLine
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -90,7 +82,7 @@ public class BpaDat_DCLine
   //状态
   private Integer status;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -100,7 +92,7 @@ public class BpaDat_DCLine
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -110,7 +102,7 @@ public class BpaDat_DCLine
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -120,7 +112,7 @@ public class BpaDat_DCLine
     this.cardKey = cardKey;
   }
     
-  public String getDCLine_Owner() 
+  public String getDCLine_Owner()
   {
     return dCLine_Owner;
   }
@@ -130,7 +122,7 @@ public class BpaDat_DCLine
     this.dCLine_Owner = dCLine_Owner;
   }
     
-  public String getDCLine_BusR() 
+  public String getDCLine_BusR()
   {
     return dCLine_BusR;
   }
@@ -140,7 +132,7 @@ public class BpaDat_DCLine
     this.dCLine_BusR = dCLine_BusR;
   }
     
-  public Double getDCLine_kVR() 
+  public Double getDCLine_kVR()
   {
     return dCLine_kVR;
   }
@@ -150,7 +142,7 @@ public class BpaDat_DCLine
     this.dCLine_kVR = dCLine_kVR;
   }
     
-  public Integer getDCLine_Meter() 
+  public Integer getDCLine_Meter()
   {
     return dCLine_Meter;
   }
@@ -160,7 +152,7 @@ public class BpaDat_DCLine
     this.dCLine_Meter = dCLine_Meter;
   }
     
-  public String getDCLine_BusI() 
+  public String getDCLine_BusI()
   {
     return dCLine_BusI;
   }
@@ -170,7 +162,7 @@ public class BpaDat_DCLine
     this.dCLine_BusI = dCLine_BusI;
   }
     
-  public Double getDCLine_kVI() 
+  public Double getDCLine_kVI()
   {
     return dCLine_kVI;
   }
@@ -180,7 +172,7 @@ public class BpaDat_DCLine
     this.dCLine_kVI = dCLine_kVI;
   }
     
-  public Double getDCLine_AMP() 
+  public Double getDCLine_AMP()
   {
     return dCLine_AMP;
   }
@@ -190,7 +182,7 @@ public class BpaDat_DCLine
     this.dCLine_AMP = dCLine_AMP;
   }
     
-  public Double getDCLine_R() 
+  public Double getDCLine_R()
   {
     return dCLine_R;
   }
@@ -200,7 +192,7 @@ public class BpaDat_DCLine
     this.dCLine_R = dCLine_R;
   }
     
-  public Double getDCLine_L() 
+  public Double getDCLine_L()
   {
     return dCLine_L;
   }
@@ -210,7 +202,7 @@ public class BpaDat_DCLine
     this.dCLine_L = dCLine_L;
   }
     
-  public Double getDCLine_C() 
+  public Double getDCLine_C()
   {
     return dCLine_C;
   }
@@ -220,7 +212,7 @@ public class BpaDat_DCLine
     this.dCLine_C = dCLine_C;
   }
     
-  public Integer getDCLine_CONTROL() 
+  public Integer getDCLine_CONTROL()
   {
     return dCLine_CONTROL;
   }
@@ -230,7 +222,7 @@ public class BpaDat_DCLine
     this.dCLine_CONTROL = dCLine_CONTROL;
   }
     
-  public Double getDCLine_DCPOWER() 
+  public Double getDCLine_DCPOWER()
   {
     return dCLine_DCPOWER;
   }
@@ -240,7 +232,7 @@ public class BpaDat_DCLine
     this.dCLine_DCPOWER = dCLine_DCPOWER;
   }
     
-  public Double getDCLine_RVOLT() 
+  public Double getDCLine_RVOLT()
   {
     return dCLine_RVOLT;
   }
@@ -250,7 +242,7 @@ public class BpaDat_DCLine
     this.dCLine_RVOLT = dCLine_RVOLT;
   }
     
-  public Double getDCLine_ROPER() 
+  public Double getDCLine_ROPER()
   {
     return dCLine_ROPER;
   }
@@ -260,7 +252,7 @@ public class BpaDat_DCLine
     this.dCLine_ROPER = dCLine_ROPER;
   }
     
-  public Double getDCLine_ISTOP() 
+  public Double getDCLine_ISTOP()
   {
     return dCLine_ISTOP;
   }
@@ -270,7 +262,7 @@ public class BpaDat_DCLine
     this.dCLine_ISTOP = dCLine_ISTOP;
   }
     
-  public Double getDCLine_Pr() 
+  public Double getDCLine_Pr()
   {
     return dCLine_Pr;
   }
@@ -280,7 +272,7 @@ public class BpaDat_DCLine
     this.dCLine_Pr = dCLine_Pr;
   }
     
-  public Double getDCLine_Pi() 
+  public Double getDCLine_Pi()
   {
     return dCLine_Pi;
   }
@@ -290,7 +282,7 @@ public class BpaDat_DCLine
     this.dCLine_Pi = dCLine_Pi;
   }
     
-  public Double getDCLine_Lossp() 
+  public Double getDCLine_Lossp()
   {
     return dCLine_Lossp;
   }
@@ -300,7 +292,7 @@ public class BpaDat_DCLine
     this.dCLine_Lossp = dCLine_Lossp;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -310,7 +302,7 @@ public class BpaDat_DCLine
     this.keyName = keyName;
   }
     
-  public Integer getiRBus() 
+  public Integer getiRBus()
   {
     return iRBus;
   }
@@ -320,7 +312,7 @@ public class BpaDat_DCLine
     this.iRBus = iRBus;
   }
     
-  public Integer getiIBus() 
+  public Integer getiIBus()
   {
     return iIBus;
   }
@@ -330,7 +322,7 @@ public class BpaDat_DCLine
     this.iIBus = iIBus;
   }
     
-  public String getAlias() 
+  public String getAlias()
   {
     return alias;
   }
@@ -340,7 +332,7 @@ public class BpaDat_DCLine
     this.alias = alias;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -348,6 +340,36 @@ public class BpaDat_DCLine
   public void setStatus(Integer status)
   {
     this.status = status;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_DCLine ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", dCLine_Owner = " + dCLine_Owner
+	 + ", dCLine_BusR = " + dCLine_BusR
+	 + ", dCLine_kVR = " + dCLine_kVR
+	 + ", dCLine_Meter = " + dCLine_Meter
+	 + ", dCLine_BusI = " + dCLine_BusI
+	 + ", dCLine_kVI = " + dCLine_kVI
+	 + ", dCLine_AMP = " + dCLine_AMP
+	 + ", dCLine_R = " + dCLine_R
+	 + ", dCLine_L = " + dCLine_L
+	 + ", dCLine_C = " + dCLine_C
+	 + ", dCLine_CONTROL = " + dCLine_CONTROL
+	 + ", dCLine_DCPOWER = " + dCLine_DCPOWER
+	 + ", dCLine_RVOLT = " + dCLine_RVOLT
+	 + ", dCLine_ROPER = " + dCLine_ROPER
+	 + ", dCLine_ISTOP = " + dCLine_ISTOP
+	 + ", dCLine_Pr = " + dCLine_Pr
+	 + ", dCLine_Pi = " + dCLine_Pi
+	 + ", dCLine_Lossp = " + dCLine_Lossp
+	 + ", keyName = " + keyName
+	 + ", iRBus = " + iRBus
+	 + ", iIBus = " + iIBus
+	 + ", alias = " + alias
+	 + ", status = " + status+"]";
   }
     
 }

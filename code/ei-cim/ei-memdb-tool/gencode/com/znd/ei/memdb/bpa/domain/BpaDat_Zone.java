@@ -331,31 +331,31 @@ public class BpaDat_Zone
     
   public String toString()
   {
-    return "BpaDat_Zone ["+	"id"=id,
-	"memIndex"=memIndex,
-	"zone_Name"=zone_Name,
-	"zone_Area"=zone_Area,
-	"cardKey"=cardKey,
-	"lOZ_KG0"=lOZ_KG0,
-	"lOZ_KB0"=lOZ_KB0,
-	"lOZ_KGC0"=lOZ_KGC0,
-	"lOZ_KBC0"=lOZ_KBC0,
-	"lOZ_VMIN"=lOZ_VMIN,
-	"lOZ_VMAX"=lOZ_VMAX,
-	"mJ_TJ"=mJ_TJ,
-	"mJ_Pper"=mJ_Pper,
-	"mJ_KL"=mJ_KL,
-	"mJ_Pmin"=mJ_Pmin,
-	"mJ_RS"=mJ_RS,
-	"mJ_XS"=mJ_XS,
-	"mJ_XM"=mJ_XM,
-	"mJ_RR"=mJ_RR,
-	"mJ_XR"=mJ_XR,
-	"mJ_VI"=mJ_VI,
-	"mJ_TI"=mJ_TI,
-	"mJ_A"=mJ_A,
-	"mJ_B"=mJ_B,
-	"mJ_IM"=mJ_IM+"]"
+    return "BpaDat_Zone ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", zone_Name = " + zone_Name
+	 + ", zone_Area = " + zone_Area
+	 + ", cardKey = " + cardKey
+	 + ", lOZ_KG0 = " + lOZ_KG0
+	 + ", lOZ_KB0 = " + lOZ_KB0
+	 + ", lOZ_KGC0 = " + lOZ_KGC0
+	 + ", lOZ_KBC0 = " + lOZ_KBC0
+	 + ", lOZ_VMIN = " + lOZ_VMIN
+	 + ", lOZ_VMAX = " + lOZ_VMAX
+	 + ", mJ_TJ = " + mJ_TJ
+	 + ", mJ_Pper = " + mJ_Pper
+	 + ", mJ_KL = " + mJ_KL
+	 + ", mJ_Pmin = " + mJ_Pmin
+	 + ", mJ_RS = " + mJ_RS
+	 + ", mJ_XS = " + mJ_XS
+	 + ", mJ_XM = " + mJ_XM
+	 + ", mJ_RR = " + mJ_RR
+	 + ", mJ_XR = " + mJ_XR
+	 + ", mJ_VI = " + mJ_VI
+	 + ", mJ_TI = " + mJ_TI
+	 + ", mJ_A = " + mJ_A
+	 + ", mJ_B = " + mJ_B
+	 + ", mJ_IM = " + mJ_IM+"]";
   }
     
 }

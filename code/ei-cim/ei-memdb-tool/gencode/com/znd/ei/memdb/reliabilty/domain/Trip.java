@@ -136,16 +136,16 @@ public class Trip
     
   public String toString()
   {
-    return "Trip ["+	"id"=id,
-	"memIndex"=memIndex,
-	"tripDevNum"=tripDevNum,
-	"trB1Type"=trB1Type,
-	"trB1Bran"=trB1Bran,
-	"trB2Type"=trB2Type,
-	"trB2Bran"=trB2Bran,
-	"faultType"=faultType,
-	"outageLoadP"=outageLoadP,
-	"overLmt"=overLmt+"]"
+    return "Trip ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", tripDevNum = " + tripDevNum
+	 + ", trB1Type = " + trB1Type
+	 + ", trB1Bran = " + trB1Bran
+	 + ", trB2Type = " + trB2Type
+	 + ", trB2Bran = " + trB2Bran
+	 + ", faultType = " + faultType
+	 + ", outageLoadP = " + outageLoadP
+	 + ", overLmt = " + overLmt+"]";
   }
     
 }

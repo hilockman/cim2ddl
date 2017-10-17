@@ -162,18 +162,18 @@ public class BpaSwi_XO
     
   public String toString()
   {
-    return "BpaSwi_XO ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"xO_BusI"=xO_BusI,
-	"xO_kVI"=xO_kVI,
-	"xO_BusJ"=xO_BusJ,
-	"xO_kVJ"=xO_kVJ,
-	"xO_Loop"=xO_Loop,
-	"xO_SID"=xO_SID,
-	"xO_R0"=xO_R0,
-	"xO_X0"=xO_X0,
-	"keyName"=keyName+"]"
+    return "BpaSwi_XO ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", xO_BusI = " + xO_BusI
+	 + ", xO_kVI = " + xO_kVI
+	 + ", xO_BusJ = " + xO_BusJ
+	 + ", xO_kVJ = " + xO_kVJ
+	 + ", xO_Loop = " + xO_Loop
+	 + ", xO_SID = " + xO_SID
+	 + ", xO_R0 = " + xO_R0
+	 + ", xO_X0 = " + xO_X0
+	 + ", keyName = " + keyName+"]";
   }
     
 }

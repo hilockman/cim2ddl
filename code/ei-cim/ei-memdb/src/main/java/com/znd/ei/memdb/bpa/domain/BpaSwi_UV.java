@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *自动减负荷模型(UV)	*
 ***********************/
-@Entity
 public class BpaSwi_UV
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -120,7 +112,7 @@ public class BpaSwi_UV
   //特别码W,表示以MW为单位减去负荷
   private Integer uV_W;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -130,7 +122,7 @@ public class BpaSwi_UV
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -140,7 +132,7 @@ public class BpaSwi_UV
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -150,7 +142,7 @@ public class BpaSwi_UV
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -160,7 +152,7 @@ public class BpaSwi_UV
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -170,7 +162,7 @@ public class BpaSwi_UV
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Double getUV_Volt01() 
+  public Double getUV_Volt01()
   {
     return uV_Volt01;
   }
@@ -180,7 +172,7 @@ public class BpaSwi_UV
     this.uV_Volt01 = uV_Volt01;
   }
     
-  public Double getUV_Volt02() 
+  public Double getUV_Volt02()
   {
     return uV_Volt02;
   }
@@ -190,7 +182,7 @@ public class BpaSwi_UV
     this.uV_Volt02 = uV_Volt02;
   }
     
-  public Double getUV_Volt03() 
+  public Double getUV_Volt03()
   {
     return uV_Volt03;
   }
@@ -200,7 +192,7 @@ public class BpaSwi_UV
     this.uV_Volt03 = uV_Volt03;
   }
     
-  public Double getUV_Volt04() 
+  public Double getUV_Volt04()
   {
     return uV_Volt04;
   }
@@ -210,7 +202,7 @@ public class BpaSwi_UV
     this.uV_Volt04 = uV_Volt04;
   }
     
-  public Double getUV_Volt05() 
+  public Double getUV_Volt05()
   {
     return uV_Volt05;
   }
@@ -220,7 +212,7 @@ public class BpaSwi_UV
     this.uV_Volt05 = uV_Volt05;
   }
     
-  public Double getUV_Volt06() 
+  public Double getUV_Volt06()
   {
     return uV_Volt06;
   }
@@ -230,7 +222,7 @@ public class BpaSwi_UV
     this.uV_Volt06 = uV_Volt06;
   }
     
-  public Double getUV_Volt07() 
+  public Double getUV_Volt07()
   {
     return uV_Volt07;
   }
@@ -240,7 +232,7 @@ public class BpaSwi_UV
     this.uV_Volt07 = uV_Volt07;
   }
     
-  public Double getUV_Volt08() 
+  public Double getUV_Volt08()
   {
     return uV_Volt08;
   }
@@ -250,7 +242,7 @@ public class BpaSwi_UV
     this.uV_Volt08 = uV_Volt08;
   }
     
-  public Double getUV_Volt09() 
+  public Double getUV_Volt09()
   {
     return uV_Volt09;
   }
@@ -260,7 +252,7 @@ public class BpaSwi_UV
     this.uV_Volt09 = uV_Volt09;
   }
     
-  public Double getUV_Volt10() 
+  public Double getUV_Volt10()
   {
     return uV_Volt10;
   }
@@ -270,7 +262,7 @@ public class BpaSwi_UV
     this.uV_Volt10 = uV_Volt10;
   }
     
-  public Double getUV_Delay01() 
+  public Double getUV_Delay01()
   {
     return uV_Delay01;
   }
@@ -280,7 +272,7 @@ public class BpaSwi_UV
     this.uV_Delay01 = uV_Delay01;
   }
     
-  public Double getUV_Delay02() 
+  public Double getUV_Delay02()
   {
     return uV_Delay02;
   }
@@ -290,7 +282,7 @@ public class BpaSwi_UV
     this.uV_Delay02 = uV_Delay02;
   }
     
-  public Double getUV_Delay03() 
+  public Double getUV_Delay03()
   {
     return uV_Delay03;
   }
@@ -300,7 +292,7 @@ public class BpaSwi_UV
     this.uV_Delay03 = uV_Delay03;
   }
     
-  public Double getUV_Delay04() 
+  public Double getUV_Delay04()
   {
     return uV_Delay04;
   }
@@ -310,7 +302,7 @@ public class BpaSwi_UV
     this.uV_Delay04 = uV_Delay04;
   }
     
-  public Double getUV_Delay05() 
+  public Double getUV_Delay05()
   {
     return uV_Delay05;
   }
@@ -320,7 +312,7 @@ public class BpaSwi_UV
     this.uV_Delay05 = uV_Delay05;
   }
     
-  public Double getUV_Delay06() 
+  public Double getUV_Delay06()
   {
     return uV_Delay06;
   }
@@ -330,7 +322,7 @@ public class BpaSwi_UV
     this.uV_Delay06 = uV_Delay06;
   }
     
-  public Double getUV_Delay07() 
+  public Double getUV_Delay07()
   {
     return uV_Delay07;
   }
@@ -340,7 +332,7 @@ public class BpaSwi_UV
     this.uV_Delay07 = uV_Delay07;
   }
     
-  public Double getUV_Delay08() 
+  public Double getUV_Delay08()
   {
     return uV_Delay08;
   }
@@ -350,7 +342,7 @@ public class BpaSwi_UV
     this.uV_Delay08 = uV_Delay08;
   }
     
-  public Double getUV_Delay09() 
+  public Double getUV_Delay09()
   {
     return uV_Delay09;
   }
@@ -360,7 +352,7 @@ public class BpaSwi_UV
     this.uV_Delay09 = uV_Delay09;
   }
     
-  public Double getUV_Delay10() 
+  public Double getUV_Delay10()
   {
     return uV_Delay10;
   }
@@ -370,7 +362,7 @@ public class BpaSwi_UV
     this.uV_Delay10 = uV_Delay10;
   }
     
-  public Double getUV_Shed01() 
+  public Double getUV_Shed01()
   {
     return uV_Shed01;
   }
@@ -380,7 +372,7 @@ public class BpaSwi_UV
     this.uV_Shed01 = uV_Shed01;
   }
     
-  public Double getUV_Shed02() 
+  public Double getUV_Shed02()
   {
     return uV_Shed02;
   }
@@ -390,7 +382,7 @@ public class BpaSwi_UV
     this.uV_Shed02 = uV_Shed02;
   }
     
-  public Double getUV_Shed03() 
+  public Double getUV_Shed03()
   {
     return uV_Shed03;
   }
@@ -400,7 +392,7 @@ public class BpaSwi_UV
     this.uV_Shed03 = uV_Shed03;
   }
     
-  public Double getUV_Shed04() 
+  public Double getUV_Shed04()
   {
     return uV_Shed04;
   }
@@ -410,7 +402,7 @@ public class BpaSwi_UV
     this.uV_Shed04 = uV_Shed04;
   }
     
-  public Double getUV_Shed05() 
+  public Double getUV_Shed05()
   {
     return uV_Shed05;
   }
@@ -420,7 +412,7 @@ public class BpaSwi_UV
     this.uV_Shed05 = uV_Shed05;
   }
     
-  public Double getUV_Shed06() 
+  public Double getUV_Shed06()
   {
     return uV_Shed06;
   }
@@ -430,7 +422,7 @@ public class BpaSwi_UV
     this.uV_Shed06 = uV_Shed06;
   }
     
-  public Double getUV_Shed07() 
+  public Double getUV_Shed07()
   {
     return uV_Shed07;
   }
@@ -440,7 +432,7 @@ public class BpaSwi_UV
     this.uV_Shed07 = uV_Shed07;
   }
     
-  public Double getUV_Shed08() 
+  public Double getUV_Shed08()
   {
     return uV_Shed08;
   }
@@ -450,7 +442,7 @@ public class BpaSwi_UV
     this.uV_Shed08 = uV_Shed08;
   }
     
-  public Double getUV_Shed09() 
+  public Double getUV_Shed09()
   {
     return uV_Shed09;
   }
@@ -460,7 +452,7 @@ public class BpaSwi_UV
     this.uV_Shed09 = uV_Shed09;
   }
     
-  public Double getUV_Shed10() 
+  public Double getUV_Shed10()
   {
     return uV_Shed10;
   }
@@ -470,7 +462,7 @@ public class BpaSwi_UV
     this.uV_Shed10 = uV_Shed10;
   }
     
-  public Integer getUV_W() 
+  public Integer getUV_W()
   {
     return uV_W;
   }
@@ -478,6 +470,46 @@ public class BpaSwi_UV
   public void setUV_W(Integer uV_W)
   {
     this.uV_W = uV_W;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_UV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", uV_Volt01 = " + uV_Volt01
+	 + ", uV_Volt02 = " + uV_Volt02
+	 + ", uV_Volt03 = " + uV_Volt03
+	 + ", uV_Volt04 = " + uV_Volt04
+	 + ", uV_Volt05 = " + uV_Volt05
+	 + ", uV_Volt06 = " + uV_Volt06
+	 + ", uV_Volt07 = " + uV_Volt07
+	 + ", uV_Volt08 = " + uV_Volt08
+	 + ", uV_Volt09 = " + uV_Volt09
+	 + ", uV_Volt10 = " + uV_Volt10
+	 + ", uV_Delay01 = " + uV_Delay01
+	 + ", uV_Delay02 = " + uV_Delay02
+	 + ", uV_Delay03 = " + uV_Delay03
+	 + ", uV_Delay04 = " + uV_Delay04
+	 + ", uV_Delay05 = " + uV_Delay05
+	 + ", uV_Delay06 = " + uV_Delay06
+	 + ", uV_Delay07 = " + uV_Delay07
+	 + ", uV_Delay08 = " + uV_Delay08
+	 + ", uV_Delay09 = " + uV_Delay09
+	 + ", uV_Delay10 = " + uV_Delay10
+	 + ", uV_Shed01 = " + uV_Shed01
+	 + ", uV_Shed02 = " + uV_Shed02
+	 + ", uV_Shed03 = " + uV_Shed03
+	 + ", uV_Shed04 = " + uV_Shed04
+	 + ", uV_Shed05 = " + uV_Shed05
+	 + ", uV_Shed06 = " + uV_Shed06
+	 + ", uV_Shed07 = " + uV_Shed07
+	 + ", uV_Shed08 = " + uV_Shed08
+	 + ", uV_Shed09 = " + uV_Shed09
+	 + ", uV_Shed10 = " + uV_Shed10
+	 + ", uV_W = " + uV_W+"]";
   }
     
 }

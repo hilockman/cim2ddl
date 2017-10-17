@@ -370,34 +370,34 @@ public class BpaDat_DCBus
     
   public String toString()
   {
-    return "BpaDat_DCBus ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"dCBus_Owner"=dCBus_Owner,
-	"dCBus_Name"=dCBus_Name,
-	"dCBus_kV"=dCBus_kV,
-	"dCBus_Zone"=dCBus_Zone,
-	"dCBus_BRDGS"=dCBus_BRDGS,
-	"dCBus_SMTHGREACTOR"=dCBus_SMTHGREACTOR,
-	"dCBus_ROPERMIN"=dCBus_ROPERMIN,
-	"dCBus_IOPERSTOP"=dCBus_IOPERSTOP,
-	"dCBus_DROP"=dCBus_DROP,
-	"dCBus_BRDGRATE"=dCBus_BRDGRATE,
-	"dCBus_ACName"=dCBus_ACName,
-	"dCBus_ACkV"=dCBus_ACkV,
-	"dCBus_V"=dCBus_V,
-	"dCBus_D"=dCBus_D,
-	"dCBus_P"=dCBus_P,
-	"dCBus_I"=dCBus_I,
-	"dCBus_LossP"=dCBus_LossP,
-	"dCBus_LossQ"=dCBus_LossQ,
-	"dCBus_ACV"=dCBus_ACV,
-	"dCBus_Angle"=dCBus_Angle,
-	"aCBus"=aCBus,
-	"aCIsland"=aCIsland,
-	"sub"=sub,
-	"alias"=alias,
-	"status"=status+"]"
+    return "BpaDat_DCBus ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", dCBus_Owner = " + dCBus_Owner
+	 + ", dCBus_Name = " + dCBus_Name
+	 + ", dCBus_kV = " + dCBus_kV
+	 + ", dCBus_Zone = " + dCBus_Zone
+	 + ", dCBus_BRDGS = " + dCBus_BRDGS
+	 + ", dCBus_SMTHGREACTOR = " + dCBus_SMTHGREACTOR
+	 + ", dCBus_ROPERMIN = " + dCBus_ROPERMIN
+	 + ", dCBus_IOPERSTOP = " + dCBus_IOPERSTOP
+	 + ", dCBus_DROP = " + dCBus_DROP
+	 + ", dCBus_BRDGRATE = " + dCBus_BRDGRATE
+	 + ", dCBus_ACName = " + dCBus_ACName
+	 + ", dCBus_ACkV = " + dCBus_ACkV
+	 + ", dCBus_V = " + dCBus_V
+	 + ", dCBus_D = " + dCBus_D
+	 + ", dCBus_P = " + dCBus_P
+	 + ", dCBus_I = " + dCBus_I
+	 + ", dCBus_LossP = " + dCBus_LossP
+	 + ", dCBus_LossQ = " + dCBus_LossQ
+	 + ", dCBus_ACV = " + dCBus_ACV
+	 + ", dCBus_Angle = " + dCBus_Angle
+	 + ", aCBus = " + aCBus
+	 + ", aCIsland = " + aCIsland
+	 + ", sub = " + sub
+	 + ", alias = " + alias
+	 + ", status = " + status+"]";
   }
     
 }

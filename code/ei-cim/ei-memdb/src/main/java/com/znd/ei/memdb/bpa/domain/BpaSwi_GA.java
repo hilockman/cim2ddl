@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电液伺服系统模型表(GA)	*
 ***********************/
-@Entity
 public class BpaSwi_GA
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -87,7 +79,7 @@ public class BpaSwi_GA
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -97,7 +89,7 @@ public class BpaSwi_GA
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -107,7 +99,7 @@ public class BpaSwi_GA
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -117,7 +109,7 @@ public class BpaSwi_GA
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -127,7 +119,7 @@ public class BpaSwi_GA
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -137,7 +129,7 @@ public class BpaSwi_GA
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -147,7 +139,7 @@ public class BpaSwi_GA
     this.gen_ID = gen_ID;
   }
     
-  public Double getGA_Pe() 
+  public Double getGA_Pe()
   {
     return gA_Pe;
   }
@@ -157,7 +149,7 @@ public class BpaSwi_GA
     this.gA_Pe = gA_Pe;
   }
     
-  public Double getGA_Tc() 
+  public Double getGA_Tc()
   {
     return gA_Tc;
   }
@@ -167,7 +159,7 @@ public class BpaSwi_GA
     this.gA_Tc = gA_Tc;
   }
     
-  public Double getGA_To() 
+  public Double getGA_To()
   {
     return gA_To;
   }
@@ -177,7 +169,7 @@ public class BpaSwi_GA
     this.gA_To = gA_To;
   }
     
-  public Double getGA_VELclose() 
+  public Double getGA_VELclose()
   {
     return gA_VELclose;
   }
@@ -187,7 +179,7 @@ public class BpaSwi_GA
     this.gA_VELclose = gA_VELclose;
   }
     
-  public Double getGA_VELopen() 
+  public Double getGA_VELopen()
   {
     return gA_VELopen;
   }
@@ -197,7 +189,7 @@ public class BpaSwi_GA
     this.gA_VELopen = gA_VELopen;
   }
     
-  public Double getGen_Pmax() 
+  public Double getGen_Pmax()
   {
     return gen_Pmax;
   }
@@ -207,7 +199,7 @@ public class BpaSwi_GA
     this.gen_Pmax = gen_Pmax;
   }
     
-  public Double getGen_Pmin() 
+  public Double getGen_Pmin()
   {
     return gen_Pmin;
   }
@@ -217,7 +209,7 @@ public class BpaSwi_GA
     this.gen_Pmin = gen_Pmin;
   }
     
-  public Double getGA_T1() 
+  public Double getGA_T1()
   {
     return gA_T1;
   }
@@ -227,7 +219,7 @@ public class BpaSwi_GA
     this.gA_T1 = gA_T1;
   }
     
-  public Double getGA_KP() 
+  public Double getGA_KP()
   {
     return gA_KP;
   }
@@ -237,7 +229,7 @@ public class BpaSwi_GA
     this.gA_KP = gA_KP;
   }
     
-  public Double getGA_KD() 
+  public Double getGA_KD()
   {
     return gA_KD;
   }
@@ -247,7 +239,7 @@ public class BpaSwi_GA
     this.gA_KD = gA_KD;
   }
     
-  public Double getGA_KI() 
+  public Double getGA_KI()
   {
     return gA_KI;
   }
@@ -257,7 +249,7 @@ public class BpaSwi_GA
     this.gA_KI = gA_KI;
   }
     
-  public Double getGA_INTG_MAX() 
+  public Double getGA_INTG_MAX()
   {
     return gA_INTG_MAX;
   }
@@ -267,7 +259,7 @@ public class BpaSwi_GA
     this.gA_INTG_MAX = gA_INTG_MAX;
   }
     
-  public Double getGA_INTG_MIN() 
+  public Double getGA_INTG_MIN()
   {
     return gA_INTG_MIN;
   }
@@ -277,7 +269,7 @@ public class BpaSwi_GA
     this.gA_INTG_MIN = gA_INTG_MIN;
   }
     
-  public Double getGA_PID_MAX() 
+  public Double getGA_PID_MAX()
   {
     return gA_PID_MAX;
   }
@@ -287,7 +279,7 @@ public class BpaSwi_GA
     this.gA_PID_MAX = gA_PID_MAX;
   }
     
-  public Double getGA_PID_MIN() 
+  public Double getGA_PID_MIN()
   {
     return gA_PID_MIN;
   }
@@ -297,7 +289,7 @@ public class BpaSwi_GA
     this.gA_PID_MIN = gA_PID_MIN;
   }
     
-  public Double getGA_PGV_DELAY() 
+  public Double getGA_PGV_DELAY()
   {
     return gA_PGV_DELAY;
   }
@@ -307,7 +299,7 @@ public class BpaSwi_GA
     this.gA_PGV_DELAY = gA_PGV_DELAY;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -317,7 +309,7 @@ public class BpaSwi_GA
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -327,7 +319,7 @@ public class BpaSwi_GA
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -335,6 +327,35 @@ public class BpaSwi_GA
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gA_Pe = " + gA_Pe
+	 + ", gA_Tc = " + gA_Tc
+	 + ", gA_To = " + gA_To
+	 + ", gA_VELclose = " + gA_VELclose
+	 + ", gA_VELopen = " + gA_VELopen
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", gA_T1 = " + gA_T1
+	 + ", gA_KP = " + gA_KP
+	 + ", gA_KD = " + gA_KD
+	 + ", gA_KI = " + gA_KI
+	 + ", gA_INTG_MAX = " + gA_INTG_MAX
+	 + ", gA_INTG_MIN = " + gA_INTG_MIN
+	 + ", gA_PID_MAX = " + gA_PID_MAX
+	 + ", gA_PID_MIN = " + gA_PID_MIN
+	 + ", gA_PGV_DELAY = " + gA_PGV_DELAY
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

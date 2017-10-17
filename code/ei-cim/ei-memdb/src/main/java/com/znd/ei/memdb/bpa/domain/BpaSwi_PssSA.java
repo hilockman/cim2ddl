@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *PSS模型SA表(SA)	*
 ***********************/
-@Entity
 public class BpaSwi_PssSA
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -81,7 +73,7 @@ public class BpaSwi_PssSA
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -91,7 +83,7 @@ public class BpaSwi_PssSA
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -101,7 +93,7 @@ public class BpaSwi_PssSA
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -111,7 +103,7 @@ public class BpaSwi_PssSA
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -121,7 +113,7 @@ public class BpaSwi_PssSA
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -131,7 +123,7 @@ public class BpaSwi_PssSA
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -141,7 +133,7 @@ public class BpaSwi_PssSA
     this.gen_ID = gen_ID;
   }
     
-  public Double getPssSA_T1() 
+  public Double getPssSA_T1()
   {
     return pssSA_T1;
   }
@@ -151,7 +143,7 @@ public class BpaSwi_PssSA
     this.pssSA_T1 = pssSA_T1;
   }
     
-  public Double getPssSA_T2() 
+  public Double getPssSA_T2()
   {
     return pssSA_T2;
   }
@@ -161,7 +153,7 @@ public class BpaSwi_PssSA
     this.pssSA_T2 = pssSA_T2;
   }
     
-  public Double getPssSA_T3() 
+  public Double getPssSA_T3()
   {
     return pssSA_T3;
   }
@@ -171,7 +163,7 @@ public class BpaSwi_PssSA
     this.pssSA_T3 = pssSA_T3;
   }
     
-  public Double getPssSA_T4() 
+  public Double getPssSA_T4()
   {
     return pssSA_T4;
   }
@@ -181,7 +173,7 @@ public class BpaSwi_PssSA
     this.pssSA_T4 = pssSA_T4;
   }
     
-  public Double getPssSA_T5() 
+  public Double getPssSA_T5()
   {
     return pssSA_T5;
   }
@@ -191,7 +183,7 @@ public class BpaSwi_PssSA
     this.pssSA_T5 = pssSA_T5;
   }
     
-  public Double getPssSA_T6() 
+  public Double getPssSA_T6()
   {
     return pssSA_T6;
   }
@@ -201,7 +193,7 @@ public class BpaSwi_PssSA
     this.pssSA_T6 = pssSA_T6;
   }
     
-  public Double getPssSA_K1() 
+  public Double getPssSA_K1()
   {
     return pssSA_K1;
   }
@@ -211,7 +203,7 @@ public class BpaSwi_PssSA
     this.pssSA_K1 = pssSA_K1;
   }
     
-  public Double getPssSA_K2() 
+  public Double getPssSA_K2()
   {
     return pssSA_K2;
   }
@@ -221,7 +213,7 @@ public class BpaSwi_PssSA
     this.pssSA_K2 = pssSA_K2;
   }
     
-  public Double getPssSA_K() 
+  public Double getPssSA_K()
   {
     return pssSA_K;
   }
@@ -231,7 +223,7 @@ public class BpaSwi_PssSA
     this.pssSA_K = pssSA_K;
   }
     
-  public Double getPssSA_A() 
+  public Double getPssSA_A()
   {
     return pssSA_A;
   }
@@ -241,7 +233,7 @@ public class BpaSwi_PssSA
     this.pssSA_A = pssSA_A;
   }
     
-  public Double getPssSA_P() 
+  public Double getPssSA_P()
   {
     return pssSA_P;
   }
@@ -251,7 +243,7 @@ public class BpaSwi_PssSA
     this.pssSA_P = pssSA_P;
   }
     
-  public Double getPssSA_LimitMax() 
+  public Double getPssSA_LimitMax()
   {
     return pssSA_LimitMax;
   }
@@ -261,7 +253,7 @@ public class BpaSwi_PssSA
     this.pssSA_LimitMax = pssSA_LimitMax;
   }
     
-  public Double getPssSA_LimitMin() 
+  public Double getPssSA_LimitMin()
   {
     return pssSA_LimitMin;
   }
@@ -271,7 +263,7 @@ public class BpaSwi_PssSA
     this.pssSA_LimitMin = pssSA_LimitMin;
   }
     
-  public Double getPssSA_KMVA() 
+  public Double getPssSA_KMVA()
   {
     return pssSA_KMVA;
   }
@@ -281,7 +273,7 @@ public class BpaSwi_PssSA
     this.pssSA_KMVA = pssSA_KMVA;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -291,7 +283,7 @@ public class BpaSwi_PssSA
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -301,7 +293,7 @@ public class BpaSwi_PssSA
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -309,6 +301,33 @@ public class BpaSwi_PssSA
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_PssSA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssSA_T1 = " + pssSA_T1
+	 + ", pssSA_T2 = " + pssSA_T2
+	 + ", pssSA_T3 = " + pssSA_T3
+	 + ", pssSA_T4 = " + pssSA_T4
+	 + ", pssSA_T5 = " + pssSA_T5
+	 + ", pssSA_T6 = " + pssSA_T6
+	 + ", pssSA_K1 = " + pssSA_K1
+	 + ", pssSA_K2 = " + pssSA_K2
+	 + ", pssSA_K = " + pssSA_K
+	 + ", pssSA_A = " + pssSA_A
+	 + ", pssSA_P = " + pssSA_P
+	 + ", pssSA_LimitMax = " + pssSA_LimitMax
+	 + ", pssSA_LimitMin = " + pssSA_LimitMin
+	 + ", pssSA_KMVA = " + pssSA_KMVA
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

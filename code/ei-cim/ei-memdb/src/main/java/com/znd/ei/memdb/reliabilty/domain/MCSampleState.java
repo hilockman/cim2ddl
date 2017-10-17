@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *蒙特卡罗抽样状态	*
 ***********************/
-@Entity
 public class MCSampleState
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -27,7 +19,7 @@ public class MCSampleState
   //多状态场景
   private Integer mState;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -37,7 +29,7 @@ public class MCSampleState
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -47,7 +39,7 @@ public class MCSampleState
     this.memIndex = memIndex;
   }
     
-  public Integer getFState() 
+  public Integer getFState()
   {
     return fState;
   }
@@ -57,7 +49,7 @@ public class MCSampleState
     this.fState = fState;
   }
     
-  public Integer getOutLoad() 
+  public Integer getOutLoad()
   {
     return outLoad;
   }
@@ -67,7 +59,7 @@ public class MCSampleState
     this.outLoad = outLoad;
   }
     
-  public Integer getMState() 
+  public Integer getMState()
   {
     return mState;
   }
@@ -75,6 +67,15 @@ public class MCSampleState
   public void setMState(Integer mState)
   {
     this.mState = mState;
+  }
+    
+  public String toString()
+  {
+    return "MCSampleState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", outLoad = " + outLoad
+	 + ", mState = " + mState+"]";
   }
     
 }

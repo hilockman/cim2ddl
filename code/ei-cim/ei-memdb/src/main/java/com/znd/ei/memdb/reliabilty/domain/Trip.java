@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *开断故障信息	*
 ***********************/
-@Entity
 public class Trip
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -42,7 +34,7 @@ public class Trip
   //是否越限
   private Integer overLmt;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -52,7 +44,7 @@ public class Trip
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -62,7 +54,7 @@ public class Trip
     this.memIndex = memIndex;
   }
     
-  public Integer getTripDevNum() 
+  public Integer getTripDevNum()
   {
     return tripDevNum;
   }
@@ -72,7 +64,7 @@ public class Trip
     this.tripDevNum = tripDevNum;
   }
     
-  public Integer getTrB1Type() 
+  public Integer getTrB1Type()
   {
     return trB1Type;
   }
@@ -82,7 +74,7 @@ public class Trip
     this.trB1Type = trB1Type;
   }
     
-  public Integer getTrB1Bran() 
+  public Integer getTrB1Bran()
   {
     return trB1Bran;
   }
@@ -92,7 +84,7 @@ public class Trip
     this.trB1Bran = trB1Bran;
   }
     
-  public Integer getTrB2Type() 
+  public Integer getTrB2Type()
   {
     return trB2Type;
   }
@@ -102,7 +94,7 @@ public class Trip
     this.trB2Type = trB2Type;
   }
     
-  public Integer getTrB2Bran() 
+  public Integer getTrB2Bran()
   {
     return trB2Bran;
   }
@@ -112,7 +104,7 @@ public class Trip
     this.trB2Bran = trB2Bran;
   }
     
-  public Integer getFaultType() 
+  public Integer getFaultType()
   {
     return faultType;
   }
@@ -122,7 +114,7 @@ public class Trip
     this.faultType = faultType;
   }
     
-  public Double getOutageLoadP() 
+  public Double getOutageLoadP()
   {
     return outageLoadP;
   }
@@ -132,7 +124,7 @@ public class Trip
     this.outageLoadP = outageLoadP;
   }
     
-  public Integer getOverLmt() 
+  public Integer getOverLmt()
   {
     return overLmt;
   }
@@ -140,6 +132,20 @@ public class Trip
   public void setOverLmt(Integer overLmt)
   {
     this.overLmt = overLmt;
+  }
+    
+  public String toString()
+  {
+    return "Trip ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", tripDevNum = " + tripDevNum
+	 + ", trB1Type = " + trB1Type
+	 + ", trB1Bran = " + trB1Bran
+	 + ", trB2Type = " + trB2Type
+	 + ", trB2Bran = " + trB2Bran
+	 + ", faultType = " + faultType
+	 + ", outageLoadP = " + outageLoadP
+	 + ", overLmt = " + overLmt+"]";
   }
     
 }

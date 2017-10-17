@@ -435,39 +435,39 @@ public class BpaSwi_GM
     
   public String toString()
   {
-    return "BpaSwi_GM ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gM_KW"=gM_KW,
-	"gM_TR"=gM_TR,
-	"gM_Negative_DB1"=gM_Negative_DB1,
-	"gM_DB1"=gM_DB1,
-	"gM_KP"=gM_KP,
-	"gM_KD"=gM_KD,
-	"gM_KI"=gM_KI,
-	"gM_TD"=gM_TD,
-	"gM_INTG_MAX"=gM_INTG_MAX,
-	"gM_INTG_MIN"=gM_INTG_MIN,
-	"gM_PID_MAX"=gM_PID_MAX,
-	"gM_PID_MIN"=gM_PID_MIN,
-	"gM_DELT"=gM_DELT,
-	"gM_DB_MAX"=gM_DB_MAX,
-	"gM_DB_MIN"=gM_DB_MIN,
-	"gM_DELT2"=gM_DELT2,
-	"gM_TR2"=gM_TR2,
-	"gM_EP"=gM_EP,
-	"gM_Negative_DB2"=gM_Negative_DB2,
-	"gM_DB2"=gM_DB2,
-	"gM_DBMAX2"=gM_DBMAX2,
-	"gM_DBMIN2"=gM_DBMIN2,
-	"gM_ITYP"=gM_ITYP,
-	"gM_ITYP2"=gM_ITYP2,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GM ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gM_KW = " + gM_KW
+	 + ", gM_TR = " + gM_TR
+	 + ", gM_Negative_DB1 = " + gM_Negative_DB1
+	 + ", gM_DB1 = " + gM_DB1
+	 + ", gM_KP = " + gM_KP
+	 + ", gM_KD = " + gM_KD
+	 + ", gM_KI = " + gM_KI
+	 + ", gM_TD = " + gM_TD
+	 + ", gM_INTG_MAX = " + gM_INTG_MAX
+	 + ", gM_INTG_MIN = " + gM_INTG_MIN
+	 + ", gM_PID_MAX = " + gM_PID_MAX
+	 + ", gM_PID_MIN = " + gM_PID_MIN
+	 + ", gM_DELT = " + gM_DELT
+	 + ", gM_DB_MAX = " + gM_DB_MAX
+	 + ", gM_DB_MIN = " + gM_DB_MIN
+	 + ", gM_DELT2 = " + gM_DELT2
+	 + ", gM_TR2 = " + gM_TR2
+	 + ", gM_EP = " + gM_EP
+	 + ", gM_Negative_DB2 = " + gM_Negative_DB2
+	 + ", gM_DB2 = " + gM_DB2
+	 + ", gM_DBMAX2 = " + gM_DBMAX2
+	 + ", gM_DBMIN2 = " + gM_DBMIN2
+	 + ", gM_ITYP = " + gM_ITYP
+	 + ", gM_ITYP2 = " + gM_ITYP2
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

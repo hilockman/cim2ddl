@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *安全评价	*
 ***********************/
-@Entity
 public class FSecurity
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -45,7 +37,7 @@ public class FSecurity
   //评估标记位
   private Integer estimated;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -55,7 +47,7 @@ public class FSecurity
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -65,7 +57,7 @@ public class FSecurity
     this.memIndex = memIndex;
   }
     
-  public Integer getFState() 
+  public Integer getFState()
   {
     return fState;
   }
@@ -75,7 +67,7 @@ public class FSecurity
     this.fState = fState;
   }
     
-  public Integer getLTFault() 
+  public Integer getLTFault()
   {
     return lTFault;
   }
@@ -85,7 +77,7 @@ public class FSecurity
     this.lTFault = lTFault;
   }
     
-  public Integer getMIsland() 
+  public Integer getMIsland()
   {
     return mIsland;
   }
@@ -95,7 +87,7 @@ public class FSecurity
     this.mIsland = mIsland;
   }
     
-  public Double getLossGenP() 
+  public Double getLossGenP()
   {
     return lossGenP;
   }
@@ -105,7 +97,7 @@ public class FSecurity
     this.lossGenP = lossGenP;
   }
     
-  public String getBseFile() 
+  public String getBseFile()
   {
     return bseFile;
   }
@@ -115,7 +107,7 @@ public class FSecurity
     this.bseFile = bseFile;
   }
     
-  public String getSwiFile() 
+  public String getSwiFile()
   {
     return swiFile;
   }
@@ -125,7 +117,7 @@ public class FSecurity
     this.swiFile = swiFile;
   }
     
-  public String getOutFile() 
+  public String getOutFile()
   {
     return outFile;
   }
@@ -135,7 +127,7 @@ public class FSecurity
     this.outFile = outFile;
   }
     
-  public Integer getResult() 
+  public Integer getResult()
   {
     return result;
   }
@@ -145,7 +137,7 @@ public class FSecurity
     this.result = result;
   }
     
-  public Integer getEstimated() 
+  public Integer getEstimated()
   {
     return estimated;
   }
@@ -153,6 +145,21 @@ public class FSecurity
   public void setEstimated(Integer estimated)
   {
     this.estimated = estimated;
+  }
+    
+  public String toString()
+  {
+    return "FSecurity ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", lTFault = " + lTFault
+	 + ", mIsland = " + mIsland
+	 + ", lossGenP = " + lossGenP
+	 + ", bseFile = " + bseFile
+	 + ", swiFile = " + swiFile
+	 + ", outFile = " + outFile
+	 + ", result = " + result
+	 + ", estimated = " + estimated+"]";
   }
     
 }

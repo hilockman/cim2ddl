@@ -149,17 +149,17 @@ public class BpaSwi_TA
     
   public String toString()
   {
-    return "BpaSwi_TA ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"tA_TCH"=tA_TCH,
-	"tA_K1"=tA_K1,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_TA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tA_TCH = " + tA_TCH
+	 + ", tA_K1 = " + tA_K1
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

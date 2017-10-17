@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *可控串联补偿装置	*
 ***********************/
-@Entity
 public class TCSC
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -69,7 +61,7 @@ public class TCSC
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -79,7 +71,7 @@ public class TCSC
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -89,7 +81,7 @@ public class TCSC
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -99,7 +91,7 @@ public class TCSC
     this.name = name;
   }
     
-  public String getInstallBus() 
+  public String getInstallBus()
   {
     return installBus;
   }
@@ -109,7 +101,7 @@ public class TCSC
     this.installBus = installBus;
   }
     
-  public Double getX() 
+  public Double getX()
   {
     return x;
   }
@@ -119,7 +111,7 @@ public class TCSC
     this.x = x;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -129,7 +121,7 @@ public class TCSC
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -139,7 +131,7 @@ public class TCSC
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -149,7 +141,7 @@ public class TCSC
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -159,7 +151,7 @@ public class TCSC
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -169,7 +161,7 @@ public class TCSC
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -179,7 +171,7 @@ public class TCSC
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -189,7 +181,7 @@ public class TCSC
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -199,7 +191,7 @@ public class TCSC
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -209,7 +201,7 @@ public class TCSC
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -219,7 +211,7 @@ public class TCSC
     this.rerrMin = rerrMin;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -229,7 +221,7 @@ public class TCSC
     this.faultFreq = faultFreq;
   }
     
-  public Integer getInstBusPtr() 
+  public Integer getInstBusPtr()
   {
     return instBusPtr;
   }
@@ -239,7 +231,7 @@ public class TCSC
     this.instBusPtr = instBusPtr;
   }
     
-  public Integer getACLinePtr() 
+  public Integer getACLinePtr()
   {
     return aCLinePtr;
   }
@@ -249,7 +241,7 @@ public class TCSC
     this.aCLinePtr = aCLinePtr;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -257,6 +249,29 @@ public class TCSC
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "TCSC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", installBus = " + installBus
+	 + ", x = " + x
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", instBusPtr = " + instBusPtr
+	 + ", aCLinePtr = " + aCLinePtr
+	 + ", outage = " + outage+"]";
   }
     
 }

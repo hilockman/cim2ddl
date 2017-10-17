@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *励磁系统继续卡(FZ)	*
 ***********************/
-@Entity
 public class BpaSwi_FZ
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -75,7 +67,7 @@ public class BpaSwi_FZ
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -85,7 +77,7 @@ public class BpaSwi_FZ
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -95,7 +87,7 @@ public class BpaSwi_FZ
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -105,7 +97,7 @@ public class BpaSwi_FZ
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -115,7 +107,7 @@ public class BpaSwi_FZ
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -125,7 +117,7 @@ public class BpaSwi_FZ
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -135,7 +127,7 @@ public class BpaSwi_FZ
     this.gen_ID = gen_ID;
   }
     
-  public Double getFZ_SE1_KI() 
+  public Double getFZ_SE1_KI()
   {
     return fZ_SE1_KI;
   }
@@ -145,7 +137,7 @@ public class BpaSwi_FZ
     this.fZ_SE1_KI = fZ_SE1_KI;
   }
     
-  public Double getFZ_SE2_KP() 
+  public Double getFZ_SE2_KP()
   {
     return fZ_SE2_KP;
   }
@@ -155,7 +147,7 @@ public class BpaSwi_FZ
     this.fZ_SE2_KP = fZ_SE2_KP;
   }
     
-  public Double getFZ_EFDMin_EFDN_DP() 
+  public Double getFZ_EFDMin_EFDN_DP()
   {
     return fZ_EFDMin_EFDN_DP;
   }
@@ -165,7 +157,7 @@ public class BpaSwi_FZ
     this.fZ_EFDMin_EFDN_DP = fZ_EFDMin_EFDN_DP;
   }
     
-  public Double getFZ_EFD1_VE1_EFDMax() 
+  public Double getFZ_EFD1_VE1_EFDMax()
   {
     return fZ_EFD1_VE1_EFDMax;
   }
@@ -175,7 +167,7 @@ public class BpaSwi_FZ
     this.fZ_EFD1_VE1_EFDMax = fZ_EFD1_VE1_EFDMax;
   }
     
-  public Double getFZ_KF_KG() 
+  public Double getFZ_KF_KG()
   {
     return fZ_KF_KG;
   }
@@ -185,7 +177,7 @@ public class BpaSwi_FZ
     this.fZ_KF_KG = fZ_KF_KG;
   }
     
-  public Double getFZ_TF_VGMax() 
+  public Double getFZ_TF_VGMax()
   {
     return fZ_TF_VGMax;
   }
@@ -195,7 +187,7 @@ public class BpaSwi_FZ
     this.fZ_TF_VGMax = fZ_TF_VGMax;
   }
     
-  public Double getFZ_KC() 
+  public Double getFZ_KC()
   {
     return fZ_KC;
   }
@@ -205,7 +197,7 @@ public class BpaSwi_FZ
     this.fZ_KC = fZ_KC;
   }
     
-  public Double getFZ_KD_XL() 
+  public Double getFZ_KD_XL()
   {
     return fZ_KD_XL;
   }
@@ -215,7 +207,7 @@ public class BpaSwi_FZ
     this.fZ_KD_XL = fZ_KD_XL;
   }
     
-  public Double getFZ_KB_VLV() 
+  public Double getFZ_KB_VLV()
   {
     return fZ_KB_VLV;
   }
@@ -225,7 +217,7 @@ public class BpaSwi_FZ
     this.fZ_KB_VLV = fZ_KB_VLV;
   }
     
-  public Double getFZ_KL_KLV() 
+  public Double getFZ_KL_KLV()
   {
     return fZ_KL_KLV;
   }
@@ -235,7 +227,7 @@ public class BpaSwi_FZ
     this.fZ_KL_KLV = fZ_KL_KLV;
   }
     
-  public Double getFZ_KH_KN() 
+  public Double getFZ_KH_KN()
   {
     return fZ_KH_KN;
   }
@@ -245,7 +237,7 @@ public class BpaSwi_FZ
     this.fZ_KH_KN = fZ_KH_KN;
   }
     
-  public Double getFZ_VLR_KR() 
+  public Double getFZ_VLR_KR()
   {
     return fZ_VLR_KR;
   }
@@ -255,7 +247,7 @@ public class BpaSwi_FZ
     this.fZ_VLR_KR = fZ_VLR_KR;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -265,7 +257,7 @@ public class BpaSwi_FZ
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -275,7 +267,7 @@ public class BpaSwi_FZ
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -283,6 +275,31 @@ public class BpaSwi_FZ
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_FZ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", fZ_SE1_KI = " + fZ_SE1_KI
+	 + ", fZ_SE2_KP = " + fZ_SE2_KP
+	 + ", fZ_EFDMin_EFDN_DP = " + fZ_EFDMin_EFDN_DP
+	 + ", fZ_EFD1_VE1_EFDMax = " + fZ_EFD1_VE1_EFDMax
+	 + ", fZ_KF_KG = " + fZ_KF_KG
+	 + ", fZ_TF_VGMax = " + fZ_TF_VGMax
+	 + ", fZ_KC = " + fZ_KC
+	 + ", fZ_KD_XL = " + fZ_KD_XL
+	 + ", fZ_KB_VLV = " + fZ_KB_VLV
+	 + ", fZ_KL_KLV = " + fZ_KL_KLV
+	 + ", fZ_KH_KN = " + fZ_KH_KN
+	 + ", fZ_VLR_KR = " + fZ_VLR_KR
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

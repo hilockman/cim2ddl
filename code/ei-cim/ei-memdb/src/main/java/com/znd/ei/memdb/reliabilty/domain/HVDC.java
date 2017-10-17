@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *高压直流系统	*
 ***********************/
-@Entity
 public class HVDC
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -132,7 +124,7 @@ public class HVDC
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -142,7 +134,7 @@ public class HVDC
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -152,7 +144,7 @@ public class HVDC
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -162,7 +154,7 @@ public class HVDC
     this.name = name;
   }
     
-  public String getACBusR() 
+  public String getACBusR()
   {
     return aCBusR;
   }
@@ -172,7 +164,7 @@ public class HVDC
     this.aCBusR = aCBusR;
   }
     
-  public String getACBusI() 
+  public String getACBusI()
   {
     return aCBusI;
   }
@@ -182,7 +174,7 @@ public class HVDC
     this.aCBusI = aCBusI;
   }
     
-  public Double getkVR() 
+  public Double getkVR()
   {
     return kVR;
   }
@@ -192,7 +184,7 @@ public class HVDC
     this.kVR = kVR;
   }
     
-  public Double getkVI() 
+  public Double getkVI()
   {
     return kVI;
   }
@@ -202,7 +194,7 @@ public class HVDC
     this.kVI = kVI;
   }
     
-  public Double getR() 
+  public Double getR()
   {
     return r;
   }
@@ -212,7 +204,7 @@ public class HVDC
     this.r = r;
   }
     
-  public Double getL() 
+  public Double getL()
   {
     return l;
   }
@@ -222,7 +214,7 @@ public class HVDC
     this.l = l;
   }
     
-  public Double getC() 
+  public Double getC()
   {
     return c;
   }
@@ -232,7 +224,7 @@ public class HVDC
     this.c = c;
   }
     
-  public Integer getCon() 
+  public Integer getCon()
   {
     return con;
   }
@@ -242,7 +234,7 @@ public class HVDC
     this.con = con;
   }
     
-  public Double getRatedC() 
+  public Double getRatedC()
   {
     return ratedC;
   }
@@ -252,7 +244,7 @@ public class HVDC
     this.ratedC = ratedC;
   }
     
-  public Double getRectV() 
+  public Double getRectV()
   {
     return rectV;
   }
@@ -262,7 +254,7 @@ public class HVDC
     this.rectV = rectV;
   }
     
-  public Double getRatedP() 
+  public Double getRatedP()
   {
     return ratedP;
   }
@@ -272,7 +264,7 @@ public class HVDC
     this.ratedP = ratedP;
   }
     
-  public Double getPower() 
+  public Double getPower()
   {
     return power;
   }
@@ -282,7 +274,7 @@ public class HVDC
     this.power = power;
   }
     
-  public Double getPwrR() 
+  public Double getPwrR()
   {
     return pwrR;
   }
@@ -292,7 +284,7 @@ public class HVDC
     this.pwrR = pwrR;
   }
     
-  public Double getPwrI() 
+  public Double getPwrI()
   {
     return pwrI;
   }
@@ -302,7 +294,7 @@ public class HVDC
     this.pwrI = pwrI;
   }
     
-  public Double getLossP() 
+  public Double getLossP()
   {
     return lossP;
   }
@@ -312,7 +304,7 @@ public class HVDC
     this.lossP = lossP;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -322,7 +314,7 @@ public class HVDC
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -332,7 +324,7 @@ public class HVDC
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -342,7 +334,7 @@ public class HVDC
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -352,7 +344,7 @@ public class HVDC
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -362,7 +354,7 @@ public class HVDC
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -372,7 +364,7 @@ public class HVDC
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -382,7 +374,7 @@ public class HVDC
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -392,7 +384,7 @@ public class HVDC
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -402,7 +394,7 @@ public class HVDC
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -412,7 +404,7 @@ public class HVDC
     this.rerrMin = rerrMin;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -422,7 +414,7 @@ public class HVDC
     this.faultFreq = faultFreq;
   }
     
-  public Integer getMSModel() 
+  public Integer getMSModel()
   {
     return mSModel;
   }
@@ -432,7 +424,7 @@ public class HVDC
     this.mSModel = mSModel;
   }
     
-  public Integer getMStateNum() 
+  public Integer getMStateNum()
   {
     return mStateNum;
   }
@@ -442,7 +434,7 @@ public class HVDC
     this.mStateNum = mStateNum;
   }
     
-  public Double getMSPout() 
+  public Double getMSPout()
   {
     return mSPout;
   }
@@ -452,7 +444,7 @@ public class HVDC
     this.mSPout = mSPout;
   }
     
-  public String getIniBusR() 
+  public String getIniBusR()
   {
     return iniBusR;
   }
@@ -462,7 +454,7 @@ public class HVDC
     this.iniBusR = iniBusR;
   }
     
-  public String getIniBusI() 
+  public String getIniBusI()
   {
     return iniBusI;
   }
@@ -472,7 +464,7 @@ public class HVDC
     this.iniBusI = iniBusI;
   }
     
-  public Double getIniPwrR() 
+  public Double getIniPwrR()
   {
     return iniPwrR;
   }
@@ -482,7 +474,7 @@ public class HVDC
     this.iniPwrR = iniPwrR;
   }
     
-  public Double getIniPwrI() 
+  public Double getIniPwrI()
   {
     return iniPwrI;
   }
@@ -492,7 +484,7 @@ public class HVDC
     this.iniPwrI = iniPwrI;
   }
     
-  public Integer getACBusRPtr() 
+  public Integer getACBusRPtr()
   {
     return aCBusRPtr;
   }
@@ -502,7 +494,7 @@ public class HVDC
     this.aCBusRPtr = aCBusRPtr;
   }
     
-  public Integer getACBusIPtr() 
+  public Integer getACBusIPtr()
   {
     return aCBusIPtr;
   }
@@ -512,7 +504,7 @@ public class HVDC
     this.aCBusIPtr = aCBusIPtr;
   }
     
-  public Integer getSerialNo() 
+  public Integer getSerialNo()
   {
     return serialNo;
   }
@@ -522,7 +514,7 @@ public class HVDC
     this.serialNo = serialNo;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -530,6 +522,50 @@ public class HVDC
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "HVDC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", aCBusR = " + aCBusR
+	 + ", aCBusI = " + aCBusI
+	 + ", kVR = " + kVR
+	 + ", kVI = " + kVI
+	 + ", r = " + r
+	 + ", l = " + l
+	 + ", c = " + c
+	 + ", con = " + con
+	 + ", ratedC = " + ratedC
+	 + ", rectV = " + rectV
+	 + ", ratedP = " + ratedP
+	 + ", power = " + power
+	 + ", pwrR = " + pwrR
+	 + ", pwrI = " + pwrI
+	 + ", lossP = " + lossP
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", mSModel = " + mSModel
+	 + ", mStateNum = " + mStateNum
+	 + ", mSPout = " + mSPout
+	 + ", iniBusR = " + iniBusR
+	 + ", iniBusI = " + iniBusI
+	 + ", iniPwrR = " + iniPwrR
+	 + ", iniPwrI = " + iniPwrI
+	 + ", aCBusRPtr = " + aCBusRPtr
+	 + ", aCBusIPtr = " + aCBusIPtr
+	 + ", serialNo = " + serialNo
+	 + ", outage = " + outage+"]";
   }
     
 }

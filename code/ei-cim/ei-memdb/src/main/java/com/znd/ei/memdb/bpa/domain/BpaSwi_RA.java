@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *低压线路断开保护(RA)	*
 ***********************/
-@Entity
 public class BpaSwi_RA
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -60,7 +52,7 @@ public class BpaSwi_RA
   //母线2低电压时间延迟(周)
   private Double rA_T2;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -70,7 +62,7 @@ public class BpaSwi_RA
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -80,7 +72,7 @@ public class BpaSwi_RA
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -90,7 +82,7 @@ public class BpaSwi_RA
     this.cardKey = cardKey;
   }
     
-  public String getRA_BusI() 
+  public String getRA_BusI()
   {
     return rA_BusI;
   }
@@ -100,7 +92,7 @@ public class BpaSwi_RA
     this.rA_BusI = rA_BusI;
   }
     
-  public Double getRA_kVI() 
+  public Double getRA_kVI()
   {
     return rA_kVI;
   }
@@ -110,7 +102,7 @@ public class BpaSwi_RA
     this.rA_kVI = rA_kVI;
   }
     
-  public String getRA_BusJ() 
+  public String getRA_BusJ()
   {
     return rA_BusJ;
   }
@@ -120,7 +112,7 @@ public class BpaSwi_RA
     this.rA_BusJ = rA_BusJ;
   }
     
-  public Double getRA_kVJ() 
+  public Double getRA_kVJ()
   {
     return rA_kVJ;
   }
@@ -130,7 +122,7 @@ public class BpaSwi_RA
     this.rA_kVJ = rA_kVJ;
   }
     
-  public Integer getRA_Loop() 
+  public Integer getRA_Loop()
   {
     return rA_Loop;
   }
@@ -140,7 +132,7 @@ public class BpaSwi_RA
     this.rA_Loop = rA_Loop;
   }
     
-  public String getRA_CBus1() 
+  public String getRA_CBus1()
   {
     return rA_CBus1;
   }
@@ -150,7 +142,7 @@ public class BpaSwi_RA
     this.rA_CBus1 = rA_CBus1;
   }
     
-  public Double getRA_CkV1() 
+  public Double getRA_CkV1()
   {
     return rA_CkV1;
   }
@@ -160,7 +152,7 @@ public class BpaSwi_RA
     this.rA_CkV1 = rA_CkV1;
   }
     
-  public Double getRA_V1() 
+  public Double getRA_V1()
   {
     return rA_V1;
   }
@@ -170,7 +162,7 @@ public class BpaSwi_RA
     this.rA_V1 = rA_V1;
   }
     
-  public Double getRA_T1() 
+  public Double getRA_T1()
   {
     return rA_T1;
   }
@@ -180,7 +172,7 @@ public class BpaSwi_RA
     this.rA_T1 = rA_T1;
   }
     
-  public String getRA_CBus2() 
+  public String getRA_CBus2()
   {
     return rA_CBus2;
   }
@@ -190,7 +182,7 @@ public class BpaSwi_RA
     this.rA_CBus2 = rA_CBus2;
   }
     
-  public Double getRA_CkV2() 
+  public Double getRA_CkV2()
   {
     return rA_CkV2;
   }
@@ -200,7 +192,7 @@ public class BpaSwi_RA
     this.rA_CkV2 = rA_CkV2;
   }
     
-  public Double getRA_V2() 
+  public Double getRA_V2()
   {
     return rA_V2;
   }
@@ -210,7 +202,7 @@ public class BpaSwi_RA
     this.rA_V2 = rA_V2;
   }
     
-  public Double getRA_T2() 
+  public Double getRA_T2()
   {
     return rA_T2;
   }
@@ -218,6 +210,26 @@ public class BpaSwi_RA
   public void setRA_T2(Double rA_T2)
   {
     this.rA_T2 = rA_T2;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_RA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", rA_BusI = " + rA_BusI
+	 + ", rA_kVI = " + rA_kVI
+	 + ", rA_BusJ = " + rA_BusJ
+	 + ", rA_kVJ = " + rA_kVJ
+	 + ", rA_Loop = " + rA_Loop
+	 + ", rA_CBus1 = " + rA_CBus1
+	 + ", rA_CkV1 = " + rA_CkV1
+	 + ", rA_V1 = " + rA_V1
+	 + ", rA_T1 = " + rA_T1
+	 + ", rA_CBus2 = " + rA_CBus2
+	 + ", rA_CkV2 = " + rA_CkV2
+	 + ", rA_V2 = " + rA_V2
+	 + ", rA_T2 = " + rA_T2+"]";
   }
     
 }

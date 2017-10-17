@@ -448,40 +448,40 @@ public class Generator
     
   public String toString()
   {
-    return "Generator ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"busName"=busName,
-	"buskV"=buskV,
-	"genId"=genId,
-	"zone"=zone,
-	"p"=p,
-	"q"=q,
-	"pMax"=pMax,
-	"pMin"=pMin,
-	"qMax"=qMax,
-	"qMin"=qMin,
-	"rerr"=rerr,
-	"rrep"=rrep,
-	"trep"=trep,
-	"goodProb"=goodProb,
-	"failProb"=failProb,
-	"iRt"=iRt,
-	"iMax"=iMax,
-	"iMin"=iMin,
-	"rerrMax"=rerrMax,
-	"rerrMin"=rerrMin,
-	"mSModel"=mSModel,
-	"mStateNum"=mStateNum,
-	"mSPout"=mSPout,
-	"referenceP"=referenceP,
-	"referenceQ"=referenceQ,
-	"faultFreq"=faultFreq,
-	"eQGen"=eQGen,
-	"radial"=radial,
-	"busPtr"=busPtr,
-	"rParamType"=rParamType,
-	"outage"=outage+"]"
+    return "Generator ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", genId = " + genId
+	 + ", zone = " + zone
+	 + ", p = " + p
+	 + ", q = " + q
+	 + ", pMax = " + pMax
+	 + ", pMin = " + pMin
+	 + ", qMax = " + qMax
+	 + ", qMin = " + qMin
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", mSModel = " + mSModel
+	 + ", mStateNum = " + mStateNum
+	 + ", mSPout = " + mSPout
+	 + ", referenceP = " + referenceP
+	 + ", referenceQ = " + referenceQ
+	 + ", faultFreq = " + faultFreq
+	 + ", eQGen = " + eQGen
+	 + ", radial = " + radial
+	 + ", busPtr = " + busPtr
+	 + ", rParamType = " + rParamType
+	 + ", outage = " + outage+"]";
   }
     
 }

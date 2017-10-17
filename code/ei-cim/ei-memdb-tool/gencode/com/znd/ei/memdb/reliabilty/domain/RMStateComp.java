@@ -58,10 +58,10 @@ public class RMStateComp
     
   public String toString()
   {
-    return "RMStateComp ["+	"id"=id,
-	"memIndex"=memIndex,
-	"type"=type,
-	"serialNo"=serialNo+"]"
+    return "RMStateComp ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", type = " + type
+	 + ", serialNo = " + serialNo+"]";
   }
     
 }

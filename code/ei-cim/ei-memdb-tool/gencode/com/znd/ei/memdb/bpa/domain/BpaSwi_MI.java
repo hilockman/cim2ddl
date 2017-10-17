@@ -266,26 +266,26 @@ public class BpaSwi_MI
     
   public String toString()
   {
-    return "BpaSwi_MI ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"bus_ID"=bus_ID,
-	"mI_Emws"=mI_Emws,
-	"mI_P"=mI_P,
-	"mI_MVA"=mI_MVA,
-	"mI_RS"=mI_RS,
-	"mI_XS"=mI_XS,
-	"mI_XM"=mI_XM,
-	"mI_RR"=mI_RR,
-	"mI_XR"=mI_XR,
-	"mI_VI"=mI_VI,
-	"mI_TI"=mI_TI,
-	"mI_A"=mI_A,
-	"mI_B"=mI_B,
-	"mI_IM"=mI_IM,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_MI ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", bus_ID = " + bus_ID
+	 + ", mI_Emws = " + mI_Emws
+	 + ", mI_P = " + mI_P
+	 + ", mI_MVA = " + mI_MVA
+	 + ", mI_RS = " + mI_RS
+	 + ", mI_XS = " + mI_XS
+	 + ", mI_XM = " + mI_XM
+	 + ", mI_RR = " + mI_RR
+	 + ", mI_XR = " + mI_XR
+	 + ", mI_VI = " + mI_VI
+	 + ", mI_TI = " + mI_TI
+	 + ", mI_A = " + mI_A
+	 + ", mI_B = " + mI_B
+	 + ", mI_IM = " + mI_IM
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

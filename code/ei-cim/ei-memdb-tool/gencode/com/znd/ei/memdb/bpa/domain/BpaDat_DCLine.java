@@ -344,32 +344,32 @@ public class BpaDat_DCLine
     
   public String toString()
   {
-    return "BpaDat_DCLine ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"dCLine_Owner"=dCLine_Owner,
-	"dCLine_BusR"=dCLine_BusR,
-	"dCLine_kVR"=dCLine_kVR,
-	"dCLine_Meter"=dCLine_Meter,
-	"dCLine_BusI"=dCLine_BusI,
-	"dCLine_kVI"=dCLine_kVI,
-	"dCLine_AMP"=dCLine_AMP,
-	"dCLine_R"=dCLine_R,
-	"dCLine_L"=dCLine_L,
-	"dCLine_C"=dCLine_C,
-	"dCLine_CONTROL"=dCLine_CONTROL,
-	"dCLine_DCPOWER"=dCLine_DCPOWER,
-	"dCLine_RVOLT"=dCLine_RVOLT,
-	"dCLine_ROPER"=dCLine_ROPER,
-	"dCLine_ISTOP"=dCLine_ISTOP,
-	"dCLine_Pr"=dCLine_Pr,
-	"dCLine_Pi"=dCLine_Pi,
-	"dCLine_Lossp"=dCLine_Lossp,
-	"keyName"=keyName,
-	"iRBus"=iRBus,
-	"iIBus"=iIBus,
-	"alias"=alias,
-	"status"=status+"]"
+    return "BpaDat_DCLine ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", dCLine_Owner = " + dCLine_Owner
+	 + ", dCLine_BusR = " + dCLine_BusR
+	 + ", dCLine_kVR = " + dCLine_kVR
+	 + ", dCLine_Meter = " + dCLine_Meter
+	 + ", dCLine_BusI = " + dCLine_BusI
+	 + ", dCLine_kVI = " + dCLine_kVI
+	 + ", dCLine_AMP = " + dCLine_AMP
+	 + ", dCLine_R = " + dCLine_R
+	 + ", dCLine_L = " + dCLine_L
+	 + ", dCLine_C = " + dCLine_C
+	 + ", dCLine_CONTROL = " + dCLine_CONTROL
+	 + ", dCLine_DCPOWER = " + dCLine_DCPOWER
+	 + ", dCLine_RVOLT = " + dCLine_RVOLT
+	 + ", dCLine_ROPER = " + dCLine_ROPER
+	 + ", dCLine_ISTOP = " + dCLine_ISTOP
+	 + ", dCLine_Pr = " + dCLine_Pr
+	 + ", dCLine_Pi = " + dCLine_Pi
+	 + ", dCLine_Lossp = " + dCLine_Lossp
+	 + ", keyName = " + keyName
+	 + ", iRBus = " + iRBus
+	 + ", iIBus = " + iIBus
+	 + ", alias = " + alias
+	 + ", status = " + status+"]";
   }
     
 }

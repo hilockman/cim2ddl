@@ -214,22 +214,22 @@ public class BpaSwi_TD
     
   public String toString()
   {
-    return "BpaSwi_TD ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"tD_TCH"=tD_TCH,
-	"tD_FHP"=tD_FHP,
-	"tD_TRH"=tD_TRH,
-	"tD_FIP"=tD_FIP,
-	"tD_TCO"=tD_TCO,
-	"tD_FLP_1"=tD_FLP_1,
-	"tD_FLP_2"=tD_FLP_2,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_TD ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tD_TCH = " + tD_TCH
+	 + ", tD_FHP = " + tD_FHP
+	 + ", tD_TRH = " + tD_TRH
+	 + ", tD_FIP = " + tD_FIP
+	 + ", tD_TCO = " + tD_TCO
+	 + ", tD_FLP_1 = " + tD_FLP_1
+	 + ", tD_FLP_2 = " + tD_FLP_2
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

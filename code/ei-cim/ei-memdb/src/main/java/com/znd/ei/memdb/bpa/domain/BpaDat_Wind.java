@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *变压器绕组表(Wind)	*
 ***********************/
-@Entity
 public class BpaDat_Wind
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -153,7 +145,7 @@ public class BpaDat_Wind
   //所在辐射网
   private Integer radiate;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -163,7 +155,7 @@ public class BpaDat_Wind
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -173,7 +165,7 @@ public class BpaDat_Wind
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -183,7 +175,7 @@ public class BpaDat_Wind
     this.cardKey = cardKey;
   }
     
-  public String getWind_Owner() 
+  public String getWind_Owner()
   {
     return wind_Owner;
   }
@@ -193,7 +185,7 @@ public class BpaDat_Wind
     this.wind_Owner = wind_Owner;
   }
     
-  public String getWind_BusI() 
+  public String getWind_BusI()
   {
     return wind_BusI;
   }
@@ -203,7 +195,7 @@ public class BpaDat_Wind
     this.wind_BusI = wind_BusI;
   }
     
-  public Double getWind_kVI() 
+  public Double getWind_kVI()
   {
     return wind_kVI;
   }
@@ -213,7 +205,7 @@ public class BpaDat_Wind
     this.wind_kVI = wind_kVI;
   }
     
-  public Integer getWind_Meter() 
+  public Integer getWind_Meter()
   {
     return wind_Meter;
   }
@@ -223,7 +215,7 @@ public class BpaDat_Wind
     this.wind_Meter = wind_Meter;
   }
     
-  public String getWind_BusJ() 
+  public String getWind_BusJ()
   {
     return wind_BusJ;
   }
@@ -233,7 +225,7 @@ public class BpaDat_Wind
     this.wind_BusJ = wind_BusJ;
   }
     
-  public Double getWind_kVJ() 
+  public Double getWind_kVJ()
   {
     return wind_kVJ;
   }
@@ -243,7 +235,7 @@ public class BpaDat_Wind
     this.wind_kVJ = wind_kVJ;
   }
     
-  public Integer getWind_Loop() 
+  public Integer getWind_Loop()
   {
     return wind_Loop;
   }
@@ -253,7 +245,7 @@ public class BpaDat_Wind
     this.wind_Loop = wind_Loop;
   }
     
-  public Integer getWind_Section() 
+  public Integer getWind_Section()
   {
     return wind_Section;
   }
@@ -263,7 +255,7 @@ public class BpaDat_Wind
     this.wind_Section = wind_Section;
   }
     
-  public Double getWind_MVA() 
+  public Double getWind_MVA()
   {
     return wind_MVA;
   }
@@ -273,7 +265,7 @@ public class BpaDat_Wind
     this.wind_MVA = wind_MVA;
   }
     
-  public Integer getWind_LoopNum() 
+  public Integer getWind_LoopNum()
   {
     return wind_LoopNum;
   }
@@ -283,7 +275,7 @@ public class BpaDat_Wind
     this.wind_LoopNum = wind_LoopNum;
   }
     
-  public Double getWind_R() 
+  public Double getWind_R()
   {
     return wind_R;
   }
@@ -293,7 +285,7 @@ public class BpaDat_Wind
     this.wind_R = wind_R;
   }
     
-  public Double getWind_X() 
+  public Double getWind_X()
   {
     return wind_X;
   }
@@ -303,7 +295,7 @@ public class BpaDat_Wind
     this.wind_X = wind_X;
   }
     
-  public Double getWind_G() 
+  public Double getWind_G()
   {
     return wind_G;
   }
@@ -313,7 +305,7 @@ public class BpaDat_Wind
     this.wind_G = wind_G;
   }
     
-  public Double getWind_B() 
+  public Double getWind_B()
   {
     return wind_B;
   }
@@ -323,7 +315,7 @@ public class BpaDat_Wind
     this.wind_B = wind_B;
   }
     
-  public Double getWind_TPI() 
+  public Double getWind_TPI()
   {
     return wind_TPI;
   }
@@ -333,7 +325,7 @@ public class BpaDat_Wind
     this.wind_TPI = wind_TPI;
   }
     
-  public Double getWind_TPJ() 
+  public Double getWind_TPJ()
   {
     return wind_TPJ;
   }
@@ -343,7 +335,7 @@ public class BpaDat_Wind
     this.wind_TPJ = wind_TPJ;
   }
     
-  public Double getWind_Pi() 
+  public Double getWind_Pi()
   {
     return wind_Pi;
   }
@@ -353,7 +345,7 @@ public class BpaDat_Wind
     this.wind_Pi = wind_Pi;
   }
     
-  public Double getWind_Qi() 
+  public Double getWind_Qi()
   {
     return wind_Qi;
   }
@@ -363,7 +355,7 @@ public class BpaDat_Wind
     this.wind_Qi = wind_Qi;
   }
     
-  public Double getWind_Pz() 
+  public Double getWind_Pz()
   {
     return wind_Pz;
   }
@@ -373,7 +365,7 @@ public class BpaDat_Wind
     this.wind_Pz = wind_Pz;
   }
     
-  public Double getWind_Qz() 
+  public Double getWind_Qz()
   {
     return wind_Qz;
   }
@@ -383,7 +375,7 @@ public class BpaDat_Wind
     this.wind_Qz = wind_Qz;
   }
     
-  public Double getWind_LossP() 
+  public Double getWind_LossP()
   {
     return wind_LossP;
   }
@@ -393,7 +385,7 @@ public class BpaDat_Wind
     this.wind_LossP = wind_LossP;
   }
     
-  public Double getWind_LossQ() 
+  public Double getWind_LossQ()
   {
     return wind_LossQ;
   }
@@ -403,7 +395,7 @@ public class BpaDat_Wind
     this.wind_LossQ = wind_LossQ;
   }
     
-  public Double getWind_SccAI() 
+  public Double getWind_SccAI()
   {
     return wind_SccAI;
   }
@@ -413,7 +405,7 @@ public class BpaDat_Wind
     this.wind_SccAI = wind_SccAI;
   }
     
-  public Double getWind_SccAZ() 
+  public Double getWind_SccAZ()
   {
     return wind_SccAZ;
   }
@@ -423,7 +415,7 @@ public class BpaDat_Wind
     this.wind_SccAZ = wind_SccAZ;
   }
     
-  public Double getvd_Rerr() 
+  public Double getvd_Rerr()
   {
     return vd_Rerr;
   }
@@ -433,7 +425,7 @@ public class BpaDat_Wind
     this.vd_Rerr = vd_Rerr;
   }
     
-  public Double getvd_RScc1() 
+  public Double getvd_RScc1()
   {
     return vd_RScc1;
   }
@@ -443,7 +435,7 @@ public class BpaDat_Wind
     this.vd_RScc1 = vd_RScc1;
   }
     
-  public Double getvd_RScc2() 
+  public Double getvd_RScc2()
   {
     return vd_RScc2;
   }
@@ -453,7 +445,7 @@ public class BpaDat_Wind
     this.vd_RScc2 = vd_RScc2;
   }
     
-  public Double getvd_RScc3() 
+  public Double getvd_RScc3()
   {
     return vd_RScc3;
   }
@@ -463,7 +455,7 @@ public class BpaDat_Wind
     this.vd_RScc3 = vd_RScc3;
   }
     
-  public Double getvd_RScc4() 
+  public Double getvd_RScc4()
   {
     return vd_RScc4;
   }
@@ -473,7 +465,7 @@ public class BpaDat_Wind
     this.vd_RScc4 = vd_RScc4;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -483,7 +475,7 @@ public class BpaDat_Wind
     this.keyName = keyName;
   }
     
-  public String getIniBusI() 
+  public String getIniBusI()
   {
     return iniBusI;
   }
@@ -493,7 +485,7 @@ public class BpaDat_Wind
     this.iniBusI = iniBusI;
   }
     
-  public Double getInikVI() 
+  public Double getInikVI()
   {
     return inikVI;
   }
@@ -503,7 +495,7 @@ public class BpaDat_Wind
     this.inikVI = inikVI;
   }
     
-  public String getIniBusJ() 
+  public String getIniBusJ()
   {
     return iniBusJ;
   }
@@ -513,7 +505,7 @@ public class BpaDat_Wind
     this.iniBusJ = iniBusJ;
   }
     
-  public Double getInikVJ() 
+  public Double getInikVJ()
   {
     return inikVJ;
   }
@@ -523,7 +515,7 @@ public class BpaDat_Wind
     this.inikVJ = inikVJ;
   }
     
-  public Integer getIniLoop() 
+  public Integer getIniLoop()
   {
     return iniLoop;
   }
@@ -533,7 +525,7 @@ public class BpaDat_Wind
     this.iniLoop = iniLoop;
   }
     
-  public Integer getiRBus() 
+  public Integer getiRBus()
   {
     return iRBus;
   }
@@ -543,7 +535,7 @@ public class BpaDat_Wind
     this.iRBus = iRBus;
   }
     
-  public Integer getzRBus() 
+  public Integer getzRBus()
   {
     return zRBus;
   }
@@ -553,7 +545,7 @@ public class BpaDat_Wind
     this.zRBus = zRBus;
   }
     
-  public Integer getRCard() 
+  public Integer getRCard()
   {
     return rCard;
   }
@@ -563,7 +555,7 @@ public class BpaDat_Wind
     this.rCard = rCard;
   }
     
-  public String getAlias() 
+  public String getAlias()
   {
     return alias;
   }
@@ -573,7 +565,7 @@ public class BpaDat_Wind
     this.alias = alias;
   }
     
-  public Double getRtTPI() 
+  public Double getRtTPI()
   {
     return rtTPI;
   }
@@ -583,7 +575,7 @@ public class BpaDat_Wind
     this.rtTPI = rtTPI;
   }
     
-  public Double getRtTPJ() 
+  public Double getRtTPJ()
   {
     return rtTPJ;
   }
@@ -593,7 +585,7 @@ public class BpaDat_Wind
     this.rtTPJ = rtTPJ;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -603,7 +595,7 @@ public class BpaDat_Wind
     this.status = status;
   }
     
-  public Integer getInRing() 
+  public Integer getInRing()
   {
     return inRing;
   }
@@ -613,7 +605,7 @@ public class BpaDat_Wind
     this.inRing = inRing;
   }
     
-  public Integer getRadiate() 
+  public Integer getRadiate()
   {
     return radiate;
   }
@@ -621,6 +613,57 @@ public class BpaDat_Wind
   public void setRadiate(Integer radiate)
   {
     this.radiate = radiate;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Wind ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", wind_Owner = " + wind_Owner
+	 + ", wind_BusI = " + wind_BusI
+	 + ", wind_kVI = " + wind_kVI
+	 + ", wind_Meter = " + wind_Meter
+	 + ", wind_BusJ = " + wind_BusJ
+	 + ", wind_kVJ = " + wind_kVJ
+	 + ", wind_Loop = " + wind_Loop
+	 + ", wind_Section = " + wind_Section
+	 + ", wind_MVA = " + wind_MVA
+	 + ", wind_LoopNum = " + wind_LoopNum
+	 + ", wind_R = " + wind_R
+	 + ", wind_X = " + wind_X
+	 + ", wind_G = " + wind_G
+	 + ", wind_B = " + wind_B
+	 + ", wind_TPI = " + wind_TPI
+	 + ", wind_TPJ = " + wind_TPJ
+	 + ", wind_Pi = " + wind_Pi
+	 + ", wind_Qi = " + wind_Qi
+	 + ", wind_Pz = " + wind_Pz
+	 + ", wind_Qz = " + wind_Qz
+	 + ", wind_LossP = " + wind_LossP
+	 + ", wind_LossQ = " + wind_LossQ
+	 + ", wind_SccAI = " + wind_SccAI
+	 + ", wind_SccAZ = " + wind_SccAZ
+	 + ", vd_Rerr = " + vd_Rerr
+	 + ", vd_RScc1 = " + vd_RScc1
+	 + ", vd_RScc2 = " + vd_RScc2
+	 + ", vd_RScc3 = " + vd_RScc3
+	 + ", vd_RScc4 = " + vd_RScc4
+	 + ", keyName = " + keyName
+	 + ", iniBusI = " + iniBusI
+	 + ", inikVI = " + inikVI
+	 + ", iniBusJ = " + iniBusJ
+	 + ", inikVJ = " + inikVJ
+	 + ", iniLoop = " + iniLoop
+	 + ", iRBus = " + iRBus
+	 + ", zRBus = " + zRBus
+	 + ", rCard = " + rCard
+	 + ", alias = " + alias
+	 + ", rtTPI = " + rtTPI
+	 + ", rtTPJ = " + rtTPJ
+	 + ", status = " + status
+	 + ", inRing = " + inRing
+	 + ", radiate = " + radiate+"]";
   }
     
 }

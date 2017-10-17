@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *抽样状态下孤岛损失	*
 ***********************/
-@Entity
 public class FStateMIsland
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -27,7 +19,7 @@ public class FStateMIsland
   //孤岛负荷功率(MW)
   private Double outageLoadP;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -37,7 +29,7 @@ public class FStateMIsland
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -47,7 +39,7 @@ public class FStateMIsland
     this.memIndex = memIndex;
   }
     
-  public Integer getFState() 
+  public Integer getFState()
   {
     return fState;
   }
@@ -57,7 +49,7 @@ public class FStateMIsland
     this.fState = fState;
   }
     
-  public Integer getOutageBus() 
+  public Integer getOutageBus()
   {
     return outageBus;
   }
@@ -67,7 +59,7 @@ public class FStateMIsland
     this.outageBus = outageBus;
   }
     
-  public Double getOutageLoadP() 
+  public Double getOutageLoadP()
   {
     return outageLoadP;
   }
@@ -75,6 +67,15 @@ public class FStateMIsland
   public void setOutageLoadP(Double outageLoadP)
   {
     this.outageLoadP = outageLoadP;
+  }
+    
+  public String toString()
+  {
+    return "FStateMIsland ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", outageBus = " + outageBus
+	 + ", outageLoadP = " + outageLoadP+"]";
   }
     
 }

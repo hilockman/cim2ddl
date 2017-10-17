@@ -214,22 +214,22 @@ public class BpaSwi_RA
     
   public String toString()
   {
-    return "BpaSwi_RA ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"rA_BusI"=rA_BusI,
-	"rA_kVI"=rA_kVI,
-	"rA_BusJ"=rA_BusJ,
-	"rA_kVJ"=rA_kVJ,
-	"rA_Loop"=rA_Loop,
-	"rA_CBus1"=rA_CBus1,
-	"rA_CkV1"=rA_CkV1,
-	"rA_V1"=rA_V1,
-	"rA_T1"=rA_T1,
-	"rA_CBus2"=rA_CBus2,
-	"rA_CkV2"=rA_CkV2,
-	"rA_V2"=rA_V2,
-	"rA_T2"=rA_T2+"]"
+    return "BpaSwi_RA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", rA_BusI = " + rA_BusI
+	 + ", rA_kVI = " + rA_kVI
+	 + ", rA_BusJ = " + rA_BusJ
+	 + ", rA_kVJ = " + rA_kVJ
+	 + ", rA_Loop = " + rA_Loop
+	 + ", rA_CBus1 = " + rA_CBus1
+	 + ", rA_CkV1 = " + rA_CkV1
+	 + ", rA_V1 = " + rA_V1
+	 + ", rA_T1 = " + rA_T1
+	 + ", rA_CBus2 = " + rA_CBus2
+	 + ", rA_CkV2 = " + rA_CkV2
+	 + ", rA_V2 = " + rA_V2
+	 + ", rA_T2 = " + rA_T2+"]";
   }
     
 }

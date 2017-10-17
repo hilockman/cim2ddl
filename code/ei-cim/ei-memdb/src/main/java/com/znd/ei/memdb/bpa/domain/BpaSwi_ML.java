@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *新感应马达模型(ML)	*
 ***********************/
-@Entity
 public class BpaSwi_ML
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -78,7 +70,7 @@ public class BpaSwi_ML
   //母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -88,7 +80,7 @@ public class BpaSwi_ML
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -98,7 +90,7 @@ public class BpaSwi_ML
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -108,7 +100,7 @@ public class BpaSwi_ML
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -118,7 +110,7 @@ public class BpaSwi_ML
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -128,7 +120,7 @@ public class BpaSwi_ML
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getBus_ID() 
+  public Integer getBus_ID()
   {
     return bus_ID;
   }
@@ -138,7 +130,7 @@ public class BpaSwi_ML
     this.bus_ID = bus_ID;
   }
     
-  public Double getML_TJ() 
+  public Double getML_TJ()
   {
     return mL_TJ;
   }
@@ -148,7 +140,7 @@ public class BpaSwi_ML
     this.mL_TJ = mL_TJ;
   }
     
-  public Double getML_Pper() 
+  public Double getML_Pper()
   {
     return mL_Pper;
   }
@@ -158,7 +150,7 @@ public class BpaSwi_ML
     this.mL_Pper = mL_Pper;
   }
     
-  public Double getML_KL() 
+  public Double getML_KL()
   {
     return mL_KL;
   }
@@ -168,7 +160,7 @@ public class BpaSwi_ML
     this.mL_KL = mL_KL;
   }
     
-  public Double getML_Pmin() 
+  public Double getML_Pmin()
   {
     return mL_Pmin;
   }
@@ -178,7 +170,7 @@ public class BpaSwi_ML
     this.mL_Pmin = mL_Pmin;
   }
     
-  public Double getML_RS() 
+  public Double getML_RS()
   {
     return mL_RS;
   }
@@ -188,7 +180,7 @@ public class BpaSwi_ML
     this.mL_RS = mL_RS;
   }
     
-  public Double getML_XS() 
+  public Double getML_XS()
   {
     return mL_XS;
   }
@@ -198,7 +190,7 @@ public class BpaSwi_ML
     this.mL_XS = mL_XS;
   }
     
-  public Double getML_XM() 
+  public Double getML_XM()
   {
     return mL_XM;
   }
@@ -208,7 +200,7 @@ public class BpaSwi_ML
     this.mL_XM = mL_XM;
   }
     
-  public Double getML_RR() 
+  public Double getML_RR()
   {
     return mL_RR;
   }
@@ -218,7 +210,7 @@ public class BpaSwi_ML
     this.mL_RR = mL_RR;
   }
     
-  public Double getML_XR() 
+  public Double getML_XR()
   {
     return mL_XR;
   }
@@ -228,7 +220,7 @@ public class BpaSwi_ML
     this.mL_XR = mL_XR;
   }
     
-  public Double getML_VI() 
+  public Double getML_VI()
   {
     return mL_VI;
   }
@@ -238,7 +230,7 @@ public class BpaSwi_ML
     this.mL_VI = mL_VI;
   }
     
-  public Double getML_TI() 
+  public Double getML_TI()
   {
     return mL_TI;
   }
@@ -248,7 +240,7 @@ public class BpaSwi_ML
     this.mL_TI = mL_TI;
   }
     
-  public Double getML_A() 
+  public Double getML_A()
   {
     return mL_A;
   }
@@ -258,7 +250,7 @@ public class BpaSwi_ML
     this.mL_A = mL_A;
   }
     
-  public Double getML_B() 
+  public Double getML_B()
   {
     return mL_B;
   }
@@ -268,7 +260,7 @@ public class BpaSwi_ML
     this.mL_B = mL_B;
   }
     
-  public Integer getML_S0() 
+  public Integer getML_S0()
   {
     return mL_S0;
   }
@@ -278,7 +270,7 @@ public class BpaSwi_ML
     this.mL_S0 = mL_S0;
   }
     
-  public Integer getML_IM() 
+  public Integer getML_IM()
   {
     return mL_IM;
   }
@@ -288,7 +280,7 @@ public class BpaSwi_ML
     this.mL_IM = mL_IM;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -296,6 +288,32 @@ public class BpaSwi_ML
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_ML ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", bus_ID = " + bus_ID
+	 + ", mL_TJ = " + mL_TJ
+	 + ", mL_Pper = " + mL_Pper
+	 + ", mL_KL = " + mL_KL
+	 + ", mL_Pmin = " + mL_Pmin
+	 + ", mL_RS = " + mL_RS
+	 + ", mL_XS = " + mL_XS
+	 + ", mL_XM = " + mL_XM
+	 + ", mL_RR = " + mL_RR
+	 + ", mL_XR = " + mL_XR
+	 + ", mL_VI = " + mL_VI
+	 + ", mL_TI = " + mL_TI
+	 + ", mL_A = " + mL_A
+	 + ", mL_B = " + mL_B
+	 + ", mL_S0 = " + mL_S0
+	 + ", mL_IM = " + mL_IM
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

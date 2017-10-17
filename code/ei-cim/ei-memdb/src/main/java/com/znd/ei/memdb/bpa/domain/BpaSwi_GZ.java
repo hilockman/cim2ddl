@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电调型(功率反馈)调速器模型表(GZ)	*
 ***********************/
-@Entity
 public class BpaSwi_GZ
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -78,7 +70,7 @@ public class BpaSwi_GZ
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -88,7 +80,7 @@ public class BpaSwi_GZ
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -98,7 +90,7 @@ public class BpaSwi_GZ
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -108,7 +100,7 @@ public class BpaSwi_GZ
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -118,7 +110,7 @@ public class BpaSwi_GZ
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -128,7 +120,7 @@ public class BpaSwi_GZ
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -138,7 +130,7 @@ public class BpaSwi_GZ
     this.gen_ID = gen_ID;
   }
     
-  public Double getGZ_Tsm() 
+  public Double getGZ_Tsm()
   {
     return gZ_Tsm;
   }
@@ -148,7 +140,7 @@ public class BpaSwi_GZ
     this.gZ_Tsm = gZ_Tsm;
   }
     
-  public Double getGZ_Ropen() 
+  public Double getGZ_Ropen()
   {
     return gZ_Ropen;
   }
@@ -158,7 +150,7 @@ public class BpaSwi_GZ
     this.gZ_Ropen = gZ_Ropen;
   }
     
-  public Double getGZ_Rclose() 
+  public Double getGZ_Rclose()
   {
     return gZ_Rclose;
   }
@@ -168,7 +160,7 @@ public class BpaSwi_GZ
     this.gZ_Rclose = gZ_Rclose;
   }
     
-  public Double getGZ_EHC_MAX() 
+  public Double getGZ_EHC_MAX()
   {
     return gZ_EHC_MAX;
   }
@@ -178,7 +170,7 @@ public class BpaSwi_GZ
     this.gZ_EHC_MAX = gZ_EHC_MAX;
   }
     
-  public Double getGZ_EHC_MIN() 
+  public Double getGZ_EHC_MIN()
   {
     return gZ_EHC_MIN;
   }
@@ -188,7 +180,7 @@ public class BpaSwi_GZ
     this.gZ_EHC_MIN = gZ_EHC_MIN;
   }
     
-  public Double getGZ_T_Open() 
+  public Double getGZ_T_Open()
   {
     return gZ_T_Open;
   }
@@ -198,7 +190,7 @@ public class BpaSwi_GZ
     this.gZ_T_Open = gZ_T_Open;
   }
     
-  public Double getGZ_T_Close() 
+  public Double getGZ_T_Close()
   {
     return gZ_T_Close;
   }
@@ -208,7 +200,7 @@ public class BpaSwi_GZ
     this.gZ_T_Close = gZ_T_Close;
   }
     
-  public Double getGZ_DB_Value() 
+  public Double getGZ_DB_Value()
   {
     return gZ_DB_Value;
   }
@@ -218,7 +210,7 @@ public class BpaSwi_GZ
     this.gZ_DB_Value = gZ_DB_Value;
   }
     
-  public Double getGZ_CV_MAX() 
+  public Double getGZ_CV_MAX()
   {
     return gZ_CV_MAX;
   }
@@ -228,7 +220,7 @@ public class BpaSwi_GZ
     this.gZ_CV_MAX = gZ_CV_MAX;
   }
     
-  public Double getGZ_CV_MIN() 
+  public Double getGZ_CV_MIN()
   {
     return gZ_CV_MIN;
   }
@@ -238,7 +230,7 @@ public class BpaSwi_GZ
     this.gZ_CV_MIN = gZ_CV_MIN;
   }
     
-  public Double getGZ_Kpe() 
+  public Double getGZ_Kpe()
   {
     return gZ_Kpe;
   }
@@ -248,7 +240,7 @@ public class BpaSwi_GZ
     this.gZ_Kpe = gZ_Kpe;
   }
     
-  public Double getGZ_Tpe() 
+  public Double getGZ_Tpe()
   {
     return gZ_Tpe;
   }
@@ -258,7 +250,7 @@ public class BpaSwi_GZ
     this.gZ_Tpe = gZ_Tpe;
   }
     
-  public Integer getGZ_Mode() 
+  public Integer getGZ_Mode()
   {
     return gZ_Mode;
   }
@@ -268,7 +260,7 @@ public class BpaSwi_GZ
     this.gZ_Mode = gZ_Mode;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -278,7 +270,7 @@ public class BpaSwi_GZ
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -288,7 +280,7 @@ public class BpaSwi_GZ
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -296,6 +288,32 @@ public class BpaSwi_GZ
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GZ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gZ_Tsm = " + gZ_Tsm
+	 + ", gZ_Ropen = " + gZ_Ropen
+	 + ", gZ_Rclose = " + gZ_Rclose
+	 + ", gZ_EHC_MAX = " + gZ_EHC_MAX
+	 + ", gZ_EHC_MIN = " + gZ_EHC_MIN
+	 + ", gZ_T_Open = " + gZ_T_Open
+	 + ", gZ_T_Close = " + gZ_T_Close
+	 + ", gZ_DB_Value = " + gZ_DB_Value
+	 + ", gZ_CV_MAX = " + gZ_CV_MAX
+	 + ", gZ_CV_MIN = " + gZ_CV_MIN
+	 + ", gZ_Kpe = " + gZ_Kpe
+	 + ", gZ_Tpe = " + gZ_Tpe
+	 + ", gZ_Mode = " + gZ_Mode
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

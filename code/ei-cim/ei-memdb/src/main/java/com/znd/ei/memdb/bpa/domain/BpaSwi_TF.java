@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *双再热器汽轮机模型表(TF)	*
 ***********************/
-@Entity
 public class BpaSwi_TF
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -69,7 +61,7 @@ public class BpaSwi_TF
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -79,7 +71,7 @@ public class BpaSwi_TF
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -89,7 +81,7 @@ public class BpaSwi_TF
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -99,7 +91,7 @@ public class BpaSwi_TF
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -109,7 +101,7 @@ public class BpaSwi_TF
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -119,7 +111,7 @@ public class BpaSwi_TF
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -129,7 +121,7 @@ public class BpaSwi_TF
     this.gen_ID = gen_ID;
   }
     
-  public Double getTF_TCH() 
+  public Double getTF_TCH()
   {
     return tF_TCH;
   }
@@ -139,7 +131,7 @@ public class BpaSwi_TF
     this.tF_TCH = tF_TCH;
   }
     
-  public Double getTF_FVHP() 
+  public Double getTF_FVHP()
   {
     return tF_FVHP;
   }
@@ -149,7 +141,7 @@ public class BpaSwi_TF
     this.tF_FVHP = tF_FVHP;
   }
     
-  public Double getTF_TRH1() 
+  public Double getTF_TRH1()
   {
     return tF_TRH1;
   }
@@ -159,7 +151,7 @@ public class BpaSwi_TF
     this.tF_TRH1 = tF_TRH1;
   }
     
-  public Double getTF_FHP() 
+  public Double getTF_FHP()
   {
     return tF_FHP;
   }
@@ -169,7 +161,7 @@ public class BpaSwi_TF
     this.tF_FHP = tF_FHP;
   }
     
-  public Double getTF_TRH2() 
+  public Double getTF_TRH2()
   {
     return tF_TRH2;
   }
@@ -179,7 +171,7 @@ public class BpaSwi_TF
     this.tF_TRH2 = tF_TRH2;
   }
     
-  public Double getTF_FIP_1() 
+  public Double getTF_FIP_1()
   {
     return tF_FIP_1;
   }
@@ -189,7 +181,7 @@ public class BpaSwi_TF
     this.tF_FIP_1 = tF_FIP_1;
   }
     
-  public Double getTF_FIP_2() 
+  public Double getTF_FIP_2()
   {
     return tF_FIP_2;
   }
@@ -199,7 +191,7 @@ public class BpaSwi_TF
     this.tF_FIP_2 = tF_FIP_2;
   }
     
-  public Double getTF_TCO() 
+  public Double getTF_TCO()
   {
     return tF_TCO;
   }
@@ -209,7 +201,7 @@ public class BpaSwi_TF
     this.tF_TCO = tF_TCO;
   }
     
-  public Double getTF_FLP_1() 
+  public Double getTF_FLP_1()
   {
     return tF_FLP_1;
   }
@@ -219,7 +211,7 @@ public class BpaSwi_TF
     this.tF_FLP_1 = tF_FLP_1;
   }
     
-  public Double getTF_FLP_2() 
+  public Double getTF_FLP_2()
   {
     return tF_FLP_2;
   }
@@ -229,7 +221,7 @@ public class BpaSwi_TF
     this.tF_FLP_2 = tF_FLP_2;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -239,7 +231,7 @@ public class BpaSwi_TF
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -249,7 +241,7 @@ public class BpaSwi_TF
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -257,6 +249,29 @@ public class BpaSwi_TF
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_TF ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tF_TCH = " + tF_TCH
+	 + ", tF_FVHP = " + tF_FVHP
+	 + ", tF_TRH1 = " + tF_TRH1
+	 + ", tF_FHP = " + tF_FHP
+	 + ", tF_TRH2 = " + tF_TRH2
+	 + ", tF_FIP_1 = " + tF_FIP_1
+	 + ", tF_FIP_2 = " + tF_FIP_2
+	 + ", tF_TCO = " + tF_TCO
+	 + ", tF_FLP_1 = " + tF_FLP_1
+	 + ", tF_FLP_2 = " + tF_FLP_2
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

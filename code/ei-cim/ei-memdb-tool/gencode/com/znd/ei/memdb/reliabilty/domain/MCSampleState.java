@@ -71,11 +71,11 @@ public class MCSampleState
     
   public String toString()
   {
-    return "MCSampleState ["+	"id"=id,
-	"memIndex"=memIndex,
-	"fState"=fState,
-	"outLoad"=outLoad,
-	"mState"=mState+"]"
+    return "MCSampleState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", outLoad = " + outLoad
+	 + ", mState = " + mState+"]";
   }
     
 }

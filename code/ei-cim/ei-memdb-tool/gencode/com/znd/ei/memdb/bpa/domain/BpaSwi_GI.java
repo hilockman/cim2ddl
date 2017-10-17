@@ -435,39 +435,39 @@ public class BpaSwi_GI
     
   public String toString()
   {
-    return "BpaSwi_GI ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gI_T1"=gI_T1,
-	"gI_E"=gI_E,
-	"gI_K"=gI_K,
-	"gI_I1"=gI_I1,
-	"gI_KP1"=gI_KP1,
-	"gI_KD1"=gI_KD1,
-	"gI_KI1"=gI_KI1,
-	"gI_INTG_MAX1"=gI_INTG_MAX1,
-	"gI_INTG_MIN1"=gI_INTG_MIN1,
-	"gI_PID_MAX1"=gI_PID_MAX1,
-	"gI_PID_MIN1"=gI_PID_MIN1,
-	"gI_I_Feed"=gI_I_Feed,
-	"gI_W_MAX"=gI_W_MAX,
-	"gI_W_MIN"=gI_W_MIN,
-	"gI_I2"=gI_I2,
-	"gI_KP2"=gI_KP2,
-	"gI_KD2"=gI_KD2,
-	"gI_KI2"=gI_KI2,
-	"gI_INTG_MAX2"=gI_INTG_MAX2,
-	"gI_INTG_MIN2"=gI_INTG_MIN2,
-	"gI_PID_MAX2"=gI_PID_MAX2,
-	"gI_PID_MIN2"=gI_PID_MIN2,
-	"gI_CON_MAX"=gI_CON_MAX,
-	"gI_CON_MIN"=gI_CON_MIN,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GI ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gI_T1 = " + gI_T1
+	 + ", gI_E = " + gI_E
+	 + ", gI_K = " + gI_K
+	 + ", gI_I1 = " + gI_I1
+	 + ", gI_KP1 = " + gI_KP1
+	 + ", gI_KD1 = " + gI_KD1
+	 + ", gI_KI1 = " + gI_KI1
+	 + ", gI_INTG_MAX1 = " + gI_INTG_MAX1
+	 + ", gI_INTG_MIN1 = " + gI_INTG_MIN1
+	 + ", gI_PID_MAX1 = " + gI_PID_MAX1
+	 + ", gI_PID_MIN1 = " + gI_PID_MIN1
+	 + ", gI_I_Feed = " + gI_I_Feed
+	 + ", gI_W_MAX = " + gI_W_MAX
+	 + ", gI_W_MIN = " + gI_W_MIN
+	 + ", gI_I2 = " + gI_I2
+	 + ", gI_KP2 = " + gI_KP2
+	 + ", gI_KD2 = " + gI_KD2
+	 + ", gI_KI2 = " + gI_KI2
+	 + ", gI_INTG_MAX2 = " + gI_INTG_MAX2
+	 + ", gI_INTG_MIN2 = " + gI_INTG_MIN2
+	 + ", gI_PID_MAX2 = " + gI_PID_MAX2
+	 + ", gI_PID_MIN2 = " + gI_PID_MIN2
+	 + ", gI_CON_MAX = " + gI_CON_MAX
+	 + ", gI_CON_MIN = " + gI_CON_MIN
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

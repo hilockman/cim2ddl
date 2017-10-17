@@ -266,26 +266,26 @@ public class BpaDat_RZ
     
   public String toString()
   {
-    return "BpaDat_RZ ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"rZ_Owner"=rZ_Owner,
-	"rZ_BusI"=rZ_BusI,
-	"rZ_kVI"=rZ_kVI,
-	"rZ_BusJ"=rZ_BusJ,
-	"rZ_kVJ"=rZ_kVJ,
-	"rZ_Loop"=rZ_Loop,
-	"rZ_Section"=rZ_Section,
-	"rZ_Mode"=rZ_Mode,
-	"rZ_Pcmax"=rZ_Pcmax,
-	"rZ_Pcmin"=rZ_Pcmin,
-	"rZ_In"=rZ_In,
-	"rZ_Xijmax"=rZ_Xijmax,
-	"rZ_Xijmin"=rZ_Xijmin,
-	"keyName"=keyName,
-	"iRBus"=iRBus,
-	"zRBus"=zRBus,
-	"status"=status+"]"
+    return "BpaDat_RZ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", rZ_Owner = " + rZ_Owner
+	 + ", rZ_BusI = " + rZ_BusI
+	 + ", rZ_kVI = " + rZ_kVI
+	 + ", rZ_BusJ = " + rZ_BusJ
+	 + ", rZ_kVJ = " + rZ_kVJ
+	 + ", rZ_Loop = " + rZ_Loop
+	 + ", rZ_Section = " + rZ_Section
+	 + ", rZ_Mode = " + rZ_Mode
+	 + ", rZ_Pcmax = " + rZ_Pcmax
+	 + ", rZ_Pcmin = " + rZ_Pcmin
+	 + ", rZ_In = " + rZ_In
+	 + ", rZ_Xijmax = " + rZ_Xijmax
+	 + ", rZ_Xijmin = " + rZ_Xijmin
+	 + ", keyName = " + keyName
+	 + ", iRBus = " + iRBus
+	 + ", zRBus = " + zRBus
+	 + ", status = " + status+"]";
   }
     
 }

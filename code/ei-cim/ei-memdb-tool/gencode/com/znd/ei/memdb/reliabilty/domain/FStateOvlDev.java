@@ -110,14 +110,14 @@ public class FStateOvlDev
     
   public String toString()
   {
-    return "FStateOvlDev ["+	"id"=id,
-	"memIndex"=memIndex,
-	"fState"=fState,
-	"devTyp"=devTyp,
-	"devIdx"=devIdx,
-	"ovLmtP"=ovLmtP,
-	"rated"=rated,
-	"adLmtP"=adLmtP+"]"
+    return "FStateOvlDev ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", devTyp = " + devTyp
+	 + ", devIdx = " + devIdx
+	 + ", ovLmtP = " + ovLmtP
+	 + ", rated = " + rated
+	 + ", adLmtP = " + adLmtP+"]";
   }
     
 }

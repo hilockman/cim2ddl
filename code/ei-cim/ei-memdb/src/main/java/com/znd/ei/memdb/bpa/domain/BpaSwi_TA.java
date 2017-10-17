@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *无再热器汽轮机模型表(TA)	*
 ***********************/
-@Entity
 public class BpaSwi_TA
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -45,7 +37,7 @@ public class BpaSwi_TA
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -55,7 +47,7 @@ public class BpaSwi_TA
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -65,7 +57,7 @@ public class BpaSwi_TA
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -75,7 +67,7 @@ public class BpaSwi_TA
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -85,7 +77,7 @@ public class BpaSwi_TA
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -95,7 +87,7 @@ public class BpaSwi_TA
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -105,7 +97,7 @@ public class BpaSwi_TA
     this.gen_ID = gen_ID;
   }
     
-  public Double getTA_TCH() 
+  public Double getTA_TCH()
   {
     return tA_TCH;
   }
@@ -115,7 +107,7 @@ public class BpaSwi_TA
     this.tA_TCH = tA_TCH;
   }
     
-  public Double getTA_K1() 
+  public Double getTA_K1()
   {
     return tA_K1;
   }
@@ -125,7 +117,7 @@ public class BpaSwi_TA
     this.tA_K1 = tA_K1;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -135,7 +127,7 @@ public class BpaSwi_TA
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -145,7 +137,7 @@ public class BpaSwi_TA
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -153,6 +145,21 @@ public class BpaSwi_TA
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_TA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tA_TCH = " + tA_TCH
+	 + ", tA_K1 = " + tA_K1
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

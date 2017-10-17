@@ -370,34 +370,34 @@ public class BpaSwi_Gen
     
   public String toString()
   {
-    return "BpaSwi_Gen ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gen_Emws"=gen_Emws,
-	"gen_P"=gen_P,
-	"gen_Q"=gen_Q,
-	"gen_MVABase"=gen_MVABase,
-	"gen_Ra"=gen_Ra,
-	"gen_Xdp"=gen_Xdp,
-	"gen_Xqp"=gen_Xqp,
-	"gen_Xd"=gen_Xd,
-	"gen_Xq"=gen_Xq,
-	"gen_Td0"=gen_Td0,
-	"gen_Tq0"=gen_Tq0,
-	"gen_XL_XP"=gen_XL_XP,
-	"gen_SG10"=gen_SG10,
-	"gen_SG12"=gen_SG12,
-	"gen_D"=gen_D,
-	"gen_A"=gen_A,
-	"gen_B"=gen_B,
-	"gen_N"=gen_N,
-	"gen_MVA"=gen_MVA,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_Gen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Emws = " + gen_Emws
+	 + ", gen_P = " + gen_P
+	 + ", gen_Q = " + gen_Q
+	 + ", gen_MVABase = " + gen_MVABase
+	 + ", gen_Ra = " + gen_Ra
+	 + ", gen_Xdp = " + gen_Xdp
+	 + ", gen_Xqp = " + gen_Xqp
+	 + ", gen_Xd = " + gen_Xd
+	 + ", gen_Xq = " + gen_Xq
+	 + ", gen_Td0 = " + gen_Td0
+	 + ", gen_Tq0 = " + gen_Tq0
+	 + ", gen_XL_XP = " + gen_XL_XP
+	 + ", gen_SG10 = " + gen_SG10
+	 + ", gen_SG12 = " + gen_SG12
+	 + ", gen_D = " + gen_D
+	 + ", gen_A = " + gen_A
+	 + ", gen_B = " + gen_B
+	 + ", gen_N = " + gen_N
+	 + ", gen_MVA = " + gen_MVA
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

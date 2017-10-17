@@ -162,18 +162,18 @@ public class BpaDat_ZIL
     
   public String toString()
   {
-    return "BpaDat_ZIL ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"zIL_BusI"=zIL_BusI,
-	"zIL_kVI"=zIL_kVI,
-	"zIL_BusJ"=zIL_BusJ,
-	"zIL_kVJ"=zIL_kVJ,
-	"zIL_Loop"=zIL_Loop,
-	"zIL_R"=zIL_R,
-	"zIL_X"=zIL_X,
-	"zIL_MBus"=zIL_MBus,
-	"zIL_MkV"=zIL_MkV+"]"
+    return "BpaDat_ZIL ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", zIL_BusI = " + zIL_BusI
+	 + ", zIL_kVI = " + zIL_kVI
+	 + ", zIL_BusJ = " + zIL_BusJ
+	 + ", zIL_kVJ = " + zIL_kVJ
+	 + ", zIL_Loop = " + zIL_Loop
+	 + ", zIL_R = " + zIL_R
+	 + ", zIL_X = " + zIL_X
+	 + ", zIL_MBus = " + zIL_MBus
+	 + ", zIL_MkV = " + zIL_MkV+"]";
   }
     
 }

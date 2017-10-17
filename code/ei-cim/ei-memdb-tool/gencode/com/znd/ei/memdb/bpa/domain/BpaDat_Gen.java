@@ -227,23 +227,23 @@ public class BpaDat_Gen
     
   public String toString()
   {
-    return "BpaDat_Gen ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"gen_Bus"=gen_Bus,
-	"gen_kV"=gen_kV,
-	"gen_ID"=gen_ID,
-	"gen_PGen"=gen_PGen,
-	"gen_QGen"=gen_QGen,
-	"gen_PMax"=gen_PMax,
-	"gen_PMin"=gen_PMin,
-	"gen_QMax"=gen_QMax,
-	"gen_QMin"=gen_QMin,
-	"gen_VHold"=gen_VHold,
-	"gen_ACBusPtr"=gen_ACBusPtr,
-	"gen_WingGen"=gen_WingGen,
-	"gen_EQ"=gen_EQ,
-	"gen_Status"=gen_Status+"]"
+    return "BpaDat_Gen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", gen_Bus = " + gen_Bus
+	 + ", gen_kV = " + gen_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_PGen = " + gen_PGen
+	 + ", gen_QGen = " + gen_QGen
+	 + ", gen_PMax = " + gen_PMax
+	 + ", gen_PMin = " + gen_PMin
+	 + ", gen_QMax = " + gen_QMax
+	 + ", gen_QMin = " + gen_QMin
+	 + ", gen_VHold = " + gen_VHold
+	 + ", gen_ACBusPtr = " + gen_ACBusPtr
+	 + ", gen_WingGen = " + gen_WingGen
+	 + ", gen_EQ = " + gen_EQ
+	 + ", gen_Status = " + gen_Status+"]";
   }
     
 }

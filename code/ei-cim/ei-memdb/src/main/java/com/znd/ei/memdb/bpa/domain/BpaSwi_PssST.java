@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *暂态稳定器表(ST)	*
 ***********************/
-@Entity
 public class BpaSwi_PssST
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -66,7 +58,7 @@ public class BpaSwi_PssST
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -76,7 +68,7 @@ public class BpaSwi_PssST
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -86,7 +78,7 @@ public class BpaSwi_PssST
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -96,7 +88,7 @@ public class BpaSwi_PssST
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -106,7 +98,7 @@ public class BpaSwi_PssST
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -116,7 +108,7 @@ public class BpaSwi_PssST
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -126,7 +118,7 @@ public class BpaSwi_PssST
     this.gen_ID = gen_ID;
   }
     
-  public Double getPssST_T1() 
+  public Double getPssST_T1()
   {
     return pssST_T1;
   }
@@ -136,7 +128,7 @@ public class BpaSwi_PssST
     this.pssST_T1 = pssST_T1;
   }
     
-  public Double getPssST_T2() 
+  public Double getPssST_T2()
   {
     return pssST_T2;
   }
@@ -146,7 +138,7 @@ public class BpaSwi_PssST
     this.pssST_T2 = pssST_T2;
   }
     
-  public Double getPssST_T3() 
+  public Double getPssST_T3()
   {
     return pssST_T3;
   }
@@ -156,7 +148,7 @@ public class BpaSwi_PssST
     this.pssST_T3 = pssST_T3;
   }
     
-  public Double getPssST_K() 
+  public Double getPssST_K()
   {
     return pssST_K;
   }
@@ -166,7 +158,7 @@ public class BpaSwi_PssST
     this.pssST_K = pssST_K;
   }
     
-  public Double getPssST_DWt1() 
+  public Double getPssST_DWt1()
   {
     return pssST_DWt1;
   }
@@ -176,7 +168,7 @@ public class BpaSwi_PssST
     this.pssST_DWt1 = pssST_DWt1;
   }
     
-  public Double getPssST_DWt2() 
+  public Double getPssST_DWt2()
   {
     return pssST_DWt2;
   }
@@ -186,7 +178,7 @@ public class BpaSwi_PssST
     this.pssST_DWt2 = pssST_DWt2;
   }
     
-  public Double getPssST_DWpt() 
+  public Double getPssST_DWpt()
   {
     return pssST_DWpt;
   }
@@ -196,7 +188,7 @@ public class BpaSwi_PssST
     this.pssST_DWpt = pssST_DWpt;
   }
     
-  public Double getPssST_TDelay() 
+  public Double getPssST_TDelay()
   {
     return pssST_TDelay;
   }
@@ -206,7 +198,7 @@ public class BpaSwi_PssST
     this.pssST_TDelay = pssST_TDelay;
   }
     
-  public Double getPssST_T4() 
+  public Double getPssST_T4()
   {
     return pssST_T4;
   }
@@ -216,7 +208,7 @@ public class BpaSwi_PssST
     this.pssST_T4 = pssST_T4;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -226,7 +218,7 @@ public class BpaSwi_PssST
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -236,7 +228,7 @@ public class BpaSwi_PssST
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -244,6 +236,28 @@ public class BpaSwi_PssST
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_PssST ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssST_T1 = " + pssST_T1
+	 + ", pssST_T2 = " + pssST_T2
+	 + ", pssST_T3 = " + pssST_T3
+	 + ", pssST_K = " + pssST_K
+	 + ", pssST_DWt1 = " + pssST_DWt1
+	 + ", pssST_DWt2 = " + pssST_DWt2
+	 + ", pssST_DWpt = " + pssST_DWpt
+	 + ", pssST_TDelay = " + pssST_TDelay
+	 + ", pssST_T4 = " + pssST_T4
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

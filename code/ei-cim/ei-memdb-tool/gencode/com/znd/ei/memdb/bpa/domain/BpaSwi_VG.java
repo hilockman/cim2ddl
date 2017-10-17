@@ -344,32 +344,32 @@ public class BpaSwi_VG
     
   public String toString()
   {
-    return "BpaSwi_VG ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"mvaBase"=mvaBase,
-	"t1"=t1,
-	"t2"=t2,
-	"t3"=t3,
-	"t4"=t4,
-	"t5"=t5,
-	"tP"=tP,
-	"tS"=tS,
-	"kP"=kP,
-	"kI"=kI,
-	"kD"=kD,
-	"xT"=xT,
-	"vMAX"=vMAX,
-	"vMIN"=vMIN,
-	"iCMAX"=iCMAX,
-	"iLMAX"=iLMAX,
-	"vSTANDBY"=vSTANDBY,
-	"cON_NAME"=cON_NAME,
-	"cON_KV"=cON_KV,
-	"keyName"=keyName,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_VG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", mvaBase = " + mvaBase
+	 + ", t1 = " + t1
+	 + ", t2 = " + t2
+	 + ", t3 = " + t3
+	 + ", t4 = " + t4
+	 + ", t5 = " + t5
+	 + ", tP = " + tP
+	 + ", tS = " + tS
+	 + ", kP = " + kP
+	 + ", kI = " + kI
+	 + ", kD = " + kD
+	 + ", xT = " + xT
+	 + ", vMAX = " + vMAX
+	 + ", vMIN = " + vMIN
+	 + ", iCMAX = " + iCMAX
+	 + ", iLMAX = " + iLMAX
+	 + ", vSTANDBY = " + vSTANDBY
+	 + ", cON_NAME = " + cON_NAME
+	 + ", cON_KV = " + cON_KV
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

@@ -97,13 +97,13 @@ public class ManualFault
     
   public String toString()
   {
-    return "ManualFault ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"fDevType"=fDevType,
-	"fDevName"=fDevName,
-	"fDevSerno"=fDevSerno,
-	"proc"=proc+"]"
+    return "ManualFault ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", fDevType = " + fDevType
+	 + ", fDevName = " + fDevName
+	 + ", fDevSerno = " + fDevSerno
+	 + ", proc = " + proc+"]";
   }
     
 }

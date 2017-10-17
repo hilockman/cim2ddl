@@ -279,27 +279,27 @@ public class BpaSwi_LAB
     
   public String toString()
   {
-    return "BpaSwi_LAB ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"lAB_Zone"=lAB_Zone,
-	"lAB_Area"=lAB_Area,
-	"lAB_P1"=lAB_P1,
-	"lAB_Q1"=lAB_Q1,
-	"lAB_P2"=lAB_P2,
-	"lAB_Q2"=lAB_Q2,
-	"lAB_P3"=lAB_P3,
-	"lAB_Q3"=lAB_Q3,
-	"lAB_P4"=lAB_P4,
-	"lAB_Q4"=lAB_Q4,
-	"lAB_LDP"=lAB_LDP,
-	"lAB_LDQ"=lAB_LDQ,
-	"lAB_P5"=lAB_P5,
-	"lAB_Q5"=lAB_Q5,
-	"lAB_NP"=lAB_NP,
-	"lAB_NQ"=lAB_NQ+"]"
+    return "BpaSwi_LAB ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", lAB_Zone = " + lAB_Zone
+	 + ", lAB_Area = " + lAB_Area
+	 + ", lAB_P1 = " + lAB_P1
+	 + ", lAB_Q1 = " + lAB_Q1
+	 + ", lAB_P2 = " + lAB_P2
+	 + ", lAB_Q2 = " + lAB_Q2
+	 + ", lAB_P3 = " + lAB_P3
+	 + ", lAB_Q3 = " + lAB_Q3
+	 + ", lAB_P4 = " + lAB_P4
+	 + ", lAB_Q4 = " + lAB_Q4
+	 + ", lAB_LDP = " + lAB_LDP
+	 + ", lAB_LDQ = " + lAB_LDQ
+	 + ", lAB_P5 = " + lAB_P5
+	 + ", lAB_Q5 = " + lAB_Q5
+	 + ", lAB_NP = " + lAB_NP
+	 + ", lAB_NQ = " + lAB_NQ+"]";
   }
     
 }

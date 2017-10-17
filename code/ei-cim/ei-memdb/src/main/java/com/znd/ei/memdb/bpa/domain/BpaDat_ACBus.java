@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *节点表(ACBus)	*
 ***********************/
-@Entity
 public class BpaDat_ACBus
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -294,7 +286,7 @@ public class BpaDat_ACBus
   //母线厂站索引
   private Integer pRSub;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -304,7 +296,7 @@ public class BpaDat_ACBus
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -314,7 +306,7 @@ public class BpaDat_ACBus
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -324,7 +316,7 @@ public class BpaDat_ACBus
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Owner() 
+  public String getACBus_Owner()
   {
     return aCBus_Owner;
   }
@@ -334,7 +326,7 @@ public class BpaDat_ACBus
     this.aCBus_Owner = aCBus_Owner;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -344,7 +336,7 @@ public class BpaDat_ACBus
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -354,7 +346,7 @@ public class BpaDat_ACBus
     this.aCBus_kV = aCBus_kV;
   }
     
-  public String getACBus_Zone() 
+  public String getACBus_Zone()
   {
     return aCBus_Zone;
   }
@@ -364,7 +356,7 @@ public class BpaDat_ACBus
     this.aCBus_Zone = aCBus_Zone;
   }
     
-  public Double getACBus_PLoad() 
+  public Double getACBus_PLoad()
   {
     return aCBus_PLoad;
   }
@@ -374,7 +366,7 @@ public class BpaDat_ACBus
     this.aCBus_PLoad = aCBus_PLoad;
   }
     
-  public Double getACBus_QLoad() 
+  public Double getACBus_QLoad()
   {
     return aCBus_QLoad;
   }
@@ -384,7 +376,7 @@ public class BpaDat_ACBus
     this.aCBus_QLoad = aCBus_QLoad;
   }
     
-  public Double getACBus_PShunt() 
+  public Double getACBus_PShunt()
   {
     return aCBus_PShunt;
   }
@@ -394,7 +386,7 @@ public class BpaDat_ACBus
     this.aCBus_PShunt = aCBus_PShunt;
   }
     
-  public Double getACBus_QShunt() 
+  public Double getACBus_QShunt()
   {
     return aCBus_QShunt;
   }
@@ -404,7 +396,7 @@ public class BpaDat_ACBus
     this.aCBus_QShunt = aCBus_QShunt;
   }
     
-  public Double getACBus_Pmax() 
+  public Double getACBus_Pmax()
   {
     return aCBus_Pmax;
   }
@@ -414,7 +406,7 @@ public class BpaDat_ACBus
     this.aCBus_Pmax = aCBus_Pmax;
   }
     
-  public Double getACBus_PGen() 
+  public Double getACBus_PGen()
   {
     return aCBus_PGen;
   }
@@ -424,7 +416,7 @@ public class BpaDat_ACBus
     this.aCBus_PGen = aCBus_PGen;
   }
     
-  public Double getACBus_Qsched_Qmax() 
+  public Double getACBus_Qsched_Qmax()
   {
     return aCBus_Qsched_Qmax;
   }
@@ -434,7 +426,7 @@ public class BpaDat_ACBus
     this.aCBus_Qsched_Qmax = aCBus_Qsched_Qmax;
   }
     
-  public Double getACBus_Qmin() 
+  public Double getACBus_Qmin()
   {
     return aCBus_Qmin;
   }
@@ -444,7 +436,7 @@ public class BpaDat_ACBus
     this.aCBus_Qmin = aCBus_Qmin;
   }
     
-  public Double getACBus_VHold_max() 
+  public Double getACBus_VHold_max()
   {
     return aCBus_VHold_max;
   }
@@ -454,7 +446,7 @@ public class BpaDat_ACBus
     this.aCBus_VHold_max = aCBus_VHold_max;
   }
     
-  public Double getACBus_Vmin() 
+  public Double getACBus_Vmin()
   {
     return aCBus_Vmin;
   }
@@ -464,7 +456,7 @@ public class BpaDat_ACBus
     this.aCBus_Vmin = aCBus_Vmin;
   }
     
-  public String getACBus_RBusName() 
+  public String getACBus_RBusName()
   {
     return aCBus_RBusName;
   }
@@ -474,7 +466,7 @@ public class BpaDat_ACBus
     this.aCBus_RBusName = aCBus_RBusName;
   }
     
-  public Double getACBus_RBusVolt() 
+  public Double getACBus_RBusVolt()
   {
     return aCBus_RBusVolt;
   }
@@ -484,7 +476,7 @@ public class BpaDat_ACBus
     this.aCBus_RBusVolt = aCBus_RBusVolt;
   }
     
-  public Double getACBus_VarSppld() 
+  public Double getACBus_VarSppld()
   {
     return aCBus_VarSppld;
   }
@@ -494,7 +486,7 @@ public class BpaDat_ACBus
     this.aCBus_VarSppld = aCBus_VarSppld;
   }
     
-  public String getACBus_AddCode() 
+  public String getACBus_AddCode()
   {
     return aCBus_AddCode;
   }
@@ -504,7 +496,7 @@ public class BpaDat_ACBus
     this.aCBus_AddCode = aCBus_AddCode;
   }
     
-  public Double getACBus_AddPLoad() 
+  public Double getACBus_AddPLoad()
   {
     return aCBus_AddPLoad;
   }
@@ -514,7 +506,7 @@ public class BpaDat_ACBus
     this.aCBus_AddPLoad = aCBus_AddPLoad;
   }
     
-  public Double getACBus_AddQLoad() 
+  public Double getACBus_AddQLoad()
   {
     return aCBus_AddQLoad;
   }
@@ -524,7 +516,7 @@ public class BpaDat_ACBus
     this.aCBus_AddQLoad = aCBus_AddQLoad;
   }
     
-  public Double getACBus_AddPShunt() 
+  public Double getACBus_AddPShunt()
   {
     return aCBus_AddPShunt;
   }
@@ -534,7 +526,7 @@ public class BpaDat_ACBus
     this.aCBus_AddPShunt = aCBus_AddPShunt;
   }
     
-  public Double getACBus_AddQShunt() 
+  public Double getACBus_AddQShunt()
   {
     return aCBus_AddQShunt;
   }
@@ -544,7 +536,7 @@ public class BpaDat_ACBus
     this.aCBus_AddQShunt = aCBus_AddQShunt;
   }
     
-  public Double getACBus_AddPGen() 
+  public Double getACBus_AddPGen()
   {
     return aCBus_AddPGen;
   }
@@ -554,7 +546,7 @@ public class BpaDat_ACBus
     this.aCBus_AddPGen = aCBus_AddPGen;
   }
     
-  public Double getACBus_AddQGen() 
+  public Double getACBus_AddQGen()
   {
     return aCBus_AddQGen;
   }
@@ -564,7 +556,7 @@ public class BpaDat_ACBus
     this.aCBus_AddQGen = aCBus_AddQGen;
   }
     
-  public String getACBus_BpaSub() 
+  public String getACBus_BpaSub()
   {
     return aCBus_BpaSub;
   }
@@ -574,7 +566,7 @@ public class BpaDat_ACBus
     this.aCBus_BpaSub = aCBus_BpaSub;
   }
     
-  public String getACBus_Alias() 
+  public String getACBus_Alias()
   {
     return aCBus_Alias;
   }
@@ -584,7 +576,7 @@ public class BpaDat_ACBus
     this.aCBus_Alias = aCBus_Alias;
   }
     
-  public Double getACBus_V() 
+  public Double getACBus_V()
   {
     return aCBus_V;
   }
@@ -594,7 +586,7 @@ public class BpaDat_ACBus
     this.aCBus_V = aCBus_V;
   }
     
-  public Double getACBus_D() 
+  public Double getACBus_D()
   {
     return aCBus_D;
   }
@@ -604,7 +596,7 @@ public class BpaDat_ACBus
     this.aCBus_D = aCBus_D;
   }
     
-  public Double getACBus_PfoPGen() 
+  public Double getACBus_PfoPGen()
   {
     return aCBus_PfoPGen;
   }
@@ -614,7 +606,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoPGen = aCBus_PfoPGen;
   }
     
-  public Double getACBus_PfoQGen() 
+  public Double getACBus_PfoQGen()
   {
     return aCBus_PfoQGen;
   }
@@ -624,7 +616,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoQGen = aCBus_PfoQGen;
   }
     
-  public Double getACBus_PfoPLoad() 
+  public Double getACBus_PfoPLoad()
   {
     return aCBus_PfoPLoad;
   }
@@ -634,7 +626,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoPLoad = aCBus_PfoPLoad;
   }
     
-  public Double getACBus_PfoQLoad() 
+  public Double getACBus_PfoQLoad()
   {
     return aCBus_PfoQLoad;
   }
@@ -644,7 +636,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoQLoad = aCBus_PfoQLoad;
   }
     
-  public Double getACBus_PfoQShunt() 
+  public Double getACBus_PfoQShunt()
   {
     return aCBus_PfoQShunt;
   }
@@ -654,7 +646,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoQShunt = aCBus_PfoQShunt;
   }
     
-  public Double getACBus_PfoPNet() 
+  public Double getACBus_PfoPNet()
   {
     return aCBus_PfoPNet;
   }
@@ -664,7 +656,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoPNet = aCBus_PfoPNet;
   }
     
-  public Double getACBus_PfoQNet() 
+  public Double getACBus_PfoQNet()
   {
     return aCBus_PfoQNet;
   }
@@ -674,7 +666,7 @@ public class BpaDat_ACBus
     this.aCBus_PfoQNet = aCBus_PfoQNet;
   }
     
-  public Double getvd_Rerr() 
+  public Double getvd_Rerr()
   {
     return vd_Rerr;
   }
@@ -684,7 +676,7 @@ public class BpaDat_ACBus
     this.vd_Rerr = vd_Rerr;
   }
     
-  public Double getvd_RScc1() 
+  public Double getvd_RScc1()
   {
     return vd_RScc1;
   }
@@ -694,7 +686,7 @@ public class BpaDat_ACBus
     this.vd_RScc1 = vd_RScc1;
   }
     
-  public Double getvd_RScc2() 
+  public Double getvd_RScc2()
   {
     return vd_RScc2;
   }
@@ -704,7 +696,7 @@ public class BpaDat_ACBus
     this.vd_RScc2 = vd_RScc2;
   }
     
-  public Double getvd_RScc3() 
+  public Double getvd_RScc3()
   {
     return vd_RScc3;
   }
@@ -714,7 +706,7 @@ public class BpaDat_ACBus
     this.vd_RScc3 = vd_RScc3;
   }
     
-  public Double getvd_RScc4() 
+  public Double getvd_RScc4()
   {
     return vd_RScc4;
   }
@@ -724,7 +716,7 @@ public class BpaDat_ACBus
     this.vd_RScc4 = vd_RScc4;
   }
     
-  public Double getACBus_RtGenP() 
+  public Double getACBus_RtGenP()
   {
     return aCBus_RtGenP;
   }
@@ -734,7 +726,7 @@ public class BpaDat_ACBus
     this.aCBus_RtGenP = aCBus_RtGenP;
   }
     
-  public Double getACBus_RtGenQ() 
+  public Double getACBus_RtGenQ()
   {
     return aCBus_RtGenQ;
   }
@@ -744,7 +736,7 @@ public class BpaDat_ACBus
     this.aCBus_RtGenQ = aCBus_RtGenQ;
   }
     
-  public Double getACBus_RtLoadP() 
+  public Double getACBus_RtLoadP()
   {
     return aCBus_RtLoadP;
   }
@@ -754,7 +746,7 @@ public class BpaDat_ACBus
     this.aCBus_RtLoadP = aCBus_RtLoadP;
   }
     
-  public Double getACBus_RtLoadQ() 
+  public Double getACBus_RtLoadQ()
   {
     return aCBus_RtLoadQ;
   }
@@ -764,7 +756,7 @@ public class BpaDat_ACBus
     this.aCBus_RtLoadQ = aCBus_RtLoadQ;
   }
     
-  public Double getACBus_RtShuntQ() 
+  public Double getACBus_RtShuntQ()
   {
     return aCBus_RtShuntQ;
   }
@@ -774,7 +766,7 @@ public class BpaDat_ACBus
     this.aCBus_RtShuntQ = aCBus_RtShuntQ;
   }
     
-  public Double getACBus_RtVHold() 
+  public Double getACBus_RtVHold()
   {
     return aCBus_RtVHold;
   }
@@ -784,7 +776,7 @@ public class BpaDat_ACBus
     this.aCBus_RtVHold = aCBus_RtVHold;
   }
     
-  public Double getACBus_SccA() 
+  public Double getACBus_SccA()
   {
     return aCBus_SccA;
   }
@@ -794,7 +786,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA = aCBus_SccA;
   }
     
-  public Double getACBus_SccV() 
+  public Double getACBus_SccV()
   {
     return aCBus_SccV;
   }
@@ -804,7 +796,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV = aCBus_SccV;
   }
     
-  public Double getACBus_SccR1() 
+  public Double getACBus_SccR1()
   {
     return aCBus_SccR1;
   }
@@ -814,7 +806,7 @@ public class BpaDat_ACBus
     this.aCBus_SccR1 = aCBus_SccR1;
   }
     
-  public Double getACBus_SccX1() 
+  public Double getACBus_SccX1()
   {
     return aCBus_SccX1;
   }
@@ -824,7 +816,7 @@ public class BpaDat_ACBus
     this.aCBus_SccX1 = aCBus_SccX1;
   }
     
-  public Double getACBus_SccR2() 
+  public Double getACBus_SccR2()
   {
     return aCBus_SccR2;
   }
@@ -834,7 +826,7 @@ public class BpaDat_ACBus
     this.aCBus_SccR2 = aCBus_SccR2;
   }
     
-  public Double getACBus_SccX2() 
+  public Double getACBus_SccX2()
   {
     return aCBus_SccX2;
   }
@@ -844,7 +836,7 @@ public class BpaDat_ACBus
     this.aCBus_SccX2 = aCBus_SccX2;
   }
     
-  public Double getACBus_SccR0() 
+  public Double getACBus_SccR0()
   {
     return aCBus_SccR0;
   }
@@ -854,7 +846,7 @@ public class BpaDat_ACBus
     this.aCBus_SccR0 = aCBus_SccR0;
   }
     
-  public Double getACBus_SccX0() 
+  public Double getACBus_SccX0()
   {
     return aCBus_SccX0;
   }
@@ -864,7 +856,7 @@ public class BpaDat_ACBus
     this.aCBus_SccX0 = aCBus_SccX0;
   }
     
-  public Double getACBus_SccA1Re() 
+  public Double getACBus_SccA1Re()
   {
     return aCBus_SccA1Re;
   }
@@ -874,7 +866,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA1Re = aCBus_SccA1Re;
   }
     
-  public Double getACBus_SccA1Im() 
+  public Double getACBus_SccA1Im()
   {
     return aCBus_SccA1Im;
   }
@@ -884,7 +876,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA1Im = aCBus_SccA1Im;
   }
     
-  public Double getACBus_SccA2Re() 
+  public Double getACBus_SccA2Re()
   {
     return aCBus_SccA2Re;
   }
@@ -894,7 +886,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA2Re = aCBus_SccA2Re;
   }
     
-  public Double getACBus_SccA2Im() 
+  public Double getACBus_SccA2Im()
   {
     return aCBus_SccA2Im;
   }
@@ -904,7 +896,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA2Im = aCBus_SccA2Im;
   }
     
-  public Double getACBus_SccA0Re() 
+  public Double getACBus_SccA0Re()
   {
     return aCBus_SccA0Re;
   }
@@ -914,7 +906,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA0Re = aCBus_SccA0Re;
   }
     
-  public Double getACBus_SccA0Im() 
+  public Double getACBus_SccA0Im()
   {
     return aCBus_SccA0Im;
   }
@@ -924,7 +916,7 @@ public class BpaDat_ACBus
     this.aCBus_SccA0Im = aCBus_SccA0Im;
   }
     
-  public Double getACBus_SccV1Re() 
+  public Double getACBus_SccV1Re()
   {
     return aCBus_SccV1Re;
   }
@@ -934,7 +926,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV1Re = aCBus_SccV1Re;
   }
     
-  public Double getACBus_SccV1Im() 
+  public Double getACBus_SccV1Im()
   {
     return aCBus_SccV1Im;
   }
@@ -944,7 +936,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV1Im = aCBus_SccV1Im;
   }
     
-  public Double getACBus_SccV2Re() 
+  public Double getACBus_SccV2Re()
   {
     return aCBus_SccV2Re;
   }
@@ -954,7 +946,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV2Re = aCBus_SccV2Re;
   }
     
-  public Double getACBus_SccV2Im() 
+  public Double getACBus_SccV2Im()
   {
     return aCBus_SccV2Im;
   }
@@ -964,7 +956,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV2Im = aCBus_SccV2Im;
   }
     
-  public Double getACBus_SccV0Re() 
+  public Double getACBus_SccV0Re()
   {
     return aCBus_SccV0Re;
   }
@@ -974,7 +966,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV0Re = aCBus_SccV0Re;
   }
     
-  public Double getACBus_SccV0Im() 
+  public Double getACBus_SccV0Im()
   {
     return aCBus_SccV0Im;
   }
@@ -984,7 +976,7 @@ public class BpaDat_ACBus
     this.aCBus_SccV0Im = aCBus_SccV0Im;
   }
     
-  public Integer getACBus_VDipBus1() 
+  public Integer getACBus_VDipBus1()
   {
     return aCBus_VDipBus1;
   }
@@ -994,7 +986,7 @@ public class BpaDat_ACBus
     this.aCBus_VDipBus1 = aCBus_VDipBus1;
   }
     
-  public Integer getACBus_VDipBus2() 
+  public Integer getACBus_VDipBus2()
   {
     return aCBus_VDipBus2;
   }
@@ -1004,7 +996,7 @@ public class BpaDat_ACBus
     this.aCBus_VDipBus2 = aCBus_VDipBus2;
   }
     
-  public Integer getACBus_VDipBus3() 
+  public Integer getACBus_VDipBus3()
   {
     return aCBus_VDipBus3;
   }
@@ -1014,7 +1006,7 @@ public class BpaDat_ACBus
     this.aCBus_VDipBus3 = aCBus_VDipBus3;
   }
     
-  public Integer getACBus_VDipBus4() 
+  public Integer getACBus_VDipBus4()
   {
     return aCBus_VDipBus4;
   }
@@ -1024,7 +1016,7 @@ public class BpaDat_ACBus
     this.aCBus_VDipBus4 = aCBus_VDipBus4;
   }
     
-  public Double getACBus_IniPLoad() 
+  public Double getACBus_IniPLoad()
   {
     return aCBus_IniPLoad;
   }
@@ -1034,7 +1026,7 @@ public class BpaDat_ACBus
     this.aCBus_IniPLoad = aCBus_IniPLoad;
   }
     
-  public Double getACBus_IniQLoad() 
+  public Double getACBus_IniQLoad()
   {
     return aCBus_IniQLoad;
   }
@@ -1044,7 +1036,7 @@ public class BpaDat_ACBus
     this.aCBus_IniQLoad = aCBus_IniQLoad;
   }
     
-  public Double getACBus_IniPShunt() 
+  public Double getACBus_IniPShunt()
   {
     return aCBus_IniPShunt;
   }
@@ -1054,7 +1046,7 @@ public class BpaDat_ACBus
     this.aCBus_IniPShunt = aCBus_IniPShunt;
   }
     
-  public Double getACBus_IniQShunt() 
+  public Double getACBus_IniQShunt()
   {
     return aCBus_IniQShunt;
   }
@@ -1064,7 +1056,7 @@ public class BpaDat_ACBus
     this.aCBus_IniQShunt = aCBus_IniQShunt;
   }
     
-  public Double getACBus_IniPGen() 
+  public Double getACBus_IniPGen()
   {
     return aCBus_IniPGen;
   }
@@ -1074,7 +1066,7 @@ public class BpaDat_ACBus
     this.aCBus_IniPGen = aCBus_IniPGen;
   }
     
-  public Double getACBus_IniQGen() 
+  public Double getACBus_IniQGen()
   {
     return aCBus_IniQGen;
   }
@@ -1084,7 +1076,7 @@ public class BpaDat_ACBus
     this.aCBus_IniQGen = aCBus_IniQGen;
   }
     
-  public Integer getTMid() 
+  public Integer getTMid()
   {
     return tMid;
   }
@@ -1094,7 +1086,7 @@ public class BpaDat_ACBus
     this.tMid = tMid;
   }
     
-  public Integer getGenerator() 
+  public Integer getGenerator()
   {
     return generator;
   }
@@ -1104,7 +1096,7 @@ public class BpaDat_ACBus
     this.generator = generator;
   }
     
-  public Integer getWTGen() 
+  public Integer getWTGen()
   {
     return wTGen;
   }
@@ -1114,7 +1106,7 @@ public class BpaDat_ACBus
     this.wTGen = wTGen;
   }
     
-  public Integer getPVGen() 
+  public Integer getPVGen()
   {
     return pVGen;
   }
@@ -1124,7 +1116,7 @@ public class BpaDat_ACBus
     this.pVGen = pVGen;
   }
     
-  public Integer getDCBound() 
+  public Integer getDCBound()
   {
     return dCBound;
   }
@@ -1134,7 +1126,7 @@ public class BpaDat_ACBus
     this.dCBound = dCBound;
   }
     
-  public Integer getGenLn() 
+  public Integer getGenLn()
   {
     return genLn;
   }
@@ -1144,7 +1136,7 @@ public class BpaDat_ACBus
     this.genLn = genLn;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -1154,7 +1146,7 @@ public class BpaDat_ACBus
     this.status = status;
   }
     
-  public Integer getRedcution() 
+  public Integer getRedcution()
   {
     return redcution;
   }
@@ -1164,7 +1156,7 @@ public class BpaDat_ACBus
     this.redcution = redcution;
   }
     
-  public Integer getInRing() 
+  public Integer getInRing()
   {
     return inRing;
   }
@@ -1174,7 +1166,7 @@ public class BpaDat_ACBus
     this.inRing = inRing;
   }
     
-  public Integer getRadiate() 
+  public Integer getRadiate()
   {
     return radiate;
   }
@@ -1184,7 +1176,7 @@ public class BpaDat_ACBus
     this.radiate = radiate;
   }
     
-  public Integer getACIsland() 
+  public Integer getACIsland()
   {
     return aCIsland;
   }
@@ -1194,7 +1186,7 @@ public class BpaDat_ACBus
     this.aCIsland = aCIsland;
   }
     
-  public Integer getpRLine() 
+  public Integer getpRLine()
   {
     return pRLine;
   }
@@ -1204,7 +1196,7 @@ public class BpaDat_ACBus
     this.pRLine = pRLine;
   }
     
-  public Integer getpRTran() 
+  public Integer getpRTran()
   {
     return pRTran;
   }
@@ -1214,7 +1206,7 @@ public class BpaDat_ACBus
     this.pRTran = pRTran;
   }
     
-  public Integer getpRHG() 
+  public Integer getpRHG()
   {
     return pRHG;
   }
@@ -1224,7 +1216,7 @@ public class BpaDat_ACBus
     this.pRHG = pRHG;
   }
     
-  public Integer getpRSub() 
+  public Integer getpRSub()
   {
     return pRSub;
   }
@@ -1232,6 +1224,104 @@ public class BpaDat_ACBus
   public void setpRSub(Integer pRSub)
   {
     this.pRSub = pRSub;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_ACBus ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Owner = " + aCBus_Owner
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", aCBus_Zone = " + aCBus_Zone
+	 + ", aCBus_PLoad = " + aCBus_PLoad
+	 + ", aCBus_QLoad = " + aCBus_QLoad
+	 + ", aCBus_PShunt = " + aCBus_PShunt
+	 + ", aCBus_QShunt = " + aCBus_QShunt
+	 + ", aCBus_Pmax = " + aCBus_Pmax
+	 + ", aCBus_PGen = " + aCBus_PGen
+	 + ", aCBus_Qsched_Qmax = " + aCBus_Qsched_Qmax
+	 + ", aCBus_Qmin = " + aCBus_Qmin
+	 + ", aCBus_VHold_max = " + aCBus_VHold_max
+	 + ", aCBus_Vmin = " + aCBus_Vmin
+	 + ", aCBus_RBusName = " + aCBus_RBusName
+	 + ", aCBus_RBusVolt = " + aCBus_RBusVolt
+	 + ", aCBus_VarSppld = " + aCBus_VarSppld
+	 + ", aCBus_AddCode = " + aCBus_AddCode
+	 + ", aCBus_AddPLoad = " + aCBus_AddPLoad
+	 + ", aCBus_AddQLoad = " + aCBus_AddQLoad
+	 + ", aCBus_AddPShunt = " + aCBus_AddPShunt
+	 + ", aCBus_AddQShunt = " + aCBus_AddQShunt
+	 + ", aCBus_AddPGen = " + aCBus_AddPGen
+	 + ", aCBus_AddQGen = " + aCBus_AddQGen
+	 + ", aCBus_BpaSub = " + aCBus_BpaSub
+	 + ", aCBus_Alias = " + aCBus_Alias
+	 + ", aCBus_V = " + aCBus_V
+	 + ", aCBus_D = " + aCBus_D
+	 + ", aCBus_PfoPGen = " + aCBus_PfoPGen
+	 + ", aCBus_PfoQGen = " + aCBus_PfoQGen
+	 + ", aCBus_PfoPLoad = " + aCBus_PfoPLoad
+	 + ", aCBus_PfoQLoad = " + aCBus_PfoQLoad
+	 + ", aCBus_PfoQShunt = " + aCBus_PfoQShunt
+	 + ", aCBus_PfoPNet = " + aCBus_PfoPNet
+	 + ", aCBus_PfoQNet = " + aCBus_PfoQNet
+	 + ", vd_Rerr = " + vd_Rerr
+	 + ", vd_RScc1 = " + vd_RScc1
+	 + ", vd_RScc2 = " + vd_RScc2
+	 + ", vd_RScc3 = " + vd_RScc3
+	 + ", vd_RScc4 = " + vd_RScc4
+	 + ", aCBus_RtGenP = " + aCBus_RtGenP
+	 + ", aCBus_RtGenQ = " + aCBus_RtGenQ
+	 + ", aCBus_RtLoadP = " + aCBus_RtLoadP
+	 + ", aCBus_RtLoadQ = " + aCBus_RtLoadQ
+	 + ", aCBus_RtShuntQ = " + aCBus_RtShuntQ
+	 + ", aCBus_RtVHold = " + aCBus_RtVHold
+	 + ", aCBus_SccA = " + aCBus_SccA
+	 + ", aCBus_SccV = " + aCBus_SccV
+	 + ", aCBus_SccR1 = " + aCBus_SccR1
+	 + ", aCBus_SccX1 = " + aCBus_SccX1
+	 + ", aCBus_SccR2 = " + aCBus_SccR2
+	 + ", aCBus_SccX2 = " + aCBus_SccX2
+	 + ", aCBus_SccR0 = " + aCBus_SccR0
+	 + ", aCBus_SccX0 = " + aCBus_SccX0
+	 + ", aCBus_SccA1Re = " + aCBus_SccA1Re
+	 + ", aCBus_SccA1Im = " + aCBus_SccA1Im
+	 + ", aCBus_SccA2Re = " + aCBus_SccA2Re
+	 + ", aCBus_SccA2Im = " + aCBus_SccA2Im
+	 + ", aCBus_SccA0Re = " + aCBus_SccA0Re
+	 + ", aCBus_SccA0Im = " + aCBus_SccA0Im
+	 + ", aCBus_SccV1Re = " + aCBus_SccV1Re
+	 + ", aCBus_SccV1Im = " + aCBus_SccV1Im
+	 + ", aCBus_SccV2Re = " + aCBus_SccV2Re
+	 + ", aCBus_SccV2Im = " + aCBus_SccV2Im
+	 + ", aCBus_SccV0Re = " + aCBus_SccV0Re
+	 + ", aCBus_SccV0Im = " + aCBus_SccV0Im
+	 + ", aCBus_VDipBus1 = " + aCBus_VDipBus1
+	 + ", aCBus_VDipBus2 = " + aCBus_VDipBus2
+	 + ", aCBus_VDipBus3 = " + aCBus_VDipBus3
+	 + ", aCBus_VDipBus4 = " + aCBus_VDipBus4
+	 + ", aCBus_IniPLoad = " + aCBus_IniPLoad
+	 + ", aCBus_IniQLoad = " + aCBus_IniQLoad
+	 + ", aCBus_IniPShunt = " + aCBus_IniPShunt
+	 + ", aCBus_IniQShunt = " + aCBus_IniQShunt
+	 + ", aCBus_IniPGen = " + aCBus_IniPGen
+	 + ", aCBus_IniQGen = " + aCBus_IniQGen
+	 + ", tMid = " + tMid
+	 + ", generator = " + generator
+	 + ", wTGen = " + wTGen
+	 + ", pVGen = " + pVGen
+	 + ", dCBound = " + dCBound
+	 + ", genLn = " + genLn
+	 + ", status = " + status
+	 + ", redcution = " + redcution
+	 + ", inRing = " + inRing
+	 + ", radiate = " + radiate
+	 + ", aCIsland = " + aCIsland
+	 + ", pRLine = " + pRLine
+	 + ", pRTran = " + pRTran
+	 + ", pRHG = " + pRHG
+	 + ", pRSub = " + pRSub+"]";
   }
     
 }

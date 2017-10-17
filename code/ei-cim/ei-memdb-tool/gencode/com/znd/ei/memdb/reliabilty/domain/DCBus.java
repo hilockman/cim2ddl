@@ -45,9 +45,9 @@ public class DCBus
     
   public String toString()
   {
-    return "DCBus ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name+"]"
+    return "DCBus ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name+"]";
   }
     
 }

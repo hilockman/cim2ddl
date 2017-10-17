@@ -253,25 +253,25 @@ public class TCSC
     
   public String toString()
   {
-    return "TCSC ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"installBus"=installBus,
-	"x"=x,
-	"rerr"=rerr,
-	"rrep"=rrep,
-	"trep"=trep,
-	"goodProb"=goodProb,
-	"failProb"=failProb,
-	"iRt"=iRt,
-	"iMax"=iMax,
-	"iMin"=iMin,
-	"rerrMax"=rerrMax,
-	"rerrMin"=rerrMin,
-	"faultFreq"=faultFreq,
-	"instBusPtr"=instBusPtr,
-	"aCLinePtr"=aCLinePtr,
-	"outage"=outage+"]"
+    return "TCSC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", installBus = " + installBus
+	 + ", x = " + x
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", instBusPtr = " + instBusPtr
+	 + ", aCLinePtr = " + aCLinePtr
+	 + ", outage = " + outage+"]";
   }
     
 }

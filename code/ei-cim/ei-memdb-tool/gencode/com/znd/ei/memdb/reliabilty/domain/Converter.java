@@ -279,27 +279,27 @@ public class Converter
     
   public String toString()
   {
-    return "Converter ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"busAC"=busAC,
-	"busDC"=busDC,
-	"schedPower"=schedPower,
-	"type"=type,
-	"rerr"=rerr,
-	"rrep"=rrep,
-	"trep"=trep,
-	"goodProb"=goodProb,
-	"failProb"=failProb,
-	"iRt"=iRt,
-	"iMax"=iMax,
-	"iMin"=iMin,
-	"rerrMax"=rerrMax,
-	"rerrMin"=rerrMin,
-	"faultFreq"=faultFreq,
-	"aCBusPtr"=aCBusPtr,
-	"dCBusPtr"=dCBusPtr,
-	"outage"=outage+"]"
+    return "Converter ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busAC = " + busAC
+	 + ", busDC = " + busDC
+	 + ", schedPower = " + schedPower
+	 + ", type = " + type
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", aCBusPtr = " + aCBusPtr
+	 + ", dCBusPtr = " + dCBusPtr
+	 + ", outage = " + outage+"]";
   }
     
 }

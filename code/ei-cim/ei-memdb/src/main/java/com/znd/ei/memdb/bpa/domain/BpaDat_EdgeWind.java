@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电网边-变压器绕组	*
 ***********************/
-@Entity
 public class BpaDat_EdgeWind
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class BpaDat_EdgeWind
   //绕组索引
   private Integer windPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class BpaDat_EdgeWind
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class BpaDat_EdgeWind
     this.memIndex = memIndex;
   }
     
-  public String getBusName() 
+  public String getBusName()
   {
     return busName;
   }
@@ -60,7 +52,7 @@ public class BpaDat_EdgeWind
     this.busName = busName;
   }
     
-  public Double getBuskV() 
+  public Double getBuskV()
   {
     return buskV;
   }
@@ -70,7 +62,7 @@ public class BpaDat_EdgeWind
     this.buskV = buskV;
   }
     
-  public String getWindName() 
+  public String getWindName()
   {
     return windName;
   }
@@ -80,7 +72,7 @@ public class BpaDat_EdgeWind
     this.windName = windName;
   }
     
-  public Integer getWindPtr() 
+  public Integer getWindPtr()
   {
     return windPtr;
   }
@@ -88,6 +80,16 @@ public class BpaDat_EdgeWind
   public void setWindPtr(Integer windPtr)
   {
     this.windPtr = windPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_EdgeWind ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", windName = " + windName
+	 + ", windPtr = " + windPtr+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *开断故障下孤岛信息	*
 ***********************/
-@Entity
 public class TripMIsland
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -27,7 +19,7 @@ public class TripMIsland
   //孤岛负荷功率(MW)
   private Double outageLoadP;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -37,7 +29,7 @@ public class TripMIsland
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -47,7 +39,7 @@ public class TripMIsland
     this.memIndex = memIndex;
   }
     
-  public Integer getTrip() 
+  public Integer getTrip()
   {
     return trip;
   }
@@ -57,7 +49,7 @@ public class TripMIsland
     this.trip = trip;
   }
     
-  public Integer getOutageBus() 
+  public Integer getOutageBus()
   {
     return outageBus;
   }
@@ -67,7 +59,7 @@ public class TripMIsland
     this.outageBus = outageBus;
   }
     
-  public Double getOutageLoadP() 
+  public Double getOutageLoadP()
   {
     return outageLoadP;
   }
@@ -75,6 +67,15 @@ public class TripMIsland
   public void setOutageLoadP(Double outageLoadP)
   {
     this.outageLoadP = outageLoadP;
+  }
+    
+  public String toString()
+  {
+    return "TripMIsland ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", trip = " + trip
+	 + ", outageBus = " + outageBus
+	 + ", outageLoadP = " + outageLoadP+"]";
   }
     
 }

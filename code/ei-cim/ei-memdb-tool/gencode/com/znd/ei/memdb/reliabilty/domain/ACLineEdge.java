@@ -84,12 +84,12 @@ public class ACLineEdge
     
   public String toString()
   {
-    return "ACLineEdge ["+	"id"=id,
-	"memIndex"=memIndex,
-	"bus"=bus,
-	"kV"=kV,
-	"name"=name,
-	"linePtr"=linePtr+"]"
+    return "ACLineEdge ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", bus = " + bus
+	 + ", kV = " + kV
+	 + ", name = " + name
+	 + ", linePtr = " + linePtr+"]";
   }
     
 }

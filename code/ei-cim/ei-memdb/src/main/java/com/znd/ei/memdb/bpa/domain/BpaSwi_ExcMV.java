@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *新励磁系统模型表(FM-FV)	*
 ***********************/
-@Entity
 public class BpaSwi_ExcMV
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -81,7 +73,7 @@ public class BpaSwi_ExcMV
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -91,7 +83,7 @@ public class BpaSwi_ExcMV
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -101,7 +93,7 @@ public class BpaSwi_ExcMV
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -111,7 +103,7 @@ public class BpaSwi_ExcMV
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -121,7 +113,7 @@ public class BpaSwi_ExcMV
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -131,7 +123,7 @@ public class BpaSwi_ExcMV
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -141,7 +133,7 @@ public class BpaSwi_ExcMV
     this.gen_ID = gen_ID;
   }
     
-  public Double getExcMV_RC() 
+  public Double getExcMV_RC()
   {
     return excMV_RC;
   }
@@ -151,7 +143,7 @@ public class BpaSwi_ExcMV
     this.excMV_RC = excMV_RC;
   }
     
-  public Double getExcMV_XC() 
+  public Double getExcMV_XC()
   {
     return excMV_XC;
   }
@@ -161,7 +153,7 @@ public class BpaSwi_ExcMV
     this.excMV_XC = excMV_XC;
   }
     
-  public Double getExcMV_TR() 
+  public Double getExcMV_TR()
   {
     return excMV_TR;
   }
@@ -171,7 +163,7 @@ public class BpaSwi_ExcMV
     this.excMV_TR = excMV_TR;
   }
     
-  public Double getExcMV_K() 
+  public Double getExcMV_K()
   {
     return excMV_K;
   }
@@ -181,7 +173,7 @@ public class BpaSwi_ExcMV
     this.excMV_K = excMV_K;
   }
     
-  public Double getExcMV_kV() 
+  public Double getExcMV_kV()
   {
     return excMV_kV;
   }
@@ -191,7 +183,7 @@ public class BpaSwi_ExcMV
     this.excMV_kV = excMV_kV;
   }
     
-  public Double getExcMV_T1() 
+  public Double getExcMV_T1()
   {
     return excMV_T1;
   }
@@ -201,7 +193,7 @@ public class BpaSwi_ExcMV
     this.excMV_T1 = excMV_T1;
   }
     
-  public Double getExcMV_T2() 
+  public Double getExcMV_T2()
   {
     return excMV_T2;
   }
@@ -211,7 +203,7 @@ public class BpaSwi_ExcMV
     this.excMV_T2 = excMV_T2;
   }
     
-  public Double getExcMV_T3() 
+  public Double getExcMV_T3()
   {
     return excMV_T3;
   }
@@ -221,7 +213,7 @@ public class BpaSwi_ExcMV
     this.excMV_T3 = excMV_T3;
   }
     
-  public Double getExcMV_T4() 
+  public Double getExcMV_T4()
   {
     return excMV_T4;
   }
@@ -231,7 +223,7 @@ public class BpaSwi_ExcMV
     this.excMV_T4 = excMV_T4;
   }
     
-  public Double getExcMV_KA() 
+  public Double getExcMV_KA()
   {
     return excMV_KA;
   }
@@ -241,7 +233,7 @@ public class BpaSwi_ExcMV
     this.excMV_KA = excMV_KA;
   }
     
-  public Double getExcMV_TA() 
+  public Double getExcMV_TA()
   {
     return excMV_TA;
   }
@@ -251,7 +243,7 @@ public class BpaSwi_ExcMV
     this.excMV_TA = excMV_TA;
   }
     
-  public Double getExcMV_KF() 
+  public Double getExcMV_KF()
   {
     return excMV_KF;
   }
@@ -261,7 +253,7 @@ public class BpaSwi_ExcMV
     this.excMV_KF = excMV_KF;
   }
     
-  public Double getExcMV_TF() 
+  public Double getExcMV_TF()
   {
     return excMV_TF;
   }
@@ -271,7 +263,7 @@ public class BpaSwi_ExcMV
     this.excMV_TF = excMV_TF;
   }
     
-  public Double getExcMV_KH() 
+  public Double getExcMV_KH()
   {
     return excMV_KH;
   }
@@ -281,7 +273,7 @@ public class BpaSwi_ExcMV
     this.excMV_KH = excMV_KH;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -291,7 +283,7 @@ public class BpaSwi_ExcMV
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -301,7 +293,7 @@ public class BpaSwi_ExcMV
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -309,6 +301,33 @@ public class BpaSwi_ExcMV
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_ExcMV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", excMV_RC = " + excMV_RC
+	 + ", excMV_XC = " + excMV_XC
+	 + ", excMV_TR = " + excMV_TR
+	 + ", excMV_K = " + excMV_K
+	 + ", excMV_kV = " + excMV_kV
+	 + ", excMV_T1 = " + excMV_T1
+	 + ", excMV_T2 = " + excMV_T2
+	 + ", excMV_T3 = " + excMV_T3
+	 + ", excMV_T4 = " + excMV_T4
+	 + ", excMV_KA = " + excMV_KA
+	 + ", excMV_TA = " + excMV_TA
+	 + ", excMV_KF = " + excMV_KF
+	 + ", excMV_TF = " + excMV_TF
+	 + ", excMV_KH = " + excMV_KH
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

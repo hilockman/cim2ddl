@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *统一潮流控制器	*
 ***********************/
-@Entity
 public class UPFC
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -81,7 +73,7 @@ public class UPFC
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -91,7 +83,7 @@ public class UPFC
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -101,7 +93,7 @@ public class UPFC
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -111,7 +103,7 @@ public class UPFC
     this.name = name;
   }
     
-  public String getSeriesBus() 
+  public String getSeriesBus()
   {
     return seriesBus;
   }
@@ -121,7 +113,7 @@ public class UPFC
     this.seriesBus = seriesBus;
   }
     
-  public String getParallelBus() 
+  public String getParallelBus()
   {
     return parallelBus;
   }
@@ -131,7 +123,7 @@ public class UPFC
     this.parallelBus = parallelBus;
   }
     
-  public Double getCapacity() 
+  public Double getCapacity()
   {
     return capacity;
   }
@@ -141,7 +133,7 @@ public class UPFC
     this.capacity = capacity;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -151,7 +143,7 @@ public class UPFC
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -161,7 +153,7 @@ public class UPFC
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -171,7 +163,7 @@ public class UPFC
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -181,7 +173,7 @@ public class UPFC
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -191,7 +183,7 @@ public class UPFC
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -201,7 +193,7 @@ public class UPFC
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -211,7 +203,7 @@ public class UPFC
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -221,7 +213,7 @@ public class UPFC
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -231,7 +223,7 @@ public class UPFC
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -241,7 +233,7 @@ public class UPFC
     this.rerrMin = rerrMin;
   }
     
-  public Double getLinePse() 
+  public Double getLinePse()
   {
     return linePse;
   }
@@ -251,7 +243,7 @@ public class UPFC
     this.linePse = linePse;
   }
     
-  public Double getP() 
+  public Double getP()
   {
     return p;
   }
@@ -261,7 +253,7 @@ public class UPFC
     this.p = p;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -271,7 +263,7 @@ public class UPFC
     this.faultFreq = faultFreq;
   }
     
-  public Integer getSeriesBusPtr() 
+  public Integer getSeriesBusPtr()
   {
     return seriesBusPtr;
   }
@@ -281,7 +273,7 @@ public class UPFC
     this.seriesBusPtr = seriesBusPtr;
   }
     
-  public Integer getParallelBusPtr() 
+  public Integer getParallelBusPtr()
   {
     return parallelBusPtr;
   }
@@ -291,7 +283,7 @@ public class UPFC
     this.parallelBusPtr = parallelBusPtr;
   }
     
-  public Integer getACLinePtr() 
+  public Integer getACLinePtr()
   {
     return aCLinePtr;
   }
@@ -301,7 +293,7 @@ public class UPFC
     this.aCLinePtr = aCLinePtr;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -309,6 +301,33 @@ public class UPFC
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "UPFC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", seriesBus = " + seriesBus
+	 + ", parallelBus = " + parallelBus
+	 + ", capacity = " + capacity
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", linePse = " + linePse
+	 + ", p = " + p
+	 + ", faultFreq = " + faultFreq
+	 + ", seriesBusPtr = " + seriesBusPtr
+	 + ", parallelBusPtr = " + parallelBusPtr
+	 + ", aCLinePtr = " + aCLinePtr
+	 + ", outage = " + outage+"]";
   }
     
 }

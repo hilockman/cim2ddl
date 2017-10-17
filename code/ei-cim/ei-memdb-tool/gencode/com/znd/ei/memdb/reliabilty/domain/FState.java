@@ -370,34 +370,34 @@ public class FState
     
   public String toString()
   {
-    return "FState ["+	"id"=id,
-	"memIndex"=memIndex,
-	"sampleType"=sampleType,
-	"fDevNum"=fDevNum,
-	"probability"=probability,
-	"durition"=durition,
-	"stateNum"=stateNum,
-	"fLossGen"=fLossGen,
-	"fLossGenCap"=fLossGenCap,
-	"fLossLoad"=fLossLoad,
-	"mIsland"=mIsland,
-	"mIslandInsGen"=mIslandInsGen,
-	"mIslandCutGen"=mIslandCutGen,
-	"mIslandOutLoad"=mIslandOutLoad,
-	"balanceInsGen"=balanceInsGen,
-	"balanceCutGen"=balanceCutGen,
-	"balanceCutLoad"=balanceCutLoad,
-	"overLimit"=overLimit,
-	"eLimit"=eLimit,
-	"eLimitCutGen"=eLimitCutGen,
-	"eLimitInsGen"=eLimitInsGen,
-	"eLimitCutLoad"=eLimitCutLoad,
-	"eLimitResult"=eLimitResult,
-	"maxFaultZone"=maxFaultZone,
-	"maxFaultRatio"=maxFaultRatio,
-	"faultGrade"=faultGrade,
-	"mSoutIndex"=mSoutIndex,
-	"estimated"=estimated+"]"
+    return "FState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", sampleType = " + sampleType
+	 + ", fDevNum = " + fDevNum
+	 + ", probability = " + probability
+	 + ", durition = " + durition
+	 + ", stateNum = " + stateNum
+	 + ", fLossGen = " + fLossGen
+	 + ", fLossGenCap = " + fLossGenCap
+	 + ", fLossLoad = " + fLossLoad
+	 + ", mIsland = " + mIsland
+	 + ", mIslandInsGen = " + mIslandInsGen
+	 + ", mIslandCutGen = " + mIslandCutGen
+	 + ", mIslandOutLoad = " + mIslandOutLoad
+	 + ", balanceInsGen = " + balanceInsGen
+	 + ", balanceCutGen = " + balanceCutGen
+	 + ", balanceCutLoad = " + balanceCutLoad
+	 + ", overLimit = " + overLimit
+	 + ", eLimit = " + eLimit
+	 + ", eLimitCutGen = " + eLimitCutGen
+	 + ", eLimitInsGen = " + eLimitInsGen
+	 + ", eLimitCutLoad = " + eLimitCutLoad
+	 + ", eLimitResult = " + eLimitResult
+	 + ", maxFaultZone = " + maxFaultZone
+	 + ", maxFaultRatio = " + maxFaultRatio
+	 + ", faultGrade = " + faultGrade
+	 + ", mSoutIndex = " + mSoutIndex
+	 + ", estimated = " + estimated+"]";
   }
     
 }

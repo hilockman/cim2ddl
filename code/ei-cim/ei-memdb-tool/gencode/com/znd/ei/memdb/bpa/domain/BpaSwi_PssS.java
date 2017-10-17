@@ -357,33 +357,33 @@ public class BpaSwi_PssS
     
   public String toString()
   {
-    return "BpaSwi_PssS ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"pssS_KQV"=pssS_KQV,
-	"pssS_TQV"=pssS_TQV,
-	"pssS_KQS"=pssS_KQS,
-	"pssS_TQS"=pssS_TQS,
-	"pssS_TQ"=pssS_TQ,
-	"pssS_TQ1"=pssS_TQ1,
-	"pssS_TQ1P"=pssS_TQ1P,
-	"pssS_TQ2"=pssS_TQ2,
-	"pssS_TQ2P"=pssS_TQ2P,
-	"pssS_TQ3"=pssS_TQ3,
-	"pssS_TQ3P"=pssS_TQ3P,
-	"pssS_VSmax"=pssS_VSmax,
-	"pssS_VCutOff"=pssS_VCutOff,
-	"pssS_VSlow"=pssS_VSlow,
-	"pssS_KQBase"=pssS_KQBase,
-	"pssS_RBusName"=pssS_RBusName,
-	"pssS_RBuskV"=pssS_RBuskV,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"pssS_iRRBus"=pssS_iRRBus,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_PssS ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssS_KQV = " + pssS_KQV
+	 + ", pssS_TQV = " + pssS_TQV
+	 + ", pssS_KQS = " + pssS_KQS
+	 + ", pssS_TQS = " + pssS_TQS
+	 + ", pssS_TQ = " + pssS_TQ
+	 + ", pssS_TQ1 = " + pssS_TQ1
+	 + ", pssS_TQ1P = " + pssS_TQ1P
+	 + ", pssS_TQ2 = " + pssS_TQ2
+	 + ", pssS_TQ2P = " + pssS_TQ2P
+	 + ", pssS_TQ3 = " + pssS_TQ3
+	 + ", pssS_TQ3P = " + pssS_TQ3P
+	 + ", pssS_VSmax = " + pssS_VSmax
+	 + ", pssS_VCutOff = " + pssS_VCutOff
+	 + ", pssS_VSlow = " + pssS_VSlow
+	 + ", pssS_KQBase = " + pssS_KQBase
+	 + ", pssS_RBusName = " + pssS_RBusName
+	 + ", pssS_RBuskV = " + pssS_RBuskV
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", pssS_iRRBus = " + pssS_iRRBus
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

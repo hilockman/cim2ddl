@@ -344,32 +344,32 @@ public class BpaSwi_GJ
     
   public String toString()
   {
-    return "BpaSwi_GJ ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gJ_T1"=gJ_T1,
-	"gJ_E"=gJ_E,
-	"gJ_K1"=gJ_K1,
-	"gJ_I"=gJ_I,
-	"gJ_KP"=gJ_KP,
-	"gJ_KD"=gJ_KD,
-	"gJ_KI"=gJ_KI,
-	"gJ_INTG_MAX"=gJ_INTG_MAX,
-	"gJ_INTG_MIN"=gJ_INTG_MIN,
-	"gJ_PID_MAX"=gJ_PID_MAX,
-	"gJ_PID_MIN"=gJ_PID_MIN,
-	"gJ_K2"=gJ_K2,
-	"gJ_W_MAX"=gJ_W_MAX,
-	"gJ_W_MIN"=gJ_W_MIN,
-	"gJ_TW_DELAY"=gJ_TW_DELAY,
-	"gJ_TP_DELAY"=gJ_TP_DELAY,
-	"gJ_TR"=gJ_TR,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GJ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gJ_T1 = " + gJ_T1
+	 + ", gJ_E = " + gJ_E
+	 + ", gJ_K1 = " + gJ_K1
+	 + ", gJ_I = " + gJ_I
+	 + ", gJ_KP = " + gJ_KP
+	 + ", gJ_KD = " + gJ_KD
+	 + ", gJ_KI = " + gJ_KI
+	 + ", gJ_INTG_MAX = " + gJ_INTG_MAX
+	 + ", gJ_INTG_MIN = " + gJ_INTG_MIN
+	 + ", gJ_PID_MAX = " + gJ_PID_MAX
+	 + ", gJ_PID_MIN = " + gJ_PID_MIN
+	 + ", gJ_K2 = " + gJ_K2
+	 + ", gJ_W_MAX = " + gJ_W_MAX
+	 + ", gJ_W_MIN = " + gJ_W_MIN
+	 + ", gJ_TW_DELAY = " + gJ_TW_DELAY
+	 + ", gJ_TP_DELAY = " + gJ_TP_DELAY
+	 + ", gJ_TR = " + gJ_TR
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

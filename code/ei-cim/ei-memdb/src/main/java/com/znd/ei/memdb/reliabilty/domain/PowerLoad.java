@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *负荷	*
 ***********************/
-@Entity
 public class PowerLoad
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -105,7 +97,7 @@ public class PowerLoad
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -115,7 +107,7 @@ public class PowerLoad
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -125,7 +117,7 @@ public class PowerLoad
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -135,7 +127,7 @@ public class PowerLoad
     this.name = name;
   }
     
-  public String getBusName() 
+  public String getBusName()
   {
     return busName;
   }
@@ -145,7 +137,7 @@ public class PowerLoad
     this.busName = busName;
   }
     
-  public Double getBuskV() 
+  public Double getBuskV()
   {
     return buskV;
   }
@@ -155,7 +147,7 @@ public class PowerLoad
     this.buskV = buskV;
   }
     
-  public String getZone() 
+  public String getZone()
   {
     return zone;
   }
@@ -165,7 +157,7 @@ public class PowerLoad
     this.zone = zone;
   }
     
-  public Double getP() 
+  public Double getP()
   {
     return p;
   }
@@ -175,7 +167,7 @@ public class PowerLoad
     this.p = p;
   }
     
-  public Double getQ() 
+  public Double getQ()
   {
     return q;
   }
@@ -185,7 +177,7 @@ public class PowerLoad
     this.q = q;
   }
     
-  public Double getPMax() 
+  public Double getPMax()
   {
     return pMax;
   }
@@ -195,7 +187,7 @@ public class PowerLoad
     this.pMax = pMax;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -205,7 +197,7 @@ public class PowerLoad
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -215,7 +207,7 @@ public class PowerLoad
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -225,7 +217,7 @@ public class PowerLoad
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -235,7 +227,7 @@ public class PowerLoad
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -245,7 +237,7 @@ public class PowerLoad
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -255,7 +247,7 @@ public class PowerLoad
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -265,7 +257,7 @@ public class PowerLoad
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -275,7 +267,7 @@ public class PowerLoad
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -285,7 +277,7 @@ public class PowerLoad
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -295,7 +287,7 @@ public class PowerLoad
     this.rerrMin = rerrMin;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -305,7 +297,7 @@ public class PowerLoad
     this.faultFreq = faultFreq;
   }
     
-  public Integer getMSModel() 
+  public Integer getMSModel()
   {
     return mSModel;
   }
@@ -315,7 +307,7 @@ public class PowerLoad
     this.mSModel = mSModel;
   }
     
-  public Integer getMStateNum() 
+  public Integer getMStateNum()
   {
     return mStateNum;
   }
@@ -325,7 +317,7 @@ public class PowerLoad
     this.mStateNum = mStateNum;
   }
     
-  public Double getMSPout() 
+  public Double getMSPout()
   {
     return mSPout;
   }
@@ -335,7 +327,7 @@ public class PowerLoad
     this.mSPout = mSPout;
   }
     
-  public Double getReferenceP() 
+  public Double getReferenceP()
   {
     return referenceP;
   }
@@ -345,7 +337,7 @@ public class PowerLoad
     this.referenceP = referenceP;
   }
     
-  public Double getReferenceQ() 
+  public Double getReferenceQ()
   {
     return referenceQ;
   }
@@ -355,7 +347,7 @@ public class PowerLoad
     this.referenceQ = referenceQ;
   }
     
-  public Integer getRadial() 
+  public Integer getRadial()
   {
     return radial;
   }
@@ -365,7 +357,7 @@ public class PowerLoad
     this.radial = radial;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -375,7 +367,7 @@ public class PowerLoad
     this.busPtr = busPtr;
   }
     
-  public Integer getAuxLoad() 
+  public Integer getAuxLoad()
   {
     return auxLoad;
   }
@@ -385,7 +377,7 @@ public class PowerLoad
     this.auxLoad = auxLoad;
   }
     
-  public Integer getEQLoad() 
+  public Integer getEQLoad()
   {
     return eQLoad;
   }
@@ -395,7 +387,7 @@ public class PowerLoad
     this.eQLoad = eQLoad;
   }
     
-  public Integer getRParamType() 
+  public Integer getRParamType()
   {
     return rParamType;
   }
@@ -405,7 +397,7 @@ public class PowerLoad
     this.rParamType = rParamType;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -413,6 +405,41 @@ public class PowerLoad
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "PowerLoad ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", zone = " + zone
+	 + ", p = " + p
+	 + ", q = " + q
+	 + ", pMax = " + pMax
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", mSModel = " + mSModel
+	 + ", mStateNum = " + mStateNum
+	 + ", mSPout = " + mSPout
+	 + ", referenceP = " + referenceP
+	 + ", referenceQ = " + referenceQ
+	 + ", radial = " + radial
+	 + ", busPtr = " + busPtr
+	 + ", auxLoad = " + auxLoad
+	 + ", eQLoad = " + eQLoad
+	 + ", rParamType = " + rParamType
+	 + ", outage = " + outage+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *新励磁系统模型表(FX)	*
 ***********************/
-@Entity
 public class BpaSwi_ExcX
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -96,7 +88,7 @@ public class BpaSwi_ExcX
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -106,7 +98,7 @@ public class BpaSwi_ExcX
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -116,7 +108,7 @@ public class BpaSwi_ExcX
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -126,7 +118,7 @@ public class BpaSwi_ExcX
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -136,7 +128,7 @@ public class BpaSwi_ExcX
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -146,7 +138,7 @@ public class BpaSwi_ExcX
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -156,7 +148,7 @@ public class BpaSwi_ExcX
     this.gen_ID = gen_ID;
   }
     
-  public Double getExcX_RC() 
+  public Double getExcX_RC()
   {
     return excX_RC;
   }
@@ -166,7 +158,7 @@ public class BpaSwi_ExcX
     this.excX_RC = excX_RC;
   }
     
-  public Double getExcX_XC() 
+  public Double getExcX_XC()
   {
     return excX_XC;
   }
@@ -176,7 +168,7 @@ public class BpaSwi_ExcX
     this.excX_XC = excX_XC;
   }
     
-  public Double getExcX_TR() 
+  public Double getExcX_TR()
   {
     return excX_TR;
   }
@@ -186,7 +178,7 @@ public class BpaSwi_ExcX
     this.excX_TR = excX_TR;
   }
     
-  public Double getExcX_KA() 
+  public Double getExcX_KA()
   {
     return excX_KA;
   }
@@ -196,7 +188,7 @@ public class BpaSwi_ExcX
     this.excX_KA = excX_KA;
   }
     
-  public Double getExcX_TA() 
+  public Double getExcX_TA()
   {
     return excX_TA;
   }
@@ -206,7 +198,7 @@ public class BpaSwi_ExcX
     this.excX_TA = excX_TA;
   }
     
-  public Double getExcX_Kp() 
+  public Double getExcX_Kp()
   {
     return excX_Kp;
   }
@@ -216,7 +208,7 @@ public class BpaSwi_ExcX
     this.excX_Kp = excX_Kp;
   }
     
-  public Double getExcX_KI() 
+  public Double getExcX_KI()
   {
     return excX_KI;
   }
@@ -226,7 +218,7 @@ public class BpaSwi_ExcX
     this.excX_KI = excX_KI;
   }
     
-  public Double getExcX_VRMax() 
+  public Double getExcX_VRMax()
   {
     return excX_VRMax;
   }
@@ -236,7 +228,7 @@ public class BpaSwi_ExcX
     this.excX_VRMax = excX_VRMax;
   }
     
-  public Double getExcX_VRMin() 
+  public Double getExcX_VRMin()
   {
     return excX_VRMin;
   }
@@ -246,7 +238,7 @@ public class BpaSwi_ExcX
     this.excX_VRMin = excX_VRMin;
   }
     
-  public Double getExcX_IKp() 
+  public Double getExcX_IKp()
   {
     return excX_IKp;
   }
@@ -256,7 +248,7 @@ public class BpaSwi_ExcX
     this.excX_IKp = excX_IKp;
   }
     
-  public Double getExcX_IKI() 
+  public Double getExcX_IKI()
   {
     return excX_IKI;
   }
@@ -266,7 +258,7 @@ public class BpaSwi_ExcX
     this.excX_IKI = excX_IKI;
   }
     
-  public Double getExcX_VFMax() 
+  public Double getExcX_VFMax()
   {
     return excX_VFMax;
   }
@@ -276,7 +268,7 @@ public class BpaSwi_ExcX
     this.excX_VFMax = excX_VFMax;
   }
     
-  public Double getExcX_VFMin() 
+  public Double getExcX_VFMin()
   {
     return excX_VFMin;
   }
@@ -286,7 +278,7 @@ public class BpaSwi_ExcX
     this.excX_VFMin = excX_VFMin;
   }
     
-  public Double getExcX_KT() 
+  public Double getExcX_KT()
   {
     return excX_KT;
   }
@@ -296,7 +288,7 @@ public class BpaSwi_ExcX
     this.excX_KT = excX_KT;
   }
     
-  public Double getExcX_TT() 
+  public Double getExcX_TT()
   {
     return excX_TT;
   }
@@ -306,7 +298,7 @@ public class BpaSwi_ExcX
     this.excX_TT = excX_TT;
   }
     
-  public Double getExcEX_Kifd() 
+  public Double getExcEX_Kifd()
   {
     return excEX_Kifd;
   }
@@ -316,7 +308,7 @@ public class BpaSwi_ExcX
     this.excEX_Kifd = excEX_Kifd;
   }
     
-  public Double getExcEX_Tifd() 
+  public Double getExcEX_Tifd()
   {
     return excEX_Tifd;
   }
@@ -326,7 +318,7 @@ public class BpaSwi_ExcX
     this.excEX_Tifd = excEX_Tifd;
   }
     
-  public Double getExcEX_EFDMin() 
+  public Double getExcEX_EFDMin()
   {
     return excEX_EFDMin;
   }
@@ -336,7 +328,7 @@ public class BpaSwi_ExcX
     this.excEX_EFDMin = excEX_EFDMin;
   }
     
-  public Double getExcEX_EFDMax() 
+  public Double getExcEX_EFDMax()
   {
     return excEX_EFDMax;
   }
@@ -346,7 +338,7 @@ public class BpaSwi_ExcX
     this.excEX_EFDMax = excEX_EFDMax;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -356,7 +348,7 @@ public class BpaSwi_ExcX
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -366,7 +358,7 @@ public class BpaSwi_ExcX
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -374,6 +366,38 @@ public class BpaSwi_ExcX
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_ExcX ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", excX_RC = " + excX_RC
+	 + ", excX_XC = " + excX_XC
+	 + ", excX_TR = " + excX_TR
+	 + ", excX_KA = " + excX_KA
+	 + ", excX_TA = " + excX_TA
+	 + ", excX_Kp = " + excX_Kp
+	 + ", excX_KI = " + excX_KI
+	 + ", excX_VRMax = " + excX_VRMax
+	 + ", excX_VRMin = " + excX_VRMin
+	 + ", excX_IKp = " + excX_IKp
+	 + ", excX_IKI = " + excX_IKI
+	 + ", excX_VFMax = " + excX_VFMax
+	 + ", excX_VFMin = " + excX_VFMin
+	 + ", excX_KT = " + excX_KT
+	 + ", excX_TT = " + excX_TT
+	 + ", excEX_Kifd = " + excEX_Kifd
+	 + ", excEX_Tifd = " + excEX_Tifd
+	 + ", excEX_EFDMin = " + excEX_EFDMin
+	 + ", excEX_EFDMax = " + excEX_EFDMax
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

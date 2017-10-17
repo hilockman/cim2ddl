@@ -84,12 +84,12 @@ public class BpaDat_I
     
   public String toString()
   {
-    return "BpaDat_I ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"i_Area1"=i_Area1,
-	"i_Area2"=i_Area2,
-	"i_OutP"=i_OutP+"]"
+    return "BpaDat_I ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", i_Area1 = " + i_Area1
+	 + ", i_Area2 = " + i_Area2
+	 + ", i_OutP = " + i_OutP+"]";
   }
     
 }

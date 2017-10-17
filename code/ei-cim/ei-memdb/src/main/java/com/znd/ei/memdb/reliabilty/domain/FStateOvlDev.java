@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *抽样状态下越限设备	*
 ***********************/
-@Entity
 public class FStateOvlDev
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -36,7 +28,7 @@ public class FStateOvlDev
   //消限值(MW)
   private Double adLmtP;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -46,7 +38,7 @@ public class FStateOvlDev
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -56,7 +48,7 @@ public class FStateOvlDev
     this.memIndex = memIndex;
   }
     
-  public Integer getFState() 
+  public Integer getFState()
   {
     return fState;
   }
@@ -66,7 +58,7 @@ public class FStateOvlDev
     this.fState = fState;
   }
     
-  public Integer getDevTyp() 
+  public Integer getDevTyp()
   {
     return devTyp;
   }
@@ -76,7 +68,7 @@ public class FStateOvlDev
     this.devTyp = devTyp;
   }
     
-  public Integer getDevIdx() 
+  public Integer getDevIdx()
   {
     return devIdx;
   }
@@ -86,7 +78,7 @@ public class FStateOvlDev
     this.devIdx = devIdx;
   }
     
-  public Double getOvLmtP() 
+  public Double getOvLmtP()
   {
     return ovLmtP;
   }
@@ -96,7 +88,7 @@ public class FStateOvlDev
     this.ovLmtP = ovLmtP;
   }
     
-  public Double getRated() 
+  public Double getRated()
   {
     return rated;
   }
@@ -106,7 +98,7 @@ public class FStateOvlDev
     this.rated = rated;
   }
     
-  public Double getAdLmtP() 
+  public Double getAdLmtP()
   {
     return adLmtP;
   }
@@ -114,6 +106,18 @@ public class FStateOvlDev
   public void setAdLmtP(Double adLmtP)
   {
     this.adLmtP = adLmtP;
+  }
+    
+  public String toString()
+  {
+    return "FStateOvlDev ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", devTyp = " + devTyp
+	 + ", devIdx = " + devIdx
+	 + ", ovLmtP = " + ovLmtP
+	 + ", rated = " + rated
+	 + ", adLmtP = " + adLmtP+"]";
   }
     
 }

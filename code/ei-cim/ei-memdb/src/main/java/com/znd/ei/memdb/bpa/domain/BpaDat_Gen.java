@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电网-发电机表	*
 ***********************/
-@Entity
 public class BpaDat_Gen
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -63,7 +55,7 @@ public class BpaDat_Gen
   //状态
   private Integer gen_Status;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -73,7 +65,7 @@ public class BpaDat_Gen
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -83,7 +75,7 @@ public class BpaDat_Gen
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -93,7 +85,7 @@ public class BpaDat_Gen
     this.name = name;
   }
     
-  public String getGen_Bus() 
+  public String getGen_Bus()
   {
     return gen_Bus;
   }
@@ -103,7 +95,7 @@ public class BpaDat_Gen
     this.gen_Bus = gen_Bus;
   }
     
-  public Double getGen_kV() 
+  public Double getGen_kV()
   {
     return gen_kV;
   }
@@ -113,7 +105,7 @@ public class BpaDat_Gen
     this.gen_kV = gen_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -123,7 +115,7 @@ public class BpaDat_Gen
     this.gen_ID = gen_ID;
   }
     
-  public Double getGen_PGen() 
+  public Double getGen_PGen()
   {
     return gen_PGen;
   }
@@ -133,7 +125,7 @@ public class BpaDat_Gen
     this.gen_PGen = gen_PGen;
   }
     
-  public Double getGen_QGen() 
+  public Double getGen_QGen()
   {
     return gen_QGen;
   }
@@ -143,7 +135,7 @@ public class BpaDat_Gen
     this.gen_QGen = gen_QGen;
   }
     
-  public Double getGen_PMax() 
+  public Double getGen_PMax()
   {
     return gen_PMax;
   }
@@ -153,7 +145,7 @@ public class BpaDat_Gen
     this.gen_PMax = gen_PMax;
   }
     
-  public Double getGen_PMin() 
+  public Double getGen_PMin()
   {
     return gen_PMin;
   }
@@ -163,7 +155,7 @@ public class BpaDat_Gen
     this.gen_PMin = gen_PMin;
   }
     
-  public Double getGen_QMax() 
+  public Double getGen_QMax()
   {
     return gen_QMax;
   }
@@ -173,7 +165,7 @@ public class BpaDat_Gen
     this.gen_QMax = gen_QMax;
   }
     
-  public Double getGen_QMin() 
+  public Double getGen_QMin()
   {
     return gen_QMin;
   }
@@ -183,7 +175,7 @@ public class BpaDat_Gen
     this.gen_QMin = gen_QMin;
   }
     
-  public Double getGen_VHold() 
+  public Double getGen_VHold()
   {
     return gen_VHold;
   }
@@ -193,7 +185,7 @@ public class BpaDat_Gen
     this.gen_VHold = gen_VHold;
   }
     
-  public Integer getGen_ACBusPtr() 
+  public Integer getGen_ACBusPtr()
   {
     return gen_ACBusPtr;
   }
@@ -203,7 +195,7 @@ public class BpaDat_Gen
     this.gen_ACBusPtr = gen_ACBusPtr;
   }
     
-  public Integer getGen_WingGen() 
+  public Integer getGen_WingGen()
   {
     return gen_WingGen;
   }
@@ -213,7 +205,7 @@ public class BpaDat_Gen
     this.gen_WingGen = gen_WingGen;
   }
     
-  public Integer getGen_EQ() 
+  public Integer getGen_EQ()
   {
     return gen_EQ;
   }
@@ -223,7 +215,7 @@ public class BpaDat_Gen
     this.gen_EQ = gen_EQ;
   }
     
-  public Integer getGen_Status() 
+  public Integer getGen_Status()
   {
     return gen_Status;
   }
@@ -231,6 +223,27 @@ public class BpaDat_Gen
   public void setGen_Status(Integer gen_Status)
   {
     this.gen_Status = gen_Status;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Gen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", gen_Bus = " + gen_Bus
+	 + ", gen_kV = " + gen_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_PGen = " + gen_PGen
+	 + ", gen_QGen = " + gen_QGen
+	 + ", gen_PMax = " + gen_PMax
+	 + ", gen_PMin = " + gen_PMin
+	 + ", gen_QMax = " + gen_QMax
+	 + ", gen_QMin = " + gen_QMin
+	 + ", gen_VHold = " + gen_VHold
+	 + ", gen_ACBusPtr = " + gen_ACBusPtr
+	 + ", gen_WingGen = " + gen_WingGen
+	 + ", gen_EQ = " + gen_EQ
+	 + ", gen_Status = " + gen_Status+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *分区	*
 ***********************/
-@Entity
 public class Zone
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -33,7 +25,7 @@ public class Zone
   //分区事故切负荷(MW)
   private Double fCutLoadP;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -43,7 +35,7 @@ public class Zone
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -53,7 +45,7 @@ public class Zone
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -63,7 +55,7 @@ public class Zone
     this.name = name;
   }
     
-  public String getArea() 
+  public String getArea()
   {
     return area;
   }
@@ -73,7 +65,7 @@ public class Zone
     this.area = area;
   }
     
-  public Double getTotalGenP() 
+  public Double getTotalGenP()
   {
     return totalGenP;
   }
@@ -83,7 +75,7 @@ public class Zone
     this.totalGenP = totalGenP;
   }
     
-  public Double getTotalLoadP() 
+  public Double getTotalLoadP()
   {
     return totalLoadP;
   }
@@ -93,7 +85,7 @@ public class Zone
     this.totalLoadP = totalLoadP;
   }
     
-  public Double getFCutLoadP() 
+  public Double getFCutLoadP()
   {
     return fCutLoadP;
   }
@@ -101,6 +93,17 @@ public class Zone
   public void setFCutLoadP(Double fCutLoadP)
   {
     this.fCutLoadP = fCutLoadP;
+  }
+    
+  public String toString()
+  {
+    return "Zone ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", area = " + area
+	 + ", totalGenP = " + totalGenP
+	 + ", totalLoadP = " + totalLoadP
+	 + ", fCutLoadP = " + fCutLoadP+"]";
   }
     
 }

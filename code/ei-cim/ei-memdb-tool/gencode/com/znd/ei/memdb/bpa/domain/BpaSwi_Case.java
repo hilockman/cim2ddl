@@ -214,22 +214,22 @@ public class BpaSwi_Case
     
   public String toString()
   {
-    return "BpaSwi_Case ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"pFCASE"=pFCASE,
-	"iTSKP"=iTSKP,
-	"nOPRNT"=nOPRNT,
-	"dSW"=dSW,
-	"iWSCC"=iWSCC,
-	"zSW"=zSW,
-	"x2FAC"=x2FAC,
-	"xFACT"=xFACT,
-	"tDODPS"=tDODPS,
-	"tQODPS"=tQODPS,
-	"tDODPH"=tDODPH,
-	"tQODPH"=tQODPH,
-	"cFACL2"=cFACL2+"]"
+    return "BpaSwi_Case ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", pFCASE = " + pFCASE
+	 + ", iTSKP = " + iTSKP
+	 + ", nOPRNT = " + nOPRNT
+	 + ", dSW = " + dSW
+	 + ", iWSCC = " + iWSCC
+	 + ", zSW = " + zSW
+	 + ", x2FAC = " + x2FAC
+	 + ", xFACT = " + xFACT
+	 + ", tDODPS = " + tDODPS
+	 + ", tQODPS = " + tQODPS
+	 + ", tDODPH = " + tDODPH
+	 + ", tQODPH = " + tQODPH
+	 + ", cFACL2 = " + cFACL2+"]";
   }
     
 }

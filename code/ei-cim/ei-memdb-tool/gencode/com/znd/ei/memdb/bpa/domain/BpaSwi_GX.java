@@ -201,21 +201,21 @@ public class BpaSwi_GX
     
   public String toString()
   {
-    return "BpaSwi_GX ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"gen_ID"=gen_ID,
-	"gX_TSH"=gX_TSH,
-	"gX_TD"=gX_TD,
-	"gX_TW"=gX_TW,
-	"gX_K"=gX_K,
-	"gX_Tdelay"=gX_Tdelay,
-	"gX_Limit_MAX"=gX_Limit_MAX,
-	"gX_Limit_MIN"=gX_Limit_MIN,
-	"keyName"=keyName,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_GX ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", gX_TSH = " + gX_TSH
+	 + ", gX_TD = " + gX_TD
+	 + ", gX_TW = " + gX_TW
+	 + ", gX_K = " + gX_K
+	 + ", gX_Tdelay = " + gX_Tdelay
+	 + ", gX_Limit_MAX = " + gX_Limit_MAX
+	 + ", gX_Limit_MIN = " + gX_Limit_MIN
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

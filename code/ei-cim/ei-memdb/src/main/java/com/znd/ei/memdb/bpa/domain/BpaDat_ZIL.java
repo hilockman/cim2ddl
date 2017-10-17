@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *小支路清除信息表(ZIL)	*
 ***********************/
-@Entity
 public class BpaDat_ZIL
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -48,7 +40,7 @@ public class BpaDat_ZIL
   //合并基准电压(kV)
   private Double zIL_MkV;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -58,7 +50,7 @@ public class BpaDat_ZIL
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -68,7 +60,7 @@ public class BpaDat_ZIL
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -78,7 +70,7 @@ public class BpaDat_ZIL
     this.cardKey = cardKey;
   }
     
-  public String getZIL_BusI() 
+  public String getZIL_BusI()
   {
     return zIL_BusI;
   }
@@ -88,7 +80,7 @@ public class BpaDat_ZIL
     this.zIL_BusI = zIL_BusI;
   }
     
-  public Double getZIL_kVI() 
+  public Double getZIL_kVI()
   {
     return zIL_kVI;
   }
@@ -98,7 +90,7 @@ public class BpaDat_ZIL
     this.zIL_kVI = zIL_kVI;
   }
     
-  public String getZIL_BusJ() 
+  public String getZIL_BusJ()
   {
     return zIL_BusJ;
   }
@@ -108,7 +100,7 @@ public class BpaDat_ZIL
     this.zIL_BusJ = zIL_BusJ;
   }
     
-  public Double getZIL_kVJ() 
+  public Double getZIL_kVJ()
   {
     return zIL_kVJ;
   }
@@ -118,7 +110,7 @@ public class BpaDat_ZIL
     this.zIL_kVJ = zIL_kVJ;
   }
     
-  public Integer getZIL_Loop() 
+  public Integer getZIL_Loop()
   {
     return zIL_Loop;
   }
@@ -128,7 +120,7 @@ public class BpaDat_ZIL
     this.zIL_Loop = zIL_Loop;
   }
     
-  public Double getZIL_R() 
+  public Double getZIL_R()
   {
     return zIL_R;
   }
@@ -138,7 +130,7 @@ public class BpaDat_ZIL
     this.zIL_R = zIL_R;
   }
     
-  public Double getZIL_X() 
+  public Double getZIL_X()
   {
     return zIL_X;
   }
@@ -148,7 +140,7 @@ public class BpaDat_ZIL
     this.zIL_X = zIL_X;
   }
     
-  public String getZIL_MBus() 
+  public String getZIL_MBus()
   {
     return zIL_MBus;
   }
@@ -158,7 +150,7 @@ public class BpaDat_ZIL
     this.zIL_MBus = zIL_MBus;
   }
     
-  public Double getZIL_MkV() 
+  public Double getZIL_MkV()
   {
     return zIL_MkV;
   }
@@ -166,6 +158,22 @@ public class BpaDat_ZIL
   public void setZIL_MkV(Double zIL_MkV)
   {
     this.zIL_MkV = zIL_MkV;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_ZIL ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", zIL_BusI = " + zIL_BusI
+	 + ", zIL_kVI = " + zIL_kVI
+	 + ", zIL_BusJ = " + zIL_BusJ
+	 + ", zIL_kVJ = " + zIL_kVJ
+	 + ", zIL_Loop = " + zIL_Loop
+	 + ", zIL_R = " + zIL_R
+	 + ", zIL_X = " + zIL_X
+	 + ", zIL_MBus = " + zIL_MBus
+	 + ", zIL_MkV = " + zIL_MkV+"]";
   }
     
 }

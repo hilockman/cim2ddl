@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电网-变压器表	*
 ***********************/
-@Entity
 public class BpaDat_Tran
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -39,7 +31,7 @@ public class BpaDat_Tran
   //低压绕组索引
   private Integer iRWindL;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -49,7 +41,7 @@ public class BpaDat_Tran
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -59,7 +51,7 @@ public class BpaDat_Tran
     this.memIndex = memIndex;
   }
     
-  public Integer getWindNum() 
+  public Integer getWindNum()
   {
     return windNum;
   }
@@ -69,7 +61,7 @@ public class BpaDat_Tran
     this.windNum = windNum;
   }
     
-  public String getWindH() 
+  public String getWindH()
   {
     return windH;
   }
@@ -79,7 +71,7 @@ public class BpaDat_Tran
     this.windH = windH;
   }
     
-  public String getWindM() 
+  public String getWindM()
   {
     return windM;
   }
@@ -89,7 +81,7 @@ public class BpaDat_Tran
     this.windM = windM;
   }
     
-  public String getWindL() 
+  public String getWindL()
   {
     return windL;
   }
@@ -99,7 +91,7 @@ public class BpaDat_Tran
     this.windL = windL;
   }
     
-  public Integer getiRWindH() 
+  public Integer getiRWindH()
   {
     return iRWindH;
   }
@@ -109,7 +101,7 @@ public class BpaDat_Tran
     this.iRWindH = iRWindH;
   }
     
-  public Integer getiRWindM() 
+  public Integer getiRWindM()
   {
     return iRWindM;
   }
@@ -119,7 +111,7 @@ public class BpaDat_Tran
     this.iRWindM = iRWindM;
   }
     
-  public Integer getiRWindL() 
+  public Integer getiRWindL()
   {
     return iRWindL;
   }
@@ -127,6 +119,19 @@ public class BpaDat_Tran
   public void setiRWindL(Integer iRWindL)
   {
     this.iRWindL = iRWindL;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Tran ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", windNum = " + windNum
+	 + ", windH = " + windH
+	 + ", windM = " + windM
+	 + ", windL = " + windL
+	 + ", iRWindH = " + iRWindH
+	 + ", iRWindM = " + iRWindM
+	 + ", iRWindL = " + iRWindL+"]";
   }
     
 }

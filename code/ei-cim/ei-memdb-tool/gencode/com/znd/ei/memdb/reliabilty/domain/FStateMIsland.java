@@ -71,11 +71,11 @@ public class FStateMIsland
     
   public String toString()
   {
-    return "FStateMIsland ["+	"id"=id,
-	"memIndex"=memIndex,
-	"fState"=fState,
-	"outageBus"=outageBus,
-	"outageLoadP"=outageLoadP+"]"
+    return "FStateMIsland ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", outageBus = " + outageBus
+	 + ", outageLoadP = " + outageLoadP+"]";
   }
     
 }

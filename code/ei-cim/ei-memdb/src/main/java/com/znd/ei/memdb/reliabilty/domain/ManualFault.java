@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *人工事件	*
 ***********************/
-@Entity
 public class ManualFault
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -33,7 +25,7 @@ public class ManualFault
   //标记状态
   private Integer proc;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -43,7 +35,7 @@ public class ManualFault
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -53,7 +45,7 @@ public class ManualFault
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -63,7 +55,7 @@ public class ManualFault
     this.name = name;
   }
     
-  public Integer getFDevType() 
+  public Integer getFDevType()
   {
     return fDevType;
   }
@@ -73,7 +65,7 @@ public class ManualFault
     this.fDevType = fDevType;
   }
     
-  public String getFDevName() 
+  public String getFDevName()
   {
     return fDevName;
   }
@@ -83,7 +75,7 @@ public class ManualFault
     this.fDevName = fDevName;
   }
     
-  public Integer getFDevSerno() 
+  public Integer getFDevSerno()
   {
     return fDevSerno;
   }
@@ -93,7 +85,7 @@ public class ManualFault
     this.fDevSerno = fDevSerno;
   }
     
-  public Integer getProc() 
+  public Integer getProc()
   {
     return proc;
   }
@@ -101,6 +93,17 @@ public class ManualFault
   public void setProc(Integer proc)
   {
     this.proc = proc;
+  }
+    
+  public String toString()
+  {
+    return "ManualFault ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", fDevType = " + fDevType
+	 + ", fDevName = " + fDevName
+	 + ", fDevSerno = " + fDevSerno
+	 + ", proc = " + proc+"]";
   }
     
 }

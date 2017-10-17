@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *变压器绕组边	*
 ***********************/
-@Entity
 public class WindEdge
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class WindEdge
   //变压器索引
   private Integer tranPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class WindEdge
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class WindEdge
     this.memIndex = memIndex;
   }
     
-  public String getBus() 
+  public String getBus()
   {
     return bus;
   }
@@ -60,7 +52,7 @@ public class WindEdge
     this.bus = bus;
   }
     
-  public Double getkV() 
+  public Double getkV()
   {
     return kV;
   }
@@ -70,7 +62,7 @@ public class WindEdge
     this.kV = kV;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -80,7 +72,7 @@ public class WindEdge
     this.name = name;
   }
     
-  public Integer getTranPtr() 
+  public Integer getTranPtr()
   {
     return tranPtr;
   }
@@ -88,6 +80,16 @@ public class WindEdge
   public void setTranPtr(Integer tranPtr)
   {
     this.tranPtr = tranPtr;
+  }
+    
+  public String toString()
+  {
+    return "WindEdge ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", bus = " + bus
+	 + ", kV = " + kV
+	 + ", name = " + name
+	 + ", tranPtr = " + tranPtr+"]";
   }
     
 }

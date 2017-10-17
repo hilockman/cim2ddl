@@ -279,27 +279,27 @@ public class BpaSwi_FZ
     
   public String toString()
   {
-    return "BpaSwi_FZ ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"fZ_SE1_KI"=fZ_SE1_KI,
-	"fZ_SE2_KP"=fZ_SE2_KP,
-	"fZ_EFDMin_EFDN_DP"=fZ_EFDMin_EFDN_DP,
-	"fZ_EFD1_VE1_EFDMax"=fZ_EFD1_VE1_EFDMax,
-	"fZ_KF_KG"=fZ_KF_KG,
-	"fZ_TF_VGMax"=fZ_TF_VGMax,
-	"fZ_KC"=fZ_KC,
-	"fZ_KD_XL"=fZ_KD_XL,
-	"fZ_KB_VLV"=fZ_KB_VLV,
-	"fZ_KL_KLV"=fZ_KL_KLV,
-	"fZ_KH_KN"=fZ_KH_KN,
-	"fZ_VLR_KR"=fZ_VLR_KR,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_FZ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", fZ_SE1_KI = " + fZ_SE1_KI
+	 + ", fZ_SE2_KP = " + fZ_SE2_KP
+	 + ", fZ_EFDMin_EFDN_DP = " + fZ_EFDMin_EFDN_DP
+	 + ", fZ_EFD1_VE1_EFDMax = " + fZ_EFD1_VE1_EFDMax
+	 + ", fZ_KF_KG = " + fZ_KF_KG
+	 + ", fZ_TF_VGMax = " + fZ_TF_VGMax
+	 + ", fZ_KC = " + fZ_KC
+	 + ", fZ_KD_XL = " + fZ_KD_XL
+	 + ", fZ_KB_VLV = " + fZ_KB_VLV
+	 + ", fZ_KL_KLV = " + fZ_KL_KLV
+	 + ", fZ_KH_KN = " + fZ_KH_KN
+	 + ", fZ_VLR_KR = " + fZ_VLR_KR
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

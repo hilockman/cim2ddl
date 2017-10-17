@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *停运概率	*
 ***********************/
-@Entity
 public class CopTable
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -45,7 +37,7 @@ public class CopTable
   //递减有效离去率
   private Double depRN;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -55,7 +47,7 @@ public class CopTable
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -65,7 +57,7 @@ public class CopTable
     this.memIndex = memIndex;
   }
     
-  public Integer getState() 
+  public Integer getState()
   {
     return state;
   }
@@ -75,7 +67,7 @@ public class CopTable
     this.state = state;
   }
     
-  public Double getOutageCapacity() 
+  public Double getOutageCapacity()
   {
     return outageCapacity;
   }
@@ -85,7 +77,7 @@ public class CopTable
     this.outageCapacity = outageCapacity;
   }
     
-  public Double getAvailCapacity() 
+  public Double getAvailCapacity()
   {
     return availCapacity;
   }
@@ -95,7 +87,7 @@ public class CopTable
     this.availCapacity = availCapacity;
   }
     
-  public Double getStateProb() 
+  public Double getStateProb()
   {
     return stateProb;
   }
@@ -105,7 +97,7 @@ public class CopTable
     this.stateProb = stateProb;
   }
     
-  public Double getAccumProb() 
+  public Double getAccumProb()
   {
     return accumProb;
   }
@@ -115,7 +107,7 @@ public class CopTable
     this.accumProb = accumProb;
   }
     
-  public Double getStateFreq() 
+  public Double getStateFreq()
   {
     return stateFreq;
   }
@@ -125,7 +117,7 @@ public class CopTable
     this.stateFreq = stateFreq;
   }
     
-  public Double getAccumFreq() 
+  public Double getAccumFreq()
   {
     return accumFreq;
   }
@@ -135,7 +127,7 @@ public class CopTable
     this.accumFreq = accumFreq;
   }
     
-  public Double getDepRP() 
+  public Double getDepRP()
   {
     return depRP;
   }
@@ -145,7 +137,7 @@ public class CopTable
     this.depRP = depRP;
   }
     
-  public Double getDepRN() 
+  public Double getDepRN()
   {
     return depRN;
   }
@@ -153,6 +145,21 @@ public class CopTable
   public void setDepRN(Double depRN)
   {
     this.depRN = depRN;
+  }
+    
+  public String toString()
+  {
+    return "CopTable ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", state = " + state
+	 + ", outageCapacity = " + outageCapacity
+	 + ", availCapacity = " + availCapacity
+	 + ", stateProb = " + stateProb
+	 + ", accumProb = " + accumProb
+	 + ", stateFreq = " + stateFreq
+	 + ", accumFreq = " + accumFreq
+	 + ", depRP = " + depRP
+	 + ", depRN = " + depRN+"]";
   }
     
 }

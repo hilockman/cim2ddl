@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *环辐网	*
 ***********************/
-@Entity
 public class Radial
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class Radial
   //环网(环辐边界)母线索引
   private Integer ringBoundBusPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class Radial
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class Radial
     this.memIndex = memIndex;
   }
     
-  public String getRingBus() 
+  public String getRingBus()
   {
     return ringBus;
   }
@@ -60,7 +52,7 @@ public class Radial
     this.ringBus = ringBus;
   }
     
-  public Double getRingkV() 
+  public Double getRingkV()
   {
     return ringkV;
   }
@@ -70,7 +62,7 @@ public class Radial
     this.ringkV = ringkV;
   }
     
-  public Double getLoadP() 
+  public Double getLoadP()
   {
     return loadP;
   }
@@ -80,7 +72,7 @@ public class Radial
     this.loadP = loadP;
   }
     
-  public Integer getRingBoundBusPtr() 
+  public Integer getRingBoundBusPtr()
   {
     return ringBoundBusPtr;
   }
@@ -88,6 +80,16 @@ public class Radial
   public void setRingBoundBusPtr(Integer ringBoundBusPtr)
   {
     this.ringBoundBusPtr = ringBoundBusPtr;
+  }
+    
+  public String toString()
+  {
+    return "Radial ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", ringBus = " + ringBus
+	 + ", ringkV = " + ringkV
+	 + ", loadP = " + loadP
+	 + ", ringBoundBusPtr = " + ringBoundBusPtr+"]";
   }
     
 }

@@ -409,37 +409,37 @@ public class BpaSwi_FF
     
   public String toString()
   {
-    return "BpaSwi_FF ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"t"=t,
-	"dT"=dT,
-	"eNDT"=eNDT,
-	"dTC"=dTC,
-	"iSTP"=iSTP,
-	"tOLI"=tOLI,
-	"iLIM"=iLIM,
-	"dELANG"=dELANG,
-	"dTDV"=dTDV,
-	"dMPMLT"=dMPMLT,
-	"fRQBSE"=fRQBSE,
-	"lOVTEX"=lOVTEX,
-	"iMBLOK"=iMBLOK,
-	"mFDEP"=mFDEP,
-	"iGSLIM"=iGSLIM,
-	"lSOLQIT"=lSOLQIT,
-	"nOANGLIM"=nOANGLIM,
-	"iNFBUS"=iNFBUS,
-	"nOPP"=nOPP,
-	"nODQ"=nODQ,
-	"nOSAT"=nOSAT,
-	"nOGV"=nOGV,
-	"iEQPC"=iEQPC,
-	"nOEX"=nOEX,
-	"mFTOMG"=mFTOMG,
-	"nOSC"=nOSC,
-	"mGTOMF"=mGTOMF,
-	"nOLOAD"=nOLOAD+"]"
+    return "BpaSwi_FF ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", t = " + t
+	 + ", dT = " + dT
+	 + ", eNDT = " + eNDT
+	 + ", dTC = " + dTC
+	 + ", iSTP = " + iSTP
+	 + ", tOLI = " + tOLI
+	 + ", iLIM = " + iLIM
+	 + ", dELANG = " + dELANG
+	 + ", dTDV = " + dTDV
+	 + ", dMPMLT = " + dMPMLT
+	 + ", fRQBSE = " + fRQBSE
+	 + ", lOVTEX = " + lOVTEX
+	 + ", iMBLOK = " + iMBLOK
+	 + ", mFDEP = " + mFDEP
+	 + ", iGSLIM = " + iGSLIM
+	 + ", lSOLQIT = " + lSOLQIT
+	 + ", nOANGLIM = " + nOANGLIM
+	 + ", iNFBUS = " + iNFBUS
+	 + ", nOPP = " + nOPP
+	 + ", nODQ = " + nODQ
+	 + ", nOSAT = " + nOSAT
+	 + ", nOGV = " + nOGV
+	 + ", iEQPC = " + iEQPC
+	 + ", nOEX = " + nOEX
+	 + ", mFTOMG = " + mFTOMG
+	 + ", nOSC = " + nOSC
+	 + ", mGTOMF = " + mGTOMF
+	 + ", nOLOAD = " + nOLOAD+"]";
   }
     
 }

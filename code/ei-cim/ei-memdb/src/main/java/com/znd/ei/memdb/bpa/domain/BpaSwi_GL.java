@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *汽轮机调速模型2表(GL)	*
 ***********************/
-@Entity
 public class BpaSwi_GL
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -72,7 +64,7 @@ public class BpaSwi_GL
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -82,7 +74,7 @@ public class BpaSwi_GL
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -92,7 +84,7 @@ public class BpaSwi_GL
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -102,7 +94,7 @@ public class BpaSwi_GL
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -112,7 +104,7 @@ public class BpaSwi_GL
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -122,7 +114,7 @@ public class BpaSwi_GL
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -132,7 +124,7 @@ public class BpaSwi_GL
     this.gen_ID = gen_ID;
   }
     
-  public Double getGL_Pe() 
+  public Double getGL_Pe()
   {
     return gL_Pe;
   }
@@ -142,7 +134,7 @@ public class BpaSwi_GL
     this.gL_Pe = gL_Pe;
   }
     
-  public Double getGL_K() 
+  public Double getGL_K()
   {
     return gL_K;
   }
@@ -152,7 +144,7 @@ public class BpaSwi_GL
     this.gL_K = gL_K;
   }
     
-  public Double getGL_E() 
+  public Double getGL_E()
   {
     return gL_E;
   }
@@ -162,7 +154,7 @@ public class BpaSwi_GL
     this.gL_E = gL_E;
   }
     
-  public Double getGL_Tr() 
+  public Double getGL_Tr()
   {
     return gL_Tr;
   }
@@ -172,7 +164,7 @@ public class BpaSwi_GL
     this.gL_Tr = gL_Tr;
   }
     
-  public Double getGL_Tb() 
+  public Double getGL_Tb()
   {
     return gL_Tb;
   }
@@ -182,7 +174,7 @@ public class BpaSwi_GL
     this.gL_Tb = gL_Tb;
   }
     
-  public Double getGL_To() 
+  public Double getGL_To()
   {
     return gL_To;
   }
@@ -192,7 +184,7 @@ public class BpaSwi_GL
     this.gL_To = gL_To;
   }
     
-  public Double getGL_Tc() 
+  public Double getGL_Tc()
   {
     return gL_Tc;
   }
@@ -202,7 +194,7 @@ public class BpaSwi_GL
     this.gL_Tc = gL_Tc;
   }
     
-  public Double getGL_VELclose() 
+  public Double getGL_VELclose()
   {
     return gL_VELclose;
   }
@@ -212,7 +204,7 @@ public class BpaSwi_GL
     this.gL_VELclose = gL_VELclose;
   }
     
-  public Double getGL_VELopen() 
+  public Double getGL_VELopen()
   {
     return gL_VELopen;
   }
@@ -222,7 +214,7 @@ public class BpaSwi_GL
     this.gL_VELopen = gL_VELopen;
   }
     
-  public Double getGen_Pmax() 
+  public Double getGen_Pmax()
   {
     return gen_Pmax;
   }
@@ -232,7 +224,7 @@ public class BpaSwi_GL
     this.gen_Pmax = gen_Pmax;
   }
     
-  public Double getGen_Pmin() 
+  public Double getGen_Pmin()
   {
     return gen_Pmin;
   }
@@ -242,7 +234,7 @@ public class BpaSwi_GL
     this.gen_Pmin = gen_Pmin;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -252,7 +244,7 @@ public class BpaSwi_GL
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -262,7 +254,7 @@ public class BpaSwi_GL
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -270,6 +262,30 @@ public class BpaSwi_GL
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GL ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gL_Pe = " + gL_Pe
+	 + ", gL_K = " + gL_K
+	 + ", gL_E = " + gL_E
+	 + ", gL_Tr = " + gL_Tr
+	 + ", gL_Tb = " + gL_Tb
+	 + ", gL_To = " + gL_To
+	 + ", gL_Tc = " + gL_Tc
+	 + ", gL_VELclose = " + gL_VELclose
+	 + ", gL_VELopen = " + gL_VELopen
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

@@ -84,12 +84,12 @@ public class Radial
     
   public String toString()
   {
-    return "Radial ["+	"id"=id,
-	"memIndex"=memIndex,
-	"ringBus"=ringBus,
-	"ringkV"=ringkV,
-	"loadP"=loadP,
-	"ringBoundBusPtr"=ringBoundBusPtr+"]"
+    return "Radial ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", ringBus = " + ringBus
+	 + ", ringkV = " + ringkV
+	 + ", loadP = " + loadP
+	 + ", ringBoundBusPtr = " + ringBoundBusPtr+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *变换器	*
 ***********************/
-@Entity
 public class Converter
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -75,7 +67,7 @@ public class Converter
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -85,7 +77,7 @@ public class Converter
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -95,7 +87,7 @@ public class Converter
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -105,7 +97,7 @@ public class Converter
     this.name = name;
   }
     
-  public String getBusAC() 
+  public String getBusAC()
   {
     return busAC;
   }
@@ -115,7 +107,7 @@ public class Converter
     this.busAC = busAC;
   }
     
-  public String getBusDC() 
+  public String getBusDC()
   {
     return busDC;
   }
@@ -125,7 +117,7 @@ public class Converter
     this.busDC = busDC;
   }
     
-  public Double getSchedPower() 
+  public Double getSchedPower()
   {
     return schedPower;
   }
@@ -135,7 +127,7 @@ public class Converter
     this.schedPower = schedPower;
   }
     
-  public Integer getType() 
+  public Integer getType()
   {
     return type;
   }
@@ -145,7 +137,7 @@ public class Converter
     this.type = type;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -155,7 +147,7 @@ public class Converter
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -165,7 +157,7 @@ public class Converter
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -175,7 +167,7 @@ public class Converter
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -185,7 +177,7 @@ public class Converter
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -195,7 +187,7 @@ public class Converter
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -205,7 +197,7 @@ public class Converter
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -215,7 +207,7 @@ public class Converter
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -225,7 +217,7 @@ public class Converter
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -235,7 +227,7 @@ public class Converter
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -245,7 +237,7 @@ public class Converter
     this.rerrMin = rerrMin;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -255,7 +247,7 @@ public class Converter
     this.faultFreq = faultFreq;
   }
     
-  public Integer getACBusPtr() 
+  public Integer getACBusPtr()
   {
     return aCBusPtr;
   }
@@ -265,7 +257,7 @@ public class Converter
     this.aCBusPtr = aCBusPtr;
   }
     
-  public Integer getDCBusPtr() 
+  public Integer getDCBusPtr()
   {
     return dCBusPtr;
   }
@@ -275,7 +267,7 @@ public class Converter
     this.dCBusPtr = dCBusPtr;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -283,6 +275,31 @@ public class Converter
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "Converter ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busAC = " + busAC
+	 + ", busDC = " + busDC
+	 + ", schedPower = " + schedPower
+	 + ", type = " + type
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", aCBusPtr = " + aCBusPtr
+	 + ", dCBusPtr = " + dCBusPtr
+	 + ", outage = " + outage+"]";
   }
     
 }

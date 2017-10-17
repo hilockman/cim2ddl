@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *抽样状态	*
 ***********************/
-@Entity
 public class FState
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -96,7 +88,7 @@ public class FState
   //评估状态
   private Integer estimated;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -106,7 +98,7 @@ public class FState
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -116,7 +108,7 @@ public class FState
     this.memIndex = memIndex;
   }
     
-  public Integer getSampleType() 
+  public Integer getSampleType()
   {
     return sampleType;
   }
@@ -126,7 +118,7 @@ public class FState
     this.sampleType = sampleType;
   }
     
-  public Integer getFDevNum() 
+  public Integer getFDevNum()
   {
     return fDevNum;
   }
@@ -136,7 +128,7 @@ public class FState
     this.fDevNum = fDevNum;
   }
     
-  public Double getProbability() 
+  public Double getProbability()
   {
     return probability;
   }
@@ -146,7 +138,7 @@ public class FState
     this.probability = probability;
   }
     
-  public Double getDurition() 
+  public Double getDurition()
   {
     return durition;
   }
@@ -156,7 +148,7 @@ public class FState
     this.durition = durition;
   }
     
-  public Integer getStateNum() 
+  public Integer getStateNum()
   {
     return stateNum;
   }
@@ -166,7 +158,7 @@ public class FState
     this.stateNum = stateNum;
   }
     
-  public Double getFLossGen() 
+  public Double getFLossGen()
   {
     return fLossGen;
   }
@@ -176,7 +168,7 @@ public class FState
     this.fLossGen = fLossGen;
   }
     
-  public Double getFLossGenCap() 
+  public Double getFLossGenCap()
   {
     return fLossGenCap;
   }
@@ -186,7 +178,7 @@ public class FState
     this.fLossGenCap = fLossGenCap;
   }
     
-  public Double getFLossLoad() 
+  public Double getFLossLoad()
   {
     return fLossLoad;
   }
@@ -196,7 +188,7 @@ public class FState
     this.fLossLoad = fLossLoad;
   }
     
-  public Integer getMIsland() 
+  public Integer getMIsland()
   {
     return mIsland;
   }
@@ -206,7 +198,7 @@ public class FState
     this.mIsland = mIsland;
   }
     
-  public Double getMIslandInsGen() 
+  public Double getMIslandInsGen()
   {
     return mIslandInsGen;
   }
@@ -216,7 +208,7 @@ public class FState
     this.mIslandInsGen = mIslandInsGen;
   }
     
-  public Double getMIslandCutGen() 
+  public Double getMIslandCutGen()
   {
     return mIslandCutGen;
   }
@@ -226,7 +218,7 @@ public class FState
     this.mIslandCutGen = mIslandCutGen;
   }
     
-  public Double getMIslandOutLoad() 
+  public Double getMIslandOutLoad()
   {
     return mIslandOutLoad;
   }
@@ -236,7 +228,7 @@ public class FState
     this.mIslandOutLoad = mIslandOutLoad;
   }
     
-  public Double getBalanceInsGen() 
+  public Double getBalanceInsGen()
   {
     return balanceInsGen;
   }
@@ -246,7 +238,7 @@ public class FState
     this.balanceInsGen = balanceInsGen;
   }
     
-  public Double getBalanceCutGen() 
+  public Double getBalanceCutGen()
   {
     return balanceCutGen;
   }
@@ -256,7 +248,7 @@ public class FState
     this.balanceCutGen = balanceCutGen;
   }
     
-  public Double getBalanceCutLoad() 
+  public Double getBalanceCutLoad()
   {
     return balanceCutLoad;
   }
@@ -266,7 +258,7 @@ public class FState
     this.balanceCutLoad = balanceCutLoad;
   }
     
-  public Integer getOverLimit() 
+  public Integer getOverLimit()
   {
     return overLimit;
   }
@@ -276,7 +268,7 @@ public class FState
     this.overLimit = overLimit;
   }
     
-  public Integer getELimit() 
+  public Integer getELimit()
   {
     return eLimit;
   }
@@ -286,7 +278,7 @@ public class FState
     this.eLimit = eLimit;
   }
     
-  public Double getELimitCutGen() 
+  public Double getELimitCutGen()
   {
     return eLimitCutGen;
   }
@@ -296,7 +288,7 @@ public class FState
     this.eLimitCutGen = eLimitCutGen;
   }
     
-  public Double getELimitInsGen() 
+  public Double getELimitInsGen()
   {
     return eLimitInsGen;
   }
@@ -306,7 +298,7 @@ public class FState
     this.eLimitInsGen = eLimitInsGen;
   }
     
-  public Double getELimitCutLoad() 
+  public Double getELimitCutLoad()
   {
     return eLimitCutLoad;
   }
@@ -316,7 +308,7 @@ public class FState
     this.eLimitCutLoad = eLimitCutLoad;
   }
     
-  public Integer getELimitResult() 
+  public Integer getELimitResult()
   {
     return eLimitResult;
   }
@@ -326,7 +318,7 @@ public class FState
     this.eLimitResult = eLimitResult;
   }
     
-  public Integer getMaxFaultZone() 
+  public Integer getMaxFaultZone()
   {
     return maxFaultZone;
   }
@@ -336,7 +328,7 @@ public class FState
     this.maxFaultZone = maxFaultZone;
   }
     
-  public Double getMaxFaultRatio() 
+  public Double getMaxFaultRatio()
   {
     return maxFaultRatio;
   }
@@ -346,7 +338,7 @@ public class FState
     this.maxFaultRatio = maxFaultRatio;
   }
     
-  public Integer getFaultGrade() 
+  public Integer getFaultGrade()
   {
     return faultGrade;
   }
@@ -356,7 +348,7 @@ public class FState
     this.faultGrade = faultGrade;
   }
     
-  public Integer getMSoutIndex() 
+  public Integer getMSoutIndex()
   {
     return mSoutIndex;
   }
@@ -366,7 +358,7 @@ public class FState
     this.mSoutIndex = mSoutIndex;
   }
     
-  public Integer getEstimated() 
+  public Integer getEstimated()
   {
     return estimated;
   }
@@ -375,26 +367,38 @@ public class FState
   {
     this.estimated = estimated;
   }
-
-@Override
-public String toString() {
-	return "FState [id=" + id + ", memIndex=" + memIndex + ", sampleType="
-			+ sampleType + ", fDevNum=" + fDevNum + ", probability="
-			+ probability + ", durition=" + durition + ", stateNum=" + stateNum
-			+ ", fLossGen=" + fLossGen + ", fLossGenCap=" + fLossGenCap
-			+ ", fLossLoad=" + fLossLoad + ", mIsland=" + mIsland
-			+ ", mIslandInsGen=" + mIslandInsGen + ", mIslandCutGen="
-			+ mIslandCutGen + ", mIslandOutLoad=" + mIslandOutLoad
-			+ ", balanceInsGen=" + balanceInsGen + ", balanceCutGen="
-			+ balanceCutGen + ", balanceCutLoad=" + balanceCutLoad
-			+ ", overLimit=" + overLimit + ", eLimit=" + eLimit
-			+ ", eLimitCutGen=" + eLimitCutGen + ", eLimitInsGen="
-			+ eLimitInsGen + ", eLimitCutLoad=" + eLimitCutLoad
-			+ ", eLimitResult=" + eLimitResult + ", maxFaultZone="
-			+ maxFaultZone + ", maxFaultRatio=" + maxFaultRatio
-			+ ", faultGrade=" + faultGrade + ", mSoutIndex=" + mSoutIndex
-			+ ", estimated=" + estimated + "]";
-}
+    
+  public String toString()
+  {
+    return "FState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", sampleType = " + sampleType
+	 + ", fDevNum = " + fDevNum
+	 + ", probability = " + probability
+	 + ", durition = " + durition
+	 + ", stateNum = " + stateNum
+	 + ", fLossGen = " + fLossGen
+	 + ", fLossGenCap = " + fLossGenCap
+	 + ", fLossLoad = " + fLossLoad
+	 + ", mIsland = " + mIsland
+	 + ", mIslandInsGen = " + mIslandInsGen
+	 + ", mIslandCutGen = " + mIslandCutGen
+	 + ", mIslandOutLoad = " + mIslandOutLoad
+	 + ", balanceInsGen = " + balanceInsGen
+	 + ", balanceCutGen = " + balanceCutGen
+	 + ", balanceCutLoad = " + balanceCutLoad
+	 + ", overLimit = " + overLimit
+	 + ", eLimit = " + eLimit
+	 + ", eLimitCutGen = " + eLimitCutGen
+	 + ", eLimitInsGen = " + eLimitInsGen
+	 + ", eLimitCutLoad = " + eLimitCutLoad
+	 + ", eLimitResult = " + eLimitResult
+	 + ", maxFaultZone = " + maxFaultZone
+	 + ", maxFaultRatio = " + maxFaultRatio
+	 + ", faultGrade = " + faultGrade
+	 + ", mSoutIndex = " + mSoutIndex
+	 + ", estimated = " + estimated+"]";
+  }
     
 }
     

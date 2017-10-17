@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *系统	*
 ***********************/
-@Entity
 public class System
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -195,7 +187,7 @@ public class System
   //多状态设备数
   private Integer maxMSDevNum;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -205,7 +197,7 @@ public class System
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -215,7 +207,7 @@ public class System
     this.memIndex = memIndex;
   }
     
-  public Double getMvaBase() 
+  public Double getMvaBase()
   {
     return mvaBase;
   }
@@ -225,7 +217,7 @@ public class System
     this.mvaBase = mvaBase;
   }
     
-  public Double getGenP() 
+  public Double getGenP()
   {
     return genP;
   }
@@ -235,7 +227,7 @@ public class System
     this.genP = genP;
   }
     
-  public Double getLoadP() 
+  public Double getLoadP()
   {
     return loadP;
   }
@@ -245,7 +237,7 @@ public class System
     this.loadP = loadP;
   }
     
-  public Double getDCP() 
+  public Double getDCP()
   {
     return dCP;
   }
@@ -255,7 +247,7 @@ public class System
     this.dCP = dCP;
   }
     
-  public Double getAvailGenP() 
+  public Double getAvailGenP()
   {
     return availGenP;
   }
@@ -265,7 +257,7 @@ public class System
     this.availGenP = availGenP;
   }
     
-  public Double getMaxLoadP() 
+  public Double getMaxLoadP()
   {
     return maxLoadP;
   }
@@ -275,7 +267,7 @@ public class System
     this.maxLoadP = maxLoadP;
   }
     
-  public Integer getSampleMethod() 
+  public Integer getSampleMethod()
   {
     return sampleMethod;
   }
@@ -285,7 +277,7 @@ public class System
     this.sampleMethod = sampleMethod;
   }
     
-  public Integer getSampleObject() 
+  public Integer getSampleObject()
   {
     return sampleObject;
   }
@@ -295,7 +287,7 @@ public class System
     this.sampleObject = sampleObject;
   }
     
-  public Integer getMaxBranFlt() 
+  public Integer getMaxBranFlt()
   {
     return maxBranFlt;
   }
@@ -305,7 +297,7 @@ public class System
     this.maxBranFlt = maxBranFlt;
   }
     
-  public Integer getMaxGenFlt() 
+  public Integer getMaxGenFlt()
   {
     return maxGenFlt;
   }
@@ -315,7 +307,7 @@ public class System
     this.maxGenFlt = maxGenFlt;
   }
     
-  public Double getMCSSimulateTime() 
+  public Double getMCSSimulateTime()
   {
     return mCSSimulateTime;
   }
@@ -325,7 +317,7 @@ public class System
     this.mCSSimulateTime = mCSSimulateTime;
   }
     
-  public Double getMCSMinProb() 
+  public Double getMCSMinProb()
   {
     return mCSMinProb;
   }
@@ -335,7 +327,7 @@ public class System
     this.mCSMinProb = mCSMinProb;
   }
     
-  public Double getFSTCumulateProb() 
+  public Double getFSTCumulateProb()
   {
     return fSTCumulateProb;
   }
@@ -345,7 +337,7 @@ public class System
     this.fSTCumulateProb = fSTCumulateProb;
   }
     
-  public Integer getFSTMaxState() 
+  public Integer getFSTMaxState()
   {
     return fSTMaxState;
   }
@@ -355,7 +347,7 @@ public class System
     this.fSTMaxState = fSTMaxState;
   }
     
-  public Double getFSTMinProb() 
+  public Double getFSTMinProb()
   {
     return fSTMinProb;
   }
@@ -365,7 +357,7 @@ public class System
     this.fSTMinProb = fSTMinProb;
   }
     
-  public Integer getSTSMaxState() 
+  public Integer getSTSMaxState()
   {
     return sTSMaxState;
   }
@@ -375,7 +367,7 @@ public class System
     this.sTSMaxState = sTSMaxState;
   }
     
-  public Double getANAMinProb() 
+  public Double getANAMinProb()
   {
     return aNAMinProb;
   }
@@ -385,7 +377,7 @@ public class System
     this.aNAMinProb = aNAMinProb;
   }
     
-  public String getBpaDatFile() 
+  public String getBpaDatFile()
   {
     return bpaDatFile;
   }
@@ -395,7 +387,7 @@ public class System
     this.bpaDatFile = bpaDatFile;
   }
     
-  public String getBpaSwiFile() 
+  public String getBpaSwiFile()
   {
     return bpaSwiFile;
   }
@@ -405,7 +397,7 @@ public class System
     this.bpaSwiFile = bpaSwiFile;
   }
     
-  public String getSecurityExecDir() 
+  public String getSecurityExecDir()
   {
     return securityExecDir;
   }
@@ -415,7 +407,7 @@ public class System
     this.securityExecDir = securityExecDir;
   }
     
-  public String getSecurityDestDir() 
+  public String getSecurityDestDir()
   {
     return securityDestDir;
   }
@@ -425,7 +417,7 @@ public class System
     this.securityDestDir = securityDestDir;
   }
     
-  public Double getSecurityMaxAngle() 
+  public Double getSecurityMaxAngle()
   {
     return securityMaxAngle;
   }
@@ -435,7 +427,7 @@ public class System
     this.securityMaxAngle = securityMaxAngle;
   }
     
-  public Double getSecurityMaxVolt() 
+  public Double getSecurityMaxVolt()
   {
     return securityMaxVolt;
   }
@@ -445,7 +437,7 @@ public class System
     this.securityMaxVolt = securityMaxVolt;
   }
     
-  public Double getSecurityMaxVDur() 
+  public Double getSecurityMaxVDur()
   {
     return securityMaxVDur;
   }
@@ -455,7 +447,7 @@ public class System
     this.securityMaxVDur = securityMaxVDur;
   }
     
-  public Double getSecurityMinVolt() 
+  public Double getSecurityMinVolt()
   {
     return securityMinVolt;
   }
@@ -465,7 +457,7 @@ public class System
     this.securityMinVolt = securityMinVolt;
   }
     
-  public Double getSecurityMinVDur() 
+  public Double getSecurityMinVDur()
   {
     return securityMinVDur;
   }
@@ -475,7 +467,7 @@ public class System
     this.securityMinVDur = securityMinVDur;
   }
     
-  public Double getSecurityMaxFreq() 
+  public Double getSecurityMaxFreq()
   {
     return securityMaxFreq;
   }
@@ -485,7 +477,7 @@ public class System
     this.securityMaxFreq = securityMaxFreq;
   }
     
-  public Double getSecurityMaxFDur() 
+  public Double getSecurityMaxFDur()
   {
     return securityMaxFDur;
   }
@@ -495,7 +487,7 @@ public class System
     this.securityMaxFDur = securityMaxFDur;
   }
     
-  public Double getSecurityMinFreq() 
+  public Double getSecurityMinFreq()
   {
     return securityMinFreq;
   }
@@ -505,7 +497,7 @@ public class System
     this.securityMinFreq = securityMinFreq;
   }
     
-  public Double getSecurityMinFDur() 
+  public Double getSecurityMinFDur()
   {
     return securityMinFDur;
   }
@@ -515,7 +507,7 @@ public class System
     this.securityMinFDur = securityMinFDur;
   }
     
-  public Double getCopStep() 
+  public Double getCopStep()
   {
     return copStep;
   }
@@ -525,7 +517,7 @@ public class System
     this.copStep = copStep;
   }
     
-  public Integer getMaxFltDev() 
+  public Integer getMaxFltDev()
   {
     return maxFltDev;
   }
@@ -535,7 +527,7 @@ public class System
     this.maxFltDev = maxFltDev;
   }
     
-  public Integer getCutLoadStateNum() 
+  public Integer getCutLoadStateNum()
   {
     return cutLoadStateNum;
   }
@@ -545,7 +537,7 @@ public class System
     this.cutLoadStateNum = cutLoadStateNum;
   }
     
-  public Double getPLC() 
+  public Double getPLC()
   {
     return pLC;
   }
@@ -555,7 +547,7 @@ public class System
     this.pLC = pLC;
   }
     
-  public Double getEFLC() 
+  public Double getEFLC()
   {
     return eFLC;
   }
@@ -565,7 +557,7 @@ public class System
     this.eFLC = eFLC;
   }
     
-  public Double getEDLC() 
+  public Double getEDLC()
   {
     return eDLC;
   }
@@ -575,7 +567,7 @@ public class System
     this.eDLC = eDLC;
   }
     
-  public Double getADLC() 
+  public Double getADLC()
   {
     return aDLC;
   }
@@ -585,7 +577,7 @@ public class System
     this.aDLC = aDLC;
   }
     
-  public Double getELC() 
+  public Double getELC()
   {
     return eLC;
   }
@@ -595,7 +587,7 @@ public class System
     this.eLC = eLC;
   }
     
-  public Double getEENS() 
+  public Double getEENS()
   {
     return eENS;
   }
@@ -605,7 +597,7 @@ public class System
     this.eENS = eENS;
   }
     
-  public Double getBPII() 
+  public Double getBPII()
   {
     return bPII;
   }
@@ -615,7 +607,7 @@ public class System
     this.bPII = bPII;
   }
     
-  public Double getBPECI() 
+  public Double getBPECI()
   {
     return bPECI;
   }
@@ -625,7 +617,7 @@ public class System
     this.bPECI = bPECI;
   }
     
-  public Double getSI() 
+  public Double getSI()
   {
     return sI;
   }
@@ -635,7 +627,7 @@ public class System
     this.sI = sI;
   }
     
-  public Double getLOLP() 
+  public Double getLOLP()
   {
     return lOLP;
   }
@@ -645,7 +637,7 @@ public class System
     this.lOLP = lOLP;
   }
     
-  public Double getLOLF() 
+  public Double getLOLF()
   {
     return lOLF;
   }
@@ -655,7 +647,7 @@ public class System
     this.lOLF = lOLF;
   }
     
-  public Double getLOLE() 
+  public Double getLOLE()
   {
     return lOLE;
   }
@@ -665,7 +657,7 @@ public class System
     this.lOLE = lOLE;
   }
     
-  public Double getPLOS() 
+  public Double getPLOS()
   {
     return pLOS;
   }
@@ -675,7 +667,7 @@ public class System
     this.pLOS = pLOS;
   }
     
-  public Double getFLOS() 
+  public Double getFLOS()
   {
     return fLOS;
   }
@@ -685,7 +677,7 @@ public class System
     this.fLOS = fLOS;
   }
     
-  public Double getMTTIS() 
+  public Double getMTTIS()
   {
     return mTTIS;
   }
@@ -695,7 +687,7 @@ public class System
     this.mTTIS = mTTIS;
   }
     
-  public Double getMIslandEENS() 
+  public Double getMIslandEENS()
   {
     return mIslandEENS;
   }
@@ -705,7 +697,7 @@ public class System
     this.mIslandEENS = mIslandEENS;
   }
     
-  public Double getLossGenEENS() 
+  public Double getLossGenEENS()
   {
     return lossGenEENS;
   }
@@ -715,7 +707,7 @@ public class System
     this.lossGenEENS = lossGenEENS;
   }
     
-  public Double getERlimitEENS() 
+  public Double getERlimitEENS()
   {
     return eRlimitEENS;
   }
@@ -725,7 +717,7 @@ public class System
     this.eRlimitEENS = eRlimitEENS;
   }
     
-  public Integer getNetworkType() 
+  public Integer getNetworkType()
   {
     return networkType;
   }
@@ -735,7 +727,7 @@ public class System
     this.networkType = networkType;
   }
     
-  public Double getFltGrade0Prob() 
+  public Double getFltGrade0Prob()
   {
     return fltGrade0Prob;
   }
@@ -745,7 +737,7 @@ public class System
     this.fltGrade0Prob = fltGrade0Prob;
   }
     
-  public Double getFltGrade1Prob() 
+  public Double getFltGrade1Prob()
   {
     return fltGrade1Prob;
   }
@@ -755,7 +747,7 @@ public class System
     this.fltGrade1Prob = fltGrade1Prob;
   }
     
-  public Double getFltGrade2Prob() 
+  public Double getFltGrade2Prob()
   {
     return fltGrade2Prob;
   }
@@ -765,7 +757,7 @@ public class System
     this.fltGrade2Prob = fltGrade2Prob;
   }
     
-  public Double getFltGrade3Prob() 
+  public Double getFltGrade3Prob()
   {
     return fltGrade3Prob;
   }
@@ -775,7 +767,7 @@ public class System
     this.fltGrade3Prob = fltGrade3Prob;
   }
     
-  public Double getFltGrade4Prob() 
+  public Double getFltGrade4Prob()
   {
     return fltGrade4Prob;
   }
@@ -785,7 +777,7 @@ public class System
     this.fltGrade4Prob = fltGrade4Prob;
   }
     
-  public Integer getLoadCurvePace() 
+  public Integer getLoadCurvePace()
   {
     return loadCurvePace;
   }
@@ -795,7 +787,7 @@ public class System
     this.loadCurvePace = loadCurvePace;
   }
     
-  public Integer getMaxMSDevNum() 
+  public Integer getMaxMSDevNum()
   {
     return maxMSDevNum;
   }
@@ -803,6 +795,71 @@ public class System
   public void setMaxMSDevNum(Integer maxMSDevNum)
   {
     this.maxMSDevNum = maxMSDevNum;
+  }
+    
+  public String toString()
+  {
+    return "System ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", mvaBase = " + mvaBase
+	 + ", genP = " + genP
+	 + ", loadP = " + loadP
+	 + ", dCP = " + dCP
+	 + ", availGenP = " + availGenP
+	 + ", maxLoadP = " + maxLoadP
+	 + ", sampleMethod = " + sampleMethod
+	 + ", sampleObject = " + sampleObject
+	 + ", maxBranFlt = " + maxBranFlt
+	 + ", maxGenFlt = " + maxGenFlt
+	 + ", mCSSimulateTime = " + mCSSimulateTime
+	 + ", mCSMinProb = " + mCSMinProb
+	 + ", fSTCumulateProb = " + fSTCumulateProb
+	 + ", fSTMaxState = " + fSTMaxState
+	 + ", fSTMinProb = " + fSTMinProb
+	 + ", sTSMaxState = " + sTSMaxState
+	 + ", aNAMinProb = " + aNAMinProb
+	 + ", bpaDatFile = " + bpaDatFile
+	 + ", bpaSwiFile = " + bpaSwiFile
+	 + ", securityExecDir = " + securityExecDir
+	 + ", securityDestDir = " + securityDestDir
+	 + ", securityMaxAngle = " + securityMaxAngle
+	 + ", securityMaxVolt = " + securityMaxVolt
+	 + ", securityMaxVDur = " + securityMaxVDur
+	 + ", securityMinVolt = " + securityMinVolt
+	 + ", securityMinVDur = " + securityMinVDur
+	 + ", securityMaxFreq = " + securityMaxFreq
+	 + ", securityMaxFDur = " + securityMaxFDur
+	 + ", securityMinFreq = " + securityMinFreq
+	 + ", securityMinFDur = " + securityMinFDur
+	 + ", copStep = " + copStep
+	 + ", maxFltDev = " + maxFltDev
+	 + ", cutLoadStateNum = " + cutLoadStateNum
+	 + ", pLC = " + pLC
+	 + ", eFLC = " + eFLC
+	 + ", eDLC = " + eDLC
+	 + ", aDLC = " + aDLC
+	 + ", eLC = " + eLC
+	 + ", eENS = " + eENS
+	 + ", bPII = " + bPII
+	 + ", bPECI = " + bPECI
+	 + ", sI = " + sI
+	 + ", lOLP = " + lOLP
+	 + ", lOLF = " + lOLF
+	 + ", lOLE = " + lOLE
+	 + ", pLOS = " + pLOS
+	 + ", fLOS = " + fLOS
+	 + ", mTTIS = " + mTTIS
+	 + ", mIslandEENS = " + mIslandEENS
+	 + ", lossGenEENS = " + lossGenEENS
+	 + ", eRlimitEENS = " + eRlimitEENS
+	 + ", networkType = " + networkType
+	 + ", fltGrade0Prob = " + fltGrade0Prob
+	 + ", fltGrade1Prob = " + fltGrade1Prob
+	 + ", fltGrade2Prob = " + fltGrade2Prob
+	 + ", fltGrade3Prob = " + fltGrade3Prob
+	 + ", fltGrade4Prob = " + fltGrade4Prob
+	 + ", loadCurvePace = " + loadCurvePace
+	 + ", maxMSDevNum = " + maxMSDevNum+"]";
   }
     
 }

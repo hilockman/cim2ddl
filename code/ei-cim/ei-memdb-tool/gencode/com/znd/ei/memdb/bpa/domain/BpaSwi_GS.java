@@ -240,24 +240,24 @@ public class BpaSwi_GS
     
   public String toString()
   {
-    return "BpaSwi_GS ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gen_Pmax"=gen_Pmax,
-	"gen_Pmin"=gen_Pmin,
-	"gS_R"=gS_R,
-	"gS_T1"=gS_T1,
-	"gS_T2"=gS_T2,
-	"gS_T3"=gS_T3,
-	"gS_VELopen"=gS_VELopen,
-	"gS_VELclose"=gS_VELclose,
-	"gS_E"=gS_E,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GS ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", gS_R = " + gS_R
+	 + ", gS_T1 = " + gS_T1
+	 + ", gS_T2 = " + gS_T2
+	 + ", gS_T3 = " + gS_T3
+	 + ", gS_VELopen = " + gS_VELopen
+	 + ", gS_VELclose = " + gS_VELclose
+	 + ", gS_E = " + gS_E
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

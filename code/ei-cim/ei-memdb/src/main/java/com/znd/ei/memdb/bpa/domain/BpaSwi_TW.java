@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *水轮机模型表(TW)	*
 ***********************/
-@Entity
 public class BpaSwi_TW
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -48,7 +40,7 @@ public class BpaSwi_TW
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -58,7 +50,7 @@ public class BpaSwi_TW
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -68,7 +60,7 @@ public class BpaSwi_TW
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -78,7 +70,7 @@ public class BpaSwi_TW
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -88,7 +80,7 @@ public class BpaSwi_TW
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -98,7 +90,7 @@ public class BpaSwi_TW
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -108,7 +100,7 @@ public class BpaSwi_TW
     this.gen_ID = gen_ID;
   }
     
-  public Double getTW_K1() 
+  public Double getTW_K1()
   {
     return tW_K1;
   }
@@ -118,7 +110,7 @@ public class BpaSwi_TW
     this.tW_K1 = tW_K1;
   }
     
-  public Double getTW_Tw_Half() 
+  public Double getTW_Tw_Half()
   {
     return tW_Tw_Half;
   }
@@ -128,7 +120,7 @@ public class BpaSwi_TW
     this.tW_Tw_Half = tW_Tw_Half;
   }
     
-  public Double getTW_K3() 
+  public Double getTW_K3()
   {
     return tW_K3;
   }
@@ -138,7 +130,7 @@ public class BpaSwi_TW
     this.tW_K3 = tW_K3;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -148,7 +140,7 @@ public class BpaSwi_TW
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -158,7 +150,7 @@ public class BpaSwi_TW
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -166,6 +158,22 @@ public class BpaSwi_TW
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_TW ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tW_K1 = " + tW_K1
+	 + ", tW_Tw_Half = " + tW_Tw_Half
+	 + ", tW_K3 = " + tW_K3
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

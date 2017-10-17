@@ -84,12 +84,12 @@ public class WindEdge
     
   public String toString()
   {
-    return "WindEdge ["+	"id"=id,
-	"memIndex"=memIndex,
-	"bus"=bus,
-	"kV"=kV,
-	"name"=name,
-	"tranPtr"=tranPtr+"]"
+    return "WindEdge ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", bus = " + bus
+	 + ", kV = " + kV
+	 + ", name = " + name
+	 + ", tranPtr = " + tranPtr+"]";
   }
     
 }

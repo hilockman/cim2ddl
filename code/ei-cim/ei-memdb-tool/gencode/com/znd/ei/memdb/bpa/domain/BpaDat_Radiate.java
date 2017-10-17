@@ -110,14 +110,14 @@ public class BpaDat_Radiate
     
   public String toString()
   {
-    return "BpaDat_Radiate ["+	"id"=id,
-	"memIndex"=memIndex,
-	"boundBusName"=boundBusName,
-	"boundBuskV"=boundBuskV,
-	"genP"=genP,
-	"loadP"=loadP,
-	"loadQ"=loadQ,
-	"iRBoundBus"=iRBoundBus+"]"
+    return "BpaDat_Radiate ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", boundBusName = " + boundBusName
+	 + ", boundBuskV = " + boundBuskV
+	 + ", genP = " + genP
+	 + ", loadP = " + loadP
+	 + ", loadQ = " + loadQ
+	 + ", iRBoundBus = " + iRBoundBus+"]";
   }
     
 }

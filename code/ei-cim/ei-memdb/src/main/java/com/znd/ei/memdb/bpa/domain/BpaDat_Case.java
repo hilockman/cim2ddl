@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *潮流控制语句	*
 ***********************/
-@Entity
 public class BpaDat_Case
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -117,7 +109,7 @@ public class BpaDat_Case
   //直流换流器损耗
   private Double totDCLoss;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -127,7 +119,7 @@ public class BpaDat_Case
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -137,7 +129,7 @@ public class BpaDat_Case
     this.memIndex = memIndex;
   }
     
-  public String getCase_CaseID() 
+  public String getCase_CaseID()
   {
     return case_CaseID;
   }
@@ -147,7 +139,7 @@ public class BpaDat_Case
     this.case_CaseID = case_CaseID;
   }
     
-  public String getCase_Project() 
+  public String getCase_Project()
   {
     return case_Project;
   }
@@ -157,7 +149,7 @@ public class BpaDat_Case
     this.case_Project = case_Project;
   }
     
-  public Double getCase_MVABase() 
+  public Double getCase_MVABase()
   {
     return case_MVABase;
   }
@@ -167,7 +159,7 @@ public class BpaDat_Case
     this.case_MVABase = case_MVABase;
   }
     
-  public String getCase_Control() 
+  public String getCase_Control()
   {
     return case_Control;
   }
@@ -177,7 +169,7 @@ public class BpaDat_Case
     this.case_Control = case_Control;
   }
     
-  public String getCase_Branch() 
+  public String getCase_Branch()
   {
     return case_Branch;
   }
@@ -187,7 +179,7 @@ public class BpaDat_Case
     this.case_Branch = case_Branch;
   }
     
-  public String getCase_Bus() 
+  public String getCase_Bus()
   {
     return case_Bus;
   }
@@ -197,7 +189,7 @@ public class BpaDat_Case
     this.case_Bus = case_Bus;
   }
     
-  public String getCase_Network() 
+  public String getCase_Network()
   {
     return case_Network;
   }
@@ -207,7 +199,7 @@ public class BpaDat_Case
     this.case_Network = case_Network;
   }
     
-  public Integer getCase_RXCheck() 
+  public Integer getCase_RXCheck()
   {
     return case_RXCheck;
   }
@@ -217,7 +209,7 @@ public class BpaDat_Case
     this.case_RXCheck = case_RXCheck;
   }
     
-  public String getCase_NewBase() 
+  public String getCase_NewBase()
   {
     return case_NewBase;
   }
@@ -227,7 +219,7 @@ public class BpaDat_Case
     this.case_NewBase = case_NewBase;
   }
     
-  public String getCase_OldBase() 
+  public String getCase_OldBase()
   {
     return case_OldBase;
   }
@@ -237,7 +229,7 @@ public class BpaDat_Case
     this.case_OldBase = case_OldBase;
   }
     
-  public String getCase_Map() 
+  public String getCase_Map()
   {
     return case_Map;
   }
@@ -247,7 +239,7 @@ public class BpaDat_Case
     this.case_Map = case_Map;
   }
     
-  public Integer getCase_AIControl() 
+  public Integer getCase_AIControl()
   {
     return case_AIControl;
   }
@@ -257,7 +249,7 @@ public class BpaDat_Case
     this.case_AIControl = case_AIControl;
   }
     
-  public Integer getCase_LTC() 
+  public Integer getCase_LTC()
   {
     return case_LTC;
   }
@@ -267,7 +259,7 @@ public class BpaDat_Case
     this.case_LTC = case_LTC;
   }
     
-  public Integer getCase_DecoupledNum() 
+  public Integer getCase_DecoupledNum()
   {
     return case_DecoupledNum;
   }
@@ -277,7 +269,7 @@ public class BpaDat_Case
     this.case_DecoupledNum = case_DecoupledNum;
   }
     
-  public Integer getCase_CurrentNum() 
+  public Integer getCase_CurrentNum()
   {
     return case_CurrentNum;
   }
@@ -287,7 +279,7 @@ public class BpaDat_Case
     this.case_CurrentNum = case_CurrentNum;
   }
     
-  public Integer getCase_NewtonNum() 
+  public Integer getCase_NewtonNum()
   {
     return case_NewtonNum;
   }
@@ -297,7 +289,7 @@ public class BpaDat_Case
     this.case_NewtonNum = case_NewtonNum;
   }
     
-  public Integer getCase_OptimNum() 
+  public Integer getCase_OptimNum()
   {
     return case_OptimNum;
   }
@@ -307,7 +299,7 @@ public class BpaDat_Case
     this.case_OptimNum = case_OptimNum;
   }
     
-  public Double getCase_ToleranceBusV() 
+  public Double getCase_ToleranceBusV()
   {
     return case_ToleranceBusV;
   }
@@ -317,7 +309,7 @@ public class BpaDat_Case
     this.case_ToleranceBusV = case_ToleranceBusV;
   }
     
-  public Double getCase_ToleranceAIPower() 
+  public Double getCase_ToleranceAIPower()
   {
     return case_ToleranceAIPower;
   }
@@ -327,7 +319,7 @@ public class BpaDat_Case
     this.case_ToleranceAIPower = case_ToleranceAIPower;
   }
     
-  public Double getCase_ToleranceTX() 
+  public Double getCase_ToleranceTX()
   {
     return case_ToleranceTX;
   }
@@ -337,7 +329,7 @@ public class BpaDat_Case
     this.case_ToleranceTX = case_ToleranceTX;
   }
     
-  public Double getCase_ToleranceQ() 
+  public Double getCase_ToleranceQ()
   {
     return case_ToleranceQ;
   }
@@ -347,7 +339,7 @@ public class BpaDat_Case
     this.case_ToleranceQ = case_ToleranceQ;
   }
     
-  public Double getCase_ToleranceOpcut() 
+  public Double getCase_ToleranceOpcut()
   {
     return case_ToleranceOpcut;
   }
@@ -357,7 +349,7 @@ public class BpaDat_Case
     this.case_ToleranceOpcut = case_ToleranceOpcut;
   }
     
-  public Integer getCase_RptSort() 
+  public Integer getCase_RptSort()
   {
     return case_RptSort;
   }
@@ -367,7 +359,7 @@ public class BpaDat_Case
     this.case_RptSort = case_RptSort;
   }
     
-  public Integer getCase_AnalysisRpt() 
+  public Integer getCase_AnalysisRpt()
   {
     return case_AnalysisRpt;
   }
@@ -377,7 +369,7 @@ public class BpaDat_Case
     this.case_AnalysisRpt = case_AnalysisRpt;
   }
     
-  public Integer getIslandNum() 
+  public Integer getIslandNum()
   {
     return islandNum;
   }
@@ -387,7 +379,7 @@ public class BpaDat_Case
     this.islandNum = islandNum;
   }
     
-  public Double getTotGenP() 
+  public Double getTotGenP()
   {
     return totGenP;
   }
@@ -397,7 +389,7 @@ public class BpaDat_Case
     this.totGenP = totGenP;
   }
     
-  public Double getTotGenQ() 
+  public Double getTotGenQ()
   {
     return totGenQ;
   }
@@ -407,7 +399,7 @@ public class BpaDat_Case
     this.totGenQ = totGenQ;
   }
     
-  public Double getTotLoadP() 
+  public Double getTotLoadP()
   {
     return totLoadP;
   }
@@ -417,7 +409,7 @@ public class BpaDat_Case
     this.totLoadP = totLoadP;
   }
     
-  public Double getTotLoadQ() 
+  public Double getTotLoadQ()
   {
     return totLoadQ;
   }
@@ -427,7 +419,7 @@ public class BpaDat_Case
     this.totLoadQ = totLoadQ;
   }
     
-  public Double getTotLineCap() 
+  public Double getTotLineCap()
   {
     return totLineCap;
   }
@@ -437,7 +429,7 @@ public class BpaDat_Case
     this.totLineCap = totLineCap;
   }
     
-  public Double getTotLossP() 
+  public Double getTotLossP()
   {
     return totLossP;
   }
@@ -447,7 +439,7 @@ public class BpaDat_Case
     this.totLossP = totLossP;
   }
     
-  public Double getTotLossQ() 
+  public Double getTotLossQ()
   {
     return totLossQ;
   }
@@ -457,7 +449,7 @@ public class BpaDat_Case
     this.totLossQ = totLossQ;
   }
     
-  public Double getTotDCLoss() 
+  public Double getTotDCLoss()
   {
     return totDCLoss;
   }
@@ -465,6 +457,45 @@ public class BpaDat_Case
   public void setTotDCLoss(Double totDCLoss)
   {
     this.totDCLoss = totDCLoss;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Case ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", case_CaseID = " + case_CaseID
+	 + ", case_Project = " + case_Project
+	 + ", case_MVABase = " + case_MVABase
+	 + ", case_Control = " + case_Control
+	 + ", case_Branch = " + case_Branch
+	 + ", case_Bus = " + case_Bus
+	 + ", case_Network = " + case_Network
+	 + ", case_RXCheck = " + case_RXCheck
+	 + ", case_NewBase = " + case_NewBase
+	 + ", case_OldBase = " + case_OldBase
+	 + ", case_Map = " + case_Map
+	 + ", case_AIControl = " + case_AIControl
+	 + ", case_LTC = " + case_LTC
+	 + ", case_DecoupledNum = " + case_DecoupledNum
+	 + ", case_CurrentNum = " + case_CurrentNum
+	 + ", case_NewtonNum = " + case_NewtonNum
+	 + ", case_OptimNum = " + case_OptimNum
+	 + ", case_ToleranceBusV = " + case_ToleranceBusV
+	 + ", case_ToleranceAIPower = " + case_ToleranceAIPower
+	 + ", case_ToleranceTX = " + case_ToleranceTX
+	 + ", case_ToleranceQ = " + case_ToleranceQ
+	 + ", case_ToleranceOpcut = " + case_ToleranceOpcut
+	 + ", case_RptSort = " + case_RptSort
+	 + ", case_AnalysisRpt = " + case_AnalysisRpt
+	 + ", islandNum = " + islandNum
+	 + ", totGenP = " + totGenP
+	 + ", totGenQ = " + totGenQ
+	 + ", totLoadP = " + totLoadP
+	 + ", totLoadQ = " + totLoadQ
+	 + ", totLineCap = " + totLineCap
+	 + ", totLossP = " + totLossP
+	 + ", totLossQ = " + totLossQ
+	 + ", totDCLoss = " + totDCLoss+"]";
   }
     
 }

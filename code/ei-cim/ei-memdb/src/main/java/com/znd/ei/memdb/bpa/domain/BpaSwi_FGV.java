@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机机械功率周期波动表(FGV)	*
 ***********************/
-@Entity
 public class BpaSwi_FGV
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -69,7 +61,7 @@ public class BpaSwi_FGV
   //发电机母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -79,7 +71,7 @@ public class BpaSwi_FGV
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -89,7 +81,7 @@ public class BpaSwi_FGV
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -99,7 +91,7 @@ public class BpaSwi_FGV
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -109,7 +101,7 @@ public class BpaSwi_FGV
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -119,7 +111,7 @@ public class BpaSwi_FGV
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -129,7 +121,7 @@ public class BpaSwi_FGV
     this.gen_ID = gen_ID;
   }
     
-  public Double getFGV_AMP1() 
+  public Double getFGV_AMP1()
   {
     return fGV_AMP1;
   }
@@ -139,7 +131,7 @@ public class BpaSwi_FGV
     this.fGV_AMP1 = fGV_AMP1;
   }
     
-  public Double getFGV_FREQ1() 
+  public Double getFGV_FREQ1()
   {
     return fGV_FREQ1;
   }
@@ -149,7 +141,7 @@ public class BpaSwi_FGV
     this.fGV_FREQ1 = fGV_FREQ1;
   }
     
-  public Double getFGV_ANGL01() 
+  public Double getFGV_ANGL01()
   {
     return fGV_ANGL01;
   }
@@ -159,7 +151,7 @@ public class BpaSwi_FGV
     this.fGV_ANGL01 = fGV_ANGL01;
   }
     
-  public Double getFGV_TBEGIN1() 
+  public Double getFGV_TBEGIN1()
   {
     return fGV_TBEGIN1;
   }
@@ -169,7 +161,7 @@ public class BpaSwi_FGV
     this.fGV_TBEGIN1 = fGV_TBEGIN1;
   }
     
-  public Double getFGV_TEND1() 
+  public Double getFGV_TEND1()
   {
     return fGV_TEND1;
   }
@@ -179,7 +171,7 @@ public class BpaSwi_FGV
     this.fGV_TEND1 = fGV_TEND1;
   }
     
-  public Double getFGV_AMP2() 
+  public Double getFGV_AMP2()
   {
     return fGV_AMP2;
   }
@@ -189,7 +181,7 @@ public class BpaSwi_FGV
     this.fGV_AMP2 = fGV_AMP2;
   }
     
-  public Double getFGV_FREQ2() 
+  public Double getFGV_FREQ2()
   {
     return fGV_FREQ2;
   }
@@ -199,7 +191,7 @@ public class BpaSwi_FGV
     this.fGV_FREQ2 = fGV_FREQ2;
   }
     
-  public Double getFGV_ANGL02() 
+  public Double getFGV_ANGL02()
   {
     return fGV_ANGL02;
   }
@@ -209,7 +201,7 @@ public class BpaSwi_FGV
     this.fGV_ANGL02 = fGV_ANGL02;
   }
     
-  public Double getFGV_TBEGIN2() 
+  public Double getFGV_TBEGIN2()
   {
     return fGV_TBEGIN2;
   }
@@ -219,7 +211,7 @@ public class BpaSwi_FGV
     this.fGV_TBEGIN2 = fGV_TBEGIN2;
   }
     
-  public Double getFGV_TEND2() 
+  public Double getFGV_TEND2()
   {
     return fGV_TEND2;
   }
@@ -229,7 +221,7 @@ public class BpaSwi_FGV
     this.fGV_TEND2 = fGV_TEND2;
   }
     
-  public Integer getFGV_CMW() 
+  public Integer getFGV_CMW()
   {
     return fGV_CMW;
   }
@@ -239,7 +231,7 @@ public class BpaSwi_FGV
     this.fGV_CMW = fGV_CMW;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -249,7 +241,7 @@ public class BpaSwi_FGV
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -257,6 +249,29 @@ public class BpaSwi_FGV
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_FGV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", fGV_AMP1 = " + fGV_AMP1
+	 + ", fGV_FREQ1 = " + fGV_FREQ1
+	 + ", fGV_ANGL01 = " + fGV_ANGL01
+	 + ", fGV_TBEGIN1 = " + fGV_TBEGIN1
+	 + ", fGV_TEND1 = " + fGV_TEND1
+	 + ", fGV_AMP2 = " + fGV_AMP2
+	 + ", fGV_FREQ2 = " + fGV_FREQ2
+	 + ", fGV_ANGL02 = " + fGV_ANGL02
+	 + ", fGV_TBEGIN2 = " + fGV_TBEGIN2
+	 + ", fGV_TEND2 = " + fGV_TEND2
+	 + ", fGV_CMW = " + fGV_CMW
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

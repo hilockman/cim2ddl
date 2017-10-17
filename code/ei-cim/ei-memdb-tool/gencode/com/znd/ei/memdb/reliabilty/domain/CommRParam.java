@@ -136,16 +136,16 @@ public class CommRParam
     
   public String toString()
   {
-    return "CommRParam ["+	"id"=id,
-	"memIndex"=memIndex,
-	"devType"=devType,
-	"keyWord"=keyWord,
-	"upCapLmt"=upCapLmt,
-	"dnCapLmt"=dnCapLmt,
-	"upVLmt"=upVLmt,
-	"dnVLmt"=dnVLmt,
-	"rerr"=rerr,
-	"trep"=trep+"]"
+    return "CommRParam ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", devType = " + devType
+	 + ", keyWord = " + keyWord
+	 + ", upCapLmt = " + upCapLmt
+	 + ", dnCapLmt = " + dnCapLmt
+	 + ", upVLmt = " + upVLmt
+	 + ", dnVLmt = " + dnVLmt
+	 + ", rerr = " + rerr
+	 + ", trep = " + trep+"]";
   }
     
 }

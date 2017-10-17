@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *BPA厂站表(BPASub)	*
 ***********************/
-@Entity
 public class BpaDat_Sub
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -42,7 +34,7 @@ public class BpaDat_Sub
   //厂站补偿无功
   private Double sub_ShuntQ;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -52,7 +44,7 @@ public class BpaDat_Sub
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -62,7 +54,7 @@ public class BpaDat_Sub
     this.memIndex = memIndex;
   }
     
-  public String getSub_Name() 
+  public String getSub_Name()
   {
     return sub_Name;
   }
@@ -72,7 +64,7 @@ public class BpaDat_Sub
     this.sub_Name = sub_Name;
   }
     
-  public String getSub_Alias() 
+  public String getSub_Alias()
   {
     return sub_Alias;
   }
@@ -82,7 +74,7 @@ public class BpaDat_Sub
     this.sub_Alias = sub_Alias;
   }
     
-  public Integer getSub_Type() 
+  public Integer getSub_Type()
   {
     return sub_Type;
   }
@@ -92,7 +84,7 @@ public class BpaDat_Sub
     this.sub_Type = sub_Type;
   }
     
-  public Double getSub_GenP() 
+  public Double getSub_GenP()
   {
     return sub_GenP;
   }
@@ -102,7 +94,7 @@ public class BpaDat_Sub
     this.sub_GenP = sub_GenP;
   }
     
-  public Double getSub_GenQ() 
+  public Double getSub_GenQ()
   {
     return sub_GenQ;
   }
@@ -112,7 +104,7 @@ public class BpaDat_Sub
     this.sub_GenQ = sub_GenQ;
   }
     
-  public Double getSub_LoadP() 
+  public Double getSub_LoadP()
   {
     return sub_LoadP;
   }
@@ -122,7 +114,7 @@ public class BpaDat_Sub
     this.sub_LoadP = sub_LoadP;
   }
     
-  public Double getSub_LoadQ() 
+  public Double getSub_LoadQ()
   {
     return sub_LoadQ;
   }
@@ -132,7 +124,7 @@ public class BpaDat_Sub
     this.sub_LoadQ = sub_LoadQ;
   }
     
-  public Double getSub_ShuntQ() 
+  public Double getSub_ShuntQ()
   {
     return sub_ShuntQ;
   }
@@ -140,6 +132,20 @@ public class BpaDat_Sub
   public void setSub_ShuntQ(Double sub_ShuntQ)
   {
     this.sub_ShuntQ = sub_ShuntQ;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Sub ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", sub_Name = " + sub_Name
+	 + ", sub_Alias = " + sub_Alias
+	 + ", sub_Type = " + sub_Type
+	 + ", sub_GenP = " + sub_GenP
+	 + ", sub_GenQ = " + sub_GenQ
+	 + ", sub_LoadP = " + sub_LoadP
+	 + ", sub_LoadQ = " + sub_LoadQ
+	 + ", sub_ShuntQ = " + sub_ShuntQ+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *直流母线表(DCBus)	*
 ***********************/
-@Entity
 public class BpaDat_DCBus
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -96,7 +88,7 @@ public class BpaDat_DCBus
   //状态
   private Integer status;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -106,7 +98,7 @@ public class BpaDat_DCBus
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -116,7 +108,7 @@ public class BpaDat_DCBus
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -126,7 +118,7 @@ public class BpaDat_DCBus
     this.cardKey = cardKey;
   }
     
-  public String getDCBus_Owner() 
+  public String getDCBus_Owner()
   {
     return dCBus_Owner;
   }
@@ -136,7 +128,7 @@ public class BpaDat_DCBus
     this.dCBus_Owner = dCBus_Owner;
   }
     
-  public String getDCBus_Name() 
+  public String getDCBus_Name()
   {
     return dCBus_Name;
   }
@@ -146,7 +138,7 @@ public class BpaDat_DCBus
     this.dCBus_Name = dCBus_Name;
   }
     
-  public Double getDCBus_kV() 
+  public Double getDCBus_kV()
   {
     return dCBus_kV;
   }
@@ -156,7 +148,7 @@ public class BpaDat_DCBus
     this.dCBus_kV = dCBus_kV;
   }
     
-  public String getDCBus_Zone() 
+  public String getDCBus_Zone()
   {
     return dCBus_Zone;
   }
@@ -166,7 +158,7 @@ public class BpaDat_DCBus
     this.dCBus_Zone = dCBus_Zone;
   }
     
-  public Integer getDCBus_BRDGS() 
+  public Integer getDCBus_BRDGS()
   {
     return dCBus_BRDGS;
   }
@@ -176,7 +168,7 @@ public class BpaDat_DCBus
     this.dCBus_BRDGS = dCBus_BRDGS;
   }
     
-  public Double getDCBus_SMTHGREACTOR() 
+  public Double getDCBus_SMTHGREACTOR()
   {
     return dCBus_SMTHGREACTOR;
   }
@@ -186,7 +178,7 @@ public class BpaDat_DCBus
     this.dCBus_SMTHGREACTOR = dCBus_SMTHGREACTOR;
   }
     
-  public Double getDCBus_ROPERMIN() 
+  public Double getDCBus_ROPERMIN()
   {
     return dCBus_ROPERMIN;
   }
@@ -196,7 +188,7 @@ public class BpaDat_DCBus
     this.dCBus_ROPERMIN = dCBus_ROPERMIN;
   }
     
-  public Double getDCBus_IOPERSTOP() 
+  public Double getDCBus_IOPERSTOP()
   {
     return dCBus_IOPERSTOP;
   }
@@ -206,7 +198,7 @@ public class BpaDat_DCBus
     this.dCBus_IOPERSTOP = dCBus_IOPERSTOP;
   }
     
-  public Double getDCBus_DROP() 
+  public Double getDCBus_DROP()
   {
     return dCBus_DROP;
   }
@@ -216,7 +208,7 @@ public class BpaDat_DCBus
     this.dCBus_DROP = dCBus_DROP;
   }
     
-  public Double getDCBus_BRDGRATE() 
+  public Double getDCBus_BRDGRATE()
   {
     return dCBus_BRDGRATE;
   }
@@ -226,7 +218,7 @@ public class BpaDat_DCBus
     this.dCBus_BRDGRATE = dCBus_BRDGRATE;
   }
     
-  public String getDCBus_ACName() 
+  public String getDCBus_ACName()
   {
     return dCBus_ACName;
   }
@@ -236,7 +228,7 @@ public class BpaDat_DCBus
     this.dCBus_ACName = dCBus_ACName;
   }
     
-  public Double getDCBus_ACkV() 
+  public Double getDCBus_ACkV()
   {
     return dCBus_ACkV;
   }
@@ -246,7 +238,7 @@ public class BpaDat_DCBus
     this.dCBus_ACkV = dCBus_ACkV;
   }
     
-  public Double getDCBus_V() 
+  public Double getDCBus_V()
   {
     return dCBus_V;
   }
@@ -256,7 +248,7 @@ public class BpaDat_DCBus
     this.dCBus_V = dCBus_V;
   }
     
-  public Double getDCBus_D() 
+  public Double getDCBus_D()
   {
     return dCBus_D;
   }
@@ -266,7 +258,7 @@ public class BpaDat_DCBus
     this.dCBus_D = dCBus_D;
   }
     
-  public Double getDCBus_P() 
+  public Double getDCBus_P()
   {
     return dCBus_P;
   }
@@ -276,7 +268,7 @@ public class BpaDat_DCBus
     this.dCBus_P = dCBus_P;
   }
     
-  public Double getDCBus_I() 
+  public Double getDCBus_I()
   {
     return dCBus_I;
   }
@@ -286,7 +278,7 @@ public class BpaDat_DCBus
     this.dCBus_I = dCBus_I;
   }
     
-  public Double getDCBus_LossP() 
+  public Double getDCBus_LossP()
   {
     return dCBus_LossP;
   }
@@ -296,7 +288,7 @@ public class BpaDat_DCBus
     this.dCBus_LossP = dCBus_LossP;
   }
     
-  public Double getDCBus_LossQ() 
+  public Double getDCBus_LossQ()
   {
     return dCBus_LossQ;
   }
@@ -306,7 +298,7 @@ public class BpaDat_DCBus
     this.dCBus_LossQ = dCBus_LossQ;
   }
     
-  public Double getDCBus_ACV() 
+  public Double getDCBus_ACV()
   {
     return dCBus_ACV;
   }
@@ -316,7 +308,7 @@ public class BpaDat_DCBus
     this.dCBus_ACV = dCBus_ACV;
   }
     
-  public Double getDCBus_Angle() 
+  public Double getDCBus_Angle()
   {
     return dCBus_Angle;
   }
@@ -326,7 +318,7 @@ public class BpaDat_DCBus
     this.dCBus_Angle = dCBus_Angle;
   }
     
-  public Integer getACBus() 
+  public Integer getACBus()
   {
     return aCBus;
   }
@@ -336,7 +328,7 @@ public class BpaDat_DCBus
     this.aCBus = aCBus;
   }
     
-  public Integer getACIsland() 
+  public Integer getACIsland()
   {
     return aCIsland;
   }
@@ -346,7 +338,7 @@ public class BpaDat_DCBus
     this.aCIsland = aCIsland;
   }
     
-  public String getSub() 
+  public String getSub()
   {
     return sub;
   }
@@ -356,7 +348,7 @@ public class BpaDat_DCBus
     this.sub = sub;
   }
     
-  public String getAlias() 
+  public String getAlias()
   {
     return alias;
   }
@@ -366,7 +358,7 @@ public class BpaDat_DCBus
     this.alias = alias;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -374,6 +366,38 @@ public class BpaDat_DCBus
   public void setStatus(Integer status)
   {
     this.status = status;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_DCBus ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", dCBus_Owner = " + dCBus_Owner
+	 + ", dCBus_Name = " + dCBus_Name
+	 + ", dCBus_kV = " + dCBus_kV
+	 + ", dCBus_Zone = " + dCBus_Zone
+	 + ", dCBus_BRDGS = " + dCBus_BRDGS
+	 + ", dCBus_SMTHGREACTOR = " + dCBus_SMTHGREACTOR
+	 + ", dCBus_ROPERMIN = " + dCBus_ROPERMIN
+	 + ", dCBus_IOPERSTOP = " + dCBus_IOPERSTOP
+	 + ", dCBus_DROP = " + dCBus_DROP
+	 + ", dCBus_BRDGRATE = " + dCBus_BRDGRATE
+	 + ", dCBus_ACName = " + dCBus_ACName
+	 + ", dCBus_ACkV = " + dCBus_ACkV
+	 + ", dCBus_V = " + dCBus_V
+	 + ", dCBus_D = " + dCBus_D
+	 + ", dCBus_P = " + dCBus_P
+	 + ", dCBus_I = " + dCBus_I
+	 + ", dCBus_LossP = " + dCBus_LossP
+	 + ", dCBus_LossQ = " + dCBus_LossQ
+	 + ", dCBus_ACV = " + dCBus_ACV
+	 + ", dCBus_Angle = " + dCBus_Angle
+	 + ", aCBus = " + aCBus
+	 + ", aCIsland = " + aCIsland
+	 + ", sub = " + sub
+	 + ", alias = " + alias
+	 + ", status = " + status+"]";
   }
     
 }

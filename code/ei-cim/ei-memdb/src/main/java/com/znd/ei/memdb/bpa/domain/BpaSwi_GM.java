@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *调节系统模型4表(GM)	*
 ***********************/
-@Entity
 public class BpaSwi_GM
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -111,7 +103,7 @@ public class BpaSwi_GM
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -121,7 +113,7 @@ public class BpaSwi_GM
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -131,7 +123,7 @@ public class BpaSwi_GM
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -141,7 +133,7 @@ public class BpaSwi_GM
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -151,7 +143,7 @@ public class BpaSwi_GM
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -161,7 +153,7 @@ public class BpaSwi_GM
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -171,7 +163,7 @@ public class BpaSwi_GM
     this.gen_ID = gen_ID;
   }
     
-  public Double getGM_KW() 
+  public Double getGM_KW()
   {
     return gM_KW;
   }
@@ -181,7 +173,7 @@ public class BpaSwi_GM
     this.gM_KW = gM_KW;
   }
     
-  public Double getGM_TR() 
+  public Double getGM_TR()
   {
     return gM_TR;
   }
@@ -191,7 +183,7 @@ public class BpaSwi_GM
     this.gM_TR = gM_TR;
   }
     
-  public Double getGM_Negative_DB1() 
+  public Double getGM_Negative_DB1()
   {
     return gM_Negative_DB1;
   }
@@ -201,7 +193,7 @@ public class BpaSwi_GM
     this.gM_Negative_DB1 = gM_Negative_DB1;
   }
     
-  public Double getGM_DB1() 
+  public Double getGM_DB1()
   {
     return gM_DB1;
   }
@@ -211,7 +203,7 @@ public class BpaSwi_GM
     this.gM_DB1 = gM_DB1;
   }
     
-  public Double getGM_KP() 
+  public Double getGM_KP()
   {
     return gM_KP;
   }
@@ -221,7 +213,7 @@ public class BpaSwi_GM
     this.gM_KP = gM_KP;
   }
     
-  public Double getGM_KD() 
+  public Double getGM_KD()
   {
     return gM_KD;
   }
@@ -231,7 +223,7 @@ public class BpaSwi_GM
     this.gM_KD = gM_KD;
   }
     
-  public Double getGM_KI() 
+  public Double getGM_KI()
   {
     return gM_KI;
   }
@@ -241,7 +233,7 @@ public class BpaSwi_GM
     this.gM_KI = gM_KI;
   }
     
-  public Double getGM_TD() 
+  public Double getGM_TD()
   {
     return gM_TD;
   }
@@ -251,7 +243,7 @@ public class BpaSwi_GM
     this.gM_TD = gM_TD;
   }
     
-  public Double getGM_INTG_MAX() 
+  public Double getGM_INTG_MAX()
   {
     return gM_INTG_MAX;
   }
@@ -261,7 +253,7 @@ public class BpaSwi_GM
     this.gM_INTG_MAX = gM_INTG_MAX;
   }
     
-  public Double getGM_INTG_MIN() 
+  public Double getGM_INTG_MIN()
   {
     return gM_INTG_MIN;
   }
@@ -271,7 +263,7 @@ public class BpaSwi_GM
     this.gM_INTG_MIN = gM_INTG_MIN;
   }
     
-  public Double getGM_PID_MAX() 
+  public Double getGM_PID_MAX()
   {
     return gM_PID_MAX;
   }
@@ -281,7 +273,7 @@ public class BpaSwi_GM
     this.gM_PID_MAX = gM_PID_MAX;
   }
     
-  public Double getGM_PID_MIN() 
+  public Double getGM_PID_MIN()
   {
     return gM_PID_MIN;
   }
@@ -291,7 +283,7 @@ public class BpaSwi_GM
     this.gM_PID_MIN = gM_PID_MIN;
   }
     
-  public Double getGM_DELT() 
+  public Double getGM_DELT()
   {
     return gM_DELT;
   }
@@ -301,7 +293,7 @@ public class BpaSwi_GM
     this.gM_DELT = gM_DELT;
   }
     
-  public Double getGM_DB_MAX() 
+  public Double getGM_DB_MAX()
   {
     return gM_DB_MAX;
   }
@@ -311,7 +303,7 @@ public class BpaSwi_GM
     this.gM_DB_MAX = gM_DB_MAX;
   }
     
-  public Double getGM_DB_MIN() 
+  public Double getGM_DB_MIN()
   {
     return gM_DB_MIN;
   }
@@ -321,7 +313,7 @@ public class BpaSwi_GM
     this.gM_DB_MIN = gM_DB_MIN;
   }
     
-  public Double getGM_DELT2() 
+  public Double getGM_DELT2()
   {
     return gM_DELT2;
   }
@@ -331,7 +323,7 @@ public class BpaSwi_GM
     this.gM_DELT2 = gM_DELT2;
   }
     
-  public Double getGM_TR2() 
+  public Double getGM_TR2()
   {
     return gM_TR2;
   }
@@ -341,7 +333,7 @@ public class BpaSwi_GM
     this.gM_TR2 = gM_TR2;
   }
     
-  public Double getGM_EP() 
+  public Double getGM_EP()
   {
     return gM_EP;
   }
@@ -351,7 +343,7 @@ public class BpaSwi_GM
     this.gM_EP = gM_EP;
   }
     
-  public Double getGM_Negative_DB2() 
+  public Double getGM_Negative_DB2()
   {
     return gM_Negative_DB2;
   }
@@ -361,7 +353,7 @@ public class BpaSwi_GM
     this.gM_Negative_DB2 = gM_Negative_DB2;
   }
     
-  public Double getGM_DB2() 
+  public Double getGM_DB2()
   {
     return gM_DB2;
   }
@@ -371,7 +363,7 @@ public class BpaSwi_GM
     this.gM_DB2 = gM_DB2;
   }
     
-  public Double getGM_DBMAX2() 
+  public Double getGM_DBMAX2()
   {
     return gM_DBMAX2;
   }
@@ -381,7 +373,7 @@ public class BpaSwi_GM
     this.gM_DBMAX2 = gM_DBMAX2;
   }
     
-  public Double getGM_DBMIN2() 
+  public Double getGM_DBMIN2()
   {
     return gM_DBMIN2;
   }
@@ -391,7 +383,7 @@ public class BpaSwi_GM
     this.gM_DBMIN2 = gM_DBMIN2;
   }
     
-  public Integer getGM_ITYP() 
+  public Integer getGM_ITYP()
   {
     return gM_ITYP;
   }
@@ -401,7 +393,7 @@ public class BpaSwi_GM
     this.gM_ITYP = gM_ITYP;
   }
     
-  public Integer getGM_ITYP2() 
+  public Integer getGM_ITYP2()
   {
     return gM_ITYP2;
   }
@@ -411,7 +403,7 @@ public class BpaSwi_GM
     this.gM_ITYP2 = gM_ITYP2;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -421,7 +413,7 @@ public class BpaSwi_GM
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -431,7 +423,7 @@ public class BpaSwi_GM
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -439,6 +431,43 @@ public class BpaSwi_GM
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GM ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gM_KW = " + gM_KW
+	 + ", gM_TR = " + gM_TR
+	 + ", gM_Negative_DB1 = " + gM_Negative_DB1
+	 + ", gM_DB1 = " + gM_DB1
+	 + ", gM_KP = " + gM_KP
+	 + ", gM_KD = " + gM_KD
+	 + ", gM_KI = " + gM_KI
+	 + ", gM_TD = " + gM_TD
+	 + ", gM_INTG_MAX = " + gM_INTG_MAX
+	 + ", gM_INTG_MIN = " + gM_INTG_MIN
+	 + ", gM_PID_MAX = " + gM_PID_MAX
+	 + ", gM_PID_MIN = " + gM_PID_MIN
+	 + ", gM_DELT = " + gM_DELT
+	 + ", gM_DB_MAX = " + gM_DB_MAX
+	 + ", gM_DB_MIN = " + gM_DB_MIN
+	 + ", gM_DELT2 = " + gM_DELT2
+	 + ", gM_TR2 = " + gM_TR2
+	 + ", gM_EP = " + gM_EP
+	 + ", gM_Negative_DB2 = " + gM_Negative_DB2
+	 + ", gM_DB2 = " + gM_DB2
+	 + ", gM_DBMAX2 = " + gM_DBMAX2
+	 + ", gM_DBMIN2 = " + gM_DBMIN2
+	 + ", gM_ITYP = " + gM_ITYP
+	 + ", gM_ITYP2 = " + gM_ITYP2
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

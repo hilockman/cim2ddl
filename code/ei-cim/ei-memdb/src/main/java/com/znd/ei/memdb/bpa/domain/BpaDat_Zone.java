@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *分区表(ZONE)	*
 ***********************/
-@Entity
 public class BpaDat_Zone
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -87,7 +79,7 @@ public class BpaDat_Zone
   //马达滑差达到1时的处理方式
   private Integer mJ_IM;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -97,7 +89,7 @@ public class BpaDat_Zone
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -107,7 +99,7 @@ public class BpaDat_Zone
     this.memIndex = memIndex;
   }
     
-  public String getZone_Name() 
+  public String getZone_Name()
   {
     return zone_Name;
   }
@@ -117,7 +109,7 @@ public class BpaDat_Zone
     this.zone_Name = zone_Name;
   }
     
-  public String getZone_Area() 
+  public String getZone_Area()
   {
     return zone_Area;
   }
@@ -127,7 +119,7 @@ public class BpaDat_Zone
     this.zone_Area = zone_Area;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -137,7 +129,7 @@ public class BpaDat_Zone
     this.cardKey = cardKey;
   }
     
-  public Double getLOZ_KG0() 
+  public Double getLOZ_KG0()
   {
     return lOZ_KG0;
   }
@@ -147,7 +139,7 @@ public class BpaDat_Zone
     this.lOZ_KG0 = lOZ_KG0;
   }
     
-  public Double getLOZ_KB0() 
+  public Double getLOZ_KB0()
   {
     return lOZ_KB0;
   }
@@ -157,7 +149,7 @@ public class BpaDat_Zone
     this.lOZ_KB0 = lOZ_KB0;
   }
     
-  public Double getLOZ_KGC0() 
+  public Double getLOZ_KGC0()
   {
     return lOZ_KGC0;
   }
@@ -167,7 +159,7 @@ public class BpaDat_Zone
     this.lOZ_KGC0 = lOZ_KGC0;
   }
     
-  public Double getLOZ_KBC0() 
+  public Double getLOZ_KBC0()
   {
     return lOZ_KBC0;
   }
@@ -177,7 +169,7 @@ public class BpaDat_Zone
     this.lOZ_KBC0 = lOZ_KBC0;
   }
     
-  public Double getLOZ_VMIN() 
+  public Double getLOZ_VMIN()
   {
     return lOZ_VMIN;
   }
@@ -187,7 +179,7 @@ public class BpaDat_Zone
     this.lOZ_VMIN = lOZ_VMIN;
   }
     
-  public Double getLOZ_VMAX() 
+  public Double getLOZ_VMAX()
   {
     return lOZ_VMAX;
   }
@@ -197,7 +189,7 @@ public class BpaDat_Zone
     this.lOZ_VMAX = lOZ_VMAX;
   }
     
-  public Double getMJ_TJ() 
+  public Double getMJ_TJ()
   {
     return mJ_TJ;
   }
@@ -207,7 +199,7 @@ public class BpaDat_Zone
     this.mJ_TJ = mJ_TJ;
   }
     
-  public Double getMJ_Pper() 
+  public Double getMJ_Pper()
   {
     return mJ_Pper;
   }
@@ -217,7 +209,7 @@ public class BpaDat_Zone
     this.mJ_Pper = mJ_Pper;
   }
     
-  public Double getMJ_KL() 
+  public Double getMJ_KL()
   {
     return mJ_KL;
   }
@@ -227,7 +219,7 @@ public class BpaDat_Zone
     this.mJ_KL = mJ_KL;
   }
     
-  public Double getMJ_Pmin() 
+  public Double getMJ_Pmin()
   {
     return mJ_Pmin;
   }
@@ -237,7 +229,7 @@ public class BpaDat_Zone
     this.mJ_Pmin = mJ_Pmin;
   }
     
-  public Double getMJ_RS() 
+  public Double getMJ_RS()
   {
     return mJ_RS;
   }
@@ -247,7 +239,7 @@ public class BpaDat_Zone
     this.mJ_RS = mJ_RS;
   }
     
-  public Double getMJ_XS() 
+  public Double getMJ_XS()
   {
     return mJ_XS;
   }
@@ -257,7 +249,7 @@ public class BpaDat_Zone
     this.mJ_XS = mJ_XS;
   }
     
-  public Double getMJ_XM() 
+  public Double getMJ_XM()
   {
     return mJ_XM;
   }
@@ -267,7 +259,7 @@ public class BpaDat_Zone
     this.mJ_XM = mJ_XM;
   }
     
-  public Double getMJ_RR() 
+  public Double getMJ_RR()
   {
     return mJ_RR;
   }
@@ -277,7 +269,7 @@ public class BpaDat_Zone
     this.mJ_RR = mJ_RR;
   }
     
-  public Double getMJ_XR() 
+  public Double getMJ_XR()
   {
     return mJ_XR;
   }
@@ -287,7 +279,7 @@ public class BpaDat_Zone
     this.mJ_XR = mJ_XR;
   }
     
-  public Double getMJ_VI() 
+  public Double getMJ_VI()
   {
     return mJ_VI;
   }
@@ -297,7 +289,7 @@ public class BpaDat_Zone
     this.mJ_VI = mJ_VI;
   }
     
-  public Double getMJ_TI() 
+  public Double getMJ_TI()
   {
     return mJ_TI;
   }
@@ -307,7 +299,7 @@ public class BpaDat_Zone
     this.mJ_TI = mJ_TI;
   }
     
-  public Double getMJ_A() 
+  public Double getMJ_A()
   {
     return mJ_A;
   }
@@ -317,7 +309,7 @@ public class BpaDat_Zone
     this.mJ_A = mJ_A;
   }
     
-  public Double getMJ_B() 
+  public Double getMJ_B()
   {
     return mJ_B;
   }
@@ -327,7 +319,7 @@ public class BpaDat_Zone
     this.mJ_B = mJ_B;
   }
     
-  public Integer getMJ_IM() 
+  public Integer getMJ_IM()
   {
     return mJ_IM;
   }
@@ -335,6 +327,35 @@ public class BpaDat_Zone
   public void setMJ_IM(Integer mJ_IM)
   {
     this.mJ_IM = mJ_IM;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Zone ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", zone_Name = " + zone_Name
+	 + ", zone_Area = " + zone_Area
+	 + ", cardKey = " + cardKey
+	 + ", lOZ_KG0 = " + lOZ_KG0
+	 + ", lOZ_KB0 = " + lOZ_KB0
+	 + ", lOZ_KGC0 = " + lOZ_KGC0
+	 + ", lOZ_KBC0 = " + lOZ_KBC0
+	 + ", lOZ_VMIN = " + lOZ_VMIN
+	 + ", lOZ_VMAX = " + lOZ_VMAX
+	 + ", mJ_TJ = " + mJ_TJ
+	 + ", mJ_Pper = " + mJ_Pper
+	 + ", mJ_KL = " + mJ_KL
+	 + ", mJ_Pmin = " + mJ_Pmin
+	 + ", mJ_RS = " + mJ_RS
+	 + ", mJ_XS = " + mJ_XS
+	 + ", mJ_XM = " + mJ_XM
+	 + ", mJ_RR = " + mJ_RR
+	 + ", mJ_XR = " + mJ_XR
+	 + ", mJ_VI = " + mJ_VI
+	 + ", mJ_TI = " + mJ_TI
+	 + ", mJ_A = " + mJ_A
+	 + ", mJ_B = " + mJ_B
+	 + ", mJ_IM = " + mJ_IM+"]";
   }
     
 }

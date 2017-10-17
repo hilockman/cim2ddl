@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *辐射网络	*
 ***********************/
-@Entity
 public class BpaDat_Radiate
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -36,7 +28,7 @@ public class BpaDat_Radiate
   //电源母线索引
   private Integer iRBoundBus;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -46,7 +38,7 @@ public class BpaDat_Radiate
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -56,7 +48,7 @@ public class BpaDat_Radiate
     this.memIndex = memIndex;
   }
     
-  public String getBoundBusName() 
+  public String getBoundBusName()
   {
     return boundBusName;
   }
@@ -66,7 +58,7 @@ public class BpaDat_Radiate
     this.boundBusName = boundBusName;
   }
     
-  public Double getBoundBuskV() 
+  public Double getBoundBuskV()
   {
     return boundBuskV;
   }
@@ -76,7 +68,7 @@ public class BpaDat_Radiate
     this.boundBuskV = boundBuskV;
   }
     
-  public Double getGenP() 
+  public Double getGenP()
   {
     return genP;
   }
@@ -86,7 +78,7 @@ public class BpaDat_Radiate
     this.genP = genP;
   }
     
-  public Double getLoadP() 
+  public Double getLoadP()
   {
     return loadP;
   }
@@ -96,7 +88,7 @@ public class BpaDat_Radiate
     this.loadP = loadP;
   }
     
-  public Double getLoadQ() 
+  public Double getLoadQ()
   {
     return loadQ;
   }
@@ -106,7 +98,7 @@ public class BpaDat_Radiate
     this.loadQ = loadQ;
   }
     
-  public Integer getiRBoundBus() 
+  public Integer getiRBoundBus()
   {
     return iRBoundBus;
   }
@@ -114,6 +106,18 @@ public class BpaDat_Radiate
   public void setiRBoundBus(Integer iRBoundBus)
   {
     this.iRBoundBus = iRBoundBus;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Radiate ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", boundBusName = " + boundBusName
+	 + ", boundBuskV = " + boundBuskV
+	 + ", genP = " + genP
+	 + ", loadP = " + loadP
+	 + ", loadQ = " + loadQ
+	 + ", iRBoundBus = " + iRBoundBus+"]";
   }
     
 }

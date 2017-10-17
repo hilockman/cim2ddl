@@ -71,11 +71,11 @@ public class FStateMState
     
   public String toString()
   {
-    return "FStateMState ["+	"id"=id,
-	"memIndex"=memIndex,
-	"mSDevType"=mSDevType,
-	"mSDevIndex"=mSDevIndex,
-	"mStatePout"=mStatePout+"]"
+    return "FStateMState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", mSDevType = " + mSDevType
+	 + ", mSDevIndex = " + mSDevIndex
+	 + ", mStatePout = " + mStatePout+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *带负荷调节变压器控制器表(R)	*
 ***********************/
-@Entity
 public class BpaDat_R
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -84,7 +76,7 @@ public class BpaDat_R
   //状态
   private Integer r_Status;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -94,7 +86,7 @@ public class BpaDat_R
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -104,7 +96,7 @@ public class BpaDat_R
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -114,7 +106,7 @@ public class BpaDat_R
     this.cardKey = cardKey;
   }
     
-  public String getR_Owner() 
+  public String getR_Owner()
   {
     return r_Owner;
   }
@@ -124,7 +116,7 @@ public class BpaDat_R
     this.r_Owner = r_Owner;
   }
     
-  public String getR_BusI() 
+  public String getR_BusI()
   {
     return r_BusI;
   }
@@ -134,7 +126,7 @@ public class BpaDat_R
     this.r_BusI = r_BusI;
   }
     
-  public Double getR_kVI() 
+  public Double getR_kVI()
   {
     return r_kVI;
   }
@@ -144,7 +136,7 @@ public class BpaDat_R
     this.r_kVI = r_kVI;
   }
     
-  public Integer getR_VARTAP() 
+  public Integer getR_VARTAP()
   {
     return r_VARTAP;
   }
@@ -154,7 +146,7 @@ public class BpaDat_R
     this.r_VARTAP = r_VARTAP;
   }
     
-  public String getR_BusJ() 
+  public String getR_BusJ()
   {
     return r_BusJ;
   }
@@ -164,7 +156,7 @@ public class BpaDat_R
     this.r_BusJ = r_BusJ;
   }
     
-  public Double getR_kVJ() 
+  public Double getR_kVJ()
   {
     return r_kVJ;
   }
@@ -174,7 +166,7 @@ public class BpaDat_R
     this.r_kVJ = r_kVJ;
   }
     
-  public String getR_BusC() 
+  public String getR_BusC()
   {
     return r_BusC;
   }
@@ -184,7 +176,7 @@ public class BpaDat_R
     this.r_BusC = r_BusC;
   }
     
-  public Double getR_kVC() 
+  public Double getR_kVC()
   {
     return r_kVC;
   }
@@ -194,7 +186,7 @@ public class BpaDat_R
     this.r_kVC = r_kVC;
   }
     
-  public Double getR_TMax() 
+  public Double getR_TMax()
   {
     return r_TMax;
   }
@@ -204,7 +196,7 @@ public class BpaDat_R
     this.r_TMax = r_TMax;
   }
     
-  public Double getR_TMin() 
+  public Double getR_TMin()
   {
     return r_TMin;
   }
@@ -214,7 +206,7 @@ public class BpaDat_R
     this.r_TMin = r_TMin;
   }
     
-  public Integer getR_TNum() 
+  public Integer getR_TNum()
   {
     return r_TNum;
   }
@@ -224,7 +216,7 @@ public class BpaDat_R
     this.r_TNum = r_TNum;
   }
     
-  public Double getR_ValMax() 
+  public Double getR_ValMax()
   {
     return r_ValMax;
   }
@@ -234,7 +226,7 @@ public class BpaDat_R
     this.r_ValMax = r_ValMax;
   }
     
-  public Double getR_ValMin() 
+  public Double getR_ValMin()
   {
     return r_ValMin;
   }
@@ -244,7 +236,7 @@ public class BpaDat_R
     this.r_ValMin = r_ValMin;
   }
     
-  public Double getR_P() 
+  public Double getR_P()
   {
     return r_P;
   }
@@ -254,7 +246,7 @@ public class BpaDat_R
     this.r_P = r_P;
   }
     
-  public Double getR_Q() 
+  public Double getR_Q()
   {
     return r_Q;
   }
@@ -264,7 +256,7 @@ public class BpaDat_R
     this.r_Q = r_Q;
   }
     
-  public Double getR_LossP() 
+  public Double getR_LossP()
   {
     return r_LossP;
   }
@@ -274,7 +266,7 @@ public class BpaDat_R
     this.r_LossP = r_LossP;
   }
     
-  public Double getR_LossQ() 
+  public Double getR_LossQ()
   {
     return r_LossQ;
   }
@@ -284,7 +276,7 @@ public class BpaDat_R
     this.r_LossQ = r_LossQ;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -294,7 +286,7 @@ public class BpaDat_R
     this.keyName = keyName;
   }
     
-  public Integer getR_iRBus() 
+  public Integer getR_iRBus()
   {
     return r_iRBus;
   }
@@ -304,7 +296,7 @@ public class BpaDat_R
     this.r_iRBus = r_iRBus;
   }
     
-  public Integer getR_zRBus() 
+  public Integer getR_zRBus()
   {
     return r_zRBus;
   }
@@ -314,7 +306,7 @@ public class BpaDat_R
     this.r_zRBus = r_zRBus;
   }
     
-  public Integer getR_Status() 
+  public Integer getR_Status()
   {
     return r_Status;
   }
@@ -322,6 +314,34 @@ public class BpaDat_R
   public void setR_Status(Integer r_Status)
   {
     this.r_Status = r_Status;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_R ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", r_Owner = " + r_Owner
+	 + ", r_BusI = " + r_BusI
+	 + ", r_kVI = " + r_kVI
+	 + ", r_VARTAP = " + r_VARTAP
+	 + ", r_BusJ = " + r_BusJ
+	 + ", r_kVJ = " + r_kVJ
+	 + ", r_BusC = " + r_BusC
+	 + ", r_kVC = " + r_kVC
+	 + ", r_TMax = " + r_TMax
+	 + ", r_TMin = " + r_TMin
+	 + ", r_TNum = " + r_TNum
+	 + ", r_ValMax = " + r_ValMax
+	 + ", r_ValMin = " + r_ValMin
+	 + ", r_P = " + r_P
+	 + ", r_Q = " + r_Q
+	 + ", r_LossP = " + r_LossP
+	 + ", r_LossQ = " + r_LossQ
+	 + ", keyName = " + keyName
+	 + ", r_iRBus = " + r_iRBus
+	 + ", r_zRBus = " + r_zRBus
+	 + ", r_Status = " + r_Status+"]";
   }
     
 }

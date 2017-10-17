@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机等值负荷(LN)	*
 ***********************/
-@Entity
 public class BpaSwi_GenLn
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -33,7 +25,7 @@ public class BpaSwi_GenLn
   //直流母线
   private Integer dCBus;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -43,7 +35,7 @@ public class BpaSwi_GenLn
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -53,7 +45,7 @@ public class BpaSwi_GenLn
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -63,7 +55,7 @@ public class BpaSwi_GenLn
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -73,7 +65,7 @@ public class BpaSwi_GenLn
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -83,7 +75,7 @@ public class BpaSwi_GenLn
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -93,7 +85,7 @@ public class BpaSwi_GenLn
     this.busPtr = busPtr;
   }
     
-  public Integer getDCBus() 
+  public Integer getDCBus()
   {
     return dCBus;
   }
@@ -101,6 +93,17 @@ public class BpaSwi_GenLn
   public void setDCBus(Integer dCBus)
   {
     this.dCBus = dCBus;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GenLn ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", busPtr = " + busPtr
+	 + ", dCBus = " + dCBus+"]";
   }
     
 }

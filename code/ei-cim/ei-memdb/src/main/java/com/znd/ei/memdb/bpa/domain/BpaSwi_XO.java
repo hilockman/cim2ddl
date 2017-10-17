@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *变压器零序模型(XO)	*
 ***********************/
-@Entity
 public class BpaSwi_XO
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -48,7 +40,7 @@ public class BpaSwi_XO
   //变压器名称
   private String keyName;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -58,7 +50,7 @@ public class BpaSwi_XO
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -68,7 +60,7 @@ public class BpaSwi_XO
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -78,7 +70,7 @@ public class BpaSwi_XO
     this.cardKey = cardKey;
   }
     
-  public String getXO_BusI() 
+  public String getXO_BusI()
   {
     return xO_BusI;
   }
@@ -88,7 +80,7 @@ public class BpaSwi_XO
     this.xO_BusI = xO_BusI;
   }
     
-  public Double getXO_kVI() 
+  public Double getXO_kVI()
   {
     return xO_kVI;
   }
@@ -98,7 +90,7 @@ public class BpaSwi_XO
     this.xO_kVI = xO_kVI;
   }
     
-  public String getXO_BusJ() 
+  public String getXO_BusJ()
   {
     return xO_BusJ;
   }
@@ -108,7 +100,7 @@ public class BpaSwi_XO
     this.xO_BusJ = xO_BusJ;
   }
     
-  public Double getXO_kVJ() 
+  public Double getXO_kVJ()
   {
     return xO_kVJ;
   }
@@ -118,7 +110,7 @@ public class BpaSwi_XO
     this.xO_kVJ = xO_kVJ;
   }
     
-  public Integer getXO_Loop() 
+  public Integer getXO_Loop()
   {
     return xO_Loop;
   }
@@ -128,7 +120,7 @@ public class BpaSwi_XO
     this.xO_Loop = xO_Loop;
   }
     
-  public Integer getXO_SID() 
+  public Integer getXO_SID()
   {
     return xO_SID;
   }
@@ -138,7 +130,7 @@ public class BpaSwi_XO
     this.xO_SID = xO_SID;
   }
     
-  public Double getXO_R0() 
+  public Double getXO_R0()
   {
     return xO_R0;
   }
@@ -148,7 +140,7 @@ public class BpaSwi_XO
     this.xO_R0 = xO_R0;
   }
     
-  public Double getXO_X0() 
+  public Double getXO_X0()
   {
     return xO_X0;
   }
@@ -158,7 +150,7 @@ public class BpaSwi_XO
     this.xO_X0 = xO_X0;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -166,6 +158,22 @@ public class BpaSwi_XO
   public void setKeyName(String keyName)
   {
     this.keyName = keyName;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_XO ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", xO_BusI = " + xO_BusI
+	 + ", xO_kVI = " + xO_kVI
+	 + ", xO_BusJ = " + xO_BusJ
+	 + ", xO_kVJ = " + xO_kVJ
+	 + ", xO_Loop = " + xO_Loop
+	 + ", xO_SID = " + xO_SID
+	 + ", xO_R0 = " + xO_R0
+	 + ", xO_X0 = " + xO_X0
+	 + ", keyName = " + keyName+"]";
   }
     
 }

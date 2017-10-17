@@ -123,15 +123,15 @@ public class BpaDat_Tran
     
   public String toString()
   {
-    return "BpaDat_Tran ["+	"id"=id,
-	"memIndex"=memIndex,
-	"windNum"=windNum,
-	"windH"=windH,
-	"windM"=windM,
-	"windL"=windL,
-	"iRWindH"=iRWindH,
-	"iRWindM"=iRWindM,
-	"iRWindL"=iRWindL+"]"
+    return "BpaDat_Tran ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", windNum = " + windNum
+	 + ", windH = " + windH
+	 + ", windM = " + windM
+	 + ", windL = " + windL
+	 + ", iRWindH = " + iRWindH
+	 + ", iRWindM = " + iRWindM
+	 + ", iRWindL = " + iRWindL+"]";
   }
     
 }

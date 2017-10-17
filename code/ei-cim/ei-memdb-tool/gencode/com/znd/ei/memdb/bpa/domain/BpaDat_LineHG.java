@@ -292,28 +292,28 @@ public class BpaDat_LineHG
     
   public String toString()
   {
-    return "BpaDat_LineHG ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"lineHG_BusI"=lineHG_BusI,
-	"lineHG_kVI"=lineHG_kVI,
-	"lineHG_BusJ"=lineHG_BusJ,
-	"lineHG_kVJ"=lineHG_kVJ,
-	"lineHG_Loop"=lineHG_Loop,
-	"lineHG_ShuntI"=lineHG_ShuntI,
-	"lineHG_ShuntJ"=lineHG_ShuntJ,
-	"keyName"=keyName,
-	"iniBusI"=iniBusI,
-	"inikVI"=inikVI,
-	"iniBusJ"=iniBusJ,
-	"inikVJ"=inikVJ,
-	"iniLoop"=iniLoop,
-	"iRBus"=iRBus,
-	"zRBus"=zRBus,
-	"alias"=alias,
-	"status"=status,
-	"inRing"=inRing,
-	"radiate"=radiate+"]"
+    return "BpaDat_LineHG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", lineHG_BusI = " + lineHG_BusI
+	 + ", lineHG_kVI = " + lineHG_kVI
+	 + ", lineHG_BusJ = " + lineHG_BusJ
+	 + ", lineHG_kVJ = " + lineHG_kVJ
+	 + ", lineHG_Loop = " + lineHG_Loop
+	 + ", lineHG_ShuntI = " + lineHG_ShuntI
+	 + ", lineHG_ShuntJ = " + lineHG_ShuntJ
+	 + ", keyName = " + keyName
+	 + ", iniBusI = " + iniBusI
+	 + ", inikVI = " + inikVI
+	 + ", iniBusJ = " + iniBusJ
+	 + ", inikVJ = " + inikVJ
+	 + ", iniLoop = " + iniLoop
+	 + ", iRBus = " + iRBus
+	 + ", zRBus = " + zRBus
+	 + ", alias = " + alias
+	 + ", status = " + status
+	 + ", inRing = " + inRing
+	 + ", radiate = " + radiate+"]";
   }
     
 }

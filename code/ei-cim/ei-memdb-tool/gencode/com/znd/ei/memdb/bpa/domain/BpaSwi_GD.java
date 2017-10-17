@@ -266,26 +266,26 @@ public class BpaSwi_GD
     
   public String toString()
   {
-    return "BpaSwi_GD ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gD_Pmax"=gD_Pmax,
-	"gD_Pmin"=gD_Pmin,
-	"gD_DB"=gD_DB,
-	"gD_R"=gD_R,
-	"gD_Kp"=gD_Kp,
-	"gD_Ki"=gD_Ki,
-	"gD_Kd"=gD_Kd,
-	"gD_GOV_MAX"=gD_GOV_MAX,
-	"gD_GOV_Min"=gD_GOV_Min,
-	"gD_DEMAND_MAX"=gD_DEMAND_MAX,
-	"gD_DEMAND_MIN"=gD_DEMAND_MIN,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GD ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gD_Pmax = " + gD_Pmax
+	 + ", gD_Pmin = " + gD_Pmin
+	 + ", gD_DB = " + gD_DB
+	 + ", gD_R = " + gD_R
+	 + ", gD_Kp = " + gD_Kp
+	 + ", gD_Ki = " + gD_Ki
+	 + ", gD_Kd = " + gD_Kd
+	 + ", gD_GOV_MAX = " + gD_GOV_MAX
+	 + ", gD_GOV_Min = " + gD_GOV_Min
+	 + ", gD_DEMAND_MAX = " + gD_DEMAND_MAX
+	 + ", gD_DEMAND_MIN = " + gD_DEMAND_MIN
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

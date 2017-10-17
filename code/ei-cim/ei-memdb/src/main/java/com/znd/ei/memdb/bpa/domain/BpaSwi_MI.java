@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *感应马达模型(MI)	*
 ***********************/
-@Entity
 public class BpaSwi_MI
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -72,7 +64,7 @@ public class BpaSwi_MI
   //母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -82,7 +74,7 @@ public class BpaSwi_MI
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -92,7 +84,7 @@ public class BpaSwi_MI
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -102,7 +94,7 @@ public class BpaSwi_MI
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -112,7 +104,7 @@ public class BpaSwi_MI
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -122,7 +114,7 @@ public class BpaSwi_MI
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getBus_ID() 
+  public Integer getBus_ID()
   {
     return bus_ID;
   }
@@ -132,7 +124,7 @@ public class BpaSwi_MI
     this.bus_ID = bus_ID;
   }
     
-  public Double getMI_Emws() 
+  public Double getMI_Emws()
   {
     return mI_Emws;
   }
@@ -142,7 +134,7 @@ public class BpaSwi_MI
     this.mI_Emws = mI_Emws;
   }
     
-  public Double getMI_P() 
+  public Double getMI_P()
   {
     return mI_P;
   }
@@ -152,7 +144,7 @@ public class BpaSwi_MI
     this.mI_P = mI_P;
   }
     
-  public Double getMI_MVA() 
+  public Double getMI_MVA()
   {
     return mI_MVA;
   }
@@ -162,7 +154,7 @@ public class BpaSwi_MI
     this.mI_MVA = mI_MVA;
   }
     
-  public Double getMI_RS() 
+  public Double getMI_RS()
   {
     return mI_RS;
   }
@@ -172,7 +164,7 @@ public class BpaSwi_MI
     this.mI_RS = mI_RS;
   }
     
-  public Double getMI_XS() 
+  public Double getMI_XS()
   {
     return mI_XS;
   }
@@ -182,7 +174,7 @@ public class BpaSwi_MI
     this.mI_XS = mI_XS;
   }
     
-  public Double getMI_XM() 
+  public Double getMI_XM()
   {
     return mI_XM;
   }
@@ -192,7 +184,7 @@ public class BpaSwi_MI
     this.mI_XM = mI_XM;
   }
     
-  public Double getMI_RR() 
+  public Double getMI_RR()
   {
     return mI_RR;
   }
@@ -202,7 +194,7 @@ public class BpaSwi_MI
     this.mI_RR = mI_RR;
   }
     
-  public Double getMI_XR() 
+  public Double getMI_XR()
   {
     return mI_XR;
   }
@@ -212,7 +204,7 @@ public class BpaSwi_MI
     this.mI_XR = mI_XR;
   }
     
-  public Double getMI_VI() 
+  public Double getMI_VI()
   {
     return mI_VI;
   }
@@ -222,7 +214,7 @@ public class BpaSwi_MI
     this.mI_VI = mI_VI;
   }
     
-  public Double getMI_TI() 
+  public Double getMI_TI()
   {
     return mI_TI;
   }
@@ -232,7 +224,7 @@ public class BpaSwi_MI
     this.mI_TI = mI_TI;
   }
     
-  public Double getMI_A() 
+  public Double getMI_A()
   {
     return mI_A;
   }
@@ -242,7 +234,7 @@ public class BpaSwi_MI
     this.mI_A = mI_A;
   }
     
-  public Double getMI_B() 
+  public Double getMI_B()
   {
     return mI_B;
   }
@@ -252,7 +244,7 @@ public class BpaSwi_MI
     this.mI_B = mI_B;
   }
     
-  public Integer getMI_IM() 
+  public Integer getMI_IM()
   {
     return mI_IM;
   }
@@ -262,7 +254,7 @@ public class BpaSwi_MI
     this.mI_IM = mI_IM;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -270,6 +262,30 @@ public class BpaSwi_MI
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_MI ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", bus_ID = " + bus_ID
+	 + ", mI_Emws = " + mI_Emws
+	 + ", mI_P = " + mI_P
+	 + ", mI_MVA = " + mI_MVA
+	 + ", mI_RS = " + mI_RS
+	 + ", mI_XS = " + mI_XS
+	 + ", mI_XM = " + mI_XM
+	 + ", mI_RR = " + mI_RR
+	 + ", mI_XR = " + mI_XR
+	 + ", mI_VI = " + mI_VI
+	 + ", mI_TI = " + mI_TI
+	 + ", mI_A = " + mI_A
+	 + ", mI_B = " + mI_B
+	 + ", mI_IM = " + mI_IM
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

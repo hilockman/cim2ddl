@@ -318,30 +318,30 @@ public class BpaSwi_GK
     
   public String toString()
   {
-    return "BpaSwi_GK ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gK_TW"=gK_TW,
-	"gK_E"=gK_E,
-	"gK_I"=gK_I,
-	"gK_K1"=gK_K1,
-	"gK_K2"=gK_K2,
-	"gK_I_Control"=gK_I_Control,
-	"gK_KP"=gK_KP,
-	"gK_KD"=gK_KD,
-	"gK_KI"=gK_KI,
-	"gK_INTG_MAX"=gK_INTG_MAX,
-	"gK_INTG_MIN"=gK_INTG_MIN,
-	"gK_PID_MAX"=gK_PID_MAX,
-	"gK_PID_MIN"=gK_PID_MIN,
-	"gK_W_MAX"=gK_W_MAX,
-	"gK_W_MIN"=gK_W_MIN,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GK ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gK_TW = " + gK_TW
+	 + ", gK_E = " + gK_E
+	 + ", gK_I = " + gK_I
+	 + ", gK_K1 = " + gK_K1
+	 + ", gK_K2 = " + gK_K2
+	 + ", gK_I_Control = " + gK_I_Control
+	 + ", gK_KP = " + gK_KP
+	 + ", gK_KD = " + gK_KD
+	 + ", gK_KI = " + gK_KI
+	 + ", gK_INTG_MAX = " + gK_INTG_MAX
+	 + ", gK_INTG_MIN = " + gK_INTG_MIN
+	 + ", gK_PID_MAX = " + gK_PID_MAX
+	 + ", gK_PID_MIN = " + gK_PID_MIN
+	 + ", gK_W_MAX = " + gK_W_MAX
+	 + ", gK_W_MIN = " + gK_W_MIN
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

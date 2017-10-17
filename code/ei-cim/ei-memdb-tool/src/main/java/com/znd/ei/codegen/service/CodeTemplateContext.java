@@ -95,6 +95,11 @@ public class CodeTemplateContext {
 		public void setDent(int pos) {
 			dent = pos;
 		}
+
+		@Override
+		public void writeln(String paramString) {
+			write(paramString+";");
+		}
 	};
 
 	

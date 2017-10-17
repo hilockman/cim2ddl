@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *稳定计算控制卡(CASE)	*
 ***********************/
-@Entity
 public class BpaSwi_Case
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -60,7 +52,7 @@ public class BpaSwi_Case
   //负序负荷导纳(pu)
   private Double cFACL2;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -70,7 +62,7 @@ public class BpaSwi_Case
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -80,7 +72,7 @@ public class BpaSwi_Case
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -90,7 +82,7 @@ public class BpaSwi_Case
     this.cardKey = cardKey;
   }
     
-  public String getPFCASE() 
+  public String getPFCASE()
   {
     return pFCASE;
   }
@@ -100,7 +92,7 @@ public class BpaSwi_Case
     this.pFCASE = pFCASE;
   }
     
-  public Integer getITSKP() 
+  public Integer getITSKP()
   {
     return iTSKP;
   }
@@ -110,7 +102,7 @@ public class BpaSwi_Case
     this.iTSKP = iTSKP;
   }
     
-  public Integer getNOPRNT() 
+  public Integer getNOPRNT()
   {
     return nOPRNT;
   }
@@ -120,7 +112,7 @@ public class BpaSwi_Case
     this.nOPRNT = nOPRNT;
   }
     
-  public Integer getDSW() 
+  public Integer getDSW()
   {
     return dSW;
   }
@@ -130,7 +122,7 @@ public class BpaSwi_Case
     this.dSW = dSW;
   }
     
-  public Integer getIWSCC() 
+  public Integer getIWSCC()
   {
     return iWSCC;
   }
@@ -140,7 +132,7 @@ public class BpaSwi_Case
     this.iWSCC = iWSCC;
   }
     
-  public Integer getZSW() 
+  public Integer getZSW()
   {
     return zSW;
   }
@@ -150,7 +142,7 @@ public class BpaSwi_Case
     this.zSW = zSW;
   }
     
-  public Double getX2FAC() 
+  public Double getX2FAC()
   {
     return x2FAC;
   }
@@ -160,7 +152,7 @@ public class BpaSwi_Case
     this.x2FAC = x2FAC;
   }
     
-  public Double getXFACT() 
+  public Double getXFACT()
   {
     return xFACT;
   }
@@ -170,7 +162,7 @@ public class BpaSwi_Case
     this.xFACT = xFACT;
   }
     
-  public Double getTDODPS() 
+  public Double getTDODPS()
   {
     return tDODPS;
   }
@@ -180,7 +172,7 @@ public class BpaSwi_Case
     this.tDODPS = tDODPS;
   }
     
-  public Double getTQODPS() 
+  public Double getTQODPS()
   {
     return tQODPS;
   }
@@ -190,7 +182,7 @@ public class BpaSwi_Case
     this.tQODPS = tQODPS;
   }
     
-  public Double getTDODPH() 
+  public Double getTDODPH()
   {
     return tDODPH;
   }
@@ -200,7 +192,7 @@ public class BpaSwi_Case
     this.tDODPH = tDODPH;
   }
     
-  public Double getTQODPH() 
+  public Double getTQODPH()
   {
     return tQODPH;
   }
@@ -210,7 +202,7 @@ public class BpaSwi_Case
     this.tQODPH = tQODPH;
   }
     
-  public Double getCFACL2() 
+  public Double getCFACL2()
   {
     return cFACL2;
   }
@@ -218,6 +210,26 @@ public class BpaSwi_Case
   public void setCFACL2(Double cFACL2)
   {
     this.cFACL2 = cFACL2;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_Case ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", pFCASE = " + pFCASE
+	 + ", iTSKP = " + iTSKP
+	 + ", nOPRNT = " + nOPRNT
+	 + ", dSW = " + dSW
+	 + ", iWSCC = " + iWSCC
+	 + ", zSW = " + zSW
+	 + ", x2FAC = " + x2FAC
+	 + ", xFACT = " + xFACT
+	 + ", tDODPS = " + tDODPS
+	 + ", tQODPS = " + tQODPS
+	 + ", tDODPH = " + tDODPH
+	 + ", tQODPH = " + tQODPH
+	 + ", cFACL2 = " + cFACL2+"]";
   }
     
 }

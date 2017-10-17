@@ -149,17 +149,17 @@ public class FSecurity
     
   public String toString()
   {
-    return "FSecurity ["+	"id"=id,
-	"memIndex"=memIndex,
-	"fState"=fState,
-	"lTFault"=lTFault,
-	"mIsland"=mIsland,
-	"lossGenP"=lossGenP,
-	"bseFile"=bseFile,
-	"swiFile"=swiFile,
-	"outFile"=outFile,
-	"result"=result,
-	"estimated"=estimated+"]"
+    return "FSecurity ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", lTFault = " + lTFault
+	 + ", mIsland = " + mIsland
+	 + ", lossGenP = " + lossGenP
+	 + ", bseFile = " + bseFile
+	 + ", swiFile = " + swiFile
+	 + ", outFile = " + outFile
+	 + ", result = " + result
+	 + ", estimated = " + estimated+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *新感应马达模型(MK)	*
 ***********************/
-@Entity
 public class BpaSwi_MK
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -69,7 +61,7 @@ public class BpaSwi_MK
   //马达滑差达到1时的处理方式
   private Integer mK_IM;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -79,7 +71,7 @@ public class BpaSwi_MK
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -89,7 +81,7 @@ public class BpaSwi_MK
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -99,7 +91,7 @@ public class BpaSwi_MK
     this.cardKey = cardKey;
   }
     
-  public String getArea_Name() 
+  public String getArea_Name()
   {
     return area_Name;
   }
@@ -109,7 +101,7 @@ public class BpaSwi_MK
     this.area_Name = area_Name;
   }
     
-  public Double getMK_TJ() 
+  public Double getMK_TJ()
   {
     return mK_TJ;
   }
@@ -119,7 +111,7 @@ public class BpaSwi_MK
     this.mK_TJ = mK_TJ;
   }
     
-  public Double getMK_Pper() 
+  public Double getMK_Pper()
   {
     return mK_Pper;
   }
@@ -129,7 +121,7 @@ public class BpaSwi_MK
     this.mK_Pper = mK_Pper;
   }
     
-  public Double getMK_KL() 
+  public Double getMK_KL()
   {
     return mK_KL;
   }
@@ -139,7 +131,7 @@ public class BpaSwi_MK
     this.mK_KL = mK_KL;
   }
     
-  public Double getMK_Pmin() 
+  public Double getMK_Pmin()
   {
     return mK_Pmin;
   }
@@ -149,7 +141,7 @@ public class BpaSwi_MK
     this.mK_Pmin = mK_Pmin;
   }
     
-  public Double getMK_RS() 
+  public Double getMK_RS()
   {
     return mK_RS;
   }
@@ -159,7 +151,7 @@ public class BpaSwi_MK
     this.mK_RS = mK_RS;
   }
     
-  public Double getMK_XS() 
+  public Double getMK_XS()
   {
     return mK_XS;
   }
@@ -169,7 +161,7 @@ public class BpaSwi_MK
     this.mK_XS = mK_XS;
   }
     
-  public Double getMK_XM() 
+  public Double getMK_XM()
   {
     return mK_XM;
   }
@@ -179,7 +171,7 @@ public class BpaSwi_MK
     this.mK_XM = mK_XM;
   }
     
-  public Double getMK_RR() 
+  public Double getMK_RR()
   {
     return mK_RR;
   }
@@ -189,7 +181,7 @@ public class BpaSwi_MK
     this.mK_RR = mK_RR;
   }
     
-  public Double getMK_XR() 
+  public Double getMK_XR()
   {
     return mK_XR;
   }
@@ -199,7 +191,7 @@ public class BpaSwi_MK
     this.mK_XR = mK_XR;
   }
     
-  public Double getMK_VI() 
+  public Double getMK_VI()
   {
     return mK_VI;
   }
@@ -209,7 +201,7 @@ public class BpaSwi_MK
     this.mK_VI = mK_VI;
   }
     
-  public Double getMK_TI() 
+  public Double getMK_TI()
   {
     return mK_TI;
   }
@@ -219,7 +211,7 @@ public class BpaSwi_MK
     this.mK_TI = mK_TI;
   }
     
-  public Double getMK_A() 
+  public Double getMK_A()
   {
     return mK_A;
   }
@@ -229,7 +221,7 @@ public class BpaSwi_MK
     this.mK_A = mK_A;
   }
     
-  public Double getMK_B() 
+  public Double getMK_B()
   {
     return mK_B;
   }
@@ -239,7 +231,7 @@ public class BpaSwi_MK
     this.mK_B = mK_B;
   }
     
-  public Integer getMK_S0() 
+  public Integer getMK_S0()
   {
     return mK_S0;
   }
@@ -249,7 +241,7 @@ public class BpaSwi_MK
     this.mK_S0 = mK_S0;
   }
     
-  public Integer getMK_IM() 
+  public Integer getMK_IM()
   {
     return mK_IM;
   }
@@ -257,6 +249,29 @@ public class BpaSwi_MK
   public void setMK_IM(Integer mK_IM)
   {
     this.mK_IM = mK_IM;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_MK ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", area_Name = " + area_Name
+	 + ", mK_TJ = " + mK_TJ
+	 + ", mK_Pper = " + mK_Pper
+	 + ", mK_KL = " + mK_KL
+	 + ", mK_Pmin = " + mK_Pmin
+	 + ", mK_RS = " + mK_RS
+	 + ", mK_XS = " + mK_XS
+	 + ", mK_XM = " + mK_XM
+	 + ", mK_RR = " + mK_RR
+	 + ", mK_XR = " + mK_XR
+	 + ", mK_VI = " + mK_VI
+	 + ", mK_TI = " + mK_TI
+	 + ", mK_A = " + mK_A
+	 + ", mK_B = " + mK_B
+	 + ", mK_S0 = " + mK_S0
+	 + ", mK_IM = " + mK_IM+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *直流线路	*
 ***********************/
-@Entity
 public class DCLine
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -72,7 +64,7 @@ public class DCLine
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -82,7 +74,7 @@ public class DCLine
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -92,7 +84,7 @@ public class DCLine
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -102,7 +94,7 @@ public class DCLine
     this.name = name;
   }
     
-  public String getDCBusI() 
+  public String getDCBusI()
   {
     return dCBusI;
   }
@@ -112,7 +104,7 @@ public class DCLine
     this.dCBusI = dCBusI;
   }
     
-  public String getDCBusJ() 
+  public String getDCBusJ()
   {
     return dCBusJ;
   }
@@ -122,7 +114,7 @@ public class DCLine
     this.dCBusJ = dCBusJ;
   }
     
-  public Double getLength() 
+  public Double getLength()
   {
     return length;
   }
@@ -132,7 +124,7 @@ public class DCLine
     this.length = length;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -142,7 +134,7 @@ public class DCLine
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -152,7 +144,7 @@ public class DCLine
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -162,7 +154,7 @@ public class DCLine
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -172,7 +164,7 @@ public class DCLine
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -182,7 +174,7 @@ public class DCLine
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -192,7 +184,7 @@ public class DCLine
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -202,7 +194,7 @@ public class DCLine
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -212,7 +204,7 @@ public class DCLine
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -222,7 +214,7 @@ public class DCLine
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -232,7 +224,7 @@ public class DCLine
     this.rerrMin = rerrMin;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -242,7 +234,7 @@ public class DCLine
     this.faultFreq = faultFreq;
   }
     
-  public Integer getDCBusIPtr() 
+  public Integer getDCBusIPtr()
   {
     return dCBusIPtr;
   }
@@ -252,7 +244,7 @@ public class DCLine
     this.dCBusIPtr = dCBusIPtr;
   }
     
-  public Integer getDCBusJPtr() 
+  public Integer getDCBusJPtr()
   {
     return dCBusJPtr;
   }
@@ -262,7 +254,7 @@ public class DCLine
     this.dCBusJPtr = dCBusJPtr;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -270,6 +262,30 @@ public class DCLine
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "DCLine ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", dCBusI = " + dCBusI
+	 + ", dCBusJ = " + dCBusJ
+	 + ", length = " + length
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", dCBusIPtr = " + dCBusIPtr
+	 + ", dCBusJPtr = " + dCBusJPtr
+	 + ", outage = " + outage+"]";
   }
     
 }

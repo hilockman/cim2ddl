@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *PSS模型表(S)	*
 ***********************/
-@Entity
 public class BpaSwi_PssS
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -93,7 +85,7 @@ public class BpaSwi_PssS
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -103,7 +95,7 @@ public class BpaSwi_PssS
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -113,7 +105,7 @@ public class BpaSwi_PssS
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -123,7 +115,7 @@ public class BpaSwi_PssS
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -133,7 +125,7 @@ public class BpaSwi_PssS
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -143,7 +135,7 @@ public class BpaSwi_PssS
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -153,7 +145,7 @@ public class BpaSwi_PssS
     this.gen_ID = gen_ID;
   }
     
-  public Double getPssS_KQV() 
+  public Double getPssS_KQV()
   {
     return pssS_KQV;
   }
@@ -163,7 +155,7 @@ public class BpaSwi_PssS
     this.pssS_KQV = pssS_KQV;
   }
     
-  public Double getPssS_TQV() 
+  public Double getPssS_TQV()
   {
     return pssS_TQV;
   }
@@ -173,7 +165,7 @@ public class BpaSwi_PssS
     this.pssS_TQV = pssS_TQV;
   }
     
-  public Double getPssS_KQS() 
+  public Double getPssS_KQS()
   {
     return pssS_KQS;
   }
@@ -183,7 +175,7 @@ public class BpaSwi_PssS
     this.pssS_KQS = pssS_KQS;
   }
     
-  public Double getPssS_TQS() 
+  public Double getPssS_TQS()
   {
     return pssS_TQS;
   }
@@ -193,7 +185,7 @@ public class BpaSwi_PssS
     this.pssS_TQS = pssS_TQS;
   }
     
-  public Double getPssS_TQ() 
+  public Double getPssS_TQ()
   {
     return pssS_TQ;
   }
@@ -203,7 +195,7 @@ public class BpaSwi_PssS
     this.pssS_TQ = pssS_TQ;
   }
     
-  public Double getPssS_TQ1() 
+  public Double getPssS_TQ1()
   {
     return pssS_TQ1;
   }
@@ -213,7 +205,7 @@ public class BpaSwi_PssS
     this.pssS_TQ1 = pssS_TQ1;
   }
     
-  public Double getPssS_TQ1P() 
+  public Double getPssS_TQ1P()
   {
     return pssS_TQ1P;
   }
@@ -223,7 +215,7 @@ public class BpaSwi_PssS
     this.pssS_TQ1P = pssS_TQ1P;
   }
     
-  public Double getPssS_TQ2() 
+  public Double getPssS_TQ2()
   {
     return pssS_TQ2;
   }
@@ -233,7 +225,7 @@ public class BpaSwi_PssS
     this.pssS_TQ2 = pssS_TQ2;
   }
     
-  public Double getPssS_TQ2P() 
+  public Double getPssS_TQ2P()
   {
     return pssS_TQ2P;
   }
@@ -243,7 +235,7 @@ public class BpaSwi_PssS
     this.pssS_TQ2P = pssS_TQ2P;
   }
     
-  public Double getPssS_TQ3() 
+  public Double getPssS_TQ3()
   {
     return pssS_TQ3;
   }
@@ -253,7 +245,7 @@ public class BpaSwi_PssS
     this.pssS_TQ3 = pssS_TQ3;
   }
     
-  public Double getPssS_TQ3P() 
+  public Double getPssS_TQ3P()
   {
     return pssS_TQ3P;
   }
@@ -263,7 +255,7 @@ public class BpaSwi_PssS
     this.pssS_TQ3P = pssS_TQ3P;
   }
     
-  public Double getPssS_VSmax() 
+  public Double getPssS_VSmax()
   {
     return pssS_VSmax;
   }
@@ -273,7 +265,7 @@ public class BpaSwi_PssS
     this.pssS_VSmax = pssS_VSmax;
   }
     
-  public Double getPssS_VCutOff() 
+  public Double getPssS_VCutOff()
   {
     return pssS_VCutOff;
   }
@@ -283,7 +275,7 @@ public class BpaSwi_PssS
     this.pssS_VCutOff = pssS_VCutOff;
   }
     
-  public Double getPssS_VSlow() 
+  public Double getPssS_VSlow()
   {
     return pssS_VSlow;
   }
@@ -293,7 +285,7 @@ public class BpaSwi_PssS
     this.pssS_VSlow = pssS_VSlow;
   }
     
-  public Double getPssS_KQBase() 
+  public Double getPssS_KQBase()
   {
     return pssS_KQBase;
   }
@@ -303,7 +295,7 @@ public class BpaSwi_PssS
     this.pssS_KQBase = pssS_KQBase;
   }
     
-  public String getPssS_RBusName() 
+  public String getPssS_RBusName()
   {
     return pssS_RBusName;
   }
@@ -313,7 +305,7 @@ public class BpaSwi_PssS
     this.pssS_RBusName = pssS_RBusName;
   }
     
-  public Double getPssS_RBuskV() 
+  public Double getPssS_RBuskV()
   {
     return pssS_RBuskV;
   }
@@ -323,7 +315,7 @@ public class BpaSwi_PssS
     this.pssS_RBuskV = pssS_RBuskV;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -333,7 +325,7 @@ public class BpaSwi_PssS
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -343,7 +335,7 @@ public class BpaSwi_PssS
     this.busPtr = busPtr;
   }
     
-  public Integer getPssS_iRRBus() 
+  public Integer getPssS_iRRBus()
   {
     return pssS_iRRBus;
   }
@@ -353,7 +345,7 @@ public class BpaSwi_PssS
     this.pssS_iRRBus = pssS_iRRBus;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -361,6 +353,37 @@ public class BpaSwi_PssS
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_PssS ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssS_KQV = " + pssS_KQV
+	 + ", pssS_TQV = " + pssS_TQV
+	 + ", pssS_KQS = " + pssS_KQS
+	 + ", pssS_TQS = " + pssS_TQS
+	 + ", pssS_TQ = " + pssS_TQ
+	 + ", pssS_TQ1 = " + pssS_TQ1
+	 + ", pssS_TQ1P = " + pssS_TQ1P
+	 + ", pssS_TQ2 = " + pssS_TQ2
+	 + ", pssS_TQ2P = " + pssS_TQ2P
+	 + ", pssS_TQ3 = " + pssS_TQ3
+	 + ", pssS_TQ3P = " + pssS_TQ3P
+	 + ", pssS_VSmax = " + pssS_VSmax
+	 + ", pssS_VCutOff = " + pssS_VCutOff
+	 + ", pssS_VSlow = " + pssS_VSlow
+	 + ", pssS_KQBase = " + pssS_KQBase
+	 + ", pssS_RBusName = " + pssS_RBusName
+	 + ", pssS_RBuskV = " + pssS_RBuskV
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", pssS_iRRBus = " + pssS_iRRBus
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

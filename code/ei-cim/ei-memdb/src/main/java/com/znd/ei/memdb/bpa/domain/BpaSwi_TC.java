@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *双再热器汽轮机模型表(TC)	*
 ***********************/
-@Entity
 public class BpaSwi_TC
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -63,7 +55,7 @@ public class BpaSwi_TC
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -73,7 +65,7 @@ public class BpaSwi_TC
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -83,7 +75,7 @@ public class BpaSwi_TC
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -93,7 +85,7 @@ public class BpaSwi_TC
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -103,7 +95,7 @@ public class BpaSwi_TC
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -113,7 +105,7 @@ public class BpaSwi_TC
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -123,7 +115,7 @@ public class BpaSwi_TC
     this.gen_ID = gen_ID;
   }
     
-  public Double getTC_TCH() 
+  public Double getTC_TCH()
   {
     return tC_TCH;
   }
@@ -133,7 +125,7 @@ public class BpaSwi_TC
     this.tC_TCH = tC_TCH;
   }
     
-  public Double getTC_FVHP() 
+  public Double getTC_FVHP()
   {
     return tC_FVHP;
   }
@@ -143,7 +135,7 @@ public class BpaSwi_TC
     this.tC_FVHP = tC_FVHP;
   }
     
-  public Double getTC_TRH1() 
+  public Double getTC_TRH1()
   {
     return tC_TRH1;
   }
@@ -153,7 +145,7 @@ public class BpaSwi_TC
     this.tC_TRH1 = tC_TRH1;
   }
     
-  public Double getTC_FHP() 
+  public Double getTC_FHP()
   {
     return tC_FHP;
   }
@@ -163,7 +155,7 @@ public class BpaSwi_TC
     this.tC_FHP = tC_FHP;
   }
     
-  public Double getTC_TRH2() 
+  public Double getTC_TRH2()
   {
     return tC_TRH2;
   }
@@ -173,7 +165,7 @@ public class BpaSwi_TC
     this.tC_TRH2 = tC_TRH2;
   }
     
-  public Double getTC_FIP() 
+  public Double getTC_FIP()
   {
     return tC_FIP;
   }
@@ -183,7 +175,7 @@ public class BpaSwi_TC
     this.tC_FIP = tC_FIP;
   }
     
-  public Double getTC_TCO() 
+  public Double getTC_TCO()
   {
     return tC_TCO;
   }
@@ -193,7 +185,7 @@ public class BpaSwi_TC
     this.tC_TCO = tC_TCO;
   }
     
-  public Double getTC_FLP() 
+  public Double getTC_FLP()
   {
     return tC_FLP;
   }
@@ -203,7 +195,7 @@ public class BpaSwi_TC
     this.tC_FLP = tC_FLP;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -213,7 +205,7 @@ public class BpaSwi_TC
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -223,7 +215,7 @@ public class BpaSwi_TC
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -231,6 +223,27 @@ public class BpaSwi_TC
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_TC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tC_TCH = " + tC_TCH
+	 + ", tC_FVHP = " + tC_FVHP
+	 + ", tC_TRH1 = " + tC_TRH1
+	 + ", tC_FHP = " + tC_FHP
+	 + ", tC_TRH2 = " + tC_TRH2
+	 + ", tC_FIP = " + tC_FIP
+	 + ", tC_TCO = " + tC_TCO
+	 + ", tC_FLP = " + tC_FLP
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

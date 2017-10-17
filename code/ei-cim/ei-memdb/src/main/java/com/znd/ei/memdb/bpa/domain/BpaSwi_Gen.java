@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机模型表(MC/MF/MG)	*
 ***********************/
-@Entity
 public class BpaSwi_Gen
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -96,7 +88,7 @@ public class BpaSwi_Gen
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -106,7 +98,7 @@ public class BpaSwi_Gen
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -116,7 +108,7 @@ public class BpaSwi_Gen
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -126,7 +118,7 @@ public class BpaSwi_Gen
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -136,7 +128,7 @@ public class BpaSwi_Gen
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -146,7 +138,7 @@ public class BpaSwi_Gen
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -156,7 +148,7 @@ public class BpaSwi_Gen
     this.gen_ID = gen_ID;
   }
     
-  public Double getGen_Emws() 
+  public Double getGen_Emws()
   {
     return gen_Emws;
   }
@@ -166,7 +158,7 @@ public class BpaSwi_Gen
     this.gen_Emws = gen_Emws;
   }
     
-  public Double getGen_P() 
+  public Double getGen_P()
   {
     return gen_P;
   }
@@ -176,7 +168,7 @@ public class BpaSwi_Gen
     this.gen_P = gen_P;
   }
     
-  public Double getGen_Q() 
+  public Double getGen_Q()
   {
     return gen_Q;
   }
@@ -186,7 +178,7 @@ public class BpaSwi_Gen
     this.gen_Q = gen_Q;
   }
     
-  public Double getGen_MVABase() 
+  public Double getGen_MVABase()
   {
     return gen_MVABase;
   }
@@ -196,7 +188,7 @@ public class BpaSwi_Gen
     this.gen_MVABase = gen_MVABase;
   }
     
-  public Double getGen_Ra() 
+  public Double getGen_Ra()
   {
     return gen_Ra;
   }
@@ -206,7 +198,7 @@ public class BpaSwi_Gen
     this.gen_Ra = gen_Ra;
   }
     
-  public Double getGen_Xdp() 
+  public Double getGen_Xdp()
   {
     return gen_Xdp;
   }
@@ -216,7 +208,7 @@ public class BpaSwi_Gen
     this.gen_Xdp = gen_Xdp;
   }
     
-  public Double getGen_Xqp() 
+  public Double getGen_Xqp()
   {
     return gen_Xqp;
   }
@@ -226,7 +218,7 @@ public class BpaSwi_Gen
     this.gen_Xqp = gen_Xqp;
   }
     
-  public Double getGen_Xd() 
+  public Double getGen_Xd()
   {
     return gen_Xd;
   }
@@ -236,7 +228,7 @@ public class BpaSwi_Gen
     this.gen_Xd = gen_Xd;
   }
     
-  public Double getGen_Xq() 
+  public Double getGen_Xq()
   {
     return gen_Xq;
   }
@@ -246,7 +238,7 @@ public class BpaSwi_Gen
     this.gen_Xq = gen_Xq;
   }
     
-  public Double getGen_Td0() 
+  public Double getGen_Td0()
   {
     return gen_Td0;
   }
@@ -256,7 +248,7 @@ public class BpaSwi_Gen
     this.gen_Td0 = gen_Td0;
   }
     
-  public Double getGen_Tq0() 
+  public Double getGen_Tq0()
   {
     return gen_Tq0;
   }
@@ -266,7 +258,7 @@ public class BpaSwi_Gen
     this.gen_Tq0 = gen_Tq0;
   }
     
-  public Double getGen_XL_XP() 
+  public Double getGen_XL_XP()
   {
     return gen_XL_XP;
   }
@@ -276,7 +268,7 @@ public class BpaSwi_Gen
     this.gen_XL_XP = gen_XL_XP;
   }
     
-  public Double getGen_SG10() 
+  public Double getGen_SG10()
   {
     return gen_SG10;
   }
@@ -286,7 +278,7 @@ public class BpaSwi_Gen
     this.gen_SG10 = gen_SG10;
   }
     
-  public Double getGen_SG12() 
+  public Double getGen_SG12()
   {
     return gen_SG12;
   }
@@ -296,7 +288,7 @@ public class BpaSwi_Gen
     this.gen_SG12 = gen_SG12;
   }
     
-  public Double getGen_D() 
+  public Double getGen_D()
   {
     return gen_D;
   }
@@ -306,7 +298,7 @@ public class BpaSwi_Gen
     this.gen_D = gen_D;
   }
     
-  public Double getGen_A() 
+  public Double getGen_A()
   {
     return gen_A;
   }
@@ -316,7 +308,7 @@ public class BpaSwi_Gen
     this.gen_A = gen_A;
   }
     
-  public Double getGen_B() 
+  public Double getGen_B()
   {
     return gen_B;
   }
@@ -326,7 +318,7 @@ public class BpaSwi_Gen
     this.gen_B = gen_B;
   }
     
-  public Double getGen_N() 
+  public Double getGen_N()
   {
     return gen_N;
   }
@@ -336,7 +328,7 @@ public class BpaSwi_Gen
     this.gen_N = gen_N;
   }
     
-  public Double getGen_MVA() 
+  public Double getGen_MVA()
   {
     return gen_MVA;
   }
@@ -346,7 +338,7 @@ public class BpaSwi_Gen
     this.gen_MVA = gen_MVA;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -356,7 +348,7 @@ public class BpaSwi_Gen
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -366,7 +358,7 @@ public class BpaSwi_Gen
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -374,6 +366,38 @@ public class BpaSwi_Gen
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_Gen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Emws = " + gen_Emws
+	 + ", gen_P = " + gen_P
+	 + ", gen_Q = " + gen_Q
+	 + ", gen_MVABase = " + gen_MVABase
+	 + ", gen_Ra = " + gen_Ra
+	 + ", gen_Xdp = " + gen_Xdp
+	 + ", gen_Xqp = " + gen_Xqp
+	 + ", gen_Xd = " + gen_Xd
+	 + ", gen_Xq = " + gen_Xq
+	 + ", gen_Td0 = " + gen_Td0
+	 + ", gen_Tq0 = " + gen_Tq0
+	 + ", gen_XL_XP = " + gen_XL_XP
+	 + ", gen_SG10 = " + gen_SG10
+	 + ", gen_SG12 = " + gen_SG12
+	 + ", gen_D = " + gen_D
+	 + ", gen_A = " + gen_A
+	 + ", gen_B = " + gen_B
+	 + ", gen_N = " + gen_N
+	 + ", gen_MVA = " + gen_MVA
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

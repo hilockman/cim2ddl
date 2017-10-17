@@ -240,24 +240,24 @@ public class BpaSwi_PssST
     
   public String toString()
   {
-    return "BpaSwi_PssST ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"pssST_T1"=pssST_T1,
-	"pssST_T2"=pssST_T2,
-	"pssST_T3"=pssST_T3,
-	"pssST_K"=pssST_K,
-	"pssST_DWt1"=pssST_DWt1,
-	"pssST_DWt2"=pssST_DWt2,
-	"pssST_DWpt"=pssST_DWpt,
-	"pssST_TDelay"=pssST_TDelay,
-	"pssST_T4"=pssST_T4,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_PssST ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssST_T1 = " + pssST_T1
+	 + ", pssST_T2 = " + pssST_T2
+	 + ", pssST_T3 = " + pssST_T3
+	 + ", pssST_K = " + pssST_K
+	 + ", pssST_DWt1 = " + pssST_DWt1
+	 + ", pssST_DWt2 = " + pssST_DWt2
+	 + ", pssST_DWpt = " + pssST_DWpt
+	 + ", pssST_TDelay = " + pssST_TDelay
+	 + ", pssST_T4 = " + pssST_T4
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

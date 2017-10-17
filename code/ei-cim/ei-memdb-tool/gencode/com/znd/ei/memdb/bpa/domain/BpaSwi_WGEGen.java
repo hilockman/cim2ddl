@@ -305,29 +305,29 @@ public class BpaSwi_WGEGen
     
   public String toString()
   {
-    return "BpaSwi_WGEGen ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gE_TYPE"=gE_TYPE,
-	"nG"=nG,
-	"nAME_CON"=nAME_CON,
-	"bASE_CON"=bASE_CON,
-	"pPER"=pPER,
-	"qPER"=qPER,
-	"v0"=v0,
-	"nMASS_FLG"=nMASS_FLG,
-	"qDROOP_FLG"=qDROOP_FLG,
-	"wINDCON_FLG"=wINDCON_FLG,
-	"eWVOL_FLG"=eWVOL_FLG,
-	"aPCFLG"=aPCFLG,
-	"fFLG"=fFLG,
-	"iNERTIA"=iNERTIA,
-	"pQFLG"=pQFLG,
-	"keyName"=keyName,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_WGEGen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gE_TYPE = " + gE_TYPE
+	 + ", nG = " + nG
+	 + ", nAME_CON = " + nAME_CON
+	 + ", bASE_CON = " + bASE_CON
+	 + ", pPER = " + pPER
+	 + ", qPER = " + qPER
+	 + ", v0 = " + v0
+	 + ", nMASS_FLG = " + nMASS_FLG
+	 + ", qDROOP_FLG = " + qDROOP_FLG
+	 + ", wINDCON_FLG = " + wINDCON_FLG
+	 + ", eWVOL_FLG = " + eWVOL_FLG
+	 + ", aPCFLG = " + aPCFLG
+	 + ", fFLG = " + fFLG
+	 + ", iNERTIA = " + iNERTIA
+	 + ", pQFLG = " + pQFLG
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

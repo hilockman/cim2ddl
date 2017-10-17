@@ -6,6 +6,8 @@ public  interface FileLineWriter
   public  void write(String paramString, int paramInt);
 
   public  void write(String paramString);
+  
+  public  void writeln(String paramString);
 
   public  void write();
 

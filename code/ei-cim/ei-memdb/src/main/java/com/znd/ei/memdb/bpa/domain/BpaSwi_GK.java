@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *调节系统模型3表(GK)	*
 ***********************/
-@Entity
 public class BpaSwi_GK
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -84,7 +76,7 @@ public class BpaSwi_GK
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -94,7 +86,7 @@ public class BpaSwi_GK
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -104,7 +96,7 @@ public class BpaSwi_GK
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -114,7 +106,7 @@ public class BpaSwi_GK
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -124,7 +116,7 @@ public class BpaSwi_GK
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -134,7 +126,7 @@ public class BpaSwi_GK
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -144,7 +136,7 @@ public class BpaSwi_GK
     this.gen_ID = gen_ID;
   }
     
-  public Double getGK_TW() 
+  public Double getGK_TW()
   {
     return gK_TW;
   }
@@ -154,7 +146,7 @@ public class BpaSwi_GK
     this.gK_TW = gK_TW;
   }
     
-  public Double getGK_E() 
+  public Double getGK_E()
   {
     return gK_E;
   }
@@ -164,7 +156,7 @@ public class BpaSwi_GK
     this.gK_E = gK_E;
   }
     
-  public Integer getGK_I() 
+  public Integer getGK_I()
   {
     return gK_I;
   }
@@ -174,7 +166,7 @@ public class BpaSwi_GK
     this.gK_I = gK_I;
   }
     
-  public Double getGK_K1() 
+  public Double getGK_K1()
   {
     return gK_K1;
   }
@@ -184,7 +176,7 @@ public class BpaSwi_GK
     this.gK_K1 = gK_K1;
   }
     
-  public Double getGK_K2() 
+  public Double getGK_K2()
   {
     return gK_K2;
   }
@@ -194,7 +186,7 @@ public class BpaSwi_GK
     this.gK_K2 = gK_K2;
   }
     
-  public Integer getGK_I_Control() 
+  public Integer getGK_I_Control()
   {
     return gK_I_Control;
   }
@@ -204,7 +196,7 @@ public class BpaSwi_GK
     this.gK_I_Control = gK_I_Control;
   }
     
-  public Double getGK_KP() 
+  public Double getGK_KP()
   {
     return gK_KP;
   }
@@ -214,7 +206,7 @@ public class BpaSwi_GK
     this.gK_KP = gK_KP;
   }
     
-  public Double getGK_KD() 
+  public Double getGK_KD()
   {
     return gK_KD;
   }
@@ -224,7 +216,7 @@ public class BpaSwi_GK
     this.gK_KD = gK_KD;
   }
     
-  public Double getGK_KI() 
+  public Double getGK_KI()
   {
     return gK_KI;
   }
@@ -234,7 +226,7 @@ public class BpaSwi_GK
     this.gK_KI = gK_KI;
   }
     
-  public Double getGK_INTG_MAX() 
+  public Double getGK_INTG_MAX()
   {
     return gK_INTG_MAX;
   }
@@ -244,7 +236,7 @@ public class BpaSwi_GK
     this.gK_INTG_MAX = gK_INTG_MAX;
   }
     
-  public Double getGK_INTG_MIN() 
+  public Double getGK_INTG_MIN()
   {
     return gK_INTG_MIN;
   }
@@ -254,7 +246,7 @@ public class BpaSwi_GK
     this.gK_INTG_MIN = gK_INTG_MIN;
   }
     
-  public Double getGK_PID_MAX() 
+  public Double getGK_PID_MAX()
   {
     return gK_PID_MAX;
   }
@@ -264,7 +256,7 @@ public class BpaSwi_GK
     this.gK_PID_MAX = gK_PID_MAX;
   }
     
-  public Double getGK_PID_MIN() 
+  public Double getGK_PID_MIN()
   {
     return gK_PID_MIN;
   }
@@ -274,7 +266,7 @@ public class BpaSwi_GK
     this.gK_PID_MIN = gK_PID_MIN;
   }
     
-  public Double getGK_W_MAX() 
+  public Double getGK_W_MAX()
   {
     return gK_W_MAX;
   }
@@ -284,7 +276,7 @@ public class BpaSwi_GK
     this.gK_W_MAX = gK_W_MAX;
   }
     
-  public Double getGK_W_MIN() 
+  public Double getGK_W_MIN()
   {
     return gK_W_MIN;
   }
@@ -294,7 +286,7 @@ public class BpaSwi_GK
     this.gK_W_MIN = gK_W_MIN;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -304,7 +296,7 @@ public class BpaSwi_GK
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -314,7 +306,7 @@ public class BpaSwi_GK
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -322,6 +314,34 @@ public class BpaSwi_GK
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GK ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gK_TW = " + gK_TW
+	 + ", gK_E = " + gK_E
+	 + ", gK_I = " + gK_I
+	 + ", gK_K1 = " + gK_K1
+	 + ", gK_K2 = " + gK_K2
+	 + ", gK_I_Control = " + gK_I_Control
+	 + ", gK_KP = " + gK_KP
+	 + ", gK_KD = " + gK_KD
+	 + ", gK_KI = " + gK_KI
+	 + ", gK_INTG_MAX = " + gK_INTG_MAX
+	 + ", gK_INTG_MIN = " + gK_INTG_MIN
+	 + ", gK_PID_MAX = " + gK_PID_MAX
+	 + ", gK_PID_MIN = " + gK_PID_MIN
+	 + ", gK_W_MAX = " + gK_W_MAX
+	 + ", gK_W_MIN = " + gK_W_MIN
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

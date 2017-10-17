@@ -305,29 +305,29 @@ public class BpaSwi_PssSA
     
   public String toString()
   {
-    return "BpaSwi_PssSA ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"pssSA_T1"=pssSA_T1,
-	"pssSA_T2"=pssSA_T2,
-	"pssSA_T3"=pssSA_T3,
-	"pssSA_T4"=pssSA_T4,
-	"pssSA_T5"=pssSA_T5,
-	"pssSA_T6"=pssSA_T6,
-	"pssSA_K1"=pssSA_K1,
-	"pssSA_K2"=pssSA_K2,
-	"pssSA_K"=pssSA_K,
-	"pssSA_A"=pssSA_A,
-	"pssSA_P"=pssSA_P,
-	"pssSA_LimitMax"=pssSA_LimitMax,
-	"pssSA_LimitMin"=pssSA_LimitMin,
-	"pssSA_KMVA"=pssSA_KMVA,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_PssSA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssSA_T1 = " + pssSA_T1
+	 + ", pssSA_T2 = " + pssSA_T2
+	 + ", pssSA_T3 = " + pssSA_T3
+	 + ", pssSA_T4 = " + pssSA_T4
+	 + ", pssSA_T5 = " + pssSA_T5
+	 + ", pssSA_T6 = " + pssSA_T6
+	 + ", pssSA_K1 = " + pssSA_K1
+	 + ", pssSA_K2 = " + pssSA_K2
+	 + ", pssSA_K = " + pssSA_K
+	 + ", pssSA_A = " + pssSA_A
+	 + ", pssSA_P = " + pssSA_P
+	 + ", pssSA_LimitMax = " + pssSA_LimitMax
+	 + ", pssSA_LimitMin = " + pssSA_LimitMin
+	 + ", pssSA_KMVA = " + pssSA_KMVA
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

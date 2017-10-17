@@ -242,9 +242,8 @@ public class MemClassCreateService implements ClassCreateService {
 							}
 
 							buff.append("private ").append(info.getTypeName())
-									.append(" ").append(info.getStandardName())
-									.append(";");
-							w.write(buff.toString());
+									.append(" ").append(info.getStandardName());
+							w.writeln(buff.toString());
 							w.write();
 						}
 					});
@@ -260,7 +259,7 @@ public class MemClassCreateService implements ClassCreateService {
 						w.write(formMethodString("public", info.getTypeName(),
 								"get" + info.getName()));
 					}).add(w -> {// get函数体
-						w.write("return " + info.getStandardName() + ";");
+						w.writeln("return " + info.getStandardName());
 					});
 
 			classNode.add(w -> {// set 方法名
@@ -268,19 +267,19 @@ public class MemClassCreateService implements ClassCreateService {
 								"set" + info.getName(), info.getTypeName(),
 								info.getStandardName()));
 					}).add(w -> {// set 函数体
-						w.write("this." + info.getStandardName() + " = "
-								+ info.getStandardName() + ";");
+						w.writeln("this." + info.getStandardName() + " = "
+								+ info.getStandardName());
 					});
 
-			toStringMethods.add("\t\"" + info.getStandardName() + "\"="
+			toStringMethods.add((i > 0?"\t + \", " : "\"" ) + info.getStandardName() + " = \" + "
 					+ info.getStandardName());
 		}
 
 		classNode.add(w -> {
 			w.write(formMethodString("public", "String", "toString"));
 		}).add(w -> {
-			w.write("return " + wrapprerWithQuota(table.getName() + " [") + "+"
-					+ String.join(",\n", toStringMethods) + "+"
+			w.writeln("return " + wrapprerWithQuota(table.getName() + " [") + "+"
+					+ String.join("\n", toStringMethods) + "+"
 					+ wrapprerWithQuota("]"));
 		});
 

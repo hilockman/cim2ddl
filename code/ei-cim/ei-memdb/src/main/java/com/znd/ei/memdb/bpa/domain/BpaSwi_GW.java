@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *水轮机调速模型表(GW)	*
 ***********************/
-@Entity
 public class BpaSwi_GW
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -57,7 +49,7 @@ public class BpaSwi_GW
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -67,7 +59,7 @@ public class BpaSwi_GW
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -77,7 +69,7 @@ public class BpaSwi_GW
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -87,7 +79,7 @@ public class BpaSwi_GW
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -97,7 +89,7 @@ public class BpaSwi_GW
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -107,7 +99,7 @@ public class BpaSwi_GW
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -117,7 +109,7 @@ public class BpaSwi_GW
     this.gen_ID = gen_ID;
   }
     
-  public Double getGen_Pmax() 
+  public Double getGen_Pmax()
   {
     return gen_Pmax;
   }
@@ -127,7 +119,7 @@ public class BpaSwi_GW
     this.gen_Pmax = gen_Pmax;
   }
     
-  public Double getGen_Pmin() 
+  public Double getGen_Pmin()
   {
     return gen_Pmin;
   }
@@ -137,7 +129,7 @@ public class BpaSwi_GW
     this.gen_Pmin = gen_Pmin;
   }
     
-  public Double getGW_R() 
+  public Double getGW_R()
   {
     return gW_R;
   }
@@ -147,7 +139,7 @@ public class BpaSwi_GW
     this.gW_R = gW_R;
   }
     
-  public Double getGW_T1() 
+  public Double getGW_T1()
   {
     return gW_T1;
   }
@@ -157,7 +149,7 @@ public class BpaSwi_GW
     this.gW_T1 = gW_T1;
   }
     
-  public Double getGW_T2() 
+  public Double getGW_T2()
   {
     return gW_T2;
   }
@@ -167,7 +159,7 @@ public class BpaSwi_GW
     this.gW_T2 = gW_T2;
   }
     
-  public Double getGW_T3() 
+  public Double getGW_T3()
   {
     return gW_T3;
   }
@@ -177,7 +169,7 @@ public class BpaSwi_GW
     this.gW_T3 = gW_T3;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -187,7 +179,7 @@ public class BpaSwi_GW
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -197,7 +189,7 @@ public class BpaSwi_GW
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -205,6 +197,25 @@ public class BpaSwi_GW
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GW ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", gW_R = " + gW_R
+	 + ", gW_T1 = " + gW_T1
+	 + ", gW_T2 = " + gW_T2
+	 + ", gW_T3 = " + gW_T3
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

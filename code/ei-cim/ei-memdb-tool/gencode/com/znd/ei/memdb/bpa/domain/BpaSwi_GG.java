@@ -227,23 +227,23 @@ public class BpaSwi_GG
     
   public String toString()
   {
-    return "BpaSwi_GG ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gen_Pmax"=gen_Pmax,
-	"gG_R"=gG_R,
-	"gG_T1"=gG_T1,
-	"gG_T2"=gG_T2,
-	"gG_T3"=gG_T3,
-	"gG_T4"=gG_T4,
-	"gG_T5"=gG_T5,
-	"gG_F"=gG_F,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gG_R = " + gG_R
+	 + ", gG_T1 = " + gG_T1
+	 + ", gG_T2 = " + gG_T2
+	 + ", gG_T3 = " + gG_T3
+	 + ", gG_T4 = " + gG_T4
+	 + ", gG_T5 = " + gG_T5
+	 + ", gG_F = " + gG_F
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

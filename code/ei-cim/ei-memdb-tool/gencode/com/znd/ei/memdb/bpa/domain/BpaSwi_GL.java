@@ -266,26 +266,26 @@ public class BpaSwi_GL
     
   public String toString()
   {
-    return "BpaSwi_GL ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gL_Pe"=gL_Pe,
-	"gL_K"=gL_K,
-	"gL_E"=gL_E,
-	"gL_Tr"=gL_Tr,
-	"gL_Tb"=gL_Tb,
-	"gL_To"=gL_To,
-	"gL_Tc"=gL_Tc,
-	"gL_VELclose"=gL_VELclose,
-	"gL_VELopen"=gL_VELopen,
-	"gen_Pmax"=gen_Pmax,
-	"gen_Pmin"=gen_Pmin,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GL ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gL_Pe = " + gL_Pe
+	 + ", gL_K = " + gL_K
+	 + ", gL_E = " + gL_E
+	 + ", gL_Tr = " + gL_Tr
+	 + ", gL_Tb = " + gL_Tb
+	 + ", gL_To = " + gL_To
+	 + ", gL_Tc = " + gL_Tc
+	 + ", gL_VELclose = " + gL_VELclose
+	 + ", gL_VELopen = " + gL_VELopen
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

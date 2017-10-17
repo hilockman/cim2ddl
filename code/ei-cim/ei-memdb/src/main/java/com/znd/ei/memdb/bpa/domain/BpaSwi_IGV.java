@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *修改调速器频率参考信息表(IGV)	*
 ***********************/
-@Entity
 public class BpaSwi_IGV
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -105,7 +97,7 @@ public class BpaSwi_IGV
   //发电机母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -115,7 +107,7 @@ public class BpaSwi_IGV
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -125,7 +117,7 @@ public class BpaSwi_IGV
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -135,7 +127,7 @@ public class BpaSwi_IGV
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -145,7 +137,7 @@ public class BpaSwi_IGV
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -155,7 +147,7 @@ public class BpaSwi_IGV
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -165,7 +157,7 @@ public class BpaSwi_IGV
     this.gen_ID = gen_ID;
   }
     
-  public Double getIGV_Tstart() 
+  public Double getIGV_Tstart()
   {
     return iGV_Tstart;
   }
@@ -175,7 +167,7 @@ public class BpaSwi_IGV
     this.iGV_Tstart = iGV_Tstart;
   }
     
-  public Double getIGV_T1() 
+  public Double getIGV_T1()
   {
     return iGV_T1;
   }
@@ -185,7 +177,7 @@ public class BpaSwi_IGV
     this.iGV_T1 = iGV_T1;
   }
     
-  public Double getIGV_FREQ1() 
+  public Double getIGV_FREQ1()
   {
     return iGV_FREQ1;
   }
@@ -195,7 +187,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ1 = iGV_FREQ1;
   }
     
-  public Double getIGV_T2() 
+  public Double getIGV_T2()
   {
     return iGV_T2;
   }
@@ -205,7 +197,7 @@ public class BpaSwi_IGV
     this.iGV_T2 = iGV_T2;
   }
     
-  public Double getIGV_FREQ2() 
+  public Double getIGV_FREQ2()
   {
     return iGV_FREQ2;
   }
@@ -215,7 +207,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ2 = iGV_FREQ2;
   }
     
-  public Double getIGV_T3() 
+  public Double getIGV_T3()
   {
     return iGV_T3;
   }
@@ -225,7 +217,7 @@ public class BpaSwi_IGV
     this.iGV_T3 = iGV_T3;
   }
     
-  public Double getIGV_FREQ3() 
+  public Double getIGV_FREQ3()
   {
     return iGV_FREQ3;
   }
@@ -235,7 +227,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ3 = iGV_FREQ3;
   }
     
-  public Double getIGV_T4() 
+  public Double getIGV_T4()
   {
     return iGV_T4;
   }
@@ -245,7 +237,7 @@ public class BpaSwi_IGV
     this.iGV_T4 = iGV_T4;
   }
     
-  public Double getIGV_FREQ4() 
+  public Double getIGV_FREQ4()
   {
     return iGV_FREQ4;
   }
@@ -255,7 +247,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ4 = iGV_FREQ4;
   }
     
-  public Double getIGV_T5() 
+  public Double getIGV_T5()
   {
     return iGV_T5;
   }
@@ -265,7 +257,7 @@ public class BpaSwi_IGV
     this.iGV_T5 = iGV_T5;
   }
     
-  public Double getIGV_FREQ5() 
+  public Double getIGV_FREQ5()
   {
     return iGV_FREQ5;
   }
@@ -275,7 +267,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ5 = iGV_FREQ5;
   }
     
-  public Double getIGV_T6() 
+  public Double getIGV_T6()
   {
     return iGV_T6;
   }
@@ -285,7 +277,7 @@ public class BpaSwi_IGV
     this.iGV_T6 = iGV_T6;
   }
     
-  public Double getIGV_FREQ6() 
+  public Double getIGV_FREQ6()
   {
     return iGV_FREQ6;
   }
@@ -295,7 +287,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ6 = iGV_FREQ6;
   }
     
-  public Double getIGV_T7() 
+  public Double getIGV_T7()
   {
     return iGV_T7;
   }
@@ -305,7 +297,7 @@ public class BpaSwi_IGV
     this.iGV_T7 = iGV_T7;
   }
     
-  public Double getIGV_FREQ7() 
+  public Double getIGV_FREQ7()
   {
     return iGV_FREQ7;
   }
@@ -315,7 +307,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ7 = iGV_FREQ7;
   }
     
-  public Double getIGV_T8() 
+  public Double getIGV_T8()
   {
     return iGV_T8;
   }
@@ -325,7 +317,7 @@ public class BpaSwi_IGV
     this.iGV_T8 = iGV_T8;
   }
     
-  public Double getIGV_FREQ8() 
+  public Double getIGV_FREQ8()
   {
     return iGV_FREQ8;
   }
@@ -335,7 +327,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ8 = iGV_FREQ8;
   }
     
-  public Double getIGV_T9() 
+  public Double getIGV_T9()
   {
     return iGV_T9;
   }
@@ -345,7 +337,7 @@ public class BpaSwi_IGV
     this.iGV_T9 = iGV_T9;
   }
     
-  public Double getIGV_FREQ9() 
+  public Double getIGV_FREQ9()
   {
     return iGV_FREQ9;
   }
@@ -355,7 +347,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ9 = iGV_FREQ9;
   }
     
-  public Double getIGV_T10() 
+  public Double getIGV_T10()
   {
     return iGV_T10;
   }
@@ -365,7 +357,7 @@ public class BpaSwi_IGV
     this.iGV_T10 = iGV_T10;
   }
     
-  public Double getIGV_FREQ10() 
+  public Double getIGV_FREQ10()
   {
     return iGV_FREQ10;
   }
@@ -375,7 +367,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ10 = iGV_FREQ10;
   }
     
-  public Double getIGV_T11() 
+  public Double getIGV_T11()
   {
     return iGV_T11;
   }
@@ -385,7 +377,7 @@ public class BpaSwi_IGV
     this.iGV_T11 = iGV_T11;
   }
     
-  public Double getIGV_FREQ11() 
+  public Double getIGV_FREQ11()
   {
     return iGV_FREQ11;
   }
@@ -395,7 +387,7 @@ public class BpaSwi_IGV
     this.iGV_FREQ11 = iGV_FREQ11;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -405,7 +397,7 @@ public class BpaSwi_IGV
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -413,6 +405,41 @@ public class BpaSwi_IGV
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_IGV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", iGV_Tstart = " + iGV_Tstart
+	 + ", iGV_T1 = " + iGV_T1
+	 + ", iGV_FREQ1 = " + iGV_FREQ1
+	 + ", iGV_T2 = " + iGV_T2
+	 + ", iGV_FREQ2 = " + iGV_FREQ2
+	 + ", iGV_T3 = " + iGV_T3
+	 + ", iGV_FREQ3 = " + iGV_FREQ3
+	 + ", iGV_T4 = " + iGV_T4
+	 + ", iGV_FREQ4 = " + iGV_FREQ4
+	 + ", iGV_T5 = " + iGV_T5
+	 + ", iGV_FREQ5 = " + iGV_FREQ5
+	 + ", iGV_T6 = " + iGV_T6
+	 + ", iGV_FREQ6 = " + iGV_FREQ6
+	 + ", iGV_T7 = " + iGV_T7
+	 + ", iGV_FREQ7 = " + iGV_FREQ7
+	 + ", iGV_T8 = " + iGV_T8
+	 + ", iGV_FREQ8 = " + iGV_FREQ8
+	 + ", iGV_T9 = " + iGV_T9
+	 + ", iGV_FREQ9 = " + iGV_FREQ9
+	 + ", iGV_T10 = " + iGV_T10
+	 + ", iGV_FREQ10 = " + iGV_FREQ10
+	 + ", iGV_T11 = " + iGV_T11
+	 + ", iGV_FREQ11 = " + iGV_FREQ11
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

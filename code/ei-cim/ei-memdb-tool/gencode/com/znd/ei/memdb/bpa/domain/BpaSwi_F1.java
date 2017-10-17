@@ -188,20 +188,20 @@ public class BpaSwi_F1
     
   public String toString()
   {
-    return "BpaSwi_F1 ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"tBUSF"=tBUSF,
-	"tZERO"=tZERO,
-	"iBLOD"=iBLOD,
-	"dMPALL"=dMPALL,
-	"iAMRTS"=iAMRTS,
-	"vCHGL"=vCHGL,
-	"sPTOSG"=sPTOSG,
-	"gSIQU"=gSIQU,
-	"tITSKP"=tITSKP,
-	"iTSKP1"=iTSKP1,
-	"vRLIM"=vRLIM+"]"
+    return "BpaSwi_F1 ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", tBUSF = " + tBUSF
+	 + ", tZERO = " + tZERO
+	 + ", iBLOD = " + iBLOD
+	 + ", dMPALL = " + dMPALL
+	 + ", iAMRTS = " + iAMRTS
+	 + ", vCHGL = " + vCHGL
+	 + ", sPTOSG = " + sPTOSG
+	 + ", gSIQU = " + gSIQU
+	 + ", tITSKP = " + tITSKP
+	 + ", iTSKP1 = " + iTSKP1
+	 + ", vRLIM = " + vRLIM+"]";
   }
     
 }

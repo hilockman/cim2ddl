@@ -370,34 +370,34 @@ public class BpaSwi_ExcX
     
   public String toString()
   {
-    return "BpaSwi_ExcX ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"excX_RC"=excX_RC,
-	"excX_XC"=excX_XC,
-	"excX_TR"=excX_TR,
-	"excX_KA"=excX_KA,
-	"excX_TA"=excX_TA,
-	"excX_Kp"=excX_Kp,
-	"excX_KI"=excX_KI,
-	"excX_VRMax"=excX_VRMax,
-	"excX_VRMin"=excX_VRMin,
-	"excX_IKp"=excX_IKp,
-	"excX_IKI"=excX_IKI,
-	"excX_VFMax"=excX_VFMax,
-	"excX_VFMin"=excX_VFMin,
-	"excX_KT"=excX_KT,
-	"excX_TT"=excX_TT,
-	"excEX_Kifd"=excEX_Kifd,
-	"excEX_Tifd"=excEX_Tifd,
-	"excEX_EFDMin"=excEX_EFDMin,
-	"excEX_EFDMax"=excEX_EFDMax,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_ExcX ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", excX_RC = " + excX_RC
+	 + ", excX_XC = " + excX_XC
+	 + ", excX_TR = " + excX_TR
+	 + ", excX_KA = " + excX_KA
+	 + ", excX_TA = " + excX_TA
+	 + ", excX_Kp = " + excX_Kp
+	 + ", excX_KI = " + excX_KI
+	 + ", excX_VRMax = " + excX_VRMax
+	 + ", excX_VRMin = " + excX_VRMin
+	 + ", excX_IKp = " + excX_IKp
+	 + ", excX_IKI = " + excX_IKI
+	 + ", excX_VFMax = " + excX_VFMax
+	 + ", excX_VFMin = " + excX_VFMin
+	 + ", excX_KT = " + excX_KT
+	 + ", excX_TT = " + excX_TT
+	 + ", excEX_Kifd = " + excEX_Kifd
+	 + ", excEX_Tifd = " + excEX_Tifd
+	 + ", excEX_EFDMin = " + excEX_EFDMin
+	 + ", excEX_EFDMax = " + excEX_EFDMax
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

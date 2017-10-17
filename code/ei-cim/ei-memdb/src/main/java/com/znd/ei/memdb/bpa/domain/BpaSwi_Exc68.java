@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *1968年IEEE励磁系统模型表(E)	*
 ***********************/
-@Entity
 public class BpaSwi_Exc68
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -84,7 +76,7 @@ public class BpaSwi_Exc68
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -94,7 +86,7 @@ public class BpaSwi_Exc68
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -104,7 +96,7 @@ public class BpaSwi_Exc68
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -114,7 +106,7 @@ public class BpaSwi_Exc68
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -124,7 +116,7 @@ public class BpaSwi_Exc68
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -134,7 +126,7 @@ public class BpaSwi_Exc68
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -144,7 +136,7 @@ public class BpaSwi_Exc68
     this.gen_ID = gen_ID;
   }
     
-  public Double getExc68_TR() 
+  public Double getExc68_TR()
   {
     return exc68_TR;
   }
@@ -154,7 +146,7 @@ public class BpaSwi_Exc68
     this.exc68_TR = exc68_TR;
   }
     
-  public Double getExc68_KA_BusKV() 
+  public Double getExc68_KA_BusKV()
   {
     return exc68_KA_BusKV;
   }
@@ -164,7 +156,7 @@ public class BpaSwi_Exc68
     this.exc68_KA_BusKV = exc68_KA_BusKV;
   }
     
-  public Double getExc68_TR_TRH() 
+  public Double getExc68_TR_TRH()
   {
     return exc68_TR_TRH;
   }
@@ -174,7 +166,7 @@ public class BpaSwi_Exc68
     this.exc68_TR_TRH = exc68_TR_TRH;
   }
     
-  public Double getExc68_TA1() 
+  public Double getExc68_TA1()
   {
     return exc68_TA1;
   }
@@ -184,7 +176,7 @@ public class BpaSwi_Exc68
     this.exc68_TA1 = exc68_TA1;
   }
     
-  public Double getExc68_VRMinMult_TRMax() 
+  public Double getExc68_VRMinMult_TRMax()
   {
     return exc68_VRMinMult_TRMax;
   }
@@ -194,7 +186,7 @@ public class BpaSwi_Exc68
     this.exc68_VRMinMult_TRMax = exc68_VRMinMult_TRMax;
   }
     
-  public Double getExc68_KE() 
+  public Double getExc68_KE()
   {
     return exc68_KE;
   }
@@ -204,7 +196,7 @@ public class BpaSwi_Exc68
     this.exc68_KE = exc68_KE;
   }
     
-  public Double getExc68_TE() 
+  public Double getExc68_TE()
   {
     return exc68_TE;
   }
@@ -214,7 +206,7 @@ public class BpaSwi_Exc68
     this.exc68_TE = exc68_TE;
   }
     
-  public Double getExc68_SE75Max_KI() 
+  public Double getExc68_SE75Max_KI()
   {
     return exc68_SE75Max_KI;
   }
@@ -224,7 +216,7 @@ public class BpaSwi_Exc68
     this.exc68_SE75Max_KI = exc68_SE75Max_KI;
   }
     
-  public Double getExc68_SEMax_KP() 
+  public Double getExc68_SEMax_KP()
   {
     return exc68_SEMax_KP;
   }
@@ -234,7 +226,7 @@ public class BpaSwi_Exc68
     this.exc68_SEMax_KP = exc68_SEMax_KP;
   }
     
-  public Double getExc68_EFDMin() 
+  public Double getExc68_EFDMin()
   {
     return exc68_EFDMin;
   }
@@ -244,7 +236,7 @@ public class BpaSwi_Exc68
     this.exc68_EFDMin = exc68_EFDMin;
   }
     
-  public Double getExc68_EFDMax_VBMax() 
+  public Double getExc68_EFDMax_VBMax()
   {
     return exc68_EFDMax_VBMax;
   }
@@ -254,7 +246,7 @@ public class BpaSwi_Exc68
     this.exc68_EFDMax_VBMax = exc68_EFDMax_VBMax;
   }
     
-  public Double getExc68_KF() 
+  public Double getExc68_KF()
   {
     return exc68_KF;
   }
@@ -264,7 +256,7 @@ public class BpaSwi_Exc68
     this.exc68_KF = exc68_KF;
   }
     
-  public Double getExc68_TF() 
+  public Double getExc68_TF()
   {
     return exc68_TF;
   }
@@ -274,7 +266,7 @@ public class BpaSwi_Exc68
     this.exc68_TF = exc68_TF;
   }
     
-  public Double getExc68_XL() 
+  public Double getExc68_XL()
   {
     return exc68_XL;
   }
@@ -284,7 +276,7 @@ public class BpaSwi_Exc68
     this.exc68_XL = exc68_XL;
   }
     
-  public Double getExc68_TF1() 
+  public Double getExc68_TF1()
   {
     return exc68_TF1;
   }
@@ -294,7 +286,7 @@ public class BpaSwi_Exc68
     this.exc68_TF1 = exc68_TF1;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -304,7 +296,7 @@ public class BpaSwi_Exc68
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -314,7 +306,7 @@ public class BpaSwi_Exc68
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -322,6 +314,34 @@ public class BpaSwi_Exc68
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_Exc68 ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", exc68_TR = " + exc68_TR
+	 + ", exc68_KA_BusKV = " + exc68_KA_BusKV
+	 + ", exc68_TR_TRH = " + exc68_TR_TRH
+	 + ", exc68_TA1 = " + exc68_TA1
+	 + ", exc68_VRMinMult_TRMax = " + exc68_VRMinMult_TRMax
+	 + ", exc68_KE = " + exc68_KE
+	 + ", exc68_TE = " + exc68_TE
+	 + ", exc68_SE75Max_KI = " + exc68_SE75Max_KI
+	 + ", exc68_SEMax_KP = " + exc68_SEMax_KP
+	 + ", exc68_EFDMin = " + exc68_EFDMin
+	 + ", exc68_EFDMax_VBMax = " + exc68_EFDMax_VBMax
+	 + ", exc68_KF = " + exc68_KF
+	 + ", exc68_TF = " + exc68_TF
+	 + ", exc68_XL = " + exc68_XL
+	 + ", exc68_TF1 = " + exc68_TF1
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

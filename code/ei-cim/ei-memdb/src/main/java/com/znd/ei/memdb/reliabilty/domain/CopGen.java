@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *停运发电	*
 ***********************/
-@Entity
 public class CopGen
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -48,7 +40,7 @@ public class CopGen
   //三状态
   private Integer threeState;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -58,7 +50,7 @@ public class CopGen
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -68,7 +60,7 @@ public class CopGen
     this.memIndex = memIndex;
   }
     
-  public Integer getSerialNo() 
+  public Integer getSerialNo()
   {
     return serialNo;
   }
@@ -78,7 +70,7 @@ public class CopGen
     this.serialNo = serialNo;
   }
     
-  public Double getCapacity() 
+  public Double getCapacity()
   {
     return capacity;
   }
@@ -88,7 +80,7 @@ public class CopGen
     this.capacity = capacity;
   }
     
-  public Double getAlpha() 
+  public Double getAlpha()
   {
     return alpha;
   }
@@ -98,7 +90,7 @@ public class CopGen
     this.alpha = alpha;
   }
     
-  public Double getS1Capacity() 
+  public Double getS1Capacity()
   {
     return s1Capacity;
   }
@@ -108,7 +100,7 @@ public class CopGen
     this.s1Capacity = s1Capacity;
   }
     
-  public Double getS2Capacity() 
+  public Double getS2Capacity()
   {
     return s2Capacity;
   }
@@ -118,7 +110,7 @@ public class CopGen
     this.s2Capacity = s2Capacity;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -128,7 +120,7 @@ public class CopGen
     this.rerr = rerr;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -138,7 +130,7 @@ public class CopGen
     this.trep = trep;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -148,7 +140,7 @@ public class CopGen
     this.rrep = rrep;
   }
     
-  public Double getRout() 
+  public Double getRout()
   {
     return rout;
   }
@@ -158,7 +150,7 @@ public class CopGen
     this.rout = rout;
   }
     
-  public Integer getThreeState() 
+  public Integer getThreeState()
   {
     return threeState;
   }
@@ -166,6 +158,22 @@ public class CopGen
   public void setThreeState(Integer threeState)
   {
     this.threeState = threeState;
+  }
+    
+  public String toString()
+  {
+    return "CopGen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", serialNo = " + serialNo
+	 + ", capacity = " + capacity
+	 + ", alpha = " + alpha
+	 + ", s1Capacity = " + s1Capacity
+	 + ", s2Capacity = " + s2Capacity
+	 + ", rerr = " + rerr
+	 + ", trep = " + trep
+	 + ", rrep = " + rrep
+	 + ", rout = " + rout
+	 + ", threeState = " + threeState+"]";
   }
     
 }

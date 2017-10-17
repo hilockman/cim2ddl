@@ -162,18 +162,18 @@ public class CopGen
     
   public String toString()
   {
-    return "CopGen ["+	"id"=id,
-	"memIndex"=memIndex,
-	"serialNo"=serialNo,
-	"capacity"=capacity,
-	"alpha"=alpha,
-	"s1Capacity"=s1Capacity,
-	"s2Capacity"=s2Capacity,
-	"rerr"=rerr,
-	"trep"=trep,
-	"rrep"=rrep,
-	"rout"=rout,
-	"threeState"=threeState+"]"
+    return "CopGen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", serialNo = " + serialNo
+	 + ", capacity = " + capacity
+	 + ", alpha = " + alpha
+	 + ", s1Capacity = " + s1Capacity
+	 + ", s2Capacity = " + s2Capacity
+	 + ", rerr = " + rerr
+	 + ", trep = " + trep
+	 + ", rrep = " + rrep
+	 + ", rout = " + rout
+	 + ", threeState = " + threeState+"]";
   }
     
 }

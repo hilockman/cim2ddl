@@ -253,25 +253,25 @@ public class BpaSwi_TF
     
   public String toString()
   {
-    return "BpaSwi_TF ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"tF_TCH"=tF_TCH,
-	"tF_FVHP"=tF_FVHP,
-	"tF_TRH1"=tF_TRH1,
-	"tF_FHP"=tF_FHP,
-	"tF_TRH2"=tF_TRH2,
-	"tF_FIP_1"=tF_FIP_1,
-	"tF_FIP_2"=tF_FIP_2,
-	"tF_TCO"=tF_TCO,
-	"tF_FLP_1"=tF_FLP_1,
-	"tF_FLP_2"=tF_FLP_2,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_TF ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tF_TCH = " + tF_TCH
+	 + ", tF_FVHP = " + tF_FVHP
+	 + ", tF_TRH1 = " + tF_TRH1
+	 + ", tF_FHP = " + tF_FHP
+	 + ", tF_TRH2 = " + tF_TRH2
+	 + ", tF_FIP_1 = " + tF_FIP_1
+	 + ", tF_FIP_2 = " + tF_FIP_2
+	 + ", tF_TCO = " + tF_TCO
+	 + ", tF_FLP_1 = " + tF_FLP_1
+	 + ", tF_FLP_2 = " + tF_FLP_2
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

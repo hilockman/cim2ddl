@@ -318,30 +318,30 @@ public class BpaDat_R
     
   public String toString()
   {
-    return "BpaDat_R ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"r_Owner"=r_Owner,
-	"r_BusI"=r_BusI,
-	"r_kVI"=r_kVI,
-	"r_VARTAP"=r_VARTAP,
-	"r_BusJ"=r_BusJ,
-	"r_kVJ"=r_kVJ,
-	"r_BusC"=r_BusC,
-	"r_kVC"=r_kVC,
-	"r_TMax"=r_TMax,
-	"r_TMin"=r_TMin,
-	"r_TNum"=r_TNum,
-	"r_ValMax"=r_ValMax,
-	"r_ValMin"=r_ValMin,
-	"r_P"=r_P,
-	"r_Q"=r_Q,
-	"r_LossP"=r_LossP,
-	"r_LossQ"=r_LossQ,
-	"keyName"=keyName,
-	"r_iRBus"=r_iRBus,
-	"r_zRBus"=r_zRBus,
-	"r_Status"=r_Status+"]"
+    return "BpaDat_R ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", r_Owner = " + r_Owner
+	 + ", r_BusI = " + r_BusI
+	 + ", r_kVI = " + r_kVI
+	 + ", r_VARTAP = " + r_VARTAP
+	 + ", r_BusJ = " + r_BusJ
+	 + ", r_kVJ = " + r_kVJ
+	 + ", r_BusC = " + r_BusC
+	 + ", r_kVC = " + r_kVC
+	 + ", r_TMax = " + r_TMax
+	 + ", r_TMin = " + r_TMin
+	 + ", r_TNum = " + r_TNum
+	 + ", r_ValMax = " + r_ValMax
+	 + ", r_ValMin = " + r_ValMin
+	 + ", r_P = " + r_P
+	 + ", r_Q = " + r_Q
+	 + ", r_LossP = " + r_LossP
+	 + ", r_LossQ = " + r_LossQ
+	 + ", keyName = " + keyName
+	 + ", r_iRBus = " + r_iRBus
+	 + ", r_zRBus = " + r_zRBus
+	 + ", r_Status = " + r_Status+"]";
   }
     
 }

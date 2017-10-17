@@ -253,25 +253,25 @@ public class BpaSwi_GH
     
   public String toString()
   {
-    return "BpaSwi_GH ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gen_Pmax"=gen_Pmax,
-	"gH_R"=gH_R,
-	"gH_TG"=gH_TG,
-	"gH_TP"=gH_TP,
-	"gH_Td"=gH_Td,
-	"gH_Tw_Half"=gH_Tw_Half,
-	"gH_VELclose"=gH_VELclose,
-	"gH_VELopen"=gH_VELopen,
-	"gH_Dd"=gH_Dd,
-	"gH_E"=gH_E,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GH ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gH_R = " + gH_R
+	 + ", gH_TG = " + gH_TG
+	 + ", gH_TP = " + gH_TP
+	 + ", gH_Td = " + gH_Td
+	 + ", gH_Tw_Half = " + gH_Tw_Half
+	 + ", gH_VELclose = " + gH_VELclose
+	 + ", gH_VELopen = " + gH_VELopen
+	 + ", gH_Dd = " + gH_Dd
+	 + ", gH_E = " + gH_E
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

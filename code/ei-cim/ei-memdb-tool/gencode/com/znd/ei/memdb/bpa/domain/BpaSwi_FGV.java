@@ -253,25 +253,25 @@ public class BpaSwi_FGV
     
   public String toString()
   {
-    return "BpaSwi_FGV ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"gen_ID"=gen_ID,
-	"fGV_AMP1"=fGV_AMP1,
-	"fGV_FREQ1"=fGV_FREQ1,
-	"fGV_ANGL01"=fGV_ANGL01,
-	"fGV_TBEGIN1"=fGV_TBEGIN1,
-	"fGV_TEND1"=fGV_TEND1,
-	"fGV_AMP2"=fGV_AMP2,
-	"fGV_FREQ2"=fGV_FREQ2,
-	"fGV_ANGL02"=fGV_ANGL02,
-	"fGV_TBEGIN2"=fGV_TBEGIN2,
-	"fGV_TEND2"=fGV_TEND2,
-	"fGV_CMW"=fGV_CMW,
-	"keyName"=keyName,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_FGV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", fGV_AMP1 = " + fGV_AMP1
+	 + ", fGV_FREQ1 = " + fGV_FREQ1
+	 + ", fGV_ANGL01 = " + fGV_ANGL01
+	 + ", fGV_TBEGIN1 = " + fGV_TBEGIN1
+	 + ", fGV_TEND1 = " + fGV_TEND1
+	 + ", fGV_AMP2 = " + fGV_AMP2
+	 + ", fGV_FREQ2 = " + fGV_FREQ2
+	 + ", fGV_ANGL02 = " + fGV_ANGL02
+	 + ", fGV_TBEGIN2 = " + fGV_TBEGIN2
+	 + ", fGV_TEND2 = " + fGV_TEND2
+	 + ", fGV_CMW = " + fGV_CMW
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

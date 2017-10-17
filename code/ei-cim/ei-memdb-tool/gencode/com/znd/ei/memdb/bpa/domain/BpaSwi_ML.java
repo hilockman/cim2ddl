@@ -292,28 +292,28 @@ public class BpaSwi_ML
     
   public String toString()
   {
-    return "BpaSwi_ML ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"bus_ID"=bus_ID,
-	"mL_TJ"=mL_TJ,
-	"mL_Pper"=mL_Pper,
-	"mL_KL"=mL_KL,
-	"mL_Pmin"=mL_Pmin,
-	"mL_RS"=mL_RS,
-	"mL_XS"=mL_XS,
-	"mL_XM"=mL_XM,
-	"mL_RR"=mL_RR,
-	"mL_XR"=mL_XR,
-	"mL_VI"=mL_VI,
-	"mL_TI"=mL_TI,
-	"mL_A"=mL_A,
-	"mL_B"=mL_B,
-	"mL_S0"=mL_S0,
-	"mL_IM"=mL_IM,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_ML ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", bus_ID = " + bus_ID
+	 + ", mL_TJ = " + mL_TJ
+	 + ", mL_Pper = " + mL_Pper
+	 + ", mL_KL = " + mL_KL
+	 + ", mL_Pmin = " + mL_Pmin
+	 + ", mL_RS = " + mL_RS
+	 + ", mL_XS = " + mL_XS
+	 + ", mL_XM = " + mL_XM
+	 + ", mL_RR = " + mL_RR
+	 + ", mL_XR = " + mL_XR
+	 + ", mL_VI = " + mL_VI
+	 + ", mL_TI = " + mL_TI
+	 + ", mL_A = " + mL_A
+	 + ", mL_B = " + mL_B
+	 + ", mL_S0 = " + mL_S0
+	 + ", mL_IM = " + mL_IM
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

@@ -97,13 +97,13 @@ public class ACIsland
     
   public String toString()
   {
-    return "ACIsland ["+	"id"=id,
-	"memIndex"=memIndex,
-	"genP"=genP,
-	"loadP"=loadP,
-	"busNum"=busNum,
-	"swingBus"=swingBus,
-	"dead"=dead+"]"
+    return "ACIsland ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", genP = " + genP
+	 + ", loadP = " + loadP
+	 + ", busNum = " + busNum
+	 + ", swingBus = " + swingBus
+	 + ", dead = " + dead+"]";
   }
     
 }

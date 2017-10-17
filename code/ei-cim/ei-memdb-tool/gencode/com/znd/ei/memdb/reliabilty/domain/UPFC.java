@@ -305,29 +305,29 @@ public class UPFC
     
   public String toString()
   {
-    return "UPFC ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"seriesBus"=seriesBus,
-	"parallelBus"=parallelBus,
-	"capacity"=capacity,
-	"rerr"=rerr,
-	"rrep"=rrep,
-	"trep"=trep,
-	"goodProb"=goodProb,
-	"failProb"=failProb,
-	"iRt"=iRt,
-	"iMax"=iMax,
-	"iMin"=iMin,
-	"rerrMax"=rerrMax,
-	"rerrMin"=rerrMin,
-	"linePse"=linePse,
-	"p"=p,
-	"faultFreq"=faultFreq,
-	"seriesBusPtr"=seriesBusPtr,
-	"parallelBusPtr"=parallelBusPtr,
-	"aCLinePtr"=aCLinePtr,
-	"outage"=outage+"]"
+    return "UPFC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", seriesBus = " + seriesBus
+	 + ", parallelBus = " + parallelBus
+	 + ", capacity = " + capacity
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", linePse = " + linePse
+	 + ", p = " + p
+	 + ", faultFreq = " + faultFreq
+	 + ", seriesBusPtr = " + seriesBusPtr
+	 + ", parallelBusPtr = " + parallelBusPtr
+	 + ", aCLinePtr = " + aCLinePtr
+	 + ", outage = " + outage+"]";
   }
     
 }

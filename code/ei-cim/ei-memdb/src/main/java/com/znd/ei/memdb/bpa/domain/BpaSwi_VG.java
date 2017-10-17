@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *静止无功发生器(STATCOM)	*
 ***********************/
-@Entity
 public class BpaSwi_VG
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -90,7 +82,7 @@ public class BpaSwi_VG
   //母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -100,7 +92,7 @@ public class BpaSwi_VG
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -110,7 +102,7 @@ public class BpaSwi_VG
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -120,7 +112,7 @@ public class BpaSwi_VG
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -130,7 +122,7 @@ public class BpaSwi_VG
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -140,7 +132,7 @@ public class BpaSwi_VG
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Double getMvaBase() 
+  public Double getMvaBase()
   {
     return mvaBase;
   }
@@ -150,7 +142,7 @@ public class BpaSwi_VG
     this.mvaBase = mvaBase;
   }
     
-  public Double getT1() 
+  public Double getT1()
   {
     return t1;
   }
@@ -160,7 +152,7 @@ public class BpaSwi_VG
     this.t1 = t1;
   }
     
-  public Double getT2() 
+  public Double getT2()
   {
     return t2;
   }
@@ -170,7 +162,7 @@ public class BpaSwi_VG
     this.t2 = t2;
   }
     
-  public Double getT3() 
+  public Double getT3()
   {
     return t3;
   }
@@ -180,7 +172,7 @@ public class BpaSwi_VG
     this.t3 = t3;
   }
     
-  public Double getT4() 
+  public Double getT4()
   {
     return t4;
   }
@@ -190,7 +182,7 @@ public class BpaSwi_VG
     this.t4 = t4;
   }
     
-  public Double getT5() 
+  public Double getT5()
   {
     return t5;
   }
@@ -200,7 +192,7 @@ public class BpaSwi_VG
     this.t5 = t5;
   }
     
-  public Double getTP() 
+  public Double getTP()
   {
     return tP;
   }
@@ -210,7 +202,7 @@ public class BpaSwi_VG
     this.tP = tP;
   }
     
-  public Double getTS() 
+  public Double getTS()
   {
     return tS;
   }
@@ -220,7 +212,7 @@ public class BpaSwi_VG
     this.tS = tS;
   }
     
-  public Double getKP() 
+  public Double getKP()
   {
     return kP;
   }
@@ -230,7 +222,7 @@ public class BpaSwi_VG
     this.kP = kP;
   }
     
-  public Double getKI() 
+  public Double getKI()
   {
     return kI;
   }
@@ -240,7 +232,7 @@ public class BpaSwi_VG
     this.kI = kI;
   }
     
-  public Double getKD() 
+  public Double getKD()
   {
     return kD;
   }
@@ -250,7 +242,7 @@ public class BpaSwi_VG
     this.kD = kD;
   }
     
-  public Double getXT() 
+  public Double getXT()
   {
     return xT;
   }
@@ -260,7 +252,7 @@ public class BpaSwi_VG
     this.xT = xT;
   }
     
-  public Double getVMAX() 
+  public Double getVMAX()
   {
     return vMAX;
   }
@@ -270,7 +262,7 @@ public class BpaSwi_VG
     this.vMAX = vMAX;
   }
     
-  public Double getVMIN() 
+  public Double getVMIN()
   {
     return vMIN;
   }
@@ -280,7 +272,7 @@ public class BpaSwi_VG
     this.vMIN = vMIN;
   }
     
-  public Double getICMAX() 
+  public Double getICMAX()
   {
     return iCMAX;
   }
@@ -290,7 +282,7 @@ public class BpaSwi_VG
     this.iCMAX = iCMAX;
   }
     
-  public Double getILMAX() 
+  public Double getILMAX()
   {
     return iLMAX;
   }
@@ -300,7 +292,7 @@ public class BpaSwi_VG
     this.iLMAX = iLMAX;
   }
     
-  public Double getVSTANDBY() 
+  public Double getVSTANDBY()
   {
     return vSTANDBY;
   }
@@ -310,7 +302,7 @@ public class BpaSwi_VG
     this.vSTANDBY = vSTANDBY;
   }
     
-  public String getCON_NAME() 
+  public String getCON_NAME()
   {
     return cON_NAME;
   }
@@ -320,7 +312,7 @@ public class BpaSwi_VG
     this.cON_NAME = cON_NAME;
   }
     
-  public Double getCON_KV() 
+  public Double getCON_KV()
   {
     return cON_KV;
   }
@@ -330,7 +322,7 @@ public class BpaSwi_VG
     this.cON_KV = cON_KV;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -340,7 +332,7 @@ public class BpaSwi_VG
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -348,6 +340,36 @@ public class BpaSwi_VG
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_VG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", mvaBase = " + mvaBase
+	 + ", t1 = " + t1
+	 + ", t2 = " + t2
+	 + ", t3 = " + t3
+	 + ", t4 = " + t4
+	 + ", t5 = " + t5
+	 + ", tP = " + tP
+	 + ", tS = " + tS
+	 + ", kP = " + kP
+	 + ", kI = " + kI
+	 + ", kD = " + kD
+	 + ", xT = " + xT
+	 + ", vMAX = " + vMAX
+	 + ", vMIN = " + vMIN
+	 + ", iCMAX = " + iCMAX
+	 + ", iLMAX = " + iLMAX
+	 + ", vSTANDBY = " + vSTANDBY
+	 + ", cON_NAME = " + cON_NAME
+	 + ", cON_KV = " + cON_KV
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

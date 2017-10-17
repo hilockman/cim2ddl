@@ -305,29 +305,29 @@ public class BpaSwi_Exc81
     
   public String toString()
   {
-    return "BpaSwi_Exc81 ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"exc81_RC"=exc81_RC,
-	"exc81_XC"=exc81_XC,
-	"exc81_TR"=exc81_TR,
-	"exc81_VIAMax_VAMax"=exc81_VIAMax_VAMax,
-	"exc81_VIMin_VAMin"=exc81_VIMin_VAMin,
-	"exc81_TB"=exc81_TB,
-	"exc81_TC"=exc81_TC,
-	"exc81_KA_BusKV"=exc81_KA_BusKV,
-	"exc81_TA_TRH"=exc81_TA_TRH,
-	"exc81_VRMax_VAMax"=exc81_VRMax_VAMax,
-	"exc81_VRMin_VAMin"=exc81_VRMin_VAMin,
-	"exc81_EFDMax_VBMax"=exc81_EFDMax_VBMax,
-	"exc81_KE_KJ"=exc81_KE_KJ,
-	"exc81_TE"=exc81_TE,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_Exc81 ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", exc81_RC = " + exc81_RC
+	 + ", exc81_XC = " + exc81_XC
+	 + ", exc81_TR = " + exc81_TR
+	 + ", exc81_VIAMax_VAMax = " + exc81_VIAMax_VAMax
+	 + ", exc81_VIMin_VAMin = " + exc81_VIMin_VAMin
+	 + ", exc81_TB = " + exc81_TB
+	 + ", exc81_TC = " + exc81_TC
+	 + ", exc81_KA_BusKV = " + exc81_KA_BusKV
+	 + ", exc81_TA_TRH = " + exc81_TA_TRH
+	 + ", exc81_VRMax_VAMax = " + exc81_VRMax_VAMax
+	 + ", exc81_VRMin_VAMin = " + exc81_VRMin_VAMin
+	 + ", exc81_EFDMax_VBMax = " + exc81_EFDMax_VBMax
+	 + ", exc81_KE_KJ = " + exc81_KE_KJ
+	 + ", exc81_TE = " + exc81_TE
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

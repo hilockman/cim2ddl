@@ -58,10 +58,10 @@ public class R2StateComp
     
   public String toString()
   {
-    return "R2StateComp ["+	"id"=id,
-	"memIndex"=memIndex,
-	"type"=type,
-	"serialNo"=serialNo+"]"
+    return "R2StateComp ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", type = " + type
+	 + ", serialNo = " + serialNo+"]";
   }
     
 }

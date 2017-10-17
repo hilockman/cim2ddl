@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电网边-高抗	*
 ***********************/
-@Entity
 public class BpaDat_EdgeLineHG
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class BpaDat_EdgeLineHG
   //高抗索引
   private Integer lineHGPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class BpaDat_EdgeLineHG
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class BpaDat_EdgeLineHG
     this.memIndex = memIndex;
   }
     
-  public String getBusName() 
+  public String getBusName()
   {
     return busName;
   }
@@ -60,7 +52,7 @@ public class BpaDat_EdgeLineHG
     this.busName = busName;
   }
     
-  public Double getBuskV() 
+  public Double getBuskV()
   {
     return buskV;
   }
@@ -70,7 +62,7 @@ public class BpaDat_EdgeLineHG
     this.buskV = buskV;
   }
     
-  public String getLineHGName() 
+  public String getLineHGName()
   {
     return lineHGName;
   }
@@ -80,7 +72,7 @@ public class BpaDat_EdgeLineHG
     this.lineHGName = lineHGName;
   }
     
-  public Integer getLineHGPtr() 
+  public Integer getLineHGPtr()
   {
     return lineHGPtr;
   }
@@ -88,6 +80,16 @@ public class BpaDat_EdgeLineHG
   public void setLineHGPtr(Integer lineHGPtr)
   {
     this.lineHGPtr = lineHGPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_EdgeLineHG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", lineHGName = " + lineHGName
+	 + ", lineHGPtr = " + lineHGPtr+"]";
   }
     
 }

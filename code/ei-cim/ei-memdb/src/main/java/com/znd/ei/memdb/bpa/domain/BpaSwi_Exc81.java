@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *1981年IEEE励磁系统模型表(F)	*
 ***********************/
-@Entity
 public class BpaSwi_Exc81
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -81,7 +73,7 @@ public class BpaSwi_Exc81
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -91,7 +83,7 @@ public class BpaSwi_Exc81
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -101,7 +93,7 @@ public class BpaSwi_Exc81
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -111,7 +103,7 @@ public class BpaSwi_Exc81
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -121,7 +113,7 @@ public class BpaSwi_Exc81
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -131,7 +123,7 @@ public class BpaSwi_Exc81
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -141,7 +133,7 @@ public class BpaSwi_Exc81
     this.gen_ID = gen_ID;
   }
     
-  public Double getExc81_RC() 
+  public Double getExc81_RC()
   {
     return exc81_RC;
   }
@@ -151,7 +143,7 @@ public class BpaSwi_Exc81
     this.exc81_RC = exc81_RC;
   }
     
-  public Double getExc81_XC() 
+  public Double getExc81_XC()
   {
     return exc81_XC;
   }
@@ -161,7 +153,7 @@ public class BpaSwi_Exc81
     this.exc81_XC = exc81_XC;
   }
     
-  public Double getExc81_TR() 
+  public Double getExc81_TR()
   {
     return exc81_TR;
   }
@@ -171,7 +163,7 @@ public class BpaSwi_Exc81
     this.exc81_TR = exc81_TR;
   }
     
-  public Double getExc81_VIAMax_VAMax() 
+  public Double getExc81_VIAMax_VAMax()
   {
     return exc81_VIAMax_VAMax;
   }
@@ -181,7 +173,7 @@ public class BpaSwi_Exc81
     this.exc81_VIAMax_VAMax = exc81_VIAMax_VAMax;
   }
     
-  public Double getExc81_VIMin_VAMin() 
+  public Double getExc81_VIMin_VAMin()
   {
     return exc81_VIMin_VAMin;
   }
@@ -191,7 +183,7 @@ public class BpaSwi_Exc81
     this.exc81_VIMin_VAMin = exc81_VIMin_VAMin;
   }
     
-  public Double getExc81_TB() 
+  public Double getExc81_TB()
   {
     return exc81_TB;
   }
@@ -201,7 +193,7 @@ public class BpaSwi_Exc81
     this.exc81_TB = exc81_TB;
   }
     
-  public Double getExc81_TC() 
+  public Double getExc81_TC()
   {
     return exc81_TC;
   }
@@ -211,7 +203,7 @@ public class BpaSwi_Exc81
     this.exc81_TC = exc81_TC;
   }
     
-  public Double getExc81_KA_BusKV() 
+  public Double getExc81_KA_BusKV()
   {
     return exc81_KA_BusKV;
   }
@@ -221,7 +213,7 @@ public class BpaSwi_Exc81
     this.exc81_KA_BusKV = exc81_KA_BusKV;
   }
     
-  public Double getExc81_TA_TRH() 
+  public Double getExc81_TA_TRH()
   {
     return exc81_TA_TRH;
   }
@@ -231,7 +223,7 @@ public class BpaSwi_Exc81
     this.exc81_TA_TRH = exc81_TA_TRH;
   }
     
-  public Double getExc81_VRMax_VAMax() 
+  public Double getExc81_VRMax_VAMax()
   {
     return exc81_VRMax_VAMax;
   }
@@ -241,7 +233,7 @@ public class BpaSwi_Exc81
     this.exc81_VRMax_VAMax = exc81_VRMax_VAMax;
   }
     
-  public Double getExc81_VRMin_VAMin() 
+  public Double getExc81_VRMin_VAMin()
   {
     return exc81_VRMin_VAMin;
   }
@@ -251,7 +243,7 @@ public class BpaSwi_Exc81
     this.exc81_VRMin_VAMin = exc81_VRMin_VAMin;
   }
     
-  public Double getExc81_EFDMax_VBMax() 
+  public Double getExc81_EFDMax_VBMax()
   {
     return exc81_EFDMax_VBMax;
   }
@@ -261,7 +253,7 @@ public class BpaSwi_Exc81
     this.exc81_EFDMax_VBMax = exc81_EFDMax_VBMax;
   }
     
-  public Double getExc81_KE_KJ() 
+  public Double getExc81_KE_KJ()
   {
     return exc81_KE_KJ;
   }
@@ -271,7 +263,7 @@ public class BpaSwi_Exc81
     this.exc81_KE_KJ = exc81_KE_KJ;
   }
     
-  public Double getExc81_TE() 
+  public Double getExc81_TE()
   {
     return exc81_TE;
   }
@@ -281,7 +273,7 @@ public class BpaSwi_Exc81
     this.exc81_TE = exc81_TE;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -291,7 +283,7 @@ public class BpaSwi_Exc81
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -301,7 +293,7 @@ public class BpaSwi_Exc81
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -309,6 +301,33 @@ public class BpaSwi_Exc81
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_Exc81 ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", exc81_RC = " + exc81_RC
+	 + ", exc81_XC = " + exc81_XC
+	 + ", exc81_TR = " + exc81_TR
+	 + ", exc81_VIAMax_VAMax = " + exc81_VIAMax_VAMax
+	 + ", exc81_VIMin_VAMin = " + exc81_VIMin_VAMin
+	 + ", exc81_TB = " + exc81_TB
+	 + ", exc81_TC = " + exc81_TC
+	 + ", exc81_KA_BusKV = " + exc81_KA_BusKV
+	 + ", exc81_TA_TRH = " + exc81_TA_TRH
+	 + ", exc81_VRMax_VAMax = " + exc81_VRMax_VAMax
+	 + ", exc81_VRMin_VAMin = " + exc81_VRMin_VAMin
+	 + ", exc81_EFDMax_VBMax = " + exc81_EFDMax_VBMax
+	 + ", exc81_KE_KJ = " + exc81_KE_KJ
+	 + ", exc81_TE = " + exc81_TE
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

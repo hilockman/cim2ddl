@@ -71,11 +71,11 @@ public class TripMIsland
     
   public String toString()
   {
-    return "TripMIsland ["+	"id"=id,
-	"memIndex"=memIndex,
-	"trip"=trip,
-	"outageBus"=outageBus,
-	"outageLoadP"=outageLoadP+"]"
+    return "TripMIsland ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", trip = " + trip
+	 + ", outageBus = " + outageBus
+	 + ", outageLoadP = " + outageLoadP+"]";
   }
     
 }

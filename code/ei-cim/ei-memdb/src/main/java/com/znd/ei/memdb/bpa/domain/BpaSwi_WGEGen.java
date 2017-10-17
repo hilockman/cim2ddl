@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *GE风机模型表(WINDG_GE)	*
 ***********************/
-@Entity
 public class BpaSwi_WGEGen
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -81,7 +73,7 @@ public class BpaSwi_WGEGen
   //发电机母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -91,7 +83,7 @@ public class BpaSwi_WGEGen
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -101,7 +93,7 @@ public class BpaSwi_WGEGen
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -111,7 +103,7 @@ public class BpaSwi_WGEGen
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -121,7 +113,7 @@ public class BpaSwi_WGEGen
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -131,7 +123,7 @@ public class BpaSwi_WGEGen
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -141,7 +133,7 @@ public class BpaSwi_WGEGen
     this.gen_ID = gen_ID;
   }
     
-  public String getGE_TYPE() 
+  public String getGE_TYPE()
   {
     return gE_TYPE;
   }
@@ -151,7 +143,7 @@ public class BpaSwi_WGEGen
     this.gE_TYPE = gE_TYPE;
   }
     
-  public Integer getNG() 
+  public Integer getNG()
   {
     return nG;
   }
@@ -161,7 +153,7 @@ public class BpaSwi_WGEGen
     this.nG = nG;
   }
     
-  public String getNAME_CON() 
+  public String getNAME_CON()
   {
     return nAME_CON;
   }
@@ -171,7 +163,7 @@ public class BpaSwi_WGEGen
     this.nAME_CON = nAME_CON;
   }
     
-  public Double getBASE_CON() 
+  public Double getBASE_CON()
   {
     return bASE_CON;
   }
@@ -181,7 +173,7 @@ public class BpaSwi_WGEGen
     this.bASE_CON = bASE_CON;
   }
     
-  public Double getPPER() 
+  public Double getPPER()
   {
     return pPER;
   }
@@ -191,7 +183,7 @@ public class BpaSwi_WGEGen
     this.pPER = pPER;
   }
     
-  public Double getQPER() 
+  public Double getQPER()
   {
     return qPER;
   }
@@ -201,7 +193,7 @@ public class BpaSwi_WGEGen
     this.qPER = qPER;
   }
     
-  public Double getV0() 
+  public Double getV0()
   {
     return v0;
   }
@@ -211,7 +203,7 @@ public class BpaSwi_WGEGen
     this.v0 = v0;
   }
     
-  public Integer getNMASS_FLG() 
+  public Integer getNMASS_FLG()
   {
     return nMASS_FLG;
   }
@@ -221,7 +213,7 @@ public class BpaSwi_WGEGen
     this.nMASS_FLG = nMASS_FLG;
   }
     
-  public Integer getQDROOP_FLG() 
+  public Integer getQDROOP_FLG()
   {
     return qDROOP_FLG;
   }
@@ -231,7 +223,7 @@ public class BpaSwi_WGEGen
     this.qDROOP_FLG = qDROOP_FLG;
   }
     
-  public Integer getWINDCON_FLG() 
+  public Integer getWINDCON_FLG()
   {
     return wINDCON_FLG;
   }
@@ -241,7 +233,7 @@ public class BpaSwi_WGEGen
     this.wINDCON_FLG = wINDCON_FLG;
   }
     
-  public Integer getEWVOL_FLG() 
+  public Integer getEWVOL_FLG()
   {
     return eWVOL_FLG;
   }
@@ -251,7 +243,7 @@ public class BpaSwi_WGEGen
     this.eWVOL_FLG = eWVOL_FLG;
   }
     
-  public Integer getAPCFLG() 
+  public Integer getAPCFLG()
   {
     return aPCFLG;
   }
@@ -261,7 +253,7 @@ public class BpaSwi_WGEGen
     this.aPCFLG = aPCFLG;
   }
     
-  public Integer getFFLG() 
+  public Integer getFFLG()
   {
     return fFLG;
   }
@@ -271,7 +263,7 @@ public class BpaSwi_WGEGen
     this.fFLG = fFLG;
   }
     
-  public Integer getINERTIA() 
+  public Integer getINERTIA()
   {
     return iNERTIA;
   }
@@ -281,7 +273,7 @@ public class BpaSwi_WGEGen
     this.iNERTIA = iNERTIA;
   }
     
-  public Integer getPQFLG() 
+  public Integer getPQFLG()
   {
     return pQFLG;
   }
@@ -291,7 +283,7 @@ public class BpaSwi_WGEGen
     this.pQFLG = pQFLG;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -301,7 +293,7 @@ public class BpaSwi_WGEGen
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -309,6 +301,33 @@ public class BpaSwi_WGEGen
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_WGEGen ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gE_TYPE = " + gE_TYPE
+	 + ", nG = " + nG
+	 + ", nAME_CON = " + nAME_CON
+	 + ", bASE_CON = " + bASE_CON
+	 + ", pPER = " + pPER
+	 + ", qPER = " + qPER
+	 + ", v0 = " + v0
+	 + ", nMASS_FLG = " + nMASS_FLG
+	 + ", qDROOP_FLG = " + qDROOP_FLG
+	 + ", wINDCON_FLG = " + wINDCON_FLG
+	 + ", eWVOL_FLG = " + eWVOL_FLG
+	 + ", aPCFLG = " + aPCFLG
+	 + ", fFLG = " + fFLG
+	 + ", iNERTIA = " + iNERTIA
+	 + ", pQFLG = " + pQFLG
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

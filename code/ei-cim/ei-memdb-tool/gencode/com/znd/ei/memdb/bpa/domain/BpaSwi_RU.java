@@ -162,18 +162,18 @@ public class BpaSwi_RU
     
   public String toString()
   {
-    return "BpaSwi_RU ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"rU_BusI"=rU_BusI,
-	"rU_kVI"=rU_kVI,
-	"rU_BusJ"=rU_BusJ,
-	"rU_kVJ"=rU_kVJ,
-	"rU_Loop"=rU_Loop,
-	"rU_FTrip"=rU_FTrip,
-	"rU_TRelay"=rU_TRelay,
-	"rU_TTrip"=rU_TTrip,
-	"rU_TDelay"=rU_TDelay+"]"
+    return "BpaSwi_RU ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", rU_BusI = " + rU_BusI
+	 + ", rU_kVI = " + rU_kVI
+	 + ", rU_BusJ = " + rU_BusJ
+	 + ", rU_kVJ = " + rU_kVJ
+	 + ", rU_Loop = " + rU_Loop
+	 + ", rU_FTrip = " + rU_FTrip
+	 + ", rU_TRelay = " + rU_TRelay
+	 + ", rU_TTrip = " + rU_TTrip
+	 + ", rU_TDelay = " + rU_TDelay+"]";
   }
     
 }

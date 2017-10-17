@@ -97,13 +97,13 @@ public class Zone
     
   public String toString()
   {
-    return "Zone ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"area"=area,
-	"totalGenP"=totalGenP,
-	"totalLoadP"=totalLoadP,
-	"fCutLoadP"=fCutLoadP+"]"
+    return "Zone ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", area = " + area
+	 + ", totalGenP = " + totalGenP
+	 + ", totalLoadP = " + totalLoadP
+	 + ", fCutLoadP = " + fCutLoadP+"]";
   }
     
 }

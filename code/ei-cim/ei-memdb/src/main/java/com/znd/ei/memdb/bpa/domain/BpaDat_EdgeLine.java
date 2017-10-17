@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电网边-线路	*
 ***********************/
-@Entity
 public class BpaDat_EdgeLine
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class BpaDat_EdgeLine
   //线路索引
   private Integer linePtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class BpaDat_EdgeLine
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class BpaDat_EdgeLine
     this.memIndex = memIndex;
   }
     
-  public String getBusName() 
+  public String getBusName()
   {
     return busName;
   }
@@ -60,7 +52,7 @@ public class BpaDat_EdgeLine
     this.busName = busName;
   }
     
-  public Double getBuskV() 
+  public Double getBuskV()
   {
     return buskV;
   }
@@ -70,7 +62,7 @@ public class BpaDat_EdgeLine
     this.buskV = buskV;
   }
     
-  public String getLineName() 
+  public String getLineName()
   {
     return lineName;
   }
@@ -80,7 +72,7 @@ public class BpaDat_EdgeLine
     this.lineName = lineName;
   }
     
-  public Integer getLinePtr() 
+  public Integer getLinePtr()
   {
     return linePtr;
   }
@@ -88,6 +80,16 @@ public class BpaDat_EdgeLine
   public void setLinePtr(Integer linePtr)
   {
     this.linePtr = linePtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_EdgeLine ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", lineName = " + lineName
+	 + ", linePtr = " + linePtr+"]";
   }
     
 }

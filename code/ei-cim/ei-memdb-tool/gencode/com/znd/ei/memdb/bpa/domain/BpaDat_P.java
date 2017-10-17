@@ -123,15 +123,15 @@ public class BpaDat_P
     
   public String toString()
   {
-    return "BpaDat_P ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"p_Zone"=p_Zone,
-	"p_LoadPFactor"=p_LoadPFactor,
-	"p_LoadQFactor"=p_LoadQFactor,
-	"p_GenPFactor"=p_GenPFactor,
-	"p_GenQFactor"=p_GenQFactor,
-	"p_Status"=p_Status+"]"
+    return "BpaDat_P ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", p_Zone = " + p_Zone
+	 + ", p_LoadPFactor = " + p_LoadPFactor
+	 + ", p_LoadQFactor = " + p_LoadQFactor
+	 + ", p_GenPFactor = " + p_GenPFactor
+	 + ", p_GenQFactor = " + p_GenQFactor
+	 + ", p_Status = " + p_Status+"]";
   }
     
 }

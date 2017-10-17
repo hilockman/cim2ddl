@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *交流线路边	*
 ***********************/
-@Entity
 public class ACLineEdge
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class ACLineEdge
   //线路索引
   private Integer linePtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class ACLineEdge
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class ACLineEdge
     this.memIndex = memIndex;
   }
     
-  public String getBus() 
+  public String getBus()
   {
     return bus;
   }
@@ -60,7 +52,7 @@ public class ACLineEdge
     this.bus = bus;
   }
     
-  public Double getkV() 
+  public Double getkV()
   {
     return kV;
   }
@@ -70,7 +62,7 @@ public class ACLineEdge
     this.kV = kV;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -80,7 +72,7 @@ public class ACLineEdge
     this.name = name;
   }
     
-  public Integer getLinePtr() 
+  public Integer getLinePtr()
   {
     return linePtr;
   }
@@ -88,6 +80,16 @@ public class ACLineEdge
   public void setLinePtr(Integer linePtr)
   {
     this.linePtr = linePtr;
+  }
+    
+  public String toString()
+  {
+    return "ACLineEdge ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", bus = " + bus
+	 + ", kV = " + kV
+	 + ", name = " + name
+	 + ", linePtr = " + linePtr+"]";
   }
     
 }

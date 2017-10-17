@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *PSS模型SB表(SB)	*
 ***********************/
-@Entity
 public class BpaSwi_PssSB
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -108,7 +100,7 @@ public class BpaSwi_PssSB
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -118,7 +110,7 @@ public class BpaSwi_PssSB
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -128,7 +120,7 @@ public class BpaSwi_PssSB
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -138,7 +130,7 @@ public class BpaSwi_PssSB
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -148,7 +140,7 @@ public class BpaSwi_PssSB
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -158,7 +150,7 @@ public class BpaSwi_PssSB
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -168,7 +160,7 @@ public class BpaSwi_PssSB
     this.gen_ID = gen_ID;
   }
     
-  public Integer getPssSB_ISIG() 
+  public Integer getPssSB_ISIG()
   {
     return pssSB_ISIG;
   }
@@ -178,7 +170,7 @@ public class BpaSwi_PssSB
     this.pssSB_ISIG = pssSB_ISIG;
   }
     
-  public Double getPssSB_TD() 
+  public Double getPssSB_TD()
   {
     return pssSB_TD;
   }
@@ -188,7 +180,7 @@ public class BpaSwi_PssSB
     this.pssSB_TD = pssSB_TD;
   }
     
-  public Double getPssSB_TW1() 
+  public Double getPssSB_TW1()
   {
     return pssSB_TW1;
   }
@@ -198,7 +190,7 @@ public class BpaSwi_PssSB
     this.pssSB_TW1 = pssSB_TW1;
   }
     
-  public Double getPssSB_TW2() 
+  public Double getPssSB_TW2()
   {
     return pssSB_TW2;
   }
@@ -208,7 +200,7 @@ public class BpaSwi_PssSB
     this.pssSB_TW2 = pssSB_TW2;
   }
     
-  public Double getPssSB_T6() 
+  public Double getPssSB_T6()
   {
     return pssSB_T6;
   }
@@ -218,7 +210,7 @@ public class BpaSwi_PssSB
     this.pssSB_T6 = pssSB_T6;
   }
     
-  public Double getPssSB_TW3() 
+  public Double getPssSB_TW3()
   {
     return pssSB_TW3;
   }
@@ -228,7 +220,7 @@ public class BpaSwi_PssSB
     this.pssSB_TW3 = pssSB_TW3;
   }
     
-  public Double getPssSB_TW4() 
+  public Double getPssSB_TW4()
   {
     return pssSB_TW4;
   }
@@ -238,7 +230,7 @@ public class BpaSwi_PssSB
     this.pssSB_TW4 = pssSB_TW4;
   }
     
-  public Double getPssSB_T7() 
+  public Double getPssSB_T7()
   {
     return pssSB_T7;
   }
@@ -248,7 +240,7 @@ public class BpaSwi_PssSB
     this.pssSB_T7 = pssSB_T7;
   }
     
-  public Double getPssSB_KS2() 
+  public Double getPssSB_KS2()
   {
     return pssSB_KS2;
   }
@@ -258,7 +250,7 @@ public class BpaSwi_PssSB
     this.pssSB_KS2 = pssSB_KS2;
   }
     
-  public Double getPssSB_KS3() 
+  public Double getPssSB_KS3()
   {
     return pssSB_KS3;
   }
@@ -268,7 +260,7 @@ public class BpaSwi_PssSB
     this.pssSB_KS3 = pssSB_KS3;
   }
     
-  public Double getPssSB_KPG() 
+  public Double getPssSB_KPG()
   {
     return pssSB_KPG;
   }
@@ -278,7 +270,7 @@ public class BpaSwi_PssSB
     this.pssSB_KPG = pssSB_KPG;
   }
     
-  public Double getPssSB_MVA_BSE() 
+  public Double getPssSB_MVA_BSE()
   {
     return pssSB_MVA_BSE;
   }
@@ -288,7 +280,7 @@ public class BpaSwi_PssSB
     this.pssSB_MVA_BSE = pssSB_MVA_BSE;
   }
     
-  public Double getPssSB_T8() 
+  public Double getPssSB_T8()
   {
     return pssSB_T8;
   }
@@ -298,7 +290,7 @@ public class BpaSwi_PssSB
     this.pssSB_T8 = pssSB_T8;
   }
     
-  public Double getPssSB_T9() 
+  public Double getPssSB_T9()
   {
     return pssSB_T9;
   }
@@ -308,7 +300,7 @@ public class BpaSwi_PssSB
     this.pssSB_T9 = pssSB_T9;
   }
     
-  public Integer getPssSB_M() 
+  public Integer getPssSB_M()
   {
     return pssSB_M;
   }
@@ -318,7 +310,7 @@ public class BpaSwi_PssSB
     this.pssSB_M = pssSB_M;
   }
     
-  public Integer getPssSB_N() 
+  public Integer getPssSB_N()
   {
     return pssSB_N;
   }
@@ -328,7 +320,7 @@ public class BpaSwi_PssSB
     this.pssSB_N = pssSB_N;
   }
     
-  public Double getPssSB_KS1() 
+  public Double getPssSB_KS1()
   {
     return pssSB_KS1;
   }
@@ -338,7 +330,7 @@ public class BpaSwi_PssSB
     this.pssSB_KS1 = pssSB_KS1;
   }
     
-  public Double getPssSB_T1() 
+  public Double getPssSB_T1()
   {
     return pssSB_T1;
   }
@@ -348,7 +340,7 @@ public class BpaSwi_PssSB
     this.pssSB_T1 = pssSB_T1;
   }
     
-  public Double getPssSB_T2() 
+  public Double getPssSB_T2()
   {
     return pssSB_T2;
   }
@@ -358,7 +350,7 @@ public class BpaSwi_PssSB
     this.pssSB_T2 = pssSB_T2;
   }
     
-  public Double getPssSB_T3() 
+  public Double getPssSB_T3()
   {
     return pssSB_T3;
   }
@@ -368,7 +360,7 @@ public class BpaSwi_PssSB
     this.pssSB_T3 = pssSB_T3;
   }
     
-  public Double getPssSB_T4() 
+  public Double getPssSB_T4()
   {
     return pssSB_T4;
   }
@@ -378,7 +370,7 @@ public class BpaSwi_PssSB
     this.pssSB_T4 = pssSB_T4;
   }
     
-  public Double getPssSB_VPMax() 
+  public Double getPssSB_VPMax()
   {
     return pssSB_VPMax;
   }
@@ -388,7 +380,7 @@ public class BpaSwi_PssSB
     this.pssSB_VPMax = pssSB_VPMax;
   }
     
-  public Double getPssSB_VPMin() 
+  public Double getPssSB_VPMin()
   {
     return pssSB_VPMin;
   }
@@ -398,7 +390,7 @@ public class BpaSwi_PssSB
     this.pssSB_VPMin = pssSB_VPMin;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -408,7 +400,7 @@ public class BpaSwi_PssSB
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -418,7 +410,7 @@ public class BpaSwi_PssSB
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -426,6 +418,42 @@ public class BpaSwi_PssSB
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_PssSB ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssSB_ISIG = " + pssSB_ISIG
+	 + ", pssSB_TD = " + pssSB_TD
+	 + ", pssSB_TW1 = " + pssSB_TW1
+	 + ", pssSB_TW2 = " + pssSB_TW2
+	 + ", pssSB_T6 = " + pssSB_T6
+	 + ", pssSB_TW3 = " + pssSB_TW3
+	 + ", pssSB_TW4 = " + pssSB_TW4
+	 + ", pssSB_T7 = " + pssSB_T7
+	 + ", pssSB_KS2 = " + pssSB_KS2
+	 + ", pssSB_KS3 = " + pssSB_KS3
+	 + ", pssSB_KPG = " + pssSB_KPG
+	 + ", pssSB_MVA_BSE = " + pssSB_MVA_BSE
+	 + ", pssSB_T8 = " + pssSB_T8
+	 + ", pssSB_T9 = " + pssSB_T9
+	 + ", pssSB_M = " + pssSB_M
+	 + ", pssSB_N = " + pssSB_N
+	 + ", pssSB_KS1 = " + pssSB_KS1
+	 + ", pssSB_T1 = " + pssSB_T1
+	 + ", pssSB_T2 = " + pssSB_T2
+	 + ", pssSB_T3 = " + pssSB_T3
+	 + ", pssSB_T4 = " + pssSB_T4
+	 + ", pssSB_VPMax = " + pssSB_VPMax
+	 + ", pssSB_VPMin = " + pssSB_VPMin
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

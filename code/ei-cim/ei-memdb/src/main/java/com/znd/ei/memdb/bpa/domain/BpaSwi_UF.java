@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *自动减负荷模型(UF)	*
 ***********************/
-@Entity
 public class BpaSwi_UF
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -120,7 +112,7 @@ public class BpaSwi_UF
   //特别码W,表示以MW为单位减去负荷
   private Integer uF_W;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -130,7 +122,7 @@ public class BpaSwi_UF
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -140,7 +132,7 @@ public class BpaSwi_UF
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -150,7 +142,7 @@ public class BpaSwi_UF
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -160,7 +152,7 @@ public class BpaSwi_UF
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -170,7 +162,7 @@ public class BpaSwi_UF
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Double getUF_Freq01() 
+  public Double getUF_Freq01()
   {
     return uF_Freq01;
   }
@@ -180,7 +172,7 @@ public class BpaSwi_UF
     this.uF_Freq01 = uF_Freq01;
   }
     
-  public Double getUF_Freq02() 
+  public Double getUF_Freq02()
   {
     return uF_Freq02;
   }
@@ -190,7 +182,7 @@ public class BpaSwi_UF
     this.uF_Freq02 = uF_Freq02;
   }
     
-  public Double getUF_Freq03() 
+  public Double getUF_Freq03()
   {
     return uF_Freq03;
   }
@@ -200,7 +192,7 @@ public class BpaSwi_UF
     this.uF_Freq03 = uF_Freq03;
   }
     
-  public Double getUF_Freq04() 
+  public Double getUF_Freq04()
   {
     return uF_Freq04;
   }
@@ -210,7 +202,7 @@ public class BpaSwi_UF
     this.uF_Freq04 = uF_Freq04;
   }
     
-  public Double getUF_Freq05() 
+  public Double getUF_Freq05()
   {
     return uF_Freq05;
   }
@@ -220,7 +212,7 @@ public class BpaSwi_UF
     this.uF_Freq05 = uF_Freq05;
   }
     
-  public Double getUF_Freq06() 
+  public Double getUF_Freq06()
   {
     return uF_Freq06;
   }
@@ -230,7 +222,7 @@ public class BpaSwi_UF
     this.uF_Freq06 = uF_Freq06;
   }
     
-  public Double getUF_Freq07() 
+  public Double getUF_Freq07()
   {
     return uF_Freq07;
   }
@@ -240,7 +232,7 @@ public class BpaSwi_UF
     this.uF_Freq07 = uF_Freq07;
   }
     
-  public Double getUF_Freq08() 
+  public Double getUF_Freq08()
   {
     return uF_Freq08;
   }
@@ -250,7 +242,7 @@ public class BpaSwi_UF
     this.uF_Freq08 = uF_Freq08;
   }
     
-  public Double getUF_Freq09() 
+  public Double getUF_Freq09()
   {
     return uF_Freq09;
   }
@@ -260,7 +252,7 @@ public class BpaSwi_UF
     this.uF_Freq09 = uF_Freq09;
   }
     
-  public Double getUF_Freq10() 
+  public Double getUF_Freq10()
   {
     return uF_Freq10;
   }
@@ -270,7 +262,7 @@ public class BpaSwi_UF
     this.uF_Freq10 = uF_Freq10;
   }
     
-  public Double getUF_Delay01() 
+  public Double getUF_Delay01()
   {
     return uF_Delay01;
   }
@@ -280,7 +272,7 @@ public class BpaSwi_UF
     this.uF_Delay01 = uF_Delay01;
   }
     
-  public Double getUF_Delay02() 
+  public Double getUF_Delay02()
   {
     return uF_Delay02;
   }
@@ -290,7 +282,7 @@ public class BpaSwi_UF
     this.uF_Delay02 = uF_Delay02;
   }
     
-  public Double getUF_Delay03() 
+  public Double getUF_Delay03()
   {
     return uF_Delay03;
   }
@@ -300,7 +292,7 @@ public class BpaSwi_UF
     this.uF_Delay03 = uF_Delay03;
   }
     
-  public Double getUF_Delay04() 
+  public Double getUF_Delay04()
   {
     return uF_Delay04;
   }
@@ -310,7 +302,7 @@ public class BpaSwi_UF
     this.uF_Delay04 = uF_Delay04;
   }
     
-  public Double getUF_Delay05() 
+  public Double getUF_Delay05()
   {
     return uF_Delay05;
   }
@@ -320,7 +312,7 @@ public class BpaSwi_UF
     this.uF_Delay05 = uF_Delay05;
   }
     
-  public Double getUF_Delay06() 
+  public Double getUF_Delay06()
   {
     return uF_Delay06;
   }
@@ -330,7 +322,7 @@ public class BpaSwi_UF
     this.uF_Delay06 = uF_Delay06;
   }
     
-  public Double getUF_Delay07() 
+  public Double getUF_Delay07()
   {
     return uF_Delay07;
   }
@@ -340,7 +332,7 @@ public class BpaSwi_UF
     this.uF_Delay07 = uF_Delay07;
   }
     
-  public Double getUF_Delay08() 
+  public Double getUF_Delay08()
   {
     return uF_Delay08;
   }
@@ -350,7 +342,7 @@ public class BpaSwi_UF
     this.uF_Delay08 = uF_Delay08;
   }
     
-  public Double getUF_Delay09() 
+  public Double getUF_Delay09()
   {
     return uF_Delay09;
   }
@@ -360,7 +352,7 @@ public class BpaSwi_UF
     this.uF_Delay09 = uF_Delay09;
   }
     
-  public Double getUF_Delay10() 
+  public Double getUF_Delay10()
   {
     return uF_Delay10;
   }
@@ -370,7 +362,7 @@ public class BpaSwi_UF
     this.uF_Delay10 = uF_Delay10;
   }
     
-  public Double getUF_Shed01() 
+  public Double getUF_Shed01()
   {
     return uF_Shed01;
   }
@@ -380,7 +372,7 @@ public class BpaSwi_UF
     this.uF_Shed01 = uF_Shed01;
   }
     
-  public Double getUF_Shed02() 
+  public Double getUF_Shed02()
   {
     return uF_Shed02;
   }
@@ -390,7 +382,7 @@ public class BpaSwi_UF
     this.uF_Shed02 = uF_Shed02;
   }
     
-  public Double getUF_Shed03() 
+  public Double getUF_Shed03()
   {
     return uF_Shed03;
   }
@@ -400,7 +392,7 @@ public class BpaSwi_UF
     this.uF_Shed03 = uF_Shed03;
   }
     
-  public Double getUF_Shed04() 
+  public Double getUF_Shed04()
   {
     return uF_Shed04;
   }
@@ -410,7 +402,7 @@ public class BpaSwi_UF
     this.uF_Shed04 = uF_Shed04;
   }
     
-  public Double getUF_Shed05() 
+  public Double getUF_Shed05()
   {
     return uF_Shed05;
   }
@@ -420,7 +412,7 @@ public class BpaSwi_UF
     this.uF_Shed05 = uF_Shed05;
   }
     
-  public Double getUF_Shed06() 
+  public Double getUF_Shed06()
   {
     return uF_Shed06;
   }
@@ -430,7 +422,7 @@ public class BpaSwi_UF
     this.uF_Shed06 = uF_Shed06;
   }
     
-  public Double getUF_Shed07() 
+  public Double getUF_Shed07()
   {
     return uF_Shed07;
   }
@@ -440,7 +432,7 @@ public class BpaSwi_UF
     this.uF_Shed07 = uF_Shed07;
   }
     
-  public Double getUF_Shed08() 
+  public Double getUF_Shed08()
   {
     return uF_Shed08;
   }
@@ -450,7 +442,7 @@ public class BpaSwi_UF
     this.uF_Shed08 = uF_Shed08;
   }
     
-  public Double getUF_Shed09() 
+  public Double getUF_Shed09()
   {
     return uF_Shed09;
   }
@@ -460,7 +452,7 @@ public class BpaSwi_UF
     this.uF_Shed09 = uF_Shed09;
   }
     
-  public Double getUF_Shed10() 
+  public Double getUF_Shed10()
   {
     return uF_Shed10;
   }
@@ -470,7 +462,7 @@ public class BpaSwi_UF
     this.uF_Shed10 = uF_Shed10;
   }
     
-  public Integer getUF_W() 
+  public Integer getUF_W()
   {
     return uF_W;
   }
@@ -478,6 +470,46 @@ public class BpaSwi_UF
   public void setUF_W(Integer uF_W)
   {
     this.uF_W = uF_W;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_UF ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", uF_Freq01 = " + uF_Freq01
+	 + ", uF_Freq02 = " + uF_Freq02
+	 + ", uF_Freq03 = " + uF_Freq03
+	 + ", uF_Freq04 = " + uF_Freq04
+	 + ", uF_Freq05 = " + uF_Freq05
+	 + ", uF_Freq06 = " + uF_Freq06
+	 + ", uF_Freq07 = " + uF_Freq07
+	 + ", uF_Freq08 = " + uF_Freq08
+	 + ", uF_Freq09 = " + uF_Freq09
+	 + ", uF_Freq10 = " + uF_Freq10
+	 + ", uF_Delay01 = " + uF_Delay01
+	 + ", uF_Delay02 = " + uF_Delay02
+	 + ", uF_Delay03 = " + uF_Delay03
+	 + ", uF_Delay04 = " + uF_Delay04
+	 + ", uF_Delay05 = " + uF_Delay05
+	 + ", uF_Delay06 = " + uF_Delay06
+	 + ", uF_Delay07 = " + uF_Delay07
+	 + ", uF_Delay08 = " + uF_Delay08
+	 + ", uF_Delay09 = " + uF_Delay09
+	 + ", uF_Delay10 = " + uF_Delay10
+	 + ", uF_Shed01 = " + uF_Shed01
+	 + ", uF_Shed02 = " + uF_Shed02
+	 + ", uF_Shed03 = " + uF_Shed03
+	 + ", uF_Shed04 = " + uF_Shed04
+	 + ", uF_Shed05 = " + uF_Shed05
+	 + ", uF_Shed06 = " + uF_Shed06
+	 + ", uF_Shed07 = " + uF_Shed07
+	 + ", uF_Shed08 = " + uF_Shed08
+	 + ", uF_Shed09 = " + uF_Shed09
+	 + ", uF_Shed10 = " + uF_Shed10
+	 + ", uF_W = " + uF_W+"]";
   }
     
 }

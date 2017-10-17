@@ -461,41 +461,41 @@ public class BpaDat_Case
     
   public String toString()
   {
-    return "BpaDat_Case ["+	"id"=id,
-	"memIndex"=memIndex,
-	"case_CaseID"=case_CaseID,
-	"case_Project"=case_Project,
-	"case_MVABase"=case_MVABase,
-	"case_Control"=case_Control,
-	"case_Branch"=case_Branch,
-	"case_Bus"=case_Bus,
-	"case_Network"=case_Network,
-	"case_RXCheck"=case_RXCheck,
-	"case_NewBase"=case_NewBase,
-	"case_OldBase"=case_OldBase,
-	"case_Map"=case_Map,
-	"case_AIControl"=case_AIControl,
-	"case_LTC"=case_LTC,
-	"case_DecoupledNum"=case_DecoupledNum,
-	"case_CurrentNum"=case_CurrentNum,
-	"case_NewtonNum"=case_NewtonNum,
-	"case_OptimNum"=case_OptimNum,
-	"case_ToleranceBusV"=case_ToleranceBusV,
-	"case_ToleranceAIPower"=case_ToleranceAIPower,
-	"case_ToleranceTX"=case_ToleranceTX,
-	"case_ToleranceQ"=case_ToleranceQ,
-	"case_ToleranceOpcut"=case_ToleranceOpcut,
-	"case_RptSort"=case_RptSort,
-	"case_AnalysisRpt"=case_AnalysisRpt,
-	"islandNum"=islandNum,
-	"totGenP"=totGenP,
-	"totGenQ"=totGenQ,
-	"totLoadP"=totLoadP,
-	"totLoadQ"=totLoadQ,
-	"totLineCap"=totLineCap,
-	"totLossP"=totLossP,
-	"totLossQ"=totLossQ,
-	"totDCLoss"=totDCLoss+"]"
+    return "BpaDat_Case ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", case_CaseID = " + case_CaseID
+	 + ", case_Project = " + case_Project
+	 + ", case_MVABase = " + case_MVABase
+	 + ", case_Control = " + case_Control
+	 + ", case_Branch = " + case_Branch
+	 + ", case_Bus = " + case_Bus
+	 + ", case_Network = " + case_Network
+	 + ", case_RXCheck = " + case_RXCheck
+	 + ", case_NewBase = " + case_NewBase
+	 + ", case_OldBase = " + case_OldBase
+	 + ", case_Map = " + case_Map
+	 + ", case_AIControl = " + case_AIControl
+	 + ", case_LTC = " + case_LTC
+	 + ", case_DecoupledNum = " + case_DecoupledNum
+	 + ", case_CurrentNum = " + case_CurrentNum
+	 + ", case_NewtonNum = " + case_NewtonNum
+	 + ", case_OptimNum = " + case_OptimNum
+	 + ", case_ToleranceBusV = " + case_ToleranceBusV
+	 + ", case_ToleranceAIPower = " + case_ToleranceAIPower
+	 + ", case_ToleranceTX = " + case_ToleranceTX
+	 + ", case_ToleranceQ = " + case_ToleranceQ
+	 + ", case_ToleranceOpcut = " + case_ToleranceOpcut
+	 + ", case_RptSort = " + case_RptSort
+	 + ", case_AnalysisRpt = " + case_AnalysisRpt
+	 + ", islandNum = " + islandNum
+	 + ", totGenP = " + totGenP
+	 + ", totGenQ = " + totGenQ
+	 + ", totLoadP = " + totLoadP
+	 + ", totLoadQ = " + totLoadQ
+	 + ", totLineCap = " + totLineCap
+	 + ", totLossP = " + totLossP
+	 + ", totLossQ = " + totLossQ
+	 + ", totDCLoss = " + totDCLoss+"]";
   }
     
 }

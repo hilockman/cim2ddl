@@ -409,37 +409,37 @@ public class BpaSwi_IGV
     
   public String toString()
   {
-    return "BpaSwi_IGV ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"gen_ID"=gen_ID,
-	"iGV_Tstart"=iGV_Tstart,
-	"iGV_T1"=iGV_T1,
-	"iGV_FREQ1"=iGV_FREQ1,
-	"iGV_T2"=iGV_T2,
-	"iGV_FREQ2"=iGV_FREQ2,
-	"iGV_T3"=iGV_T3,
-	"iGV_FREQ3"=iGV_FREQ3,
-	"iGV_T4"=iGV_T4,
-	"iGV_FREQ4"=iGV_FREQ4,
-	"iGV_T5"=iGV_T5,
-	"iGV_FREQ5"=iGV_FREQ5,
-	"iGV_T6"=iGV_T6,
-	"iGV_FREQ6"=iGV_FREQ6,
-	"iGV_T7"=iGV_T7,
-	"iGV_FREQ7"=iGV_FREQ7,
-	"iGV_T8"=iGV_T8,
-	"iGV_FREQ8"=iGV_FREQ8,
-	"iGV_T9"=iGV_T9,
-	"iGV_FREQ9"=iGV_FREQ9,
-	"iGV_T10"=iGV_T10,
-	"iGV_FREQ10"=iGV_FREQ10,
-	"iGV_T11"=iGV_T11,
-	"iGV_FREQ11"=iGV_FREQ11,
-	"keyName"=keyName,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_IGV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", iGV_Tstart = " + iGV_Tstart
+	 + ", iGV_T1 = " + iGV_T1
+	 + ", iGV_FREQ1 = " + iGV_FREQ1
+	 + ", iGV_T2 = " + iGV_T2
+	 + ", iGV_FREQ2 = " + iGV_FREQ2
+	 + ", iGV_T3 = " + iGV_T3
+	 + ", iGV_FREQ3 = " + iGV_FREQ3
+	 + ", iGV_T4 = " + iGV_T4
+	 + ", iGV_FREQ4 = " + iGV_FREQ4
+	 + ", iGV_T5 = " + iGV_T5
+	 + ", iGV_FREQ5 = " + iGV_FREQ5
+	 + ", iGV_T6 = " + iGV_T6
+	 + ", iGV_FREQ6 = " + iGV_FREQ6
+	 + ", iGV_T7 = " + iGV_T7
+	 + ", iGV_FREQ7 = " + iGV_FREQ7
+	 + ", iGV_T8 = " + iGV_T8
+	 + ", iGV_FREQ8 = " + iGV_FREQ8
+	 + ", iGV_T9 = " + iGV_T9
+	 + ", iGV_FREQ9 = " + iGV_FREQ9
+	 + ", iGV_T10 = " + iGV_T10
+	 + ", iGV_FREQ10 = " + iGV_FREQ10
+	 + ", iGV_T11 = " + iGV_T11
+	 + ", iGV_FREQ11 = " + iGV_FREQ11
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

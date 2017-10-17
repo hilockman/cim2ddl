@@ -201,21 +201,21 @@ public class BpaSwi_TE
     
   public String toString()
   {
-    return "BpaSwi_TE ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"tE_TCH"=tE_TCH,
-	"tE_FHP"=tE_FHP,
-	"tE_TRH"=tE_TRH,
-	"tE_FIP"=tE_FIP,
-	"tE_TCO"=tE_TCO,
-	"tE_FLP"=tE_FLP,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_TE ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tE_TCH = " + tE_TCH
+	 + ", tE_FHP = " + tE_FHP
+	 + ", tE_TRH = " + tE_TRH
+	 + ", tE_FIP = " + tE_FIP
+	 + ", tE_TCO = " + tE_TCO
+	 + ", tE_FLP = " + tE_FLP
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

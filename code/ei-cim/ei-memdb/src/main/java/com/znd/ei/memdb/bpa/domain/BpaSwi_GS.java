@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *汽轮机调速模型1表(GS)	*
 ***********************/
-@Entity
 public class BpaSwi_GS
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -66,7 +58,7 @@ public class BpaSwi_GS
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -76,7 +68,7 @@ public class BpaSwi_GS
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -86,7 +78,7 @@ public class BpaSwi_GS
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -96,7 +88,7 @@ public class BpaSwi_GS
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -106,7 +98,7 @@ public class BpaSwi_GS
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -116,7 +108,7 @@ public class BpaSwi_GS
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -126,7 +118,7 @@ public class BpaSwi_GS
     this.gen_ID = gen_ID;
   }
     
-  public Double getGen_Pmax() 
+  public Double getGen_Pmax()
   {
     return gen_Pmax;
   }
@@ -136,7 +128,7 @@ public class BpaSwi_GS
     this.gen_Pmax = gen_Pmax;
   }
     
-  public Double getGen_Pmin() 
+  public Double getGen_Pmin()
   {
     return gen_Pmin;
   }
@@ -146,7 +138,7 @@ public class BpaSwi_GS
     this.gen_Pmin = gen_Pmin;
   }
     
-  public Double getGS_R() 
+  public Double getGS_R()
   {
     return gS_R;
   }
@@ -156,7 +148,7 @@ public class BpaSwi_GS
     this.gS_R = gS_R;
   }
     
-  public Double getGS_T1() 
+  public Double getGS_T1()
   {
     return gS_T1;
   }
@@ -166,7 +158,7 @@ public class BpaSwi_GS
     this.gS_T1 = gS_T1;
   }
     
-  public Double getGS_T2() 
+  public Double getGS_T2()
   {
     return gS_T2;
   }
@@ -176,7 +168,7 @@ public class BpaSwi_GS
     this.gS_T2 = gS_T2;
   }
     
-  public Double getGS_T3() 
+  public Double getGS_T3()
   {
     return gS_T3;
   }
@@ -186,7 +178,7 @@ public class BpaSwi_GS
     this.gS_T3 = gS_T3;
   }
     
-  public Double getGS_VELopen() 
+  public Double getGS_VELopen()
   {
     return gS_VELopen;
   }
@@ -196,7 +188,7 @@ public class BpaSwi_GS
     this.gS_VELopen = gS_VELopen;
   }
     
-  public Double getGS_VELclose() 
+  public Double getGS_VELclose()
   {
     return gS_VELclose;
   }
@@ -206,7 +198,7 @@ public class BpaSwi_GS
     this.gS_VELclose = gS_VELclose;
   }
     
-  public Double getGS_E() 
+  public Double getGS_E()
   {
     return gS_E;
   }
@@ -216,7 +208,7 @@ public class BpaSwi_GS
     this.gS_E = gS_E;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -226,7 +218,7 @@ public class BpaSwi_GS
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -236,7 +228,7 @@ public class BpaSwi_GS
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -244,6 +236,28 @@ public class BpaSwi_GS
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GS ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", gS_R = " + gS_R
+	 + ", gS_T1 = " + gS_T1
+	 + ", gS_T2 = " + gS_T2
+	 + ", gS_T3 = " + gS_T3
+	 + ", gS_VELopen = " + gS_VELopen
+	 + ", gS_VELclose = " + gS_VELclose
+	 + ", gS_E = " + gS_E
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

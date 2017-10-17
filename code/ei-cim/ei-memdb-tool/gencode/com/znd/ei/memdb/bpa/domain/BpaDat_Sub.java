@@ -136,16 +136,16 @@ public class BpaDat_Sub
     
   public String toString()
   {
-    return "BpaDat_Sub ["+	"id"=id,
-	"memIndex"=memIndex,
-	"sub_Name"=sub_Name,
-	"sub_Alias"=sub_Alias,
-	"sub_Type"=sub_Type,
-	"sub_GenP"=sub_GenP,
-	"sub_GenQ"=sub_GenQ,
-	"sub_LoadP"=sub_LoadP,
-	"sub_LoadQ"=sub_LoadQ,
-	"sub_ShuntQ"=sub_ShuntQ+"]"
+    return "BpaDat_Sub ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", sub_Name = " + sub_Name
+	 + ", sub_Alias = " + sub_Alias
+	 + ", sub_Type = " + sub_Type
+	 + ", sub_GenP = " + sub_GenP
+	 + ", sub_GenQ = " + sub_GenQ
+	 + ", sub_LoadP = " + sub_LoadP
+	 + ", sub_LoadQ = " + sub_LoadQ
+	 + ", sub_ShuntQ = " + sub_ShuntQ+"]";
   }
     
 }

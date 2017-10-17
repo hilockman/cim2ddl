@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *稳定计算控制继续卡(F1)	*
 ***********************/
-@Entity
 public class BpaSwi_F1
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -54,7 +46,7 @@ public class BpaSwi_F1
   //FM、FO、FP、FQ、FR、FS、FT和FG型励磁模型的调压器限幅环节为外限幅,如果VRLIM不为0,则将其改为内限幅
   private Integer vRLIM;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -64,7 +56,7 @@ public class BpaSwi_F1
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -74,7 +66,7 @@ public class BpaSwi_F1
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -84,7 +76,7 @@ public class BpaSwi_F1
     this.cardKey = cardKey;
   }
     
-  public Double getTBUSF() 
+  public Double getTBUSF()
   {
     return tBUSF;
   }
@@ -94,7 +86,7 @@ public class BpaSwi_F1
     this.tBUSF = tBUSF;
   }
     
-  public Double getTZERO() 
+  public Double getTZERO()
   {
     return tZERO;
   }
@@ -104,7 +96,7 @@ public class BpaSwi_F1
     this.tZERO = tZERO;
   }
     
-  public Integer getIBLOD() 
+  public Integer getIBLOD()
   {
     return iBLOD;
   }
@@ -114,7 +106,7 @@ public class BpaSwi_F1
     this.iBLOD = iBLOD;
   }
     
-  public Double getDMPALL() 
+  public Double getDMPALL()
   {
     return dMPALL;
   }
@@ -124,7 +116,7 @@ public class BpaSwi_F1
     this.dMPALL = dMPALL;
   }
     
-  public Integer getIAMRTS() 
+  public Integer getIAMRTS()
   {
     return iAMRTS;
   }
@@ -134,7 +126,7 @@ public class BpaSwi_F1
     this.iAMRTS = iAMRTS;
   }
     
-  public Double getVCHGL() 
+  public Double getVCHGL()
   {
     return vCHGL;
   }
@@ -144,7 +136,7 @@ public class BpaSwi_F1
     this.vCHGL = vCHGL;
   }
     
-  public Integer getSPTOSG() 
+  public Integer getSPTOSG()
   {
     return sPTOSG;
   }
@@ -154,7 +146,7 @@ public class BpaSwi_F1
     this.sPTOSG = sPTOSG;
   }
     
-  public Double getGSIQU() 
+  public Double getGSIQU()
   {
     return gSIQU;
   }
@@ -164,7 +156,7 @@ public class BpaSwi_F1
     this.gSIQU = gSIQU;
   }
     
-  public Double getTITSKP() 
+  public Double getTITSKP()
   {
     return tITSKP;
   }
@@ -174,7 +166,7 @@ public class BpaSwi_F1
     this.tITSKP = tITSKP;
   }
     
-  public Integer getITSKP1() 
+  public Integer getITSKP1()
   {
     return iTSKP1;
   }
@@ -184,7 +176,7 @@ public class BpaSwi_F1
     this.iTSKP1 = iTSKP1;
   }
     
-  public Integer getVRLIM() 
+  public Integer getVRLIM()
   {
     return vRLIM;
   }
@@ -192,6 +184,24 @@ public class BpaSwi_F1
   public void setVRLIM(Integer vRLIM)
   {
     this.vRLIM = vRLIM;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_F1 ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", tBUSF = " + tBUSF
+	 + ", tZERO = " + tZERO
+	 + ", iBLOD = " + iBLOD
+	 + ", dMPALL = " + dMPALL
+	 + ", iAMRTS = " + iAMRTS
+	 + ", vCHGL = " + vCHGL
+	 + ", sPTOSG = " + sPTOSG
+	 + ", gSIQU = " + gSIQU
+	 + ", tITSKP = " + tITSKP
+	 + ", iTSKP1 = " + iTSKP1
+	 + ", vRLIM = " + vRLIM+"]";
   }
     
 }

@@ -149,17 +149,17 @@ public class BpaDat_Load
     
   public String toString()
   {
-    return "BpaDat_Load ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"load_Bus"=load_Bus,
-	"load_kV"=load_kV,
-	"load_PLoad"=load_PLoad,
-	"load_QLoad"=load_QLoad,
-	"load_ACBusPtr"=load_ACBusPtr,
-	"load_Aux"=load_Aux,
-	"load_EQ"=load_EQ,
-	"load_Status"=load_Status+"]"
+    return "BpaDat_Load ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", load_Bus = " + load_Bus
+	 + ", load_kV = " + load_kV
+	 + ", load_PLoad = " + load_PLoad
+	 + ", load_QLoad = " + load_QLoad
+	 + ", load_ACBusPtr = " + load_ACBusPtr
+	 + ", load_Aux = " + load_Aux
+	 + ", load_EQ = " + load_EQ
+	 + ", load_Status = " + load_Status+"]";
   }
     
 }

@@ -409,37 +409,37 @@ public class PowerLoad
     
   public String toString()
   {
-    return "PowerLoad ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"busName"=busName,
-	"buskV"=buskV,
-	"zone"=zone,
-	"p"=p,
-	"q"=q,
-	"pMax"=pMax,
-	"rerr"=rerr,
-	"rrep"=rrep,
-	"trep"=trep,
-	"goodProb"=goodProb,
-	"failProb"=failProb,
-	"iRt"=iRt,
-	"iMax"=iMax,
-	"iMin"=iMin,
-	"rerrMax"=rerrMax,
-	"rerrMin"=rerrMin,
-	"faultFreq"=faultFreq,
-	"mSModel"=mSModel,
-	"mStateNum"=mStateNum,
-	"mSPout"=mSPout,
-	"referenceP"=referenceP,
-	"referenceQ"=referenceQ,
-	"radial"=radial,
-	"busPtr"=busPtr,
-	"auxLoad"=auxLoad,
-	"eQLoad"=eQLoad,
-	"rParamType"=rParamType,
-	"outage"=outage+"]"
+    return "PowerLoad ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", zone = " + zone
+	 + ", p = " + p
+	 + ", q = " + q
+	 + ", pMax = " + pMax
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", mSModel = " + mSModel
+	 + ", mStateNum = " + mStateNum
+	 + ", mSPout = " + mSPout
+	 + ", referenceP = " + referenceP
+	 + ", referenceQ = " + referenceQ
+	 + ", radial = " + radial
+	 + ", busPtr = " + busPtr
+	 + ", auxLoad = " + auxLoad
+	 + ", eQLoad = " + eQLoad
+	 + ", rParamType = " + rParamType
+	 + ", outage = " + outage+"]";
   }
     
 }

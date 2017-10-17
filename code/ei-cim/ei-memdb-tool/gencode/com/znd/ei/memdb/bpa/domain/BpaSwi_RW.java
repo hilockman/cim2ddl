@@ -396,36 +396,36 @@ public class BpaSwi_RW
     
   public String toString()
   {
-    return "BpaSwi_RW ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"gen_ID"=gen_ID,
-	"rW_Wmax"=rW_Wmax,
-	"rW_Wmin"=rW_Wmin,
-	"rW_Wset1"=rW_Wset1,
-	"rW_Wset2"=rW_Wset2,
-	"rW_Wset3"=rW_Wset3,
-	"rW_Wset4"=rW_Wset4,
-	"rW_Wset5"=rW_Wset5,
-	"rW_Wset6"=rW_Wset6,
-	"rW_Wset7"=rW_Wset7,
-	"rW_Wset8"=rW_Wset8,
-	"rW_Wset9"=rW_Wset9,
-	"rW_Wset10"=rW_Wset10,
-	"rW_Delay1"=rW_Delay1,
-	"rW_Delay2"=rW_Delay2,
-	"rW_Delay3"=rW_Delay3,
-	"rW_Delay4"=rW_Delay4,
-	"rW_Delay5"=rW_Delay5,
-	"rW_Delay6"=rW_Delay6,
-	"rW_Delay7"=rW_Delay7,
-	"rW_Delay8"=rW_Delay8,
-	"rW_Delay9"=rW_Delay9,
-	"rW_Delay10"=rW_Delay10,
-	"rW_Tbrk"=rW_Tbrk,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_RW ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", rW_Wmax = " + rW_Wmax
+	 + ", rW_Wmin = " + rW_Wmin
+	 + ", rW_Wset1 = " + rW_Wset1
+	 + ", rW_Wset2 = " + rW_Wset2
+	 + ", rW_Wset3 = " + rW_Wset3
+	 + ", rW_Wset4 = " + rW_Wset4
+	 + ", rW_Wset5 = " + rW_Wset5
+	 + ", rW_Wset6 = " + rW_Wset6
+	 + ", rW_Wset7 = " + rW_Wset7
+	 + ", rW_Wset8 = " + rW_Wset8
+	 + ", rW_Wset9 = " + rW_Wset9
+	 + ", rW_Wset10 = " + rW_Wset10
+	 + ", rW_Delay1 = " + rW_Delay1
+	 + ", rW_Delay2 = " + rW_Delay2
+	 + ", rW_Delay3 = " + rW_Delay3
+	 + ", rW_Delay4 = " + rW_Delay4
+	 + ", rW_Delay5 = " + rW_Delay5
+	 + ", rW_Delay6 = " + rW_Delay6
+	 + ", rW_Delay7 = " + rW_Delay7
+	 + ", rW_Delay8 = " + rW_Delay8
+	 + ", rW_Delay9 = " + rW_Delay9
+	 + ", rW_Delay10 = " + rW_Delay10
+	 + ", rW_Tbrk = " + rW_Tbrk
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *线路零序参数模型(LO)	*
 ***********************/
-@Entity
 public class BpaSwi_LO
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -57,7 +49,7 @@ public class BpaSwi_LO
   //线路名称
   private String keyName;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -67,7 +59,7 @@ public class BpaSwi_LO
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -77,7 +69,7 @@ public class BpaSwi_LO
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -87,7 +79,7 @@ public class BpaSwi_LO
     this.cardKey = cardKey;
   }
     
-  public String getLO_BusI() 
+  public String getLO_BusI()
   {
     return lO_BusI;
   }
@@ -97,7 +89,7 @@ public class BpaSwi_LO
     this.lO_BusI = lO_BusI;
   }
     
-  public Double getLO_kVI() 
+  public Double getLO_kVI()
   {
     return lO_kVI;
   }
@@ -107,7 +99,7 @@ public class BpaSwi_LO
     this.lO_kVI = lO_kVI;
   }
     
-  public String getLO_BusJ() 
+  public String getLO_BusJ()
   {
     return lO_BusJ;
   }
@@ -117,7 +109,7 @@ public class BpaSwi_LO
     this.lO_BusJ = lO_BusJ;
   }
     
-  public Double getLO_kVJ() 
+  public Double getLO_kVJ()
   {
     return lO_kVJ;
   }
@@ -127,7 +119,7 @@ public class BpaSwi_LO
     this.lO_kVJ = lO_kVJ;
   }
     
-  public Integer getLO_Loop() 
+  public Integer getLO_Loop()
   {
     return lO_Loop;
   }
@@ -137,7 +129,7 @@ public class BpaSwi_LO
     this.lO_Loop = lO_Loop;
   }
     
-  public Double getLO_R0() 
+  public Double getLO_R0()
   {
     return lO_R0;
   }
@@ -147,7 +139,7 @@ public class BpaSwi_LO
     this.lO_R0 = lO_R0;
   }
     
-  public Double getLO_X0() 
+  public Double getLO_X0()
   {
     return lO_X0;
   }
@@ -157,7 +149,7 @@ public class BpaSwi_LO
     this.lO_X0 = lO_X0;
   }
     
-  public Double getLO_Ga0() 
+  public Double getLO_Ga0()
   {
     return lO_Ga0;
   }
@@ -167,7 +159,7 @@ public class BpaSwi_LO
     this.lO_Ga0 = lO_Ga0;
   }
     
-  public Double getLO_Ba0() 
+  public Double getLO_Ba0()
   {
     return lO_Ba0;
   }
@@ -177,7 +169,7 @@ public class BpaSwi_LO
     this.lO_Ba0 = lO_Ba0;
   }
     
-  public Double getLO_Gb0() 
+  public Double getLO_Gb0()
   {
     return lO_Gb0;
   }
@@ -187,7 +179,7 @@ public class BpaSwi_LO
     this.lO_Gb0 = lO_Gb0;
   }
     
-  public Double getLO_Bb0() 
+  public Double getLO_Bb0()
   {
     return lO_Bb0;
   }
@@ -197,7 +189,7 @@ public class BpaSwi_LO
     this.lO_Bb0 = lO_Bb0;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -205,6 +197,25 @@ public class BpaSwi_LO
   public void setKeyName(String keyName)
   {
     this.keyName = keyName;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_LO ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", lO_BusI = " + lO_BusI
+	 + ", lO_kVI = " + lO_kVI
+	 + ", lO_BusJ = " + lO_BusJ
+	 + ", lO_kVJ = " + lO_kVJ
+	 + ", lO_Loop = " + lO_Loop
+	 + ", lO_R0 = " + lO_R0
+	 + ", lO_X0 = " + lO_X0
+	 + ", lO_Ga0 = " + lO_Ga0
+	 + ", lO_Ba0 = " + lO_Ba0
+	 + ", lO_Gb0 = " + lO_Gb0
+	 + ", lO_Bb0 = " + lO_Bb0
+	 + ", keyName = " + keyName+"]";
   }
     
 }

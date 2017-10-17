@@ -162,18 +162,18 @@ public class BpaSwi_TW
     
   public String toString()
   {
-    return "BpaSwi_TW ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"tW_K1"=tW_K1,
-	"tW_Tw_Half"=tW_Tw_Half,
-	"tW_K3"=tW_K3,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_TW ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tW_K1 = " + tW_K1
+	 + ", tW_Tw_Half = " + tW_Tw_Half
+	 + ", tW_K3 = " + tW_K3
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

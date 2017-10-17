@@ -448,40 +448,40 @@ public class BpaSwi_PssSH
     
   public String toString()
   {
-    return "BpaSwi_PssSH ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"pssSH_TD"=pssSH_TD,
-	"pssSH_T1"=pssSH_T1,
-	"pssSH_T2"=pssSH_T2,
-	"pssSH_T3"=pssSH_T3,
-	"pssSH_K0"=pssSH_K0,
-	"pssSH_K1"=pssSH_K1,
-	"pssSH_K2"=pssSH_K2,
-	"pssSH_K3"=pssSH_K3,
-	"pssSH_K"=pssSH_K,
-	"pssSH_VSMax"=pssSH_VSMax,
-	"pssSH_VSMin"=pssSH_VSMin,
-	"pssSH_KP"=pssSH_KP,
-	"pssSH_KMVA"=pssSH_KMVA,
-	"pssSHEX_KPM"=pssSHEX_KPM,
-	"pssSHEX_TPM"=pssSHEX_TPM,
-	"pssSHEX_KPE"=pssSHEX_KPE,
-	"pssSHEX_TPE"=pssSHEX_TPE,
-	"pssSHEX_KW"=pssSHEX_KW,
-	"pssSHEX_TW"=pssSHEX_TW,
-	"pssSHEX_TD1"=pssSHEX_TD1,
-	"pssSHEX_TD2"=pssSHEX_TD2,
-	"pssSHEX_KD1"=pssSHEX_KD1,
-	"pssSHEX_T4"=pssSHEX_T4,
-	"pssSHEX_K4"=pssSHEX_K4,
-	"pssSHEX_KMVA"=pssSHEX_KMVA,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_PssSH ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssSH_TD = " + pssSH_TD
+	 + ", pssSH_T1 = " + pssSH_T1
+	 + ", pssSH_T2 = " + pssSH_T2
+	 + ", pssSH_T3 = " + pssSH_T3
+	 + ", pssSH_K0 = " + pssSH_K0
+	 + ", pssSH_K1 = " + pssSH_K1
+	 + ", pssSH_K2 = " + pssSH_K2
+	 + ", pssSH_K3 = " + pssSH_K3
+	 + ", pssSH_K = " + pssSH_K
+	 + ", pssSH_VSMax = " + pssSH_VSMax
+	 + ", pssSH_VSMin = " + pssSH_VSMin
+	 + ", pssSH_KP = " + pssSH_KP
+	 + ", pssSH_KMVA = " + pssSH_KMVA
+	 + ", pssSHEX_KPM = " + pssSHEX_KPM
+	 + ", pssSHEX_TPM = " + pssSHEX_TPM
+	 + ", pssSHEX_KPE = " + pssSHEX_KPE
+	 + ", pssSHEX_TPE = " + pssSHEX_TPE
+	 + ", pssSHEX_KW = " + pssSHEX_KW
+	 + ", pssSHEX_TW = " + pssSHEX_TW
+	 + ", pssSHEX_TD1 = " + pssSHEX_TD1
+	 + ", pssSHEX_TD2 = " + pssSHEX_TD2
+	 + ", pssSHEX_KD1 = " + pssSHEX_KD1
+	 + ", pssSHEX_T4 = " + pssSHEX_T4
+	 + ", pssSHEX_K4 = " + pssSHEX_K4
+	 + ", pssSHEX_KMVA = " + pssSHEX_KMVA
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

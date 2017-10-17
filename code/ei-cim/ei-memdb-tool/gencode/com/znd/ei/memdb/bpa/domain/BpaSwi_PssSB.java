@@ -422,38 +422,38 @@ public class BpaSwi_PssSB
     
   public String toString()
   {
-    return "BpaSwi_PssSB ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"gen_ID"=gen_ID,
-	"pssSB_ISIG"=pssSB_ISIG,
-	"pssSB_TD"=pssSB_TD,
-	"pssSB_TW1"=pssSB_TW1,
-	"pssSB_TW2"=pssSB_TW2,
-	"pssSB_T6"=pssSB_T6,
-	"pssSB_TW3"=pssSB_TW3,
-	"pssSB_TW4"=pssSB_TW4,
-	"pssSB_T7"=pssSB_T7,
-	"pssSB_KS2"=pssSB_KS2,
-	"pssSB_KS3"=pssSB_KS3,
-	"pssSB_KPG"=pssSB_KPG,
-	"pssSB_MVA_BSE"=pssSB_MVA_BSE,
-	"pssSB_T8"=pssSB_T8,
-	"pssSB_T9"=pssSB_T9,
-	"pssSB_M"=pssSB_M,
-	"pssSB_N"=pssSB_N,
-	"pssSB_KS1"=pssSB_KS1,
-	"pssSB_T1"=pssSB_T1,
-	"pssSB_T2"=pssSB_T2,
-	"pssSB_T3"=pssSB_T3,
-	"pssSB_T4"=pssSB_T4,
-	"pssSB_VPMax"=pssSB_VPMax,
-	"pssSB_VPMin"=pssSB_VPMin,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_PssSB ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", pssSB_ISIG = " + pssSB_ISIG
+	 + ", pssSB_TD = " + pssSB_TD
+	 + ", pssSB_TW1 = " + pssSB_TW1
+	 + ", pssSB_TW2 = " + pssSB_TW2
+	 + ", pssSB_T6 = " + pssSB_T6
+	 + ", pssSB_TW3 = " + pssSB_TW3
+	 + ", pssSB_TW4 = " + pssSB_TW4
+	 + ", pssSB_T7 = " + pssSB_T7
+	 + ", pssSB_KS2 = " + pssSB_KS2
+	 + ", pssSB_KS3 = " + pssSB_KS3
+	 + ", pssSB_KPG = " + pssSB_KPG
+	 + ", pssSB_MVA_BSE = " + pssSB_MVA_BSE
+	 + ", pssSB_T8 = " + pssSB_T8
+	 + ", pssSB_T9 = " + pssSB_T9
+	 + ", pssSB_M = " + pssSB_M
+	 + ", pssSB_N = " + pssSB_N
+	 + ", pssSB_KS1 = " + pssSB_KS1
+	 + ", pssSB_T1 = " + pssSB_T1
+	 + ", pssSB_T2 = " + pssSB_T2
+	 + ", pssSB_T3 = " + pssSB_T3
+	 + ", pssSB_T4 = " + pssSB_T4
+	 + ", pssSB_VPMax = " + pssSB_VPMax
+	 + ", pssSB_VPMin = " + pssSB_VPMin
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

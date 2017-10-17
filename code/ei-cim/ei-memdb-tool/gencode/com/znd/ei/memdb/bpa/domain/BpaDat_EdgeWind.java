@@ -84,12 +84,12 @@ public class BpaDat_EdgeWind
     
   public String toString()
   {
-    return "BpaDat_EdgeWind ["+	"id"=id,
-	"memIndex"=memIndex,
-	"busName"=busName,
-	"buskV"=buskV,
-	"windName"=windName,
-	"windPtr"=windPtr+"]"
+    return "BpaDat_EdgeWind ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", windName = " + windName
+	 + ", windPtr = " + windPtr+"]";
   }
     
 }

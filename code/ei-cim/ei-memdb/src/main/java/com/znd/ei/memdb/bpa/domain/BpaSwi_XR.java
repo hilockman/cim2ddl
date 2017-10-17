@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *对地支路零序模型(XR)	*
 ***********************/
-@Entity
 public class BpaSwi_XR
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -33,7 +25,7 @@ public class BpaSwi_XR
   //对地支路零序电抗(PU)
   private Double xR_X0;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -43,7 +35,7 @@ public class BpaSwi_XR
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -53,7 +45,7 @@ public class BpaSwi_XR
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -63,7 +55,7 @@ public class BpaSwi_XR
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -73,7 +65,7 @@ public class BpaSwi_XR
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -83,7 +75,7 @@ public class BpaSwi_XR
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Double getXR_R0() 
+  public Double getXR_R0()
   {
     return xR_R0;
   }
@@ -93,7 +85,7 @@ public class BpaSwi_XR
     this.xR_R0 = xR_R0;
   }
     
-  public Double getXR_X0() 
+  public Double getXR_X0()
   {
     return xR_X0;
   }
@@ -101,6 +93,17 @@ public class BpaSwi_XR
   public void setXR_X0(Double xR_X0)
   {
     this.xR_X0 = xR_X0;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_XR ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", xR_R0 = " + xR_R0
+	 + ", xR_X0 = " + xR_X0+"]";
   }
     
 }

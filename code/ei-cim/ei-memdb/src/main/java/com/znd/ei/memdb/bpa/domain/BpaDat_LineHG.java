@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *线路高抗表(LineHG)	*
 ***********************/
-@Entity
 public class BpaDat_LineHG
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -78,7 +70,7 @@ public class BpaDat_LineHG
   //所在辐射网
   private Integer radiate;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -88,7 +80,7 @@ public class BpaDat_LineHG
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -98,7 +90,7 @@ public class BpaDat_LineHG
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -108,7 +100,7 @@ public class BpaDat_LineHG
     this.cardKey = cardKey;
   }
     
-  public String getLineHG_BusI() 
+  public String getLineHG_BusI()
   {
     return lineHG_BusI;
   }
@@ -118,7 +110,7 @@ public class BpaDat_LineHG
     this.lineHG_BusI = lineHG_BusI;
   }
     
-  public Double getLineHG_kVI() 
+  public Double getLineHG_kVI()
   {
     return lineHG_kVI;
   }
@@ -128,7 +120,7 @@ public class BpaDat_LineHG
     this.lineHG_kVI = lineHG_kVI;
   }
     
-  public String getLineHG_BusJ() 
+  public String getLineHG_BusJ()
   {
     return lineHG_BusJ;
   }
@@ -138,7 +130,7 @@ public class BpaDat_LineHG
     this.lineHG_BusJ = lineHG_BusJ;
   }
     
-  public Double getLineHG_kVJ() 
+  public Double getLineHG_kVJ()
   {
     return lineHG_kVJ;
   }
@@ -148,7 +140,7 @@ public class BpaDat_LineHG
     this.lineHG_kVJ = lineHG_kVJ;
   }
     
-  public Integer getLineHG_Loop() 
+  public Integer getLineHG_Loop()
   {
     return lineHG_Loop;
   }
@@ -158,7 +150,7 @@ public class BpaDat_LineHG
     this.lineHG_Loop = lineHG_Loop;
   }
     
-  public Double getLineHG_ShuntI() 
+  public Double getLineHG_ShuntI()
   {
     return lineHG_ShuntI;
   }
@@ -168,7 +160,7 @@ public class BpaDat_LineHG
     this.lineHG_ShuntI = lineHG_ShuntI;
   }
     
-  public Double getLineHG_ShuntJ() 
+  public Double getLineHG_ShuntJ()
   {
     return lineHG_ShuntJ;
   }
@@ -178,7 +170,7 @@ public class BpaDat_LineHG
     this.lineHG_ShuntJ = lineHG_ShuntJ;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -188,7 +180,7 @@ public class BpaDat_LineHG
     this.keyName = keyName;
   }
     
-  public String getIniBusI() 
+  public String getIniBusI()
   {
     return iniBusI;
   }
@@ -198,7 +190,7 @@ public class BpaDat_LineHG
     this.iniBusI = iniBusI;
   }
     
-  public Double getInikVI() 
+  public Double getInikVI()
   {
     return inikVI;
   }
@@ -208,7 +200,7 @@ public class BpaDat_LineHG
     this.inikVI = inikVI;
   }
     
-  public String getIniBusJ() 
+  public String getIniBusJ()
   {
     return iniBusJ;
   }
@@ -218,7 +210,7 @@ public class BpaDat_LineHG
     this.iniBusJ = iniBusJ;
   }
     
-  public Double getInikVJ() 
+  public Double getInikVJ()
   {
     return inikVJ;
   }
@@ -228,7 +220,7 @@ public class BpaDat_LineHG
     this.inikVJ = inikVJ;
   }
     
-  public Integer getIniLoop() 
+  public Integer getIniLoop()
   {
     return iniLoop;
   }
@@ -238,7 +230,7 @@ public class BpaDat_LineHG
     this.iniLoop = iniLoop;
   }
     
-  public Integer getiRBus() 
+  public Integer getiRBus()
   {
     return iRBus;
   }
@@ -248,7 +240,7 @@ public class BpaDat_LineHG
     this.iRBus = iRBus;
   }
     
-  public Integer getzRBus() 
+  public Integer getzRBus()
   {
     return zRBus;
   }
@@ -258,7 +250,7 @@ public class BpaDat_LineHG
     this.zRBus = zRBus;
   }
     
-  public String getAlias() 
+  public String getAlias()
   {
     return alias;
   }
@@ -268,7 +260,7 @@ public class BpaDat_LineHG
     this.alias = alias;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -278,7 +270,7 @@ public class BpaDat_LineHG
     this.status = status;
   }
     
-  public Integer getInRing() 
+  public Integer getInRing()
   {
     return inRing;
   }
@@ -288,7 +280,7 @@ public class BpaDat_LineHG
     this.inRing = inRing;
   }
     
-  public Integer getRadiate() 
+  public Integer getRadiate()
   {
     return radiate;
   }
@@ -296,6 +288,32 @@ public class BpaDat_LineHG
   public void setRadiate(Integer radiate)
   {
     this.radiate = radiate;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_LineHG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", lineHG_BusI = " + lineHG_BusI
+	 + ", lineHG_kVI = " + lineHG_kVI
+	 + ", lineHG_BusJ = " + lineHG_BusJ
+	 + ", lineHG_kVJ = " + lineHG_kVJ
+	 + ", lineHG_Loop = " + lineHG_Loop
+	 + ", lineHG_ShuntI = " + lineHG_ShuntI
+	 + ", lineHG_ShuntJ = " + lineHG_ShuntJ
+	 + ", keyName = " + keyName
+	 + ", iniBusI = " + iniBusI
+	 + ", inikVI = " + inikVI
+	 + ", iniBusJ = " + iniBusJ
+	 + ", inikVJ = " + inikVJ
+	 + ", iniLoop = " + iniLoop
+	 + ", iRBus = " + iRBus
+	 + ", zRBus = " + zRBus
+	 + ", alias = " + alias
+	 + ", status = " + status
+	 + ", inRing = " + inRing
+	 + ", radiate = " + radiate+"]";
   }
     
 }

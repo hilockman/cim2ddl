@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *区域交换功率控制表(I)	*
 ***********************/
-@Entity
 public class BpaDat_I
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -30,7 +22,7 @@ public class BpaDat_I
   //区域1向区域2的输出功率
   private Double i_OutP;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -40,7 +32,7 @@ public class BpaDat_I
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -50,7 +42,7 @@ public class BpaDat_I
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -60,7 +52,7 @@ public class BpaDat_I
     this.cardKey = cardKey;
   }
     
-  public String getI_Area1() 
+  public String getI_Area1()
   {
     return i_Area1;
   }
@@ -70,7 +62,7 @@ public class BpaDat_I
     this.i_Area1 = i_Area1;
   }
     
-  public String getI_Area2() 
+  public String getI_Area2()
   {
     return i_Area2;
   }
@@ -80,7 +72,7 @@ public class BpaDat_I
     this.i_Area2 = i_Area2;
   }
     
-  public Double getI_OutP() 
+  public Double getI_OutP()
   {
     return i_OutP;
   }
@@ -88,6 +80,16 @@ public class BpaDat_I
   public void setI_OutP(Double i_OutP)
   {
     this.i_OutP = i_OutP;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_I ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", i_Area1 = " + i_Area1
+	 + ", i_Area2 = " + i_Area2
+	 + ", i_OutP = " + i_OutP+"]";
   }
     
 }

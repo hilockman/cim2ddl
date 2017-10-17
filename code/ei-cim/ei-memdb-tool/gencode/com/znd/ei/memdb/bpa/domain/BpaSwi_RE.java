@@ -396,36 +396,36 @@ public class BpaSwi_RE
     
   public String toString()
   {
-    return "BpaSwi_RE ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_KV"=aCBus_KV,
-	"gen_ID"=gen_ID,
-	"rE_VOL1"=rE_VOL1,
-	"rE_VOL2"=rE_VOL2,
-	"rE_VOL3"=rE_VOL3,
-	"rE_VOL4"=rE_VOL4,
-	"rE_VOL5"=rE_VOL5,
-	"rE_VOL6"=rE_VOL6,
-	"rE_VOL7"=rE_VOL7,
-	"rE_VOL8"=rE_VOL8,
-	"rE_VOL9"=rE_VOL9,
-	"rE_VOL10"=rE_VOL10,
-	"rE_TIME1"=rE_TIME1,
-	"rE_TIME2"=rE_TIME2,
-	"rE_TIME3"=rE_TIME3,
-	"rE_TIME4"=rE_TIME4,
-	"rE_TIME5"=rE_TIME5,
-	"rE_TIME6"=rE_TIME6,
-	"rE_TIME7"=rE_TIME7,
-	"rE_TIME8"=rE_TIME8,
-	"rE_TIME9"=rE_TIME9,
-	"rE_TIME10"=rE_TIME10,
-	"rE_TBRK"=rE_TBRK,
-	"rE_NAME_CON"=rE_NAME_CON,
-	"rE_KV_CON"=rE_KV_CON,
-	"busPtr"=busPtr+"]"
+    return "BpaSwi_RE ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", rE_VOL1 = " + rE_VOL1
+	 + ", rE_VOL2 = " + rE_VOL2
+	 + ", rE_VOL3 = " + rE_VOL3
+	 + ", rE_VOL4 = " + rE_VOL4
+	 + ", rE_VOL5 = " + rE_VOL5
+	 + ", rE_VOL6 = " + rE_VOL6
+	 + ", rE_VOL7 = " + rE_VOL7
+	 + ", rE_VOL8 = " + rE_VOL8
+	 + ", rE_VOL9 = " + rE_VOL9
+	 + ", rE_VOL10 = " + rE_VOL10
+	 + ", rE_TIME1 = " + rE_TIME1
+	 + ", rE_TIME2 = " + rE_TIME2
+	 + ", rE_TIME3 = " + rE_TIME3
+	 + ", rE_TIME4 = " + rE_TIME4
+	 + ", rE_TIME5 = " + rE_TIME5
+	 + ", rE_TIME6 = " + rE_TIME6
+	 + ", rE_TIME7 = " + rE_TIME7
+	 + ", rE_TIME8 = " + rE_TIME8
+	 + ", rE_TIME9 = " + rE_TIME9
+	 + ", rE_TIME10 = " + rE_TIME10
+	 + ", rE_TBRK = " + rE_TBRK
+	 + ", rE_NAME_CON = " + rE_NAME_CON
+	 + ", rE_KV_CON = " + rE_KV_CON
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

@@ -201,21 +201,21 @@ public class BpaSwi_Damp
     
   public String toString()
   {
-    return "BpaSwi_Damp ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"damp_ID"=damp_ID,
-	"damp_MVA"=damp_MVA,
-	"damp_PF"=damp_PF,
-	"damp_Xdpp"=damp_Xdpp,
-	"damp_Xqpp"=damp_Xqpp,
-	"damp_Td0pp"=damp_Td0pp,
-	"damp_Tq0pp"=damp_Tq0pp,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_Damp ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", damp_ID = " + damp_ID
+	 + ", damp_MVA = " + damp_MVA
+	 + ", damp_PF = " + damp_PF
+	 + ", damp_Xdpp = " + damp_Xdpp
+	 + ", damp_Xqpp = " + damp_Xqpp
+	 + ", damp_Td0pp = " + damp_Td0pp
+	 + ", damp_Tq0pp = " + damp_Tq0pp
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

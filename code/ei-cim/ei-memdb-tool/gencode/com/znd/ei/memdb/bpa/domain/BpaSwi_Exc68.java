@@ -318,30 +318,30 @@ public class BpaSwi_Exc68
     
   public String toString()
   {
-    return "BpaSwi_Exc68 ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"exc68_TR"=exc68_TR,
-	"exc68_KA_BusKV"=exc68_KA_BusKV,
-	"exc68_TR_TRH"=exc68_TR_TRH,
-	"exc68_TA1"=exc68_TA1,
-	"exc68_VRMinMult_TRMax"=exc68_VRMinMult_TRMax,
-	"exc68_KE"=exc68_KE,
-	"exc68_TE"=exc68_TE,
-	"exc68_SE75Max_KI"=exc68_SE75Max_KI,
-	"exc68_SEMax_KP"=exc68_SEMax_KP,
-	"exc68_EFDMin"=exc68_EFDMin,
-	"exc68_EFDMax_VBMax"=exc68_EFDMax_VBMax,
-	"exc68_KF"=exc68_KF,
-	"exc68_TF"=exc68_TF,
-	"exc68_XL"=exc68_XL,
-	"exc68_TF1"=exc68_TF1,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_Exc68 ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", exc68_TR = " + exc68_TR
+	 + ", exc68_KA_BusKV = " + exc68_KA_BusKV
+	 + ", exc68_TR_TRH = " + exc68_TR_TRH
+	 + ", exc68_TA1 = " + exc68_TA1
+	 + ", exc68_VRMinMult_TRMax = " + exc68_VRMinMult_TRMax
+	 + ", exc68_KE = " + exc68_KE
+	 + ", exc68_TE = " + exc68_TE
+	 + ", exc68_SE75Max_KI = " + exc68_SE75Max_KI
+	 + ", exc68_SEMax_KP = " + exc68_SEMax_KP
+	 + ", exc68_EFDMin = " + exc68_EFDMin
+	 + ", exc68_EFDMax_VBMax = " + exc68_EFDMax_VBMax
+	 + ", exc68_KF = " + exc68_KF
+	 + ", exc68_TF = " + exc68_TF
+	 + ", exc68_XL = " + exc68_XL
+	 + ", exc68_TF1 = " + exc68_TF1
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

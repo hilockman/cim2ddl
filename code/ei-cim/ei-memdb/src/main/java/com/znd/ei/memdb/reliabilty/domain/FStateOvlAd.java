@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *抽样状态下越限调整	*
 ***********************/
-@Entity
 public class FStateOvlAd
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -36,7 +28,7 @@ public class FStateOvlAd
   //功率调整量(MW)
   private Double adjValue;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -46,7 +38,7 @@ public class FStateOvlAd
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -56,7 +48,7 @@ public class FStateOvlAd
     this.memIndex = memIndex;
   }
     
-  public Integer getFState() 
+  public Integer getFState()
   {
     return fState;
   }
@@ -66,7 +58,7 @@ public class FStateOvlAd
     this.fState = fState;
   }
     
-  public Integer getOvlDevTyp() 
+  public Integer getOvlDevTyp()
   {
     return ovlDevTyp;
   }
@@ -76,7 +68,7 @@ public class FStateOvlAd
     this.ovlDevTyp = ovlDevTyp;
   }
     
-  public Integer getOvlDevice() 
+  public Integer getOvlDevice()
   {
     return ovlDevice;
   }
@@ -86,7 +78,7 @@ public class FStateOvlAd
     this.ovlDevice = ovlDevice;
   }
     
-  public Integer getAdjDevTyp() 
+  public Integer getAdjDevTyp()
   {
     return adjDevTyp;
   }
@@ -96,7 +88,7 @@ public class FStateOvlAd
     this.adjDevTyp = adjDevTyp;
   }
     
-  public Integer getAdjDevice() 
+  public Integer getAdjDevice()
   {
     return adjDevice;
   }
@@ -106,7 +98,7 @@ public class FStateOvlAd
     this.adjDevice = adjDevice;
   }
     
-  public Double getAdjValue() 
+  public Double getAdjValue()
   {
     return adjValue;
   }
@@ -114,6 +106,18 @@ public class FStateOvlAd
   public void setAdjValue(Double adjValue)
   {
     this.adjValue = adjValue;
+  }
+    
+  public String toString()
+  {
+    return "FStateOvlAd ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", ovlDevTyp = " + ovlDevTyp
+	 + ", ovlDevice = " + ovlDevice
+	 + ", adjDevTyp = " + adjDevTyp
+	 + ", adjDevice = " + adjDevice
+	 + ", adjValue = " + adjValue+"]";
   }
     
 }

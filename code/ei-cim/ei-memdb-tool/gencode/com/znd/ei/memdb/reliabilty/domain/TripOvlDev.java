@@ -97,13 +97,13 @@ public class TripOvlDev
     
   public String toString()
   {
-    return "TripOvlDev ["+	"id"=id,
-	"memIndex"=memIndex,
-	"trip"=trip,
-	"ovlmtDevTyp"=ovlmtDevTyp,
-	"ovlmtDevIdx"=ovlmtDevIdx,
-	"ovLmtValue"=ovLmtValue,
-	"rated"=rated+"]"
+    return "TripOvlDev ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", trip = " + trip
+	 + ", ovlmtDevTyp = " + ovlmtDevTyp
+	 + ", ovlmtDevIdx = " + ovlmtDevIdx
+	 + ", ovLmtValue = " + ovLmtValue
+	 + ", rated = " + rated+"]";
   }
     
 }

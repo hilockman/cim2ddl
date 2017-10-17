@@ -84,12 +84,12 @@ public class BpaDat_EdgeLineHG
     
   public String toString()
   {
-    return "BpaDat_EdgeLineHG ["+	"id"=id,
-	"memIndex"=memIndex,
-	"busName"=busName,
-	"buskV"=buskV,
-	"lineHGName"=lineHGName,
-	"lineHGPtr"=lineHGPtr+"]"
+    return "BpaDat_EdgeLineHG ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", lineHGName = " + lineHGName
+	 + ", lineHGPtr = " + lineHGPtr+"]";
   }
     
 }

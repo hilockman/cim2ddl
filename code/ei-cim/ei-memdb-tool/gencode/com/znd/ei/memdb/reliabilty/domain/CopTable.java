@@ -149,17 +149,17 @@ public class CopTable
     
   public String toString()
   {
-    return "CopTable ["+	"id"=id,
-	"memIndex"=memIndex,
-	"state"=state,
-	"outageCapacity"=outageCapacity,
-	"availCapacity"=availCapacity,
-	"stateProb"=stateProb,
-	"accumProb"=accumProb,
-	"stateFreq"=stateFreq,
-	"accumFreq"=accumFreq,
-	"depRP"=depRP,
-	"depRN"=depRN+"]"
+    return "CopTable ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", state = " + state
+	 + ", outageCapacity = " + outageCapacity
+	 + ", availCapacity = " + availCapacity
+	 + ", stateProb = " + stateProb
+	 + ", accumProb = " + accumProb
+	 + ", stateFreq = " + stateFreq
+	 + ", accumFreq = " + accumFreq
+	 + ", depRP = " + depRP
+	 + ", depRN = " + depRN+"]";
   }
     
 }

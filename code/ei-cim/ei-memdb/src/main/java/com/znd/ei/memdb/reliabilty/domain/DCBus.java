@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *直流母线	*
 ***********************/
-@Entity
 public class DCBus
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -21,7 +13,7 @@ public class DCBus
   //名称
   private String name;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -31,7 +23,7 @@ public class DCBus
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -41,7 +33,7 @@ public class DCBus
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -49,6 +41,13 @@ public class DCBus
   public void setName(String name)
   {
     this.name = name;
+  }
+    
+  public String toString()
+  {
+    return "DCBus ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name+"]";
   }
     
 }

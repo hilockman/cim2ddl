@@ -97,13 +97,13 @@ public class FStateFDev
     
   public String toString()
   {
-    return "FStateFDev ["+	"id"=id,
-	"memIndex"=memIndex,
-	"fState"=fState,
-	"fDevTyp"=fDevTyp,
-	"fDevIdx"=fDevIdx,
-	"dFltPos"=dFltPos,
-	"dFltTyp"=dFltTyp+"]"
+    return "FStateFDev ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", fState = " + fState
+	 + ", fDevTyp = " + fDevTyp
+	 + ", fDevIdx = " + fDevIdx
+	 + ", dFltPos = " + dFltPos
+	 + ", dFltTyp = " + dFltTyp+"]";
   }
     
 }

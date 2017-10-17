@@ -201,21 +201,21 @@ public class BpaSwi_LO
     
   public String toString()
   {
-    return "BpaSwi_LO ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"lO_BusI"=lO_BusI,
-	"lO_kVI"=lO_kVI,
-	"lO_BusJ"=lO_BusJ,
-	"lO_kVJ"=lO_kVJ,
-	"lO_Loop"=lO_Loop,
-	"lO_R0"=lO_R0,
-	"lO_X0"=lO_X0,
-	"lO_Ga0"=lO_Ga0,
-	"lO_Ba0"=lO_Ba0,
-	"lO_Gb0"=lO_Gb0,
-	"lO_Bb0"=lO_Bb0,
-	"keyName"=keyName+"]"
+    return "BpaSwi_LO ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", lO_BusI = " + lO_BusI
+	 + ", lO_kVI = " + lO_kVI
+	 + ", lO_BusJ = " + lO_BusJ
+	 + ", lO_kVJ = " + lO_kVJ
+	 + ", lO_Loop = " + lO_Loop
+	 + ", lO_R0 = " + lO_R0
+	 + ", lO_X0 = " + lO_X0
+	 + ", lO_Ga0 = " + lO_Ga0
+	 + ", lO_Ba0 = " + lO_Ba0
+	 + ", lO_Gb0 = " + lO_Gb0
+	 + ", lO_Bb0 = " + lO_Bb0
+	 + ", keyName = " + keyName+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *电调型(功率反馈)调速器模型表(GD)	*
 ***********************/
-@Entity
 public class BpaSwi_GD
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -72,7 +64,7 @@ public class BpaSwi_GD
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -82,7 +74,7 @@ public class BpaSwi_GD
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -92,7 +84,7 @@ public class BpaSwi_GD
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -102,7 +94,7 @@ public class BpaSwi_GD
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -112,7 +104,7 @@ public class BpaSwi_GD
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -122,7 +114,7 @@ public class BpaSwi_GD
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -132,7 +124,7 @@ public class BpaSwi_GD
     this.gen_ID = gen_ID;
   }
     
-  public Double getGD_Pmax() 
+  public Double getGD_Pmax()
   {
     return gD_Pmax;
   }
@@ -142,7 +134,7 @@ public class BpaSwi_GD
     this.gD_Pmax = gD_Pmax;
   }
     
-  public Double getGD_Pmin() 
+  public Double getGD_Pmin()
   {
     return gD_Pmin;
   }
@@ -152,7 +144,7 @@ public class BpaSwi_GD
     this.gD_Pmin = gD_Pmin;
   }
     
-  public Double getGD_DB() 
+  public Double getGD_DB()
   {
     return gD_DB;
   }
@@ -162,7 +154,7 @@ public class BpaSwi_GD
     this.gD_DB = gD_DB;
   }
     
-  public Double getGD_R() 
+  public Double getGD_R()
   {
     return gD_R;
   }
@@ -172,7 +164,7 @@ public class BpaSwi_GD
     this.gD_R = gD_R;
   }
     
-  public Double getGD_Kp() 
+  public Double getGD_Kp()
   {
     return gD_Kp;
   }
@@ -182,7 +174,7 @@ public class BpaSwi_GD
     this.gD_Kp = gD_Kp;
   }
     
-  public Double getGD_Ki() 
+  public Double getGD_Ki()
   {
     return gD_Ki;
   }
@@ -192,7 +184,7 @@ public class BpaSwi_GD
     this.gD_Ki = gD_Ki;
   }
     
-  public Double getGD_Kd() 
+  public Double getGD_Kd()
   {
     return gD_Kd;
   }
@@ -202,7 +194,7 @@ public class BpaSwi_GD
     this.gD_Kd = gD_Kd;
   }
     
-  public Double getGD_GOV_MAX() 
+  public Double getGD_GOV_MAX()
   {
     return gD_GOV_MAX;
   }
@@ -212,7 +204,7 @@ public class BpaSwi_GD
     this.gD_GOV_MAX = gD_GOV_MAX;
   }
     
-  public Double getGD_GOV_Min() 
+  public Double getGD_GOV_Min()
   {
     return gD_GOV_Min;
   }
@@ -222,7 +214,7 @@ public class BpaSwi_GD
     this.gD_GOV_Min = gD_GOV_Min;
   }
     
-  public Double getGD_DEMAND_MAX() 
+  public Double getGD_DEMAND_MAX()
   {
     return gD_DEMAND_MAX;
   }
@@ -232,7 +224,7 @@ public class BpaSwi_GD
     this.gD_DEMAND_MAX = gD_DEMAND_MAX;
   }
     
-  public Double getGD_DEMAND_MIN() 
+  public Double getGD_DEMAND_MIN()
   {
     return gD_DEMAND_MIN;
   }
@@ -242,7 +234,7 @@ public class BpaSwi_GD
     this.gD_DEMAND_MIN = gD_DEMAND_MIN;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -252,7 +244,7 @@ public class BpaSwi_GD
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -262,7 +254,7 @@ public class BpaSwi_GD
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -270,6 +262,30 @@ public class BpaSwi_GD
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GD ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gD_Pmax = " + gD_Pmax
+	 + ", gD_Pmin = " + gD_Pmin
+	 + ", gD_DB = " + gD_DB
+	 + ", gD_R = " + gD_R
+	 + ", gD_Kp = " + gD_Kp
+	 + ", gD_Ki = " + gD_Ki
+	 + ", gD_Kd = " + gD_Kd
+	 + ", gD_GOV_MAX = " + gD_GOV_MAX
+	 + ", gD_GOV_Min = " + gD_GOV_Min
+	 + ", gD_DEMAND_MAX = " + gD_DEMAND_MAX
+	 + ", gD_DEMAND_MIN = " + gD_DEMAND_MIN
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

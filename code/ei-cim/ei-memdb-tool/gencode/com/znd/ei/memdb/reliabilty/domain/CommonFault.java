@@ -123,15 +123,15 @@ public class CommonFault
     
   public String toString()
   {
-    return "CommonFault ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"commonFaultType"=commonFaultType,
-	"commonDeviceType"=commonDeviceType,
-	"devType"=devType,
-	"devName"=devName,
-	"devSerNo"=devSerNo,
-	"proc"=proc+"]"
+    return "CommonFault ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", commonFaultType = " + commonFaultType
+	 + ", commonDeviceType = " + commonDeviceType
+	 + ", devType = " + devType
+	 + ", devName = " + devName
+	 + ", devSerNo = " + devSerNo
+	 + ", proc = " + proc+"]";
   }
     
 }

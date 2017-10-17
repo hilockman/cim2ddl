@@ -97,13 +97,13 @@ public class BpaSwi_XR
     
   public String toString()
   {
-    return "BpaSwi_XR ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"xR_R0"=xR_R0,
-	"xR_X0"=xR_X0+"]"
+    return "BpaSwi_XR ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", xR_R0 = " + xR_R0
+	 + ", xR_X0 = " + xR_X0+"]";
   }
     
 }

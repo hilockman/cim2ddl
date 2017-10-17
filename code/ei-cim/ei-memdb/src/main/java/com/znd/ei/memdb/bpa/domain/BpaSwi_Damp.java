@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机阻尼模型表(M)	*
 ***********************/
-@Entity
 public class BpaSwi_Damp
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -57,7 +49,7 @@ public class BpaSwi_Damp
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -67,7 +59,7 @@ public class BpaSwi_Damp
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -77,7 +69,7 @@ public class BpaSwi_Damp
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -87,7 +79,7 @@ public class BpaSwi_Damp
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -97,7 +89,7 @@ public class BpaSwi_Damp
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -107,7 +99,7 @@ public class BpaSwi_Damp
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getDamp_ID() 
+  public Integer getDamp_ID()
   {
     return damp_ID;
   }
@@ -117,7 +109,7 @@ public class BpaSwi_Damp
     this.damp_ID = damp_ID;
   }
     
-  public Double getDamp_MVA() 
+  public Double getDamp_MVA()
   {
     return damp_MVA;
   }
@@ -127,7 +119,7 @@ public class BpaSwi_Damp
     this.damp_MVA = damp_MVA;
   }
     
-  public Double getDamp_PF() 
+  public Double getDamp_PF()
   {
     return damp_PF;
   }
@@ -137,7 +129,7 @@ public class BpaSwi_Damp
     this.damp_PF = damp_PF;
   }
     
-  public Double getDamp_Xdpp() 
+  public Double getDamp_Xdpp()
   {
     return damp_Xdpp;
   }
@@ -147,7 +139,7 @@ public class BpaSwi_Damp
     this.damp_Xdpp = damp_Xdpp;
   }
     
-  public Double getDamp_Xqpp() 
+  public Double getDamp_Xqpp()
   {
     return damp_Xqpp;
   }
@@ -157,7 +149,7 @@ public class BpaSwi_Damp
     this.damp_Xqpp = damp_Xqpp;
   }
     
-  public Double getDamp_Td0pp() 
+  public Double getDamp_Td0pp()
   {
     return damp_Td0pp;
   }
@@ -167,7 +159,7 @@ public class BpaSwi_Damp
     this.damp_Td0pp = damp_Td0pp;
   }
     
-  public Double getDamp_Tq0pp() 
+  public Double getDamp_Tq0pp()
   {
     return damp_Tq0pp;
   }
@@ -177,7 +169,7 @@ public class BpaSwi_Damp
     this.damp_Tq0pp = damp_Tq0pp;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -187,7 +179,7 @@ public class BpaSwi_Damp
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -197,7 +189,7 @@ public class BpaSwi_Damp
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -205,6 +197,25 @@ public class BpaSwi_Damp
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_Damp ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", damp_ID = " + damp_ID
+	 + ", damp_MVA = " + damp_MVA
+	 + ", damp_PF = " + damp_PF
+	 + ", damp_Xdpp = " + damp_Xdpp
+	 + ", damp_Xqpp = " + damp_Xqpp
+	 + ", damp_Td0pp = " + damp_Td0pp
+	 + ", damp_Tq0pp = " + damp_Tq0pp
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

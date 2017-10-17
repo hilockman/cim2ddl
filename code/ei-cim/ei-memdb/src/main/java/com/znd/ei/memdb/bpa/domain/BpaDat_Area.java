@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *区域表(AREA)	*
 ***********************/
-@Entity
 public class BpaDat_Area
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -75,7 +67,7 @@ public class BpaDat_Area
   //马达滑差达到1时的处理方式
   private Integer mK_IM;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -85,7 +77,7 @@ public class BpaDat_Area
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -95,7 +87,7 @@ public class BpaDat_Area
     this.memIndex = memIndex;
   }
     
-  public String getArea_Name() 
+  public String getArea_Name()
   {
     return area_Name;
   }
@@ -105,7 +97,7 @@ public class BpaDat_Area
     this.area_Name = area_Name;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -115,7 +107,7 @@ public class BpaDat_Area
     this.cardKey = cardKey;
   }
     
-  public String getSlackBusName() 
+  public String getSlackBusName()
   {
     return slackBusName;
   }
@@ -125,7 +117,7 @@ public class BpaDat_Area
     this.slackBusName = slackBusName;
   }
     
-  public Double getSlackBuskV() 
+  public Double getSlackBuskV()
   {
     return slackBuskV;
   }
@@ -135,7 +127,7 @@ public class BpaDat_Area
     this.slackBuskV = slackBuskV;
   }
     
-  public Double getOutP() 
+  public Double getOutP()
   {
     return outP;
   }
@@ -145,7 +137,7 @@ public class BpaDat_Area
     this.outP = outP;
   }
     
-  public Double getMK_TJ() 
+  public Double getMK_TJ()
   {
     return mK_TJ;
   }
@@ -155,7 +147,7 @@ public class BpaDat_Area
     this.mK_TJ = mK_TJ;
   }
     
-  public Double getMK_Pper() 
+  public Double getMK_Pper()
   {
     return mK_Pper;
   }
@@ -165,7 +157,7 @@ public class BpaDat_Area
     this.mK_Pper = mK_Pper;
   }
     
-  public Double getMK_KL() 
+  public Double getMK_KL()
   {
     return mK_KL;
   }
@@ -175,7 +167,7 @@ public class BpaDat_Area
     this.mK_KL = mK_KL;
   }
     
-  public Double getMK_Pmin() 
+  public Double getMK_Pmin()
   {
     return mK_Pmin;
   }
@@ -185,7 +177,7 @@ public class BpaDat_Area
     this.mK_Pmin = mK_Pmin;
   }
     
-  public Double getMK_RS() 
+  public Double getMK_RS()
   {
     return mK_RS;
   }
@@ -195,7 +187,7 @@ public class BpaDat_Area
     this.mK_RS = mK_RS;
   }
     
-  public Double getMK_XS() 
+  public Double getMK_XS()
   {
     return mK_XS;
   }
@@ -205,7 +197,7 @@ public class BpaDat_Area
     this.mK_XS = mK_XS;
   }
     
-  public Double getMK_XM() 
+  public Double getMK_XM()
   {
     return mK_XM;
   }
@@ -215,7 +207,7 @@ public class BpaDat_Area
     this.mK_XM = mK_XM;
   }
     
-  public Double getMK_RR() 
+  public Double getMK_RR()
   {
     return mK_RR;
   }
@@ -225,7 +217,7 @@ public class BpaDat_Area
     this.mK_RR = mK_RR;
   }
     
-  public Double getMK_XR() 
+  public Double getMK_XR()
   {
     return mK_XR;
   }
@@ -235,7 +227,7 @@ public class BpaDat_Area
     this.mK_XR = mK_XR;
   }
     
-  public Double getMK_VI() 
+  public Double getMK_VI()
   {
     return mK_VI;
   }
@@ -245,7 +237,7 @@ public class BpaDat_Area
     this.mK_VI = mK_VI;
   }
     
-  public Double getMK_TI() 
+  public Double getMK_TI()
   {
     return mK_TI;
   }
@@ -255,7 +247,7 @@ public class BpaDat_Area
     this.mK_TI = mK_TI;
   }
     
-  public Double getMK_A() 
+  public Double getMK_A()
   {
     return mK_A;
   }
@@ -265,7 +257,7 @@ public class BpaDat_Area
     this.mK_A = mK_A;
   }
     
-  public Double getMK_B() 
+  public Double getMK_B()
   {
     return mK_B;
   }
@@ -275,7 +267,7 @@ public class BpaDat_Area
     this.mK_B = mK_B;
   }
     
-  public Integer getMK_IM() 
+  public Integer getMK_IM()
   {
     return mK_IM;
   }
@@ -283,6 +275,31 @@ public class BpaDat_Area
   public void setMK_IM(Integer mK_IM)
   {
     this.mK_IM = mK_IM;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_Area ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", area_Name = " + area_Name
+	 + ", cardKey = " + cardKey
+	 + ", slackBusName = " + slackBusName
+	 + ", slackBuskV = " + slackBuskV
+	 + ", outP = " + outP
+	 + ", mK_TJ = " + mK_TJ
+	 + ", mK_Pper = " + mK_Pper
+	 + ", mK_KL = " + mK_KL
+	 + ", mK_Pmin = " + mK_Pmin
+	 + ", mK_RS = " + mK_RS
+	 + ", mK_XS = " + mK_XS
+	 + ", mK_XM = " + mK_XM
+	 + ", mK_RR = " + mK_RR
+	 + ", mK_XR = " + mK_XR
+	 + ", mK_VI = " + mK_VI
+	 + ", mK_TI = " + mK_TI
+	 + ", mK_A = " + mK_A
+	 + ", mK_B = " + mK_B
+	 + ", mK_IM = " + mK_IM+"]";
   }
     
 }

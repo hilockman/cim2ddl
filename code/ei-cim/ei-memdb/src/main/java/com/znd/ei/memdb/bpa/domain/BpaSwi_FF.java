@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *稳定计算控制卡(FF)	*
 ***********************/
-@Entity
 public class BpaSwi_FF
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -105,7 +97,7 @@ public class BpaSwi_FF
   //=1：所有负荷为恒定阻抗
   private Integer nOLOAD;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -115,7 +107,7 @@ public class BpaSwi_FF
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -125,7 +117,7 @@ public class BpaSwi_FF
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -135,7 +127,7 @@ public class BpaSwi_FF
     this.cardKey = cardKey;
   }
     
-  public Double getT() 
+  public Double getT()
   {
     return t;
   }
@@ -145,7 +137,7 @@ public class BpaSwi_FF
     this.t = t;
   }
     
-  public Double getDT() 
+  public Double getDT()
   {
     return dT;
   }
@@ -155,7 +147,7 @@ public class BpaSwi_FF
     this.dT = dT;
   }
     
-  public Double getENDT() 
+  public Double getENDT()
   {
     return eNDT;
   }
@@ -165,7 +157,7 @@ public class BpaSwi_FF
     this.eNDT = eNDT;
   }
     
-  public Double getDTC() 
+  public Double getDTC()
   {
     return dTC;
   }
@@ -175,7 +167,7 @@ public class BpaSwi_FF
     this.dTC = dTC;
   }
     
-  public Integer getISTP() 
+  public Integer getISTP()
   {
     return iSTP;
   }
@@ -185,7 +177,7 @@ public class BpaSwi_FF
     this.iSTP = iSTP;
   }
     
-  public Double getTOLI() 
+  public Double getTOLI()
   {
     return tOLI;
   }
@@ -195,7 +187,7 @@ public class BpaSwi_FF
     this.tOLI = tOLI;
   }
     
-  public Integer getILIM() 
+  public Integer getILIM()
   {
     return iLIM;
   }
@@ -205,7 +197,7 @@ public class BpaSwi_FF
     this.iLIM = iLIM;
   }
     
-  public Double getDELANG() 
+  public Double getDELANG()
   {
     return dELANG;
   }
@@ -215,7 +207,7 @@ public class BpaSwi_FF
     this.dELANG = dELANG;
   }
     
-  public Double getDTDV() 
+  public Double getDTDV()
   {
     return dTDV;
   }
@@ -225,7 +217,7 @@ public class BpaSwi_FF
     this.dTDV = dTDV;
   }
     
-  public Double getDMPMLT() 
+  public Double getDMPMLT()
   {
     return dMPMLT;
   }
@@ -235,7 +227,7 @@ public class BpaSwi_FF
     this.dMPMLT = dMPMLT;
   }
     
-  public Double getFRQBSE() 
+  public Double getFRQBSE()
   {
     return fRQBSE;
   }
@@ -245,7 +237,7 @@ public class BpaSwi_FF
     this.fRQBSE = fRQBSE;
   }
     
-  public Integer getLOVTEX() 
+  public Integer getLOVTEX()
   {
     return lOVTEX;
   }
@@ -255,7 +247,7 @@ public class BpaSwi_FF
     this.lOVTEX = lOVTEX;
   }
     
-  public Integer getIMBLOK() 
+  public Integer getIMBLOK()
   {
     return iMBLOK;
   }
@@ -265,7 +257,7 @@ public class BpaSwi_FF
     this.iMBLOK = iMBLOK;
   }
     
-  public Integer getMFDEP() 
+  public Integer getMFDEP()
   {
     return mFDEP;
   }
@@ -275,7 +267,7 @@ public class BpaSwi_FF
     this.mFDEP = mFDEP;
   }
     
-  public Integer getIGSLIM() 
+  public Integer getIGSLIM()
   {
     return iGSLIM;
   }
@@ -285,7 +277,7 @@ public class BpaSwi_FF
     this.iGSLIM = iGSLIM;
   }
     
-  public Integer getLSOLQIT() 
+  public Integer getLSOLQIT()
   {
     return lSOLQIT;
   }
@@ -295,7 +287,7 @@ public class BpaSwi_FF
     this.lSOLQIT = lSOLQIT;
   }
     
-  public Integer getNOANGLIM() 
+  public Integer getNOANGLIM()
   {
     return nOANGLIM;
   }
@@ -305,7 +297,7 @@ public class BpaSwi_FF
     this.nOANGLIM = nOANGLIM;
   }
     
-  public Integer getINFBUS() 
+  public Integer getINFBUS()
   {
     return iNFBUS;
   }
@@ -315,7 +307,7 @@ public class BpaSwi_FF
     this.iNFBUS = iNFBUS;
   }
     
-  public Integer getNOPP() 
+  public Integer getNOPP()
   {
     return nOPP;
   }
@@ -325,7 +317,7 @@ public class BpaSwi_FF
     this.nOPP = nOPP;
   }
     
-  public Integer getNODQ() 
+  public Integer getNODQ()
   {
     return nODQ;
   }
@@ -335,7 +327,7 @@ public class BpaSwi_FF
     this.nODQ = nODQ;
   }
     
-  public Integer getNOSAT() 
+  public Integer getNOSAT()
   {
     return nOSAT;
   }
@@ -345,7 +337,7 @@ public class BpaSwi_FF
     this.nOSAT = nOSAT;
   }
     
-  public Integer getNOGV() 
+  public Integer getNOGV()
   {
     return nOGV;
   }
@@ -355,7 +347,7 @@ public class BpaSwi_FF
     this.nOGV = nOGV;
   }
     
-  public Integer getIEQPC() 
+  public Integer getIEQPC()
   {
     return iEQPC;
   }
@@ -365,7 +357,7 @@ public class BpaSwi_FF
     this.iEQPC = iEQPC;
   }
     
-  public Integer getNOEX() 
+  public Integer getNOEX()
   {
     return nOEX;
   }
@@ -375,7 +367,7 @@ public class BpaSwi_FF
     this.nOEX = nOEX;
   }
     
-  public Integer getMFTOMG() 
+  public Integer getMFTOMG()
   {
     return mFTOMG;
   }
@@ -385,7 +377,7 @@ public class BpaSwi_FF
     this.mFTOMG = mFTOMG;
   }
     
-  public Integer getNOSC() 
+  public Integer getNOSC()
   {
     return nOSC;
   }
@@ -395,7 +387,7 @@ public class BpaSwi_FF
     this.nOSC = nOSC;
   }
     
-  public Integer getMGTOMF() 
+  public Integer getMGTOMF()
   {
     return mGTOMF;
   }
@@ -405,7 +397,7 @@ public class BpaSwi_FF
     this.mGTOMF = mGTOMF;
   }
     
-  public Integer getNOLOAD() 
+  public Integer getNOLOAD()
   {
     return nOLOAD;
   }
@@ -413,6 +405,41 @@ public class BpaSwi_FF
   public void setNOLOAD(Integer nOLOAD)
   {
     this.nOLOAD = nOLOAD;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_FF ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", t = " + t
+	 + ", dT = " + dT
+	 + ", eNDT = " + eNDT
+	 + ", dTC = " + dTC
+	 + ", iSTP = " + iSTP
+	 + ", tOLI = " + tOLI
+	 + ", iLIM = " + iLIM
+	 + ", dELANG = " + dELANG
+	 + ", dTDV = " + dTDV
+	 + ", dMPMLT = " + dMPMLT
+	 + ", fRQBSE = " + fRQBSE
+	 + ", lOVTEX = " + lOVTEX
+	 + ", iMBLOK = " + iMBLOK
+	 + ", mFDEP = " + mFDEP
+	 + ", iGSLIM = " + iGSLIM
+	 + ", lSOLQIT = " + lSOLQIT
+	 + ", nOANGLIM = " + nOANGLIM
+	 + ", iNFBUS = " + iNFBUS
+	 + ", nOPP = " + nOPP
+	 + ", nODQ = " + nODQ
+	 + ", nOSAT = " + nOSAT
+	 + ", nOGV = " + nOGV
+	 + ", iEQPC = " + iEQPC
+	 + ", nOEX = " + nOEX
+	 + ", mFTOMG = " + mFTOMG
+	 + ", nOSC = " + nOSC
+	 + ", mGTOMF = " + mGTOMF
+	 + ", nOLOAD = " + nOLOAD+"]";
   }
     
 }

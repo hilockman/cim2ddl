@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *线路串补表(RZ)	*
 ***********************/
-@Entity
 public class BpaDat_RZ
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -72,7 +64,7 @@ public class BpaDat_RZ
   //状态
   private Integer status;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -82,7 +74,7 @@ public class BpaDat_RZ
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -92,7 +84,7 @@ public class BpaDat_RZ
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -102,7 +94,7 @@ public class BpaDat_RZ
     this.cardKey = cardKey;
   }
     
-  public String getRZ_Owner() 
+  public String getRZ_Owner()
   {
     return rZ_Owner;
   }
@@ -112,7 +104,7 @@ public class BpaDat_RZ
     this.rZ_Owner = rZ_Owner;
   }
     
-  public String getRZ_BusI() 
+  public String getRZ_BusI()
   {
     return rZ_BusI;
   }
@@ -122,7 +114,7 @@ public class BpaDat_RZ
     this.rZ_BusI = rZ_BusI;
   }
     
-  public Double getRZ_kVI() 
+  public Double getRZ_kVI()
   {
     return rZ_kVI;
   }
@@ -132,7 +124,7 @@ public class BpaDat_RZ
     this.rZ_kVI = rZ_kVI;
   }
     
-  public String getRZ_BusJ() 
+  public String getRZ_BusJ()
   {
     return rZ_BusJ;
   }
@@ -142,7 +134,7 @@ public class BpaDat_RZ
     this.rZ_BusJ = rZ_BusJ;
   }
     
-  public Double getRZ_kVJ() 
+  public Double getRZ_kVJ()
   {
     return rZ_kVJ;
   }
@@ -152,7 +144,7 @@ public class BpaDat_RZ
     this.rZ_kVJ = rZ_kVJ;
   }
     
-  public Integer getRZ_Loop() 
+  public Integer getRZ_Loop()
   {
     return rZ_Loop;
   }
@@ -162,7 +154,7 @@ public class BpaDat_RZ
     this.rZ_Loop = rZ_Loop;
   }
     
-  public Integer getRZ_Section() 
+  public Integer getRZ_Section()
   {
     return rZ_Section;
   }
@@ -172,7 +164,7 @@ public class BpaDat_RZ
     this.rZ_Section = rZ_Section;
   }
     
-  public Integer getRZ_Mode() 
+  public Integer getRZ_Mode()
   {
     return rZ_Mode;
   }
@@ -182,7 +174,7 @@ public class BpaDat_RZ
     this.rZ_Mode = rZ_Mode;
   }
     
-  public Double getRZ_Pcmax() 
+  public Double getRZ_Pcmax()
   {
     return rZ_Pcmax;
   }
@@ -192,7 +184,7 @@ public class BpaDat_RZ
     this.rZ_Pcmax = rZ_Pcmax;
   }
     
-  public Double getRZ_Pcmin() 
+  public Double getRZ_Pcmin()
   {
     return rZ_Pcmin;
   }
@@ -202,7 +194,7 @@ public class BpaDat_RZ
     this.rZ_Pcmin = rZ_Pcmin;
   }
     
-  public Double getRZ_In() 
+  public Double getRZ_In()
   {
     return rZ_In;
   }
@@ -212,7 +204,7 @@ public class BpaDat_RZ
     this.rZ_In = rZ_In;
   }
     
-  public Double getRZ_Xijmax() 
+  public Double getRZ_Xijmax()
   {
     return rZ_Xijmax;
   }
@@ -222,7 +214,7 @@ public class BpaDat_RZ
     this.rZ_Xijmax = rZ_Xijmax;
   }
     
-  public Double getRZ_Xijmin() 
+  public Double getRZ_Xijmin()
   {
     return rZ_Xijmin;
   }
@@ -232,7 +224,7 @@ public class BpaDat_RZ
     this.rZ_Xijmin = rZ_Xijmin;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -242,7 +234,7 @@ public class BpaDat_RZ
     this.keyName = keyName;
   }
     
-  public Integer getiRBus() 
+  public Integer getiRBus()
   {
     return iRBus;
   }
@@ -252,7 +244,7 @@ public class BpaDat_RZ
     this.iRBus = iRBus;
   }
     
-  public Integer getzRBus() 
+  public Integer getzRBus()
   {
     return zRBus;
   }
@@ -262,7 +254,7 @@ public class BpaDat_RZ
     this.zRBus = zRBus;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -270,6 +262,30 @@ public class BpaDat_RZ
   public void setStatus(Integer status)
   {
     this.status = status;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_RZ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", rZ_Owner = " + rZ_Owner
+	 + ", rZ_BusI = " + rZ_BusI
+	 + ", rZ_kVI = " + rZ_kVI
+	 + ", rZ_BusJ = " + rZ_BusJ
+	 + ", rZ_kVJ = " + rZ_kVJ
+	 + ", rZ_Loop = " + rZ_Loop
+	 + ", rZ_Section = " + rZ_Section
+	 + ", rZ_Mode = " + rZ_Mode
+	 + ", rZ_Pcmax = " + rZ_Pcmax
+	 + ", rZ_Pcmin = " + rZ_Pcmin
+	 + ", rZ_In = " + rZ_In
+	 + ", rZ_Xijmax = " + rZ_Xijmax
+	 + ", rZ_Xijmin = " + rZ_Xijmin
+	 + ", keyName = " + keyName
+	 + ", iRBus = " + iRBus
+	 + ", zRBus = " + zRBus
+	 + ", status = " + status+"]";
   }
     
 }

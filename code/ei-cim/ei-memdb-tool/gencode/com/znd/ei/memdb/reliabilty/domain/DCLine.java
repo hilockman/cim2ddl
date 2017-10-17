@@ -266,26 +266,26 @@ public class DCLine
     
   public String toString()
   {
-    return "DCLine ["+	"id"=id,
-	"memIndex"=memIndex,
-	"name"=name,
-	"dCBusI"=dCBusI,
-	"dCBusJ"=dCBusJ,
-	"length"=length,
-	"rerr"=rerr,
-	"rrep"=rrep,
-	"trep"=trep,
-	"goodProb"=goodProb,
-	"failProb"=failProb,
-	"iRt"=iRt,
-	"iMax"=iMax,
-	"iMin"=iMin,
-	"rerrMax"=rerrMax,
-	"rerrMin"=rerrMin,
-	"faultFreq"=faultFreq,
-	"dCBusIPtr"=dCBusIPtr,
-	"dCBusJPtr"=dCBusJPtr,
-	"outage"=outage+"]"
+    return "DCLine ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", dCBusI = " + dCBusI
+	 + ", dCBusJ = " + dCBusJ
+	 + ", length = " + length
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", dCBusIPtr = " + dCBusIPtr
+	 + ", dCBusJPtr = " + dCBusJPtr
+	 + ", outage = " + outage+"]";
   }
     
 }

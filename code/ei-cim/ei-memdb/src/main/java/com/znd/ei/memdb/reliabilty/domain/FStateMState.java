@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *抽样状态下多状态	*
 ***********************/
-@Entity
 public class FStateMState
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -27,7 +19,7 @@ public class FStateMState
   //多状态出力状态
   private Double mStatePout;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -37,7 +29,7 @@ public class FStateMState
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -47,7 +39,7 @@ public class FStateMState
     this.memIndex = memIndex;
   }
     
-  public Integer getMSDevType() 
+  public Integer getMSDevType()
   {
     return mSDevType;
   }
@@ -57,7 +49,7 @@ public class FStateMState
     this.mSDevType = mSDevType;
   }
     
-  public Integer getMSDevIndex() 
+  public Integer getMSDevIndex()
   {
     return mSDevIndex;
   }
@@ -67,7 +59,7 @@ public class FStateMState
     this.mSDevIndex = mSDevIndex;
   }
     
-  public Double getMStatePout() 
+  public Double getMStatePout()
   {
     return mStatePout;
   }
@@ -75,6 +67,15 @@ public class FStateMState
   public void setMStatePout(Double mStatePout)
   {
     this.mStatePout = mStatePout;
+  }
+    
+  public String toString()
+  {
+    return "FStateMState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", mSDevType = " + mSDevType
+	 + ", mSDevIndex = " + mSDevIndex
+	 + ", mStatePout = " + mStatePout+"]";
   }
     
 }

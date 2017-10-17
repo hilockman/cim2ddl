@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机	*
 ***********************/
-@Entity
 public class Generator
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -114,7 +106,7 @@ public class Generator
   //停运
   private Integer outage;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -124,7 +116,7 @@ public class Generator
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -134,7 +126,7 @@ public class Generator
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -144,7 +136,7 @@ public class Generator
     this.name = name;
   }
     
-  public String getBusName() 
+  public String getBusName()
   {
     return busName;
   }
@@ -154,7 +146,7 @@ public class Generator
     this.busName = busName;
   }
     
-  public Double getBuskV() 
+  public Double getBuskV()
   {
     return buskV;
   }
@@ -164,7 +156,7 @@ public class Generator
     this.buskV = buskV;
   }
     
-  public Integer getGenId() 
+  public Integer getGenId()
   {
     return genId;
   }
@@ -174,7 +166,7 @@ public class Generator
     this.genId = genId;
   }
     
-  public String getZone() 
+  public String getZone()
   {
     return zone;
   }
@@ -184,7 +176,7 @@ public class Generator
     this.zone = zone;
   }
     
-  public Double getP() 
+  public Double getP()
   {
     return p;
   }
@@ -194,7 +186,7 @@ public class Generator
     this.p = p;
   }
     
-  public Double getQ() 
+  public Double getQ()
   {
     return q;
   }
@@ -204,7 +196,7 @@ public class Generator
     this.q = q;
   }
     
-  public Double getPMax() 
+  public Double getPMax()
   {
     return pMax;
   }
@@ -214,7 +206,7 @@ public class Generator
     this.pMax = pMax;
   }
     
-  public Double getPMin() 
+  public Double getPMin()
   {
     return pMin;
   }
@@ -224,7 +216,7 @@ public class Generator
     this.pMin = pMin;
   }
     
-  public Double getQMax() 
+  public Double getQMax()
   {
     return qMax;
   }
@@ -234,7 +226,7 @@ public class Generator
     this.qMax = qMax;
   }
     
-  public Double getQMin() 
+  public Double getQMin()
   {
     return qMin;
   }
@@ -244,7 +236,7 @@ public class Generator
     this.qMin = qMin;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -254,7 +246,7 @@ public class Generator
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -264,7 +256,7 @@ public class Generator
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -274,7 +266,7 @@ public class Generator
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -284,7 +276,7 @@ public class Generator
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -294,7 +286,7 @@ public class Generator
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -304,7 +296,7 @@ public class Generator
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -314,7 +306,7 @@ public class Generator
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -324,7 +316,7 @@ public class Generator
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -334,7 +326,7 @@ public class Generator
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -344,7 +336,7 @@ public class Generator
     this.rerrMin = rerrMin;
   }
     
-  public Integer getMSModel() 
+  public Integer getMSModel()
   {
     return mSModel;
   }
@@ -354,7 +346,7 @@ public class Generator
     this.mSModel = mSModel;
   }
     
-  public Integer getMStateNum() 
+  public Integer getMStateNum()
   {
     return mStateNum;
   }
@@ -364,7 +356,7 @@ public class Generator
     this.mStateNum = mStateNum;
   }
     
-  public Double getMSPout() 
+  public Double getMSPout()
   {
     return mSPout;
   }
@@ -374,7 +366,7 @@ public class Generator
     this.mSPout = mSPout;
   }
     
-  public Double getReferenceP() 
+  public Double getReferenceP()
   {
     return referenceP;
   }
@@ -384,7 +376,7 @@ public class Generator
     this.referenceP = referenceP;
   }
     
-  public Double getReferenceQ() 
+  public Double getReferenceQ()
   {
     return referenceQ;
   }
@@ -394,7 +386,7 @@ public class Generator
     this.referenceQ = referenceQ;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -404,7 +396,7 @@ public class Generator
     this.faultFreq = faultFreq;
   }
     
-  public Integer getEQGen() 
+  public Integer getEQGen()
   {
     return eQGen;
   }
@@ -414,7 +406,7 @@ public class Generator
     this.eQGen = eQGen;
   }
     
-  public Integer getRadial() 
+  public Integer getRadial()
   {
     return radial;
   }
@@ -424,7 +416,7 @@ public class Generator
     this.radial = radial;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -434,7 +426,7 @@ public class Generator
     this.busPtr = busPtr;
   }
     
-  public Integer getRParamType() 
+  public Integer getRParamType()
   {
     return rParamType;
   }
@@ -444,7 +436,7 @@ public class Generator
     this.rParamType = rParamType;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -452,6 +444,44 @@ public class Generator
   public void setOutage(Integer outage)
   {
     this.outage = outage;
+  }
+    
+  public String toString()
+  {
+    return "Generator ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busName = " + busName
+	 + ", buskV = " + buskV
+	 + ", genId = " + genId
+	 + ", zone = " + zone
+	 + ", p = " + p
+	 + ", q = " + q
+	 + ", pMax = " + pMax
+	 + ", pMin = " + pMin
+	 + ", qMax = " + qMax
+	 + ", qMin = " + qMin
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", mSModel = " + mSModel
+	 + ", mStateNum = " + mStateNum
+	 + ", mSPout = " + mSPout
+	 + ", referenceP = " + referenceP
+	 + ", referenceQ = " + referenceQ
+	 + ", faultFreq = " + faultFreq
+	 + ", eQGen = " + eQGen
+	 + ", radial = " + radial
+	 + ", busPtr = " + busPtr
+	 + ", rParamType = " + rParamType
+	 + ", outage = " + outage+"]";
   }
     
 }

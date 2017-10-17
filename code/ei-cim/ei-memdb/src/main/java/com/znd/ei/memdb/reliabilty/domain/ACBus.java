@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *交流母线	*
 ***********************/
-@Entity
 public class ACBus
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -174,7 +166,7 @@ public class ACBus
   //可靠性参数类型
   private Integer rParamType;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -184,7 +176,7 @@ public class ACBus
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -194,7 +186,7 @@ public class ACBus
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -204,7 +196,7 @@ public class ACBus
     this.name = name;
   }
     
-  public Double getkV() 
+  public Double getkV()
   {
     return kV;
   }
@@ -214,7 +206,7 @@ public class ACBus
     this.kV = kV;
   }
     
-  public String getZone() 
+  public String getZone()
   {
     return zone;
   }
@@ -224,7 +216,7 @@ public class ACBus
     this.zone = zone;
   }
     
-  public Double getGenP() 
+  public Double getGenP()
   {
     return genP;
   }
@@ -234,7 +226,7 @@ public class ACBus
     this.genP = genP;
   }
     
-  public Double getGenQ() 
+  public Double getGenQ()
   {
     return genQ;
   }
@@ -244,7 +236,7 @@ public class ACBus
     this.genQ = genQ;
   }
     
-  public Double getLoadP() 
+  public Double getLoadP()
   {
     return loadP;
   }
@@ -254,7 +246,7 @@ public class ACBus
     this.loadP = loadP;
   }
     
-  public Double getLoadQ() 
+  public Double getLoadQ()
   {
     return loadQ;
   }
@@ -264,7 +256,7 @@ public class ACBus
     this.loadQ = loadQ;
   }
     
-  public Double getRadP() 
+  public Double getRadP()
   {
     return radP;
   }
@@ -274,7 +266,7 @@ public class ACBus
     this.radP = radP;
   }
     
-  public Double getShuntQ() 
+  public Double getShuntQ()
   {
     return shuntQ;
   }
@@ -284,7 +276,7 @@ public class ACBus
     this.shuntQ = shuntQ;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -294,7 +286,7 @@ public class ACBus
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -304,7 +296,7 @@ public class ACBus
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -314,7 +306,7 @@ public class ACBus
     this.trep = trep;
   }
     
-  public Double getAdGenP() 
+  public Double getAdGenP()
   {
     return adGenP;
   }
@@ -324,7 +316,7 @@ public class ACBus
     this.adGenP = adGenP;
   }
     
-  public Double getAdLoadP() 
+  public Double getAdLoadP()
   {
     return adLoadP;
   }
@@ -334,7 +326,7 @@ public class ACBus
     this.adLoadP = adLoadP;
   }
     
-  public Double getAdRadP() 
+  public Double getAdRadP()
   {
     return adRadP;
   }
@@ -344,7 +336,7 @@ public class ACBus
     this.adRadP = adRadP;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -354,7 +346,7 @@ public class ACBus
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -364,7 +356,7 @@ public class ACBus
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -374,7 +366,7 @@ public class ACBus
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -384,7 +376,7 @@ public class ACBus
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -394,7 +386,7 @@ public class ACBus
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -404,7 +396,7 @@ public class ACBus
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -414,7 +406,7 @@ public class ACBus
     this.rerrMin = rerrMin;
   }
     
-  public Double getRtV() 
+  public Double getRtV()
   {
     return rtV;
   }
@@ -424,7 +416,7 @@ public class ACBus
     this.rtV = rtV;
   }
     
-  public Double getPfD() 
+  public Double getPfD()
   {
     return pfD;
   }
@@ -434,7 +426,7 @@ public class ACBus
     this.pfD = pfD;
   }
     
-  public Double getPLC() 
+  public Double getPLC()
   {
     return pLC;
   }
@@ -444,7 +436,7 @@ public class ACBus
     this.pLC = pLC;
   }
     
-  public Double getEFLC() 
+  public Double getEFLC()
   {
     return eFLC;
   }
@@ -454,7 +446,7 @@ public class ACBus
     this.eFLC = eFLC;
   }
     
-  public Double getEDLC() 
+  public Double getEDLC()
   {
     return eDLC;
   }
@@ -464,7 +456,7 @@ public class ACBus
     this.eDLC = eDLC;
   }
     
-  public Double getADLC() 
+  public Double getADLC()
   {
     return aDLC;
   }
@@ -474,7 +466,7 @@ public class ACBus
     this.aDLC = aDLC;
   }
     
-  public Double getELC() 
+  public Double getELC()
   {
     return eLC;
   }
@@ -484,7 +476,7 @@ public class ACBus
     this.eLC = eLC;
   }
     
-  public Double getEENS() 
+  public Double getEENS()
   {
     return eENS;
   }
@@ -494,7 +486,7 @@ public class ACBus
     this.eENS = eENS;
   }
     
-  public Double getBPECI() 
+  public Double getBPECI()
   {
     return bPECI;
   }
@@ -504,7 +496,7 @@ public class ACBus
     this.bPECI = bPECI;
   }
     
-  public Double getBPII() 
+  public Double getBPII()
   {
     return bPII;
   }
@@ -514,7 +506,7 @@ public class ACBus
     this.bPII = bPII;
   }
     
-  public Double getSI() 
+  public Double getSI()
   {
     return sI;
   }
@@ -524,7 +516,7 @@ public class ACBus
     this.sI = sI;
   }
     
-  public Integer getACIsland() 
+  public Integer getACIsland()
   {
     return aCIsland;
   }
@@ -534,7 +526,7 @@ public class ACBus
     this.aCIsland = aCIsland;
   }
     
-  public Integer getUVOLmtFreq() 
+  public Integer getUVOLmtFreq()
   {
     return uVOLmtFreq;
   }
@@ -544,7 +536,7 @@ public class ACBus
     this.uVOLmtFreq = uVOLmtFreq;
   }
     
-  public Integer getUFOLmtFreq() 
+  public Integer getUFOLmtFreq()
   {
     return uFOLmtFreq;
   }
@@ -554,7 +546,7 @@ public class ACBus
     this.uFOLmtFreq = uFOLmtFreq;
   }
     
-  public Integer getDVOLmtFreq() 
+  public Integer getDVOLmtFreq()
   {
     return dVOLmtFreq;
   }
@@ -564,7 +556,7 @@ public class ACBus
     this.dVOLmtFreq = dVOLmtFreq;
   }
     
-  public Integer getDFOLmtFreq() 
+  public Integer getDFOLmtFreq()
   {
     return dFOLmtFreq;
   }
@@ -574,7 +566,7 @@ public class ACBus
     this.dFOLmtFreq = dFOLmtFreq;
   }
     
-  public Integer getRadial() 
+  public Integer getRadial()
   {
     return radial;
   }
@@ -584,7 +576,7 @@ public class ACBus
     this.radial = radial;
   }
     
-  public Integer getSlack() 
+  public Integer getSlack()
   {
     return slack;
   }
@@ -594,7 +586,7 @@ public class ACBus
     this.slack = slack;
   }
     
-  public Integer getSrcBus() 
+  public Integer getSrcBus()
   {
     return srcBus;
   }
@@ -604,7 +596,7 @@ public class ACBus
     this.srcBus = srcBus;
   }
     
-  public Integer getMidBus() 
+  public Integer getMidBus()
   {
     return midBus;
   }
@@ -614,7 +606,7 @@ public class ACBus
     this.midBus = midBus;
   }
     
-  public Double getGenPMax() 
+  public Double getGenPMax()
   {
     return genPMax;
   }
@@ -624,7 +616,7 @@ public class ACBus
     this.genPMax = genPMax;
   }
     
-  public Double getGenPMin() 
+  public Double getGenPMin()
   {
     return genPMin;
   }
@@ -634,7 +626,7 @@ public class ACBus
     this.genPMin = genPMin;
   }
     
-  public Double getLoadPMin() 
+  public Double getLoadPMin()
   {
     return loadPMin;
   }
@@ -644,7 +636,7 @@ public class ACBus
     this.loadPMin = loadPMin;
   }
     
-  public Integer getBus2Line() 
+  public Integer getBus2Line()
   {
     return bus2Line;
   }
@@ -654,7 +646,7 @@ public class ACBus
     this.bus2Line = bus2Line;
   }
     
-  public Integer getBus2Tran() 
+  public Integer getBus2Tran()
   {
     return bus2Tran;
   }
@@ -664,7 +656,7 @@ public class ACBus
     this.bus2Tran = bus2Tran;
   }
     
-  public Integer getZoneIndex() 
+  public Integer getZoneIndex()
   {
     return zoneIndex;
   }
@@ -674,7 +666,7 @@ public class ACBus
     this.zoneIndex = zoneIndex;
   }
     
-  public Integer getRingBound() 
+  public Integer getRingBound()
   {
     return ringBound;
   }
@@ -684,7 +676,7 @@ public class ACBus
     this.ringBound = ringBound;
   }
     
-  public Integer getLoadMState() 
+  public Integer getLoadMState()
   {
     return loadMState;
   }
@@ -694,7 +686,7 @@ public class ACBus
     this.loadMState = loadMState;
   }
     
-  public Integer getDCBus() 
+  public Integer getDCBus()
   {
     return dCBus;
   }
@@ -704,7 +696,7 @@ public class ACBus
     this.dCBus = dCBus;
   }
     
-  public Integer getRParamType() 
+  public Integer getRParamType()
   {
     return rParamType;
   }
@@ -712,6 +704,64 @@ public class ACBus
   public void setRParamType(Integer rParamType)
   {
     this.rParamType = rParamType;
+  }
+    
+  public String toString()
+  {
+    return "ACBus ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", kV = " + kV
+	 + ", zone = " + zone
+	 + ", genP = " + genP
+	 + ", genQ = " + genQ
+	 + ", loadP = " + loadP
+	 + ", loadQ = " + loadQ
+	 + ", radP = " + radP
+	 + ", shuntQ = " + shuntQ
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", adGenP = " + adGenP
+	 + ", adLoadP = " + adLoadP
+	 + ", adRadP = " + adRadP
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", rtV = " + rtV
+	 + ", pfD = " + pfD
+	 + ", pLC = " + pLC
+	 + ", eFLC = " + eFLC
+	 + ", eDLC = " + eDLC
+	 + ", aDLC = " + aDLC
+	 + ", eLC = " + eLC
+	 + ", eENS = " + eENS
+	 + ", bPECI = " + bPECI
+	 + ", bPII = " + bPII
+	 + ", sI = " + sI
+	 + ", aCIsland = " + aCIsland
+	 + ", uVOLmtFreq = " + uVOLmtFreq
+	 + ", uFOLmtFreq = " + uFOLmtFreq
+	 + ", dVOLmtFreq = " + dVOLmtFreq
+	 + ", dFOLmtFreq = " + dFOLmtFreq
+	 + ", radial = " + radial
+	 + ", slack = " + slack
+	 + ", srcBus = " + srcBus
+	 + ", midBus = " + midBus
+	 + ", genPMax = " + genPMax
+	 + ", genPMin = " + genPMin
+	 + ", loadPMin = " + loadPMin
+	 + ", bus2Line = " + bus2Line
+	 + ", bus2Tran = " + bus2Tran
+	 + ", zoneIndex = " + zoneIndex
+	 + ", ringBound = " + ringBound
+	 + ", loadMState = " + loadMState
+	 + ", dCBus = " + dCBus
+	 + ", rParamType = " + rParamType+"]";
   }
     
 }

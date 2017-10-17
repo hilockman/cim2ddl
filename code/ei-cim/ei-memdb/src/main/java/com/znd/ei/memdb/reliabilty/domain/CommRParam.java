@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *可靠性公共参数	*
 ***********************/
-@Entity
 public class CommRParam
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -42,7 +34,7 @@ public class CommRParam
   //修复时间
   private Double trep;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -52,7 +44,7 @@ public class CommRParam
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -62,7 +54,7 @@ public class CommRParam
     this.memIndex = memIndex;
   }
     
-  public Integer getDevType() 
+  public Integer getDevType()
   {
     return devType;
   }
@@ -72,7 +64,7 @@ public class CommRParam
     this.devType = devType;
   }
     
-  public String getKeyWord() 
+  public String getKeyWord()
   {
     return keyWord;
   }
@@ -82,7 +74,7 @@ public class CommRParam
     this.keyWord = keyWord;
   }
     
-  public Double getUpCapLmt() 
+  public Double getUpCapLmt()
   {
     return upCapLmt;
   }
@@ -92,7 +84,7 @@ public class CommRParam
     this.upCapLmt = upCapLmt;
   }
     
-  public Double getDnCapLmt() 
+  public Double getDnCapLmt()
   {
     return dnCapLmt;
   }
@@ -102,7 +94,7 @@ public class CommRParam
     this.dnCapLmt = dnCapLmt;
   }
     
-  public Double getUpVLmt() 
+  public Double getUpVLmt()
   {
     return upVLmt;
   }
@@ -112,7 +104,7 @@ public class CommRParam
     this.upVLmt = upVLmt;
   }
     
-  public Double getDnVLmt() 
+  public Double getDnVLmt()
   {
     return dnVLmt;
   }
@@ -122,7 +114,7 @@ public class CommRParam
     this.dnVLmt = dnVLmt;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -132,7 +124,7 @@ public class CommRParam
     this.rerr = rerr;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -140,6 +132,20 @@ public class CommRParam
   public void setTrep(Double trep)
   {
     this.trep = trep;
+  }
+    
+  public String toString()
+  {
+    return "CommRParam ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", devType = " + devType
+	 + ", keyWord = " + keyWord
+	 + ", upCapLmt = " + upCapLmt
+	 + ", dnCapLmt = " + dnCapLmt
+	 + ", upVLmt = " + upVLmt
+	 + ", dnVLmt = " + dnVLmt
+	 + ", rerr = " + rerr
+	 + ", trep = " + trep+"]";
   }
     
 }

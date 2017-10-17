@@ -305,29 +305,29 @@ public class BpaSwi_ExcMV
     
   public String toString()
   {
-    return "BpaSwi_ExcMV ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"excMV_RC"=excMV_RC,
-	"excMV_XC"=excMV_XC,
-	"excMV_TR"=excMV_TR,
-	"excMV_K"=excMV_K,
-	"excMV_kV"=excMV_kV,
-	"excMV_T1"=excMV_T1,
-	"excMV_T2"=excMV_T2,
-	"excMV_T3"=excMV_T3,
-	"excMV_T4"=excMV_T4,
-	"excMV_KA"=excMV_KA,
-	"excMV_TA"=excMV_TA,
-	"excMV_KF"=excMV_KF,
-	"excMV_TF"=excMV_TF,
-	"excMV_KH"=excMV_KH,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_ExcMV ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", excMV_RC = " + excMV_RC
+	 + ", excMV_XC = " + excMV_XC
+	 + ", excMV_TR = " + excMV_TR
+	 + ", excMV_K = " + excMV_K
+	 + ", excMV_kV = " + excMV_kV
+	 + ", excMV_T1 = " + excMV_T1
+	 + ", excMV_T2 = " + excMV_T2
+	 + ", excMV_T3 = " + excMV_T3
+	 + ", excMV_T4 = " + excMV_T4
+	 + ", excMV_KA = " + excMV_KA
+	 + ", excMV_TA = " + excMV_TA
+	 + ", excMV_KF = " + excMV_KF
+	 + ", excMV_TF = " + excMV_TF
+	 + ", excMV_KH = " + excMV_KH
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

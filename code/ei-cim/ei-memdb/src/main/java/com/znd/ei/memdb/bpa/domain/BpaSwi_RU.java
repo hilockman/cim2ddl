@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *低频线路断开保护(RU)	*
 ***********************/
-@Entity
 public class BpaSwi_RU
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -48,7 +40,7 @@ public class BpaSwi_RU
   //传送操作时延(周)
   private Double rU_TDelay;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -58,7 +50,7 @@ public class BpaSwi_RU
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -68,7 +60,7 @@ public class BpaSwi_RU
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -78,7 +70,7 @@ public class BpaSwi_RU
     this.cardKey = cardKey;
   }
     
-  public String getRU_BusI() 
+  public String getRU_BusI()
   {
     return rU_BusI;
   }
@@ -88,7 +80,7 @@ public class BpaSwi_RU
     this.rU_BusI = rU_BusI;
   }
     
-  public Double getRU_kVI() 
+  public Double getRU_kVI()
   {
     return rU_kVI;
   }
@@ -98,7 +90,7 @@ public class BpaSwi_RU
     this.rU_kVI = rU_kVI;
   }
     
-  public String getRU_BusJ() 
+  public String getRU_BusJ()
   {
     return rU_BusJ;
   }
@@ -108,7 +100,7 @@ public class BpaSwi_RU
     this.rU_BusJ = rU_BusJ;
   }
     
-  public Double getRU_kVJ() 
+  public Double getRU_kVJ()
   {
     return rU_kVJ;
   }
@@ -118,7 +110,7 @@ public class BpaSwi_RU
     this.rU_kVJ = rU_kVJ;
   }
     
-  public Integer getRU_Loop() 
+  public Integer getRU_Loop()
   {
     return rU_Loop;
   }
@@ -128,7 +120,7 @@ public class BpaSwi_RU
     this.rU_Loop = rU_Loop;
   }
     
-  public Double getRU_FTrip() 
+  public Double getRU_FTrip()
   {
     return rU_FTrip;
   }
@@ -138,7 +130,7 @@ public class BpaSwi_RU
     this.rU_FTrip = rU_FTrip;
   }
     
-  public Double getRU_TRelay() 
+  public Double getRU_TRelay()
   {
     return rU_TRelay;
   }
@@ -148,7 +140,7 @@ public class BpaSwi_RU
     this.rU_TRelay = rU_TRelay;
   }
     
-  public Double getRU_TTrip() 
+  public Double getRU_TTrip()
   {
     return rU_TTrip;
   }
@@ -158,7 +150,7 @@ public class BpaSwi_RU
     this.rU_TTrip = rU_TTrip;
   }
     
-  public Double getRU_TDelay() 
+  public Double getRU_TDelay()
   {
     return rU_TDelay;
   }
@@ -166,6 +158,22 @@ public class BpaSwi_RU
   public void setRU_TDelay(Double rU_TDelay)
   {
     this.rU_TDelay = rU_TDelay;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_RU ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", rU_BusI = " + rU_BusI
+	 + ", rU_kVI = " + rU_kVI
+	 + ", rU_BusJ = " + rU_BusJ
+	 + ", rU_kVJ = " + rU_kVJ
+	 + ", rU_Loop = " + rU_Loop
+	 + ", rU_FTrip = " + rU_FTrip
+	 + ", rU_TRelay = " + rU_TRelay
+	 + ", rU_TTrip = " + rU_TTrip
+	 + ", rU_TDelay = " + rU_TDelay+"]";
   }
     
 }

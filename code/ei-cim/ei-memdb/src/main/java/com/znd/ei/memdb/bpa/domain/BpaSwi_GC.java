@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *调速器和原动机组合模型表(GC)	*
 ***********************/
-@Entity
 public class BpaSwi_GC
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -66,7 +58,7 @@ public class BpaSwi_GC
   //新增记录标记
   private Integer appendTag;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -76,7 +68,7 @@ public class BpaSwi_GC
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -86,7 +78,7 @@ public class BpaSwi_GC
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -96,7 +88,7 @@ public class BpaSwi_GC
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -106,7 +98,7 @@ public class BpaSwi_GC
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -116,7 +108,7 @@ public class BpaSwi_GC
     this.aCBus_kV = aCBus_kV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -126,7 +118,7 @@ public class BpaSwi_GC
     this.gen_ID = gen_ID;
   }
     
-  public Double getGen_Pmax() 
+  public Double getGen_Pmax()
   {
     return gen_Pmax;
   }
@@ -136,7 +128,7 @@ public class BpaSwi_GC
     this.gen_Pmax = gen_Pmax;
   }
     
-  public Double getGC_R() 
+  public Double getGC_R()
   {
     return gC_R;
   }
@@ -146,7 +138,7 @@ public class BpaSwi_GC
     this.gC_R = gC_R;
   }
     
-  public Double getGC_T1() 
+  public Double getGC_T1()
   {
     return gC_T1;
   }
@@ -156,7 +148,7 @@ public class BpaSwi_GC
     this.gC_T1 = gC_T1;
   }
     
-  public Double getGC_T2() 
+  public Double getGC_T2()
   {
     return gC_T2;
   }
@@ -166,7 +158,7 @@ public class BpaSwi_GC
     this.gC_T2 = gC_T2;
   }
     
-  public Double getGC_T3() 
+  public Double getGC_T3()
   {
     return gC_T3;
   }
@@ -176,7 +168,7 @@ public class BpaSwi_GC
     this.gC_T3 = gC_T3;
   }
     
-  public Double getGC_T4() 
+  public Double getGC_T4()
   {
     return gC_T4;
   }
@@ -186,7 +178,7 @@ public class BpaSwi_GC
     this.gC_T4 = gC_T4;
   }
     
-  public Double getGC_T5() 
+  public Double getGC_T5()
   {
     return gC_T5;
   }
@@ -196,7 +188,7 @@ public class BpaSwi_GC
     this.gC_T5 = gC_T5;
   }
     
-  public Double getGC_F() 
+  public Double getGC_F()
   {
     return gC_F;
   }
@@ -206,7 +198,7 @@ public class BpaSwi_GC
     this.gC_F = gC_F;
   }
     
-  public Double getGC_DH() 
+  public Double getGC_DH()
   {
     return gC_DH;
   }
@@ -216,7 +208,7 @@ public class BpaSwi_GC
     this.gC_DH = gC_DH;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -226,7 +218,7 @@ public class BpaSwi_GC
     this.keyName = keyName;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -236,7 +228,7 @@ public class BpaSwi_GC
     this.busPtr = busPtr;
   }
     
-  public Integer getAppendTag() 
+  public Integer getAppendTag()
   {
     return appendTag;
   }
@@ -244,6 +236,28 @@ public class BpaSwi_GC
   public void setAppendTag(Integer appendTag)
   {
     this.appendTag = appendTag;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_GC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gC_R = " + gC_R
+	 + ", gC_T1 = " + gC_T1
+	 + ", gC_T2 = " + gC_T2
+	 + ", gC_T3 = " + gC_T3
+	 + ", gC_T4 = " + gC_T4
+	 + ", gC_T5 = " + gC_T5
+	 + ", gC_F = " + gC_F
+	 + ", gC_DH = " + gC_DH
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

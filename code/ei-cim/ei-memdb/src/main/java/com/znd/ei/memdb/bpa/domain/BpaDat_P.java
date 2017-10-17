@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电负荷调整表(P)	*
 ***********************/
-@Entity
 public class BpaDat_P
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -39,7 +31,7 @@ public class BpaDat_P
   //状态
   private Integer p_Status;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -49,7 +41,7 @@ public class BpaDat_P
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -59,7 +51,7 @@ public class BpaDat_P
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -69,7 +61,7 @@ public class BpaDat_P
     this.cardKey = cardKey;
   }
     
-  public String getP_Zone() 
+  public String getP_Zone()
   {
     return p_Zone;
   }
@@ -79,7 +71,7 @@ public class BpaDat_P
     this.p_Zone = p_Zone;
   }
     
-  public Double getP_LoadPFactor() 
+  public Double getP_LoadPFactor()
   {
     return p_LoadPFactor;
   }
@@ -89,7 +81,7 @@ public class BpaDat_P
     this.p_LoadPFactor = p_LoadPFactor;
   }
     
-  public Double getP_LoadQFactor() 
+  public Double getP_LoadQFactor()
   {
     return p_LoadQFactor;
   }
@@ -99,7 +91,7 @@ public class BpaDat_P
     this.p_LoadQFactor = p_LoadQFactor;
   }
     
-  public Double getP_GenPFactor() 
+  public Double getP_GenPFactor()
   {
     return p_GenPFactor;
   }
@@ -109,7 +101,7 @@ public class BpaDat_P
     this.p_GenPFactor = p_GenPFactor;
   }
     
-  public Double getP_GenQFactor() 
+  public Double getP_GenQFactor()
   {
     return p_GenQFactor;
   }
@@ -119,7 +111,7 @@ public class BpaDat_P
     this.p_GenQFactor = p_GenQFactor;
   }
     
-  public Integer getP_Status() 
+  public Integer getP_Status()
   {
     return p_Status;
   }
@@ -127,6 +119,19 @@ public class BpaDat_P
   public void setP_Status(Integer p_Status)
   {
     this.p_Status = p_Status;
+  }
+    
+  public String toString()
+  {
+    return "BpaDat_P ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", p_Zone = " + p_Zone
+	 + ", p_LoadPFactor = " + p_LoadPFactor
+	 + ", p_LoadQFactor = " + p_LoadQFactor
+	 + ", p_GenPFactor = " + p_GenPFactor
+	 + ", p_GenQFactor = " + p_GenQFactor
+	 + ", p_Status = " + p_Status+"]";
   }
     
 }

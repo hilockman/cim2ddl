@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *两状态可靠性设备	*
 ***********************/
-@Entity
 public class R2StateComp
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -24,7 +16,7 @@ public class R2StateComp
   //设备索引
   private Integer serialNo;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -34,7 +26,7 @@ public class R2StateComp
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -44,7 +36,7 @@ public class R2StateComp
     this.memIndex = memIndex;
   }
     
-  public Integer getType() 
+  public Integer getType()
   {
     return type;
   }
@@ -54,7 +46,7 @@ public class R2StateComp
     this.type = type;
   }
     
-  public Integer getSerialNo() 
+  public Integer getSerialNo()
   {
     return serialNo;
   }
@@ -62,6 +54,14 @@ public class R2StateComp
   public void setSerialNo(Integer serialNo)
   {
     this.serialNo = serialNo;
+  }
+    
+  public String toString()
+  {
+    return "R2StateComp ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", type = " + type
+	 + ", serialNo = " + serialNo+"]";
   }
     
 }

@@ -253,25 +253,25 @@ public class BpaSwi_MJ
     
   public String toString()
   {
-    return "BpaSwi_MJ ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"zone_Name"=zone_Name,
-	"mJ_TJ"=mJ_TJ,
-	"mJ_Pper"=mJ_Pper,
-	"mJ_KL"=mJ_KL,
-	"mJ_Pmin"=mJ_Pmin,
-	"mJ_RS"=mJ_RS,
-	"mJ_XS"=mJ_XS,
-	"mJ_XM"=mJ_XM,
-	"mJ_RR"=mJ_RR,
-	"mJ_XR"=mJ_XR,
-	"mJ_VI"=mJ_VI,
-	"mJ_TI"=mJ_TI,
-	"mJ_A"=mJ_A,
-	"mJ_B"=mJ_B,
-	"mJ_S0"=mJ_S0,
-	"mJ_IM"=mJ_IM+"]"
+    return "BpaSwi_MJ ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", zone_Name = " + zone_Name
+	 + ", mJ_TJ = " + mJ_TJ
+	 + ", mJ_Pper = " + mJ_Pper
+	 + ", mJ_KL = " + mJ_KL
+	 + ", mJ_Pmin = " + mJ_Pmin
+	 + ", mJ_RS = " + mJ_RS
+	 + ", mJ_XS = " + mJ_XS
+	 + ", mJ_XM = " + mJ_XM
+	 + ", mJ_RR = " + mJ_RR
+	 + ", mJ_XR = " + mJ_XR
+	 + ", mJ_VI = " + mJ_VI
+	 + ", mJ_TI = " + mJ_TI
+	 + ", mJ_A = " + mJ_A
+	 + ", mJ_B = " + mJ_B
+	 + ", mJ_S0 = " + mJ_S0
+	 + ", mJ_IM = " + mJ_IM+"]";
   }
     
 }

@@ -331,31 +331,31 @@ public class BpaSwi_GA
     
   public String toString()
   {
-    return "BpaSwi_GA ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gA_Pe"=gA_Pe,
-	"gA_Tc"=gA_Tc,
-	"gA_To"=gA_To,
-	"gA_VELclose"=gA_VELclose,
-	"gA_VELopen"=gA_VELopen,
-	"gen_Pmax"=gen_Pmax,
-	"gen_Pmin"=gen_Pmin,
-	"gA_T1"=gA_T1,
-	"gA_KP"=gA_KP,
-	"gA_KD"=gA_KD,
-	"gA_KI"=gA_KI,
-	"gA_INTG_MAX"=gA_INTG_MAX,
-	"gA_INTG_MIN"=gA_INTG_MIN,
-	"gA_PID_MAX"=gA_PID_MAX,
-	"gA_PID_MIN"=gA_PID_MIN,
-	"gA_PGV_DELAY"=gA_PGV_DELAY,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GA ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gA_Pe = " + gA_Pe
+	 + ", gA_Tc = " + gA_Tc
+	 + ", gA_To = " + gA_To
+	 + ", gA_VELclose = " + gA_VELclose
+	 + ", gA_VELopen = " + gA_VELopen
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gen_Pmin = " + gen_Pmin
+	 + ", gA_T1 = " + gA_T1
+	 + ", gA_KP = " + gA_KP
+	 + ", gA_KD = " + gA_KD
+	 + ", gA_KI = " + gA_KI
+	 + ", gA_INTG_MAX = " + gA_INTG_MAX
+	 + ", gA_INTG_MIN = " + gA_INTG_MIN
+	 + ", gA_PID_MAX = " + gA_PID_MAX
+	 + ", gA_PID_MIN = " + gA_PID_MIN
+	 + ", gA_PGV_DELAY = " + gA_PGV_DELAY
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

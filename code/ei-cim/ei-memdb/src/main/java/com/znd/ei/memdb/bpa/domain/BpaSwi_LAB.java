@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *静态负荷模型表(LA/LB)	*
 ***********************/
-@Entity
 public class BpaSwi_LAB
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -75,7 +67,7 @@ public class BpaSwi_LAB
   //无功电压指数
   private Double lAB_NQ;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -85,7 +77,7 @@ public class BpaSwi_LAB
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -95,7 +87,7 @@ public class BpaSwi_LAB
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -105,7 +97,7 @@ public class BpaSwi_LAB
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -115,7 +107,7 @@ public class BpaSwi_LAB
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_kV() 
+  public Double getACBus_kV()
   {
     return aCBus_kV;
   }
@@ -125,7 +117,7 @@ public class BpaSwi_LAB
     this.aCBus_kV = aCBus_kV;
   }
     
-  public String getLAB_Zone() 
+  public String getLAB_Zone()
   {
     return lAB_Zone;
   }
@@ -135,7 +127,7 @@ public class BpaSwi_LAB
     this.lAB_Zone = lAB_Zone;
   }
     
-  public String getLAB_Area() 
+  public String getLAB_Area()
   {
     return lAB_Area;
   }
@@ -145,7 +137,7 @@ public class BpaSwi_LAB
     this.lAB_Area = lAB_Area;
   }
     
-  public Double getLAB_P1() 
+  public Double getLAB_P1()
   {
     return lAB_P1;
   }
@@ -155,7 +147,7 @@ public class BpaSwi_LAB
     this.lAB_P1 = lAB_P1;
   }
     
-  public Double getLAB_Q1() 
+  public Double getLAB_Q1()
   {
     return lAB_Q1;
   }
@@ -165,7 +157,7 @@ public class BpaSwi_LAB
     this.lAB_Q1 = lAB_Q1;
   }
     
-  public Double getLAB_P2() 
+  public Double getLAB_P2()
   {
     return lAB_P2;
   }
@@ -175,7 +167,7 @@ public class BpaSwi_LAB
     this.lAB_P2 = lAB_P2;
   }
     
-  public Double getLAB_Q2() 
+  public Double getLAB_Q2()
   {
     return lAB_Q2;
   }
@@ -185,7 +177,7 @@ public class BpaSwi_LAB
     this.lAB_Q2 = lAB_Q2;
   }
     
-  public Double getLAB_P3() 
+  public Double getLAB_P3()
   {
     return lAB_P3;
   }
@@ -195,7 +187,7 @@ public class BpaSwi_LAB
     this.lAB_P3 = lAB_P3;
   }
     
-  public Double getLAB_Q3() 
+  public Double getLAB_Q3()
   {
     return lAB_Q3;
   }
@@ -205,7 +197,7 @@ public class BpaSwi_LAB
     this.lAB_Q3 = lAB_Q3;
   }
     
-  public Double getLAB_P4() 
+  public Double getLAB_P4()
   {
     return lAB_P4;
   }
@@ -215,7 +207,7 @@ public class BpaSwi_LAB
     this.lAB_P4 = lAB_P4;
   }
     
-  public Double getLAB_Q4() 
+  public Double getLAB_Q4()
   {
     return lAB_Q4;
   }
@@ -225,7 +217,7 @@ public class BpaSwi_LAB
     this.lAB_Q4 = lAB_Q4;
   }
     
-  public Double getLAB_LDP() 
+  public Double getLAB_LDP()
   {
     return lAB_LDP;
   }
@@ -235,7 +227,7 @@ public class BpaSwi_LAB
     this.lAB_LDP = lAB_LDP;
   }
     
-  public Double getLAB_LDQ() 
+  public Double getLAB_LDQ()
   {
     return lAB_LDQ;
   }
@@ -245,7 +237,7 @@ public class BpaSwi_LAB
     this.lAB_LDQ = lAB_LDQ;
   }
     
-  public Double getLAB_P5() 
+  public Double getLAB_P5()
   {
     return lAB_P5;
   }
@@ -255,7 +247,7 @@ public class BpaSwi_LAB
     this.lAB_P5 = lAB_P5;
   }
     
-  public Double getLAB_Q5() 
+  public Double getLAB_Q5()
   {
     return lAB_Q5;
   }
@@ -265,7 +257,7 @@ public class BpaSwi_LAB
     this.lAB_Q5 = lAB_Q5;
   }
     
-  public Double getLAB_NP() 
+  public Double getLAB_NP()
   {
     return lAB_NP;
   }
@@ -275,7 +267,7 @@ public class BpaSwi_LAB
     this.lAB_NP = lAB_NP;
   }
     
-  public Double getLAB_NQ() 
+  public Double getLAB_NQ()
   {
     return lAB_NQ;
   }
@@ -283,6 +275,31 @@ public class BpaSwi_LAB
   public void setLAB_NQ(Double lAB_NQ)
   {
     this.lAB_NQ = lAB_NQ;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_LAB ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", lAB_Zone = " + lAB_Zone
+	 + ", lAB_Area = " + lAB_Area
+	 + ", lAB_P1 = " + lAB_P1
+	 + ", lAB_Q1 = " + lAB_Q1
+	 + ", lAB_P2 = " + lAB_P2
+	 + ", lAB_Q2 = " + lAB_Q2
+	 + ", lAB_P3 = " + lAB_P3
+	 + ", lAB_Q3 = " + lAB_Q3
+	 + ", lAB_P4 = " + lAB_P4
+	 + ", lAB_Q4 = " + lAB_Q4
+	 + ", lAB_LDP = " + lAB_LDP
+	 + ", lAB_LDQ = " + lAB_LDQ
+	 + ", lAB_P5 = " + lAB_P5
+	 + ", lAB_Q5 = " + lAB_Q5
+	 + ", lAB_NP = " + lAB_NP
+	 + ", lAB_NQ = " + lAB_NQ+"]";
   }
     
 }

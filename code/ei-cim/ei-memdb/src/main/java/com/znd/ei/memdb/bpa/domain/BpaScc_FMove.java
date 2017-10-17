@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *线路故障点移动计算结果	*
 ***********************/
-@Entity
 public class BpaScc_FMove
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -336,7 +328,7 @@ public class BpaScc_FMove
   //值100
   private Double value100;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -346,7 +338,7 @@ public class BpaScc_FMove
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -356,7 +348,7 @@ public class BpaScc_FMove
     this.memIndex = memIndex;
   }
     
-  public Integer getFaultType() 
+  public Integer getFaultType()
   {
     return faultType;
   }
@@ -366,7 +358,7 @@ public class BpaScc_FMove
     this.faultType = faultType;
   }
     
-  public String getFaultLine() 
+  public String getFaultLine()
   {
     return faultLine;
   }
@@ -376,7 +368,7 @@ public class BpaScc_FMove
     this.faultLine = faultLine;
   }
     
-  public String getMonLine() 
+  public String getMonLine()
   {
     return monLine;
   }
@@ -386,7 +378,7 @@ public class BpaScc_FMove
     this.monLine = monLine;
   }
     
-  public String getMonBus() 
+  public String getMonBus()
   {
     return monBus;
   }
@@ -396,7 +388,7 @@ public class BpaScc_FMove
     this.monBus = monBus;
   }
     
-  public Integer getDataType() 
+  public Integer getDataType()
   {
     return dataType;
   }
@@ -406,7 +398,7 @@ public class BpaScc_FMove
     this.dataType = dataType;
   }
     
-  public Double getValue000() 
+  public Double getValue000()
   {
     return value000;
   }
@@ -416,7 +408,7 @@ public class BpaScc_FMove
     this.value000 = value000;
   }
     
-  public Double getValue001() 
+  public Double getValue001()
   {
     return value001;
   }
@@ -426,7 +418,7 @@ public class BpaScc_FMove
     this.value001 = value001;
   }
     
-  public Double getValue002() 
+  public Double getValue002()
   {
     return value002;
   }
@@ -436,7 +428,7 @@ public class BpaScc_FMove
     this.value002 = value002;
   }
     
-  public Double getValue003() 
+  public Double getValue003()
   {
     return value003;
   }
@@ -446,7 +438,7 @@ public class BpaScc_FMove
     this.value003 = value003;
   }
     
-  public Double getValue004() 
+  public Double getValue004()
   {
     return value004;
   }
@@ -456,7 +448,7 @@ public class BpaScc_FMove
     this.value004 = value004;
   }
     
-  public Double getValue005() 
+  public Double getValue005()
   {
     return value005;
   }
@@ -466,7 +458,7 @@ public class BpaScc_FMove
     this.value005 = value005;
   }
     
-  public Double getValue006() 
+  public Double getValue006()
   {
     return value006;
   }
@@ -476,7 +468,7 @@ public class BpaScc_FMove
     this.value006 = value006;
   }
     
-  public Double getValue007() 
+  public Double getValue007()
   {
     return value007;
   }
@@ -486,7 +478,7 @@ public class BpaScc_FMove
     this.value007 = value007;
   }
     
-  public Double getValue008() 
+  public Double getValue008()
   {
     return value008;
   }
@@ -496,7 +488,7 @@ public class BpaScc_FMove
     this.value008 = value008;
   }
     
-  public Double getValue009() 
+  public Double getValue009()
   {
     return value009;
   }
@@ -506,7 +498,7 @@ public class BpaScc_FMove
     this.value009 = value009;
   }
     
-  public Double getValue010() 
+  public Double getValue010()
   {
     return value010;
   }
@@ -516,7 +508,7 @@ public class BpaScc_FMove
     this.value010 = value010;
   }
     
-  public Double getValue011() 
+  public Double getValue011()
   {
     return value011;
   }
@@ -526,7 +518,7 @@ public class BpaScc_FMove
     this.value011 = value011;
   }
     
-  public Double getValue012() 
+  public Double getValue012()
   {
     return value012;
   }
@@ -536,7 +528,7 @@ public class BpaScc_FMove
     this.value012 = value012;
   }
     
-  public Double getValue013() 
+  public Double getValue013()
   {
     return value013;
   }
@@ -546,7 +538,7 @@ public class BpaScc_FMove
     this.value013 = value013;
   }
     
-  public Double getValue014() 
+  public Double getValue014()
   {
     return value014;
   }
@@ -556,7 +548,7 @@ public class BpaScc_FMove
     this.value014 = value014;
   }
     
-  public Double getValue015() 
+  public Double getValue015()
   {
     return value015;
   }
@@ -566,7 +558,7 @@ public class BpaScc_FMove
     this.value015 = value015;
   }
     
-  public Double getValue016() 
+  public Double getValue016()
   {
     return value016;
   }
@@ -576,7 +568,7 @@ public class BpaScc_FMove
     this.value016 = value016;
   }
     
-  public Double getValue017() 
+  public Double getValue017()
   {
     return value017;
   }
@@ -586,7 +578,7 @@ public class BpaScc_FMove
     this.value017 = value017;
   }
     
-  public Double getValue018() 
+  public Double getValue018()
   {
     return value018;
   }
@@ -596,7 +588,7 @@ public class BpaScc_FMove
     this.value018 = value018;
   }
     
-  public Double getValue019() 
+  public Double getValue019()
   {
     return value019;
   }
@@ -606,7 +598,7 @@ public class BpaScc_FMove
     this.value019 = value019;
   }
     
-  public Double getValue020() 
+  public Double getValue020()
   {
     return value020;
   }
@@ -616,7 +608,7 @@ public class BpaScc_FMove
     this.value020 = value020;
   }
     
-  public Double getValue021() 
+  public Double getValue021()
   {
     return value021;
   }
@@ -626,7 +618,7 @@ public class BpaScc_FMove
     this.value021 = value021;
   }
     
-  public Double getValue022() 
+  public Double getValue022()
   {
     return value022;
   }
@@ -636,7 +628,7 @@ public class BpaScc_FMove
     this.value022 = value022;
   }
     
-  public Double getValue023() 
+  public Double getValue023()
   {
     return value023;
   }
@@ -646,7 +638,7 @@ public class BpaScc_FMove
     this.value023 = value023;
   }
     
-  public Double getValue024() 
+  public Double getValue024()
   {
     return value024;
   }
@@ -656,7 +648,7 @@ public class BpaScc_FMove
     this.value024 = value024;
   }
     
-  public Double getValue025() 
+  public Double getValue025()
   {
     return value025;
   }
@@ -666,7 +658,7 @@ public class BpaScc_FMove
     this.value025 = value025;
   }
     
-  public Double getValue026() 
+  public Double getValue026()
   {
     return value026;
   }
@@ -676,7 +668,7 @@ public class BpaScc_FMove
     this.value026 = value026;
   }
     
-  public Double getValue027() 
+  public Double getValue027()
   {
     return value027;
   }
@@ -686,7 +678,7 @@ public class BpaScc_FMove
     this.value027 = value027;
   }
     
-  public Double getValue028() 
+  public Double getValue028()
   {
     return value028;
   }
@@ -696,7 +688,7 @@ public class BpaScc_FMove
     this.value028 = value028;
   }
     
-  public Double getValue029() 
+  public Double getValue029()
   {
     return value029;
   }
@@ -706,7 +698,7 @@ public class BpaScc_FMove
     this.value029 = value029;
   }
     
-  public Double getValue030() 
+  public Double getValue030()
   {
     return value030;
   }
@@ -716,7 +708,7 @@ public class BpaScc_FMove
     this.value030 = value030;
   }
     
-  public Double getValue031() 
+  public Double getValue031()
   {
     return value031;
   }
@@ -726,7 +718,7 @@ public class BpaScc_FMove
     this.value031 = value031;
   }
     
-  public Double getValue032() 
+  public Double getValue032()
   {
     return value032;
   }
@@ -736,7 +728,7 @@ public class BpaScc_FMove
     this.value032 = value032;
   }
     
-  public Double getValue033() 
+  public Double getValue033()
   {
     return value033;
   }
@@ -746,7 +738,7 @@ public class BpaScc_FMove
     this.value033 = value033;
   }
     
-  public Double getValue034() 
+  public Double getValue034()
   {
     return value034;
   }
@@ -756,7 +748,7 @@ public class BpaScc_FMove
     this.value034 = value034;
   }
     
-  public Double getValue035() 
+  public Double getValue035()
   {
     return value035;
   }
@@ -766,7 +758,7 @@ public class BpaScc_FMove
     this.value035 = value035;
   }
     
-  public Double getValue036() 
+  public Double getValue036()
   {
     return value036;
   }
@@ -776,7 +768,7 @@ public class BpaScc_FMove
     this.value036 = value036;
   }
     
-  public Double getValue037() 
+  public Double getValue037()
   {
     return value037;
   }
@@ -786,7 +778,7 @@ public class BpaScc_FMove
     this.value037 = value037;
   }
     
-  public Double getValue038() 
+  public Double getValue038()
   {
     return value038;
   }
@@ -796,7 +788,7 @@ public class BpaScc_FMove
     this.value038 = value038;
   }
     
-  public Double getValue039() 
+  public Double getValue039()
   {
     return value039;
   }
@@ -806,7 +798,7 @@ public class BpaScc_FMove
     this.value039 = value039;
   }
     
-  public Double getValue040() 
+  public Double getValue040()
   {
     return value040;
   }
@@ -816,7 +808,7 @@ public class BpaScc_FMove
     this.value040 = value040;
   }
     
-  public Double getValue041() 
+  public Double getValue041()
   {
     return value041;
   }
@@ -826,7 +818,7 @@ public class BpaScc_FMove
     this.value041 = value041;
   }
     
-  public Double getValue042() 
+  public Double getValue042()
   {
     return value042;
   }
@@ -836,7 +828,7 @@ public class BpaScc_FMove
     this.value042 = value042;
   }
     
-  public Double getValue043() 
+  public Double getValue043()
   {
     return value043;
   }
@@ -846,7 +838,7 @@ public class BpaScc_FMove
     this.value043 = value043;
   }
     
-  public Double getValue044() 
+  public Double getValue044()
   {
     return value044;
   }
@@ -856,7 +848,7 @@ public class BpaScc_FMove
     this.value044 = value044;
   }
     
-  public Double getValue045() 
+  public Double getValue045()
   {
     return value045;
   }
@@ -866,7 +858,7 @@ public class BpaScc_FMove
     this.value045 = value045;
   }
     
-  public Double getValue046() 
+  public Double getValue046()
   {
     return value046;
   }
@@ -876,7 +868,7 @@ public class BpaScc_FMove
     this.value046 = value046;
   }
     
-  public Double getValue047() 
+  public Double getValue047()
   {
     return value047;
   }
@@ -886,7 +878,7 @@ public class BpaScc_FMove
     this.value047 = value047;
   }
     
-  public Double getValue048() 
+  public Double getValue048()
   {
     return value048;
   }
@@ -896,7 +888,7 @@ public class BpaScc_FMove
     this.value048 = value048;
   }
     
-  public Double getValue049() 
+  public Double getValue049()
   {
     return value049;
   }
@@ -906,7 +898,7 @@ public class BpaScc_FMove
     this.value049 = value049;
   }
     
-  public Double getValue050() 
+  public Double getValue050()
   {
     return value050;
   }
@@ -916,7 +908,7 @@ public class BpaScc_FMove
     this.value050 = value050;
   }
     
-  public Double getValue051() 
+  public Double getValue051()
   {
     return value051;
   }
@@ -926,7 +918,7 @@ public class BpaScc_FMove
     this.value051 = value051;
   }
     
-  public Double getValue052() 
+  public Double getValue052()
   {
     return value052;
   }
@@ -936,7 +928,7 @@ public class BpaScc_FMove
     this.value052 = value052;
   }
     
-  public Double getValue053() 
+  public Double getValue053()
   {
     return value053;
   }
@@ -946,7 +938,7 @@ public class BpaScc_FMove
     this.value053 = value053;
   }
     
-  public Double getValue054() 
+  public Double getValue054()
   {
     return value054;
   }
@@ -956,7 +948,7 @@ public class BpaScc_FMove
     this.value054 = value054;
   }
     
-  public Double getValue055() 
+  public Double getValue055()
   {
     return value055;
   }
@@ -966,7 +958,7 @@ public class BpaScc_FMove
     this.value055 = value055;
   }
     
-  public Double getValue056() 
+  public Double getValue056()
   {
     return value056;
   }
@@ -976,7 +968,7 @@ public class BpaScc_FMove
     this.value056 = value056;
   }
     
-  public Double getValue057() 
+  public Double getValue057()
   {
     return value057;
   }
@@ -986,7 +978,7 @@ public class BpaScc_FMove
     this.value057 = value057;
   }
     
-  public Double getValue058() 
+  public Double getValue058()
   {
     return value058;
   }
@@ -996,7 +988,7 @@ public class BpaScc_FMove
     this.value058 = value058;
   }
     
-  public Double getValue059() 
+  public Double getValue059()
   {
     return value059;
   }
@@ -1006,7 +998,7 @@ public class BpaScc_FMove
     this.value059 = value059;
   }
     
-  public Double getValue060() 
+  public Double getValue060()
   {
     return value060;
   }
@@ -1016,7 +1008,7 @@ public class BpaScc_FMove
     this.value060 = value060;
   }
     
-  public Double getValue061() 
+  public Double getValue061()
   {
     return value061;
   }
@@ -1026,7 +1018,7 @@ public class BpaScc_FMove
     this.value061 = value061;
   }
     
-  public Double getValue062() 
+  public Double getValue062()
   {
     return value062;
   }
@@ -1036,7 +1028,7 @@ public class BpaScc_FMove
     this.value062 = value062;
   }
     
-  public Double getValue063() 
+  public Double getValue063()
   {
     return value063;
   }
@@ -1046,7 +1038,7 @@ public class BpaScc_FMove
     this.value063 = value063;
   }
     
-  public Double getValue064() 
+  public Double getValue064()
   {
     return value064;
   }
@@ -1056,7 +1048,7 @@ public class BpaScc_FMove
     this.value064 = value064;
   }
     
-  public Double getValue065() 
+  public Double getValue065()
   {
     return value065;
   }
@@ -1066,7 +1058,7 @@ public class BpaScc_FMove
     this.value065 = value065;
   }
     
-  public Double getValue066() 
+  public Double getValue066()
   {
     return value066;
   }
@@ -1076,7 +1068,7 @@ public class BpaScc_FMove
     this.value066 = value066;
   }
     
-  public Double getValue067() 
+  public Double getValue067()
   {
     return value067;
   }
@@ -1086,7 +1078,7 @@ public class BpaScc_FMove
     this.value067 = value067;
   }
     
-  public Double getValue068() 
+  public Double getValue068()
   {
     return value068;
   }
@@ -1096,7 +1088,7 @@ public class BpaScc_FMove
     this.value068 = value068;
   }
     
-  public Double getValue069() 
+  public Double getValue069()
   {
     return value069;
   }
@@ -1106,7 +1098,7 @@ public class BpaScc_FMove
     this.value069 = value069;
   }
     
-  public Double getValue070() 
+  public Double getValue070()
   {
     return value070;
   }
@@ -1116,7 +1108,7 @@ public class BpaScc_FMove
     this.value070 = value070;
   }
     
-  public Double getValue071() 
+  public Double getValue071()
   {
     return value071;
   }
@@ -1126,7 +1118,7 @@ public class BpaScc_FMove
     this.value071 = value071;
   }
     
-  public Double getValue072() 
+  public Double getValue072()
   {
     return value072;
   }
@@ -1136,7 +1128,7 @@ public class BpaScc_FMove
     this.value072 = value072;
   }
     
-  public Double getValue073() 
+  public Double getValue073()
   {
     return value073;
   }
@@ -1146,7 +1138,7 @@ public class BpaScc_FMove
     this.value073 = value073;
   }
     
-  public Double getValue074() 
+  public Double getValue074()
   {
     return value074;
   }
@@ -1156,7 +1148,7 @@ public class BpaScc_FMove
     this.value074 = value074;
   }
     
-  public Double getValue075() 
+  public Double getValue075()
   {
     return value075;
   }
@@ -1166,7 +1158,7 @@ public class BpaScc_FMove
     this.value075 = value075;
   }
     
-  public Double getValue076() 
+  public Double getValue076()
   {
     return value076;
   }
@@ -1176,7 +1168,7 @@ public class BpaScc_FMove
     this.value076 = value076;
   }
     
-  public Double getValue077() 
+  public Double getValue077()
   {
     return value077;
   }
@@ -1186,7 +1178,7 @@ public class BpaScc_FMove
     this.value077 = value077;
   }
     
-  public Double getValue078() 
+  public Double getValue078()
   {
     return value078;
   }
@@ -1196,7 +1188,7 @@ public class BpaScc_FMove
     this.value078 = value078;
   }
     
-  public Double getValue079() 
+  public Double getValue079()
   {
     return value079;
   }
@@ -1206,7 +1198,7 @@ public class BpaScc_FMove
     this.value079 = value079;
   }
     
-  public Double getValue080() 
+  public Double getValue080()
   {
     return value080;
   }
@@ -1216,7 +1208,7 @@ public class BpaScc_FMove
     this.value080 = value080;
   }
     
-  public Double getValue081() 
+  public Double getValue081()
   {
     return value081;
   }
@@ -1226,7 +1218,7 @@ public class BpaScc_FMove
     this.value081 = value081;
   }
     
-  public Double getValue082() 
+  public Double getValue082()
   {
     return value082;
   }
@@ -1236,7 +1228,7 @@ public class BpaScc_FMove
     this.value082 = value082;
   }
     
-  public Double getValue083() 
+  public Double getValue083()
   {
     return value083;
   }
@@ -1246,7 +1238,7 @@ public class BpaScc_FMove
     this.value083 = value083;
   }
     
-  public Double getValue084() 
+  public Double getValue084()
   {
     return value084;
   }
@@ -1256,7 +1248,7 @@ public class BpaScc_FMove
     this.value084 = value084;
   }
     
-  public Double getValue085() 
+  public Double getValue085()
   {
     return value085;
   }
@@ -1266,7 +1258,7 @@ public class BpaScc_FMove
     this.value085 = value085;
   }
     
-  public Double getValue086() 
+  public Double getValue086()
   {
     return value086;
   }
@@ -1276,7 +1268,7 @@ public class BpaScc_FMove
     this.value086 = value086;
   }
     
-  public Double getValue087() 
+  public Double getValue087()
   {
     return value087;
   }
@@ -1286,7 +1278,7 @@ public class BpaScc_FMove
     this.value087 = value087;
   }
     
-  public Double getValue088() 
+  public Double getValue088()
   {
     return value088;
   }
@@ -1296,7 +1288,7 @@ public class BpaScc_FMove
     this.value088 = value088;
   }
     
-  public Double getValue089() 
+  public Double getValue089()
   {
     return value089;
   }
@@ -1306,7 +1298,7 @@ public class BpaScc_FMove
     this.value089 = value089;
   }
     
-  public Double getValue090() 
+  public Double getValue090()
   {
     return value090;
   }
@@ -1316,7 +1308,7 @@ public class BpaScc_FMove
     this.value090 = value090;
   }
     
-  public Double getValue091() 
+  public Double getValue091()
   {
     return value091;
   }
@@ -1326,7 +1318,7 @@ public class BpaScc_FMove
     this.value091 = value091;
   }
     
-  public Double getValue092() 
+  public Double getValue092()
   {
     return value092;
   }
@@ -1336,7 +1328,7 @@ public class BpaScc_FMove
     this.value092 = value092;
   }
     
-  public Double getValue093() 
+  public Double getValue093()
   {
     return value093;
   }
@@ -1346,7 +1338,7 @@ public class BpaScc_FMove
     this.value093 = value093;
   }
     
-  public Double getValue094() 
+  public Double getValue094()
   {
     return value094;
   }
@@ -1356,7 +1348,7 @@ public class BpaScc_FMove
     this.value094 = value094;
   }
     
-  public Double getValue095() 
+  public Double getValue095()
   {
     return value095;
   }
@@ -1366,7 +1358,7 @@ public class BpaScc_FMove
     this.value095 = value095;
   }
     
-  public Double getValue096() 
+  public Double getValue096()
   {
     return value096;
   }
@@ -1376,7 +1368,7 @@ public class BpaScc_FMove
     this.value096 = value096;
   }
     
-  public Double getValue097() 
+  public Double getValue097()
   {
     return value097;
   }
@@ -1386,7 +1378,7 @@ public class BpaScc_FMove
     this.value097 = value097;
   }
     
-  public Double getValue098() 
+  public Double getValue098()
   {
     return value098;
   }
@@ -1396,7 +1388,7 @@ public class BpaScc_FMove
     this.value098 = value098;
   }
     
-  public Double getValue099() 
+  public Double getValue099()
   {
     return value099;
   }
@@ -1406,7 +1398,7 @@ public class BpaScc_FMove
     this.value099 = value099;
   }
     
-  public Double getValue100() 
+  public Double getValue100()
   {
     return value100;
   }
@@ -1414,6 +1406,118 @@ public class BpaScc_FMove
   public void setValue100(Double value100)
   {
     this.value100 = value100;
+  }
+    
+  public String toString()
+  {
+    return "BpaScc_FMove ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", faultType = " + faultType
+	 + ", faultLine = " + faultLine
+	 + ", monLine = " + monLine
+	 + ", monBus = " + monBus
+	 + ", dataType = " + dataType
+	 + ", value000 = " + value000
+	 + ", value001 = " + value001
+	 + ", value002 = " + value002
+	 + ", value003 = " + value003
+	 + ", value004 = " + value004
+	 + ", value005 = " + value005
+	 + ", value006 = " + value006
+	 + ", value007 = " + value007
+	 + ", value008 = " + value008
+	 + ", value009 = " + value009
+	 + ", value010 = " + value010
+	 + ", value011 = " + value011
+	 + ", value012 = " + value012
+	 + ", value013 = " + value013
+	 + ", value014 = " + value014
+	 + ", value015 = " + value015
+	 + ", value016 = " + value016
+	 + ", value017 = " + value017
+	 + ", value018 = " + value018
+	 + ", value019 = " + value019
+	 + ", value020 = " + value020
+	 + ", value021 = " + value021
+	 + ", value022 = " + value022
+	 + ", value023 = " + value023
+	 + ", value024 = " + value024
+	 + ", value025 = " + value025
+	 + ", value026 = " + value026
+	 + ", value027 = " + value027
+	 + ", value028 = " + value028
+	 + ", value029 = " + value029
+	 + ", value030 = " + value030
+	 + ", value031 = " + value031
+	 + ", value032 = " + value032
+	 + ", value033 = " + value033
+	 + ", value034 = " + value034
+	 + ", value035 = " + value035
+	 + ", value036 = " + value036
+	 + ", value037 = " + value037
+	 + ", value038 = " + value038
+	 + ", value039 = " + value039
+	 + ", value040 = " + value040
+	 + ", value041 = " + value041
+	 + ", value042 = " + value042
+	 + ", value043 = " + value043
+	 + ", value044 = " + value044
+	 + ", value045 = " + value045
+	 + ", value046 = " + value046
+	 + ", value047 = " + value047
+	 + ", value048 = " + value048
+	 + ", value049 = " + value049
+	 + ", value050 = " + value050
+	 + ", value051 = " + value051
+	 + ", value052 = " + value052
+	 + ", value053 = " + value053
+	 + ", value054 = " + value054
+	 + ", value055 = " + value055
+	 + ", value056 = " + value056
+	 + ", value057 = " + value057
+	 + ", value058 = " + value058
+	 + ", value059 = " + value059
+	 + ", value060 = " + value060
+	 + ", value061 = " + value061
+	 + ", value062 = " + value062
+	 + ", value063 = " + value063
+	 + ", value064 = " + value064
+	 + ", value065 = " + value065
+	 + ", value066 = " + value066
+	 + ", value067 = " + value067
+	 + ", value068 = " + value068
+	 + ", value069 = " + value069
+	 + ", value070 = " + value070
+	 + ", value071 = " + value071
+	 + ", value072 = " + value072
+	 + ", value073 = " + value073
+	 + ", value074 = " + value074
+	 + ", value075 = " + value075
+	 + ", value076 = " + value076
+	 + ", value077 = " + value077
+	 + ", value078 = " + value078
+	 + ", value079 = " + value079
+	 + ", value080 = " + value080
+	 + ", value081 = " + value081
+	 + ", value082 = " + value082
+	 + ", value083 = " + value083
+	 + ", value084 = " + value084
+	 + ", value085 = " + value085
+	 + ", value086 = " + value086
+	 + ", value087 = " + value087
+	 + ", value088 = " + value088
+	 + ", value089 = " + value089
+	 + ", value090 = " + value090
+	 + ", value091 = " + value091
+	 + ", value092 = " + value092
+	 + ", value093 = " + value093
+	 + ", value094 = " + value094
+	 + ", value095 = " + value095
+	 + ", value096 = " + value096
+	 + ", value097 = " + value097
+	 + ", value098 = " + value098
+	 + ", value099 = " + value099
+	 + ", value100 = " + value100+"]";
   }
     
 }

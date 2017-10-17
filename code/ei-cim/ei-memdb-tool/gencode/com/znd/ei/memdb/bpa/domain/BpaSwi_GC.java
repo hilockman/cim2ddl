@@ -240,24 +240,24 @@ public class BpaSwi_GC
     
   public String toString()
   {
-    return "BpaSwi_GC ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"gen_Pmax"=gen_Pmax,
-	"gC_R"=gC_R,
-	"gC_T1"=gC_T1,
-	"gC_T2"=gC_T2,
-	"gC_T3"=gC_T3,
-	"gC_T4"=gC_T4,
-	"gC_T5"=gC_T5,
-	"gC_F"=gC_F,
-	"gC_DH"=gC_DH,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_GC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", gen_Pmax = " + gen_Pmax
+	 + ", gC_R = " + gC_R
+	 + ", gC_T1 = " + gC_T1
+	 + ", gC_T2 = " + gC_T2
+	 + ", gC_T3 = " + gC_T3
+	 + ", gC_T4 = " + gC_T4
+	 + ", gC_T5 = " + gC_T5
+	 + ", gC_F = " + gC_F
+	 + ", gC_DH = " + gC_DH
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

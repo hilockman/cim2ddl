@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *设备多状态	*
 ***********************/
-@Entity
 public class DevMState
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -270,7 +262,7 @@ public class DevMState
   //设备索引
   private Integer serialNo;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -280,7 +272,7 @@ public class DevMState
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -290,7 +282,7 @@ public class DevMState
     this.memIndex = memIndex;
   }
     
-  public Integer getType() 
+  public Integer getType()
   {
     return type;
   }
@@ -300,7 +292,7 @@ public class DevMState
     this.type = type;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -310,7 +302,7 @@ public class DevMState
     this.name = name;
   }
     
-  public Integer getStateNum() 
+  public Integer getStateNum()
   {
     return stateNum;
   }
@@ -320,7 +312,7 @@ public class DevMState
     this.stateNum = stateNum;
   }
     
-  public Double getState1Rate() 
+  public Double getState1Rate()
   {
     return state1Rate;
   }
@@ -330,7 +322,7 @@ public class DevMState
     this.state1Rate = state1Rate;
   }
     
-  public Double getState2Rate() 
+  public Double getState2Rate()
   {
     return state2Rate;
   }
@@ -340,7 +332,7 @@ public class DevMState
     this.state2Rate = state2Rate;
   }
     
-  public Double getState3Rate() 
+  public Double getState3Rate()
   {
     return state3Rate;
   }
@@ -350,7 +342,7 @@ public class DevMState
     this.state3Rate = state3Rate;
   }
     
-  public Double getState4Rate() 
+  public Double getState4Rate()
   {
     return state4Rate;
   }
@@ -360,7 +352,7 @@ public class DevMState
     this.state4Rate = state4Rate;
   }
     
-  public Double getState5Rate() 
+  public Double getState5Rate()
   {
     return state5Rate;
   }
@@ -370,7 +362,7 @@ public class DevMState
     this.state5Rate = state5Rate;
   }
     
-  public Double getState6Rate() 
+  public Double getState6Rate()
   {
     return state6Rate;
   }
@@ -380,7 +372,7 @@ public class DevMState
     this.state6Rate = state6Rate;
   }
     
-  public Double getState7Rate() 
+  public Double getState7Rate()
   {
     return state7Rate;
   }
@@ -390,7 +382,7 @@ public class DevMState
     this.state7Rate = state7Rate;
   }
     
-  public Double getState8Rate() 
+  public Double getState8Rate()
   {
     return state8Rate;
   }
@@ -400,7 +392,7 @@ public class DevMState
     this.state8Rate = state8Rate;
   }
     
-  public Double getState1Prob() 
+  public Double getState1Prob()
   {
     return state1Prob;
   }
@@ -410,7 +402,7 @@ public class DevMState
     this.state1Prob = state1Prob;
   }
     
-  public Double getState2Prob() 
+  public Double getState2Prob()
   {
     return state2Prob;
   }
@@ -420,7 +412,7 @@ public class DevMState
     this.state2Prob = state2Prob;
   }
     
-  public Double getState3Prob() 
+  public Double getState3Prob()
   {
     return state3Prob;
   }
@@ -430,7 +422,7 @@ public class DevMState
     this.state3Prob = state3Prob;
   }
     
-  public Double getState4Prob() 
+  public Double getState4Prob()
   {
     return state4Prob;
   }
@@ -440,7 +432,7 @@ public class DevMState
     this.state4Prob = state4Prob;
   }
     
-  public Double getState5Prob() 
+  public Double getState5Prob()
   {
     return state5Prob;
   }
@@ -450,7 +442,7 @@ public class DevMState
     this.state5Prob = state5Prob;
   }
     
-  public Double getState6Prob() 
+  public Double getState6Prob()
   {
     return state6Prob;
   }
@@ -460,7 +452,7 @@ public class DevMState
     this.state6Prob = state6Prob;
   }
     
-  public Double getState7Prob() 
+  public Double getState7Prob()
   {
     return state7Prob;
   }
@@ -470,7 +462,7 @@ public class DevMState
     this.state7Prob = state7Prob;
   }
     
-  public Double getState8Prob() 
+  public Double getState8Prob()
   {
     return state8Prob;
   }
@@ -480,7 +472,7 @@ public class DevMState
     this.state8Prob = state8Prob;
   }
     
-  public Double getState1Freq1() 
+  public Double getState1Freq1()
   {
     return state1Freq1;
   }
@@ -490,7 +482,7 @@ public class DevMState
     this.state1Freq1 = state1Freq1;
   }
     
-  public Double getState1Freq2() 
+  public Double getState1Freq2()
   {
     return state1Freq2;
   }
@@ -500,7 +492,7 @@ public class DevMState
     this.state1Freq2 = state1Freq2;
   }
     
-  public Double getState1Freq3() 
+  public Double getState1Freq3()
   {
     return state1Freq3;
   }
@@ -510,7 +502,7 @@ public class DevMState
     this.state1Freq3 = state1Freq3;
   }
     
-  public Double getState1Freq4() 
+  public Double getState1Freq4()
   {
     return state1Freq4;
   }
@@ -520,7 +512,7 @@ public class DevMState
     this.state1Freq4 = state1Freq4;
   }
     
-  public Double getState1Freq5() 
+  public Double getState1Freq5()
   {
     return state1Freq5;
   }
@@ -530,7 +522,7 @@ public class DevMState
     this.state1Freq5 = state1Freq5;
   }
     
-  public Double getState1Freq6() 
+  public Double getState1Freq6()
   {
     return state1Freq6;
   }
@@ -540,7 +532,7 @@ public class DevMState
     this.state1Freq6 = state1Freq6;
   }
     
-  public Double getState1Freq7() 
+  public Double getState1Freq7()
   {
     return state1Freq7;
   }
@@ -550,7 +542,7 @@ public class DevMState
     this.state1Freq7 = state1Freq7;
   }
     
-  public Double getState1Freq8() 
+  public Double getState1Freq8()
   {
     return state1Freq8;
   }
@@ -560,7 +552,7 @@ public class DevMState
     this.state1Freq8 = state1Freq8;
   }
     
-  public Double getState2Freq1() 
+  public Double getState2Freq1()
   {
     return state2Freq1;
   }
@@ -570,7 +562,7 @@ public class DevMState
     this.state2Freq1 = state2Freq1;
   }
     
-  public Double getState2Freq2() 
+  public Double getState2Freq2()
   {
     return state2Freq2;
   }
@@ -580,7 +572,7 @@ public class DevMState
     this.state2Freq2 = state2Freq2;
   }
     
-  public Double getState2Freq3() 
+  public Double getState2Freq3()
   {
     return state2Freq3;
   }
@@ -590,7 +582,7 @@ public class DevMState
     this.state2Freq3 = state2Freq3;
   }
     
-  public Double getState2Freq4() 
+  public Double getState2Freq4()
   {
     return state2Freq4;
   }
@@ -600,7 +592,7 @@ public class DevMState
     this.state2Freq4 = state2Freq4;
   }
     
-  public Double getState2Freq5() 
+  public Double getState2Freq5()
   {
     return state2Freq5;
   }
@@ -610,7 +602,7 @@ public class DevMState
     this.state2Freq5 = state2Freq5;
   }
     
-  public Double getState2Freq6() 
+  public Double getState2Freq6()
   {
     return state2Freq6;
   }
@@ -620,7 +612,7 @@ public class DevMState
     this.state2Freq6 = state2Freq6;
   }
     
-  public Double getState2Freq7() 
+  public Double getState2Freq7()
   {
     return state2Freq7;
   }
@@ -630,7 +622,7 @@ public class DevMState
     this.state2Freq7 = state2Freq7;
   }
     
-  public Double getState2Freq8() 
+  public Double getState2Freq8()
   {
     return state2Freq8;
   }
@@ -640,7 +632,7 @@ public class DevMState
     this.state2Freq8 = state2Freq8;
   }
     
-  public Double getState3Freq1() 
+  public Double getState3Freq1()
   {
     return state3Freq1;
   }
@@ -650,7 +642,7 @@ public class DevMState
     this.state3Freq1 = state3Freq1;
   }
     
-  public Double getState3Freq2() 
+  public Double getState3Freq2()
   {
     return state3Freq2;
   }
@@ -660,7 +652,7 @@ public class DevMState
     this.state3Freq2 = state3Freq2;
   }
     
-  public Double getState3Freq3() 
+  public Double getState3Freq3()
   {
     return state3Freq3;
   }
@@ -670,7 +662,7 @@ public class DevMState
     this.state3Freq3 = state3Freq3;
   }
     
-  public Double getState3Freq4() 
+  public Double getState3Freq4()
   {
     return state3Freq4;
   }
@@ -680,7 +672,7 @@ public class DevMState
     this.state3Freq4 = state3Freq4;
   }
     
-  public Double getState3Freq5() 
+  public Double getState3Freq5()
   {
     return state3Freq5;
   }
@@ -690,7 +682,7 @@ public class DevMState
     this.state3Freq5 = state3Freq5;
   }
     
-  public Double getState3Freq6() 
+  public Double getState3Freq6()
   {
     return state3Freq6;
   }
@@ -700,7 +692,7 @@ public class DevMState
     this.state3Freq6 = state3Freq6;
   }
     
-  public Double getState3Freq7() 
+  public Double getState3Freq7()
   {
     return state3Freq7;
   }
@@ -710,7 +702,7 @@ public class DevMState
     this.state3Freq7 = state3Freq7;
   }
     
-  public Double getState3Freq8() 
+  public Double getState3Freq8()
   {
     return state3Freq8;
   }
@@ -720,7 +712,7 @@ public class DevMState
     this.state3Freq8 = state3Freq8;
   }
     
-  public Double getState4Freq1() 
+  public Double getState4Freq1()
   {
     return state4Freq1;
   }
@@ -730,7 +722,7 @@ public class DevMState
     this.state4Freq1 = state4Freq1;
   }
     
-  public Double getState4Freq2() 
+  public Double getState4Freq2()
   {
     return state4Freq2;
   }
@@ -740,7 +732,7 @@ public class DevMState
     this.state4Freq2 = state4Freq2;
   }
     
-  public Double getState4Freq3() 
+  public Double getState4Freq3()
   {
     return state4Freq3;
   }
@@ -750,7 +742,7 @@ public class DevMState
     this.state4Freq3 = state4Freq3;
   }
     
-  public Double getState4Freq4() 
+  public Double getState4Freq4()
   {
     return state4Freq4;
   }
@@ -760,7 +752,7 @@ public class DevMState
     this.state4Freq4 = state4Freq4;
   }
     
-  public Double getState4Freq5() 
+  public Double getState4Freq5()
   {
     return state4Freq5;
   }
@@ -770,7 +762,7 @@ public class DevMState
     this.state4Freq5 = state4Freq5;
   }
     
-  public Double getState4Freq6() 
+  public Double getState4Freq6()
   {
     return state4Freq6;
   }
@@ -780,7 +772,7 @@ public class DevMState
     this.state4Freq6 = state4Freq6;
   }
     
-  public Double getState4Freq7() 
+  public Double getState4Freq7()
   {
     return state4Freq7;
   }
@@ -790,7 +782,7 @@ public class DevMState
     this.state4Freq7 = state4Freq7;
   }
     
-  public Double getState4Freq8() 
+  public Double getState4Freq8()
   {
     return state4Freq8;
   }
@@ -800,7 +792,7 @@ public class DevMState
     this.state4Freq8 = state4Freq8;
   }
     
-  public Double getState5Freq1() 
+  public Double getState5Freq1()
   {
     return state5Freq1;
   }
@@ -810,7 +802,7 @@ public class DevMState
     this.state5Freq1 = state5Freq1;
   }
     
-  public Double getState5Freq2() 
+  public Double getState5Freq2()
   {
     return state5Freq2;
   }
@@ -820,7 +812,7 @@ public class DevMState
     this.state5Freq2 = state5Freq2;
   }
     
-  public Double getState5Freq3() 
+  public Double getState5Freq3()
   {
     return state5Freq3;
   }
@@ -830,7 +822,7 @@ public class DevMState
     this.state5Freq3 = state5Freq3;
   }
     
-  public Double getState5Freq4() 
+  public Double getState5Freq4()
   {
     return state5Freq4;
   }
@@ -840,7 +832,7 @@ public class DevMState
     this.state5Freq4 = state5Freq4;
   }
     
-  public Double getState5Freq5() 
+  public Double getState5Freq5()
   {
     return state5Freq5;
   }
@@ -850,7 +842,7 @@ public class DevMState
     this.state5Freq5 = state5Freq5;
   }
     
-  public Double getState5Freq6() 
+  public Double getState5Freq6()
   {
     return state5Freq6;
   }
@@ -860,7 +852,7 @@ public class DevMState
     this.state5Freq6 = state5Freq6;
   }
     
-  public Double getState5Freq7() 
+  public Double getState5Freq7()
   {
     return state5Freq7;
   }
@@ -870,7 +862,7 @@ public class DevMState
     this.state5Freq7 = state5Freq7;
   }
     
-  public Double getState5Freq8() 
+  public Double getState5Freq8()
   {
     return state5Freq8;
   }
@@ -880,7 +872,7 @@ public class DevMState
     this.state5Freq8 = state5Freq8;
   }
     
-  public Double getState6Freq1() 
+  public Double getState6Freq1()
   {
     return state6Freq1;
   }
@@ -890,7 +882,7 @@ public class DevMState
     this.state6Freq1 = state6Freq1;
   }
     
-  public Double getState6Freq2() 
+  public Double getState6Freq2()
   {
     return state6Freq2;
   }
@@ -900,7 +892,7 @@ public class DevMState
     this.state6Freq2 = state6Freq2;
   }
     
-  public Double getState6Freq3() 
+  public Double getState6Freq3()
   {
     return state6Freq3;
   }
@@ -910,7 +902,7 @@ public class DevMState
     this.state6Freq3 = state6Freq3;
   }
     
-  public Double getState6Freq4() 
+  public Double getState6Freq4()
   {
     return state6Freq4;
   }
@@ -920,7 +912,7 @@ public class DevMState
     this.state6Freq4 = state6Freq4;
   }
     
-  public Double getState6Freq5() 
+  public Double getState6Freq5()
   {
     return state6Freq5;
   }
@@ -930,7 +922,7 @@ public class DevMState
     this.state6Freq5 = state6Freq5;
   }
     
-  public Double getState6Freq6() 
+  public Double getState6Freq6()
   {
     return state6Freq6;
   }
@@ -940,7 +932,7 @@ public class DevMState
     this.state6Freq6 = state6Freq6;
   }
     
-  public Double getState6Freq7() 
+  public Double getState6Freq7()
   {
     return state6Freq7;
   }
@@ -950,7 +942,7 @@ public class DevMState
     this.state6Freq7 = state6Freq7;
   }
     
-  public Double getState6Freq8() 
+  public Double getState6Freq8()
   {
     return state6Freq8;
   }
@@ -960,7 +952,7 @@ public class DevMState
     this.state6Freq8 = state6Freq8;
   }
     
-  public Double getState7Freq1() 
+  public Double getState7Freq1()
   {
     return state7Freq1;
   }
@@ -970,7 +962,7 @@ public class DevMState
     this.state7Freq1 = state7Freq1;
   }
     
-  public Double getState7Freq2() 
+  public Double getState7Freq2()
   {
     return state7Freq2;
   }
@@ -980,7 +972,7 @@ public class DevMState
     this.state7Freq2 = state7Freq2;
   }
     
-  public Double getState7Freq3() 
+  public Double getState7Freq3()
   {
     return state7Freq3;
   }
@@ -990,7 +982,7 @@ public class DevMState
     this.state7Freq3 = state7Freq3;
   }
     
-  public Double getState7Freq4() 
+  public Double getState7Freq4()
   {
     return state7Freq4;
   }
@@ -1000,7 +992,7 @@ public class DevMState
     this.state7Freq4 = state7Freq4;
   }
     
-  public Double getState7Freq5() 
+  public Double getState7Freq5()
   {
     return state7Freq5;
   }
@@ -1010,7 +1002,7 @@ public class DevMState
     this.state7Freq5 = state7Freq5;
   }
     
-  public Double getState7Freq6() 
+  public Double getState7Freq6()
   {
     return state7Freq6;
   }
@@ -1020,7 +1012,7 @@ public class DevMState
     this.state7Freq6 = state7Freq6;
   }
     
-  public Double getState7Freq7() 
+  public Double getState7Freq7()
   {
     return state7Freq7;
   }
@@ -1030,7 +1022,7 @@ public class DevMState
     this.state7Freq7 = state7Freq7;
   }
     
-  public Double getState7Freq8() 
+  public Double getState7Freq8()
   {
     return state7Freq8;
   }
@@ -1040,7 +1032,7 @@ public class DevMState
     this.state7Freq8 = state7Freq8;
   }
     
-  public Double getState8Freq1() 
+  public Double getState8Freq1()
   {
     return state8Freq1;
   }
@@ -1050,7 +1042,7 @@ public class DevMState
     this.state8Freq1 = state8Freq1;
   }
     
-  public Double getState8Freq2() 
+  public Double getState8Freq2()
   {
     return state8Freq2;
   }
@@ -1060,7 +1052,7 @@ public class DevMState
     this.state8Freq2 = state8Freq2;
   }
     
-  public Double getState8Freq3() 
+  public Double getState8Freq3()
   {
     return state8Freq3;
   }
@@ -1070,7 +1062,7 @@ public class DevMState
     this.state8Freq3 = state8Freq3;
   }
     
-  public Double getState8Freq4() 
+  public Double getState8Freq4()
   {
     return state8Freq4;
   }
@@ -1080,7 +1072,7 @@ public class DevMState
     this.state8Freq4 = state8Freq4;
   }
     
-  public Double getState8Freq5() 
+  public Double getState8Freq5()
   {
     return state8Freq5;
   }
@@ -1090,7 +1082,7 @@ public class DevMState
     this.state8Freq5 = state8Freq5;
   }
     
-  public Double getState8Freq6() 
+  public Double getState8Freq6()
   {
     return state8Freq6;
   }
@@ -1100,7 +1092,7 @@ public class DevMState
     this.state8Freq6 = state8Freq6;
   }
     
-  public Double getState8Freq7() 
+  public Double getState8Freq7()
   {
     return state8Freq7;
   }
@@ -1110,7 +1102,7 @@ public class DevMState
     this.state8Freq7 = state8Freq7;
   }
     
-  public Double getState8Freq8() 
+  public Double getState8Freq8()
   {
     return state8Freq8;
   }
@@ -1120,7 +1112,7 @@ public class DevMState
     this.state8Freq8 = state8Freq8;
   }
     
-  public Integer getSerialNo() 
+  public Integer getSerialNo()
   {
     return serialNo;
   }
@@ -1128,6 +1120,96 @@ public class DevMState
   public void setSerialNo(Integer serialNo)
   {
     this.serialNo = serialNo;
+  }
+    
+  public String toString()
+  {
+    return "DevMState ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", type = " + type
+	 + ", name = " + name
+	 + ", stateNum = " + stateNum
+	 + ", state1Rate = " + state1Rate
+	 + ", state2Rate = " + state2Rate
+	 + ", state3Rate = " + state3Rate
+	 + ", state4Rate = " + state4Rate
+	 + ", state5Rate = " + state5Rate
+	 + ", state6Rate = " + state6Rate
+	 + ", state7Rate = " + state7Rate
+	 + ", state8Rate = " + state8Rate
+	 + ", state1Prob = " + state1Prob
+	 + ", state2Prob = " + state2Prob
+	 + ", state3Prob = " + state3Prob
+	 + ", state4Prob = " + state4Prob
+	 + ", state5Prob = " + state5Prob
+	 + ", state6Prob = " + state6Prob
+	 + ", state7Prob = " + state7Prob
+	 + ", state8Prob = " + state8Prob
+	 + ", state1Freq1 = " + state1Freq1
+	 + ", state1Freq2 = " + state1Freq2
+	 + ", state1Freq3 = " + state1Freq3
+	 + ", state1Freq4 = " + state1Freq4
+	 + ", state1Freq5 = " + state1Freq5
+	 + ", state1Freq6 = " + state1Freq6
+	 + ", state1Freq7 = " + state1Freq7
+	 + ", state1Freq8 = " + state1Freq8
+	 + ", state2Freq1 = " + state2Freq1
+	 + ", state2Freq2 = " + state2Freq2
+	 + ", state2Freq3 = " + state2Freq3
+	 + ", state2Freq4 = " + state2Freq4
+	 + ", state2Freq5 = " + state2Freq5
+	 + ", state2Freq6 = " + state2Freq6
+	 + ", state2Freq7 = " + state2Freq7
+	 + ", state2Freq8 = " + state2Freq8
+	 + ", state3Freq1 = " + state3Freq1
+	 + ", state3Freq2 = " + state3Freq2
+	 + ", state3Freq3 = " + state3Freq3
+	 + ", state3Freq4 = " + state3Freq4
+	 + ", state3Freq5 = " + state3Freq5
+	 + ", state3Freq6 = " + state3Freq6
+	 + ", state3Freq7 = " + state3Freq7
+	 + ", state3Freq8 = " + state3Freq8
+	 + ", state4Freq1 = " + state4Freq1
+	 + ", state4Freq2 = " + state4Freq2
+	 + ", state4Freq3 = " + state4Freq3
+	 + ", state4Freq4 = " + state4Freq4
+	 + ", state4Freq5 = " + state4Freq5
+	 + ", state4Freq6 = " + state4Freq6
+	 + ", state4Freq7 = " + state4Freq7
+	 + ", state4Freq8 = " + state4Freq8
+	 + ", state5Freq1 = " + state5Freq1
+	 + ", state5Freq2 = " + state5Freq2
+	 + ", state5Freq3 = " + state5Freq3
+	 + ", state5Freq4 = " + state5Freq4
+	 + ", state5Freq5 = " + state5Freq5
+	 + ", state5Freq6 = " + state5Freq6
+	 + ", state5Freq7 = " + state5Freq7
+	 + ", state5Freq8 = " + state5Freq8
+	 + ", state6Freq1 = " + state6Freq1
+	 + ", state6Freq2 = " + state6Freq2
+	 + ", state6Freq3 = " + state6Freq3
+	 + ", state6Freq4 = " + state6Freq4
+	 + ", state6Freq5 = " + state6Freq5
+	 + ", state6Freq6 = " + state6Freq6
+	 + ", state6Freq7 = " + state6Freq7
+	 + ", state6Freq8 = " + state6Freq8
+	 + ", state7Freq1 = " + state7Freq1
+	 + ", state7Freq2 = " + state7Freq2
+	 + ", state7Freq3 = " + state7Freq3
+	 + ", state7Freq4 = " + state7Freq4
+	 + ", state7Freq5 = " + state7Freq5
+	 + ", state7Freq6 = " + state7Freq6
+	 + ", state7Freq7 = " + state7Freq7
+	 + ", state7Freq8 = " + state7Freq8
+	 + ", state8Freq1 = " + state8Freq1
+	 + ", state8Freq2 = " + state8Freq2
+	 + ", state8Freq3 = " + state8Freq3
+	 + ", state8Freq4 = " + state8Freq4
+	 + ", state8Freq5 = " + state8Freq5
+	 + ", state8Freq6 = " + state8Freq6
+	 + ", state8Freq7 = " + state8Freq7
+	 + ", state8Freq8 = " + state8Freq8
+	 + ", serialNo = " + serialNo+"]";
   }
     
 }

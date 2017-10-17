@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *发电机转速保护(RW)	*
 ***********************/
-@Entity
 public class BpaSwi_RW
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -102,7 +94,7 @@ public class BpaSwi_RW
   //发电机母线索引
   private Integer busPtr;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -112,7 +104,7 @@ public class BpaSwi_RW
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -122,7 +114,7 @@ public class BpaSwi_RW
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -132,7 +124,7 @@ public class BpaSwi_RW
     this.cardKey = cardKey;
   }
     
-  public String getACBus_Name() 
+  public String getACBus_Name()
   {
     return aCBus_Name;
   }
@@ -142,7 +134,7 @@ public class BpaSwi_RW
     this.aCBus_Name = aCBus_Name;
   }
     
-  public Double getACBus_KV() 
+  public Double getACBus_KV()
   {
     return aCBus_KV;
   }
@@ -152,7 +144,7 @@ public class BpaSwi_RW
     this.aCBus_KV = aCBus_KV;
   }
     
-  public Integer getGen_ID() 
+  public Integer getGen_ID()
   {
     return gen_ID;
   }
@@ -162,7 +154,7 @@ public class BpaSwi_RW
     this.gen_ID = gen_ID;
   }
     
-  public Double getRW_Wmax() 
+  public Double getRW_Wmax()
   {
     return rW_Wmax;
   }
@@ -172,7 +164,7 @@ public class BpaSwi_RW
     this.rW_Wmax = rW_Wmax;
   }
     
-  public Double getRW_Wmin() 
+  public Double getRW_Wmin()
   {
     return rW_Wmin;
   }
@@ -182,7 +174,7 @@ public class BpaSwi_RW
     this.rW_Wmin = rW_Wmin;
   }
     
-  public Double getRW_Wset1() 
+  public Double getRW_Wset1()
   {
     return rW_Wset1;
   }
@@ -192,7 +184,7 @@ public class BpaSwi_RW
     this.rW_Wset1 = rW_Wset1;
   }
     
-  public Double getRW_Wset2() 
+  public Double getRW_Wset2()
   {
     return rW_Wset2;
   }
@@ -202,7 +194,7 @@ public class BpaSwi_RW
     this.rW_Wset2 = rW_Wset2;
   }
     
-  public Double getRW_Wset3() 
+  public Double getRW_Wset3()
   {
     return rW_Wset3;
   }
@@ -212,7 +204,7 @@ public class BpaSwi_RW
     this.rW_Wset3 = rW_Wset3;
   }
     
-  public Double getRW_Wset4() 
+  public Double getRW_Wset4()
   {
     return rW_Wset4;
   }
@@ -222,7 +214,7 @@ public class BpaSwi_RW
     this.rW_Wset4 = rW_Wset4;
   }
     
-  public Double getRW_Wset5() 
+  public Double getRW_Wset5()
   {
     return rW_Wset5;
   }
@@ -232,7 +224,7 @@ public class BpaSwi_RW
     this.rW_Wset5 = rW_Wset5;
   }
     
-  public Double getRW_Wset6() 
+  public Double getRW_Wset6()
   {
     return rW_Wset6;
   }
@@ -242,7 +234,7 @@ public class BpaSwi_RW
     this.rW_Wset6 = rW_Wset6;
   }
     
-  public Double getRW_Wset7() 
+  public Double getRW_Wset7()
   {
     return rW_Wset7;
   }
@@ -252,7 +244,7 @@ public class BpaSwi_RW
     this.rW_Wset7 = rW_Wset7;
   }
     
-  public Double getRW_Wset8() 
+  public Double getRW_Wset8()
   {
     return rW_Wset8;
   }
@@ -262,7 +254,7 @@ public class BpaSwi_RW
     this.rW_Wset8 = rW_Wset8;
   }
     
-  public Double getRW_Wset9() 
+  public Double getRW_Wset9()
   {
     return rW_Wset9;
   }
@@ -272,7 +264,7 @@ public class BpaSwi_RW
     this.rW_Wset9 = rW_Wset9;
   }
     
-  public Double getRW_Wset10() 
+  public Double getRW_Wset10()
   {
     return rW_Wset10;
   }
@@ -282,7 +274,7 @@ public class BpaSwi_RW
     this.rW_Wset10 = rW_Wset10;
   }
     
-  public Double getRW_Delay1() 
+  public Double getRW_Delay1()
   {
     return rW_Delay1;
   }
@@ -292,7 +284,7 @@ public class BpaSwi_RW
     this.rW_Delay1 = rW_Delay1;
   }
     
-  public Double getRW_Delay2() 
+  public Double getRW_Delay2()
   {
     return rW_Delay2;
   }
@@ -302,7 +294,7 @@ public class BpaSwi_RW
     this.rW_Delay2 = rW_Delay2;
   }
     
-  public Double getRW_Delay3() 
+  public Double getRW_Delay3()
   {
     return rW_Delay3;
   }
@@ -312,7 +304,7 @@ public class BpaSwi_RW
     this.rW_Delay3 = rW_Delay3;
   }
     
-  public Double getRW_Delay4() 
+  public Double getRW_Delay4()
   {
     return rW_Delay4;
   }
@@ -322,7 +314,7 @@ public class BpaSwi_RW
     this.rW_Delay4 = rW_Delay4;
   }
     
-  public Double getRW_Delay5() 
+  public Double getRW_Delay5()
   {
     return rW_Delay5;
   }
@@ -332,7 +324,7 @@ public class BpaSwi_RW
     this.rW_Delay5 = rW_Delay5;
   }
     
-  public Double getRW_Delay6() 
+  public Double getRW_Delay6()
   {
     return rW_Delay6;
   }
@@ -342,7 +334,7 @@ public class BpaSwi_RW
     this.rW_Delay6 = rW_Delay6;
   }
     
-  public Double getRW_Delay7() 
+  public Double getRW_Delay7()
   {
     return rW_Delay7;
   }
@@ -352,7 +344,7 @@ public class BpaSwi_RW
     this.rW_Delay7 = rW_Delay7;
   }
     
-  public Double getRW_Delay8() 
+  public Double getRW_Delay8()
   {
     return rW_Delay8;
   }
@@ -362,7 +354,7 @@ public class BpaSwi_RW
     this.rW_Delay8 = rW_Delay8;
   }
     
-  public Double getRW_Delay9() 
+  public Double getRW_Delay9()
   {
     return rW_Delay9;
   }
@@ -372,7 +364,7 @@ public class BpaSwi_RW
     this.rW_Delay9 = rW_Delay9;
   }
     
-  public Double getRW_Delay10() 
+  public Double getRW_Delay10()
   {
     return rW_Delay10;
   }
@@ -382,7 +374,7 @@ public class BpaSwi_RW
     this.rW_Delay10 = rW_Delay10;
   }
     
-  public Double getRW_Tbrk() 
+  public Double getRW_Tbrk()
   {
     return rW_Tbrk;
   }
@@ -392,7 +384,7 @@ public class BpaSwi_RW
     this.rW_Tbrk = rW_Tbrk;
   }
     
-  public Integer getBusPtr() 
+  public Integer getBusPtr()
   {
     return busPtr;
   }
@@ -400,6 +392,40 @@ public class BpaSwi_RW
   public void setBusPtr(Integer busPtr)
   {
     this.busPtr = busPtr;
+  }
+    
+  public String toString()
+  {
+    return "BpaSwi_RW ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_KV = " + aCBus_KV
+	 + ", gen_ID = " + gen_ID
+	 + ", rW_Wmax = " + rW_Wmax
+	 + ", rW_Wmin = " + rW_Wmin
+	 + ", rW_Wset1 = " + rW_Wset1
+	 + ", rW_Wset2 = " + rW_Wset2
+	 + ", rW_Wset3 = " + rW_Wset3
+	 + ", rW_Wset4 = " + rW_Wset4
+	 + ", rW_Wset5 = " + rW_Wset5
+	 + ", rW_Wset6 = " + rW_Wset6
+	 + ", rW_Wset7 = " + rW_Wset7
+	 + ", rW_Wset8 = " + rW_Wset8
+	 + ", rW_Wset9 = " + rW_Wset9
+	 + ", rW_Wset10 = " + rW_Wset10
+	 + ", rW_Delay1 = " + rW_Delay1
+	 + ", rW_Delay2 = " + rW_Delay2
+	 + ", rW_Delay3 = " + rW_Delay3
+	 + ", rW_Delay4 = " + rW_Delay4
+	 + ", rW_Delay5 = " + rW_Delay5
+	 + ", rW_Delay6 = " + rW_Delay6
+	 + ", rW_Delay7 = " + rW_Delay7
+	 + ", rW_Delay8 = " + rW_Delay8
+	 + ", rW_Delay9 = " + rW_Delay9
+	 + ", rW_Delay10 = " + rW_Delay10
+	 + ", rW_Tbrk = " + rW_Tbrk
+	 + ", busPtr = " + busPtr+"]";
   }
     
 }

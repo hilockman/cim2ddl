@@ -227,23 +227,23 @@ public class BpaSwi_TC
     
   public String toString()
   {
-    return "BpaSwi_TC ["+	"id"=id,
-	"memIndex"=memIndex,
-	"cardKey"=cardKey,
-	"aCBus_Name"=aCBus_Name,
-	"aCBus_kV"=aCBus_kV,
-	"gen_ID"=gen_ID,
-	"tC_TCH"=tC_TCH,
-	"tC_FVHP"=tC_FVHP,
-	"tC_TRH1"=tC_TRH1,
-	"tC_FHP"=tC_FHP,
-	"tC_TRH2"=tC_TRH2,
-	"tC_FIP"=tC_FIP,
-	"tC_TCO"=tC_TCO,
-	"tC_FLP"=tC_FLP,
-	"keyName"=keyName,
-	"busPtr"=busPtr,
-	"appendTag"=appendTag+"]"
+    return "BpaSwi_TC ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCBus_Name = " + aCBus_Name
+	 + ", aCBus_kV = " + aCBus_kV
+	 + ", gen_ID = " + gen_ID
+	 + ", tC_TCH = " + tC_TCH
+	 + ", tC_FVHP = " + tC_FVHP
+	 + ", tC_TRH1 = " + tC_TRH1
+	 + ", tC_FHP = " + tC_FHP
+	 + ", tC_TRH2 = " + tC_TRH2
+	 + ", tC_FIP = " + tC_FIP
+	 + ", tC_TCO = " + tC_TCO
+	 + ", tC_FLP = " + tC_FLP
+	 + ", keyName = " + keyName
+	 + ", busPtr = " + busPtr
+	 + ", appendTag = " + appendTag+"]";
   }
     
 }

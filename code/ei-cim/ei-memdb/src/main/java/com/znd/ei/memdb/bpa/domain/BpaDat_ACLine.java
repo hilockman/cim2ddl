@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *交流线路表(ACLine)	*
 ***********************/
-@Entity
 public class BpaDat_ACLine
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -156,7 +148,7 @@ public class BpaDat_ACLine
   //所在辐射网
   private Integer radiate;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -166,7 +158,7 @@ public class BpaDat_ACLine
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -176,7 +168,7 @@ public class BpaDat_ACLine
     this.memIndex = memIndex;
   }
     
-  public String getCardKey() 
+  public String getCardKey()
   {
     return cardKey;
   }
@@ -186,7 +178,7 @@ public class BpaDat_ACLine
     this.cardKey = cardKey;
   }
     
-  public String getACLine_Owner() 
+  public String getACLine_Owner()
   {
     return aCLine_Owner;
   }
@@ -196,7 +188,7 @@ public class BpaDat_ACLine
     this.aCLine_Owner = aCLine_Owner;
   }
     
-  public String getACLine_BusI() 
+  public String getACLine_BusI()
   {
     return aCLine_BusI;
   }
@@ -206,7 +198,7 @@ public class BpaDat_ACLine
     this.aCLine_BusI = aCLine_BusI;
   }
     
-  public Double getACLine_kVI() 
+  public Double getACLine_kVI()
   {
     return aCLine_kVI;
   }
@@ -216,7 +208,7 @@ public class BpaDat_ACLine
     this.aCLine_kVI = aCLine_kVI;
   }
     
-  public Integer getACLine_Meter() 
+  public Integer getACLine_Meter()
   {
     return aCLine_Meter;
   }
@@ -226,7 +218,7 @@ public class BpaDat_ACLine
     this.aCLine_Meter = aCLine_Meter;
   }
     
-  public String getACLine_BusJ() 
+  public String getACLine_BusJ()
   {
     return aCLine_BusJ;
   }
@@ -236,7 +228,7 @@ public class BpaDat_ACLine
     this.aCLine_BusJ = aCLine_BusJ;
   }
     
-  public Double getACLine_kVJ() 
+  public Double getACLine_kVJ()
   {
     return aCLine_kVJ;
   }
@@ -246,7 +238,7 @@ public class BpaDat_ACLine
     this.aCLine_kVJ = aCLine_kVJ;
   }
     
-  public Integer getACLine_Loop() 
+  public Integer getACLine_Loop()
   {
     return aCLine_Loop;
   }
@@ -256,7 +248,7 @@ public class BpaDat_ACLine
     this.aCLine_Loop = aCLine_Loop;
   }
     
-  public Integer getACLine_Section() 
+  public Integer getACLine_Section()
   {
     return aCLine_Section;
   }
@@ -266,7 +258,7 @@ public class BpaDat_ACLine
     this.aCLine_Section = aCLine_Section;
   }
     
-  public Double getACLine_AMP() 
+  public Double getACLine_AMP()
   {
     return aCLine_AMP;
   }
@@ -276,7 +268,7 @@ public class BpaDat_ACLine
     this.aCLine_AMP = aCLine_AMP;
   }
     
-  public Integer getACLine_LoopNum() 
+  public Integer getACLine_LoopNum()
   {
     return aCLine_LoopNum;
   }
@@ -286,7 +278,7 @@ public class BpaDat_ACLine
     this.aCLine_LoopNum = aCLine_LoopNum;
   }
     
-  public Double getACLine_R() 
+  public Double getACLine_R()
   {
     return aCLine_R;
   }
@@ -296,7 +288,7 @@ public class BpaDat_ACLine
     this.aCLine_R = aCLine_R;
   }
     
-  public Double getACLine_X() 
+  public Double getACLine_X()
   {
     return aCLine_X;
   }
@@ -306,7 +298,7 @@ public class BpaDat_ACLine
     this.aCLine_X = aCLine_X;
   }
     
-  public Double getACLine_G1() 
+  public Double getACLine_G1()
   {
     return aCLine_G1;
   }
@@ -316,7 +308,7 @@ public class BpaDat_ACLine
     this.aCLine_G1 = aCLine_G1;
   }
     
-  public Double getACLine_B1() 
+  public Double getACLine_B1()
   {
     return aCLine_B1;
   }
@@ -326,7 +318,7 @@ public class BpaDat_ACLine
     this.aCLine_B1 = aCLine_B1;
   }
     
-  public Double getACLine_G2() 
+  public Double getACLine_G2()
   {
     return aCLine_G2;
   }
@@ -336,7 +328,7 @@ public class BpaDat_ACLine
     this.aCLine_G2 = aCLine_G2;
   }
     
-  public Double getACLine_B2() 
+  public Double getACLine_B2()
   {
     return aCLine_B2;
   }
@@ -346,7 +338,7 @@ public class BpaDat_ACLine
     this.aCLine_B2 = aCLine_B2;
   }
     
-  public Double getACLine_Miles() 
+  public Double getACLine_Miles()
   {
     return aCLine_Miles;
   }
@@ -356,7 +348,7 @@ public class BpaDat_ACLine
     this.aCLine_Miles = aCLine_Miles;
   }
     
-  public Double getvd_Rerr() 
+  public Double getvd_Rerr()
   {
     return vd_Rerr;
   }
@@ -366,7 +358,7 @@ public class BpaDat_ACLine
     this.vd_Rerr = vd_Rerr;
   }
     
-  public Double getvd_RScc1() 
+  public Double getvd_RScc1()
   {
     return vd_RScc1;
   }
@@ -376,7 +368,7 @@ public class BpaDat_ACLine
     this.vd_RScc1 = vd_RScc1;
   }
     
-  public Double getvd_RScc2() 
+  public Double getvd_RScc2()
   {
     return vd_RScc2;
   }
@@ -386,7 +378,7 @@ public class BpaDat_ACLine
     this.vd_RScc2 = vd_RScc2;
   }
     
-  public Double getvd_RScc3() 
+  public Double getvd_RScc3()
   {
     return vd_RScc3;
   }
@@ -396,7 +388,7 @@ public class BpaDat_ACLine
     this.vd_RScc3 = vd_RScc3;
   }
     
-  public Double getvd_RScc4() 
+  public Double getvd_RScc4()
   {
     return vd_RScc4;
   }
@@ -406,7 +398,7 @@ public class BpaDat_ACLine
     this.vd_RScc4 = vd_RScc4;
   }
     
-  public Double getACLine_Pi() 
+  public Double getACLine_Pi()
   {
     return aCLine_Pi;
   }
@@ -416,7 +408,7 @@ public class BpaDat_ACLine
     this.aCLine_Pi = aCLine_Pi;
   }
     
-  public Double getACLine_Qi() 
+  public Double getACLine_Qi()
   {
     return aCLine_Qi;
   }
@@ -426,7 +418,7 @@ public class BpaDat_ACLine
     this.aCLine_Qi = aCLine_Qi;
   }
     
-  public Double getACLine_Pz() 
+  public Double getACLine_Pz()
   {
     return aCLine_Pz;
   }
@@ -436,7 +428,7 @@ public class BpaDat_ACLine
     this.aCLine_Pz = aCLine_Pz;
   }
     
-  public Double getACLine_Qz() 
+  public Double getACLine_Qz()
   {
     return aCLine_Qz;
   }
@@ -446,7 +438,7 @@ public class BpaDat_ACLine
     this.aCLine_Qz = aCLine_Qz;
   }
     
-  public Double getACLine_LossP() 
+  public Double getACLine_LossP()
   {
     return aCLine_LossP;
   }
@@ -456,7 +448,7 @@ public class BpaDat_ACLine
     this.aCLine_LossP = aCLine_LossP;
   }
     
-  public Double getACLine_LossQ() 
+  public Double getACLine_LossQ()
   {
     return aCLine_LossQ;
   }
@@ -466,7 +458,7 @@ public class BpaDat_ACLine
     this.aCLine_LossQ = aCLine_LossQ;
   }
     
-  public Double getACLine_SccA() 
+  public Double getACLine_SccA()
   {
     return aCLine_SccA;
   }
@@ -476,7 +468,7 @@ public class BpaDat_ACLine
     this.aCLine_SccA = aCLine_SccA;
   }
     
-  public Integer getACLine_VDipBus1() 
+  public Integer getACLine_VDipBus1()
   {
     return aCLine_VDipBus1;
   }
@@ -486,7 +478,7 @@ public class BpaDat_ACLine
     this.aCLine_VDipBus1 = aCLine_VDipBus1;
   }
     
-  public Integer getACLine_VDipBus2() 
+  public Integer getACLine_VDipBus2()
   {
     return aCLine_VDipBus2;
   }
@@ -496,7 +488,7 @@ public class BpaDat_ACLine
     this.aCLine_VDipBus2 = aCLine_VDipBus2;
   }
     
-  public Integer getACLine_VDipBus3() 
+  public Integer getACLine_VDipBus3()
   {
     return aCLine_VDipBus3;
   }
@@ -506,7 +498,7 @@ public class BpaDat_ACLine
     this.aCLine_VDipBus3 = aCLine_VDipBus3;
   }
     
-  public Integer getACLine_VDipBus4() 
+  public Integer getACLine_VDipBus4()
   {
     return aCLine_VDipBus4;
   }
@@ -516,7 +508,7 @@ public class BpaDat_ACLine
     this.aCLine_VDipBus4 = aCLine_VDipBus4;
   }
     
-  public String getKeyName() 
+  public String getKeyName()
   {
     return keyName;
   }
@@ -526,7 +518,7 @@ public class BpaDat_ACLine
     this.keyName = keyName;
   }
     
-  public String getIniBusI() 
+  public String getIniBusI()
   {
     return iniBusI;
   }
@@ -536,7 +528,7 @@ public class BpaDat_ACLine
     this.iniBusI = iniBusI;
   }
     
-  public Double getInikVI() 
+  public Double getInikVI()
   {
     return inikVI;
   }
@@ -546,7 +538,7 @@ public class BpaDat_ACLine
     this.inikVI = inikVI;
   }
     
-  public String getIniBusJ() 
+  public String getIniBusJ()
   {
     return iniBusJ;
   }
@@ -556,7 +548,7 @@ public class BpaDat_ACLine
     this.iniBusJ = iniBusJ;
   }
     
-  public Double getInikVJ() 
+  public Double getInikVJ()
   {
     return inikVJ;
   }
@@ -566,7 +558,7 @@ public class BpaDat_ACLine
     this.inikVJ = inikVJ;
   }
     
-  public Integer getIniLoop() 
+  public Integer getIniLoop()
   {
     return iniLoop;
   }
@@ -576,7 +568,7 @@ public class BpaDat_ACLine
     this.iniLoop = iniLoop;
   }
     
-  public Integer getiRBus() 
+  public Integer getiRBus()
   {
     return iRBus;
   }
@@ -586,7 +578,7 @@ public class BpaDat_ACLine
     this.iRBus = iRBus;
   }
     
-  public Integer getzRBus() 
+  public Integer getzRBus()
   {
     return zRBus;
   }
@@ -596,7 +588,7 @@ public class BpaDat_ACLine
     this.zRBus = zRBus;
   }
     
-  public String getAlias() 
+  public String getAlias()
   {
     return alias;
   }
@@ -606,7 +598,7 @@ public class BpaDat_ACLine
     this.alias = alias;
   }
     
-  public Integer getStatus() 
+  public Integer getStatus()
   {
     return status;
   }
@@ -616,7 +608,7 @@ public class BpaDat_ACLine
     this.status = status;
   }
     
-  public Integer getInRing() 
+  public Integer getInRing()
   {
     return inRing;
   }
@@ -626,7 +618,7 @@ public class BpaDat_ACLine
     this.inRing = inRing;
   }
     
-  public Integer getRadiate() 
+  public Integer getRadiate()
   {
     return radiate;
   }
@@ -635,35 +627,58 @@ public class BpaDat_ACLine
   {
     this.radiate = radiate;
   }
-
-@Override
-public String toString() {
-	return "BpaDat_ACLine [id=" + id + ", memIndex=" + memIndex + ", cardKey="
-			+ cardKey + ", aCLine_Owner=" + aCLine_Owner + ", aCLine_BusI="
-			+ aCLine_BusI + ", aCLine_kVI=" + aCLine_kVI + ", aCLine_Meter="
-			+ aCLine_Meter + ", aCLine_BusJ=" + aCLine_BusJ + ", aCLine_kVJ="
-			+ aCLine_kVJ + ", aCLine_Loop=" + aCLine_Loop + ", aCLine_Section="
-			+ aCLine_Section + ", aCLine_AMP=" + aCLine_AMP
-			+ ", aCLine_LoopNum=" + aCLine_LoopNum + ", aCLine_R=" + aCLine_R
-			+ ", aCLine_X=" + aCLine_X + ", aCLine_G1=" + aCLine_G1
-			+ ", aCLine_B1=" + aCLine_B1 + ", aCLine_G2=" + aCLine_G2
-			+ ", aCLine_B2=" + aCLine_B2 + ", aCLine_Miles=" + aCLine_Miles
-			+ ", vd_Rerr=" + vd_Rerr + ", vd_RScc1=" + vd_RScc1 + ", vd_RScc2="
-			+ vd_RScc2 + ", vd_RScc3=" + vd_RScc3 + ", vd_RScc4=" + vd_RScc4
-			+ ", aCLine_Pi=" + aCLine_Pi + ", aCLine_Qi=" + aCLine_Qi
-			+ ", aCLine_Pz=" + aCLine_Pz + ", aCLine_Qz=" + aCLine_Qz
-			+ ", aCLine_LossP=" + aCLine_LossP + ", aCLine_LossQ="
-			+ aCLine_LossQ + ", aCLine_SccA=" + aCLine_SccA
-			+ ", aCLine_VDipBus1=" + aCLine_VDipBus1 + ", aCLine_VDipBus2="
-			+ aCLine_VDipBus2 + ", aCLine_VDipBus3=" + aCLine_VDipBus3
-			+ ", aCLine_VDipBus4=" + aCLine_VDipBus4 + ", keyName=" + keyName
-			+ ", iniBusI=" + iniBusI + ", inikVI=" + inikVI + ", iniBusJ="
-			+ iniBusJ + ", inikVJ=" + inikVJ + ", iniLoop=" + iniLoop
-			+ ", iRBus=" + iRBus + ", zRBus=" + zRBus + ", alias=" + alias
-			+ ", status=" + status + ", inRing=" + inRing + ", radiate="
-			+ radiate + "]";
-}
-
+    
+  public String toString()
+  {
+    return "BpaDat_ACLine ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", cardKey = " + cardKey
+	 + ", aCLine_Owner = " + aCLine_Owner
+	 + ", aCLine_BusI = " + aCLine_BusI
+	 + ", aCLine_kVI = " + aCLine_kVI
+	 + ", aCLine_Meter = " + aCLine_Meter
+	 + ", aCLine_BusJ = " + aCLine_BusJ
+	 + ", aCLine_kVJ = " + aCLine_kVJ
+	 + ", aCLine_Loop = " + aCLine_Loop
+	 + ", aCLine_Section = " + aCLine_Section
+	 + ", aCLine_AMP = " + aCLine_AMP
+	 + ", aCLine_LoopNum = " + aCLine_LoopNum
+	 + ", aCLine_R = " + aCLine_R
+	 + ", aCLine_X = " + aCLine_X
+	 + ", aCLine_G1 = " + aCLine_G1
+	 + ", aCLine_B1 = " + aCLine_B1
+	 + ", aCLine_G2 = " + aCLine_G2
+	 + ", aCLine_B2 = " + aCLine_B2
+	 + ", aCLine_Miles = " + aCLine_Miles
+	 + ", vd_Rerr = " + vd_Rerr
+	 + ", vd_RScc1 = " + vd_RScc1
+	 + ", vd_RScc2 = " + vd_RScc2
+	 + ", vd_RScc3 = " + vd_RScc3
+	 + ", vd_RScc4 = " + vd_RScc4
+	 + ", aCLine_Pi = " + aCLine_Pi
+	 + ", aCLine_Qi = " + aCLine_Qi
+	 + ", aCLine_Pz = " + aCLine_Pz
+	 + ", aCLine_Qz = " + aCLine_Qz
+	 + ", aCLine_LossP = " + aCLine_LossP
+	 + ", aCLine_LossQ = " + aCLine_LossQ
+	 + ", aCLine_SccA = " + aCLine_SccA
+	 + ", aCLine_VDipBus1 = " + aCLine_VDipBus1
+	 + ", aCLine_VDipBus2 = " + aCLine_VDipBus2
+	 + ", aCLine_VDipBus3 = " + aCLine_VDipBus3
+	 + ", aCLine_VDipBus4 = " + aCLine_VDipBus4
+	 + ", keyName = " + keyName
+	 + ", iniBusI = " + iniBusI
+	 + ", inikVI = " + inikVI
+	 + ", iniBusJ = " + iniBusJ
+	 + ", inikVJ = " + inikVJ
+	 + ", iniLoop = " + iniLoop
+	 + ", iRBus = " + iRBus
+	 + ", zRBus = " + zRBus
+	 + ", alias = " + alias
+	 + ", status = " + status
+	 + ", inRing = " + inRing
+	 + ", radiate = " + radiate+"]";
+  }
     
 }
     

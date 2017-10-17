@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *开断故障下越限信息	*
 ***********************/
-@Entity
 public class TripOvlDev
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -33,7 +25,7 @@ public class TripOvlDev
   //额定值(MW)
   private Double rated;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -43,7 +35,7 @@ public class TripOvlDev
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -53,7 +45,7 @@ public class TripOvlDev
     this.memIndex = memIndex;
   }
     
-  public Integer getTrip() 
+  public Integer getTrip()
   {
     return trip;
   }
@@ -63,7 +55,7 @@ public class TripOvlDev
     this.trip = trip;
   }
     
-  public Integer getOvlmtDevTyp() 
+  public Integer getOvlmtDevTyp()
   {
     return ovlmtDevTyp;
   }
@@ -73,7 +65,7 @@ public class TripOvlDev
     this.ovlmtDevTyp = ovlmtDevTyp;
   }
     
-  public Integer getOvlmtDevIdx() 
+  public Integer getOvlmtDevIdx()
   {
     return ovlmtDevIdx;
   }
@@ -83,7 +75,7 @@ public class TripOvlDev
     this.ovlmtDevIdx = ovlmtDevIdx;
   }
     
-  public Double getOvLmtValue() 
+  public Double getOvLmtValue()
   {
     return ovLmtValue;
   }
@@ -93,7 +85,7 @@ public class TripOvlDev
     this.ovLmtValue = ovLmtValue;
   }
     
-  public Double getRated() 
+  public Double getRated()
   {
     return rated;
   }
@@ -101,6 +93,17 @@ public class TripOvlDev
   public void setRated(Double rated)
   {
     this.rated = rated;
+  }
+    
+  public String toString()
+  {
+    return "TripOvlDev ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", trip = " + trip
+	 + ", ovlmtDevTyp = " + ovlmtDevTyp
+	 + ", ovlmtDevIdx = " + ovlmtDevIdx
+	 + ", ovLmtValue = " + ovLmtValue
+	 + ", rated = " + rated+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *交流电岛	*
 ***********************/
-@Entity
 public class ACIsland
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -33,7 +25,7 @@ public class ACIsland
   //死岛
   private Integer dead;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -43,7 +35,7 @@ public class ACIsland
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -53,7 +45,7 @@ public class ACIsland
     this.memIndex = memIndex;
   }
     
-  public Double getGenP() 
+  public Double getGenP()
   {
     return genP;
   }
@@ -63,7 +55,7 @@ public class ACIsland
     this.genP = genP;
   }
     
-  public Double getLoadP() 
+  public Double getLoadP()
   {
     return loadP;
   }
@@ -73,7 +65,7 @@ public class ACIsland
     this.loadP = loadP;
   }
     
-  public Integer getBusNum() 
+  public Integer getBusNum()
   {
     return busNum;
   }
@@ -83,7 +75,7 @@ public class ACIsland
     this.busNum = busNum;
   }
     
-  public Integer getSwingBus() 
+  public Integer getSwingBus()
   {
     return swingBus;
   }
@@ -93,7 +85,7 @@ public class ACIsland
     this.swingBus = swingBus;
   }
     
-  public Integer getDead() 
+  public Integer getDead()
   {
     return dead;
   }
@@ -101,6 +93,17 @@ public class ACIsland
   public void setDead(Integer dead)
   {
     this.dead = dead;
+  }
+    
+  public String toString()
+  {
+    return "ACIsland ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", genP = " + genP
+	 + ", loadP = " + loadP
+	 + ", busNum = " + busNum
+	 + ", swingBus = " + swingBus
+	 + ", dead = " + dead+"]";
   }
     
 }

@@ -1,19 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**********************
 *变压器绕组	*
 ***********************/
-@Entity
 public class Wind
 {
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
   
   private Integer memIndex;
@@ -177,7 +169,7 @@ public class Wind
   //一阶相关开断分布因子个数
   private Integer trFactorNum;
   
-  public Integer getId() 
+  public Integer getId()
   {
     return id;
   }
@@ -187,7 +179,7 @@ public class Wind
     this.id = id;
   }
     
-  public Integer getMemIndex() 
+  public Integer getMemIndex()
   {
     return memIndex;
   }
@@ -197,7 +189,7 @@ public class Wind
     this.memIndex = memIndex;
   }
     
-  public String getName() 
+  public String getName()
   {
     return name;
   }
@@ -207,7 +199,7 @@ public class Wind
     this.name = name;
   }
     
-  public String getBusI() 
+  public String getBusI()
   {
     return busI;
   }
@@ -217,7 +209,7 @@ public class Wind
     this.busI = busI;
   }
     
-  public String getBusJ() 
+  public String getBusJ()
   {
     return busJ;
   }
@@ -227,7 +219,7 @@ public class Wind
     this.busJ = busJ;
   }
     
-  public Double getkVI() 
+  public Double getkVI()
   {
     return kVI;
   }
@@ -237,7 +229,7 @@ public class Wind
     this.kVI = kVI;
   }
     
-  public Double getkVJ() 
+  public Double getkVJ()
   {
     return kVJ;
   }
@@ -247,7 +239,7 @@ public class Wind
     this.kVJ = kVJ;
   }
     
-  public Integer getParlId() 
+  public Integer getParlId()
   {
     return parlId;
   }
@@ -257,7 +249,7 @@ public class Wind
     this.parlId = parlId;
   }
     
-  public Double getR() 
+  public Double getR()
   {
     return r;
   }
@@ -267,7 +259,7 @@ public class Wind
     this.r = r;
   }
     
-  public Double getX() 
+  public Double getX()
   {
     return x;
   }
@@ -277,7 +269,7 @@ public class Wind
     this.x = x;
   }
     
-  public Double getRated() 
+  public Double getRated()
   {
     return rated;
   }
@@ -287,7 +279,7 @@ public class Wind
     this.rated = rated;
   }
     
-  public Double getWeights() 
+  public Double getWeights()
   {
     return weights;
   }
@@ -297,7 +289,7 @@ public class Wind
     this.weights = weights;
   }
     
-  public Double getRerr() 
+  public Double getRerr()
   {
     return rerr;
   }
@@ -307,7 +299,7 @@ public class Wind
     this.rerr = rerr;
   }
     
-  public Double getRrep() 
+  public Double getRrep()
   {
     return rrep;
   }
@@ -317,7 +309,7 @@ public class Wind
     this.rrep = rrep;
   }
     
-  public Double getTrep() 
+  public Double getTrep()
   {
     return trep;
   }
@@ -327,7 +319,7 @@ public class Wind
     this.trep = trep;
   }
     
-  public Double getGoodProb() 
+  public Double getGoodProb()
   {
     return goodProb;
   }
@@ -337,7 +329,7 @@ public class Wind
     this.goodProb = goodProb;
   }
     
-  public Double getFailProb() 
+  public Double getFailProb()
   {
     return failProb;
   }
@@ -347,7 +339,7 @@ public class Wind
     this.failProb = failProb;
   }
     
-  public Double getIRt() 
+  public Double getIRt()
   {
     return iRt;
   }
@@ -357,7 +349,7 @@ public class Wind
     this.iRt = iRt;
   }
     
-  public Double getIMax() 
+  public Double getIMax()
   {
     return iMax;
   }
@@ -367,7 +359,7 @@ public class Wind
     this.iMax = iMax;
   }
     
-  public Double getIMin() 
+  public Double getIMin()
   {
     return iMin;
   }
@@ -377,7 +369,7 @@ public class Wind
     this.iMin = iMin;
   }
     
-  public Double getRerrMax() 
+  public Double getRerrMax()
   {
     return rerrMax;
   }
@@ -387,7 +379,7 @@ public class Wind
     this.rerrMax = rerrMax;
   }
     
-  public Double getRerrMin() 
+  public Double getRerrMin()
   {
     return rerrMin;
   }
@@ -397,7 +389,7 @@ public class Wind
     this.rerrMin = rerrMin;
   }
     
-  public Integer getFaultFreq() 
+  public Integer getFaultFreq()
   {
     return faultFreq;
   }
@@ -407,7 +399,7 @@ public class Wind
     this.faultFreq = faultFreq;
   }
     
-  public Integer getOLmtFreq() 
+  public Integer getOLmtFreq()
   {
     return oLmtFreq;
   }
@@ -417,7 +409,7 @@ public class Wind
     this.oLmtFreq = oLmtFreq;
   }
     
-  public Double getOLmtValue() 
+  public Double getOLmtValue()
   {
     return oLmtValue;
   }
@@ -427,7 +419,7 @@ public class Wind
     this.oLmtValue = oLmtValue;
   }
     
-  public Double getELmtCutLoad() 
+  public Double getELmtCutLoad()
   {
     return eLmtCutLoad;
   }
@@ -437,7 +429,7 @@ public class Wind
     this.eLmtCutLoad = eLmtCutLoad;
   }
     
-  public Double getRtPi() 
+  public Double getRtPi()
   {
     return rtPi;
   }
@@ -447,7 +439,7 @@ public class Wind
     this.rtPi = rtPi;
   }
     
-  public Double getRtQi() 
+  public Double getRtQi()
   {
     return rtQi;
   }
@@ -457,7 +449,7 @@ public class Wind
     this.rtQi = rtQi;
   }
     
-  public Double getRtPz() 
+  public Double getRtPz()
   {
     return rtPz;
   }
@@ -467,7 +459,7 @@ public class Wind
     this.rtPz = rtPz;
   }
     
-  public Double getRtQz() 
+  public Double getRtQz()
   {
     return rtQz;
   }
@@ -477,7 +469,7 @@ public class Wind
     this.rtQz = rtQz;
   }
     
-  public Double getLossP() 
+  public Double getLossP()
   {
     return lossP;
   }
@@ -487,7 +479,7 @@ public class Wind
     this.lossP = lossP;
   }
     
-  public Double getPfPi() 
+  public Double getPfPi()
   {
     return pfPi;
   }
@@ -497,7 +489,7 @@ public class Wind
     this.pfPi = pfPi;
   }
     
-  public Double getPfQi() 
+  public Double getPfQi()
   {
     return pfQi;
   }
@@ -507,7 +499,7 @@ public class Wind
     this.pfQi = pfQi;
   }
     
-  public Double getPfPz() 
+  public Double getPfPz()
   {
     return pfPz;
   }
@@ -517,7 +509,7 @@ public class Wind
     this.pfPz = pfPz;
   }
     
-  public Double getPfQz() 
+  public Double getPfQz()
   {
     return pfQz;
   }
@@ -527,7 +519,7 @@ public class Wind
     this.pfQz = pfQz;
   }
     
-  public Double getTrPi() 
+  public Double getTrPi()
   {
     return trPi;
   }
@@ -537,7 +529,7 @@ public class Wind
     this.trPi = trPi;
   }
     
-  public Double getTrQi() 
+  public Double getTrQi()
   {
     return trQi;
   }
@@ -547,7 +539,7 @@ public class Wind
     this.trQi = trQi;
   }
     
-  public Double getTrPz() 
+  public Double getTrPz()
   {
     return trPz;
   }
@@ -557,7 +549,7 @@ public class Wind
     this.trPz = trPz;
   }
     
-  public Double getTrQz() 
+  public Double getTrQz()
   {
     return trQz;
   }
@@ -567,7 +559,7 @@ public class Wind
     this.trQz = trQz;
   }
     
-  public String getIniBusI() 
+  public String getIniBusI()
   {
     return iniBusI;
   }
@@ -577,7 +569,7 @@ public class Wind
     this.iniBusI = iniBusI;
   }
     
-  public String getIniBusJ() 
+  public String getIniBusJ()
   {
     return iniBusJ;
   }
@@ -587,7 +579,7 @@ public class Wind
     this.iniBusJ = iniBusJ;
   }
     
-  public Double getInikVI() 
+  public Double getInikVI()
   {
     return inikVI;
   }
@@ -597,7 +589,7 @@ public class Wind
     this.inikVI = inikVI;
   }
     
-  public Double getInikVJ() 
+  public Double getInikVJ()
   {
     return inikVJ;
   }
@@ -607,7 +599,7 @@ public class Wind
     this.inikVJ = inikVJ;
   }
     
-  public Integer getIniLoop() 
+  public Integer getIniLoop()
   {
     return iniLoop;
   }
@@ -617,7 +609,7 @@ public class Wind
     this.iniLoop = iniLoop;
   }
     
-  public Integer getBusIPtr() 
+  public Integer getBusIPtr()
   {
     return busIPtr;
   }
@@ -627,7 +619,7 @@ public class Wind
     this.busIPtr = busIPtr;
   }
     
-  public Integer getBusJPtr() 
+  public Integer getBusJPtr()
   {
     return busJPtr;
   }
@@ -637,7 +629,7 @@ public class Wind
     this.busJPtr = busJPtr;
   }
     
-  public Integer getRadIPtr() 
+  public Integer getRadIPtr()
   {
     return radIPtr;
   }
@@ -647,7 +639,7 @@ public class Wind
     this.radIPtr = radIPtr;
   }
     
-  public Integer getRadJPtr() 
+  public Integer getRadJPtr()
   {
     return radJPtr;
   }
@@ -657,7 +649,7 @@ public class Wind
     this.radJPtr = radJPtr;
   }
     
-  public Integer getSerialNo() 
+  public Integer getSerialNo()
   {
     return serialNo;
   }
@@ -667,7 +659,7 @@ public class Wind
     this.serialNo = serialNo;
   }
     
-  public Integer getACIsland() 
+  public Integer getACIsland()
   {
     return aCIsland;
   }
@@ -677,7 +669,7 @@ public class Wind
     this.aCIsland = aCIsland;
   }
     
-  public Integer getGenTran() 
+  public Integer getGenTran()
   {
     return genTran;
   }
@@ -687,7 +679,7 @@ public class Wind
     this.genTran = genTran;
   }
     
-  public Integer getOutage() 
+  public Integer getOutage()
   {
     return outage;
   }
@@ -697,7 +689,7 @@ public class Wind
     this.outage = outage;
   }
     
-  public Integer getRParamType() 
+  public Integer getRParamType()
   {
     return rParamType;
   }
@@ -707,7 +699,7 @@ public class Wind
     this.rParamType = rParamType;
   }
     
-  public Integer getTrMIsland() 
+  public Integer getTrMIsland()
   {
     return trMIsland;
   }
@@ -717,7 +709,7 @@ public class Wind
     this.trMIsland = trMIsland;
   }
     
-  public Integer getTrFactorNum() 
+  public Integer getTrFactorNum()
   {
     return trFactorNum;
   }
@@ -725,6 +717,65 @@ public class Wind
   public void setTrFactorNum(Integer trFactorNum)
   {
     this.trFactorNum = trFactorNum;
+  }
+    
+  public String toString()
+  {
+    return "Wind ["+"id = " + id
+	 + ", memIndex = " + memIndex
+	 + ", name = " + name
+	 + ", busI = " + busI
+	 + ", busJ = " + busJ
+	 + ", kVI = " + kVI
+	 + ", kVJ = " + kVJ
+	 + ", parlId = " + parlId
+	 + ", r = " + r
+	 + ", x = " + x
+	 + ", rated = " + rated
+	 + ", weights = " + weights
+	 + ", rerr = " + rerr
+	 + ", rrep = " + rrep
+	 + ", trep = " + trep
+	 + ", goodProb = " + goodProb
+	 + ", failProb = " + failProb
+	 + ", iRt = " + iRt
+	 + ", iMax = " + iMax
+	 + ", iMin = " + iMin
+	 + ", rerrMax = " + rerrMax
+	 + ", rerrMin = " + rerrMin
+	 + ", faultFreq = " + faultFreq
+	 + ", oLmtFreq = " + oLmtFreq
+	 + ", oLmtValue = " + oLmtValue
+	 + ", eLmtCutLoad = " + eLmtCutLoad
+	 + ", rtPi = " + rtPi
+	 + ", rtQi = " + rtQi
+	 + ", rtPz = " + rtPz
+	 + ", rtQz = " + rtQz
+	 + ", lossP = " + lossP
+	 + ", pfPi = " + pfPi
+	 + ", pfQi = " + pfQi
+	 + ", pfPz = " + pfPz
+	 + ", pfQz = " + pfQz
+	 + ", trPi = " + trPi
+	 + ", trQi = " + trQi
+	 + ", trPz = " + trPz
+	 + ", trQz = " + trQz
+	 + ", iniBusI = " + iniBusI
+	 + ", iniBusJ = " + iniBusJ
+	 + ", inikVI = " + inikVI
+	 + ", inikVJ = " + inikVJ
+	 + ", iniLoop = " + iniLoop
+	 + ", busIPtr = " + busIPtr
+	 + ", busJPtr = " + busJPtr
+	 + ", radIPtr = " + radIPtr
+	 + ", radJPtr = " + radJPtr
+	 + ", serialNo = " + serialNo
+	 + ", aCIsland = " + aCIsland
+	 + ", genTran = " + genTran
+	 + ", outage = " + outage
+	 + ", rParamType = " + rParamType
+	 + ", trMIsland = " + trMIsland
+	 + ", trFactorNum = " + trFactorNum+"]";
   }
     
 }
