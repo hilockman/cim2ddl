@@ -38,19 +38,27 @@ public class Config {
 //		return repository;
 //	}
 
-	@Bean
-	public DbEntryOperations pROps(DbEntryCollection c) throws DbException {
-		return c.findOrCreateDbEntry(MDBDefine.g_strPRDBEntry);
-	}
+//	@Bean
+//	public DbEntryOperations pROps(DbEntryCollection c) throws DbException {
+//		return c.findOrCreateDbEntry(MDBDefine.g_strPRDBEntry);
+//	}
+//	
+//	@Bean
+//	public DbEntryOperations bPAOps(DbEntryCollection c) throws DbException {
+//		return c.findOrCreateDbEntry(MDBDefine.g_strBpaDBEntry);
+//	}
 	
 	@Bean
-	public DbEntryOperations bPAOps(DbEntryCollection c) throws DbException {
-		return c.findOrCreateDbEntry(MDBDefine.g_strBpaDBEntry);
-	}
-	
-	@Bean
-	public DbEntryOperations[] opss(DbEntryOperations pROps, DbEntryOperations bPAOps) {
-		DbEntryOperations[] opsl = {pROps, bPAOps}; 
-		return opsl;
+	public DbEntryOperations[] pROps(DbEntryCollection c) throws DbException {
+		String[] entryNames = MDBDefine.g_strDBEntryArray;
+		DbEntryOperations[] opss = new DbEntryOperations[entryNames.length];
+		int index = 0;
+
+		for (String entryName : entryNames) {
+			DbEntryOperations ops = c.findOrCreateDbEntry(entryName);
+			opss[index++] = ops;
+		}
+
+		return opss;
 	}
 }

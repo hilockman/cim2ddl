@@ -186,9 +186,6 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		return records;
 	}
 	
-	
-	
-
 	@Override
 	public long getRecordCount(MemTable table) {
 		return JMemDBApi.getTableRecordNum(dbname, table.getIndex());
@@ -199,7 +196,6 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		for (int i = 0; i < tables.size(); i++) {
 			JMemDBApi.clearTable(dbname, i);
 		}
-
 	}
 
 	public Connection getConnection() {
@@ -228,7 +224,10 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		return new NullIterator();
 	}
 
-
+	@Override
+	public String toString() {
+		return "DbEntry [connection=" + connection + ", dbname=" + dbname + "]";
+	}
 }
 
 @SuppressWarnings("rawtypes")

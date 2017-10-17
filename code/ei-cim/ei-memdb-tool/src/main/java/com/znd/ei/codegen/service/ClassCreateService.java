@@ -14,4 +14,6 @@ public interface ClassCreateService {
     
     
     void init();
+    
+	Path getRootLocation();
 }

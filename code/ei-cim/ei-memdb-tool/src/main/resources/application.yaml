@@ -1,3 +1,13 @@
+dbcheck:
+      invalidTableNames: load, table
+      invalidFieldPattern: "[0-9]+.*"
+      validFieldPattern: "^[_a-zA-Z][_a-zA-Z0-9]*$" 
+      invalidFieldNames: 
+                        - loop
+                        - index
+                        - id
+                        - mod
+                        - if
 gencode:
    target: D:/GitHub/cim2ddl/code/ei-cim/ei-memdb-tool/gencode
    dbInfos: 

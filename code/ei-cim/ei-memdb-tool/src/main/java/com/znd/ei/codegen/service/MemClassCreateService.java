@@ -31,11 +31,14 @@ public class MemClassCreateService implements ClassCreateService {
 	private static final Logger log = LoggerFactory
 			.getLogger(MemClassCreateService.class);
 
-	private StorageProperties properties;
+	private GenCodeProperties properties;
 
 	@Autowired
+	private CheckService checkService;
+	
+	@Autowired
 	public MemClassCreateService(/* DbEntryOperations bPAOps, */
-	StorageProperties properties) {
+	GenCodeProperties properties) {
 		rootLocation = Paths.get(properties.getTarget());
 		// this.ops = bPAOps;
 		// this.setMemDbRepository(bPAOps);
@@ -51,16 +54,13 @@ public class MemClassCreateService implements ClassCreateService {
 	// this.ops = memDbRepository;
 	// }
 
-	private Path getRootLocation() {
-		return Paths.get(properties.getTarget());
-	}
-
 	private void createClasses(Pattern pattern, DbInfo dbInfo) {
 
 		DbEntryOperations ops = DbEntryOperations.find(dbInfo.getEntryName());
 		String packageName = dbInfo.getPackageName();
-		Path location = Paths.get(properties.getTarget() + "/"
-				+ packageName.replaceAll(".", "/"));
+		String path = properties.getTarget() + "/"
+				+ packageName.replaceAll("\\.", "/");
+		Path location = Paths.get(path);
 		try {
 			Files.createDirectories(location);
 		} catch (IOException e) {
@@ -116,15 +116,15 @@ public class MemClassCreateService implements ClassCreateService {
 		return pathName.replaceAll("[/|\\\\]", ".");
 	}
 
-//	@Override
-//	public void deleteAll() {
-//
-//		FileSystemUtils.deleteRecursively(rootLocation.toFile());
-//
-//		String strs[] = rootLocation.toString().split("[/|\\\\]");
-//		File path = Paths.get(strs[0]).toAbsolutePath().toFile();
-////		Utils.deleteAllFilesOfDir(path);
-//	}
+	// @Override
+	// public void deleteAll() {
+	//
+	// FileSystemUtils.deleteRecursively(rootLocation.toFile());
+	//
+	// String strs[] = rootLocation.toString().split("[/|\\\\]");
+	// File path = Paths.get(strs[0]).toAbsolutePath().toFile();
+	// // Utils.deleteAllFilesOfDir(path);
+	// }
 
 	private String lowerCaseFirstLetter(String name) {
 		StringBuffer buff = new StringBuffer();
@@ -136,11 +136,14 @@ public class MemClassCreateService implements ClassCreateService {
 	@Override
 	public void store(MemTable table, Path location, String packageName) {
 
-		
 		String str = location.toString();
 		// String packageName = toPackageName(str);
 		String fileName = str + "/" + table.getName() + ".java";
 		Utils.deleteAllFilesOfDir(new File(fileName));
+		
+		if (!checkService.check(table)) { //表字段有误则不产生java文件
+			return;
+		}
 		CodeTemplateContext context = new CodeTemplateContext();
 
 		context.add(new CodeBlock() { // 包声明
@@ -162,7 +165,9 @@ public class MemClassCreateService implements ClassCreateService {
 				w.write("/**********************");
 				w.write("*" + table.getDescription() + "\t*");
 				w.write("***********************/");
-				w.write("@Entity");
+				if (properties.isEnableEntityAnnotation()) {
+					w.write("@Entity");
+				}
 			}
 		});
 
@@ -246,47 +251,38 @@ public class MemClassCreateService implements ClassCreateService {
 
 		}
 
+		List<String> toStringMethods = new ArrayList<String>();
 		for (int i = 0; i < fieldInfos.size(); i++) {
 			FieldInfo info = fieldInfos.get(i);
 			StringBuffer buff = new StringBuffer();
-			classNode.add(new CodeBlock() {
+			classNode.add(w -> {// get方法名
 
-				@Override
-				public void write(FileLineWriter w) { // get方法名
-					buff.append("public ").append(info.getTypeName())
-							.append(" get").append(info.getName())
-							.append("() ");
-					w.write(buff.toString());
-				}
-			}).add(new CodeBlock() {// get函数体
-				@Override
-				public void write(FileLineWriter w) {
-					w.write("return " + info.getStandardName() + ";");
-				}
-			});
-
-			classNode.add(new CodeBlock() {// set 方法名
-
-						@Override
-						public void write(FileLineWriter w) {
-							buff.delete(0, buff.length());
-							buff.append("public void").append(" set")
-									.append(info.getName()).append("(")
-									.append(info.getTypeName()).append(" ")
-									.append(info.getStandardName()).append(")");
-							w.write(buff.toString());
-
-						}
-					}).add(new CodeBlock() {// set 函数体
-
-						@Override
-						public void write(FileLineWriter w) {
-							w.write("this." + info.getStandardName() + " = "
-									+ info.getStandardName() + ";");
-						}
+						w.write(formMethodString("public", info.getTypeName(),
+								"get" + info.getName()));
+					}).add(w -> {// get函数体
+						w.write("return " + info.getStandardName() + ";");
 					});
 
+			classNode.add(w -> {// set 方法名
+						w.write(formMethodString("public", "void",
+								"set" + info.getName(), info.getTypeName(),
+								info.getStandardName()));
+					}).add(w -> {// set 函数体
+						w.write("this." + info.getStandardName() + " = "
+								+ info.getStandardName() + ";");
+					});
+
+			toStringMethods.add("\t\"" + info.getStandardName() + "\"="
+					+ info.getStandardName());
 		}
+
+		classNode.add(w -> {
+			w.write(formMethodString("public", "String", "toString"));
+		}).add(w -> {
+			w.write("return " + wrapprerWithQuota(table.getName() + " [") + "+"
+					+ String.join(",\n", toStringMethods) + "+"
+					+ wrapprerWithQuota("]"));
+		});
 
 		long begin = System.currentTimeMillis();
 
@@ -295,6 +291,36 @@ public class MemClassCreateService implements ClassCreateService {
 		long end = System.currentTimeMillis();
 		log.info("执行耗时:" + (end - begin) + " 豪秒");
 
+	}
+
+	private String wrapprerWithQuota(String str) {
+		return wrapperWith(str, "\"");
+	}
+
+	private String wrapperWith(String str, String w) {
+		return w + str + w;
+	}
+	
+	private String wrapperWith(String str, String[] w) {
+		return w[0] + str + w[1];
+	}
+
+	private String formMethodString(String scope, String returnParmType,
+			String name, String... params) {
+		StringBuffer buff = new StringBuffer();
+		buff.delete(0, buff.length());
+		buff.append(scope).append(' ').append(returnParmType).append(' ')
+				.append(name);
+		List<String> strs = new ArrayList<String>();
+		for (int i = 0; i < params.length; i++) {
+			if (i % 2 == 1) {
+				strs.add(params[i - 1] + " " + params[i]);
+			}
+
+		}
+		String[] ends ={"(",")"};
+		buff.append(wrapperWith(String.join(", ", strs), ends));
+		return buff.toString();
 	}
 
 	private void addField(List<FieldInfo> fieldInfos, String name,
@@ -307,6 +333,14 @@ public class MemClassCreateService implements ClassCreateService {
 		List<String> list = Arrays.asList(annotations);
 		idInfo.setAnnotations(list);
 		fieldInfos.add(idInfo);
+	}
+
+	public Path getRootLocation() {
+		return rootLocation;
+	}
+
+	public void setRootLocation(Path rootLocation) {
+		this.rootLocation = rootLocation;
 	}
 
 }

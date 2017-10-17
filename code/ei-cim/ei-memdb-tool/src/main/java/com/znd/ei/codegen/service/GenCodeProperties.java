@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 
+@Component
 @ConfigurationProperties("gencode")
-@EnableConfigurationProperties(StorageProperties.class)
-public class StorageProperties {
+public class GenCodeProperties {
 
     /**
      * Folder location for storing files
@@ -21,9 +21,7 @@ public class StorageProperties {
     private boolean enableEntityAnnotation = true;
 
     private List<String> excludeClasses = new ArrayList<String>();
-    
-
-
+   
 
 	public List<String> getExcludeClasses() {
 		return excludeClasses;
