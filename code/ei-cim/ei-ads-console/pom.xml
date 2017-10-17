@@ -33,11 +33,10 @@
     </dependency> 
     
  		<!-- Use MySQL Connector-J -->
-		<dependency>
+		<!-- dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-
+		</dependency -->
 		   
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
