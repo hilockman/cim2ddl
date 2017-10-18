@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: wangheng
+Build-Jdk: 1.8.0_131
+Implementation-Title: ei-webservice Maven Webapp
+Implementation-Version: 1.0
+Implementation-Vendor-Id: com.znd.ei
+Implementation-Vendor: Pivotal Software, Inc.
+Created-By: Maven Integration for Eclipse
+

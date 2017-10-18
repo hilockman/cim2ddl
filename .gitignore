@@ -14,3 +14,4 @@ code/ei-cim/ei-memdb-core/src/main/java/com/znd/ei/memdb/DbEntryOperations.java
 code/ei-cim/ei-memdb-tool/log/myapp.log
 *.log
 *.log
+*.class
