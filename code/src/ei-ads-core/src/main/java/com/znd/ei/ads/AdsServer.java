@@ -8,8 +8,9 @@ import com.znd.ei.ads.acp.ACPException;
  */
 public interface AdsServer {
 	
-	static final String ADS_GET_NODEINFOS = "adsget_NodeInfos";
-	static final String ADS_REPLY_NODEINFOS = "adsreply_NodeInfos";
+	static final String ADS_GET_SERVERINFOS = "adsget_ServerInfos";
+	static final String ADS_REPLY_SERVERINFOS = "adsreply_ServerInfos";
+	static final String ADS_SERVERINFOS = "ads:server-infos";
 
 	String publish(String cc, String content) throws ACPException;
 }

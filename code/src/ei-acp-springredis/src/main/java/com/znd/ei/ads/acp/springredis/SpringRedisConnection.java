@@ -1,6 +1,7 @@
 package com.znd.ei.ads.acp.springredis;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -63,6 +64,21 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 		@Override
 		public Long getSize(String key) {
 			return operations.size(key);
+		}
+
+		@Override
+		public void remove(String key, String... keys) {
+			operations.delete(key, keys);
+		}
+
+		@Override
+		public void put(String key, String key1, String value) {
+			operations.put(key, key1, value);
+		}
+
+		@Override
+		public Map<String, String> getAll(String key) {
+				return operations.entries(key);
 		}
 	}
 

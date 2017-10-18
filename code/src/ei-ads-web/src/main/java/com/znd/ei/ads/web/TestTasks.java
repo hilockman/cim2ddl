@@ -75,15 +75,15 @@ public class TestTasks {
 		}
 	}
 	
-	@GetMapping(path = "/nodeInfos")
-	public @ResponseBody String getNodeInfos() {
+	@GetMapping(path = "/serverInfos")
+	public @ResponseBody String getServerInfos() {
 		AdsServer server = null;
 		
 		server = connectionFactory.getServer();
 
 		String content = null;
 		try {
-			content = server.publish("adsget_Nodes", "");
+			content = server.publish(AdsServer.ADS_GET_SERVERINFOS, "");
 		} catch (ACPException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

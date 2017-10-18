@@ -63,4 +63,8 @@ public class MapData extends DataItem {
 	public boolean canClear() {
 		return true;
 	}
+
+	public void remove(String key) {
+		operation.remove(getKey(), key);
+	}
 }

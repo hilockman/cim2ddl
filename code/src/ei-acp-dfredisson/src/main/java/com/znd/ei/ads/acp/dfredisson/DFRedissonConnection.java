@@ -2,6 +2,7 @@ package com.znd.ei.ads.acp.dfredisson;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -281,6 +282,44 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			return rt.getValue().longValue();
 		}
 
+		@Override
+		public void remove(String key, String...keys) {
+			try {
+				operation.LockHDEL(key, defaultLifeCycle, keys);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void put(String key, String key1, String value) {
+			try {
+				operation.LockHSET(key, defaultLifeCycle, key1, value);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public Map<String, String> getAll(String key) {
+			try {
+				ResultObject<String, Set<Entry<String, String>>> rt = operation.<String,String>LockHGETALL(key, defaultLifeCycle);
+				Map<String, String> m = new HashMap<String, String>();
+				Set<Entry<String, String>> rt1 = rt.getValue();
+				for (Entry<String, String> e : rt1) {
+					m.put(e.getKey(), e.getValue());
+				}
+				
+				return m;
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+
 	}
 
 	private class ListDataOperationsImp extends ListDataOperations {
@@ -480,10 +519,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		this.dfService = dfService;
 	}
 
-	// @Override
-	// public BusOperations getBusOperations() {
-	// return new BusOperationsImp();
-	// }
+
 	public DataFieldStorage storage;
 
 	@Override

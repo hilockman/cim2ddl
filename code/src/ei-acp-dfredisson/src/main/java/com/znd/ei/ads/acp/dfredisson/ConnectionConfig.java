@@ -32,7 +32,7 @@ public class ConnectionConfig {
 		return conn;
 	}
 	
-	private static String FILE_NAME = "redissonnode.json";
+	private static String FILE_NAME = "redissonnode.yaml";
 
 	
 	private String read(Reader r) throws IOException {
@@ -61,7 +61,8 @@ public class ConnectionConfig {
 		try {
 			URL url = org.springframework.util.ResourceUtils.getURL("classpath:"+FILE_NAME);
 			ConfigSupport support = new ConfigSupport();
-			RedissonNodeConfig config =  support.fromJSON(url, RedissonNodeConfig.class);
+			//RedissonNodeConfig config =  support.fromJSON(url, RedissonNodeConfig.class);
+			RedissonNodeConfig config =  support.fromYAML(url, RedissonNodeConfig.class);
 			//InputStream is = this.getClass().getResourceAsStream("/"+FILE_NAME);
 			
 			//String content = read(is);
@@ -92,8 +93,7 @@ public class ConnectionConfig {
 	}
 	
 	@Bean
-	public RedissonNode redissonNode() {
-		RedissonNodeConfig nodeConfig = redissonNodeConfig();
+	public RedissonNode redissonNode(RedissonNodeConfig nodeConfig) {
 	    RedissonNode node = RedissonNode.create(nodeConfig);
 	    return node;
 	}
