@@ -7,6 +7,8 @@ public class ACPResult {
 	
 	private String code;
 	private Object value;
+	private String log;
+	
 	public String getCode() {
 		return code;
 	}
@@ -28,5 +30,11 @@ public class ACPResult {
 	@Override
 	public String toString() {
 		return "ComputingResult [code=" + code + ", value=" + value + "]";
+	}
+	public String getLog() {
+		return log;
+	}
+	public void setLog(String log) {
+		this.log = log;
 	}
 }

@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.redisson.RedissonNode;
+import org.redisson.api.RRemoteService;
+import org.redisson.api.RedissonClient;
+import org.redisson.api.RemoteInvocationOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,7 @@ import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.ZhongND.RedisDF.messageDF.Listener.MessageContent;
 import com.ZhongND.RedisDF.messageDF.Listener.Event.EventCallBack;
+import com.znd.ei.ads.AdsServer;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
@@ -47,6 +52,7 @@ import com.znd.ei.ads.adf.StringRefData;
 
 public class DFRedissonConnection extends AbstractConnectionFactory {
 
+	private static DFRedissonConnection INSTANCE = null;
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DFRedissonConnection.class);
 
@@ -55,19 +61,32 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	private ADFService adfService;
 	private ExectueDF executeDF;
 
-	//private String modelZone = "test";
-	
+	// private String modelZone = "test";
+
 	@Autowired
 	private ServerProperties serverProperties;
-	
+
+	@Autowired
+	private AdsServer adsServer;
+
 	@Value("${ads.defaultlifecycle}")
-	private  long defaultLifeCycle = 1000000l;
-	
+	private long defaultLifeCycle = 1000000l;
+
 	@Value("${ads.memdb.lifecycle}")
 	private long memDbLifeCycle = 10000000l;
 
-	public DFRedissonConnection() {
+	@Autowired
+	private RedissonNode redissonNode;
 
+	@Autowired
+	private RedissonClient redissonClient;
+
+	public static DFRedissonConnection getInstance() {
+		return INSTANCE;
+	}
+
+	public DFRedissonConnection() {
+		INSTANCE = this;
 		try {
 			this.redisService = ServiceFactory.getService();
 			this.adfService = ADFServiceEntry.getADFService();
@@ -103,7 +122,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public void write(MemDBData db) throws ACPException {
 			if (operations == null)
 				return;
-			String key = operations.createMemDBKey(db.getArea(), db.getEntryName());
+			String key = operations.createMemDBKey(db.getArea(),
+					db.getEntryName());
 			db.setKey(key);
 			try {
 				LOGGER.info(String.format("uploadModel:%s", key));
@@ -125,7 +145,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		@Override
 		public MemDBData read(MemDBData db) throws ACPException {
 			try {
-				System.out.println("read db : "+db.getKey());
+				System.out.println("read db : " + db.getKey());
 				MemDBContext context = operations.resloveMemDBKey(db.getKey());
 				db.setArea(context.getStrArea());
 				db.setEntryName(context.getStrDBEntry());
@@ -153,7 +173,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	
 	public class MapDataOperationsImp extends MapDataOperations {
 		private RedissonDBMap operation;
 
@@ -195,8 +214,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			if (operation == null)
 				return;
 			try {
-				operation.LockHMSET(data.getKey(), defaultLifeCycle, data.getContent());
-				LOGGER.info("LockHMSET : "+data.getKey());
+				operation.LockHMSET(data.getKey(), defaultLifeCycle,
+						data.getContent());
+				LOGGER.info("LockHMSET : " + data.getKey());
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -227,7 +247,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				return null;
 
 			try {
-				ResultObject<String, String> rt = operation.LockHGET(key, defaultLifeCycle, mkey);
+				ResultObject<String, String> rt = operation.LockHGET(key,
+						defaultLifeCycle, mkey);
 				if (rt != null)
 					return rt.getValue();
 
@@ -283,8 +304,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				return data;
 
 			try {
-				ResultObject<String, List<String>> rt = operations
-						.LockLRANGE(data.getKey(), defaultLifeCycle);
+				ResultObject<String, List<String>> rt = operations.LockLRANGE(
+						data.getKey(), defaultLifeCycle);
 				if (rt != null)
 					data.setContent(rt.getValue());
 			} catch (RedissonDBException e) {
@@ -300,7 +321,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		public void write(ListData data) throws ACPException {
 
 			try {
-				operations.LockRPUSH(data.getKey(), defaultLifeCycle, data.getContent());
+				operations.LockRPUSH(data.getKey(), defaultLifeCycle,
+						data.getContent());
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException("Fail to list.BatchRPUSH : "
@@ -330,8 +352,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
-		
-
 	}
 
 	public class StringRefOperationsImp extends StringRefDataOperations {
@@ -356,7 +376,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				UnsupportedOperation {
 			try {
 				if (operations != null)
-					operations.LockSET(o.getKey(), defaultLifeCycle, o.getContent());
+					operations.LockSET(o.getKey(), defaultLifeCycle,
+							o.getContent());
 			} catch (RedissonDBException e) {
 				e.printStackTrace();
 				throw new ACPException(e.getMessage());
@@ -425,16 +446,15 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		String strMessage = msg.setMessage(contentCode, key);
 		try {
-			
+
 			msg.pubMessage(strMessage);
 		} catch (RedissonDBException e) {
 			e.printStackTrace();
 			throw new ACPException(e);
 		} finally {
 			msg.closed();
-		}		
+		}
 	}
-
 
 	@Override
 	public MemDBDataOperations getMemDBDataOperations() {
@@ -464,10 +484,18 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	// public BusOperations getBusOperations() {
 	// return new BusOperationsImp();
 	// }
+	public DataFieldStorage storage;
 
 	@Override
 	public void register(DataFieldStorage storage) {
 		try {
+			this.storage = storage;
+
+			if (storage.getAplManager().getAplCount() > 0) {
+				// 启动计算节点
+				redissonNode.start();
+			}
+
 			final String appName = storage.getServerName();
 			dfService.registry(appName, new EventCallBack() {
 				@Override
@@ -528,7 +556,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		this.executeDF = redisControl;
 	}
 
-
 	@Override
 	public void deleteKeys(String... keys) {
 		try {
@@ -538,11 +565,12 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Set<String> findKeys(String pattern) {
-		Set<String> keys = new HashSet<String>(); 
+		Set<String> keys = new HashSet<String>();
 		try {
-			List<ResultObject<String, String>> rt = executeDF.RedissonDBKey().FindKeys(pattern);
+			List<ResultObject<String, String>> rt = executeDF.RedissonDBKey()
+					.FindKeys(pattern);
 			for (ResultObject<String, String> e : rt) {
 				keys.add(e.getValue());
 			}
@@ -554,7 +582,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		return keys;
 	}
 
-
 	@Override
 	public boolean hasKey(String key) {
 		ResultObject<String, Boolean> rt = null;
@@ -565,6 +592,39 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			e.printStackTrace();
 		}
 		return rt.getValue();
+	}
+
+	public DataFieldStorage getStorage() {
+		return storage;
+	}
+
+	/**
+	 * Get remote service object for remote invocations.
+	 * <p>
+	 * This method is a shortcut for
+	 * 
+	 * <pre>
+	 * get(remoteInterface, RemoteInvocationOptions.defaults())
+	 * </pre>
+	 *
+	 * @see RemoteInvocationOptions#defaults()
+	 * @see #get(Class, RemoteInvocationOptions)
+	 *
+	 * @param <T>
+	 *            type of remote service
+	 * @param remoteInterface
+	 *            - remote service interface
+	 * @return remote service instance
+	 */
+	public <T> T get(Class<T> remoteInterface) {
+
+		RRemoteService rs = redissonClient.getRemoteService();
+		return rs.get(remoteInterface);
+
+	}
+
+	public AdsServer getAdsServer() {
+		return adsServer;
 	}
 
 }

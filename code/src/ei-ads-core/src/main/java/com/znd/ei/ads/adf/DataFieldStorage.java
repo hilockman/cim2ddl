@@ -13,14 +13,17 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.znd.ei.ads.AdsServer;
+import com.znd.ei.ads.AdsServerImp;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.IOOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
-import com.znd.ei.ads.apl.AplContainer;
+import com.znd.ei.ads.apl.AplManager;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
 
@@ -62,21 +65,20 @@ public final class DataFieldStorage {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DataFieldStorage.class);
 
-	private AplContainer aplManager;
+	@Autowired
+	private AplManager aplManager;
 
+	@Autowired
 	private ConnectionFactory connectionFactory;
 
+	@Autowired
 	private ServerProperties serverProperties;
 
 	private Map<String, Method> dataType2IOMethod = new HashMap<String, Method>();
 	
-	@Autowired
-	public DataFieldStorage(ServerProperties serverProperties,
-			ConnectionFactory connectionFactory, AplContainer aplManager) {
 
-		this.serverProperties = serverProperties;
-		this.connectionFactory = connectionFactory;
-		this.aplManager = aplManager;
+	public DataFieldStorage() {
+
 	}
 
 	@PostConstruct
@@ -84,6 +86,12 @@ public final class DataFieldStorage {
 		try {
 			registerIO();
 			aplManager.loadApls(this);
+			ApplicationContext context = aplManager.getContext();
+			AdsServer server = context.getBean(AdsServer.class);
+			if (server != null && server instanceof AdsServerImp) {
+				AdsServerImp serverImp = (AdsServerImp) server;
+				serverImp.init();
+			}
 
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -141,11 +149,7 @@ public final class DataFieldStorage {
 
 	}
 
-	private boolean isRelatedIO(Class<?> ioClass, Class<?> dataTypeClass) {
-		String ioname = ioClass.getSimpleName();
-		String dataTypeName = dataTypeClass.getSimpleName();
-		return ioname.contains(dataTypeName);
-	}
+
 
 	public final class DataField {
 		public String contentCode = null;
@@ -440,5 +444,9 @@ public final class DataFieldStorage {
 
 	public DataField getDataField(String contentCode) {
 		return dataFields.get(contentCode);
+	}
+
+	public AplManager getAplManager() {
+		return aplManager;
 	}
 }

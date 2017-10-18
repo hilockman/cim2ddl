@@ -2,6 +2,7 @@ package com.znd.ei.ads.acp;
 
 import java.util.Set;
 
+import com.znd.ei.ads.AdsServer;
 import com.znd.ei.ads.adf.DataFieldStorage;
 
 public interface ConnectionFactory {
@@ -67,5 +68,30 @@ public interface ConnectionFactory {
 	 * @param key
 	 * @return
 	 */
-	public boolean hasKey(String key);
+	boolean hasKey(String key);
+	
+	
+    /**
+     * Get remote service object for remote invocations.
+     * <p>
+     * This method is a shortcut for
+     * <pre>
+     *     get(remoteInterface, RemoteInvocationOptions.defaults())
+     * </pre>
+     *
+     * @see RemoteInvocationOptions#defaults()
+     * @see #get(Class, RemoteInvocationOptions)
+     *
+     * @param <T> type of remote service
+     * @param remoteInterface - remote service interface
+     * @return remote service instance
+     */
+	<T> T get(Class<T> remoteInterface) ;
+	   
+	/**
+	 * get ads server
+	 * @return
+	 */
+	AdsServer getServer() ;
+	
 }

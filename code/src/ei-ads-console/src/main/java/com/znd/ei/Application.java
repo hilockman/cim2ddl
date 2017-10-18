@@ -10,15 +10,15 @@ import com.znd.ei.ads.apl.reliability.AppUtil;
 
 @SpringBootApplication
 public class Application {
-	@Bean
-	public ExitCodeGenerator exitCodeGenerator() {
-		return () -> {
-			System.out.println("************MemStarter -k************");
-			AppUtil.execBuilder("MemStarter").addParam("-k").exec();
-			return 0;
-
-		};
-	}
+//	@Bean
+//	public ExitCodeGenerator exitCodeGenerator() {
+//		return () -> {
+//			System.out.println("************MemStarter -k************");
+//			AppUtil.execBuilder("MemStarter").addParam("-k").exec();
+//			return 0;
+//
+//		};
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -28,12 +28,12 @@ public class Application {
 	@Bean
 	public CommandLineRunner init() {
 		return (args) -> {
-			new Thread(() -> {
-				System.out.println("***********MemStarter -s****************");
-				AppUtil.execBuilder("MemStarter").addParam("-k").exec();
-				AppUtil.execBuilder("MemStarter").addParam("-s").exec();
-				System.out.println("***********MemStarter exit****************");
-			}).start();
+//			new Thread(() -> {
+//				System.out.println("***********MemStarter -s****************");
+//				AppUtil.execBuilder("MemStarter").addParam("-k").exec();
+//				AppUtil.execBuilder("MemStarter").addParam("-s").exec();
+//				System.out.println("***********MemStarter exit****************");
+//			}).start();
 
 		};
 	}

@@ -20,7 +20,7 @@ public class TestCreateTasks {
 
 		String str = configData.getContent();
 		Gson gson = new Gson();
-		TaskConfig config = gson.fromJson(str, TaskConfig.class);
+		TaskInfo config = gson.fromJson(str, TaskInfo.class);
 
 		System.out.println("Start create task :" + config.getCount());
 		List<String> tasks = new ArrayList<String>();
