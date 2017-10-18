@@ -7,9 +7,10 @@
     <artifactId>ei-cim</artifactId>
     <version>1.0</version>
   </parent>
-  <artifactId>test-proxy</artifactId>
+  <groupId>com.znd.ei</groupId>
+  <artifactId>test-nio-client</artifactId>
   <version>1.0</version>
-  <name>test-proxy</name>
+  <name>test-nio</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
