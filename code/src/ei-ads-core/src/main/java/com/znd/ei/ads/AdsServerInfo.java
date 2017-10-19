@@ -5,21 +5,20 @@ import java.net.UnknownHostException;
 import java.util.UUID;
 
 public class AdsServerInfo {
-	private String name;
+	private String id;
+	private String hostname;
+	private String ip;
 	private boolean status = true;
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	
 	public static AdsServerInfo create() {
 		AdsServerInfo node = new AdsServerInfo();
-		node.setName(getHostName() +":"+ UUID.randomUUID().toString());
+		node.setId(UUID.randomUUID().toString());
+		InetAddress address = getInetAddress();
+		node.setHostname(getHostName(address));
+		node.setIp(getHostIp(address));
 		return node;
 	}
     public static InetAddress getInetAddress(){  
@@ -49,9 +48,7 @@ public class AdsServerInfo {
         return name;  
     }  
     
-    public static String getHostName() {
-    	return getHostName(getInetAddress());
-    }
+
 
 	public boolean isStatus() {
 		return status;
@@ -59,5 +56,23 @@ public class AdsServerInfo {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getHostname() {
+		return hostname;
+	}
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 }

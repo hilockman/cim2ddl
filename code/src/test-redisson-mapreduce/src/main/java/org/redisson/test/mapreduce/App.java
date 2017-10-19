@@ -1,8 +1,9 @@
 package org.redisson.test.mapreduce;
 
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-import org.redisson.api.RExecutorService;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.mapreduce.RMapReduce;
@@ -62,6 +63,10 @@ public class App
 	    map.put("line5", "but it had no pictures or conversations in it");
 	    map.put("line6", "and what is the use of a book");
 	    map.put("line7", "thought Alice without pictures or conversation");
+	     Set<Entry<String, String>> s = map.entrySet();
+	    for (Entry<String, String> e: s) {
+	    	System.out.println("key = "+e.getKey()+", value = "+e.getValue());
+	    }
 	    Config config = ctx.getBean(Config.class);
 	    
 	    RedissonNodeConfig nodeConfig = new RedissonNodeConfig(config);
@@ -97,11 +102,17 @@ public class App
 
 	    // 统计词频
 	    Map<String, Integer> mapToNumber = mapReduce.execute();
+	    System.out.println("统计词频");
+	    Set<Entry<String, Integer>> mns = mapToNumber.entrySet();
+	    for (Entry<String, Integer> e : mns) {
+	    	System.out.println("key = "+e.getKey()+", count = "+e.getValue());	
+	    }
+	    
 
 	    // 统计字数
 	    Integer totalWordsAmount = mapReduce.execute(new WordCollator());
 	    
-		System.out.println(totalWordsAmount);
+		System.out.println("totalWordsAmount= "+totalWordsAmount);
 		//System.exit(SpringApplication.exit(ctx));
     }
 }

@@ -15,4 +15,6 @@ public class AdsConfig {
 	public ExecutorService adsThreadPool() {
 		return  Executors.newCachedThreadPool();
 	}
+	
+
 }

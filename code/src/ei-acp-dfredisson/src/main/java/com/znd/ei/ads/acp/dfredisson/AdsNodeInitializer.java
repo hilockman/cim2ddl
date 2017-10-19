@@ -10,11 +10,12 @@ public class AdsNodeInitializer  implements RedissonNodeInitializer {
 	
 	DFRedissonConnection connection;
 	public AdsNodeInitializer() {
-		connection = DFRedissonConnection.getInstance();
+		
 	}
 	
     @Override
     public void onStartup(RedissonNode redissonNode) {
+    	connection = DFRedissonConnection.getInstance();
     	RedissonClient redisson = redissonNode.getRedisson();
     	
     	redisson.getRemoteService().register(AdsServer.class, connection.getAdsServer());

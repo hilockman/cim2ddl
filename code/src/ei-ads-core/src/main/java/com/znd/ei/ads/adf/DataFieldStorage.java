@@ -13,11 +13,8 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.znd.ei.ads.AdsServer;
-import com.znd.ei.ads.AdsServerImp;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
@@ -86,12 +83,12 @@ public final class DataFieldStorage {
 		try {
 			registerIO();
 			aplManager.loadApls(this);
-			ApplicationContext context = aplManager.getContext();
-			AdsServer server = context.getBean(AdsServer.class);
-			if (server != null && server instanceof AdsServerImp) {
-				AdsServerImp serverImp = (AdsServerImp) server;
-				serverImp.init();
-			}
+//			ApplicationContext context = aplManager.getContext();
+//			AdsServer server = context.getBean(AdsServer.class);
+//			if (server != null && server instanceof AdsServerImp) {
+//				AdsServerImp serverImp = (AdsServerImp) server;
+//				serverImp.init();
+//			}
 
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -448,5 +445,9 @@ public final class DataFieldStorage {
 
 	public AplManager getAplManager() {
 		return aplManager;
+	}
+
+	public ConnectionFactory getConnectionFactory() {
+		return connectionFactory;
 	}
 }

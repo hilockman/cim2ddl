@@ -1,1 +1,1 @@
-java -cp test-redisson-mapreduce-1.0.jar;redisson-all-2.10.3.jar org.redisson.RedissonNode  config.json
+java -cp test-redisson-mapreduce-1.0.jar;redisson-all-2.10.3.jar org.redisson.RedissonNode redissonnode.json

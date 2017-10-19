@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.znd.ei.Utils;
@@ -30,17 +33,41 @@ public class AdsServerImp implements AdsServer {
 	private DataFieldStorage dataFieldStorage;
 	
 	@Autowired
-	private ConnectionFactory connection;
+	private ConnectionFactory connectionFactory;
 	
+	private AdsServerInfo node = AdsServerInfo.create();
+
+	@PostConstruct
 	public void init() {
 		System.out.println("AdsServer init ...");
+		MapDataOperations ops = connectionFactory.getMapDataOperations();
+		ops.put(AdsServer.ADS_SERVERINFOS, node.getId(), Utils.toString(node));
 	}
 	
+	@PreDestroy
+	public void destory() {
+		System.out.println("AdsServer destory ...");
+		MapDataOperations ops = connectionFactory.getMapDataOperations();
+		ops.remove(AdsServer.ADS_SERVERINFOS, node.getId());	
+	}
+
+
 	@Override
 	public String publish(String cc, String content) throws ACPException {
+		//ConnectionFactory connection = dataFieldStorage.getConnectionFactory();
+		
 		System.out.println("cc = "+cc+", content = "+content);
 		if (cc.equalsIgnoreCase(AdsServer.ADS_GET_SERVERINFOS)) {
-			MapDataOperations ops = connection.getMapDataOperations();
+			MapDataOperations ops = connectionFactory.getMapDataOperations();
+//			connection.deleteKeys(AdsServer.ADS_SERVERINFOS);
+//			connection.publishData(AdsServer.ADS_GET_SERVERINFOS, AdsServer.ADS_SERVERINFOS);
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+			
 			Map<String,String> nodeMap = ops.getAll(AdsServer.ADS_SERVERINFOS);
 			
 			Set<Entry<String, String>> s = nodeMap.entrySet();
@@ -60,5 +87,7 @@ public class AdsServerImp implements AdsServer {
 //		}
 		return "ok";
 	}
+	
+	
 
 }

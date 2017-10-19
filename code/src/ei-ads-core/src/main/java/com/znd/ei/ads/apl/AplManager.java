@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.znd.ei.ClassFilter;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.AdsProperties;
 import com.znd.ei.ads.acp.ACPException;
@@ -51,7 +51,6 @@ public final class AplManager {
 	@Autowired
 	private ExecutorService adsThreadPool = null;
 
-	
 	private Map<String, List<AppCallInfo>> cc2AplCallInfos = new HashMap<String, List<AppCallInfo>>();
 
 	private ArrayList<Object> apls = new ArrayList<Object>();
@@ -63,7 +62,7 @@ public final class AplManager {
 
 	@Autowired
 	private AdsProperties adsProperties;
-	
+
 	final class ParamInfo {
 		public String cc;
 		public Class<?> paramType;
@@ -99,7 +98,7 @@ public final class AplManager {
 
 			if (df.dataItem != null && !df.dataItem.canClear())
 				return false;
-			
+
 			List<AppCallInfo> appCallers = findRelatedAppCalls(df, this);
 			return appCallers.isEmpty();
 		}
@@ -148,16 +147,18 @@ public final class AplManager {
 			throws InstantiationException, IllegalAccessException, ACPException {
 		this.dataFieldStorage = storage;
 		List skips = adsProperties.getAplSkip();
-		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl");
+		ClassFilter filter = (Class<?> c) -> (c.getAnnotation(Apl.class) != null); 
+		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl",
+				filter);
+		if (classes.size() == 1) // 只包含InternalAdsApls则退出
+			return;
 
 		LOGGER.info("Skip apls : {}", String.join(",", skips));
 		Iterator<Class<?>> it = classes.iterator();
+
 		while (it.hasNext()) {
 			Class c = it.next();
 			Annotation a = c.getAnnotation(Apl.class);
-			if (a == null)
-				continue;
-
 			Apl apl = (Apl) a;
 
 			// Object app = c.newInstance();
@@ -171,7 +172,6 @@ public final class AplManager {
 			appInfo.setName(name);
 			appInfo.setDesc(apl.desc());
 
-			
 			// app.setConnectionFactory(connectionFactory);
 			// app.setStorage(storage);
 			// app.setAppInfo(appInfo);
@@ -188,8 +188,6 @@ public final class AplManager {
 				if (af == null) {
 					continue;
 				}
-				
-			
 
 				AppCallInfo acInfo = new AppCallInfo();
 				acInfo.appInfo = appInfo;
@@ -205,12 +203,13 @@ public final class AplManager {
 				if (acInfo.desc.isEmpty()) {
 					acInfo.desc = acInfo.name;
 				}
-				
+
 				if (skips.contains(acInfo.name)) {
-					LOGGER.info("Skip app :name={},desc={}", acInfo.name, acInfo.desc);
+					LOGGER.info("Skip app :name={},desc={}", acInfo.name,
+							acInfo.desc);
 					continue;
-				}	
-				
+				}
+
 				Parameter[] params = m.getParameters();
 				acInfo.paramInfos = new ParamInfo[params.length];
 				int pos = 0;
@@ -279,13 +278,15 @@ public final class AplManager {
 			for (AppCallInfo c : l)
 				LOGGER.info(" {}({})", c.desc, c.name);
 		}
-		LOGGER.info(String.format("--------------------Apl : cc count=%d, apl count=%s------------------", cc2AplCallInfos.size(), apls.size()));
+		LOGGER.info(String
+				.format("--------------------Apl : cc count=%d, apl count=%s------------------",
+						cc2AplCallInfos.size(), apls.size()));
 	}
 
-	
 	public int getAplCount() {
 		return apls.size();
 	}
+
 	/**
 	 * 调用应用方法
 	 * 
@@ -306,7 +307,7 @@ public final class AplManager {
 
 		// 调用业务逻辑
 		for (final AppCallInfo appCallInfo : appCallInfos) {
-			//正在工作则不响应
+			// 正在工作则不响应
 			if (appCallInfo.isWorking)
 				continue;
 
@@ -349,7 +350,7 @@ public final class AplManager {
 					inputDataFields.add(paramInfo.dataField);
 				} else { // 输出参数
 					try {
-						//paramInfo.dataField.initDataItem();
+						// paramInfo.dataField.initDataItem();
 						outputDataFields.add(paramInfo.dataField);
 						DataItem item = paramInfo.dataField.createData();
 						dataItems[pos++] = item;
@@ -397,9 +398,10 @@ public final class AplManager {
 							}
 						}
 
-						//更新数据域
+						// 更新数据域
 						for (int i = 0; i < outputDataFields.size(); i++) {
-							DataFieldStorage.DataField df = outputDataFields.get(i);
+							DataFieldStorage.DataField df = outputDataFields
+									.get(i);
 							DataItem dataItem = outputDatas.get(i);
 							df.dataItem = dataItem;
 						}
@@ -407,18 +409,16 @@ public final class AplManager {
 						for (ParamInfo paramInfo : outputDataItems) {
 							DataFieldStorage.DataField df = paramInfo.dataField;
 
+							df.publishToBus();
 
-								df.publishToBus();
-			
 						}
-						
-
 
 						LOGGER.info(String.format(
 								"------------------结束调用:%s------------------",
 								appCallInfo.desc));
 					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException | ACPException | UnsupportedOperation  e) {
+							| InvocationTargetException | ACPException
+							| UnsupportedOperation e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						LOGGER.error(e.getMessage() + ", app=" + appName

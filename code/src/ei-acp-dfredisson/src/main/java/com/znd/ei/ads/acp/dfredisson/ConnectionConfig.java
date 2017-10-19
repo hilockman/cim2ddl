@@ -1,12 +1,8 @@
 package com.znd.ei.ads.acp.dfredisson;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.URL;
 
 import org.redisson.Redisson;
@@ -27,33 +23,14 @@ import com.znd.ei.ads.acp.ConnectionFactory;
 public class ConnectionConfig {
 
 	@Bean
-	public ConnectionFactory acpConnection() {
-		ConnectionFactory conn =  new DFRedissonConnection();
+	public ConnectionFactory acpConnection(RedissonNodeConfig config) {
+		ConnectionFactory conn =  new DFRedissonConnection(config);
 		return conn;
 	}
 	
 	private static String FILE_NAME = "redissonnode.yaml";
 
 	
-	private String read(Reader r) throws IOException {
-		BufferedReader reader = new BufferedReader(r);
-		
-		StringBuilder stringBuilder = new StringBuilder();
-		String content;
-		while ((content = reader.readLine()) != null) {
-			stringBuilder.append(content);
-		}
-		String str = stringBuilder.toString();
-		return str;		
-	}
-	
-	private String read(InputStream is) throws IOException {
-		return read(new InputStreamReader(is));
-		
-	}
-	
-	
-	@SuppressWarnings("static-access")
 	@Bean
 	public RedissonNodeConfig redissonNodeConfig() {
 
@@ -92,11 +69,11 @@ public class ConnectionConfig {
 		return null;
 	}
 	
-	@Bean
-	public RedissonNode redissonNode(RedissonNodeConfig nodeConfig) {
-	    RedissonNode node = RedissonNode.create(nodeConfig);
-	    return node;
-	}
+//	@Bean
+//	public RedissonNode redissonNode(RedissonNodeConfig nodeConfig) {
+//	    RedissonNode node = RedissonNode.create(nodeConfig);
+//	    return node;
+//	}
 
 	@Bean
 	public RedissonClient redissonClient(RedissonNodeConfig config) {
@@ -104,9 +81,6 @@ public class ConnectionConfig {
 		return redisson;
 	}
 	
-	@Bean
-	public 	AdsServer adsServer() {
-		return new AdsServerImp();
-	}
+
     
 }

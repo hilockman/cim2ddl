@@ -5,14 +5,15 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.Subject;
-
 import com.znd.ei.ads.AdsServer;
 import com.znd.ei.ads.AdsServerProxy;
 import com.znd.ei.ads.adf.ListData;
 
 
 public abstract class AbstractConnectionFactory implements ConnectionFactory {
+	
+	private AdsServer adsServer;
+	
 	/**
 	 * 
 	 * @param contentCode
@@ -72,14 +73,12 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
 	{
 		return null;
 	}
-	
-	
+		
 	public AdsServer getServer() 
 	{
         //    我们要代理的真实对象
 		AdsServer server = get(AdsServer.class);
 		
-
         //    我们要代理哪个真实对象，就将该对象传进去，最后是通过该真实对象来调用其方法的
         InvocationHandler handler = new AdsServerProxy(server);
 
@@ -92,8 +91,14 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
         AdsServer subject = (AdsServer)Proxy.newProxyInstance(handler.getClass().getClassLoader(), server
                 .getClass().getInterfaces(), handler);
         
-		return subject;
-		
+		return subject;	
+	}
+	
+	public AdsServer getAdsServer() {
+		return adsServer;
+	}
+	public void setAdsServer(AdsServer adsServer) {
+		this.adsServer = adsServer;
 	}
 	
 }

@@ -2,16 +2,18 @@ package com.znd.ei.ads.acp.dfredisson;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.annotation.PreDestroy;
+
 import org.redisson.RedissonNode;
 import org.redisson.api.RRemoteService;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RemoteInvocationOptions;
+import org.redisson.config.RedissonNodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,16 +69,16 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	@Autowired
 	private ServerProperties serverProperties;
 
-	@Autowired
-	private AdsServer adsServer;
-
 	@Value("${ads.defaultlifecycle}")
 	private long defaultLifeCycle = 1000000l;
 
 	@Value("${ads.memdb.lifecycle}")
 	private long memDbLifeCycle = 10000000l;
 
-	@Autowired
+//	@Autowired
+	private RedissonNodeConfig nodeConfig;
+	
+	//@Autowired
 	private RedissonNode redissonNode;
 
 	@Autowired
@@ -86,8 +88,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		return INSTANCE;
 	}
 
-	public DFRedissonConnection() {
+	public DFRedissonConnection(RedissonNodeConfig nodeConfig) {
 		INSTANCE = this;
+		this.nodeConfig = nodeConfig;
 		try {
 			this.redisService = ServiceFactory.getService();
 			this.adfService = ADFServiceEntry.getADFService();
@@ -529,6 +532,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 			if (storage.getAplManager().getAplCount() > 0) {
 				// 启动计算节点
+				LOGGER.info("Redisson node start!");
+				redissonNode = RedissonNode.create(nodeConfig);
 				redissonNode.start();
 			}
 
@@ -659,8 +664,15 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public AdsServer getAdsServer() {
-		return adsServer;
+
+	
+	@PreDestroy
+	public void beforDestory() {
+		if (redissonNode != null) {
+			LOGGER.info("Redisson node shutdown!");
+			redissonNode.shutdown();
+		}
 	}
+
 
 }
