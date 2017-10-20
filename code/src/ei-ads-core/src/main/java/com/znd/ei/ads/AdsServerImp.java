@@ -15,6 +15,7 @@ import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.MapDataOperations;
+import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.apl.AplManager;
 
@@ -53,20 +54,12 @@ public class AdsServerImp implements AdsServer {
 
 
 	@Override
-	public String publish(String cc, String content) throws ACPException {
+	public String publish(String cc, String content) {
 		//ConnectionFactory connection = dataFieldStorage.getConnectionFactory();
 		
 		System.out.println("cc = "+cc+", content = "+content);
 		if (cc.equalsIgnoreCase(AdsServer.ADS_GET_SERVERINFOS)) {
 			MapDataOperations ops = connectionFactory.getMapDataOperations();
-//			connection.deleteKeys(AdsServer.ADS_SERVERINFOS);
-//			connection.publishData(AdsServer.ADS_GET_SERVERINFOS, AdsServer.ADS_SERVERINFOS);
-//			try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
 			
 			Map<String,String> nodeMap = ops.getAll(AdsServer.ADS_SERVERINFOS);
 			
@@ -77,15 +70,16 @@ public class AdsServerImp implements AdsServer {
 				infos.add(info);
 			}
 			
-			return Utils.toString(infos);
+			return AdsResult.formOk(infos).toString();
+		} else {
+			try {
+				dataFieldStorage.receivedMessage(cc, content);
+				return AdsResult.formOk(null).toString();
+			} catch (ACPException | UnsupportedOperation e) {
+				return AdsResult.formFail(e.getMessage()).toString();
+			}
 		}
-//		try {
-//			dataFieldStorage.receivedMessage(cc, content);
-//		} catch (ACPException | UnsupportedOperation e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return "ok";
+
 	}
 	
 	

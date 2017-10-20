@@ -30,9 +30,10 @@ public class AdsServerProxy implements InvocationHandler {
 			Throwable e1 = e.getTargetException();
 			if (e1 != null) {
 				
-				throw new ACPException(e1.getMessage());
+				return AdsResult.formFail(e1.getMessage()).toString();
+				//throw new ACPException(e1.getMessage());
 			} else {
-				throw new ACPException(e.getMessage());
+				return AdsResult.formFail(e.getMessage()).toString();
 			}
 			
 		}

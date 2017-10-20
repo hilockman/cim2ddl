@@ -36,7 +36,8 @@ import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.ZhongND.RedisDF.messageDF.Listener.MessageContent;
 import com.ZhongND.RedisDF.messageDF.Listener.Event.EventCallBack;
-import com.znd.ei.ads.AdsServer;
+import com.znd.ei.Utils;
+import com.znd.ei.ads.AdsUtils;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
@@ -44,14 +45,14 @@ import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.MemDBDataOperations;
 import com.znd.ei.ads.acp.StringDataOperations;
-import com.znd.ei.ads.acp.StringRefDataOperations;
+import com.znd.ei.ads.acp.ObjectRefDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
 import com.znd.ei.ads.adf.StringData;
-import com.znd.ei.ads.adf.StringRefData;
+import com.znd.ei.ads.adf.ObjectRefData;
 
 public class DFRedissonConnection extends AbstractConnectionFactory {
 
@@ -75,10 +76,10 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	@Value("${ads.memdb.lifecycle}")
 	private long memDbLifeCycle = 10000000l;
 
-//	@Autowired
+	// @Autowired
 	private RedissonNodeConfig nodeConfig;
-	
-	//@Autowired
+
+	// @Autowired
 	private RedissonNode redissonNode;
 
 	@Autowired
@@ -122,50 +123,54 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
-		@Override
-		public void write(MemDBData db) throws ACPException {
-			if (operations == null)
-				return;
-			String key = operations.createMemDBKey(db.getArea(),
-					db.getEntryName());
-			db.setKey(key);
-			try {
-				LOGGER.info(String.format("uploadModel:%s", key));
-				operations.uploadModel(db.getKey(), memDbLifeCycle);
-				// memdb.pubMessage(db.getContentCode(), db.getKey());
-			} catch (RedisMemDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new ACPException("Fail to upload model : "
-						+ e.getMessage());
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new ACPException("Fail to upload model : "
-						+ e.getMessage());
-			}
-		}
-
-		@Override
-		public MemDBData read(MemDBData db) throws ACPException {
-			try {
-				System.out.println("read db : " + db.getKey());
-				MemDBContext context = operations.resloveMemDBKey(db.getKey());
-				db.setArea(context.getStrArea());
-				db.setEntryName(context.getStrDBEntry());
-				operations.downloadModel(db.getKey());
-			} catch (RedisMemDBException e) {
-				e.printStackTrace();
-				throw new ACPException("RedisMemDB.downloadModel : "
-						+ e.getMessage());
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-				throw new ACPException("RedisMemDB.downloadModel : "
-						+ e.getMessage());
-			}
-
-			return db;
-		}
+//		@Override
+//		public void write(MemDBData db) throws ACPException {
+//			if (operations == null)
+//				return;
+//			String key = operations.createMemDBKey(db.getArea(),
+//					db.getEntryName());
+//			db.setKey(key);
+//			try {
+//				LOGGER.info(String.format("uploadModel:%s", key));
+//				synchronized (AdsUtils.shareMemoryLocker) {
+//					operations.uploadModel(db.getKey(), memDbLifeCycle);
+//				}
+//				// memdb.pubMessage(db.getContentCode(), db.getKey());
+//			} catch (RedisMemDBException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				throw new ACPException("Fail to upload model : "
+//						+ e.getMessage());
+//			} catch (RedissonDBException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				throw new ACPException("Fail to upload model : "
+//						+ e.getMessage());
+//			}
+//		}
+//
+//		@Override
+//		public MemDBData read(MemDBData db) throws ACPException {
+//			try {
+//				LOGGER.info("read db : " + db.getKey());
+//				MemDBContext context = operations.resloveMemDBKey(db.getKey());
+//				db.setArea(context.getStrArea());
+//				db.setEntryName(context.getStrDBEntry());
+//				synchronized (AdsUtils.shareMemoryLocker) {
+//					operations.downloadModel(db.getKey());
+//				}
+//			} catch (RedisMemDBException e) {
+//				e.printStackTrace();
+//				throw new ACPException("RedisMemDB.downloadModel : "
+//						+ e.getMessage());
+//			} catch (RedissonDBException e) {
+//				e.printStackTrace();
+//				throw new ACPException("RedisMemDB.downloadModel : "
+//						+ e.getMessage());
+//			}
+//
+//			return db;
+//		}
 
 		@Override
 		public void close() {
@@ -177,7 +182,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class MapDataOperationsImp extends MapDataOperations {
+	public class MapDataOperationsImp<V> extends MapDataOperations<String, V> {
 		private RedissonDBMap operation;
 
 		public MapDataOperationsImp() throws RedissonDBException {
@@ -186,82 +191,82 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		}
 
+//		@Override
+//		public MapData read(MapData data) throws ACPException,
+//				UnsupportedOperation {
+//			ResultObject<String, Set<Entry<String, String>>> rt = null;
+//
+//			try {
+//				if (operation != null) {
+//					rt = operation.LockHGETALL(data.getKey(), defaultLifeCycle);
+//
+//					Set<Entry<String, String>> set = rt.getValue();
+//					Map<String, String> m = new HashMap<String, String>();
+//					for (Entry<String, String> e : set) {
+//
+//						m.put(e.getKey(), e.getValue());
+//					}
+//					data.setContent(m);
+//				}
+//			} catch (RedissonDBException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			return data;
+//		}
+//
+//		@Override
+//		public void write(MapData data) throws ACPException,
+//				UnsupportedOperation {
+//
+//			if (operation == null)
+//				return;
+//			try {
+//				operation.LockHMSET(data.getKey(), defaultLifeCycle,
+//						data.getContent());
+//				LOGGER.info("LockHMSET : " + data.getKey());
+//			} catch (RedissonDBException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				throw new ACPException("Fail to map.LockHMSET : "
+//						+ e.getMessage());
+//			}
+//			// RedissonPubManager msgBroker = executeDF.RedissonPubManager();
+//			// String strMessage = msgBroker.setMessage(data.getContentCode(),
+//			// data.getKey());
+//			// try {
+//			// msgBroker.pubMessage(strMessage);
+//			// } catch (RedissonDBException e) {
+//			// // TODO Auto-generated catch block
+//			// e.printStackTrace();
+//			// throw new ACPException(
+//			// "Fail to RedissonPubManager.setMessage : "
+//			// + e.getMessage());
+//			// } finally {
+//			// if (msgBroker != null)
+//			// msgBroker.closed();
+//			// }
+//		}
+
 		@Override
-		public MapData read(MapData data) throws ACPException,
-				UnsupportedOperation {
-			ResultObject<String, Set<Entry<String, String>>> rt = null;
-
-			try {
-				if (operation != null) {
-					rt = operation.LockHGETALL(data.getKey(), defaultLifeCycle);
-
-					Set<Entry<String, String>> set = rt.getValue();
-					Map<String, String> m = new HashMap<String, String>();
-					for (Entry<String, String> e : set) {
-
-						m.put(e.getKey(), e.getValue());
-					}
-					data.setContent(m);
-				}
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return data;
-		}
-
-		@Override
-		public void write(MapData data) throws ACPException,
-				UnsupportedOperation {
-
-			if (operation == null)
-				return;
-			try {
-				operation.LockHMSET(data.getKey(), defaultLifeCycle,
-						data.getContent());
-				LOGGER.info("LockHMSET : " + data.getKey());
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new ACPException("Fail to map.LockHMSET : "
-						+ e.getMessage());
-			}
-			// RedissonPubManager msgBroker = executeDF.RedissonPubManager();
-			// String strMessage = msgBroker.setMessage(data.getContentCode(),
-			// data.getKey());
-			// try {
-			// msgBroker.pubMessage(strMessage);
-			// } catch (RedissonDBException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// throw new ACPException(
-			// "Fail to RedissonPubManager.setMessage : "
-			// + e.getMessage());
-			// } finally {
-			// if (msgBroker != null)
-			// msgBroker.closed();
-			// }
-		}
-
-		@Override
-		public String get(String key, String mkey) throws ACPException,
-				UnsupportedOperation {
+		public V get(String key, String mkey) {
 			if (operation == null)
 				return null;
 
 			try {
-				ResultObject<String, String> rt = operation.LockHGET(key,
+				ResultObject<String, V> rt = operation.LockHGET(key,
 						defaultLifeCycle, mkey);
 				if (rt != null)
 					return rt.getValue();
 
-				return null;
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				throw new ACPException(e.getMessage());
+	
 			}
+			
+			return null;
 
 		}
 
@@ -285,36 +290,21 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			return rt.getValue().longValue();
 		}
 
-		@Override
-		public void remove(String key, String...keys) {
-			try {
-				operation.LockHDEL(key, defaultLifeCycle, keys);
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
 
 		@Override
-		public void put(String key, String key1, String value) {
+		public Map<String, V> getAll(String key) {
 			try {
-				operation.LockHSET(key, defaultLifeCycle, key1, value);
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public Map<String, String> getAll(String key) {
-			try {
-				ResultObject<String, Set<Entry<String, String>>> rt = operation.<String,String>LockHGETALL(key, defaultLifeCycle);
-				Map<String, String> m = new HashMap<String, String>();
-				Set<Entry<String, String>> rt1 = rt.getValue();
-				for (Entry<String, String> e : rt1) {
+				ResultObject<String, Set<Entry<String, V>>> rt = operation
+						.LockHGETALL(key, defaultLifeCycle);
+				
+				Map<String, V> m = new HashMap<>();
+				
+				Set<Entry<String, V>> rt1 = rt.getValue();
+				for (Entry<String, V> e : rt1) {
 					m.put(e.getKey(), e.getValue());
 				}
-				
+
 				return m;
 			} catch (RedissonDBException e) {
 				// TODO Auto-generated catch block
@@ -323,9 +313,45 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			return null;
 		}
 
+		@Override
+		public void setAll(String key, Map<String, V> content) {
+			try {
+				operation.LockHMSET(key, defaultLifeCycle, content);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public boolean isEmpty(String key) {
+			return hasKey(key);
+		}
+
+		@Override
+		public void remove(String key, String... keys) {
+			try {
+				operation.LockHDEL(key, defaultLifeCycle, keys);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}
+
+		@Override
+		public void put(String key, String hashKey, V value) {
+
+			try {
+				operation.LockHSET(key, defaultLifeCycle, hashKey, value);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
 
-	private class ListDataOperationsImp extends ListDataOperations {
+	private class ListDataOperationsImp<V> extends ListDataOperations<V> {
 
 		private RedissonDBList operations;
 
@@ -339,45 +365,45 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
+//		@Override
+//		public ListData<V> read(ListData<V> data) throws ACPException {
+//
+//			if (operations == null)
+//				return data;
+//
+//			try {
+//				ResultObject<String, List<V>> rt = operations.LockLRANGE(
+//						data.getKey(), defaultLifeCycle);
+//				if (rt != null)
+//					data.setContent(rt.getValue());
+//			} catch (RedissonDBException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			return data;
+//		}
+//
+//		@SuppressWarnings("unchecked")
+//		@Override
+//		public void write(ListData<V> data) throws ACPException {
+//
+//			try {
+//				operations.LockRPUSH(data.getKey(), defaultLifeCycle,
+//						data.getContent());
+//			} catch (RedissonDBException e) {
+//				e.printStackTrace();
+//				throw new ACPException("Fail to list.BatchRPUSH : "
+//						+ e.getMessage());
+//			}
+//		}
+
 		@Override
-		public ListData read(ListData data) throws ACPException {
-
-			if (operations == null)
-				return data;
-
-			try {
-				ResultObject<String, List<String>> rt = operations.LockLRANGE(
-						data.getKey(), defaultLifeCycle);
-				if (rt != null)
-					data.setContent(rt.getValue());
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return data;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void write(ListData data) throws ACPException {
-
-			try {
-				operations.LockRPUSH(data.getKey(), defaultLifeCycle,
-						data.getContent());
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-				throw new ACPException("Fail to list.BatchRPUSH : "
-						+ e.getMessage());
-			}
-		}
-
-		@Override
-		public String lpop(String key) throws ACPException {
-			ResultObject<String, String> rt = null;
+		public V lpop(String key) throws ACPException {
+			ResultObject<String, V> rt = null;
 			try {
 				if ((rt = operations.LockLPOP(key, defaultLifeCycle)) != null) {
-					String str = rt.getValue();
+					V str = rt.getValue();
 					return str;
 				}
 				return null;
@@ -394,9 +420,39 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
+		@Override
+		public List<V> getAll(String key) {
+			try {
+				ResultObject<String, List<V>> rt = operations.LRANGE(key, defaultLifeCycle);
+				return rt.getValue();
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void pushAll(String key, List<V> values) {
+			try {
+				operations.LockLPUSH(key, defaultLifeCycle, values);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
+		@Override
+		public boolean isEmpty(String key) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 	}
 
-	public class StringRefOperationsImp extends StringRefDataOperations {
+	public class StringRefOperationsImp<T> extends ObjectRefDataOperations<T> {
 
 		private RedissonDBString operations;
 
@@ -405,31 +461,31 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		}
 
+//		@Override
+//		public ObjectRefData<T> read(ObjectRefData<T> o) throws ACPException,
+//				UnsupportedOperation {
+//
+//			o.setContent(get(o.getKey()));
+//			return o;
+//		}
+//
+//		@Override
+//		public void write(ObjectRefData o) throws ACPException,
+//				UnsupportedOperation {
+//			try {
+//				if (operations != null)
+//					operations.LockSET(o.getKey(), defaultLifeCycle,
+//							o.getContent());
+//			} catch (RedissonDBException e) {
+//				e.printStackTrace();
+//				throw new ACPException(e.getMessage());
+//			}
+//
+//		}
+
 		@Override
-		public StringRefData read(StringRefData o) throws ACPException,
-				UnsupportedOperation {
-
-			o.setContent(get(o.getKey()));
-			return o;
-		}
-
-		@Override
-		public void write(StringRefData o) throws ACPException,
-				UnsupportedOperation {
-			try {
-				if (operations != null)
-					operations.LockSET(o.getKey(), defaultLifeCycle,
-							o.getContent());
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-				throw new ACPException(e.getMessage());
-			}
-
-		}
-
-		@Override
-		public String get(String key) {
-			ResultObject<String, String> rt = null;
+		public T get(String key) {
+			ResultObject<String, T> rt = null;
 			try {
 				rt = operations.LockGET(key, defaultLifeCycle);
 			} catch (RedissonDBException e) {
@@ -451,21 +507,42 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
+		@Override
+		public void set(String key, T value) {
+			try {
+				operations.LockSET(key, defaultLifeCycle, value);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public boolean isEmpty(String key) {
+			return hasKey(key);
+		}
+
 	}
 
 	private class StringDataOperationsImp extends StringDataOperations {
 
 		@Override
-		public StringData read(StringData o) throws ACPException,
-				UnsupportedOperation {
-			return o;
+		public boolean isEmpty(String key) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
-		@Override
-		public void write(StringData o) throws ACPException,
-				UnsupportedOperation {
-
-		}
+//		@Override
+//		public StringData read(StringData o) throws ACPException,
+//				UnsupportedOperation {
+//			return o;
+//		}
+//
+//		@Override
+//		public void write(StringData o) throws ACPException,
+//				UnsupportedOperation {
+//
+//		}
 
 	}
 
@@ -522,20 +599,12 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		this.dfService = dfService;
 	}
 
-
 	public DataFieldStorage storage;
 
 	@Override
 	public void register(DataFieldStorage storage) {
 		try {
 			this.storage = storage;
-
-			if (storage.getAplManager().getAplCount() > 0) {
-				// 启动计算节点
-				LOGGER.info("Redisson node start!");
-				redissonNode = RedissonNode.create(nodeConfig);
-				redissonNode.start();
-			}
 
 			final String appName = storage.getServerName();
 			dfService.registry(appName, new EventCallBack() {
@@ -570,7 +639,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public StringRefDataOperations getStringRefOperations() {
+	public ObjectRefDataOperations getStringRefOperations() {
 		try {
 			return new StringRefOperationsImp();
 		} catch (RedissonDBException e) {
@@ -657,15 +726,13 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	 *            - remote service interface
 	 * @return remote service instance
 	 */
-	public <T> T get(Class<T> remoteInterface) {
+	public <T> T getService(Class<T> remoteInterface) {
 
 		RRemoteService rs = redissonClient.getRemoteService();
 		return rs.get(remoteInterface);
 
 	}
 
-
-	
 	@PreDestroy
 	public void beforDestory() {
 		if (redissonNode != null) {
@@ -674,5 +741,24 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 	}
 
+	private RRemoteService remoteService = null;
+
+	public <T> void registerService(Class<T> remoteInterface, T serviceImp) {
+
+		if (redissonNode == null) {
+			// 启动计算节点
+			LOGGER.info("Redisson node start!");
+			redissonNode = RedissonNode.create(nodeConfig);
+			redissonNode.start();
+
+			RedissonClient redisson = redissonNode.getRedisson();
+			remoteService = redisson.getRemoteService();
+		}
+
+		if (remoteService != null) {
+			remoteService.register(remoteInterface, serviceImp);
+		}
+
+	}
 
 }

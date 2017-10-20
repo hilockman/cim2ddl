@@ -32,6 +32,7 @@ import com.znd.ei.ads.apl.annotations.Out;
 @Component
 public final class DataFieldStorage {
 	
+
 	public static void main(String [] args) {
 		Method[] methods = ConnectionFactory.class.getMethods();
 		for (Method m : methods) {
@@ -258,7 +259,7 @@ public final class DataFieldStorage {
 		df.dataType = dataType;
 		if (!dataType2IOMethod.containsKey(typeName)) {
 			if (dataType.equals(String.class)) {
-				df.dataType = StringRefData.class;
+				df.dataType = ObjectRefData.class;
 				typeName = df.dataType.getSimpleName();
 			} else {
 				throw new ACPException(
@@ -433,10 +434,8 @@ public final class DataFieldStorage {
 	}
 
 	public void clear(DataField df) {
-		synchronized(df) {
-			LOGGER.info("清除数据域:"+df.contentCode);
-			df.clear();
-		}
+		LOGGER.info("清除数据域:"+df.contentCode);
+		df.clear();
 	}
 
 	public DataField getDataField(String contentCode) {

@@ -1,21 +1,17 @@
 package com.znd.ei.ads.adf;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ListDataOperations;
-@SuppressWarnings("rawtypes")
-public class ListData  extends DataItem  {
+public class ListData<V>  extends DataItem<ListData<V>>  {
 
-	private List content = new ArrayList<String>();
-
-	public List getContent() {
-		return content;
+	public List<V> getContent() {
+		return getOps().getAll(getKey());
 	}
 
-	public void setContent(List content) {
-		this.content = content;
+	public void setContent(List<V> values) {
+		getOps().pushAll(getKey(), values);
 	}
 	
 	
@@ -23,28 +19,30 @@ public class ListData  extends DataItem  {
 	}
 	
 
-	
-	public String lpop() throws ACPException {
+	@SuppressWarnings("unused")
+	private ListDataOperations<V> getOps() {
+		return (ListDataOperations<V>)operations;
+	}
+	public V lpop() throws ACPException {
 		if (operations == null)
 			return null; 
 		
 	
-		return ((ListDataOperations)operations).lpop(getKey());
-
+		return getOps().lpop(getKey());
 	}
 
 	@Override
 	public boolean isEmpty() {
 		
-		return content == null || content.isEmpty();
+		return getOps().isEmpty(getKey());
 	}
 
 	@Override
 	public void clear() {
-		if (content != null)
-			content.clear();
-		
-		content = null;
+//		if (content != null)
+//			content.clear();
+//		
+//		content = null;
 	}
 
 	@Override

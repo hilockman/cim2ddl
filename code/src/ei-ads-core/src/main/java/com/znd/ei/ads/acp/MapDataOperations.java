@@ -4,21 +4,20 @@ import java.util.Map;
 
 import com.znd.ei.ads.adf.MapData;
 
-public abstract class MapDataOperations extends AbstractOperations<MapData> {
+public abstract class MapDataOperations<K, V> extends AbstractOperations<MapData<K,V>> {
 
-	public MapDataOperations() {
-		super(MapData.class);
-		// TODO Auto-generated constructor stub
-	}
 
-	public abstract String get(String key, String mkey) throws ACPException, UnsupportedOperation;
+
+	public abstract V get(String key, K mkey);
 
 	public abstract Long getSize(String key) ;
 
-	public abstract void remove(String key, String...keys) ;
+	public abstract void remove(String key, K...keys) ;
 	
-	public abstract void put(String key, String hashKey, String value);
+	public abstract void put(String key, K hashKey, V value);
 
-	public  abstract Map<String, String> getAll(String key);
+	public  abstract Map<K, V> getAll(String key);
+	
+	public abstract void setAll(String key, Map<K,V> content);
 
 }

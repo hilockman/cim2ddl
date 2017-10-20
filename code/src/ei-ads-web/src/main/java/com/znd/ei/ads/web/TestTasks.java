@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.znd.ei.Utils;
+import com.znd.ei.ads.AdsResult;
 import com.znd.ei.ads.AdsServer;
 import com.znd.ei.ads.acp.ACPException;
-import com.znd.ei.ads.acp.ACPResult;
 import com.znd.ei.ads.acp.ConnectionFactory;
 
 @Controller
@@ -22,13 +22,13 @@ public class TestTasks {
 
 
 	@GetMapping()
-	public @ResponseBody ACPResult home() {
+	public @ResponseBody AdsResult home() {
 		
-		return new ACPResult("OK", String.format("url:"+"tasks  uploadBPA testRPC"));
+		return new AdsResult("OK", String.format("url:"+"tasks  uploadBPA testRPC"));
 	}
 	
 	@GetMapping(path = "/tasks")
-	public @ResponseBody ACPResult tasks() {
+	public @ResponseBody AdsResult tasks() {
 		int count = 100;
 		TaskConfig config = new TaskConfig(count);
 		String content = Utils.toString(config);
@@ -39,11 +39,11 @@ public class TestTasks {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
-		return new ACPResult("OK", String.format("created %s tasks.", count));
+		return new AdsResult("OK", String.format("created %s tasks.", count));
 	}
 	
 	@GetMapping(path = "/uploadBPA")
-	public @ResponseBody ACPResult uploadBPA() {
+	public @ResponseBody AdsResult uploadBPA() {
 		int count = 100;
 		TaskConfig config = new TaskConfig(count);
 		String content = Utils.toString(config);
@@ -54,7 +54,7 @@ public class TestTasks {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
-		return new ACPResult("OK", String.format("created %s tasks.", count));
+		return new AdsResult("OK", String.format("created %s tasks.", count));
 	}
 
 	@GetMapping(path = "/testRPC")
@@ -67,12 +67,9 @@ public class TestTasks {
 		int count = 100;
 		TaskConfig config = new TaskConfig(count);
 		String content = Utils.toString(config);
-		
-		try {
-			return server.publish("create_BPAModel", content);
-		} catch (ACPException e) {
-			return "Error : "+e.getMessage();
-		}
+
+		return server.publish("create_BPAModel", content);
+
 	}
 	
 	@GetMapping(path = "/serverInfos")
@@ -81,14 +78,7 @@ public class TestTasks {
 		
 		server = connectionFactory.getServer();
 
-		String content = null;
-		try {
-			content = server.publish(AdsServer.ADS_GET_SERVERINFOS, "");
-		} catch (ACPException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}
-		
-		return content;
+		return server.publish(AdsServer.ADS_GET_SERVERINFOS, "");
+
 	}
 }

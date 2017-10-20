@@ -1,62 +1,58 @@
 package com.znd.ei.ads.adf;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.MapDataOperations;
-import com.znd.ei.ads.acp.UnsupportedOperation;
 
-public class MapData extends DataItem {
-	private MapDataOperations operation;
+public class MapData<K,V> extends DataItem<MapData<K,V>> {
+	//private MapDataOperations<K,V> operation;
 
-	private Map<String, String> content = new HashMap<String, String>();
+	//private Map<String, String> content = new HashMap<String, String>();
 
-	public Map<String, String> getContent() {
-		return content;
+	public Map<K, V> getContent() {
+		return getOps().getAll(getKey());
 	}
 
-	public void setContent(Map<String, String> content) {
-		this.content = content;
+	public void setContent(Map<K, V> content) {
+		getOps().setAll(getKey(), content);	
 	}
 
-	public MapDataOperations getOperation() {
-		return operation;
+//	public MapDataOperations getOperation() {
+//		return operation;
+//	}
+//
+//	public void setOperation(MapDataOperations operation) {
+//		this.operation = operation;
+//	}
+	
+	@SuppressWarnings("unchecked")
+	private MapDataOperations<K,V> getOps() {
+		return (MapDataOperations<K,V>)operations;
 	}
+	public V get(K key) {
+		return getOps().get(getKey(), key);
 
-	public void setOperation(MapDataOperations operation) {
-		this.operation = operation;
 	}
 	
-	
-	public String get(String key) throws ACPException, UnsupportedOperation {
-		if (content != null) {
-			return content.get(key);
-		} else if (operation != null) {
-			return operation.get(getKey(), key);
-		} else
-			return null;
-	}
-	
-	public void set(String key, String value) {
-		content.put(key, value);
+	public void set(K key, V value) {
+		getOps().put(getKey(), key, value);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return content == null || content.isEmpty();
+		return getOps().isEmpty(getKey());
 	}
 
 	public Long size() {
-		return operation.getSize(getKey());
+		return getOps().getSize(getKey());
 	}
 
 	@Override
 	public void clear() {
-		if (content != null)
-			content.clear();
-		
-		content = null;
+//		if (content != null)
+//			content.clear();
+//		
+//		content = null;
 	}
 
 	@Override
@@ -64,7 +60,8 @@ public class MapData extends DataItem {
 		return true;
 	}
 
-	public void remove(String key) {
-		operation.remove(getKey(), key);
+	@SuppressWarnings("unchecked")
+	public void remove(K key) {
+		getOps().remove(getKey(), key);
 	}
 }

@@ -18,14 +18,14 @@ import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.MemDBDataOperations;
 import com.znd.ei.ads.acp.StringDataOperations;
-import com.znd.ei.ads.acp.StringRefDataOperations;
+import com.znd.ei.ads.acp.ObjectRefDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
 import com.znd.ei.ads.adf.StringData;
-import com.znd.ei.ads.adf.StringRefData;
+import com.znd.ei.ads.adf.ObjectRefData;
 
 public class SpringRedisConnection extends AbstractConnectionFactory {
 	private static final Logger LOGGER = LoggerFactory
@@ -83,20 +83,20 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	}
 
 
-	public class StringRefDataOperationsImp extends StringRefDataOperations {
+	public class StringRefDataOperationsImp extends ObjectRefDataOperations {
 		private ValueOperations<String, String> operations;
 		public StringRefDataOperationsImp() {
 			operations = stringRedisTemplate.opsForValue();
 		}
 		@Override
-		public StringRefData read(StringRefData data) throws ACPException,
+		public ObjectRefData read(ObjectRefData data) throws ACPException,
 				UnsupportedOperation {			
 			data.setContent(get(data.getKey()));
 			return data;
 		}
 
 		@Override
-		public void write(StringRefData data) throws ACPException,
+		public void write(ObjectRefData data) throws ACPException,
 				UnsupportedOperation {
 			operations.set(data.getKey(), data.getContent());
 		}
@@ -200,7 +200,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public StringRefDataOperations getStringRefOperations() {
+	public ObjectRefDataOperations getStringRefOperations() {
 		return new StringRefDataOperationsImp();
 	}
 

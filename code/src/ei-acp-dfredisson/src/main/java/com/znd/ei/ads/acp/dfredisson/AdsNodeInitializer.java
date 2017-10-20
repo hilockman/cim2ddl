@@ -1,5 +1,9 @@
 package com.znd.ei.ads.acp.dfredisson;
 
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.redisson.RedissonNode;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RedissonNodeInitializer;
@@ -8,17 +12,18 @@ import com.znd.ei.ads.AdsServer;
 
 public class AdsNodeInitializer  implements RedissonNodeInitializer {
 	
-	DFRedissonConnection connection;
+	
 	public AdsNodeInitializer() {
 		
 	}
 	
     @Override
     public void onStartup(RedissonNode redissonNode) {
-    	connection = DFRedissonConnection.getInstance();
+ //   	DFRedissonConnection connection = DFRedissonConnection.getInstance();
     	RedissonClient redisson = redissonNode.getRedisson();
     	
-    	redisson.getRemoteService().register(AdsServer.class, connection.getAdsServer());
+
+   // 	redisson.getRemoteService().register(AdsServer.class, connection.getAdsServer());
     	
     	 	
    //     RMap<String, Integer> map = redisson.getMap("myMap");

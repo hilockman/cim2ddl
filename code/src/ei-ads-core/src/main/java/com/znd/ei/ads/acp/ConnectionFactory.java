@@ -8,17 +8,17 @@ import com.znd.ei.ads.adf.DataFieldStorage;
 public interface ConnectionFactory {
 	MemDBDataOperations getMemDBDataOperations();
 	
-	ListDataOperations getListDataOperations();
+	<V> ListDataOperations<V> getListDataOperations();
 
 	//BusOperations getBusOperations();
 	
 	StringDataOperations getStringDataOperations();
 	
-	StringRefDataOperations getStringRefOperations();
+	<V> ObjectRefDataOperations<V> getStringRefOperations();
 	
 	void register(DataFieldStorage manager);
 	
-	MapDataOperations getMapDataOperations();
+	<K,V> MapDataOperations<K, V> getMapDataOperations();
 	
 	/**
 	 * 发送消息
@@ -86,12 +86,15 @@ public interface ConnectionFactory {
      * @param remoteInterface - remote service interface
      * @return remote service instance
      */
-	<T> T get(Class<T> remoteInterface) ;
+	<T> T getService(Class<T> remoteInterface) ;
 	   
 	/**
 	 * get ads server
 	 * @return
 	 */
 	AdsServer getServer() ;
+	
+	
+	<T> void registerService(Class<T> remoteInterface, T serviceImp);
 	
 }

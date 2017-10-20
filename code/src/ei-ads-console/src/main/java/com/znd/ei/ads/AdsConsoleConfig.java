@@ -16,7 +16,7 @@ public class AdsConsoleConfig {
 		AbstractConnectionFactory acf = (AbstractConnectionFactory)connectionFactory;
 		
 		AdsServer server =  new AdsServerImp();
-		acf.setAdsServer(server);
+		connectionFactory.registerService(AdsServer.class, server);
 		return server;
 	}
 }

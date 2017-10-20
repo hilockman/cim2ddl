@@ -47,7 +47,11 @@
 		</dependency>
 
 
-
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>2.10.0</version>
+		</dependency>
 	</dependencies>
 
 

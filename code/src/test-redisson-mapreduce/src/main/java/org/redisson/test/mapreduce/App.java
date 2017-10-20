@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.redisson.api.RBucket;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.mapreduce.RMapReduce;
@@ -46,6 +47,7 @@ public class App
 		
 		
 	}
+
     @SuppressWarnings("unused")
 	public static void main( String[] args )
     {
@@ -54,6 +56,10 @@ public class App
 
 
 		RedissonClient redisson = ctx.getBean(RedissonClient.class);
+		
+		RBucket<TestClass> b = redisson.getBucket("test1");
+		//b.set(new TestClass());
+		TestClass c = b.get();
 	    RMap<String, String> map = redisson.getMap("wordsMap");
 	    //map.clear();
 	    map.put("line1", "Alice was beginning to get very tired"); 

@@ -1,6 +1,5 @@
 package com.znd.ei.ads;
 
-import com.znd.ei.ads.acp.ACPException;
 /**
  * ads remote server interface
  * @author wangheng
@@ -12,5 +11,5 @@ public interface AdsServer {
 	static final String ADS_REPLY_SERVERINFOS = "adsreply_ServerInfos";
 	static final String ADS_SERVERINFOS = "ads:server-infos";
 
-	String publish(String cc, String content) throws ACPException;
+	String publish(String cc, String content);
 }

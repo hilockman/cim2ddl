@@ -5,14 +5,14 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.redisson.api.RMap;
+
 import com.znd.ei.ads.AdsServer;
 import com.znd.ei.ads.AdsServerProxy;
 import com.znd.ei.ads.adf.ListData;
 
 
 public abstract class AbstractConnectionFactory implements ConnectionFactory {
-	
-	private AdsServer adsServer;
 	
 	/**
 	 * 
@@ -69,7 +69,7 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
      * @param remoteInterface - remote service interface
      * @return remote service instance
      */
-	public <T> T get(Class<T> remoteInterface) 
+	public <T> T getService(Class<T> remoteInterface) 
 	{
 		return null;
 	}
@@ -77,7 +77,7 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
 	public AdsServer getServer() 
 	{
         //    我们要代理的真实对象
-		AdsServer server = get(AdsServer.class);
+		AdsServer server = getService(AdsServer.class);
 		
         //    我们要代理哪个真实对象，就将该对象传进去，最后是通过该真实对象来调用其方法的
         InvocationHandler handler = new AdsServerProxy(server);
@@ -94,11 +94,11 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
 		return subject;	
 	}
 	
-	public AdsServer getAdsServer() {
-		return adsServer;
+
+	public <T> void registerService(Class<T> remoteInterface, T serviceImp)
+	{
+		
 	}
-	public void setAdsServer(AdsServer adsServer) {
-		this.adsServer = adsServer;
-	}
-	
+
+
 }

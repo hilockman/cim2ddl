@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.redisson.api.RMap;
+import org.redisson.api.RedissonClient;
+import org.redisson.api.mapreduce.RMapReduce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
+import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
@@ -54,11 +58,17 @@ public class ReliabilityApl {
 		if (str != null && !str.isEmpty()) {
 			rootPath = str;
 		}
-		
+
 	}
 
-	String dataRootPath = rootPath + "/data";
-	String execRootPath = rootPath + "/bin_x64";
+	public static ReliabilityApl INSTANCE = null;
+
+	public ReliabilityApl() {
+		INSTANCE = this;
+	}
+
+	public static String dataRootPath = rootPath + "/data";
+	public static String execRootPath = rootPath + "/bin_x64";
 
 	@Autowired
 	FStateDao fStateDao;
@@ -80,6 +90,9 @@ public class ReliabilityApl {
 
 	@Autowired
 	AbstractConnectionFactory connectionFactory;
+
+	@Autowired
+	DataFieldStorage storage;
 
 	private String modelArea = "RTS79";
 
@@ -126,28 +139,29 @@ public class ReliabilityApl {
 				}).exec();
 	}
 
-	private void callStateEstimate() {
+	public static void callStateEstimate(FState state,
+			StateEstimateConfig config) {
 		AppUtil.execBuilder(AppUtil.GC_STATE_ESTIMATE).addParam(execRootPath)
 		// 直流潮流2 交流潮流系数 fDc2AcFactor
-				.addParam("1.100000")
+				.addParam(config.getDc2AcFactor())
 				// 线路消限 bLineELimit
-				.addParam("1")
+				.addParam(config.getLineELimit())
 				// 主变消限 bTranELimit
-				.addParam("1")
+				.addParam(config.getTranELimit())
 				// 调整发电机消限 bGenPELimit
-				.addParam("1")
+				.addParam(config.getGenPELimit())
 				// 调整UPFC消限 bUPFCELimit
-				.addParam("1")
+				.addParam(config.getuPFCELimit())
 				// 厂用电参与消限 bAuxLoadAdjust
-				.addParam("1")
+				.addParam(config.getAuxLoadAdjust())
 				// 等值发电机参与消限 bEQGenAdjust
-				.addParam("0")
+				.addParam(config.geteQGenAdjust())
 				// 等值负荷参与消限 bEQLoadAdjust
-				.addParam("0")
+				.addParam(config.geteQLoadAdjust())
 				// 孤岛的最小容载比 fMinIslandGLRatio
-				.addParam("0.500000")
+				.addParam(config.getMinIslandGLRatio())
 				// UPFC采用变容法 bUPFCAdjustRC
-				.addParam("1").logger(new AppLogger() {
+				.addParam(config.getuPFCAdjustRC()).logger(new AppLogger() {
 
 					@Override
 					public void print(String log) {
@@ -155,6 +169,10 @@ public class ReliabilityApl {
 					}
 				}).exec();
 
+	}
+
+	public static void callStateEstimate() {
+		callStateEstimate(null, new StateEstimateConfig());
 	}
 
 	private void callReliabilityIndex() {
@@ -185,6 +203,118 @@ public class ReliabilityApl {
 				break;
 			}
 		}
+	}
+
+	public static final String create_AllModel = "create_AllModel";
+	public static final String create_BPAModel = "create_BPAModel";
+	public static final String created_BPAModel = "created_BPAModel";
+	public static final String created_PRModel = "created_PRModel";
+	public static final String created_StateSampleTask = "created_StateSampleTask";
+	public static final String created_StateEstimateTask = "created_StateEstimateTask";
+	public static final String get_Reliability = "get_Reliability";
+	public static final String created_StateSampleResult = "created_StateSampleResult";
+	public static final String created_StateEsteimateResult = "created_StateEsteimateResult";
+	public static final String created_ReliabilityIndexResult = "created_ReliabilityIndexResult";
+
+	public final static String powersystem_reliability = "powersystem-reliability";
+
+	public final static String state_estimate = "state-estimate";
+	public final static String state_estimate_watch = "state-estimate-watch";
+	public final static String state_sample = "state-sample";
+	public final static String reliability_index = "reliability-index";
+
+	@Autowired
+	RedissonClient redissonClient;
+
+	@AplFunction(desc = "模型加载:加载BPA模型,BPA网络模型转可靠性网络模型")
+	public void loadModel(@In(create_AllModel) StringData createConfig,
+			@Out(created_BPAModel) MemDBData bPAModel,
+			@Out(created_PRModel) MemDBData pRModel,
+			@Out(get_Reliability) StringData calcTask) throws ACPException,
+			UnsupportedOperation {
+
+		LOGGER.info("----------------start create_BPAModel------------------------");
+		LOGGER.info("config:" + createConfig.getContent());
+		callBpaLoader();
+
+		bPAModel.setEntryName(MDBDefine.g_strBpaDBEntry);
+		bPAModel.setArea(modelArea);
+
+		callBpa2Pr();
+		pRModel.setEntryName(MDBDefine.g_strPRDBEntry);
+		pRModel.setArea(modelArea);
+
+		// AdsServer server = connectionFactory.getServer();
+		// if (server != null)
+		// server.publish(created_StateSampleTask, state_sample);
+
+		calcTask.setKey(pRModel.getArea() + ":task:" + powersystem_reliability);
+
+		LOGGER.info("----------------end create_BPAModel------------------------");
+
+	}
+
+	@AplFunction(desc = "reliability")
+	public void calcReliability(
+			@In(get_Reliability) StringData calcTask,
+			@Out(created_StateSampleResult) MapData stateSampleResult,
+			@Out(created_StateEsteimateResult) MapData stateEstimateResult,
+			@Out(created_ReliabilityIndexResult) MapData reliabilityIndexResult) {
+		LOGGER.info("----------------start calc reliability------------------------");
+		// 状态抽样
+		callStateSample();
+
+		int count = 0;
+		Iterable<FState> fStates = fStateDao.findAll();
+		Map<Integer, StateSampleTask> resultMap = new HashMap<>();
+		for (FState state : fStates) {
+			StateSampleTask task = new StateSampleTask();
+			resultMap.put(count, task);
+			count++;
+			if (count == 1)
+				LOGGER.info(state.toString());
+
+		}
+		LOGGER.info("FState count=" + count);
+
+		Iterable<FStateFDev> fStateFDevs = fStateFDevDao.findAll();
+		count = 0;
+		for (FStateFDev dev : fStateFDevs) {
+			StateSampleTask rt = resultMap.get(dev.getFState());
+			if (rt == null) {
+				continue;
+			}
+			count++;
+			rt.getDevs().add(dev);
+
+			if (count == 1)
+				LOGGER.info(dev.toString());
+
+		}
+		LOGGER.info("FStateFDev count=" + count);
+
+		RMap<Integer, StateSampleTask> map = redissonClient
+				.getMap("sampleStateMap");
+
+		Set<Entry<Integer, StateSampleTask>> s = resultMap.entrySet();
+		for (Entry<Integer, StateSampleTask> e : s) {
+			map.put(e.getKey(), e.getValue());
+		}
+
+		RMapReduce<Integer, StateSampleTask, Integer, StateEstimateResult> mapReduce = map
+				.<Integer, StateEstimateResult> mapReduce()
+				.mapper(new StateSampleMap()).reducer(new StateSampleReducer());
+
+		System.out.println("Start state estimate ...");
+		Map<Integer, StateEstimateResult> mapToResult = mapReduce.execute();
+		
+		stateEstimateResult.setContent(mapToResult);
+		
+		System.out.println("Start reliability index");
+		ReliabilityIndexResult indexResult = mapReduce
+				.execute(new StateSampleCollator());
+
+		LOGGER.info("----------------end calc reliability------------------------");
 	}
 
 	@AplFunction(desc = "BPA模型加载")
@@ -225,20 +355,16 @@ public class ReliabilityApl {
 		strs.add(state_sample);
 		tasks.setContent(strs);
 		tasks.setKey(pRModel.getArea() + ":task:" + state_sample);
+
 		LOGGER.info("----------------end BPA2PR------------------------");
 
 	}
-
-	public final static String state_estimate = "state-estimate";
-	public final static String state_estimate_watch = "state-estimate-watch";
-	public final static String state_sample = "state-sample";
-	public final static String reliability_index = "reliability-index";
 
 	@AplFunction(value = "StateSample", desc = "状态抽样")
 	public void stateSample(@In("created_BPAModel") MemDBData bPAModel,
 			@In("created_PRModel") MemDBData pRModel,
 			@In("created_StateSampleTask") ListData stateSampleTasks,
-			@Out("created_StateEstimateTask") ListData sateEstimateTasks,
+			@Out(created_StateEstimateTask) ListData sateEstimateTasks,
 			@Out("created_StateSampleResult") MapData stateSampleResult,
 			@Out("created_StateEsteimateResultWatch") ListData watchTask) {
 		LOGGER.info("----------------start stateSample------------------------");
@@ -383,11 +509,11 @@ public class ReliabilityApl {
 		Long n = ops.getSize(t.getKey());
 		Long start = System.currentTimeMillis();
 		Long now = start;
-		Long timeout = t.getCount() * 3000;//设置超时
-		LOGGER.info("设置计算超时:"+timeout);
+		Long timeout = t.getCount() * 3000;// 设置超时
+		LOGGER.info("设置计算超时:" + timeout);
 		while (!n.equals(t.getCount()) && (now - start) < timeout) {
 			n = ops.getSize(t.getKey());
-			
+
 			try {
 				Thread.sleep(5);
 				now = System.currentTimeMillis();
@@ -396,9 +522,9 @@ public class ReliabilityApl {
 				e.printStackTrace();
 			}
 		}
-		
-		if (now -start >= timeout) {
-			LOGGER.info("计算超时:"+timeout);
+
+		if (now - start >= timeout) {
+			LOGGER.info("计算超时:" + timeout);
 		} else if (n.equals(t.getCount())) {
 			LOGGER.info("发布可靠性指标任务");
 			reliabilityIndexTask.setContent("reliabilityIndexTask");
@@ -407,10 +533,10 @@ public class ReliabilityApl {
 	}
 
 	@AplFunction(value = "StateEstimate", desc = "状态后评估")
-	public void stateEstimate(@In("created_PRModel") MemDBData pRModel,
-			@In("created_StateEstimateTask") ListData estimateTask,
-			@In("created_StateSampleResult") MapData stateSampleResult,
-			@Out("created_StateEsteimateResult") MapData stateEstimateResult)
+	public void stateEstimate(@In(created_PRModel) MemDBData pRModel,
+			@In(created_StateEstimateTask) ListData estimateTask,
+			@In(created_StateSampleResult) MapData stateSampleResult,
+			@Out(created_StateEsteimateResult) MapData stateEstimateResult)
 			throws ACPException {
 		LOGGER.info("----------------start stateEstimate------------------------");
 		// TODO:
@@ -430,7 +556,7 @@ public class ReliabilityApl {
 		// List<String> taskList = new ArrayList<String>();
 		for (FState state : fStates) {
 			StateEstimateResult rt = new StateEstimateResult();
-			rt.state = state;
+			rt.setState(state);
 			// taskList.add(String.valueOf(count));
 			resultMap.put(count, rt);
 			count++;
@@ -448,7 +574,7 @@ public class ReliabilityApl {
 				continue;
 			}
 			count++;
-			rt.devs.add(dev);
+			rt.getDevs().add(dev);
 
 			if (count == 1)
 				LOGGER.info(dev.toString());
@@ -465,7 +591,7 @@ public class ReliabilityApl {
 			}
 			count++;
 
-			rt.mislands.add(mIsland);
+			rt.getMislands().add(mIsland);
 
 			if (count == 1)
 				LOGGER.info(mIsland.toString());
@@ -482,7 +608,7 @@ public class ReliabilityApl {
 			}
 
 			count++;
-			rt.ovlAds.add(ovlAd);
+			rt.getOvlAds().add(ovlAd);
 
 			if (count == 1)
 				LOGGER.info(ovlAd.toString());
@@ -499,7 +625,7 @@ public class ReliabilityApl {
 			}
 
 			count++;
-			rt.ovlDevs.add(ovlDev);
+			rt.getOvlDevs().add(ovlDev);
 
 			if (count == 1)
 				LOGGER.info(ovlDev.toString());
@@ -550,6 +676,14 @@ public class ReliabilityApl {
 		LOGGER.info("----------------end reliabilityIndex------------------------");
 
 	}
+
+	public FStateDao getfStateDao() {
+		return fStateDao;
+	}
+
+	public FStateFDevDao getfStateFDevDao() {
+		return fStateFDevDao;
+	}
 }
 
 class StateSampleResult {
@@ -572,20 +706,4 @@ class StateSampleResult {
 		this.devs = devs;
 	}
 
-}
-
-class StateEstimateResult {
-	FState state;
-	List<FStateFDev> devs = new ArrayList<FStateFDev>();
-	// List<FStateMState> mstate = new ArrayList<FStateMState>();
-	List<FStateMIsland> mislands = new ArrayList<FStateMIsland>();
-	List<FStateOvlDev> ovlDevs = new ArrayList<FStateOvlDev>();
-	List<FStateOvlAd> ovlAds = new ArrayList<FStateOvlAd>();
-}
-
-class ReliabilityIndexResult {
-	// FState state;
-	// List<CopGen> copGens = new ArrayList<CopGen>();
-	// List<CopTable> copTables = new ArrayList<CopTable>();
-	com.znd.ei.memdb.reliabilty.domain.System sys;
 }

@@ -2,8 +2,8 @@ package com.znd.ei.ads.adf;
 
 import com.znd.ei.ads.acp.IOOperations;
 
-public abstract class DataItem {
-	protected IOOperations operations;
+public abstract class DataItem<T> {
+	protected IOOperations<T> operations;
 	private String key;
 
 	public String getKey() {
@@ -14,11 +14,11 @@ public abstract class DataItem {
 		this.key = name;
 	}
 
-	public IOOperations getOperations() {
+	public IOOperations<T> getOperations() {
 		return operations;
 	}
 
-	public void setOperations(IOOperations operations) {
+	public void setOperations(IOOperations<T> operations) {
 		this.operations = operations;
 	}
 
@@ -26,7 +26,5 @@ public abstract class DataItem {
 	
 	public abstract boolean canClear();
 
-
 	public abstract boolean isEmpty();
-
 }

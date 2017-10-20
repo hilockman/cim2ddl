@@ -14,8 +14,13 @@ public class AppExecuteBuilder {
 		this.appPath = appName;
 	}
 	
-	public AppExecuteBuilder addParam(String param) {
-		parameters.add(param);
+//	public AppExecuteBuilder addParam(String param) {
+//		parameters.add(param);
+//		return this;
+//	}
+	
+	public <T> AppExecuteBuilder addParam(T param) {
+		parameters.add(param.toString());
 		return this;
 	}
 	
@@ -27,5 +32,7 @@ public class AppExecuteBuilder {
 	public void exec() {
 		AppUtil.execute(appPath, appLogger, parameters.toArray(new String[0]));
 	}
+	
+	
 	
 }
