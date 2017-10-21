@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.redisson.Redisson;
-import org.redisson.RedissonNode;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.ConfigSupport;
 import org.redisson.config.RedissonNodeConfig;
@@ -14,8 +13,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.znd.ei.ads.AdsServer;
-import com.znd.ei.ads.AdsServerImp;
 import com.znd.ei.ads.acp.ConnectionFactory;
 
 @Configuration

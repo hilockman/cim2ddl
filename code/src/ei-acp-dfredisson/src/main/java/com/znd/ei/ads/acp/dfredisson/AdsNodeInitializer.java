@@ -1,14 +1,8 @@
 package com.znd.ei.ads.acp.dfredisson;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.redisson.RedissonNode;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RedissonNodeInitializer;
-
-import com.znd.ei.ads.AdsServer;
 
 public class AdsNodeInitializer  implements RedissonNodeInitializer {
 	

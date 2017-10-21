@@ -9,12 +9,12 @@ public class MapData<K,V> extends DataItem<MapData<K,V>> {
 
 	//private Map<String, String> content = new HashMap<String, String>();
 
-	public Map<K, V> getContent() {
+	public Map<K, V> getAll() {
 		return getOps().getAll(getKey());
 	}
 
-	public void setContent(Map<K, V> content) {
-		getOps().setAll(getKey(), content);	
+	public void putAll(Map<K, V> content) {
+		getOps().putAll(getKey(), content);	
 	}
 
 //	public MapDataOperations getOperation() {

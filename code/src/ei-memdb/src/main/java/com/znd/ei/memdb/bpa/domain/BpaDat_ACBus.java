@@ -1,10 +1,12 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
+
 
 /**********************
 *节点表(ACBus)	*
 ***********************/
-public class BpaDat_ACBus
+public class BpaDat_ACBus implements MemIndexable
 {
   private Integer id;
   

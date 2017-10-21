@@ -1,4 +1,4 @@
-package com.znd.ei.ads.apl.reliability;
+package com.znd.ei.ads.apl.reliability.bean;
 public class StateEstimateConfig
 {
 	// 直流潮流2 交流潮流系数 

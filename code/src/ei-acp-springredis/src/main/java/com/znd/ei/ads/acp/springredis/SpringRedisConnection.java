@@ -1,6 +1,7 @@
 package com.znd.ei.ads.acp.springredis;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,15 +18,10 @@ import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.MemDBDataOperations;
-import com.znd.ei.ads.acp.StringDataOperations;
 import com.znd.ei.ads.acp.ObjectRefDataOperations;
-import com.znd.ei.ads.acp.UnsupportedOperation;
+import com.znd.ei.ads.acp.StringDataOperations;
 import com.znd.ei.ads.adf.DataFieldStorage;
-import com.znd.ei.ads.adf.ListData;
-import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
-import com.znd.ei.ads.adf.StringData;
-import com.znd.ei.ads.adf.ObjectRefData;
 
 public class SpringRedisConnection extends AbstractConnectionFactory {
 	private static final Logger LOGGER = LoggerFactory
@@ -34,30 +30,17 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 	
-	public class MapDataOperationsImp extends MapDataOperations {
+	public class MapDataOperationsImp<V> extends MapDataOperations<String, V> {
 
-		private HashOperations<String, String, String> operations;
+		private HashOperations<String, String, V> operations;
 		
 		public MapDataOperationsImp() {
-			operations = (HashOperations) stringRedisTemplate.opsForHash();
+			operations = stringRedisTemplate.<String, V>opsForHash();
 		}
 		
-		@Override
-		public MapData read(MapData data) throws ACPException,
-				UnsupportedOperation {
-			data.setContent(operations.entries(data.getKey()));
-			return data;
-		}
 
 		@Override
-		public void write(MapData data) throws ACPException,
-				UnsupportedOperation {
-			operations.putAll(data.getKey(), data.getContent());
-		}
-
-		@Override
-		public String get(String key, String mkey) throws ACPException,
-				UnsupportedOperation {
+		public V get(String key, String mkey){
 			return operations.get(key, mkey);
 		}
 
@@ -72,103 +55,113 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void put(String key, String key1, String value) {
+		public void put(String key, String key1, V value) {
 			operations.put(key, key1, value);
 		}
 
 		@Override
-		public Map<String, String> getAll(String key) {
+		public Map<String, V> getAll(String key) {
 				return operations.entries(key);
+		}
+
+		@Override
+		public void putAll(String key, Map<String, V> content) {
+			operations.putAll(key, content);
+		}
+
+
+		@Override
+		public boolean isEmpty(String key) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 	}
 
 
-	public class StringRefDataOperationsImp extends ObjectRefDataOperations {
+	public class ObjectRefDataOperationsImp extends ObjectRefDataOperations<String> {
 		private ValueOperations<String, String> operations;
-		public StringRefDataOperationsImp() {
+		public ObjectRefDataOperationsImp() {
 			operations = stringRedisTemplate.opsForValue();
 		}
-		@Override
-		public ObjectRefData read(ObjectRefData data) throws ACPException,
-				UnsupportedOperation {			
-			data.setContent(get(data.getKey()));
-			return data;
-		}
 
-		@Override
-		public void write(ObjectRefData data) throws ACPException,
-				UnsupportedOperation {
-			operations.set(data.getKey(), data.getContent());
-		}
 		
 		@Override
 		public String get(String key) {
 			return operations.get(key);
 		}
 
+
+		@Override
+		public void set(String key, String value) {
+			operations.set(key, value);
+		}
+
+
+		@Override
+		public boolean isEmpty(String key) {
+			return stringRedisTemplate.hasKey(key);
+		}
+
 	}
 
 	public class StringDataOperationsImp extends StringDataOperations {
 
-		@Override
-		public StringData read(StringData data) throws ACPException,
-				UnsupportedOperation {
-			return data;
-		}
+	
 
 		@Override
-		public void write(StringData data) throws ACPException,
-				UnsupportedOperation {
+		public boolean isEmpty(String key) {
+			return key != null && !key.isEmpty();
 		}
 
 	}
 
 	public class MemDBDataOperationsImp extends MemDBDataOperations {
-
 		@Override
-		public MemDBData read(MemDBData data) throws ACPException,
-				UnsupportedOperation {
+		public void upload(MemDBData db) {
 			// TODO Auto-generated method stub
-			return null;
+			
 		}
 
 		@Override
-		public void write(MemDBData data) throws ACPException,
-				UnsupportedOperation {
+		public void download(MemDBData db) {
 			// TODO Auto-generated method stub
-
+			
 		}
 
+		@Override
+		public boolean isEmpty(String key) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 	}
 
 
 	
-	class ListDataOperationsImp extends ListDataOperations {
-		ListOperations<String, String> operation;
+	class ListDataOperationsImp<V> extends ListDataOperations<V> {
+		ListOperations<String, V> operation;
 		public ListDataOperationsImp() {
-			operation = stringRedisTemplate.opsForList();
-		}
-		@Override
-		public ListData read(ListData o) throws ACPException,
-				UnsupportedOperation {
-			
-			o.setContent(operation.range(o.getKey(), 0, -1));
-			return o;
+			//operation = stringRedisTemplate.<String, V>opsForList();
 		}
 
 		@Override
-		public void write(ListData o) throws ACPException, UnsupportedOperation {
-			operation = stringRedisTemplate.opsForList();
-			operation.rightPushAll(o.getKey(), o.getContent());
-		}
-
-		@Override
-		public String lpop(String key) throws ACPException {
+		public V lpop(String key) throws ACPException {
 			return operation.leftPop(key);
 		}
 
 		@Override
 		public void close() throws ACPException {
+		}
+		@Override
+		public List<V> getAll(String key) {
+			return operation.range(key, 0, -1);
+		}
+		@Override
+		public void pushAll(String key, List<V> values) {
+			operation.leftPushAll(key, values);
+		}
+		@Override
+		public boolean isEmpty(String key) {
+			return stringRedisTemplate.hasKey(key);
 		}
 		
 	}
@@ -200,8 +193,8 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public ObjectRefDataOperations getStringRefOperations() {
-		return new StringRefDataOperationsImp();
+	public ObjectRefDataOperations getObjectRefOperations() {
+		return new ObjectRefDataOperationsImp();
 	}
 
 

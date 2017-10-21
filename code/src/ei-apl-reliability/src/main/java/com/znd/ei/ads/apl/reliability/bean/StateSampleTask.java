@@ -1,4 +1,4 @@
-package com.znd.ei.ads.apl.reliability;
+package com.znd.ei.ads.apl.reliability.bean;
 
 import java.util.ArrayList;
 import java.util.List;

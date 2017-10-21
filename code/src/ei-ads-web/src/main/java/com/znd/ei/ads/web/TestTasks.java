@@ -79,6 +79,5 @@ public class TestTasks {
 		server = connectionFactory.getServer();
 
 		return server.publish(AdsServer.ADS_GET_SERVERINFOS, "");
-
 	}
 }

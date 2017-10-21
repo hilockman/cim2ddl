@@ -182,9 +182,9 @@ public final class DataFieldStorage {
 				InstantiationException, ACPException, UnsupportedOperation {
 			dataItem = createData();
 			dataItem.setKey(key);
-			if (autoLoad) {				
-				dataItem.getOperations().read(dataItem);
-			}			
+//			if (autoLoad) {				
+//				dataItem.getOperations().read(dataItem);
+//			}			
 		}
 
 		/**
@@ -196,7 +196,6 @@ public final class DataFieldStorage {
 		 * @throws IllegalAccessException
 		 * @throws UnsupportedOperation
 		 */
-		@SuppressWarnings("unchecked")
 		public void publishToBus() throws IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException,
 				ACPException, UnsupportedOperation {
@@ -205,17 +204,16 @@ public final class DataFieldStorage {
 				if (contentCode == null) {
 					LOGGER.error("cc is empty.");
 				}
-				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
-					dataItem.setKey(contentCode + ":"
-							+ UUID.randomUUID().toString());
-				}
-				IOOperations<DataItem> io = dataItem.getOperations();
-				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
-				io.write(dataItem);
+//				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
+//					dataItem.setKey(contentCode + ":"
+//							+ UUID.randomUUID().toString());
+//				}
+//				IOOperations io = dataItem.getOperations();
+//				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
+//				io.write(dataItem);
 				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
 				connectionFactory.publishData(contentCode, dataItem.getKey());
 			}
-
 		}
 
 		void clear() {

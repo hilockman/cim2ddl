@@ -18,6 +18,6 @@ public abstract class MapDataOperations<K, V> extends AbstractOperations<MapData
 
 	public  abstract Map<K, V> getAll(String key);
 	
-	public abstract void setAll(String key, Map<K,V> content);
+	public abstract void putAll(String key, Map<K,V> content);
 
 }

@@ -122,6 +122,9 @@ public class AbstractTableOperations<T> implements
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public <S extends T> Iterable<S> saveOrUpdate(Iterable<S> entities) {
+		if (entities == null)
+			return null;
+		
 		List<String[]> newRecords = new ArrayList<String[]>();
 		List<String[]> updateRecords = new ArrayList<String[]>();
 		Iterator it = entities.iterator();
@@ -166,6 +169,7 @@ public class AbstractTableOperations<T> implements
 				}
 
 			}
+
 
 
 			List<Integer> rowIndexes = dbEntryOps.saveRecords(table, newRecords);

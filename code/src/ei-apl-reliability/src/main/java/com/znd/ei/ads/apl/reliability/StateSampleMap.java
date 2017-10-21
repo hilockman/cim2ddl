@@ -4,7 +4,8 @@ import org.redisson.api.mapreduce.RCollector;
 import org.redisson.api.mapreduce.RMapper;
 
 import com.znd.ei.ads.AdsUtils;
-import com.znd.ei.memdb.reliabilty.dao.FStateDao;
+import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
+import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
 
 public class StateSampleMap  implements RMapper<Integer, StateSampleTask, Integer, StateEstimateResult> {
 
@@ -18,7 +19,7 @@ public class StateSampleMap  implements RMapper<Integer, StateSampleTask, Intege
     public void map(Integer key, StateSampleTask value, RCollector<Integer, StateEstimateResult> collector) {
 		synchronized(AdsUtils.shareMemoryLocker)  {
 			System.out.println(String.format("StateSampleMap.map index = %s, key = %s, value = %s", count++, key, value));
-			FStateDao fstateDao = ReliabilityApl.INSTANCE.fStateDao;
+//			FStateDao fstateDao = ReliabilityApl.INSTANCE.fStateDao;
 			StateEstimateResult result = new StateEstimateResult();
 			result.setState(value.getState());
 			result.setDevs(value.getDevs());

@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.FileSystemUtils;
 
 import com.znd.ei.codegen.domain.FieldInfo;
 import com.znd.ei.common.Utils;
@@ -35,7 +34,7 @@ public class MemClassCreateService implements ClassCreateService {
 
 	@Autowired
 	private CheckService checkService;
-	
+
 	@Autowired
 	public MemClassCreateService(/* DbEntryOperations bPAOps, */
 	GenCodeProperties properties) {
@@ -140,8 +139,8 @@ public class MemClassCreateService implements ClassCreateService {
 		// String packageName = toPackageName(str);
 		String fileName = str + "/" + table.getName() + ".java";
 		Utils.deleteAllFilesOfDir(new File(fileName));
-		
-		if (!checkService.check(table)) { //表字段有误则不产生java文件
+
+		if (!checkService.check(table)) { // 表字段有误则不产生java文件
 			return;
 		}
 		CodeTemplateContext context = new CodeTemplateContext();
@@ -154,11 +153,13 @@ public class MemClassCreateService implements ClassCreateService {
 				w.write("package " + packageName + ";");
 				w.write();
 				if (properties.isEnableEntityAnnotation()) {
-					w.write("import javax.persistence.Entity;");
-					w.write("import javax.persistence.GeneratedValue;");
-					w.write("import javax.persistence.GenerationType;");
-					w.write("import javax.persistence.Id;");
+					w.writeln("import javax.persistence.Entity");
+					w.writeln("import javax.persistence.GeneratedValue");
+					w.writeln("import javax.persistence.GenerationType");
+					w.writeln("import javax.persistence.Id");
 					w.write();
+				} else {
+					w.writeln("import com.znd.ei.memdb.MemIndexable");
 				}
 
 				w.write("");
@@ -175,7 +176,11 @@ public class MemClassCreateService implements ClassCreateService {
 
 			@Override
 			public void write(FileLineWriter w) {
-				w.write("public class " + table.getName());
+				if (properties.isEnableEntityAnnotation()) {
+					w.write("public class " + table.getName());
+				} else {
+					w.write("public class " + table.getName()+"  implements MemIndexable ");
+				}
 			}
 		});
 
@@ -271,15 +276,16 @@ public class MemClassCreateService implements ClassCreateService {
 								+ info.getStandardName());
 					});
 
-			toStringMethods.add((i > 0?"\t + \", " : "\"" ) + info.getStandardName() + " = \" + "
+			toStringMethods.add((i > 0 ? "\t + \", " : "\"")
+					+ info.getStandardName() + " = \" + "
 					+ info.getStandardName());
 		}
 
 		classNode.add(w -> {
 			w.write(formMethodString("public", "String", "toString"));
 		}).add(w -> {
-			w.writeln("return " + wrapprerWithQuota(table.getName() + " [") + "+"
-					+ String.join("\n", toStringMethods) + "+"
+			w.writeln("return " + wrapprerWithQuota(table.getName() + " [")
+					+ "+" + String.join("\n", toStringMethods) + "+"
 					+ wrapprerWithQuota("]"));
 		});
 
@@ -299,7 +305,7 @@ public class MemClassCreateService implements ClassCreateService {
 	private String wrapperWith(String str, String w) {
 		return w + str + w;
 	}
-	
+
 	private String wrapperWith(String str, String[] w) {
 		return w[0] + str + w[1];
 	}
@@ -317,7 +323,7 @@ public class MemClassCreateService implements ClassCreateService {
 			}
 
 		}
-		String[] ends ={"(",")"};
+		String[] ends = { "(", ")" };
 		buff.append(wrapperWith(String.join(", ", strs), ends));
 		return buff.toString();
 	}

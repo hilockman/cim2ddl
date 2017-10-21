@@ -1,4 +1,4 @@
-package com.znd.ei.ads.apl.reliability;
+package com.znd.ei.ads.apl.reliability.bean;
 
 public class ReliabilityIndexResult {
 	private com.znd.ei.memdb.reliabilty.domain.System sys;
