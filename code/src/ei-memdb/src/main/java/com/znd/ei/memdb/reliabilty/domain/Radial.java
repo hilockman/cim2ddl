@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *环辐网	*
 ***********************/
-public class Radial
+public class Radial  implements MemIndexable 
 {
   private Integer id;
   

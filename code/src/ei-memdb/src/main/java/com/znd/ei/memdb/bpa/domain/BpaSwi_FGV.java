@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *发电机机械功率周期波动表(FGV)	*
 ***********************/
-public class BpaSwi_FGV
+public class BpaSwi_FGV  implements MemIndexable 
 {
   private Integer id;
   

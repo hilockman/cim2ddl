@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *低压线路断开保护(RA)	*
 ***********************/
-public class BpaSwi_RA
+public class BpaSwi_RA  implements MemIndexable 
 {
   private Integer id;
   

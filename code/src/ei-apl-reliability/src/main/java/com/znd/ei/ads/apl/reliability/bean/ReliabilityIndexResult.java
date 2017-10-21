@@ -1,6 +1,8 @@
 package com.znd.ei.ads.apl.reliability.bean;
 
-public class ReliabilityIndexResult {
+import java.io.Serializable;
+
+public class ReliabilityIndexResult implements Serializable {
 	private com.znd.ei.memdb.reliabilty.domain.System sys;
 
 	public com.znd.ei.memdb.reliabilty.domain.System getSys() {

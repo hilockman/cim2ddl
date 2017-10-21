@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *电调型(功率反馈)调速器模型表(GD)	*
 ***********************/
-public class BpaSwi_GD
+public class BpaSwi_GD  implements MemIndexable 
 {
   private Integer id;
   

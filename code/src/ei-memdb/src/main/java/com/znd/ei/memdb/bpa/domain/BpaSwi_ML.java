@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *新感应马达模型(ML)	*
 ***********************/
-public class BpaSwi_ML
+public class BpaSwi_ML  implements MemIndexable 
 {
   private Integer id;
   

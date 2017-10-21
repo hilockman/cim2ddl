@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *锅炉的主汽压力变化模型表(GX)	*
 ***********************/
-public class BpaSwi_GX
+public class BpaSwi_GX  implements MemIndexable 
 {
   private Integer id;
   

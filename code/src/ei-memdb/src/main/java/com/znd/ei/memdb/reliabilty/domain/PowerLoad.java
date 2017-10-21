@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *负荷	*
 ***********************/
-public class PowerLoad
+public class PowerLoad  implements MemIndexable 
 {
   private Integer id;
   

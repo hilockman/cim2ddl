@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *PSS模型表(S)	*
 ***********************/
-public class BpaSwi_PssS
+public class BpaSwi_PssS  implements MemIndexable 
 {
   private Integer id;
   

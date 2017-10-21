@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *暂态稳定器表(ST)	*
 ***********************/
-public class BpaSwi_PssST
+public class BpaSwi_PssST  implements MemIndexable 
 {
   private Integer id;
   

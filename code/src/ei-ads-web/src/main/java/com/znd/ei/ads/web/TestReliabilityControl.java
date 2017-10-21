@@ -14,7 +14,7 @@ import com.znd.ei.ads.acp.ConnectionFactory;
 
 @Controller
 @RequestMapping(path = "/test")
-public class TestTasks {
+public class TestReliabilityControl {
 	
 	@Autowired
 	ConnectionFactory connectionFactory;
@@ -24,7 +24,7 @@ public class TestTasks {
 	@GetMapping()
 	public @ResponseBody AdsResult home() {
 		
-		return new AdsResult("OK", String.format("url:"+"tasks  uploadBPA testRPC"));
+		return new AdsResult("OK", String.format("url:"+"tasks  uploadBPA testRPC serverInfos calc"));
 	}
 	
 	@GetMapping(path = "/tasks")
@@ -79,5 +79,14 @@ public class TestTasks {
 		server = connectionFactory.getServer();
 
 		return server.publish(AdsServer.ADS_GET_SERVERINFOS, "");
+	}
+	
+	@GetMapping(path = "/calc")
+	public @ResponseBody String updateAllModel() {
+		AdsServer server = null;
+		
+		server = connectionFactory.getServer();
+
+		return server.publish(AdsServer.create_AllModel, "");
 	}
 }

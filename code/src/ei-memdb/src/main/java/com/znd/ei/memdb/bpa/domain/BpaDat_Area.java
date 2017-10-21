@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *区域表(AREA)	*
 ***********************/
-public class BpaDat_Area
+public class BpaDat_Area  implements MemIndexable 
 {
   private Integer id;
   

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *小支路清除信息表(ZIL)	*
 ***********************/
-public class BpaDat_ZIL
+public class BpaDat_ZIL  implements MemIndexable 
 {
   private Integer id;
   

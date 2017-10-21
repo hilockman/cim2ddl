@@ -1,5 +1,6 @@
 package com.znd.ei.ads.apl.reliability.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
 
-public class StateEstimateResult {
+public class StateEstimateResult  implements Serializable {
 	private FState state;
 	private List<FStateFDev> devs = new ArrayList<FStateFDev>();
 	private List<FStateMIsland> mislands = new ArrayList<FStateMIsland>();

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *发电机等值负荷(LN)	*
 ***********************/
-public class BpaSwi_GenLn
+public class BpaSwi_GenLn  implements MemIndexable 
 {
   private Integer id;
   

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *变换器	*
 ***********************/
-public class Converter
+public class Converter  implements MemIndexable 
 {
   private Integer id;
   

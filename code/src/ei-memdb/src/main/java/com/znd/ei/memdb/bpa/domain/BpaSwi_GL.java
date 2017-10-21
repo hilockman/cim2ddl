@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *汽轮机调速模型2表(GL)	*
 ***********************/
-public class BpaSwi_GL
+public class BpaSwi_GL  implements MemIndexable 
 {
   private Integer id;
   

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *统一潮流控制器	*
 ***********************/
-public class UPFC
+public class UPFC  implements MemIndexable 
 {
   private Integer id;
   

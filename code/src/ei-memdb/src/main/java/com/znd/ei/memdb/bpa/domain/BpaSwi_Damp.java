@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *发电机阻尼模型表(M)	*
 ***********************/
-public class BpaSwi_Damp
+public class BpaSwi_Damp  implements MemIndexable 
 {
   private Integer id;
   

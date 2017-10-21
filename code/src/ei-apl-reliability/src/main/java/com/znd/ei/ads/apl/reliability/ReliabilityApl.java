@@ -253,6 +253,7 @@ public class ReliabilityApl {
 		Map<Integer, StateSampleTask> resultMap = new HashMap<>();
 		for (FState state : fStates) {
 			StateSampleTask task = new StateSampleTask();
+			task.setState(state);
 			resultMap.put(count, task);
 			count++;
 			if (count == 1)

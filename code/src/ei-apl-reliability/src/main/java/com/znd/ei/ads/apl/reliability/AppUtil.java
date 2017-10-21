@@ -22,10 +22,7 @@ public class AppUtil {
 
 	public static final String GC_STATE_ESTIMATE = "GCStateEstimate";
 	public static final String GC_RELIABILITY_INDEX = "GCReliabilityIndex";
-	public static <T> void clearTable( MemTableRepository<T> dao)
-	{
-		dao.deleteAll();
-	}
+
 	
 	public static <T> void clearAndSave(List<T> records, MemTableRepository<T> dao) {
 		

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *停运发电	*
 ***********************/
-public class CopGen
+public class CopGen  implements MemIndexable 
 {
   private Integer id;
   

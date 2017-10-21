@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *发电机转速保护(RW)	*
 ***********************/
-public class BpaSwi_RW
+public class BpaSwi_RW  implements MemIndexable 
 {
   private Integer id;
   

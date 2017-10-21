@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *抽样状态	*
 ***********************/
-public class FState
+public class FState  implements MemIndexable 
 {
   private Integer id;
   

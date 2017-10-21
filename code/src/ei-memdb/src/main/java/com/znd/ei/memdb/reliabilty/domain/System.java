@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *系统	*
 ***********************/
-public class System
+public class System  implements MemIndexable 
 {
   private Integer id;
   

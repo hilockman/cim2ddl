@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *带负荷调节变压器控制器表(R)	*
 ***********************/
-public class BpaDat_R
+public class BpaDat_R  implements MemIndexable 
 {
   private Integer id;
   

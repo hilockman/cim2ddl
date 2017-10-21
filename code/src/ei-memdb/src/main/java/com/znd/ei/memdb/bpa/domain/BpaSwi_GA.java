@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *电液伺服系统模型表(GA)	*
 ***********************/
-public class BpaSwi_GA
+public class BpaSwi_GA  implements MemIndexable 
 {
   private Integer id;
   

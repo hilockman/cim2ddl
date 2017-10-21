@@ -65,14 +65,14 @@
 										<include name="*.jar" />
 									</fileset>
 								</copy>
-								<copy todir="${config.dir}" overwrite="true">
+								<!-- copy todir="${config.dir}" overwrite="true">
 									<fileset dir="${basedir}/src/main/resources"
 										erroronmissingdir="false">
 										<include name="*.properties" />
 										<include name="*.yaml" />
 										<include name="*.json" />
 									</fileset>
-								</copy>
+								</copy-->
 							</tasks>
 						</configuration>
 					</execution>

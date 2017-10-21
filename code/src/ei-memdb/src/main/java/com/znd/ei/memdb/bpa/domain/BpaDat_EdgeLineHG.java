@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *电网边-高抗	*
 ***********************/
-public class BpaDat_EdgeLineHG
+public class BpaDat_EdgeLineHG  implements MemIndexable 
 {
   private Integer id;
   

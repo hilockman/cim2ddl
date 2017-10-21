@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *蒙特卡罗抽样状态	*
 ***********************/
-public class MCSampleState
+public class MCSampleState  implements MemIndexable 
 {
   private Integer id;
   

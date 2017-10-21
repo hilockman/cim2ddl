@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *励磁系统继续卡(FZ)	*
 ***********************/
-public class BpaSwi_FZ
+public class BpaSwi_FZ  implements MemIndexable 
 {
   private Integer id;
   

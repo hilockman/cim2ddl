@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *直流母线表(DCBus)	*
 ***********************/
-public class BpaDat_DCBus
+public class BpaDat_DCBus  implements MemIndexable 
 {
   private Integer id;
   

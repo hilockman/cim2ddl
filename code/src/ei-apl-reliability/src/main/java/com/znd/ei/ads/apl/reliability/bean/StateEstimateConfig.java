@@ -1,5 +1,8 @@
 package com.znd.ei.ads.apl.reliability.bean;
-public class StateEstimateConfig
+
+import java.io.Serializable;
+
+public class StateEstimateConfig  implements Serializable
 {
 	// 直流潮流2 交流潮流系数 
 	private Float dc2AcFactor = 1.100000f;

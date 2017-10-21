@@ -1,5 +1,7 @@
 package com.znd.ei.memdb;
 
-public interface MemIndexable {
+import java.io.Serializable;
+
+public interface MemIndexable extends  Serializable {
 	 void setMemIndex(Integer memIndex);
 }

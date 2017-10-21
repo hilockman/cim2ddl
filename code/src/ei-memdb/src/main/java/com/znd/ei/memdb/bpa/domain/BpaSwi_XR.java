@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *对地支路零序模型(XR)	*
 ***********************/
-public class BpaSwi_XR
+public class BpaSwi_XR  implements MemIndexable 
 {
   private Integer id;
   

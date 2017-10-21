@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *停运概率	*
 ***********************/
-public class CopTable
+public class CopTable  implements MemIndexable 
 {
   private Integer id;
   

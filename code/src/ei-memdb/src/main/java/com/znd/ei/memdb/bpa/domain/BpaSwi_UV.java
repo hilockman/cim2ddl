@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *自动减负荷模型(UV)	*
 ***********************/
-public class BpaSwi_UV
+public class BpaSwi_UV  implements MemIndexable 
 {
   private Integer id;
   

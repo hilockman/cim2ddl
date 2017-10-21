@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *变压器零序模型(XO)	*
 ***********************/
-public class BpaSwi_XO
+public class BpaSwi_XO  implements MemIndexable 
 {
   private Integer id;
   

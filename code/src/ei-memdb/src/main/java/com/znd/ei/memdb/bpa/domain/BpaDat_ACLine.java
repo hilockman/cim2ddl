@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *交流线路表(ACLine)	*
 ***********************/
-public class BpaDat_ACLine
+public class BpaDat_ACLine  implements MemIndexable 
 {
   private Integer id;
   

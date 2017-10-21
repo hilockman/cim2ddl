@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *发电机	*
 ***********************/
-public class Generator
+public class Generator  implements MemIndexable 
 {
   private Integer id;
   

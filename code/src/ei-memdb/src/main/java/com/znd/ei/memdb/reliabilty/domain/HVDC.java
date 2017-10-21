@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *高压直流系统	*
 ***********************/
-public class HVDC
+public class HVDC  implements MemIndexable 
 {
   private Integer id;
   

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *线路故障点移动计算结果	*
 ***********************/
-public class BpaScc_FMove
+public class BpaScc_FMove  implements MemIndexable 
 {
   private Integer id;
   

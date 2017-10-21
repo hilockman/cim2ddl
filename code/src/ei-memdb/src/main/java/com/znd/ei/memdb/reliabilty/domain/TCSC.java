@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *可控串联补偿装置	*
 ***********************/
-public class TCSC
+public class TCSC  implements MemIndexable 
 {
   private Integer id;
   

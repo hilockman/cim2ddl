@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *1981年IEEE励磁系统模型表(F)	*
 ***********************/
-public class BpaSwi_Exc81
+public class BpaSwi_Exc81  implements MemIndexable 
 {
   private Integer id;
   

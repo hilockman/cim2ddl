@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *静态负荷模型表(LA/LB)	*
 ***********************/
-public class BpaSwi_LAB
+public class BpaSwi_LAB  implements MemIndexable 
 {
   private Integer id;
   

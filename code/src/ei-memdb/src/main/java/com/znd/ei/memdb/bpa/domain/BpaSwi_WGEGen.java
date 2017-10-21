@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *GE风机模型表(WINDG_GE)	*
 ***********************/
-public class BpaSwi_WGEGen
+public class BpaSwi_WGEGen  implements MemIndexable 
 {
   private Integer id;
   

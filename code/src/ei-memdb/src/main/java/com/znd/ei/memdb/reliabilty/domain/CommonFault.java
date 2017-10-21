@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *共因故障	*
 ***********************/
-public class CommonFault
+public class CommonFault  implements MemIndexable 
 {
   private Integer id;
   

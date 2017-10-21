@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *静止无功发生器(STATCOM)	*
 ***********************/
-public class BpaSwi_VG
+public class BpaSwi_VG  implements MemIndexable 
 {
   private Integer id;
   

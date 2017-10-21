@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *双再热器汽轮机模型表(TC)	*
 ***********************/
-public class BpaSwi_TC
+public class BpaSwi_TC  implements MemIndexable 
 {
   private Integer id;
   

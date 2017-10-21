@@ -2,9 +2,6 @@ package com.znd.ei;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
-import com.znd.ei.codegen.service.GenCodeProperties;
 
 @SpringBootApplication
 public class Application {

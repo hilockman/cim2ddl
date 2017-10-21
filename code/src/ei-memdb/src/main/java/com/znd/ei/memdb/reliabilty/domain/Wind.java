@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *变压器绕组	*
 ***********************/
-public class Wind
+public class Wind  implements MemIndexable 
 {
   private Integer id;
   

@@ -1,12 +1,13 @@
 package com.znd.ei.ads.apl.reliability.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 
-public class StateSampleTask {
+public class StateSampleTask  implements Serializable {
 	private FState state;
 	private List<FStateFDev> devs = new ArrayList<FStateFDev>();
 	

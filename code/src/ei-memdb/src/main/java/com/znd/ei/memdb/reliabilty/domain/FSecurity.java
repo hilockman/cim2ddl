@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *安全评价	*
 ***********************/
-public class FSecurity
+public class FSecurity  implements MemIndexable 
 {
   private Integer id;
   

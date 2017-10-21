@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *交流电岛	*
 ***********************/
-public class ACIsland
+public class ACIsland  implements MemIndexable 
 {
   private Integer id;
   

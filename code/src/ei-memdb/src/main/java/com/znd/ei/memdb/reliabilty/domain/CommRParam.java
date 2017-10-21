@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *可靠性公共参数	*
 ***********************/
-public class CommRParam
+public class CommRParam  implements MemIndexable 
 {
   private Integer id;
   

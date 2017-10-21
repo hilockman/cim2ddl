@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *调速器和原动机组合模型表(GG)	*
 ***********************/
-public class BpaSwi_GG
+public class BpaSwi_GG  implements MemIndexable 
 {
   private Integer id;
   

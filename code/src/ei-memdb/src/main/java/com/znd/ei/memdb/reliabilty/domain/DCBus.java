@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *直流母线	*
 ***********************/
-public class DCBus
+public class DCBus  implements MemIndexable 
 {
   private Integer id;
   

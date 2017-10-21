@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *修改调速器频率参考信息表(IGV)	*
 ***********************/
-public class BpaSwi_IGV
+public class BpaSwi_IGV  implements MemIndexable 
 {
   private Integer id;
   

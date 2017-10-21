@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *线路零序参数模型(LO)	*
 ***********************/
-public class BpaSwi_LO
+public class BpaSwi_LO  implements MemIndexable 
 {
   private Integer id;
   

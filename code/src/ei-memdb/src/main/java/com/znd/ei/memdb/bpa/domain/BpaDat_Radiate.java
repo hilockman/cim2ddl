@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *辐射网络	*
 ***********************/
-public class BpaDat_Radiate
+public class BpaDat_Radiate  implements MemIndexable 
 {
   private Integer id;
   

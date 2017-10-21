@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *人工事件	*
 ***********************/
-public class ManualFault
+public class ManualFault  implements MemIndexable 
 {
   private Integer id;
   

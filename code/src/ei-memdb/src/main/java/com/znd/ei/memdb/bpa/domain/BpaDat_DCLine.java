@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *直流线路表(DCLine)	*
 ***********************/
-public class BpaDat_DCLine
+public class BpaDat_DCLine  implements MemIndexable 
 {
   private Integer id;
   

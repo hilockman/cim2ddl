@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *交流线路	*
 ***********************/
-public class ACLine
+public class ACLine  implements MemIndexable 
 {
   private Integer id;
   

@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.bpa.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *稳定计算控制继续卡(F1)	*
 ***********************/
-public class BpaSwi_F1
+public class BpaSwi_F1  implements MemIndexable 
 {
   private Integer id;
   

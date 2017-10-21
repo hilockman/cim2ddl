@@ -1,10 +1,11 @@
 package com.znd.ei.memdb.reliabilty.domain;
 
+import com.znd.ei.memdb.MemIndexable;
 
 /**********************
 *开断故障下越限信息	*
 ***********************/
-public class TripOvlDev
+public class TripOvlDev  implements MemIndexable 
 {
   private Integer id;
   

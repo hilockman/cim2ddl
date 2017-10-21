@@ -14,11 +14,10 @@ public class StateSampleMap  implements RMapper<Integer, StateSampleTask, Intege
 	 */
 	private static final long serialVersionUID = 1999434204321L;
 
-	public static int count = 0;
 	@Override
     public void map(Integer key, StateSampleTask value, RCollector<Integer, StateEstimateResult> collector) {
 		synchronized(AdsUtils.shareMemoryLocker)  {
-			System.out.println(String.format("StateSampleMap.map index = %s, key = %s, value = %s", count++, key, value));
+			System.out.println(String.format("StateSampleMap.map, key = %s, value = %s", key, value));
 //			FStateDao fstateDao = ReliabilityApl.INSTANCE.fStateDao;
 			StateEstimateResult result = new StateEstimateResult();
 			result.setState(value.getState());
