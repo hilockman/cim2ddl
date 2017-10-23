@@ -1,0 +1,67 @@
+{
+	"state": {
+		"memIndex": 15,
+		"sampleType": 1,
+		"fDevNum": 1,
+		"probability": 0.0319848,
+		"durition": 63969.7,
+		"stateNum": 2243,
+		"fLossGen": 400.0,
+		"fLossGenCap": 400.0,
+		"fLossLoad": 0.0,
+		"mIsland": 0,
+		"mIslandInsGen": 0.0,
+		"mIslandCutGen": 0.0,
+		"mIslandOutLoad": 0.0,
+		"balanceInsGen": 0.0,
+		"balanceCutGen": 0.0,
+		"balanceCutLoad": 0.0,
+		"overLimit": 1,
+		"eLimit": 0,
+		"eLimitCutGen": 2.18466,
+		"eLimitInsGen": 2.18466,
+		"eLimitCutLoad": 0.0,
+		"eLimitResult": 1,
+		"maxFaultZone": 0,
+		"maxFaultRatio": 0.0,
+		"faultGrade": 0,
+		"mSoutIndex": -1,
+		"estimated": 1
+	},
+	"devs": [{
+		"memIndex": 14,
+		"fState": 15,
+		"fDevTyp": 6,
+		"fDevIdx": 14,
+		"dFltPos": 0,
+		"dFltTyp": 1
+	}],
+	"mislands": [],
+	"ovlDevs": [{
+		"memIndex": 0,
+		"fState": 15,
+		"devTyp": 4,
+		"devIdx": 30,
+		"ovLmtP": 161.038,
+		"rated": 174.96,
+		"adLmtP": 158.854
+	}],
+	"ovlAds": [{
+		"memIndex": 0,
+		"fState": 15,
+		"ovlDevTyp": 4,
+		"ovlDevice": 30,
+		"adjDevTyp": 6,
+		"adjDevice": 10,
+		"adjValue": 2.18466
+	},
+	{
+		"memIndex": 1,
+		"fState": 15,
+		"ovlDevTyp": 4,
+		"ovlDevice": 30,
+		"adjDevTyp": 6,
+		"adjDevice": 22,
+		"adjValue": -2.18466
+	}]
+}

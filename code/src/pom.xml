@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                               http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                               http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.znd.ei</groupId>
 	<version>1.0</version>
@@ -11,32 +12,32 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.0.M3</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
- 
+
 	<modules>
 		<module>ei-model</module>
 		<module>ei-persist</module>
 		<module>ei-webservice</module>
 		<module>ei-console</module>
-    	<module>ei-memdb-core</module>
-	  	<module>ei-memdb</module>
+		<module>ei-memdb-core</module>
+		<module>ei-memdb</module>
 		<module>ei-memdb-tool</module>
 		<module>ei-memdb-check</module>
-   		<module>ei-ads-core</module>
-   		<module>ei-apl-reliability</module>
-   		<module>ei-acp-dfredisson</module>
-   		<module>ei-ads-web</module>
-    		<module>ei-acp-springredis</module>
-       <module>test-redisson-mapreduce</module>
+		<module>ei-ads-core</module>
+		<module>ei-apl-reliability</module>
+		<module>ei-acp-dfredisson</module>
+		<module>ei-ads-web</module>
+		<module>ei-acp-springredis</module>
+		<module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
-    <module>test-java</module>
-    <module>test-nio-client</module>
-    <module>test-proxy</module>
-    <module>ei-ads-console</module>
-    <module>ei-memdb-web</module>
-  </modules>
+		<module>test-java</module>
+		<module>test-nio-client</module>
+		<module>test-proxy</module>
+		<module>ei-ads-console</module>
+		<module>ei-memdb-web</module>
+	</modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
@@ -45,9 +46,9 @@
 		<java.version>1.8</java.version>
 		<!-- spring.version>4.2.1.RELEASE</spring.version -->
 		<!-- spring-data.version>Gosling-RELEASE</spring-data.version -->
-		<znd.version>3.0</znd.version>
+		<znd.version>3.1</znd.version>
 		<target.dir>../../lib</target.dir>
-		<config.dir>../../config</config.dir>		
+		<config.dir>../../config</config.dir>
 	</properties>
 
 	<dependencyManagement>
@@ -66,56 +67,38 @@
 			<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 			<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
 				<version>6.0.6</version> </dependency> -->
-				
-<!-- Import dependency management from Spring Boot -->
-<!-- 
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>1.5.6.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
- -->
+
+			<!-- Import dependency management from Spring Boot -->
+			<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-dependencies</artifactId> 
+				<version>1.5.6.RELEASE</version> <type>pom</type> <scope>import</scope> </dependency> -->
 		</dependencies>
 	</dependencyManagement>
- 
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
- 
+
 	<build>
-	<!-- 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>	
-	 -->			
+		<!-- <pluginManagement> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+			<artifactId>maven-compiler-plugin</artifactId> <configuration> <source>1.8</source> 
+			<target>1.8</target> </configuration> </plugin> </plugins> </pluginManagement> -->
 	</build>
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-        </repository>     
-    </repositories>	
-    <pluginRepositories> 	
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-        </pluginRepository>     
-    </pluginRepositories>
-    
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 </project>

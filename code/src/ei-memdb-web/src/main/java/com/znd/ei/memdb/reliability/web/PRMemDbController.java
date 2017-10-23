@@ -1,4 +1,4 @@
-package memdb.reliability.web;
+package com.znd.ei.memdb.reliability.web;
 
 import java.util.Arrays;
 

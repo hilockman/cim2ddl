@@ -2,6 +2,7 @@ package org.redisson.test.mapreduce;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.Set;
 
 import org.redisson.api.RBucket;
@@ -101,13 +102,14 @@ public class App
 	    RMapReduce<String, String, String, Integer> mapReduce
 	             = map.<String, Integer>mapReduce()
 	                  .mapper(new WordMapper())
-	                  .reducer(new WordReducer());
+	                  .reducer(new WordReducer()).timeout(1, TimeUnit.MILLISECONDS);
 	    
 	    
 	    System.out.println("Start statistic ...");
 
 	    // 统计词频
 	    Map<String, Integer> mapToNumber = mapReduce.execute();
+	   
 	    System.out.println("统计词频");
 	    Set<Entry<String, Integer>> mns = mapToNumber.entrySet();
 	    for (Entry<String, Integer> e : mns) {

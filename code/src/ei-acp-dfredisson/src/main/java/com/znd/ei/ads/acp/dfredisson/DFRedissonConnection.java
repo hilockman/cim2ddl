@@ -174,7 +174,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class MapDataOperationsImp<V> extends MapDataOperations<String, V> {
+	public class MapDataOperationsImp<K, V> extends MapDataOperations<K, V> {
 		private RedissonDBMap operation;
 
 		public MapDataOperationsImp() throws RedissonDBException {
@@ -242,12 +242,12 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 //		}
 
 		@Override
-		public V get(String key, String mkey) {
+		public V get(String key, K mkey) {
 			if (operation == null)
 				return null;
 
 			try {
-				ResultObject<String, V> rt = operation.LockHGET(key,
+				ResultObject<K, V> rt = operation.LockHGET(key,
 						defaultLifeCycle, mkey);
 				if (rt != null)
 					return rt.getValue();
@@ -285,15 +285,15 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 
 		@Override
-		public Map<String, V> getAll(String key) {
+		public Map<K, V> getAll(String key) {
 			try {
-				ResultObject<String, Set<Entry<String, V>>> rt = operation
+				ResultObject<String, Set<Entry<K, V>>> rt = operation
 						.LockHGETALL(key, defaultLifeCycle);
 				
-				Map<String, V> m = new HashMap<>();
+				Map<K, V> m = new HashMap<>();
 				
-				Set<Entry<String, V>> rt1 = rt.getValue();
-				for (Entry<String, V> e : rt1) {
+				Set<Entry<K, V>> rt1 = rt.getValue();
+				for (Entry<K, V> e : rt1) {
 					m.put(e.getKey(), e.getValue());
 				}
 
@@ -306,7 +306,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void putAll(String key, Map<String, V> content) {
+		public void putAll(String key, Map<K, V> content) {
 			try {
 				operation.LockHMSET(key, defaultLifeCycle, content);
 			} catch (RedissonDBException e) {
@@ -321,7 +321,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void remove(String key, String... keys) {
+		public void remove(String key, K... keys) {
 			try {
 				operation.LockHDEL(key, defaultLifeCycle, keys);
 			} catch (RedissonDBException e) {
@@ -331,10 +331,10 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void put(String key, String hashKey, V value) {
+		public void put(String key, K hashKey, V value) {
 
 			try {
-				Map<String, V> content = new HashMap<String,V>();
+				Map<K, V> content = new HashMap<K,V>();
 				content.put(hashKey, value);
 				operation.LockHMSET(key, defaultLifeCycle, content);
 			} catch (RedissonDBException e) {
@@ -446,7 +446,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class ObjectRefDataOperationsImp extends ObjectRefDataOperations<String> {
+	public class ObjectRefDataOperationsImp<T> extends ObjectRefDataOperations<T> {
 
 		private RedissonDBString operations;
 
@@ -478,8 +478,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 //		}
 
 		@Override
-		public String get(String key) {
-			ResultObject<String, String> rt = null;
+		public T get(String key) {
+			ResultObject<String, T> rt = null;
 			try {
 				rt = operations.LockGET(key, defaultLifeCycle);
 			} catch (RedissonDBException e) {
@@ -502,7 +502,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void set(String key, String value) {
+		public void set(String key, T value) {
 			try {
 				operations.LockSET(key, defaultLifeCycle, value);
 			} catch (RedissonDBException e) {
@@ -643,9 +643,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public <V> MapDataOperations<String, V> getMapDataOperations() {
+	public <K, V> MapDataOperations<K, V> getMapDataOperations() {
 		try {
-			return new MapDataOperationsImp<V>();
+			return new MapDataOperationsImp<K, V>();
 		} catch (RedissonDBException e) {
 			e.printStackTrace();
 			return null;

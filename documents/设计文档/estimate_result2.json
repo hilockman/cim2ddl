@@ -1,0 +1,63 @@
+{
+	"state": {
+		"memIndex": 5912,
+		"sampleType": 1,
+		"fDevNum": 3,
+		"probability": 2.0E-6,
+		"durition": 3.65755,
+		"stateNum": 1,
+		"fLossGen": 17.2,
+		"fLossGenCap": 19.2,
+		"fLossLoad": 0.0,
+		"mIsland": 1,
+		"mIslandInsGen": 0.0,
+		"mIslandCutGen": 120.9,
+		"mIslandOutLoad": 136.0,
+		"balanceInsGen": 0.0,
+		"balanceCutGen": 0.0,
+		"balanceCutLoad": 0.0,
+		"overLimit": 0,
+		"eLimit": 0,
+		"eLimitCutGen": 0.0,
+		"eLimitInsGen": 0.0,
+		"eLimitCutLoad": 0.0,
+		"eLimitResult": 1,
+		"maxFaultZone": 0,
+		"maxFaultRatio": 0.0477193,
+		"faultGrade": 0,
+		"mSoutIndex": -1,
+		"estimated": 1
+	},
+	"devs": [{
+		"memIndex": 16306,
+		"fState": 5912,
+		"fDevTyp": 6,
+		"fDevIdx": 16,
+		"dFltPos": 0,
+		"dFltTyp": 1
+	},
+	{
+		"memIndex": 16307,
+		"fState": 5912,
+		"fDevTyp": 4,
+		"fDevIdx": 25,
+		"dFltPos": 0,
+		"dFltTyp": 4
+	},
+	{
+		"memIndex": 16308,
+		"fState": 5912,
+		"fDevTyp": 4,
+		"fDevIdx": 29,
+		"dFltPos": 0,
+		"dFltTyp": 4
+	}],
+	"mislands": [{
+		"memIndex": 0,
+		"fState": 5912,
+		"outageBus": 21,
+		"outageLoadP": 136.0
+	}],
+	"ovlDevs": [],
+	"ovlAds": []
+}

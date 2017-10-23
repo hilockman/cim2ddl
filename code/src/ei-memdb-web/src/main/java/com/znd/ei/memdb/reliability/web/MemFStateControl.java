@@ -1,4 +1,4 @@
-package memdb.reliability.web;
+package com.znd.ei.memdb.reliability.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

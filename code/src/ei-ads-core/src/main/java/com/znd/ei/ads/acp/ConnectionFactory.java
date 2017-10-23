@@ -14,11 +14,11 @@ public interface ConnectionFactory {
 	
 	StringDataOperations getStringDataOperations();
 	
-	ObjectRefDataOperations<String> getObjectRefOperations();
+	<V> ObjectRefDataOperations<V> getObjectRefOperations();
 	
 	void register(DataFieldStorage manager);
 	
-	<V> MapDataOperations<String, V> getMapDataOperations();
+	<K, V> MapDataOperations<K, V> getMapDataOperations();
 	
 	/**
 	 * 发送消息

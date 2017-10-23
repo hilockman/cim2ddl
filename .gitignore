@@ -15,3 +15,8 @@ code/ei-cim/ei-memdb-tool/log/myapp.log
 *.log
 *.log
 *.class
+code/src/ei-ads-console/src/main/resources/redissonnode.yaml
+code/src/ei-ads-console/src/main/resources/redissonnode.yaml
+code/src/ei-ads-console/src/main/resources/redissonnode.yaml11
+code/src/ei-ads-web/src/main/resources/redissonnode.yaml
+code/src/ei-ads-web/src/main/resources/redissonnode.yaml2

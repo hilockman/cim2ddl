@@ -32,5 +32,10 @@
 			<artifactId>ei-memdb</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
