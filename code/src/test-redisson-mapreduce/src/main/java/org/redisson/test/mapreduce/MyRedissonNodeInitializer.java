@@ -17,6 +17,7 @@ public class MyRedissonNodeInitializer implements RedissonNodeInitializer {
         // ...
         // 或
 
+      
        redisson.getRemoteService("stateSample").register(StateSampleSeverice.class, new StatSampleSevericeImpl());
        System.out.println("register StatSampleSeverice with StatSampleSevericeImpl");
         // 或

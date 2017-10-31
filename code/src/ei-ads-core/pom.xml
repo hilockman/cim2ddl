@@ -19,16 +19,7 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>	
 
-    	<dependency>
-		    <groupId>com.znd</groupId>
-		    <artifactId>ZhongNDRedisDF</artifactId>
-		    <version>${znd.version}</version>
-		</dependency>
-    	<dependency>
-		    <groupId>com.znd</groupId>
-		    <artifactId>ZhongNDRedisADF</artifactId>
-		    <version>${znd.version}</version>
-		</dependency>		
+		
     	<dependency>
 		    <groupId>com.znd</groupId>
 		    <artifactId>ZhongNDMemDB</artifactId>

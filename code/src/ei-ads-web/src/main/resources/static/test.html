@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+ #change_me {
+ 	position:absolute;
+ 	top: 100px;
+ 	left: 400px;
+ 	font: 24px arial;
+ }
+ 
+ #move_up,#move_down,#color,#disappear {
+ 	padding:5px;
+ }
+ 
+ #move_up {
+ 	color:red
+ }
+
+</style>
+<script src="scripts/jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<button id="move_up">Move Up</button>
+<button id="move_down">Move Down</button>
+<button id="color">Change Color</button>
+<button id="disappear">Disappear/Re-appear</button>
+
+<div id="change_me">Make me do stuff!</div>
+<span class="Italian">Nel Mezzo</span>
+<script>
+   $(document).ready(function() {
+	   $("#change_me").animate({top:30}, 200);
+   });//end move_up
+   $(document).ready(function() {
+	   $("#change_me").animate({top:500}, 2000);
+   });//end move_down
+   $(document).ready(function() {
+	   $("#change_me").css("color", "purple");
+   });//end color
+   
+   $(document).ready(function() {
+	   $("#change_me").toggle("slow")
+   });//end disappear
+   
+   $("#move_up").click(function() {
+	  console.log("hello");
+	  console.log("hello!!!");
+	  //$("#move_up").hide();
+	  $("span.Italian").toggle();
+   });
+   
+   
+</script>
+</body>
+</html>

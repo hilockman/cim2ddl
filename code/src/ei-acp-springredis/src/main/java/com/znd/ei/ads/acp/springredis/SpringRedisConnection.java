@@ -171,9 +171,9 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 		return new MemDBDataOperationsImp();
 	}
 	
-	public void publishData(String contentCode, String key) throws ACPException {
+	public void publish(String contentCode, String key) {
 		if (contentCode == null || contentCode.isEmpty()) {
-			throw new ACPException("Null or empty contentCode");
+			return;
 		}
 		String message = contentCode+":"+key;
 		LOGGER.info("SendMessage:"+message);
@@ -205,7 +205,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	}
 	
 	@Override
-	public void register(DataFieldStorage manager) {
+	public void register(DataFieldStorage manager) throws Exception {
 		
 	}
 
@@ -222,6 +222,24 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	@Override
 	public boolean hasKey(String key) {
 		return stringRedisTemplate.hasKey(key);
+	}
+
+	@Override
+	public void request(String contentCode, String key) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void inner_publish(String contentCode, String key) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void inner_request(String contentCode, String key) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

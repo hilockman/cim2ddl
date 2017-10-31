@@ -40,7 +40,7 @@ public class AdsResult {
 	
 	@Override
 	public String toString() {
-		return Utils.toString(this);
+		return Utils.toJSon(this);
 	}
 	public String getDetail() {
 		return detail;

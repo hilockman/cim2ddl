@@ -1,5 +1,19 @@
 package com.znd.ei.ads.apl.reliability;
 
+import static com.znd.ei.ads.AdsServer.create_AllModel;
+import static com.znd.ei.ads.AdsServer.created_BPAModel;
+import static com.znd.ei.ads.AdsServer.created_PRModel;
+import static com.znd.ei.ads.AdsServer.created_ReliabilityIndexResult;
+import static com.znd.ei.ads.AdsServer.created_StateEsteimateResult;
+import static com.znd.ei.ads.AdsServer.created_StateSampleResult;
+import static com.znd.ei.ads.AdsServer.get_Reliability;
+import static com.znd.ei.ads.AdsServer.powersystem_reliability;
+import static com.znd.ei.ads.apl.reliability.AppUtil.GC_BPA_2_PR;
+import static com.znd.ei.ads.apl.reliability.AppUtil.GC_BPA_LOADER;
+import static com.znd.ei.ads.apl.reliability.AppUtil.GC_RELIABILITY_INDEX;
+import static com.znd.ei.ads.apl.reliability.AppUtil.GC_STATE_ESTIMATE;
+import static com.znd.ei.ads.apl.reliability.AppUtil.GC_STATE_SAMPLE;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +21,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.redisson.api.RMap;
-import org.redisson.api.RScheduledExecutorService;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.mapreduce.RMapReduce;
 import org.slf4j.Logger;
@@ -23,14 +36,14 @@ import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.adf.MemDBData;
 import com.znd.ei.ads.adf.ObjectRefData;
 import com.znd.ei.ads.adf.StringData;
-import com.znd.ei.ads.apl.annotations.Apl;
+import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
 import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
-import com.znd.ei.ads.apl.reliability.bean.StateEstimateConfig;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
+import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.DbException;
 import com.znd.ei.memdb.MemTable;
@@ -43,11 +56,8 @@ import com.znd.ei.memdb.reliabilty.dao.SystemDao;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 
-import static com.znd.ei.ads.AdsServer.*;
-import static com.znd.ei.ads.apl.reliability.AppUtil.*;
-
 //import com.znd.ei.memdb.reliabilty.domain.System;
-@Apl
+@AplController
 public class ReliabilityApl {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ReliabilityApl.class);
@@ -105,6 +115,7 @@ public class ReliabilityApl {
 		AppUtil.execute(GC_BPA_2_PR, execRootPath, dataRootPath + "/RTS79.dat",
 				dataRootPath + "/RTS79.swi", dataRootPath + "/RTS79.xml");
 	}
+
 
 	private void callStateSample() {
 		AppUtil.execBuilder(GC_STATE_SAMPLE).addParam(execRootPath)
@@ -261,7 +272,7 @@ public class ReliabilityApl {
 		Iterable<FStateFDev> fStateFDevs = fStateFDevDao.findAll();
 		count = 0;
 		for (FStateFDev dev : fStateFDevs) {
-			StateSampleTask rt = resultMap.get(dev.getFState());
+			StateSampleTask rt = resultMap.get(dev.getFStateNo());
 			if (rt == null) {
 				continue;
 			}

@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -281,8 +282,15 @@ public class Utils {
 		return gson.fromJson(str, clazz);
 	}
 
-	public static String toString(Object obj) {
+	public static String toJSon(Object obj) {
 		Gson gson = new Gson();
 		return gson.toJson(obj);
 	}
-}
+	
+	public static String toJson(Map<String, String> valueMap) {
+		Gson gson = new Gson();
+		return gson.toJson(valueMap);
+	}
+	
+
+} 

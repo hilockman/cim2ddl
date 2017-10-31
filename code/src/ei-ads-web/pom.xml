@@ -19,21 +19,41 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 	 
-    <dependency>
+    <!-- dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-acp-dfredisson</artifactId>
     	<version>${project.version}</version>
-    </dependency>
+    </dependency -->
     <!--dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-acp-springredis</artifactId>
     	<version>${project.version}</version>
     </dependency-->     
-    <dependency>
+    <!-- dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-ads-core</artifactId>
     	<version>${project.version}</version>
-    </dependency>    
+    </dependency -->
+        <dependency>
+		    <groupId>com.znd</groupId>
+		    <artifactId>ZhongNDRedisDF</artifactId>
+		    <version>${znd.version}</version>
+		</dependency>
+    	<dependency>
+		    <groupId>com.znd</groupId>
+		    <artifactId>ZhongNDRedisADF</artifactId>
+		    <version>${znd.version}</version>
+		</dependency>  
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>2.10.0</version>
+		</dependency>	
+	   		<dependency>
+			<groupId>com.znd.ei</groupId>
+			<artifactId>ei-ads-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>		   
   </dependencies>
   	<build>
 		<plugins>

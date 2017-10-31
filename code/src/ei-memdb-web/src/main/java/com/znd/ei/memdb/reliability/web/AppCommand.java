@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class AppCommand  {
 	static  Logger logger = Logger.getLogger(AppCommand.class.getName());
 	@Autowired
-	public AppCommand(TestControl control, ApplicationArguments args) {
+	public AppCommand(FormJSonString control, ApplicationArguments args) {
 		control.test();
 	}
 

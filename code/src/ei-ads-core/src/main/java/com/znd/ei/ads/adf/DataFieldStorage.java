@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,12 +83,7 @@ public final class DataFieldStorage {
 		try {
 			registerIO();
 			aplManager.loadApls(this);
-//			ApplicationContext context = aplManager.getContext();
-//			AdsServer server = context.getBean(AdsServer.class);
-//			if (server != null && server instanceof AdsServerImp) {
-//				AdsServerImp serverImp = (AdsServerImp) server;
-//				serverImp.init();
-//			}
+			connectionFactory.register(this);
 
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -100,8 +94,10 @@ public final class DataFieldStorage {
 		} catch (ACPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		connectionFactory.register(this);
 	}
 	private Map<String, DataField> dataFields = new HashMap<String, DataField>();
 
@@ -212,7 +208,7 @@ public final class DataFieldStorage {
 //				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
 //				io.write(dataItem);
 				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
-				connectionFactory.publishData(contentCode, dataItem.getKey());
+				connectionFactory.publish(contentCode, dataItem.getKey());
 			}
 		}
 
@@ -332,56 +328,12 @@ public final class DataFieldStorage {
 				dataType2IOMethod.put(typeName, m);	
 			}
 			
-			// Method m1 = null;
-			// try {
-			// m1 = rtType.getMethod("create");
-			// } catch (NoSuchMethodException e) {
-			// e.printStackTrace();
-			// throw new ACPException(
-			// String.format(
-			// "Fail to regist data field: io:%s doesn't implement create method for data type %s, cc=  ",
-			// rtType.getSimpleName(), dataType.getName(),contentCode));
-			// } catch (SecurityException e) {
-			//
-			// e.printStackTrace();
-			// throw new ACPException(e);
-			// }
-			// if (m1 == null)
-			// continue;
 
-			// if (isRelatedIO(rtType, dataType)) {
-			// cc2Operations.put(contentCode, m);
-			// LOGGER.info(String.format(
-			// "Succeed to regist data field : cc=%s io=%s.",
-			// contentCode, rtType.getSimpleName()));
-			// return;
-			// }
 		}
 
 	}
 
-	// @SuppressWarnings("rawtypes")
-	// public IOOperations createIO(String contentCode) throws ACPException {
-	// Method m = cc2Operations.get(contentCode);
-	// IOOperations io = null;
-	// try {
-	// io = (IOOperations) m.invoke(connectionFactory);
-	// } catch (IllegalAccessException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// throw new ACPException(e);
-	// } catch (IllegalArgumentException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// throw new ACPException(e);
-	// } catch (InvocationTargetException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// throw new ACPException(e);
-	// }
-	//
-	// return io;
-	// }
+
 
 	/**
 	 * 处理从总线收到的消息
@@ -390,7 +342,6 @@ public final class DataFieldStorage {
 	 * @throws ACPException
 	 * @throws UnsupportedOperation
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void receivedMessage(String contentCode, String content)
 			throws ACPException, UnsupportedOperation {
 		LOGGER.info("DataField Receive: cc={}, content={}", contentCode,

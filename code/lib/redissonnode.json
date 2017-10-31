@@ -37,6 +37,5 @@
    "mapReduceWorkers":5,
    "codec":null,
    "useLinuxNativeEpoll":false,
-   "executorServiceWorkers": {"stateSample":3, "myExecutor2":5},
-    "redissonNodeInitializer": {"class":"org.redisson.test.mapreduce.MyRedissonNodeInitializer"}
+   "executorServiceWorkers": {"stateSample":3, "myExecutor":5}
 }

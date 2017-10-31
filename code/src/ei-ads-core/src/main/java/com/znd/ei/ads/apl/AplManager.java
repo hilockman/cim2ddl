@@ -28,7 +28,7 @@ import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.DataFieldStorage.DataField;
 import com.znd.ei.ads.adf.DataItem;
-import com.znd.ei.ads.apl.annotations.Apl;
+import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
@@ -147,7 +147,7 @@ public final class AplManager {
 			throws InstantiationException, IllegalAccessException, ACPException {
 		this.dataFieldStorage = storage;
 		List skips = adsProperties.getAplSkip();
-		ClassFilter filter = (Class<?> c) -> (c.getAnnotation(Apl.class) != null); 
+		ClassFilter filter = (Class<?> c) -> (c.getAnnotation(AplController.class) != null); 
 		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl",
 				filter);
 		if (classes.size() == 1) // 只包含InternalAdsApls则退出
@@ -158,8 +158,8 @@ public final class AplManager {
 
 		while (it.hasNext()) {
 			Class c = it.next();
-			Annotation a = c.getAnnotation(Apl.class);
-			Apl apl = (Apl) a;
+			Annotation a = c.getAnnotation(AplController.class);
+			AplController apl = (AplController) a;
 
 			// Object app = c.newInstance();
 			// 从spring上下文获得apl对象

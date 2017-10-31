@@ -1,3 +1,9 @@
+tcptest:
+      serverIp: 127.0.0.1
+      serverPort: 9001
+      serverWorker: 4
+      hostIp: 127.0.0.1
+      hostPort: 9002
 dbcheck:
       invalidTableNames: load, table
       invalidFieldPattern: "[0-9]+.*"

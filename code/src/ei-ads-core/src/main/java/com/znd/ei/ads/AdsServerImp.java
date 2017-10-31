@@ -42,7 +42,7 @@ public class AdsServerImp implements AdsServer {
 	public void init() {
 		System.out.println("AdsServer init ...");
 		MapDataOperations ops = connectionFactory.getMapDataOperations();
-		ops.put(AdsServer.ADS_SERVERINFOS, node.getId(), Utils.toString(node));
+		ops.put(AdsServer.ADS_SERVERINFOS, node.getId(), Utils.toJSon(node));
 	}
 	
 	@PreDestroy

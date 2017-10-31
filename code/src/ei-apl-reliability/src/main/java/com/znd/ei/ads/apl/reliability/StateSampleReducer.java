@@ -6,8 +6,8 @@ import java.util.List;
 import org.redisson.api.mapreduce.RReducer;
 
 import com.znd.ei.ads.AdsUtils;
-import com.znd.ei.ads.apl.reliability.bean.StateEstimateConfig;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
+import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.memdb.MemIndexable;
 import com.znd.ei.memdb.MemTableRepository;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
@@ -47,7 +47,7 @@ public class StateSampleReducer implements
 			apl.fStateDao.saveOrUpdate(result.getState());
 			List<FStateFDev> devs = result.getDevs();
 			for (FStateFDev dev  : devs) {
-				dev.setFState(0);
+				dev.setFStateNo(0);
 			}
 			apl.fStateFDevDao.saveOrUpdate(result.getDevs());
 			

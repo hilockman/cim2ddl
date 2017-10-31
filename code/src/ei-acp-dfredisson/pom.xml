@@ -13,6 +13,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+     	<dependency>
+		    <groupId>com.znd</groupId>
+		    <artifactId>ZhongNDRedisDF</artifactId>
+		    <version>${znd.version}</version>
+		</dependency>
+    	<dependency>
+		    <groupId>com.znd</groupId>
+		    <artifactId>ZhongNDRedisADF</artifactId>
+		    <version>${znd.version}</version>
+		</dependency> 
     <dependency>
     	<groupId>com.znd.ei</groupId>
     	<artifactId>ei-ads-core</artifactId>

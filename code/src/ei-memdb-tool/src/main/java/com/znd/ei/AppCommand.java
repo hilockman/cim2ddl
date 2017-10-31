@@ -3,8 +3,11 @@ package com.znd.ei;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.znd.ei.codegen.service.CheckService;
@@ -21,10 +24,22 @@ import com.znd.ei.memdb.DbEntryOperations;
 @Component
 public class AppCommand  {
 	static  Logger logger = Logger.getLogger(AppCommand.class.getName());
+	private ApplicationArguments args;
+	
+	@Autowired
+	private ApplicationContext context;
+	
 	@Autowired
 	public AppCommand(ClassCreateService classCreator, CheckService checkService, DbEntryOperations[] opss, ApplicationArguments args) {
-		boolean create = args.containsOption("createCode");
-		if (create) {
+		this.args = args;
+		
+		String strs[] = args.getSourceArgs();
+		if (strs.length == 0) {
+			System.out.println("--createCode for generating code for memdb. ");
+			System.out.println("--check for checking memdb. ");
+			return;
+		}
+		if (args.containsOption("createCode")) {
 			logger.log(Level.INFO, "Create code");
 			//classCreator.deleteAll();
 			checkService.check(opss, classCreator.getRootLocation().toString());
@@ -32,7 +47,13 @@ public class AppCommand  {
 			classCreator.createClasses();
 			
 			//System.exit(SpringApplication.exit(SpringApplication));
+		} 
+		if (args.containsOption("createCode")) {
+			checkService.check(opss, classCreator.getRootLocation().toString());			
 		}
+		
+
+		
 		
 		if (args.containsOption("clear")) {
 			//classCreator.deleteAll();
@@ -45,6 +66,8 @@ public class AppCommand  {
 		//List<String> files = args.getNonOptionArgs();
 		// if run with "--debug logfile.txt" debug=true, files=["logfile.txt"]
 	}
+
+	
 
 	
 }

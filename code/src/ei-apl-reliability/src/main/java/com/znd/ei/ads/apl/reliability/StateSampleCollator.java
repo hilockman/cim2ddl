@@ -13,8 +13,8 @@ import org.redisson.api.mapreduce.RCollator;
 
 import com.znd.ei.ads.AdsUtils;
 import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
-import com.znd.ei.ads.apl.reliability.bean.StateEstimateConfig;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
+import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;

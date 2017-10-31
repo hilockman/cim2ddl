@@ -6,6 +6,9 @@ import com.znd.ei.ads.AdsServer;
 import com.znd.ei.ads.adf.DataFieldStorage;
 
 public interface ConnectionFactory {
+	public static final String INNER_PUBLISH_CHANNEL = "ads-inner-publish-chanel";
+	public static final String INNER_REQUEST_CHANNEL = "ads-inner-request-chanel";
+
 	MemDBDataOperations getMemDBDataOperations();
 	
 	<V> ListDataOperations<V> getListDataOperations();
@@ -16,7 +19,7 @@ public interface ConnectionFactory {
 	
 	<V> ObjectRefDataOperations<V> getObjectRefOperations();
 	
-	void register(DataFieldStorage manager);
+	void register(DataFieldStorage manager) throws Exception;
 	
 	<K, V> MapDataOperations<K, V> getMapDataOperations();
 	
@@ -24,32 +27,56 @@ public interface ConnectionFactory {
 	 * 发送消息
 	 * @param contentCode
 	 * @param key
-	 * @throws ACPException
 	 */
-	void publishData(String contentCode, String key) throws ACPException;
+	void publish(String contentCode, String key);
 	
-
-
-	/**
-	 * 发送消息和数据
-	 * @param contentCode
-	 * @param key
-	 * @param content
-	 * @param singleton , true 表示接收者唯一, false 表示接收者不唯一
-	 * @throws ACPException
-	 */
-	void publishData(String contentCode, String key, String content, boolean singleton) throws ACPException;
 	
 	/**
-	 * 发送消息和数据
+	 * 请求消息，只有一个响应者
 	 * @param contentCode
 	 * @param key
-	 * @param content
-	 * @throws ACPException
 	 */
-	void publishData(String contentCode, String key, String content) throws ACPException;
-
+	void request(String contentCode, String key);
 	
+	
+
+	/**
+	 * 发送消息(内部用)
+	 * @param contentCode
+	 * @param key
+	 */
+	void inner_publish(String contentCode, String key);
+	
+	
+	/**
+	 * 请求消息，只有一个响应者(内部用)
+	 * @param contentCode
+	 * @param key
+	 */
+	void inner_request(String contentCode, String key);
+	
+
+//
+//	/**
+//	 * 发送消息和数据
+//	 * @param contentCode
+//	 * @param key
+//	 * @param content
+//	 * @param singleton , true 表示接收者唯一, false 表示接收者不唯一
+//	 * @throws ACPException
+//	 */
+//	void publishData(String contentCode, String key, String content, boolean singleton) throws ACPException;
+//	
+//	/**
+//	 * 发送消息和数据
+//	 * @param contentCode
+//	 * @param key
+//	 * @param content
+//	 * @throws ACPException
+//	 */
+//	void publishData(String contentCode, String key, String content) throws ACPException;
+//
+//	
 	/**
 	 * 删除keys
 	 * @param arge

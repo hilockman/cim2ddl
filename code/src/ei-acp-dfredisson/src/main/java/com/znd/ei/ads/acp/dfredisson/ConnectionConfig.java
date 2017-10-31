@@ -37,6 +37,8 @@ public class ConnectionConfig {
 			ConfigSupport support = new ConfigSupport();
 			//RedissonNodeConfig config =  support.fromJSON(url, RedissonNodeConfig.class);
 			RedissonNodeConfig config =  support.fromYAML(url, RedissonNodeConfig.class);
+			
+			
 			//InputStream is = this.getClass().getResourceAsStream("/"+FILE_NAME);
 			
 			//String content = read(is);

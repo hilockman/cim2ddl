@@ -1,0 +1,9 @@
+tcptest:
+      serverIp: 127.0.0.1
+      serverPort: 9001
+      serverWorkers: 4
+      serverTimeOut: 3000
+      hostIp: 192.168.1.70
+      hostPort: 9002
+logging:
+   file: log/ei-memdb-console.log
