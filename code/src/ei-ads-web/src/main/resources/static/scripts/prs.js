@@ -56,6 +56,8 @@ var init = function() {
 						}
 					}
 					);
+	
+			$("#pbar_outerdiv").hide();
 		};
 	
 	$(document).ready(init);
@@ -106,7 +108,9 @@ var init = function() {
 			$(
 			'#request-response')
 			.html(
-					'Succeed to cancel!')
+					'Succeed to cancel!');
+			 $("#pbar_outerdiv").toggle("slow");
+			
 		});
 	$('#start-calc-reliability')
 	.click(
@@ -148,7 +152,7 @@ var init = function() {
 	
 					});
 			
-
+		$("#pbar_outerdiv").show();
 		pbar = ProgressBar();
 		pbar.animateUpdate();
 
