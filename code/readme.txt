@@ -4,6 +4,4 @@
 	1，执行lib/install2mvn.bat命令，用于上传本项目依赖的第三方jar包到本地maven仓库中
 	2，命令行中执行
 	    mvn clean install
-	3,cd ei-console
-	4,mvn spring-boot:run
-	   或者java -jar ei-console-1.0.jar
+	3, 运行ads-console.bat, 用于运行分布式计算服务

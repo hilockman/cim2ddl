@@ -148,9 +148,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 			return operation.leftPop(key);
 		}
 
-		@Override
-		public void close() throws ACPException {
-		}
+
 		@Override
 		public List<V> getAll(String key) {
 			return operation.range(key, 0, -1);

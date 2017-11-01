@@ -89,4 +89,17 @@ public class StateSampleConfig {
 	public void setfANAMinStateProb(Double fANAMinStateProb) {
 		this.fANAMinStateProb = fANAMinStateProb;
 	}
+	@Override
+	public String toString() {
+		return "StateSampleConfig [nPRSampleObject=" + nPRSampleObject
+				+ ", nPRSampleMethod=" + nPRSampleMethod + ", nMaxGenFault="
+				+ nMaxGenFault + ", nMaxBranFault=" + nMaxBranFault
+				+ ", nMCSSimulateTime=" + nMCSSimulateTime
+				+ ", fMCSMinStateProb=" + fMCSMinStateProb
+				+ ", fFSTMaxCumuProb=" + fFSTMaxCumuProb
+				+ ", fFSTMinStateProb=" + fFSTMinStateProb
+				+ ", nFSTMaxStateNum=" + nFSTMaxStateNum + ", nSTSMaxStateNum="
+				+ nSTSMaxStateNum + ", fANAMinStateProb=" + fANAMinStateProb
+				+ "]";
+	}
 }

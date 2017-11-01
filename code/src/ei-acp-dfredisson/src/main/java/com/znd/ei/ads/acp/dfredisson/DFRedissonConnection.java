@@ -158,13 +158,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
-		@Override
-		public void close() {
-			if (operations != null) {
-				operations.closeClinet();
-				operations = null;
-			}
-		}
 
 		@Override
 		public boolean isEmpty(String key) {
@@ -260,14 +253,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 			return null;
 
-		}
-
-		@Override
-		public void close() {
-			if (operation != null) {
-				operation.closed();
-				operation = null;
-			}
 		}
 
 		@Override
@@ -404,13 +389,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
-		@Override
-		public void close() throws ACPException {
-			if (operations != null) {
-				operations.closed();
-				operations = null;
-			}
-		}
+
 
 		@Override
 		public List<V> getAll(String key) {
@@ -493,13 +472,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			return null;
 		}
 
-		@Override
-		public void close() throws ACPException {
-			if (operations != null) {
-				operations.closed();
-				operations = null;
-			}
-		}
 
 		@Override
 		public void set(String key, T value) {
@@ -564,16 +536,15 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 		RedissonPubManager msg = executeDF.RedissonPubManager();
 
-		String strMessage = msg.setMessage(contentCode, key);
 
 		try {
+			String strMessage = msg.setMessage(contentCode, key);
+
 			sender.sendMessage(msg, strMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error(e.getMessage());
-		} finally {
-			msg.closed();
-		}
+		} 
 
 	}
 

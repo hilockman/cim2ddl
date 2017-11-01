@@ -22,12 +22,12 @@ clusterServersConfig:
   readMode: SLAVE
   subscriptionMode: SLAVE
   nodeAddresses:
-  - "redis://192.168.1.50:7000"
-  - "redis://192.168.1.50:7001"
-  - "redis://192.168.1.50:7002"
-  - "redis://192.168.1.50:7003"
-  - "redis://192.168.1.50:7004"
-  - "redis://192.168.1.50:7005"
+  - "redis://192.168.3.70:7000"
+  - "redis://192.168.3.70:7001"
+  - "redis://192.168.3.70:7002"
+  - "redis://192.168.3.70:7003"
+  - "redis://192.168.3.70:7004"
+  - "redis://192.168.3.70:7005"
   scanInterval: 2000
 mapReduceWorkers: 4
 threads: 4
