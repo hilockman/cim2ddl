@@ -124,7 +124,11 @@ $.fn.serializeObject = function()
 
 $('#start-calc-reliability').click(
 		function() {
-			var sampleConfig = $("#state-sample-config-form").serializeObject();
+			var f = $("#state-estimate-config-form");
+			var estimateConfig = f.serializeObject();
+			
+			var f1 = $("#state-sample-config-form");
+			var sampleConfig = f1.serializeObject();
 //			var sampleConfig = {};
 //			for ( var i in stateSampleConfigNames) {
 //				var name = stateSampleConfigNames[i];
@@ -137,8 +141,7 @@ $('#start-calc-reliability').click(
 //			}
 			
 			
-			var f = $("#state-estimate-config-form");
-			var estimateConfig = f.serializeObject();
+
 			//console.log("estimateConfig=" + estimateConfig);
 
 //			var estimateConfig = {};
