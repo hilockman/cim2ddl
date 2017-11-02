@@ -5,11 +5,14 @@
 <title>Power System Reliability</title>
 <script src="scripts/jquery-3.2.1.js"></script>
 <script src="scripts/jquery.validate.js"></script>
-<script src="scripts/utils.js"></script>
+<!-- script src="scripts/utils.js"></script -->
+<script src="scripts/jquery.cookie.js"></script>
+<script src="scripts/jquery.steps.js"></script>
+
 </head>
 <style>
 #all-content {
-	width: 1200px;
+	width: 600px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	margin-left: auto;
@@ -53,16 +56,6 @@
 	text-align: center;
 }
 
-#configs {
-	padding: 0px 20px 20px 20px;
-	text-align: left;
-}
-
-#state-sample-config {
-	padding: 0px 20px 20px 20px;
-	float: right;
-	width: 600px;
-}
 
 #control-panel {
 	padding: 0px 20px 20px 20px;
@@ -71,13 +64,36 @@
 </style>
 <body>
 	<div id="all-content">
-		<div id="header">
-			<h1>Reliability</h1>
-		</div>
+
 
 		<div id="state-sample-config">
-
-			<form id="state-sample-config-form">
+			
+				
+			
+			<form id="wizard">
+				<h3>模型设置</h3>
+				<fieldset>
+					<legend>
+						<label>模型设置</label>
+					</legend>
+					<div class="fitem">
+						<label> 模型名称:</label> <input type="text" name="modelName"
+							id="modelName" class="easyui-combobox" required />
+					</div>
+					<div class="fitem">
+						<label> 潮流文件:</label> <input type="file" id="flowFile" name="files"
+							class="easyui-combobox" value="RS97.dat" required />
+					</div>
+					<div class="fitem">
+						<label> 稳定文件:</label> <input type="file" id="stableFile" name="files"
+							value="RS97.swi" class="easyui-combobox" required />
+					</div>
+					<div class="fitem">
+						<label> 参数文件:</label> <input type="file" id="paramFile" name="files"
+							class="easyui-combobox" value="RS97.xml" required />
+					</div>
+				</fieldset>
+				<h3>抽样设置</h3>
 				<fieldset>
 					<legend>
 						<label>抽样参数 </label>
@@ -141,40 +157,8 @@
 							class="easyui-combobox" required />
 					</div>
 				</fieldset>
-			</form>
-
-		</div>
-		<div id="configs">
-			<div id="model-config">
-				<form id="model-config-form">
-					<fieldset>
-						<legend>
-							<label>模型设置</label>
-						</legend>
-						<div class="fitem">
-							<label> 模型名称:</label> <input type="text" name="modelName"
-								id="modelName" class="easyui-combobox" required />
-						</div>
-						<div class="fitem">
-							<label> 潮流文件:</label> <input type="file" id="flowFile" name="files"
-								class="easyui-combobox" value="RS97.dat" required />
-						</div>
-						<div class="fitem">
-							<label> 稳定文件:</label> <input type="file" id="stableFile" name="files"
-								value="RS97.swi" class="easyui-combobox" required />
-						</div>
-						<div class="fitem">
-							<label> 参数文件:</label> <input type="file" id="paramFile" name="files"
-								class="easyui-combobox" value="RS97.xml" required />
-						</div>
-					</fieldset>
-				</form>
-
-			</div>
-
-			<div id="state-estimate-config">
-				<form id="state-estimate-config-form">
-					<fieldset>
+				<h3>后评估设置</h3>
+				<fieldset>
 						<legend>
 							<label>后评估参数</label>
 						</legend>
@@ -199,10 +183,10 @@
 							<input type="checkbox" id="uPFCAdjustRC" name="uPFCAdjustRC" class="easyui-combobox" /><span>UPFC采用变容法</span>
 						</div>
 					</fieldset>
-				</form>
+			</form>
 
-			</div>
 		</div>
+
 
 
 		<div id="control-panel">
@@ -219,6 +203,13 @@
 
 	</div>
 
-	<script src="scripts/index.js"></script>
+	<script>
+	$("#wizard").steps({
+	    headerTag: "h3",
+	    bodyTag: "fieldset",
+	    transitionEffect: "slideLeft",
+	    autoFocus: true
+	});
+	</script>
 </body>
 </html>

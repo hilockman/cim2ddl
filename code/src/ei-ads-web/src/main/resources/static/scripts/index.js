@@ -2,6 +2,30 @@ var stateSampleConfigNames = [];
 var stateEstimateConfigNames = [];
 
 var init = function() {
+	
+	var modelName = localStorage['modelConfig'];
+	$("#modelName").val(modelName);
+	
+	$("#modelName").change(function() {
+		localStorage['modelConfig'] = $("#modelName").val();
+		console.log("modelName :"+$("#modelName").val());
+	});
+	
+//	var fileInputs = ["flowFile", "stableFile", "paramFile"];
+//	for (var i = 0; i < fileInputs.length; i++) {
+//		var str = localStorage[fileInputs[i]];
+//		//$("#"+fileInputs[i]).val(str);	
+//		
+//		$("#"+fileInputs[i]).change(function(e){
+//			 var fileName = $(this).val();
+//			 localStorage[$(this).attr("id")] = fileName;
+//			 alert("file id :"+$(this).attr("id"));
+//	       // alert('The file "' + fileName +  '" has been selected.');
+//	    });
+//	}
+	
+	
+	
 	$.ajax({
 		url : "pr/stateSampleConfig",
 		type : "GET",
@@ -102,7 +126,7 @@ $('#cancel-calc-reliability').click(function() {
 	pbar.stop();
 	$('#request-response').html('Succeed to cancel!');
 	$("#pbar_outerdiv").toggle("slow");
-
+	$("#start-calc-reliability").prop("disabled", false);
 });
 
 $.fn.serializeObject = function()
@@ -122,45 +146,39 @@ $.fn.serializeObject = function()
     return o;
 };
 
+function formcheck() {
+	  var fields = $(".ss-item-required")
+	        .find("select, textarea, input").serializeArray();
+	  
+	  $.each(fields, function(i, field) {
+	    if (!field.value)
+	      alert(field.name + ' is required');
+	   }); 
+	  console.log(fields);
+	}
+
+
 $('#start-calc-reliability').click(
 		function() {
 			var sampleConfig = $("#state-sample-config-form").serializeObject();
-//			var sampleConfig = {};
-//			for ( var i in stateSampleConfigNames) {
-//				var name = stateSampleConfigNames[i];
-//				var control = $("#" + name);
-//				// console.log("control type is "+control.attr('type')+",
-//				// id="+name);
-//				if (control.attr('type') == "text") {
-//					sampleConfig[name] = control.val();
-//				}
-//			}
-			
+			if ($("#model-config-form").valid()) {
+				alert("some field must be filled.");
+			}
 			
 			var f = $("#state-estimate-config-form");
 			var estimateConfig = f.serializeObject();
-			//console.log("estimateConfig=" + estimateConfig);
-
-//			var estimateConfig = {};
-//			for ( var i in stateEstimateConfigNames) {
-//				var name = stateEstimateConfigNames[i];
-//				var control = $("#" + name);
-//				// console.log("control type is "+control.attr('type')+",
-//				// id="+name);
-//				if (control.attr('type') == "text") {
-//					estimateConfig[name] = control.val();
-//				}
-//			}
-//			
-		    // Get form
-		    var form = $('#model-config-form')[0];
-
-		    var data = new FormData(form);
+			var checkbox = f.find("input[type=checkbox]");
+			$.each(checkbox, function(key, val) {
+					   estimateConfig[$(val).attr('name')] = ($(val).is(":checked") ? 1 : 0);		
+				});
 			
+	
+			
+		    var form = $('#model-config-form')[0];
+		    var data = new FormData(form);			
 		    data.append("sampleConfig", JSON.stringify(sampleConfig));
 		    data.append("estimateConfig", JSON.stringify(estimateConfig));
 					    
-
 			$.ajax({
 				type : "POST",
 				enctype : 'multipart/form-data',
@@ -179,43 +197,21 @@ $('#start-calc-reliability').click(
 							+ JSON.stringify(msg));
 
 					$('#request-response').html(msg.code == 'OK'?'Request accepted!':'Fail to submit calc!');
-					$("#start-calc-reliability").prop("disabled", false);
+					$("#start-calc-reliability").prop("disabled", true);
+					$("#pbar_outerdiv").show();
+					pbar = ProgressBar();
+					pbar.animateUpdate();
 				},
 				 error: function (e) {
 
 			            $("#request-response").html(e.responseText);
 			            console.log("ERROR : ", e);
-			            $("#start-calc-reliability").prop("disabled", false);
+			            $("#start-calc-reliability").prop("disabled", true);
 
 			        }
 
 			});
 
-			// $.ajax({
-			// url : "./pr/calcReliability",
-			// type : "POST",
-			// data : {"sampleConfig" : sampleConfig, "estimateConfig" :
-			// estimateConfig},
-			// async : true,
-			// success : function(msg) {
-			// console
-			// .log('calc reliability request accepted : '
-			// + JSON
-			// .stringify(msg));
-			//	
-			// msg.code == 'OK' ? $(
-			// '#request-response')
-			// .html(
-			// 'request accepted!')
-			// : $('#request-response')
-			// .html(
-			// "request accepted!");
-			// }
-			//	
-			// });
 
-			$("#pbar_outerdiv").show();
-			pbar = ProgressBar();
-			pbar.animateUpdate();
 
 		});

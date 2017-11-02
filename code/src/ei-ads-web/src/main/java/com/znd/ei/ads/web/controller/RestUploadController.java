@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.znd.ei.ads.web.model.ReliabilityConfig;
+import com.znd.ei.ads.web.model.ReliabilityUploadConfig;
 import com.znd.ei.ads.web.model.UploadModel;
 
 @RestController
@@ -31,6 +31,13 @@ public class RestUploadController {
     //Save the uploaded file to this folder
     private static String UPLOADED_FOLDER = "e://temp//";
 
+	@ModelAttribute("myRequestObject")
+	public MyCommandBean addStuffToRequestScope() {
+		System.out.println("Inside of addStuffToRequestScope");
+		MyCommandBean bean = new MyCommandBean("Hello World",42);
+		return bean;
+	}
+	
     // 3.1.1 Single file upload
     @PostMapping("/api/upload")
     // If not @RestController, uncomment this
@@ -106,7 +113,7 @@ public class RestUploadController {
     
     // 3.1.3 maps html form to a Model
     @PostMapping("/api/upload/test")
-    public ResponseEntity<?> test(@ModelAttribute ReliabilityConfig model) {
+    public ResponseEntity<?> test(@ModelAttribute ReliabilityUploadConfig model) {
 
         logger.debug("Multiple file upload! With UploadModel");
 

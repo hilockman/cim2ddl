@@ -1,0 +1,7 @@
+logging:
+  file: log/ei-ads-web.log
+server:
+  name: ads
+  port: 8080
+model:
+  cachedDir: ./model-cached-dir  
