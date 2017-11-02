@@ -13,8 +13,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ZhongND.RedisDF.db.DBAccess.Exception.RedissonDBException;
 import com.ZhongND.RedisDF.exectueDF.ExectueDF;
+import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.config.AdsResult;
 import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.ads.config.StateSampleConfig;
-import com.znd.ei.ads.web.model.ReliabilityConfig;
+import com.znd.ei.ads.web.model.ReliabilityUploadConfig;
 
 
 @RestController
@@ -40,7 +41,8 @@ public class ReliabilityControl {
     private final Logger logger = LoggerFactory.getLogger(ReliabilityControl.class);
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "e://temp//";
+    @Value("${model.cachedDir}")
+    private  String UPLOADED_FOLDER;
     
 	@Autowired
 	private ExectueDF executeDF;
@@ -132,39 +134,66 @@ public class ReliabilityControl {
     
     // 3.1.3 maps html form to a Model
     @PostMapping("/submitCalc")
-    public @ResponseBody AdsResult  submitCalc(@ModelAttribute ReliabilityConfig model) {
+    public @ResponseBody AdsResult  submitCalc(@ModelAttribute ReliabilityUploadConfig config) {
 
-        logger.debug("Multiple file upload! With UploadModel");
-
+    	System.out.println("---------------receive submitCalc---------------");
+ 
         try {
+        	final String modelName = config.getModelName();
 
-        	StateSampleConfig sampleConfig = Utils.toObject(model.getSampleConfig(), StateSampleConfig.class);
-        	StateEstimateConfig estimateConfig  = Utils.toObject(model.getSampleConfig(), StateEstimateConfig.class);
+        	StateSampleConfig sampleConfig = Utils.toObject(config.getSampleConfig(), StateSampleConfig.class);
+        	StateEstimateConfig estimateConfig  = Utils.toObject(config.getEstimateConfig(), StateEstimateConfig.class);
+        	Path path = Paths.get(UPLOADED_FOLDER, config.getModelName());
+        	File file = path.toFile();
+        	if (!file.exists()) {
+        		file.mkdirs();
+        	}
         	
-            saveUploadedFiles(Arrays.asList(model.getFiles()));
+            saveUploadedFiles(path, Arrays.asList(config.getFiles()), new FileByteProcessor() {
+				
+				@Override
+				public void process(String fileName, byte[] bytes) {
+					try {
+						RedissonDBString dbstring = executeDF.RedissonDBString();
+					} catch (RedissonDBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
 
+            sendMessage("post_Reliability", modelName);
         } catch (IOException e) {
         	return  AdsResult.fail(e.getMessage());
         }
 
+       	System.out.println("---------------received submitCalc---------------");
         return  AdsResult.ok("accepted!");
     }
     
    
+    public static void main(String [] args) {
+    
+    	Path path = Paths.get("e:/temp", "test1");
+    	Path path1 = Paths.get(path.toAbsolutePath().toString(), "file.txt");
+    	System.out.println(path1);
+    }
 	
     //save file
-    private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
+    private void saveUploadedFiles(Path base, List<MultipartFile> files, FileByteProcessor p) throws IOException {
 
         for (MultipartFile file : files) {
 
             if (file.isEmpty()) {
                 continue; //next pls
             }
-
+        
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            String fileName = file.getOriginalFilename();
+            Path path = Paths.get(base.toAbsolutePath().toString(), fileName);
+            logger.info("save file : "+path.toAbsolutePath().toString());
             Files.write(path, bytes);
-
+            p.process(fileName, bytes);
         }
 
     }    
