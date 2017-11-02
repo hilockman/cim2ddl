@@ -3,64 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Power System Reliability</title>
+<link rel="stylesheet" href="style/normalize.css">
+<link rel="stylesheet" href="style/main.css">
+<link rel="stylesheet" href="style/jquery.steps.css">
 <script src="scripts/jquery-3.2.1.js"></script>
 <script src="scripts/jquery.validate.js"></script>
 <!-- script src="scripts/utils.js"></script -->
 <script src="scripts/jquery.cookie.js"></script>
 <script src="scripts/jquery.steps.js"></script>
 
+
 </head>
 <style>
 #all-content {
-	width: 600px;
+	width: 800px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.easyui-combobox {
-	padding: 2px;
-	widtch: 141px;
-	border: 1px solid #A4BED4;
-}
-
-#pbar_outerdiv {
-	margin: 5px 5px 5px 5px;
-	visible: hidden;
-	width: 300px;
-	height: 20px;
-	border: 1px solid grey;
-	z-index: 1;
-	position: relative;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-
-#pbar_innerdiv {
-	background-color: lightblue;
-	z-index: 2;
-	height: 100%;
-	width: 0%;
-}
-
-#pbar_innertext {
-	z-index: 3;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	color: black;
-	font-weight: bold;
-	text-align: center;
-}
 
 
-#control-panel {
-	padding: 0px 20px 20px 20px;
-	clear: right
-}
 </style>
 <body>
 	<div id="all-content">
@@ -73,13 +37,13 @@
 			<form id="wizard">
 				<h3>模型设置</h3>
 				<fieldset>
-					<legend>
-						<label>模型设置</label>
-					</legend>
-					<div class="fitem">
-						<label> 模型名称:</label> <input type="text" name="modelName"
+					<ul>
+						<li><span>模型名称:</span><input type="text" name="modelName"
+							id="modelName" class="easyui-combobox" required /></li>
+					</ul>
+						<span>模型名称:</span><input type="text" name="modelName"
 							id="modelName" class="easyui-combobox" required />
-					</div>
+					
 					<div class="fitem">
 						<label> 潮流文件:</label> <input type="file" id="flowFile" name="files"
 							class="easyui-combobox" value="RS97.dat" required />
@@ -95,9 +59,6 @@
 				</fieldset>
 				<h3>抽样设置</h3>
 				<fieldset>
-					<legend>
-						<label>抽样参数 </label>
-					</legend>
 					<div class="fitem">
 						<label> 状态抽样类型:</label> <input name="nPRSampleObject" id="all_net"
 							value="全网" type="radio" checked="checked" /><label for="all_net">全网</label><input
@@ -159,9 +120,6 @@
 				</fieldset>
 				<h3>后评估设置</h3>
 				<fieldset>
-						<legend>
-							<label>后评估参数</label>
-						</legend>
 						<div class="fitem">
 							<label>直变交系数:</label><input type="text" id="dc2AcFactor" name="dc2AcFactor" class="easyui-combobox" />
 						</div>
@@ -189,18 +147,6 @@
 
 
 
-		<div id="control-panel">
-			<button id="start-calc-reliability">启动可靠性计算</button>
-			<button id="cancel-calc-reliability">取消可靠性计算</button>
-			<label id="request-response"></label>
-			<!-- div id="progressTimer"></div> -->
-			<div id="pbar_outerdiv">
-				<div id="pbar_innerdiv"></div>
-				<div id="pbar_innertext">0%</div>
-			</div>
-		</div>
-
-
 	</div>
 
 	<script>
@@ -208,7 +154,16 @@
 	    headerTag: "h3",
 	    bodyTag: "fieldset",
 	    transitionEffect: "slideLeft",
-	    autoFocus: true
+	    autoFocus: true,
+		labels: {
+			cancel:'取消',
+			current:'当前页',
+			pagination:'分页',
+			finish:'完成',
+			next:'往后',
+			previous:'往前',
+			loading:'正在加载...'
+		}
 	});
 	</script>
 </body>
