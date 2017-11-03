@@ -13,5 +13,7 @@ public abstract class ListDataOperations<V> extends AbstractOperations<ListData<
 	public abstract List<V> getAll(String key);
 	
 	public abstract void pushAll(String key, List<V> values);
+	
+	public abstract void push(String key, V value);
 
 }

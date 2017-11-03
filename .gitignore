@@ -21,3 +21,4 @@ code/src/ei-ads-console/src/main/resources/redissonnode.yaml11
 code/src/ei-ads-web/src/main/resources/redissonnode.yaml
 code/src/ei-ads-web/src/main/resources/redissonnode.yaml2
 *.svn-base
+*.yaml1

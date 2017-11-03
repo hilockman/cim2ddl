@@ -248,7 +248,7 @@ public final class AplManager {
 
 					if (out == null && in == null) {
 						throw new ACPException(
-								"Missing parameter annotaions : In/Out, .");
+								String.format("Missing parameter annotaions : In/Out, %s.%s.%s .", c.getName(), m.getName(), param.getName()));
 					}
 
 					paramTypeNames.add(paramInfo.cc

@@ -21,37 +21,6 @@
 	border: 1px solid #A4BED4;
 }
 
-#pbar_outerdiv {
-	margin: 5px 5px 5px 5px;
-	visible: hidden;
-	width: 300px;
-	height: 20px;
-	border: 1px solid grey;
-	z-index: 1;
-	position: relative;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-
-#pbar_innerdiv {
-	background-color: lightblue;
-	z-index: 2;
-	height: 100%;
-	width: 0%;
-}
-
-#pbar_innertext {
-	z-index: 3;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	color: black;
-	font-weight: bold;
-	text-align: center;
-}
-
 #configs {
 	padding: 0px 20px 20px 20px;
 	text-align: left;
@@ -66,6 +35,12 @@
 #control-panel {
 	padding: 0px 20px 20px 20px;
 	clear: right
+}
+
+#log-brower {
+	padding: 0px 20px 20px 20px;
+	display:none;
+	outline-color:#00ff00;
 }
 </style>
 <body>
@@ -221,11 +196,10 @@
 			<button id="start-calc-reliability">启动可靠性计算</button>
 			<button id="cancel-calc-reliability">取消可靠性计算</button>
 			<label id="request-response"></label>
-			<!-- div id="progressTimer"></div> -->
-			<div id="pbar_outerdiv">
-				<div id="pbar_innerdiv"></div>
-				<div id="pbar_innertext">0%</div>
-			</div>
+		</div>
+		
+		<div id="log-brower">
+			<textarea id="text-box"> </textarea>
 		</div>
 
 

@@ -2,6 +2,14 @@ var stateSampleConfigNames = [];
 var stateEstimateConfigNames = [];
 
 var init = function() {
+	
+	var modelName = localStorage['modelConfig']; 
+	$("#modelName").val(modelName); 
+	$("#modelName").change(function() { 
+	localStorage['modelConfig'] = $("#modelName").val(); 
+	  console.log("modelName :"+$("#modelName").val()); 
+	}); 
+	
 	$.ajax({
 		url : "pr/stateSampleConfig",
 		type : "GET",
@@ -60,6 +68,7 @@ var init = function() {
 
 $(document).ready(init);
 
+
 function ProgressBar() {
 	var bar = {};
 	bar.start = new Date();
@@ -99,10 +108,10 @@ function ProgressBar() {
 var pbar;
 
 $('#cancel-calc-reliability').click(function() {
-	pbar.stop();
+	//pbar.stop();
 	$('#request-response').html('Succeed to cancel!');
 	$("#pbar_outerdiv").toggle("slow");
-
+	 $("#start-calc-reliability").prop("disabled", false);
 });
 
 $.fn.serializeObject = function()
@@ -128,7 +137,14 @@ $('#start-calc-reliability').click(
 			var estimateConfig = f.serializeObject();
 			
 			var f1 = $("#state-sample-config-form");
+
+			
 			var sampleConfig = f1.serializeObject();
+			var checkbox = f.find("input[type=checkbox]"); 
+			$.each(checkbox, function(key, val) { 
+			    estimateConfig[$(val).attr('name')] = ($(val).is(":checked") ? 1 : 0);		 
+            }); 
+			
 //			var sampleConfig = {};
 //			for ( var i in stateSampleConfigNames) {
 //				var name = stateSampleConfigNames[i];
@@ -178,18 +194,14 @@ $('#start-calc-reliability').click(
 				cache : false,
 				timeout : 600000,
 				success : function(msg) {
-					console.log('calc reliability request accepted : '
-							+ JSON.stringify(msg));
-
-					$('#request-response').html(msg.code == 'OK'?'Request accepted!':'Fail to submit calc!');
-					$("#start-calc-reliability").prop("disabled", false);
+					console.log('calc reliability request accepted : ' + JSON.stringify(msg));
+					$('#request-response').html(msg.code == 'OK'?'Request accepted!' : 'Fail to submit calc : ' + msg.detail);
+					$("#start-calc-reliability").prop("disabled", true);
 				},
 				 error: function (e) {
-
 			            $("#request-response").html(e.responseText);
 			            console.log("ERROR : ", e);
-			            $("#start-calc-reliability").prop("disabled", false);
-
+			            $("#start-calc-reliability").prop("disabled", true);
 			        }
 
 			});
@@ -217,8 +229,65 @@ $('#start-calc-reliability').click(
 			//	
 			// });
 
-			$("#pbar_outerdiv").show();
-			pbar = ProgressBar();
-			pbar.animateUpdate();
+//			$("#pbar_outerdiv").show();
+//			pbar = ProgressBar();
+//			pbar.animateUpdate();
+			
 
+			
+			
+			$("#log-brower").show();
+			var browser = LogBrowser();
+			browser.animateUpdate();
 		});
+
+function LogBrowser() {
+	var logger = {};
+	
+	var modelName = $("#modelName").val();
+	logger.timeoutVal = 3000;
+	logger.stopFlag = false;
+
+	logger.updateLog = function() {
+		$.ajax({
+			url : "pr/log/"+modelName,
+			type : "GET",
+			data : modelName,
+
+			success : function(logs) {
+				if (logs == null)
+					return;
+				
+				console.log("get logs size : "+logs.length);
+				for (var i = 0; i < logs.length; i++) {
+					var txt = $.trim(logs[i]);
+					  var box = $("#text-box");
+					  box.val(box.val() + txt);
+					  console.log(logs[i]);
+				}
+									
+			},
+			error : function() {
+				console.log("Fail to get logs!");
+			}
+		});
+	};
+
+	logger.stop = function() {
+		this.stopFlag = true;
+	}
+
+	logger.animateUpdate = function() {	
+		if (this.stopFlag) {
+			return;
+		} else {	 
+			this.updateLog();
+			setTimeout(function() {
+				logger.animateUpdate();
+			}, this.timeoutVal);
+		}
+	};
+
+	
+	return logger;
+}

@@ -1,0 +1,42 @@
+storage:
+  location:com/znd/ei/memdb/domain
+logging:
+  file:log/ei-ads-console.log
+server:
+  name:ei-ads-console
+  port:8080
+
+ads:
+  defaultlifecycle: 600
+  memdb:
+     lifecycle: 6000
+  aplSkip:Test,Test1
+  temp:
+    dir: ./temp
+logging:
+   level:
+     interfaceLogger:OFF
+     ClusterConnectionManager:OFF
+     PubSubConnectionPool:OFF
+     SlaveConnectionPool:OFF
+io:
+  netty:
+    leakDetection:
+      level=advanced
+
+
+
+spring:
+  redis:
+    database: 0  
+    host: 92.168.1.10
+    port: 7000
+    cluster:
+      nodes: 192.168.3.70:7000,192.168.3.70:7001,192.168.3.70:7002,192.168.3.70:7003,192.168.3.70:7004,192.168.3.70:7005
+    password:  
+    pool:
+      max-active:8  
+      max-wait:-1  
+      max-idle:8  
+      min-idle:0  
+    timeout:0 

@@ -14,6 +14,11 @@ import static com.znd.ei.ads.apl.reliability.AppUtil.GC_RELIABILITY_INDEX;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_STATE_ESTIMATE;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_STATE_SAMPLE;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +31,14 @@ import org.redisson.api.mapreduce.RMapReduce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.ZhongND.memdb.MDBDefine;
+import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
+import com.znd.ei.ads.acp.ListDataOperations;
+import com.znd.ei.ads.acp.ObjectRefDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.MapData;
@@ -44,6 +53,7 @@ import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
 import com.znd.ei.ads.config.StateEstimateConfig;
+import com.znd.ei.ads.config.StateSampleConfig;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.DbException;
 import com.znd.ei.memdb.MemTable;
@@ -105,6 +115,9 @@ public class ReliabilityApl {
 	DataFieldStorage storage;
 
 	private String modelArea = "RTS79";
+	
+	@Value("${ads.temp.dir}")
+	private String tempDir;
 
 	private void callBpaLoader() {
 		AppUtil.execute(GC_BPA_LOADER, execRootPath, dataRootPath
@@ -242,6 +255,91 @@ public class ReliabilityApl {
 		calcTask.setKey(pRModel.getArea() + ":task:" + powersystem_reliability);
 
 		LOGGER.info("----------------end create_BPAModel------------------------");
+
+	}
+	
+	
+	
+	@AplFunction( desc = "post reliability")
+	public void calcReliability(@In("post_Reliability") StringData data) {
+		String modelName = data.getContent();
+		LOGGER.info("recieved model : ", modelName);
+		Set<String> configKeys = connectionFactory.findKeys(modelName+":config:*");
+		Set<String> fileKeys = connectionFactory.findKeys(modelName+":file:*");
+		StateSampleConfig sampleConfig = null;
+		StateEstimateConfig estimateConfig = null;
+		ObjectRefDataOperations<String> strOps = connectionFactory.getObjectRefOperations();
+		File stableFile = null;
+		File flowFile = null;
+		File paramFile = null;
+		for(String fileKey : fileKeys) {
+			System.out.println("Received file : "+fileKey);
+			String fileContent = strOps.get(fileKey);
+			int index = fileKey.lastIndexOf(':');
+			if (index == -1) {
+				log(modelName, "Invalid file key %s.", fileKey);
+				continue;
+			}
+			String fileName = fileKey.substring(fileKey.lastIndexOf(':')+1);
+			File file = saveFile(fileName, fileContent);
+			log(modelName, "Received file : name=%s, size=%d ", fileName, fileContent.length());
+			if (fileName.endsWith(".dat")) {
+				flowFile = file;
+			} else if (fileName.endsWith(".swi")) {
+				stableFile = file;
+			} else if (fileName.endsWith(".xml")) {
+				paramFile = file;
+			} 
+		}
+			
+		 for(String key : configKeys) {
+			log(modelName, "Received config : %s ", key);
+			String config = strOps.get(key);
+			if (config.equalsIgnoreCase("sampleConfig")) {
+				sampleConfig = Utils.toObject(config, StateSampleConfig.class);	
+			} else if(config.equalsIgnoreCase("estimateConfig")) {
+				estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
+			}
+			
+		}
+		
+	}
+
+	
+	private ListDataOperations<String> listOps;
+	private void log(String key, String fmt, Object... args) {
+		String log = String.format(fmt, args);
+		LOGGER.info(log);
+		if (listOps == null)
+			listOps = connectionFactory.getListDataOperations();
+		
+		listOps.push(key+":log", log);
+	}
+	private File saveFile(String fileName, String fileContent) {
+		Path path = Paths.get(tempDir);
+		File pathFile = path.toFile();
+		if (!pathFile.exists()) {
+			LOGGER.info("mkdir {}. ", tempDir);
+			pathFile.mkdirs();
+		}
+		
+		
+		
+		Path filePath = Paths.get(tempDir, fileName);
+		File file = filePath.toFile();
+		LOGGER.info("save file : {} ", file.getAbsolutePath());
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(file);
+			fw.write(fileContent);
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return file;
 
 	}
 

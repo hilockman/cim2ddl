@@ -161,6 +161,11 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 		public boolean isEmpty(String key) {
 			return stringRedisTemplate.hasKey(key);
 		}
+
+		@Override
+		public void push(String key, V value) {
+			operation.leftPush(key, value);
+		}
 		
 	}
 	

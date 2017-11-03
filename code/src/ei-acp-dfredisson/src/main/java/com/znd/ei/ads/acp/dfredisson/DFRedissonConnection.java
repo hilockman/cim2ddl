@@ -1,5 +1,6 @@
 package com.znd.ei.ads.acp.dfredisson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -418,8 +419,20 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		@Override
 		public boolean isEmpty(String key) {
-			// TODO Auto-generated method stub
-			return false;
+			Set<?> s = findKeys(key);
+			return s == null || s.isEmpty();
+		}
+
+		@Override
+		public void push(String key, V value) {
+			List<V> values = new ArrayList<V>();
+			values.add(value);
+			try {
+				operations.LPUSH(key, defaultLifeCycle, values);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -616,6 +629,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 					storage.receivedMessage(eventContent.getControlCode(),
 							eventContent.getEventContent());
+					LOGGER.info("Finish process cc = {}" , eventContent.getControlCode());
 				} catch (ACPException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -631,15 +645,14 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	@Override
 	public void register(DataFieldStorage storage) throws Exception {
+		this.storage = storage;
 		final String appName = storage.getServerName();
 		registerEventCallBack("外部事件", (EventCallBack c)->{dfService.registry(appName, c, true);});
 		registerEventCallBack("内部事件", (EventCallBack c)->{dfService.registry(appName+"_inner_publish",
 				ConnectionFactory.INNER_PUBLISH_CHANNEL, c, false);});
 		registerEventCallBack("内部请求", (EventCallBack c)->{dfService.registry(appName+"_inner_request",
-				ConnectionFactory.INNER_REQUEST_CHANNEL, c, true);});
-	
+				ConnectionFactory.INNER_REQUEST_CHANNEL, c, true);});	
 	}
-
 
 	@Override
 	public StringDataOperations getStringDataOperations() {
@@ -735,6 +748,15 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	@PreDestroy
 	public void beforDestory() {
+		try {
+			dfService.unregistry();
+			dfService.unregistry(ConnectionFactory.INNER_PUBLISH_CHANNEL);
+			dfService.unregistry(ConnectionFactory.INNER_REQUEST_CHANNEL);
+			
+		} catch (RedissonDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (redissonNode != null) {
 			LOGGER.info("Redisson node shutdown!");
 			redissonNode.shutdown();
