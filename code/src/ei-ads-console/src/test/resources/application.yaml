@@ -1,0 +1,20 @@
+state-estimate:
+    serverIp: 192.168.1.33
+    serverPort: 8950
+    serverThread: 1
+    readyResponseTimeOut: 600
+    hostIp: 192.168.1.70
+    listenPort: 9002
+    cachedDir: ${ads.tempDir}/state-estimate
+    serverId: ${random.uuid}
+logging:
+  file: log/ei-ads-console.log
+server:
+  name: ei-ads-console
+  port: 8081
+ads:
+  defaultlifecycle: 180000
+  memdb:
+    lifecycle: 6000000
+  appDir: E:/ZNDProject/bin_x64
+  tempDir: temp

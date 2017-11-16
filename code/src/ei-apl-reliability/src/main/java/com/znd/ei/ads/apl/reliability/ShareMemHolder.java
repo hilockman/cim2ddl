@@ -10,9 +10,15 @@ public class ShareMemHolder {
 
 	@PostConstruct
 	public void init() {
+
 		new Thread(() -> {
-			System.out.println("***********MemStarter start****************");
-			AppUtil.execBuilder("MemStarter").addParam("-s").exec();
+			if (AppUtil.checkAppIsRunning("MemStarter")) {
+				System.out.println("***********MemStarter is running****************");
+				
+			} else {
+				System.out.println("***********MemStarter start****************");
+				AppUtil.execBuilder("MemStarter").addParam("-s").exec();
+			}
 		}).start();	
 	}
 	

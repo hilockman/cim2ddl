@@ -102,7 +102,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private class MemDBOperationsImp extends MemDBDataOperations {
+	private class MemDBOperationsImp implements MemDBDataOperations {
 
 		private RedisMemDB operations;
 
@@ -168,7 +168,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class MapDataOperationsImp<K, V> extends MapDataOperations<K, V> {
+	public class MapDataOperationsImp<K, V> implements MapDataOperations<K, V> {
 		private RedissonDBMap operation;
 
 		public MapDataOperationsImp() throws RedissonDBException {
@@ -329,7 +329,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private class ListDataOperationsImp<V> extends ListDataOperations<V> {
+	private class ListDataOperationsImp<V> implements ListDataOperations<V> {
 
 		private RedissonDBList operations;
 
@@ -437,7 +437,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class ObjectRefDataOperationsImp<T> extends
+	public class ObjectRefDataOperationsImp<T> implements
 			ObjectRefDataOperations<T> {
 
 		private RedissonDBString operations;
@@ -501,9 +501,19 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			return hasKey(key);
 		}
 
+		@Override
+		public void decr(String key) {
+			try {
+				operations.LockLongDECR(key, defaultLifeCycle);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
 
-	private class StringDataOperationsImp extends StringDataOperations {
+	private class StringDataOperationsImp implements StringDataOperations {
 
 		@Override
 		public boolean isEmpty(String key) {

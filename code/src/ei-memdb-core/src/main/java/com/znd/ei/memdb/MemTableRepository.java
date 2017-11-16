@@ -1,5 +1,7 @@
 package com.znd.ei.memdb;
 
+import java.util.List;
+
 
 public interface MemTableRepository<T> {
 
@@ -27,7 +29,7 @@ public interface MemTableRepository<T> {
 	 * 
 	 * @return all entities
 	 */
-	Iterable<T> findAll();
+	List<T> findAll();
 
 	/**
 	 * Returns the number of entities available.

@@ -49,7 +49,7 @@ public class AppUtil {
 		dao.saveOrUpdate(records);
 	}
 	
-	public static void execute(String appPath, AppLogger appLogger, String... args) {
+	public static Process execute(String appPath, AppLogger appLogger, String... args) {
 		StringBuffer cmd = new StringBuffer();
 		cmd.append(appPath);
 
@@ -69,11 +69,16 @@ public class AppUtil {
 			
 			InputStream eis = process.getErrorStream();
 			print(eis, appLogger);
+			return process;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+		
+		return null;
 	}
+	
+
 	
 	/**
 	 * 
@@ -104,6 +109,38 @@ public class AppUtil {
 	
 	public static AppExecuteBuilder execBuilder(String appPath) {
 		return new AppExecuteBuilder(appPath);
+	}
+	
+	public static void main(String [] args) {
+		boolean rt = checkAppIsRunning("mysqld");
+		System.out.println(rt);
+	}
+	public static boolean checkAppIsRunning(String appName) {
+		String line;
+		String pidInfo ="";
+
+		Process p;
+		try {
+			p = Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+			BufferedReader input =  new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+			while ((line = input.readLine()) != null) {
+			    pidInfo+=line; 
+			}
+
+			input.close();
+
+			if(pidInfo.contains(appName.endsWith(".exe") ? appName : appName+".exe"))
+			{
+			    return true;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+		return false;
 	}
 
 

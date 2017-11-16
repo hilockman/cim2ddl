@@ -1,3 +1,10 @@
+tcptest:
+      serverIp: 192.168.1.33
+      serverPort: 8950
+      serverWorkers: 1
+      serverTimeOut: 900000000
+      hostIp: 192.168.1.70
+      hostPort: 9002
 logging:
   file: log/ei-ads-web.log
 server:

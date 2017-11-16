@@ -3,7 +3,7 @@ package com.znd.ei.ads.acp;
 import com.znd.ei.ads.adf.MemDBData;
 
 
-public abstract class MemDBDataOperations  extends AbstractOperations<MemDBData> {
-	public abstract void upload(MemDBData db);
-	public abstract void download(MemDBData db);
+public interface MemDBDataOperations  extends IOOperations<MemDBData> {
+	void upload(MemDBData db);
+	void download(MemDBData db);
 }

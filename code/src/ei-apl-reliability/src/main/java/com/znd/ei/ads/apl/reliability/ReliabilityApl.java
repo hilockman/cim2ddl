@@ -19,11 +19,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
@@ -31,7 +36,6 @@ import org.redisson.api.mapreduce.RMapReduce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.ZhongND.memdb.MDBDefine;
 import com.znd.ei.Utils;
@@ -52,6 +56,9 @@ import com.znd.ei.ads.apl.annotations.Out;
 import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
+import com.znd.ei.ads.apl.reliability.server.RemoteServerPool;
+import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
+import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.ads.config.StateSampleConfig;
 import com.znd.ei.memdb.DbEntryOperations;
@@ -109,15 +116,18 @@ public class ReliabilityApl {
 	SystemDao systemDao;
 
 	@Autowired
-	AbstractConnectionFactory connectionFactory;
+	private AbstractConnectionFactory connectionFactory;
 
 	@Autowired
-	DataFieldStorage storage;
+	private DataFieldStorage storage;
 
 	private String modelArea = "RTS79";
 	
-	@Value("${ads.temp.dir}")
-	private String tempDir;
+	@Autowired
+	StateEstimateProperties properties;
+	
+	@Autowired
+	private StateEstimateServerProxy proxy;
 
 	private void callBpaLoader() {
 		AppUtil.execute(GC_BPA_LOADER, execRootPath, dataRootPath
@@ -130,37 +140,7 @@ public class ReliabilityApl {
 	}
 
 
-	private void callStateSample() {
-		AppUtil.execBuilder(GC_STATE_SAMPLE).addParam(execRootPath)
-		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
-				.addParam("全部")
-				// 抽样类型 nPRSampleMethod
-				.addParam("1").
-				// 抽样最大发电机故障重数 nMaxGenFault
-				addParam("20")
-				// 抽样最大支路故障重数 nMaxBranFault
-				.addParam("20")
-				// MCS最大抽样仿真时长 nMCSSimulateTime
-				.addParam("2000000").
-				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
-				addParam("0.000000").
-				// FST[快速排序]累积概率 fFSTMaxCumuProb
-				addParam("0.990000")
-				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
-				.addParam("1.000000")
-				// FST[快速排序]最大状态数 nFSTMaxStateNum
-				.addParam("100000")
-				// STS[状态抽样]最大状态数 nSTSMaxStateNum
-				.addParam("100000")
-				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
-				.addParam("1.000000").logger(new AppLogger() {
 
-					@Override
-					public void print(String log) {
-						LOGGER.info(log);
-					}
-				}).exec();
-	}
 
 	public static void callStateEstimate(FState state,
 			StateEstimateConfig config) {
@@ -258,7 +238,91 @@ public class ReliabilityApl {
 
 	}
 	
+	private void callStateSample(StateSampleConfig config) {
+		System.out.println("call StateSample , config = "+config);
+		AppUtil.execBuilder(GC_STATE_SAMPLE).addParam(execRootPath)
+		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
+				.addParam(config.getnPRSampleObject())
+				// 抽样类型 nPRSampleMethod
+				.addParam(config.getnPRSampleMethod()).
+				// 抽样最大发电机故障重数 nMaxGenFault
+				addParam(config.getnMaxGenFault())
+				// 抽样最大支路故障重数 nMaxBranFault
+				.addParam(config.getnMaxBranFault())
+				// MCS最大抽样仿真时长 nMCSSimulateTime
+				.addParam(config.getnMCSSimulateTime()).
+				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
+				addParam(config.getfMCSMinStateProb()).
+				// FST[快速排序]累积概率 fFSTMaxCumuProb
+				addParam(config.getfFSTMaxCumuProb())
+				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
+				.addParam(config.getfFSTMinStateProb())
+				// FST[快速排序]最大状态数 nFSTMaxStateNum
+				.addParam(config.getnFSTMaxStateNum())
+				// STS[状态抽样]最大状态数 nSTSMaxStateNum
+				.addParam(config.getnSTSMaxStateNum())
+				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
+				.addParam(config.getfANAMinStateProb()).logger((String log)->LOGGER.info(log)).exec();
+	}
 	
+	private void callStateSample() {
+		AppUtil.execBuilder(GC_STATE_SAMPLE).addParam(execRootPath)
+		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
+				.addParam("全部")
+				// 抽样类型 nPRSampleMethod
+				.addParam("1").
+				// 抽样最大发电机故障重数 nMaxGenFault
+				addParam("20")
+				// 抽样最大支路故障重数 nMaxBranFault
+				.addParam("20")
+				// MCS最大抽样仿真时长 nMCSSimulateTime
+				.addParam("2000000").
+				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
+				addParam("0.000000").
+				// FST[快速排序]累积概率 fFSTMaxCumuProb
+				addParam("0.990000")
+				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
+				.addParam("1.000000")
+				// FST[快速排序]最大状态数 nFSTMaxStateNum
+				.addParam("100000")
+				// STS[状态抽样]最大状态数 nSTSMaxStateNum
+				.addParam("100000")
+				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
+				.addParam("1.000000").logger(new AppLogger() {
+
+					@Override
+					public void print(String log) {
+						LOGGER.info(log);
+					}
+				}).exec();
+	}
+	
+	private void callBpaLoader(File[] files) {
+		try {
+			AppExecuteBuilder eb = AppUtil.execBuilder(GC_BPA_LOADER).addParam(execRootPath);
+			for (File file: files) {
+				eb.addParam(file.getCanonicalPath());
+			}
+			eb.logger((String log)->LOGGER.info(log)).exec();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void callBpa2Pr(File [] files) {
+		try {
+			AppExecuteBuilder eb = AppUtil.execBuilder(GC_BPA_2_PR).addParam(execRootPath);
+			for (File file: files) {
+				eb.addParam(file.getCanonicalPath());
+			}
+			eb.logger((String log)->LOGGER.info(log)).exec();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	@AplFunction( desc = "post reliability")
 	public void calcReliability(@In("post_Reliability") StringData data) {
@@ -281,7 +345,7 @@ public class ReliabilityApl {
 				continue;
 			}
 			String fileName = fileKey.substring(fileKey.lastIndexOf(':')+1);
-			File file = saveFile(fileName, fileContent);
+			File file = saveFile(properties.getCachedDir(), fileName, fileContent);
 			log(modelName, "Received file : name=%s, size=%d ", fileName, fileContent.length());
 			if (fileName.endsWith(".dat")) {
 				flowFile = file;
@@ -295,16 +359,120 @@ public class ReliabilityApl {
 		 for(String key : configKeys) {
 			log(modelName, "Received config : %s ", key);
 			String config = strOps.get(key);
-			if (config.equalsIgnoreCase("sampleConfig")) {
+			if (config.endsWith("sampleConfig")) {
 				sampleConfig = Utils.toObject(config, StateSampleConfig.class);	
-			} else if(config.equalsIgnoreCase("estimateConfig")) {
+			} else if(config.endsWith("estimateConfig")) {
 				estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
 			}
 			
 		}
+		 
+		// bpa model loader
+		 File [] files = {flowFile, stableFile, paramFile};
+		 callBpaLoader(files);
+		 callBpa2Pr(files);
+		 
+		//call state sample
+		 callStateSample(sampleConfig);
+		 
 		
+		//upload fstates
+		log(modelName, "upload sample.");
+		List<FState> fstates = fStateDao.findAll();
+		connectionFactory.<FState>getListDataOperations().pushAll(modelName+":FState", fstates);		
+		connectionFactory.<FStateFDev>getListDataOperations().pushAll(modelName+":FStateFDev", fStateFDevDao.findAll());
+		String taskKey = modelName+":StateEstimateTask";
+		connectionFactory.<FState>getListDataOperations().pushAll(taskKey, fstates);
+		log(modelName, "finish upload sample.");
+		
+		
+		//connectionFactory.publish("do_StateEstimate", modelName);	
+		
+		
+		
+//		 processStateEstimate(modelName, new PRAdequacySetting());
+//		 String resultKey = modelName+":StateEstimateResult";
+//		 ObjectRefDataOperations<Integer> objOps = connectionFactory.<Integer>getObjectRefOperations();
+//		 objOps.set(resultKey, 0);
+//		 while (connectionFactory.hasKey(taskKey)) {
+//			 
+//			 
+//		 }
+		
+		//call state estimate	
+		 RemoteServerPool<StateEstimateRemoteServer> pool = null;		 
+		 List<Future<StateEstimateResult>> fresults = new ArrayList<>() ;
+		 for(FState fstate : fstates) {
+			 StateEstimateRemoteServer remoteServer = pool.getNoBusyServer();
+			 Future<StateEstimateResult> rt = remoteServer.calc(fstate);
+			 fresults.add(rt);
+		 }
+		 
+		 pool.destory();
+		 
+		 //upload result
+		 List<StateEstimateResult> results = new ArrayList<>();
+		 for (Future<StateEstimateResult> f : fresults) {
+			 try {
+				results.add(f.get());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
+		 
+		 connectionFactory.<StateEstimateResult>getListDataOperations().pushAll(modelName+":StateEstimateResult", results);	
+		 
+		 //call reliability index;
+		 connectionFactory.publish("do_ReliabilityIndex", modelName);	
+		 callReliabilityIndex(estimateConfig);
+		 
+	}
+	@AplFunction( desc = "do reliability")
+	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {
+		String modelName = data.getContent();
+		ObjectRefDataOperations<String> strOps = connectionFactory.getObjectRefOperations();
+		String configKey = modelName+":config:estimateConfig";
+		String config = strOps.get(configKey);
+		if (config == null || config.isEmpty()) {
+			log(modelName, "configKey is empty");
+		}
+		StateEstimateConfig estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
+		
+		callReliabilityIndex(estimateConfig);
+	}
+	
+	private void processStateEstimate(String modelName, PRAdequacySetting config) {
+       
 	}
 
+	public class LogInfo {
+		private Date date;
+		private String content;
+		
+		public LogInfo(Date date, String content) {
+			this.setDate(date);
+			this.content = content;
+		}
+
+		public String getContent() {
+			return content;
+		}
+		public void setContent(String content) {
+			this.content = content;
+		}
+
+		public Date getDate() {
+			return date;
+		}
+
+		public void setDate(Date date) {
+			this.date = date;
+		}
+	}
 	
 	private ListDataOperations<String> listOps;
 	private void log(String key, String fmt, Object... args) {
@@ -313,9 +481,11 @@ public class ReliabilityApl {
 		if (listOps == null)
 			listOps = connectionFactory.getListDataOperations();
 		
-		listOps.push(key+":log", log);
+		listOps.push(key+":log", Utils.toJSon(new LogInfo(new Date(), log)));
 	}
-	private File saveFile(String fileName, String fileContent) {
+	
+	public static File saveFile(String tempDir, String fileName, String fileContent) {
+		
 		Path path = Paths.get(tempDir);
 		File pathFile = path.toFile();
 		if (!pathFile.exists()) {
@@ -323,7 +493,7 @@ public class ReliabilityApl {
 			pathFile.mkdirs();
 		}
 		
-		
+		 
 		
 		Path filePath = Paths.get(tempDir, fileName);
 		File file = filePath.toFile();

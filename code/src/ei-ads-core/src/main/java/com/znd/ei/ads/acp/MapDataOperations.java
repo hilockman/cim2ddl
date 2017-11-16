@@ -4,20 +4,18 @@ import java.util.Map;
 
 import com.znd.ei.ads.adf.MapData;
 
-public abstract class MapDataOperations<K, V> extends AbstractOperations<MapData<K,V>> {
+public interface MapDataOperations<K, V> extends IOOperations<MapData<K,V>> {
 
+	V get(String key, K mkey);
 
+	Long getSize(String key) ;
 
-	public abstract V get(String key, K mkey);
-
-	public abstract Long getSize(String key) ;
-
-	public abstract void remove(String key, K...keys) ;
+	void remove(String key, K...keys) ;
 	
-	public abstract void put(String key, K hashKey, V value);
+	void put(String key, K hashKey, V value);
 
-	public  abstract Map<K, V> getAll(String key);
+	Map<K, V> getAll(String key);
 	
-	public abstract void putAll(String key, Map<K,V> content);
+	void putAll(String key, Map<K,V> content);
 
 }

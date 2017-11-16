@@ -30,7 +30,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 	
-	public class MapDataOperationsImp<V> extends MapDataOperations<String, V> {
+	public class MapDataOperationsImp<V> implements MapDataOperations<String, V> {
 
 		private HashOperations<String, String, V> operations;
 		
@@ -78,7 +78,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 	}
 
 
-	public class ObjectRefDataOperationsImp extends ObjectRefDataOperations<String> {
+	public class ObjectRefDataOperationsImp implements ObjectRefDataOperations<String> {
 		private ValueOperations<String, String> operations;
 		public ObjectRefDataOperationsImp() {
 			operations = stringRedisTemplate.opsForValue();
@@ -102,9 +102,15 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 			return stringRedisTemplate.hasKey(key);
 		}
 
+
+		@Override
+		public void decr(String key) {
+			operations.increment(key, -1);
+		}
+
 	}
 
-	public class StringDataOperationsImp extends StringDataOperations {
+	public class StringDataOperationsImp implements StringDataOperations {
 
 	
 
@@ -115,7 +121,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class MemDBDataOperationsImp extends MemDBDataOperations {
+	public class MemDBDataOperationsImp implements MemDBDataOperations {
 		@Override
 		public void upload(MemDBData db) {
 			// TODO Auto-generated method stub
@@ -137,7 +143,7 @@ public class SpringRedisConnection extends AbstractConnectionFactory {
 
 
 	
-	class ListDataOperationsImp<V> extends ListDataOperations<V> {
+	class ListDataOperationsImp<V> implements ListDataOperations<V> {
 		ListOperations<String, V> operation;
 		public ListDataOperationsImp() {
 			//operation = stringRedisTemplate.<String, V>opsForList();

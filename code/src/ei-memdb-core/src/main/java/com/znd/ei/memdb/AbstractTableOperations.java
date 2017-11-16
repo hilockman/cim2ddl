@@ -196,7 +196,7 @@ public class AbstractTableOperations<T> implements
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Iterable<T> findAll() {
+	public List<T> findAll() {
 		List entities = new ArrayList<T>();
 		try {
 			List<String[]> records = dbEntryOps.findAllRecords(table);

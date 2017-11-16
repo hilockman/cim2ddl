@@ -110,7 +110,8 @@ var pbar;
 $('#cancel-calc-reliability').click(function() {
 	//pbar.stop();
 	$('#request-response').html('Succeed to cancel!');
-	$("#pbar_outerdiv").toggle("slow");
+	//$("#pbar_outerdiv").toggle("slow");
+	$("#log-brower").toggle("slow");
 	 $("#start-calc-reliability").prop("disabled", false);
 });
 
@@ -131,6 +132,7 @@ $.fn.serializeObject = function()
     return o;
 };
 
+var browser = LogBrowser();
 $('#start-calc-reliability').click(
 		function() {
 			var f = $("#state-estimate-config-form");
@@ -237,18 +239,23 @@ $('#start-calc-reliability').click(
 			
 			
 			$("#log-brower").show();
-			var browser = LogBrowser();
-			browser.animateUpdate();
+			
+			//browser.animateUpdate();
+			browser.updateLog();
+			$("#log-update").click(function () {
+				browser.updateLog();
+			});
 		});
 
 function LogBrowser() {
 	var logger = {};
 	
-	var modelName = $("#modelName").val();
+	
 	logger.timeoutVal = 3000;
 	logger.stopFlag = false;
 
 	logger.updateLog = function() {
+		var modelName = $("#modelName").val();
 		$.ajax({
 			url : "pr/log/"+modelName,
 			type : "GET",
@@ -262,7 +269,7 @@ function LogBrowser() {
 				for (var i = 0; i < logs.length; i++) {
 					var txt = $.trim(logs[i]);
 					  var box = $("#text-box");
-					  box.val(box.val() + txt);
+					  box.val(box.val()+"\n " + txt);
 					  console.log(logs[i]);
 				}
 									
