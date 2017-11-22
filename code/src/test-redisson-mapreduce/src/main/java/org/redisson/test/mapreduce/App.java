@@ -1,6 +1,7 @@
 package org.redisson.test.mapreduce;
 
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -8,8 +9,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.redisson.RedissonNode;
 import org.redisson.api.RBucket;
 import org.redisson.api.RExecutorService;
+import org.redisson.api.RLiveObjectService;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.mapreduce.RMapReduce;
@@ -57,9 +60,20 @@ public class App
 	public static void main( String[] args )
     {
     	ApplicationContext ctx = (ApplicationContext) SpringApplication.run(App.class, args);
-    	testMapReduce(ctx);
+    	//testNodeStart(ctx);
+    	//testMapReduce(ctx);
     	//testExecutorService(ctx);
-    	System.exit(SpringApplication.exit(ctx));
+    	//System.exit(SpringApplication.exit(ctx));
+    	testLiveObject(ctx);
+    }
+    
+    public static void testNodeStart(ApplicationContext ctx) {
+    	RedissonNodeConfig config = ctx.getBean(RedissonNodeConfig.class);
+  	    
+  	 //   RedissonNodeConfig nodeConfig = new RedissonNodeConfig(config);
+  	    
+	    RedissonNode node = RedissonNode.create(config);
+	    node.start();
     }
     
     public static void testMapReduce(ApplicationContext ctx) {
@@ -149,4 +163,26 @@ public class App
 			e.printStackTrace();
 		}
     }
+   
+   
+   public static void testLiveObject(ApplicationContext ctx) {
+	   RedissonClient redisson = ctx.getBean(RedissonClient.class);
+	 //首先获取服务实例
+	   RLiveObjectService service = redisson.getLiveObjectService();
+	   
+	 //通过服务实例构造RLO实例
+	   String id = "liveObjectId";
+	   MyLiveObject standardObject1 = service.<MyLiveObject, String>get(MyLiveObject.class, id);
+	   if (standardObject1 == null) {
+		   standardObject1 = new MyLiveObject();
+		   standardObject1.setName(id);		   
+		   standardObject1 = service.<MyLiveObject>persist(standardObject1);
+	   }
+	   
+	   Map<String, String> values = standardObject1.getValues();
+	   values.put("key1", "value1");
+	   values.put("key2", "value2");
+	   values.put("key3", "value3");
+	   //standardObject1.setValues(values);
+   }
 }

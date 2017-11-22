@@ -13,11 +13,12 @@ import java.io.Reader;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.redisson.config.ConfigSupport;
+import org.redisson.config.RedissonNodeConfig;
 import org.redisson.test.mapreduce.App.TestJson;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ResourceUtils;
 
 import com.google.gson.Gson;
 
@@ -60,8 +61,8 @@ public class RedissonConfig {
 	}
 	@SuppressWarnings("static-access")
 	@Bean
-	public Config config() {
-		Config config = new Config();
+	public RedissonNodeConfig config() {
+		RedissonNodeConfig config = new RedissonNodeConfig();
 
 		FileInputStream fis = null;
 		try {
@@ -69,7 +70,7 @@ public class RedissonConfig {
 //			Resource[] resources = resolver.getResources("/resources/*.cfg");
 			InputStream is = this.getClass().getResourceAsStream("/"+FILE_NAME);
 			
-			String content = read(is);
+			//String content = read(is);
 			//System.out.println((char)is.read());
 //			config = config.fromJSON(is);
 	        
@@ -77,9 +78,13 @@ public class RedissonConfig {
 //			 is = new FileInputStream(file);
 //
 //			 config.fromJSON(is);
+			
+	        ConfigSupport support = new ConfigSupport();
+	        config = support.fromJSON(is, RedissonNodeConfig.class);
 
 
-			config = config.fromJSON(content);
+
+			//config = config.fromJSON(is);
 
 			// is = new FileInputStream(file);
 

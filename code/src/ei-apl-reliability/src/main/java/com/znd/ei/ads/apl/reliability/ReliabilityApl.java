@@ -28,6 +28,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.redisson.api.RMap;
@@ -53,11 +55,10 @@ import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
+import com.znd.ei.ads.apl.reliability.bean.DataReady;
 import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
-import com.znd.ei.ads.apl.reliability.server.RemoteServerPool;
-import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
 import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.ads.config.StateSampleConfig;
@@ -324,6 +325,9 @@ public class ReliabilityApl {
 		
 	}
 	
+	@Autowired
+	private StateEstimateServer stateEstimateServer; 
+	
 	@AplFunction( desc = "post reliability")
 	public void calcReliability(@In("post_Reliability") StringData data) {
 		String modelName = data.getContent();
@@ -400,36 +404,76 @@ public class ReliabilityApl {
 //		 }
 		
 		//call state estimate	
-		 RemoteServerPool<StateEstimateRemoteServer> pool = null;		 
-		 List<Future<StateEstimateResult>> fresults = new ArrayList<>() ;
-		 for(FState fstate : fstates) {
-			 StateEstimateRemoteServer remoteServer = pool.getNoBusyServer();
-			 Future<StateEstimateResult> rt = remoteServer.calc(fstate);
-			 fresults.add(rt);
+//		 RemoteServerPool<StateEstimateRemoteServer> pool = null;		 
+//		 List<Future<StateEstimateResult>> fresults = new ArrayList<>() ;
+//		 for(FState fstate : fstates) {
+//			 StateEstimateRemoteServer remoteServer = pool.getNoBusyServer();
+//			 Future<StateEstimateResult> rt = remoteServer.calc(fstate);
+//			 fresults.add(rt);
+//		 }
+//		 
+//		 pool.destory();
+		
+//		 List<StateEstimateResult> results = new ArrayList<>();
+//		 for (Future<StateEstimateResult> f : fresults) {
+//			 try {
+//				results.add(f.get());
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ExecutionException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		 }		
+		
+		
+		int threadNum = 2;
+		ExecutorService pool = Executors.newFixedThreadPool(threadNum);
+		 List<StateEstimateResult> results = new ArrayList<>();
+		 PRAdequacySetting config = new PRAdequacySetting();
+		 DataReady setting = new DataReady();
+		 setting.setValue(threadNum);
+		 setting.getContent().setPRAdequacySetting(config);;
+		 String ready = stateEstimateServer.dataReady(setting);
+		 
+		 
+		 List<Future<StateEstimateResult> > fresults = new ArrayList<>(); 
+		 for(final FState fstate : fstates) {
+			 Future<StateEstimateResult> result = pool.submit(new Callable<StateEstimateResult>() {
+
+				@Override
+				public StateEstimateResult call() throws Exception {
+					return executeStateEstimate(fstate);
+				}
+				
+			
+			});
+			 fresults.add(result);
+			 
 		 }
 		 
-		 pool.destory();
-		 
-		 //upload result
-		 List<StateEstimateResult> results = new ArrayList<>();
-		 for (Future<StateEstimateResult> f : fresults) {
+		 for (Future<StateEstimateResult> r : fresults) {
 			 try {
-				results.add(f.get());
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
+				results.add(r.get());
+			} catch (InterruptedException | ExecutionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		 }
+		
 		 
+		 //upload result
 		 connectionFactory.<StateEstimateResult>getListDataOperations().pushAll(modelName+":StateEstimateResult", results);	
 		 
 		 //call reliability index;
 		 connectionFactory.publish("do_ReliabilityIndex", modelName);	
 		 callReliabilityIndex(estimateConfig);
 		 
+	}
+	
+	private StateEstimateResult executeStateEstimate(FState state) {
+		return stateEstimateServer.execute(state);
 	}
 	@AplFunction( desc = "do reliability")
 	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {

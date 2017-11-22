@@ -22,12 +22,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import com.znd.ei.Utils;
 import com.znd.ei.ads.apl.reliability.bean.DataReady;
 
-@Component
+
 public class StateEstimateServerProxy {
 	private static final Logger logger = LoggerFactory
 			.getLogger(StateEstimateServerProxy.class);
