@@ -1,23 +1,27 @@
 package com.znd.ei.ads.apl.reliability;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.concurrent.Future;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.ServerSocket;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,45 +36,81 @@ import com.znd.ei.Utils;
 import com.znd.ei.ads.apl.reliability.bean.DataReady;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
+import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 
 @Component
 public class StateEstimateServer implements StateEstimateRemoteServer {
 	private static final Logger logger = LoggerFactory
-			.getLogger(StateEstimateServerProxy.class);
+			.getLogger(StateEstimateServer.class);
 
 	@Value("${ads.appDir}")
 	private String baseDir;
-	
-	private AppExecuteBuilder appExec;
 
-	private ServerSocket socketServer;
+	private AppExecuteBuilder appExec;
 
 	@Autowired
 	private StateEstimateProperties properties;
-	
+
 	@PostConstruct
 	public void init() {
-		new Thread(
-				() -> {
-					if (AppUtil.checkAppIsRunning("GCStateEstimateServer")) {
-						logger.info("***********StateEstimateServer is running ****************");
-					} else {
-						logger.info("***********StateEstimateServer start****************");
-						appExec = AppUtil.execBuilder(baseDir
-								+ "/GCStateEstimateServer");
-						appExec.exec();
-					}
-				}).start();
-		
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (AppUtil.checkAppIsRunning("GCStateEstimateServer")) {
+					logger.info("***********StateEstimateServer is running ****************");
+				} else {
+					logger.info("***********StateEstimateServer start****************");
+					appExec = AppUtil.execBuilder(baseDir
+							+ "/GCStateEstimateServer");
+					appExec.exec();
+				}
+				try {
+					start();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private void start() throws InterruptedException {
+		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
+		EventLoopGroup workerGroup = new NioEventLoopGroup();
+
+		// NioEventLoopGroup group = new NioEventLoopGroup(); // 3
+		StateEstimateServer server = this;
 		try {
-			socketServer = new ServerSocket(properties.getListenPort());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			return;
+			ServerBootstrap b = new ServerBootstrap();
+			b.group(bossGroup, workerGroup)
+					// 4
+					.channel(NioServerSocketChannel.class)
+					// 5
+					.localAddress(
+							new InetSocketAddress(properties.getListenPort())) // 6
+					.childHandler(new ChannelInitializer<SocketChannel>() { // 7
+								@Override
+								public void initChannel(SocketChannel ch)
+										throws Exception {
+									ch.pipeline().addLast(
+											new StateEstimateReadyHandler(
+													server));
+								}
+							});
+
+			ChannelFuture f = b.bind().sync(); // 8
+			logger.info(StateEstimateServer.class.getName()
+					+ " started and listen on " + f.channel().localAddress());
+
+			f.channel().closeFuture().sync(); // 9
+		} finally {
+			bossGroup.shutdownGracefully().sync(); // 10
+			workerGroup.shutdownGracefully().sync(); // 10
 		}
-		logger.info("Start state estimate listen on port:"
-				+ properties.getListenPort());
+
 	}
 
 	@PreDestroy
@@ -83,15 +123,9 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 					}
 
 				}).start();
-		
-		try {
-			socketServer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
-	
+
 	private void sendData(Object data) {
 		Socket client = null;
 
@@ -128,110 +162,59 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 			e1.printStackTrace();
 		}
 	}
-	
-	private String readData(Socket s) {
-		char cbuff[] = new char[1024];
-		BufferedReader br;
-		try {
-			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			StringBuffer buffer = new StringBuffer();
-			int size = 0;
-			while ((size = br.read(cbuff, 0, cbuff.length)) != -1) {
-				buffer.append(new String(cbuff, 0, size));
-			}
 
-			br.close();
-			return buffer.toString();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public StateEstimateResult execute(FState state) {
 
 		return null;
 	}
 
-	
-	private String waitForDataReadyResponse(final long timeout) {
-
-		try {
-			Socket s = socketServer.accept();
-			logger.info("A client connected from " + s.getInetAddress()
-					+ ", port : " + s.getPort());
-			return readData(s);
-		} catch (IOException e1) {
-			logger.info("Socket server interrupte!");
-		}
-
-		return null;
-	}
-	
 	@Override
-	public String dataReady(DataReady setting) {
+	public void exec(PRAdequacySetting setting) {
 
-		initClient();
-        // Configure the client.
-        EventLoopGroup group = new NioEventLoopGroup();
-        try {
-            Bootstrap b = new Bootstrap();
-            b.group(group)
-             .channel(NioSocketChannel.class)
-             .option(ChannelOption.TCP_NODELAY, true)
-             .handler(new ChannelInitializer<SocketChannel>() {
-                 @Override
-                 public void initChannel(SocketChannel ch) throws Exception {
-                     ChannelPipeline p = ch.pipeline();
+		EventLoopGroup group = new NioEventLoopGroup();
+		try {
+			Bootstrap b = new Bootstrap();
+			b.group(group).channel(NioSocketChannel.class)
+					.option(ChannelOption.TCP_NODELAY, true);
 
-                     //p.addLast(new LoggingHandler(LogLevel.INFO));
-                     p.addLast(new StateEstimateReadyHandler(setting));
-                 }
-             });
+			// Start the client.
+			InetSocketAddress addr = new InetSocketAddress(
+					properties.getServerIp(), properties.getServerPort());
+			b.remoteAddress(addr);
+			ChannelFuture future = b.connect().sync();
 
-            // Start the client.
-            ChannelFuture f = b.connect(properties.getServerIp(), properties.getServerPort()).sync();
+			future.addListener(new ChannelFutureListener() { // 2
+				@Override
+				public void operationComplete(ChannelFuture future) {
+					if (future.isSuccess()) { // 3
+						DataReady ready = new DataReady();
+						ready.setValue(properties.getServerThread());
+						ready.getContent().setPRAdequacySetting(setting);
 
-           
-            // Wait until the connection is closed.
-            f.channel().closeFuture().sync();
-            
-            
-        } catch (InterruptedException e) {
+						// dataReady(future.channel(), ready);
+
+						ByteBuf buffer = Unpooled.copiedBuffer(
+								Utils.toJSon(setting), Charset.defaultCharset()); // 4
+
+						future.channel().writeAndFlush(buffer);
+
+					} else {
+						Throwable cause = future.cause();
+						cause.printStackTrace();
+					}
+				}
+			});
+
+			// Wait until the connection is closed.
+			future.channel().closeFuture().sync();
+
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-            // Shut down the event loop to terminate all threads.
-            group.shutdownGracefully();
-        }
-        
-        return "";
+			// Shut down the event loop to terminate all threads.
+			group.shutdownGracefully();
+		}
+
 	}
-
-	private void initClient() {
-	       EventLoopGroup group = new NioEventLoopGroup();
-	        try {
-	            Bootstrap b = new Bootstrap();
-	            b.group(group)
-	             .channel(NioSocketChannel.class)
-	             .option(ChannelOption.TCP_NODELAY, true);
-
-	            // Start the client.
-	            ChannelFuture f = b.connect(properties.getServerIp(), properties.getServerPort()).sync();
-
-	            // Wait until the connection is closed.
-	            f.channel().closeFuture().sync();
-	            
-	            
-	        } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-	}
-
-	@Override
-	public StateEstimateResult execute(FState state) {
-		// TODO Auto-generated method stub
-		
-		
-		return null;
-	}
-
 }

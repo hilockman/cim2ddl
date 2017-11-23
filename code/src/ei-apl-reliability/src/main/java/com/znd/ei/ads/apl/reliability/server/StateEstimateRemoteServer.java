@@ -1,16 +1,18 @@
 package com.znd.ei.ads.apl.reliability.server;
 
-import com.znd.ei.ads.apl.reliability.bean.DataReady;
-import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
-import com.znd.ei.memdb.reliabilty.domain.FState;
+import com.znd.ei.ads.config.PRAdequacySetting;
 
 public interface StateEstimateRemoteServer {
 
-	String dataReady(DataReady settting);
+	void exec(PRAdequacySetting setting);
+
+	
+	//String dataReady(DataReady settting);
 	
 
-	StateEstimateResult execute(FState state);
+	//StateEstimateResult execute(FState state);
 
 	
 	
 }
+	

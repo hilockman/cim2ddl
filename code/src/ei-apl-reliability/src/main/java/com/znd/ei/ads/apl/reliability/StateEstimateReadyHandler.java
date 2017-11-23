@@ -1,31 +1,32 @@
 package com.znd.ei.ads.apl.reliability;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-import com.znd.ei.ads.apl.reliability.bean.DataReady;
-
+/**
+ * 处理返回消息
+ * @author wangh
+ *
+ */
 public class StateEstimateReadyHandler extends ChannelInboundHandlerAdapter {
 
-	private DataReady setting;
-	public StateEstimateReadyHandler(DataReady setting) {
-         this.setting = setting;
+
+	private StateEstimateServer server;
+
+	public StateEstimateReadyHandler(StateEstimateServer server) {
+        this.server = server;
 	}
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(setting);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) { 
+    	System.out.println(ctx.channel().remoteAddress()+"->Server :"+ msg.toString());
+    	msg.toString();
+        //ctx.write(msg); // (1)
+       // ctx.flush(); // (2)
     }
+    
 
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        ctx.write(msg);
-    }
-
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-       ctx.flush();
-    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -33,5 +34,11 @@ public class StateEstimateReadyHandler extends ChannelInboundHandlerAdapter {
         cause.printStackTrace();
         ctx.close();
     }
+
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		ctx.channel();
+		super.channelActive(ctx);
+	}
 
 }

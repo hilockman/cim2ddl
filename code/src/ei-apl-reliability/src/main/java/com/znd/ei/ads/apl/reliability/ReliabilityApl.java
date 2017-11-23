@@ -55,10 +55,10 @@ import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
 import com.znd.ei.ads.apl.annotations.Out;
-import com.znd.ei.ads.apl.reliability.bean.DataReady;
 import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
+import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
 import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.ads.config.StateSampleConfig;
@@ -127,8 +127,6 @@ public class ReliabilityApl {
 	@Autowired
 	StateEstimateProperties properties;
 	
-	@Autowired
-	private StateEstimateServerProxy proxy;
 
 	private void callBpaLoader() {
 		AppUtil.execute(GC_BPA_LOADER, execRootPath, dataRootPath
@@ -326,7 +324,7 @@ public class ReliabilityApl {
 	}
 	
 	@Autowired
-	private StateEstimateServer stateEstimateServer; 
+	private StateEstimateRemoteServer stateEstimateServer; 
 	
 	@AplFunction( desc = "post reliability")
 	public void calcReliability(@In("post_Reliability") StringData data) {
@@ -432,11 +430,8 @@ public class ReliabilityApl {
 		ExecutorService pool = Executors.newFixedThreadPool(threadNum);
 		 List<StateEstimateResult> results = new ArrayList<>();
 		 PRAdequacySetting config = new PRAdequacySetting();
-		 DataReady setting = new DataReady();
-		 setting.setValue(threadNum);
-		 setting.getContent().setPRAdequacySetting(config);;
-		 String ready = stateEstimateServer.dataReady(setting);
-		 
+	
+		 stateEstimateServer.exec(config);
 		 
 		 List<Future<StateEstimateResult> > fresults = new ArrayList<>(); 
 		 for(final FState fstate : fstates) {
@@ -473,7 +468,8 @@ public class ReliabilityApl {
 	}
 	
 	private StateEstimateResult executeStateEstimate(FState state) {
-		return stateEstimateServer.execute(state);
+		//return stateEstimateServer.execute(state);
+		return null;
 	}
 	@AplFunction( desc = "do reliability")
 	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {
