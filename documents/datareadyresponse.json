@@ -1,0 +1,7 @@
+{
+	"Command": "DataReady",
+	"Content": {
+		"Message": "计算线程初始化完成",
+		"Value": "2"
+	}
+}

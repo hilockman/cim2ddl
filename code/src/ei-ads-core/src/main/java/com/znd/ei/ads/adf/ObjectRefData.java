@@ -3,13 +3,13 @@ package com.znd.ei.ads.adf;
 import com.znd.ei.ads.acp.ObjectRefDataOperations;
 
 
-public class ObjectRefData<T> extends DataItem<ObjectRefData<T>> {
+public class ObjectRefData<T> extends DataItem {
 
 	//private String content;
 	
 
-	private ObjectRefDataOperations<T> getOps() {
-		return (ObjectRefDataOperations<T>)operations;
+	private ObjectRefDataOperations getOps() {
+		return (ObjectRefDataOperations)operations;
 	}
 	
 	public T getContent() {

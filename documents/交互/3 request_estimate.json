@@ -1,0 +1,35 @@
+{
+	"Command": "StateEstimate",
+	"Content": {
+		"FState": [{
+			"BalanceCutGen": "0",
+			"BalanceCutLoad": "0",
+			"BalanceInsGen": "0",
+			"Durition": "48736.7",
+			"ELimit": "0",
+			"ELimitCutGen": "0",
+			"ELimitCutLoad": "0",
+			"ELimitInsGen": "0",
+			"ELimitResult": "0",
+			"Estimated": "1",
+			"FDevNum": "0",
+			"FLossGen": "0",
+			"FLossGenCap": "0",
+			"FLossLoad": "0",
+			"FStateID": "1",
+			"FaultGrade": "0",
+			"MIsland": "0",
+			"MIslandCutGen": "0",
+			"MIslandInsGen": "0",
+			"MIslandOutLoad": "0",
+			"MSoutIndex": "-1",
+			"MaxFaultRatio": "0",
+			"MaxFaultZone": "0",
+			"OverLimit": "0",
+			"Probability": "0.243683",
+			"SampleType": "1",
+			"StateNum": "1444"
+		}],
+		"Value": "1"
+	}
+}

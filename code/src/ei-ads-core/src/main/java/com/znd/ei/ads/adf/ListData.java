@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ListDataOperations;
-public class ListData<V>  extends DataItem<ListData<V>>  {
+public class ListData<V>  extends DataItem  {
 
 	public List<V> getContent() {
 		return getOps().getAll(getKey());
@@ -14,14 +14,15 @@ public class ListData<V>  extends DataItem<ListData<V>>  {
 		getOps().pushAll(getKey(), values);
 	}
 	
-	
+	public ListData(String key) {
+		setKey(key);
+	}
 	public ListData() {
 	}
 	
 
-	@SuppressWarnings("unused")
-	private ListDataOperations<V> getOps() {
-		return (ListDataOperations<V>)operations;
+	private ListDataOperations getOps() {
+		return (ListDataOperations)operations;
 	}
 	public V lpop() throws ACPException {
 		if (operations == null)

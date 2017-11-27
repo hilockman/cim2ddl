@@ -1,3 +1,6 @@
+cd src/ei-ads-base
+call mvn clean install -Dmaven.test.skip=true
+cd ../..
 cd src/ei-ads-core
 call mvn clean install -Dmaven.test.skip=true
 cd ../..

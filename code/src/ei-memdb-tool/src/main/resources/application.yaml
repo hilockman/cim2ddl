@@ -15,7 +15,7 @@ dbcheck:
                         - mod
                         - if
 gencode:
-   target: D:/GitHub/cim2ddl/code/ei-cim/ei-memdb-tool/gencode
+   target: D:/GitHub/cim2ddl/code/src/ei-memdb-tool/gencode
    dbInfos: 
      - packageName: com.znd.ei.memdb.bpa.domain
        entryName: MemDB.Bpa

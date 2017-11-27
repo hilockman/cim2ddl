@@ -6,13 +6,13 @@ import com.znd.ei.ads.adf.ListData;
 
 
 
-public interface ListDataOperations<V> extends IOOperations<ListData<V>> {
+public interface ListDataOperations extends IOOperations {
 
-	V lpop(String key) throws ACPException;
+	<V> V lpop(String key) throws ACPException;
 
-	List<V> getAll(String key);
+	<V> List<V> getAll(String key);
 	
-	void pushAll(String key, List<V> values);
+	<V> void pushAll(String key, List<V> values);
 	
-	void push(String key, V value);
+	<V> void push(String key, V value);
 }

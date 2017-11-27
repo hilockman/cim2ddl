@@ -119,8 +119,7 @@ public class ReliabilityApl {
 	@Autowired
 	private AbstractConnectionFactory connectionFactory;
 
-	@Autowired
-	private DataFieldStorage storage;
+
 
 	private String modelArea = "RTS79";
 	
@@ -324,51 +323,27 @@ public class ReliabilityApl {
 	}
 	
 	@Autowired
-	private StateEstimateRemoteServer stateEstimateServer; 
+	private StateEstimateServer stateEstimateServer; 
+	
+
 	
 	@AplFunction( desc = "post reliability")
 	public void calcReliability(@In("post_Reliability") StringData data) {
 		String modelName = data.getContent();
 		LOGGER.info("recieved model : ", modelName);
-		Set<String> configKeys = connectionFactory.findKeys(modelName+":config:*");
-		Set<String> fileKeys = connectionFactory.findKeys(modelName+":file:*");
-		StateSampleConfig sampleConfig = null;
-		StateEstimateConfig estimateConfig = null;
-		ObjectRefDataOperations<String> strOps = connectionFactory.getObjectRefOperations();
-		File stableFile = null;
-		File flowFile = null;
-		File paramFile = null;
-		for(String fileKey : fileKeys) {
-			System.out.println("Received file : "+fileKey);
-			String fileContent = strOps.get(fileKey);
-			int index = fileKey.lastIndexOf(':');
-			if (index == -1) {
-				log(modelName, "Invalid file key %s.", fileKey);
-				continue;
-			}
-			String fileName = fileKey.substring(fileKey.lastIndexOf(':')+1);
-			File file = saveFile(properties.getCachedDir(), fileName, fileContent);
-			log(modelName, "Received file : name=%s, size=%d ", fileName, fileContent.length());
-			if (fileName.endsWith(".dat")) {
-				flowFile = file;
-			} else if (fileName.endsWith(".swi")) {
-				stableFile = file;
-			} else if (fileName.endsWith(".xml")) {
-				paramFile = file;
-			} 
-		}
-			
-		 for(String key : configKeys) {
-			log(modelName, "Received config : %s ", key);
-			String config = strOps.get(key);
-			if (config.endsWith("sampleConfig")) {
-				sampleConfig = Utils.toObject(config, StateSampleConfig.class);	
-			} else if(config.endsWith("estimateConfig")) {
-				estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
-			}
-			
-		}
-		 
+		
+		ReliabilityCaseBuffer buffer = new ReliabilityCaseBuffer(connectionFactory, modelName);
+		
+		StateSampleConfig sampleConfig = buffer.get(ReliabilityCaseBuffer.STATE_SAMPLE_CONFIG, StateSampleConfig.class);
+		StateEstimateConfig estimateConfig = buffer.get(ReliabilityCaseBuffer.STATE_ESTIMATE_CONFIG, StateEstimateConfig.class);
+		
+
+		
+		File flowFile = buffer.saveFile(properties.getCachedDir(), ReliabilityCaseBuffer.FLOW_FILE);
+		File stableFile = buffer.saveFile(properties.getCachedDir(), ReliabilityCaseBuffer.STATLE_FILE);
+		File paramFile = buffer.saveFile(properties.getCachedDir(), ReliabilityCaseBuffer.PARAM_FILE);
+		
+
 		// bpa model loader
 		 File [] files = {flowFile, stableFile, paramFile};
 		 callBpaLoader(files);
@@ -376,93 +351,55 @@ public class ReliabilityApl {
 		 
 		//call state sample
 		 callStateSample(sampleConfig);
-		 
-		
+		 	
 		//upload fstates
-		log(modelName, "upload sample.");
+		log(modelName, "upload sample...");
 		List<FState> fstates = fStateDao.findAll();
-		connectionFactory.<FState>getListDataOperations().pushAll(modelName+":FState", fstates);		
-		connectionFactory.<FStateFDev>getListDataOperations().pushAll(modelName+":FStateFDev", fStateFDevDao.findAll());
-		String taskKey = modelName+":StateEstimateTask";
-		connectionFactory.<FState>getListDataOperations().pushAll(taskKey, fstates);
+		buffer.pushAll(ReliabilityCaseBuffer.FSTATE_LIST, fstates);
+		buffer.pushAll(ReliabilityCaseBuffer.ESTIMATE_RESULT_MAP, fstates);
+		
+		buffer.pushAll(ReliabilityCaseBuffer.FDEV_LIST, fStateFDevDao.findAll());
+		
 		log(modelName, "finish upload sample.");
+		PRAdequacySetting config = new PRAdequacySetting();
+		 stateEstimateServer.exec(buffer, config);
 		
-		
-		//connectionFactory.publish("do_StateEstimate", modelName);	
-		
-		
-		
-//		 processStateEstimate(modelName, new PRAdequacySetting());
-//		 String resultKey = modelName+":StateEstimateResult";
-//		 ObjectRefDataOperations<Integer> objOps = connectionFactory.<Integer>getObjectRefOperations();
-//		 objOps.set(resultKey, 0);
-//		 while (connectionFactory.hasKey(taskKey)) {
-//			 
-//			 
-//		 }
-		
-		//call state estimate	
-//		 RemoteServerPool<StateEstimateRemoteServer> pool = null;		 
-//		 List<Future<StateEstimateResult>> fresults = new ArrayList<>() ;
-//		 for(FState fstate : fstates) {
-//			 StateEstimateRemoteServer remoteServer = pool.getNoBusyServer();
-//			 Future<StateEstimateResult> rt = remoteServer.calc(fstate);
-//			 fresults.add(rt);
+//		int threadNum = 2;
+//		ExecutorService pool = Executors.newFixedThreadPool(threadNum);
+//		 List<StateEstimateResult> results = new ArrayList<>();
+//		 PRAdequacySetting config = buffer.get(PRAdequacySetting.class);
+//	
+//		 stateEstimateServer.exec(buffer, config);
+//		 
+//		 List<Future<StateEstimateResult> > fresults = new ArrayList<>(); 
+//		 for(final FState fstate : fstates) {
+//			 Future<StateEstimateResult> result = pool.submit(new Callable<StateEstimateResult>() {
+//
+//				@Override
+//				public StateEstimateResult call() throws Exception {
+//					return executeStateEstimate(fstate);
+//				}
+//				
+//			
+//			});
+//			 fresults.add(result);			 
 //		 }
 //		 
-//		 pool.destory();
-		
-//		 List<StateEstimateResult> results = new ArrayList<>();
-//		 for (Future<StateEstimateResult> f : fresults) {
+//		 for (Future<StateEstimateResult> r : fresults) {
 //			 try {
-//				results.add(f.get());
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (ExecutionException e) {
+//				results.add(r.get());
+//			} catch (InterruptedException | ExecutionException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-//		 }		
-		
-		
-		int threadNum = 2;
-		ExecutorService pool = Executors.newFixedThreadPool(threadNum);
-		 List<StateEstimateResult> results = new ArrayList<>();
-		 PRAdequacySetting config = new PRAdequacySetting();
-	
-		 stateEstimateServer.exec(config);
-		 
-		 List<Future<StateEstimateResult> > fresults = new ArrayList<>(); 
-		 for(final FState fstate : fstates) {
-			 Future<StateEstimateResult> result = pool.submit(new Callable<StateEstimateResult>() {
-
-				@Override
-				public StateEstimateResult call() throws Exception {
-					return executeStateEstimate(fstate);
-				}
-				
-			
-			});
-			 fresults.add(result);
-			 
-		 }
-		 
-		 for (Future<StateEstimateResult> r : fresults) {
-			 try {
-				results.add(r.get());
-			} catch (InterruptedException | ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }
-		
-		 
-		 //upload result
-		 connectionFactory.<StateEstimateResult>getListDataOperations().pushAll(modelName+":StateEstimateResult", results);	
-		 
-		 //call reliability index;
-		 connectionFactory.publish("do_ReliabilityIndex", modelName);	
+//		 }
+//		
+//		 
+//		 //upload result
+//		 connectionFactory.<StateEstimateResult>getListDataOperations().pushAll(modelName+":StateEstimateResult", results);	
+//		 
+//		 //call reliability index;
+//		 connectionFactory.publish("do_ReliabilityIndex", modelName);	
 		 callReliabilityIndex(estimateConfig);
 		 
 	}
@@ -474,7 +411,7 @@ public class ReliabilityApl {
 	@AplFunction( desc = "do reliability")
 	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {
 		String modelName = data.getContent();
-		ObjectRefDataOperations<String> strOps = connectionFactory.getObjectRefOperations();
+		ObjectRefDataOperations strOps = connectionFactory.getObjectRefOperations();
 		String configKey = modelName+":config:estimateConfig";
 		String config = strOps.get(configKey);
 		if (config == null || config.isEmpty()) {
@@ -514,7 +451,7 @@ public class ReliabilityApl {
 		}
 	}
 	
-	private ListDataOperations<String> listOps;
+	private ListDataOperations listOps;
 	private void log(String key, String fmt, Object... args) {
 		String log = String.format(fmt, args);
 		LOGGER.info(log);

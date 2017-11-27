@@ -168,7 +168,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class MapDataOperationsImp<K, V> implements MapDataOperations<K, V> {
+	public class MapDataOperationsImp implements MapDataOperations {
 		private RedissonDBMap operation;
 
 		public MapDataOperationsImp() throws RedissonDBException {
@@ -236,7 +236,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		// }
 
 		@Override
-		public V get(String key, K mkey) {
+		public <K,V> V get(String key, K mkey) {
 			if (operation == null)
 				return null;
 
@@ -269,7 +269,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public Map<K, V> getAll(String key) {
+		public <K,V> Map<K, V> getAll(String key) {
 			try {
 				ResultObject<String, Set<Entry<K, V>>> rt = operation
 						.LockHGETALL(key, defaultLifeCycle);
@@ -290,7 +290,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void putAll(String key, Map<K, V> content) {
+		public <K,V> void putAll(String key, Map<K, V> content) {
 			try {
 				operation.LockHMSET(key, defaultLifeCycle, content);
 			} catch (RedissonDBException e) {
@@ -305,7 +305,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void remove(String key, K... keys) {
+		public <K> void remove(String key, K... keys) {
 			try {
 				operation.LockHDEL(key, defaultLifeCycle, keys);
 			} catch (RedissonDBException e) {
@@ -315,7 +315,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void put(String key, K hashKey, V value) {
+		public <K, V> void put(String key, K hashKey, V value) {
 
 			try {
 				Map<K, V> content = new HashMap<K, V>();
@@ -329,7 +329,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private class ListDataOperationsImp<V> implements ListDataOperations<V> {
+	private class ListDataOperationsImp implements ListDataOperations {
 
 		private RedissonDBList operations;
 
@@ -377,7 +377,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		// }
 
 		@Override
-		public V lpop(String key) throws ACPException {
+		public <V> V lpop(String key) throws ACPException {
 			ResultObject<String, V> rt = null;
 			try {
 				if ((rt = operations.LockLPOP(key, defaultLifeCycle)) != null) {
@@ -393,7 +393,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 
 		@Override
-		public List<V> getAll(String key) {
+		public <V> List<V> getAll(String key) {
 			try {
 				ResultObject<String, List<V>> rt = operations.LRANGE(key,
 						defaultLifeCycle);
@@ -407,7 +407,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void pushAll(String key, List<V> values) {
+		public <V> void pushAll(String key, List<V> values) {
 			try {
 				operations.LockLPUSH(key, defaultLifeCycle, values);
 			} catch (RedissonDBException e) {
@@ -424,7 +424,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 		@Override
-		public void push(String key, V value) {
+		public <V> void push(String key, V value) {
 			List<V> values = new ArrayList<V>();
 			values.add(value);
 			try {
@@ -437,8 +437,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class ObjectRefDataOperationsImp<T> implements
-			ObjectRefDataOperations<T> {
+	public class ObjectRefDataOperationsImp implements
+			ObjectRefDataOperations {
 
 		private RedissonDBString operations;
 
@@ -470,8 +470,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		// }
 
 		@Override
-		public T get(String key) {
-			ResultObject<String, T> rt = null;
+		public <V> V get(String key) {
+			ResultObject<String, V> rt = null;
 			try {
 				rt = operations.LockGET(key, defaultLifeCycle);
 			} catch (RedissonDBException e) {
@@ -487,7 +487,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 
 		@Override
-		public void set(String key, T value) {
+		public <V> void set(String key, V value) {
 			try {
 				operations.LockSET(key, defaultLifeCycle, value);
 			} catch (RedissonDBException e) {
@@ -608,8 +608,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public <T> ListDataOperations<T> getListDataOperations() {
-		return new ListDataOperationsImp<T>();
+	public ListDataOperations getListDataOperations() {
+		return new ListDataOperationsImp();
 	}
 
 	public DFService getDfService() {
@@ -670,9 +670,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public <T> ObjectRefDataOperations<T> getObjectRefOperations() {
+	public ObjectRefDataOperations getObjectRefOperations() {
 		try {
-			return new ObjectRefDataOperationsImp<T>();
+			return new ObjectRefDataOperationsImp();
 		} catch (RedissonDBException e) {
 			e.printStackTrace();
 			return null;
@@ -680,9 +680,9 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public <K, V> MapDataOperations<K, V> getMapDataOperations() {
+	public MapDataOperations getMapDataOperations() {
 		try {
-			return new MapDataOperationsImp<K, V>();
+			return new MapDataOperationsImp();
 		} catch (RedissonDBException e) {
 			e.printStackTrace();
 			return null;

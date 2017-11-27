@@ -24,6 +24,7 @@ state-estimate:
   serverIp: 127.0.0.1
   serverThread: 4
   readyResponseTimeOut: 5
+  cachedDir: D:/GitHub/cim2ddl/code/pr-dir
   
      
 logging:

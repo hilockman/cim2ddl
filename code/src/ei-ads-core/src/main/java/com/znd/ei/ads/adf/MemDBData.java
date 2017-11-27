@@ -1,6 +1,6 @@
 package com.znd.ei.ads.adf;
 
-public class MemDBData extends DataItem<MemDBData> {
+public class MemDBData extends DataItem {
 
 	private String entryName = "";
 	private String area = "";

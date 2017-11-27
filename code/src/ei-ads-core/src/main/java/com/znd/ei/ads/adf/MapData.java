@@ -4,11 +4,11 @@ import java.util.Map;
 
 import com.znd.ei.ads.acp.MapDataOperations;
 
-public class MapData<K,V> extends DataItem<MapData<K,V>> {
-	//private MapDataOperations<K,V> operation;
+public class MapData<K,V> extends DataItem {
 
-	//private Map<String, String> content = new HashMap<String, String>();
-
+	public MapData(String key) {
+		setKey(key);
+	}
 	public Map<K, V> getAll() {
 		return getOps().getAll(getKey());
 	}
@@ -17,17 +17,10 @@ public class MapData<K,V> extends DataItem<MapData<K,V>> {
 		getOps().putAll(getKey(), content);	
 	}
 
-//	public MapDataOperations getOperation() {
-//		return operation;
-//	}
-//
-//	public void setOperation(MapDataOperations operation) {
-//		this.operation = operation;
-//	}
+
 	
-	@SuppressWarnings("unchecked")
-	private MapDataOperations<K,V> getOps() {
-		return (MapDataOperations<K,V>)operations;
+	private MapDataOperations getOps() {
+		return (MapDataOperations)operations;
 	}
 	public V get(K key) {
 		return getOps().get(getKey(), key);
@@ -49,10 +42,6 @@ public class MapData<K,V> extends DataItem<MapData<K,V>> {
 
 	@Override
 	public void clear() {
-//		if (content != null)
-//			content.clear();
-//		
-//		content = null;
 	}
 
 	@Override

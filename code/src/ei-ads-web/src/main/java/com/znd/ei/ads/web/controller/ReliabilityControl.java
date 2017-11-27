@@ -34,7 +34,9 @@ import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBKey;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
+import com.znd.ei.Utils;
 import com.znd.ei.ads.config.AdsResult;
+import com.znd.ei.ads.config.FileInfo;
 import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.ads.config.StateSampleConfig;
 import com.znd.ei.ads.web.model.ReliabilityUploadConfig;
@@ -194,7 +196,12 @@ public class ReliabilityControl {
 
 		try {
 			final String modelName = config.getModelName();
-
+			final String modelNameTag = modelName;
+			
+			List<ResultObject<String, String>> keys = executeDF.RedissonDBKey().FindKeys(modelName+"*");
+			for (int i = 0; i < keys.size(); i++) {
+				executeDF.RedissonDBKey().BatchDEL(keys.get(0).getValue());
+			}
 			// StateSampleConfig sampleConfig =
 			// Utils.toObject(config.getSampleConfig(),
 			// StateSampleConfig.class);
@@ -207,73 +214,80 @@ public class ReliabilityControl {
 				file.mkdirs();
 			}
 
-			boolean flag = saveUploadedFiles(path,
+			
+			boolean containFiles = saveUploadedFiles(path,
 					Arrays.asList(config.getFiles()), new FileByteProcessor() {
 
 						@Override
 						public void process(String fileName, byte[] bytes) {
-							try {
-								RedissonDBString dbstring = executeDF
-										.RedissonDBString();
-								String key = modelName + ":file:" + fileName;
-								logger.info(
-										"Upload file to redis : key = {}, size = {}. ",
-										key, bytes.length);
-								dbstring.<String> SET(modelName + ":file:"
-										+ fileName, MAX_FILE_TIME_OUT,
-										new String(bytes));
-							} catch (RedissonDBException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+//							try {
+//								RedissonDBString dbstring = executeDF
+//										.RedissonDBString();
+//								
+//								//int pos = fileName.lastIndexOf('.');
+//								//String suffix = fileName.substring(pos);
+//								String key = modelNameTag + ":file:" + fileName;
+//								logger.info(
+//										"Upload file to redis : key = {}, size = {}. ",
+//										key, bytes.length);
+//								dbstring.<String> SET(key, MAX_FILE_TIME_OUT,
+//										new String(bytes));
+//							} catch (RedissonDBException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
 						}
 					});
 
-			if (!flag && file.isDirectory()) { // try upload loacal file
+			if (file.isDirectory()) { // try upload loacal file
 				RedissonDBString dbstring = executeDF.RedissonDBString();
 
 				byte[] buff = new byte[MAX_FILE_SIZE];
 				File[] files = file.listFiles();
 				for (File f : files) {
 					String fileName = f.getName();
-					String keyBase = modelName + ":file:" + fileName;
+					int pos = fileName.lastIndexOf('.');
+					String suffix = fileName.substring(pos+1);
+
+					String keyBase = modelNameTag + ":file:" + suffix;
+					
+					
 					InputStream is = new FileInputStream(f);
 					int off = 0;
 					int fileIndex = 0;
 					// int count = 0;
 					int readCount = 0;
-					while (off < buff.length
-							&& (readCount = is.read(buff, off, buff.length
-									- off)) > 0) {
+					while (off < buff.length && (readCount = is.read(buff, off, buff.length - off)) > 0) {
 						// count += readCount;
 						String key = keyBase;
 						if (fileIndex > 0) {
-							key = key + "." + fileIndex;
+							key = key + ":" + fileIndex;
 						}
 						logger.info(
 								"Upload local file to redis : key = {}, size = {}. ",
 								key, readCount);
-						dbstring.<String> SET(modelName + ":file:" + fileName,
-								MAX_FILE_TIME_OUT, new String(buff, 0,
-										readCount));
+						dbstring.LockSET(key, MAX_FILE_TIME_OUT, new String(buff, 0,readCount));
 						fileIndex++;
 						off += readCount;
 					}
-
+					
+					FileInfo fileInfo = new FileInfo(fileName, fileIndex, off);
+					dbstring.LockSET(keyBase+":info", MAX_FILE_TIME_OUT, Utils.toJSon(fileInfo));
 					if (fileIndex > 1) {
-						logger.info("Uploaded file : size = ", fileName, off);
+						logger.info("Uploaded file {} , sum size = {}, split count = {}", fileName, off, fileIndex);
 					}
 					is.close();
 				}
 			}
 
+
 			RedissonDBString dbstring = executeDF.RedissonDBString();
-			String key = modelName + ":config:sampleConfig";
+			String key = modelNameTag + ":config:StateSampleConfig";
 			logger.info("Upload config to redis : key = {}, content = {}. ",
 					key, config.getSampleConfig());
 			dbstring.<String> SET(key, MAX_FILE_TIME_OUT,
 					config.getSampleConfig());
-			key = modelName + ":config:EstimateConfig";
+			key = modelNameTag + ":config:StateEstimateConfig";
 			logger.info("Upload config to redis : key = {}, content = {}. ",
 					key, config.getEstimateConfig());
 			dbstring.<String> SET(key, MAX_FILE_TIME_OUT,

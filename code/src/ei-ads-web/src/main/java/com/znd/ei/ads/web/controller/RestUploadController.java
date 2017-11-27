@@ -31,12 +31,7 @@ public class RestUploadController {
     //Save the uploaded file to this folder
     private static String UPLOADED_FOLDER = "e://temp//";
 
-	@ModelAttribute("myRequestObject")
-	public MyCommandBean addStuffToRequestScope() {
-		System.out.println("Inside of addStuffToRequestScope");
-		MyCommandBean bean = new MyCommandBean("Hello World",42);
-		return bean;
-	}
+
 	
     // 3.1.1 Single file upload
     @PostMapping("/api/upload")

@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import com.znd.ei.ads.acp.IOOperations;
 
-public abstract class DataItem<T> {
-	protected IOOperations<T> operations;
+public abstract class DataItem {
+	protected IOOperations operations;
 	private String key;
 
 	public DataItem() {
@@ -20,11 +20,11 @@ public abstract class DataItem<T> {
 		this.key = name;
 	}
 
-	public IOOperations<T> getOperations() {
+	public IOOperations getOperations() {
 		return operations;
 	}
 
-	public void setOperations(IOOperations<T> operations) {
+	public void setOperations(IOOperations operations) {
 		this.operations = operations;
 	}
 

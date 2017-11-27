@@ -1,26 +1,6 @@
 package com.znd.ei.ads.apl.reliability;
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.charset.Charset;
 
 import javax.annotation.PostConstruct;
@@ -33,11 +13,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.znd.ei.Utils;
-import com.znd.ei.ads.apl.reliability.bean.DataReady;
+import com.znd.ei.ads.apl.reliability.bean.RequestDataReady;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
 import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.memdb.reliabilty.domain.FState;
+
+import io.netty.bootstrap.Bootstrap;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 @Component
 public class StateEstimateServer implements StateEstimateRemoteServer {
@@ -52,6 +48,23 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 	@Autowired
 	private StateEstimateProperties properties;
 
+
+	public StateEstimateProperties getProperties() {
+		return properties;
+	}
+
+
+	public void setProperties(StateEstimateProperties properties) {
+		this.properties = properties;
+	}
+
+
+	private ServerBootstrap localBootstrap;
+	private ChannelPipeline inPipline;
+	private Channel inChannel;
+	private Channel outChannel;
+	private Bootstrap clientBootStrap;
+	
 	@PostConstruct
 	public void init() {
 		new Thread(new Runnable() {
@@ -77,6 +90,8 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 	}
 
+
+
 	private void start() throws InterruptedException {
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -84,8 +99,9 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		// NioEventLoopGroup group = new NioEventLoopGroup(); // 3
 		StateEstimateServer server = this;
 		try {
-			ServerBootstrap b = new ServerBootstrap();
-			b.group(bossGroup, workerGroup)
+			localBootstrap = new ServerBootstrap();
+			localBootstrap
+					.group(bossGroup, workerGroup)
 					// 4
 					.channel(NioServerSocketChannel.class)
 					// 5
@@ -95,13 +111,11 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 								@Override
 								public void initChannel(SocketChannel ch)
 										throws Exception {
-									ch.pipeline().addLast(
-											new StateEstimateReadyHandler(
-													server));
+									
 								}
 							});
 
-			ChannelFuture f = b.bind().sync(); // 8
+			ChannelFuture f = localBootstrap.bind().sync(); // 8
 			logger.info(StateEstimateServer.class.getName()
 					+ " started and listen on " + f.channel().localAddress());
 
@@ -126,68 +140,40 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 	}
 
-	private void sendData(Object data) {
-		Socket client = null;
 
-		logger.info(String.format(
-				"Try to connect to estimate server : ip:%s, port:%d",
-				properties.getServerIp(), properties.getServerPort()));
-
-		try {
-			client = new Socket(properties.getServerIp(),
-					properties.getServerPort());
-		} catch (IOException e1) {
-			logger.error("Fail to connect to server.");
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		String sendData = Utils.toJSon(data);
-
-		System.out.println("Send data :\n" + sendData);
-
-		try {
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-					client.getOutputStream()));
-			bw.write(sendData);
-			bw.flush();
-			bw.close();
-			client.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
 
 	public StateEstimateResult execute(FState state) {
 
 		return null;
 	}
 
-	@Override
-	public void exec(PRAdequacySetting setting) {
 
+	@Override
+	public void exec(ReliabilityCaseBuffer buffer, PRAdequacySetting setting) {
+
+		StateEstimateServer server = this;
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
-			Bootstrap b = new Bootstrap();
-			b.group(group).channel(NioSocketChannel.class)
+			clientBootStrap = new Bootstrap();
+			clientBootStrap.group(group).channel(NioSocketChannel.class)
 					.option(ChannelOption.TCP_NODELAY, true);
 
 			// Start the client.
 			InetSocketAddress addr = new InetSocketAddress(
 					properties.getServerIp(), properties.getServerPort());
-			b.remoteAddress(addr);
-			ChannelFuture future = b.connect().sync();
+			clientBootStrap.remoteAddress(addr);
+
+			ChannelFuture future = clientBootStrap.connect().sync();
 
 			future.addListener(new ChannelFutureListener() { // 2
 				@Override
 				public void operationComplete(ChannelFuture future) {
 					if (future.isSuccess()) { // 3
-						DataReady ready = new DataReady();
+
+						inPipline.addLast(
+								new StateEstimateReadyHandler(buffer, server));
+						
+						RequestDataReady ready = new RequestDataReady();
 						ready.setValue(properties.getServerThread());
 						ready.getContent().setPRAdequacySetting(setting);
 
@@ -198,6 +184,7 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 						future.channel().writeAndFlush(buffer);
 
+						setOutChannel(future.channel());
 					} else {
 						Throwable cause = future.cause();
 						cause.printStackTrace();
@@ -217,4 +204,42 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		}
 
 	}
+
+	public void setOutChannel(Channel channel) {
+		this.outChannel = channel;
+	}
+
+
+
+	@Override
+	public void stop() {
+		if (outChannel != null) {
+			outChannel.close();
+		}
+	}
+
+
+
+	public Channel getInChannel() {
+		return inChannel;
+	}
+
+
+
+	public void setInChannel(Channel inChannel) {
+		this.inChannel = inChannel;
+	}
+
+
+
+	public ChannelPipeline getInPipline() {
+		return inPipline;
+	}
+
+
+
+	public void setInPipline(ChannelPipeline inPipline) {
+		this.inPipline = inPipline;
+	}
+
 }

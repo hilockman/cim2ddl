@@ -361,9 +361,11 @@ public final class DataFieldStorage {
 				df.initDataItem(content);
 				LOGGER.info("Success to update data field: cc={}, content={}",
 						contentCode, content);
-			} else if(df.dataItem.getKey() != null && df.dataItem.getKey().equals(content)) {
-				LOGGER.info("Data file is not empty and key is same, omit update.");
-			} else  { //数据域不为空，数据key值与消息不一致
+			}
+//			else if(df.dataItem.getKey() != null && df.dataItem.getKey().equals(content)) {
+//				LOGGER.info("Data file is not empty and key is same, omit update.");
+//			} 
+			else  { //数据域不为空，数据key值与消息不一致
 				if (!df.isEmpty())
 					clear(df);
 					 

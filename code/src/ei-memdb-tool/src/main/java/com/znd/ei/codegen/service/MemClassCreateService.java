@@ -219,7 +219,8 @@ public class MemClassCreateService implements ClassCreateService {
 			}
 
 			info.setName(f.getName());
-			info.setStandardName(lowerCaseFirstLetter(f.getName()));
+			//info.setStandardName(lowerCaseFirstLetter(f.getName()));
+			info.setStandardName(f.getName());
 			List<String> notes = new ArrayList<String>();
 			notes.add(f.getDescription());
 			info.setNotes(notes);

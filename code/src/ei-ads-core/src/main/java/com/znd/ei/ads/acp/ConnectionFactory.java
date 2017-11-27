@@ -11,17 +11,17 @@ public interface ConnectionFactory {
 
 	MemDBDataOperations getMemDBDataOperations();
 	
-	<V> ListDataOperations<V> getListDataOperations();
+	ListDataOperations getListDataOperations();
 
 	//BusOperations getBusOperations();
 	
 	StringDataOperations getStringDataOperations();
 	
-	<V> ObjectRefDataOperations<V> getObjectRefOperations();
+	ObjectRefDataOperations getObjectRefOperations();
 	
 	void register(DataFieldStorage manager) throws Exception;
 	
-	<K, V> MapDataOperations<K, V> getMapDataOperations();
+	MapDataOperations getMapDataOperations();
 	
 	/**
 	 * 发送消息

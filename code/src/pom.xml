@@ -28,7 +28,6 @@
 		<module>ei-apl-reliability</module>
 		<module>ei-acp-dfredisson</module>
 		<module>ei-ads-web</module>
-		<module>ei-acp-springredis</module>
 		<module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
 		<module>test-java</module>
