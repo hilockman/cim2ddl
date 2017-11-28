@@ -353,14 +353,15 @@ public class ReliabilityApl {
 		 callStateSample(sampleConfig);
 		 	
 		//upload fstates
-		log(modelName, "upload sample...");
 		List<FState> fstates = fStateDao.findAll();
+		System.out.println("Upload fstates...");
 		buffer.pushAll(ReliabilityCaseBuffer.FSTATE_LIST, fstates);
-		buffer.pushAll(ReliabilityCaseBuffer.ESTIMATE_RESULT_MAP, fstates);
-		
+		System.out.println("Upload tasks...");
+		buffer.pushAll(ReliabilityCaseBuffer.ESTIMATE_TASK_LIST, fstates);
+		System.out.println("Upload fdevs...");
 		buffer.pushAll(ReliabilityCaseBuffer.FDEV_LIST, fStateFDevDao.findAll());
 		
-		log(modelName, "finish upload sample.");
+		log(modelName, "Start state estimate...");
 		PRAdequacySetting config = new PRAdequacySetting();
 		 stateEstimateServer.exec(buffer, config);
 		

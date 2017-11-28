@@ -10,7 +10,7 @@ public class StateSampleConfig {
 	// 抽样最大支路故障重数 
 	private Integer nMaxBranFault = 20;
 	// MCS最大抽样仿真时长 
-	private Integer nMCSSimulateTime = 2000000;
+	private Integer nMCSSimulateTime = 2000;
 	// MCS[蒙特卡罗]设备故障概率门槛值 
 	private Double fMCSMinStateProb = 0.000000;
 	// FST[快速排序]累积概率 

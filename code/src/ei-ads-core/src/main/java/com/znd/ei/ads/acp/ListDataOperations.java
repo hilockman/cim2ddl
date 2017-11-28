@@ -15,4 +15,6 @@ public interface ListDataOperations extends IOOperations {
 	<V> void pushAll(String key, List<V> values);
 	
 	<V> void push(String key, V value);
+
+	int getSize(String key);
 }

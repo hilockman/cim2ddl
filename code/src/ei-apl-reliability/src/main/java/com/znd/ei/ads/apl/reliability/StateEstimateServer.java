@@ -1,28 +1,7 @@
 package com.znd.ei.ads.apl.reliability;
 
-import java.net.InetSocketAddress;
-import java.nio.charset.Charset;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import com.znd.ei.Utils;
-import com.znd.ei.ads.apl.reliability.bean.RequestDataReady;
-import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
-import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
-import com.znd.ei.ads.config.PRAdequacySetting;
-import com.znd.ei.memdb.reliabilty.domain.FState;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -34,6 +13,28 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.CharsetUtil;
+
+import java.util.concurrent.CountDownLatch;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import com.znd.ei.ads.apl.reliability.bean.RequestDataReady;
+import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
+import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
+import com.znd.ei.ads.config.PRAdequacySetting;
+import com.znd.ei.memdb.reliabilty.domain.FState;
 
 @Component
 public class StateEstimateServer implements StateEstimateRemoteServer {
@@ -60,9 +61,8 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 
 	private ServerBootstrap localBootstrap;
-	private ChannelPipeline inPipline;
-	private Channel inChannel;
-	private Channel outChannel;
+	private Channel responseChannel;
+	private Channel requestChannel;
 	private Bootstrap clientBootStrap;
 	
 	@PostConstruct
@@ -73,52 +73,54 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 			public void run() {
 				if (AppUtil.checkAppIsRunning("GCStateEstimateServer")) {
 					logger.info("***********StateEstimateServer is running ****************");
+
 				} else {
-					logger.info("***********StateEstimateServer start****************");
-					appExec = AppUtil.execBuilder(baseDir
-							+ "/GCStateEstimateServer");
+
+					String path = baseDir + "/GCStateEstimateServer";
+					logger.info("***********StateEstimateServer start****************"+path);
+					appExec = AppUtil.execBuilder(path);
 					appExec.exec();
 				}
-				try {
-					start();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
 			}
 		}).start();
+		
+		
+
 
 	}
 
 
 
-	private void start() throws InterruptedException {
+	private void start(ReliabilityCaseBuffer buffer, PRAdequacySetting setting, CountDownLatch latch) throws InterruptedException {
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
-
-		// NioEventLoopGroup group = new NioEventLoopGroup(); // 3
 		StateEstimateServer server = this;
+		
 		try {
 			localBootstrap = new ServerBootstrap();
 			localBootstrap
 					.group(bossGroup, workerGroup)
 					// 4
 					.channel(NioServerSocketChannel.class)
-					// 5
-					.localAddress(
-							new InetSocketAddress(properties.getListenPort())) // 6
 					.childHandler(new ChannelInitializer<SocketChannel>() { // 7
 								@Override
 								public void initChannel(SocketChannel ch)
 										throws Exception {
-									
+									ch.pipeline().addLast("encoder",
+											new StringEncoder(CharsetUtil.UTF_8));
+									ch.pipeline().addLast("decoder",
+											new StringDecoder(CharsetUtil.UTF_8));
+									latch.await();
+									ch.pipeline().addLast(new StateEstimateResponseHandler(buffer, server));
 								}
 							});
-
-			ChannelFuture f = localBootstrap.bind().sync(); // 8
+			
+			
+			ChannelFuture f = localBootstrap.bind(properties.getListenPort()).sync(); // 8
 			logger.info(StateEstimateServer.class.getName()
 					+ " started and listen on " + f.channel().localAddress());
-
+			responseChannel = f.channel();
 			f.channel().closeFuture().sync(); // 9
 		} finally {
 			bossGroup.shutdownGracefully().sync(); // 10
@@ -136,6 +138,7 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 						logger.info("***********StateEstimateServer exit****************");
 					}
 
+					responseChannel.close();
 				}).start();
 
 	}
@@ -151,95 +154,103 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 	@Override
 	public void exec(ReliabilityCaseBuffer buffer, PRAdequacySetting setting) {
 
-		StateEstimateServer server = this;
-		EventLoopGroup group = new NioEventLoopGroup();
-		try {
-			clientBootStrap = new Bootstrap();
-			clientBootStrap.group(group).channel(NioSocketChannel.class)
-					.option(ChannelOption.TCP_NODELAY, true);
-
-			// Start the client.
-			InetSocketAddress addr = new InetSocketAddress(
-					properties.getServerIp(), properties.getServerPort());
-			clientBootStrap.remoteAddress(addr);
-
-			ChannelFuture future = clientBootStrap.connect().sync();
-
-			future.addListener(new ChannelFutureListener() { // 2
-				@Override
-				public void operationComplete(ChannelFuture future) {
-					if (future.isSuccess()) { // 3
-
-						inPipline.addLast(
-								new StateEstimateReadyHandler(buffer, server));
-						
-						RequestDataReady ready = new RequestDataReady();
-						ready.setValue(properties.getServerThread());
-						ready.getContent().setPRAdequacySetting(setting);
-
-						// dataReady(future.channel(), ready);
-
-						ByteBuf buffer = Unpooled.copiedBuffer(
-								Utils.toJSon(setting), Charset.defaultCharset()); // 4
-
-						future.channel().writeAndFlush(buffer);
-
-						setOutChannel(future.channel());
-					} else {
-						Throwable cause = future.cause();
-						cause.printStackTrace();
-					}
+		CountDownLatch latch = new CountDownLatch(1);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					start(buffer, setting, latch);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			});
+			}
+		}).start();
+		
+		
 
-			// Wait until the connection is closed.
-			future.channel().closeFuture().sync();
-
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			// Shut down the event loop to terminate all threads.
-			group.shutdownGracefully();
-		}
-
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+							
+				RequestDataReady ready = new RequestDataReady();
+				ready.setValue(properties.getServerThread());
+				ready.getContent().setPRAdequacySetting(setting);
+				
+				EventLoopGroup group = new NioEventLoopGroup();	
+				try {
+					clientBootStrap = new Bootstrap();
+					clientBootStrap.group(group)
+		             .channel(NioSocketChannel.class)
+		             .option(ChannelOption.TCP_NODELAY, true)
+		             .handler(new ChannelInitializer<SocketChannel>() {
+		                 @Override
+		                 public void initChannel(SocketChannel ch) throws Exception {
+		                     ChannelPipeline p = ch.pipeline();
+		                	 p.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+		                     p.addLast("decoder", new StringDecoder());
+		                     p.addLast("encoder", new StringEncoder());
+		                     p.addLast(new StateEstimateRequestHandler(ready));
+		                 }
+		             });
+					
+					
+//					.group(group)
+//					        .channel(NioSocketChannel.class)
+//							.option(ChannelOption.TCP_NODELAY, true);
+//					clientBootStrap.handler(new ChannelInitializer<SocketChannel>() {
+//						@Override
+//						public void initChannel(SocketChannel ch) throws Exception {
+////							ch.pipeline().addLast("encoder",
+////									new StringEncoder(CharsetUtil.UTF_8));
+////							ch.pipeline().addLast("decoder",
+////									new StringDecoder(CharsetUtil.UTF_8));
+//							ch.pipeline().addLast(new StateEstimateRequestHandler(ready));
+//						}
+//					});
+					
+					// Start the client.
+					
+					ChannelFuture future = clientBootStrap.connect("127.0.0.1", 8950).sync();
+					future.addListener(new ChannelFutureListener() {
+						
+						@Override
+						public void operationComplete(ChannelFuture future) throws Exception {
+							if (future.isSuccess()) {
+								System.out.println("Connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
+							} else {
+								System.err.println("Fail to connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
+							}
+						}
+					});
+	
+					// Wait until the connection is closed.
+					requestChannel = future.channel();					
+					latch.countDown();
+					
+					future.channel().closeFuture().sync();
+					System.out.println("与EstimateServer的链接关闭了。");
+					
+					responseChannel.close().sync();
+					System.out.println("监听端口已关闭。");
+					
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					// Shut down the event loop to terminate all threads.
+					group.shutdownGracefully();
+				}
+			}
+		}).start();
+		
 	}
 
-	public void setOutChannel(Channel channel) {
-		this.outChannel = channel;
+
+	public Channel getRequestChannel() {
+		return requestChannel;
 	}
-
-
-
-	@Override
-	public void stop() {
-		if (outChannel != null) {
-			outChannel.close();
-		}
-	}
-
-
-
-	public Channel getInChannel() {
-		return inChannel;
-	}
-
-
-
-	public void setInChannel(Channel inChannel) {
-		this.inChannel = inChannel;
-	}
-
-
-
-	public ChannelPipeline getInPipline() {
-		return inPipline;
-	}
-
-
-
-	public void setInPipline(ChannelPipeline inPipline) {
-		this.inPipline = inPipline;
-	}
-
 }

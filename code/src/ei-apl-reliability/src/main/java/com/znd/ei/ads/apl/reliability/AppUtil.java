@@ -92,7 +92,7 @@ public class AppUtil {
 	public static void print(InputStream is, AppLogger appLogger) throws IOException {
 		BufferedReader bri = new BufferedReader(new InputStreamReader(is, "gbk"));
 		
-		String message = new String("");
+		String message = new String("<exec:app> ");
 		while ((message = bri.readLine()) != null) {
 			if (appLogger == null)
 				System.out.println(message);
@@ -142,6 +142,7 @@ public class AppUtil {
 	
 		return false;
 	}
+
 
 
 }

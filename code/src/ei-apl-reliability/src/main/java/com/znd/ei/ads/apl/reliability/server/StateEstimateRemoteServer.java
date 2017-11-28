@@ -7,14 +7,6 @@ public interface StateEstimateRemoteServer {
 
 	void exec(ReliabilityCaseBuffer buffer, PRAdequacySetting setting);
 	
-	void stop();
-	
-	//String dataReady(DataReady settting);
-	
-
-	//StateEstimateResult execute(FState state);
-
-	
 	
 }
 	

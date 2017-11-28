@@ -51,4 +51,8 @@ public class ListData<V>  extends DataItem  {
 		return true;
 	}
 	
+	public int getSize() {
+		return getOps().getSize(getKey());
+	}
+	
 }

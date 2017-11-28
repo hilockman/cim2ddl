@@ -19,8 +19,8 @@ ads:
   appDir: E:/ZNDProject/bin_x64
 
 state-estimate:
-  listenPort: 9001
-  serverPort: 9002
+  listenPort: 9002
+  serverPort: 8950
   serverIp: 127.0.0.1
   serverThread: 4
   readyResponseTimeOut: 5

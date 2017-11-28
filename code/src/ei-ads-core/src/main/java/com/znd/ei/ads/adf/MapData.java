@@ -53,4 +53,5 @@ public class MapData<K,V> extends DataItem {
 	public void remove(K key) {
 		getOps().remove(getKey(), key);
 	}
+
 }

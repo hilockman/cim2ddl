@@ -435,6 +435,22 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
+		@Override
+		public int getSize(String key) {
+			ResultObject<String, Integer> rt;
+			try {
+				rt = operations.LLEN(key, defaultLifeCycle);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return 0;
+			}
+			if (rt != null)
+				return rt.getValue();
+			
+			return 0;
+		}
+
 	}
 
 	public class ObjectRefDataOperationsImp implements
