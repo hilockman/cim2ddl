@@ -2,6 +2,7 @@
 	"Command": "StateEstimate",
 	"Content": {
 		"FState": [{
+		"memIndex": 62,
 			"BalanceCutGen": "0",
 			"BalanceCutLoad": "0",
 			"BalanceInsGen": "0",

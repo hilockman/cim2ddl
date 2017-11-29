@@ -2,7 +2,6 @@ package com.znd.ei.ads.apl.reliability;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
@@ -17,9 +16,16 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import io.netty.util.CharsetUtil;
+import io.netty.util.Timeout;
 
+import java.nio.charset.Charset;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -30,7 +36,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.znd.ei.Utils;
+import com.znd.ei.ads.adf.ListData;
+import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.apl.reliability.bean.RequestDataReady;
+import com.znd.ei.ads.apl.reliability.bean.ResponseEstimate;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
 import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
 import com.znd.ei.ads.config.PRAdequacySetting;
@@ -61,29 +71,31 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 
 	private ServerBootstrap localBootstrap;
-	private Channel responseChannel;
-	private Channel requestChannel;
+	//private Channel responseChannel;
+
 	private Bootstrap clientBootStrap;
+	
+	
 	
 	@PostConstruct
 	public void init() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				if (AppUtil.checkAppIsRunning("GCStateEstimateServer")) {
-					logger.info("***********StateEstimateServer is running ****************");
-
-				} else {
-
-					String path = baseDir + "/GCStateEstimateServer";
-					logger.info("***********StateEstimateServer start****************"+path);
-					appExec = AppUtil.execBuilder(path);
-					appExec.exec();
-				}
-
-			}
-		}).start();
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				if (AppUtil.checkAppIsRunning("GCStateEstimateServer")) {
+//					logger.info("***********StateEstimateServer is running ****************");
+//
+//				} else {
+//
+//					String path = baseDir + "/GCStateEstimateServer";
+//					logger.info("***********StateEstimateServer start****************"+path);
+//					appExec = AppUtil.execBuilder(path);
+//					appExec.exec();
+//				}
+//
+//			}
+//		}).start();
 		
 		
 
@@ -91,13 +103,19 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 	}
 
 
-
-	private void start(ReliabilityCaseBuffer buffer, PRAdequacySetting setting, CountDownLatch latch) throws InterruptedException {
+	private Charset defaultCharset = Charset.forName("GBK");
+	private void start(ReliabilityCaseBuffer buffer, PRAdequacySetting setting, CountDownLatch latch, Semaphore semaphore) throws InterruptedException {
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		StateEstimateServer server = this;
-		
-		try {
+		 ListData<FState> taskList;
+		MapData<String, ResponseEstimate> resultMap;
+        taskList = buffer.getList(ReliabilityCaseBuffer.ESTIMATE_TASK_LIST);
+        resultMap = buffer.getMap(ReliabilityCaseBuffer.ESTIMATE_RESULT_MAP);
+        Integer taskSize = taskList.getSize();
+        AtomicBoolean closedFlag = new AtomicBoolean(false);
+        AtomicInteger currentTaskIndex = new AtomicInteger(0);
+		//try {
 			localBootstrap = new ServerBootstrap();
 			localBootstrap
 					.group(bossGroup, workerGroup)
@@ -107,12 +125,38 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 								@Override
 								public void initChannel(SocketChannel ch)
 										throws Exception {
-									ch.pipeline().addLast("encoder",
-											new StringEncoder(CharsetUtil.UTF_8));
-									ch.pipeline().addLast("decoder",
-											new StringDecoder(CharsetUtil.UTF_8));
+							        ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+							        ch.pipeline().addLast("decoder", new StringDecoder(defaultCharset));
+							        ch.pipeline().addLast("encoder", new StringEncoder(defaultCharset));
 									latch.await();
-									ch.pipeline().addLast(new StateEstimateResponseHandler(buffer, server));
+									StateEstimateResponseHandler handler = new StateEstimateResponseHandler(taskList, resultMap, taskSize, currentTaskIndex, server, semaphore) {
+										
+										@Override
+										public void closeParent(Long delay, TimeUnit unit) {
+											if (closedFlag.getAndSet(true))
+												return;
+																					
+											unit = ((unit == null) ? TimeUnit.MILLISECONDS : unit);
+											delay = ((delay == null)? 0 : delay);
+
+                                           TimerTask task = new TimerTask() {												
+												@Override
+												public void run() {
+													try {
+														bossGroup.shutdownGracefully().sync();									
+														workerGroup.shutdownGracefully().sync();
+														
+													} catch (InterruptedException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													} 
+												}
+											};
+											new Timer(true).schedule(task, unit.toMillis(delay));
+										}
+									};
+
+									ch.pipeline().addLast(handler);
 								}
 							});
 			
@@ -120,26 +164,29 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 			ChannelFuture f = localBootstrap.bind(properties.getListenPort()).sync(); // 8
 			logger.info(StateEstimateServer.class.getName()
 					+ " started and listen on " + f.channel().localAddress());
-			responseChannel = f.channel();
+			//responseChannel = f.channel();
 			f.channel().closeFuture().sync(); // 9
-		} finally {
-			bossGroup.shutdownGracefully().sync(); // 10
-			workerGroup.shutdownGracefully().sync(); // 10
-		}
+			//responseChannel.close().sync();
+			System.out.println("监听端口已关闭。");
+		//}
+//		finally {
+//			bossGroup.shutdownGracefully().sync(); // 10
+//			workerGroup.shutdownGracefully().sync(); // 10
+//		}
 
 	}
 
 	@PreDestroy
 	public void destory() {
-		new Thread(
-				() -> {
-					if (appExec != null) {
-						appExec.terminate();
-						logger.info("***********StateEstimateServer exit****************");
-					}
-
-					responseChannel.close();
-				}).start();
+//		new Thread(
+//				() -> {
+//					if (appExec != null) {
+//						appExec.terminate();
+//						logger.info("***********StateEstimateServer exit****************");
+//					}
+//
+//					//responseChannel.close();
+//				}).start();
 
 	}
 
@@ -155,12 +202,13 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 	public void exec(ReliabilityCaseBuffer buffer, PRAdequacySetting setting) {
 
 		CountDownLatch latch = new CountDownLatch(1);
+		Semaphore semaphore = new Semaphore(properties.getServerThread(), true);
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				try {
-					start(buffer, setting, latch);
+					start(buffer, setting, latch, semaphore);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -169,17 +217,22 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		}).start();
 		
 		
-
+		RequestDataReady ready = new RequestDataReady();
+		ready.setValue(properties.getServerThread());
+		ready.getContent().setPRAdequacySetting(setting);
 		
+		String msg = Utils.toJSon(ready);
+		sendMessage(msg, latch);
+		
+	}
+
+
+	public void sendMessage(String msg, CountDownLatch latch) {
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-							
-				RequestDataReady ready = new RequestDataReady();
-				ready.setValue(properties.getServerThread());
-				ready.getContent().setPRAdequacySetting(setting);
-				
+										
 				EventLoopGroup group = new NioEventLoopGroup();	
 				try {
 					clientBootStrap = new Bootstrap();
@@ -191,30 +244,16 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		                 public void initChannel(SocketChannel ch) throws Exception {
 		                     ChannelPipeline p = ch.pipeline();
 		                	 p.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-		                     p.addLast("decoder", new StringDecoder());
-		                     p.addLast("encoder", new StringEncoder());
-		                     p.addLast(new StateEstimateRequestHandler(ready));
+		                     p.addLast("decoder", new StringDecoder(defaultCharset));
+		                     p.addLast("encoder", new StringEncoder(defaultCharset));
+		                     p.addLast(new StateEstimateRequestHandler(msg));
 		                 }
 		             });
 					
-					
-//					.group(group)
-//					        .channel(NioSocketChannel.class)
-//							.option(ChannelOption.TCP_NODELAY, true);
-//					clientBootStrap.handler(new ChannelInitializer<SocketChannel>() {
-//						@Override
-//						public void initChannel(SocketChannel ch) throws Exception {
-////							ch.pipeline().addLast("encoder",
-////									new StringEncoder(CharsetUtil.UTF_8));
-////							ch.pipeline().addLast("decoder",
-////									new StringDecoder(CharsetUtil.UTF_8));
-//							ch.pipeline().addLast(new StateEstimateRequestHandler(ready));
-//						}
-//					});
-					
+			
 					// Start the client.
 					
-					ChannelFuture future = clientBootStrap.connect("127.0.0.1", 8950).sync();
+					ChannelFuture future = clientBootStrap.connect(properties.getServerIp(), properties.getServerPort()).sync();
 					future.addListener(new ChannelFutureListener() {
 						
 						@Override
@@ -228,15 +267,12 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 					});
 	
 					// Wait until the connection is closed.
-					requestChannel = future.channel();					
-					latch.countDown();
+					if (latch != null)
+					    latch.countDown();
 					
 					future.channel().closeFuture().sync();
-					System.out.println("与EstimateServer的链接关闭了。");
-					
-					responseChannel.close().sync();
-					System.out.println("监听端口已关闭。");
-					
+					System.out.println("Disconnect to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
+										
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -246,11 +282,8 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 				}
 			}
 		}).start();
-		
 	}
 
 
-	public Channel getRequestChannel() {
-		return requestChannel;
-	}
+
 }

@@ -14,10 +14,9 @@ public class StateEstimateRequestHandler  extends ChannelInboundHandlerAdapter {
 	
 
 	private ByteBuf buffer;
-	public StateEstimateRequestHandler(RequestDataReady ready) {
+	public StateEstimateRequestHandler(String msg) {
 
-		buffer = Unpooled.copiedBuffer(
-				Utils.toJSon(ready), Charset.defaultCharset()); 
+		buffer = Unpooled.copiedBuffer(msg, Charset.defaultCharset()); 
 
 	}
 	@Override
@@ -25,18 +24,9 @@ public class StateEstimateRequestHandler  extends ChannelInboundHandlerAdapter {
 		
 	
 		ctx.writeAndFlush(buffer);
+		ctx.close();
 	}
-	
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-       System.out.println("Received message :"+msg);
-    }
 
-   @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-      // ctx.flush();
-    }
-	
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {         // Close the connection when an exception is raised.
          cause.printStackTrace();

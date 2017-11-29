@@ -22,7 +22,7 @@ state-estimate:
   listenPort: 9002
   serverPort: 8950
   serverIp: 127.0.0.1
-  serverThread: 4
+  serverThread: 1
   readyResponseTimeOut: 5
   cachedDir: D:/GitHub/cim2ddl/code/pr-dir
   

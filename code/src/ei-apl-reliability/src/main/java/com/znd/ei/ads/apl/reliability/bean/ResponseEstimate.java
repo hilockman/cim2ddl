@@ -9,7 +9,7 @@ public class ResponseEstimate extends ExchangeData<ResponseEstimate.Content> {
 
 	public static class Content extends ExchangeContent {
 		private List<ACBus> ACBus;
-		private FState FState;
+		private List<FState> FState;
 
 		public List<ACBus> getACBus() {
 			return ACBus;
@@ -19,13 +19,15 @@ public class ResponseEstimate extends ExchangeData<ResponseEstimate.Content> {
 			ACBus = aCBus;
 		}
 
-		public FState getFState() {
+		public List<FState> getFState() {
 			return FState;
 		}
 
-		public void setFState(FState fState) {
+		public void setFState(List<FState> fState) {
 			FState = fState;
 		}
+
+
 
 	}
 }

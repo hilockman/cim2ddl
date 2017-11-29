@@ -35,13 +35,11 @@ public class ReliabilityCaseBuffer {
 	public static final String ESTIMATE_RESULT_MAP = "EstimateResultMap";
 	
 	private ObjectRefDataOperations strOps;
-	private AbstractConnectionFactory connectionFactory;
 	private MapDataOperations mapOps;
 	private ListDataOperations listOps;
 	
 	public ReliabilityCaseBuffer(AbstractConnectionFactory connectionFactory, String modelName) {
 		this.setModelName(modelName);
-		this.connectionFactory = connectionFactory;
 		strOps = connectionFactory.getObjectRefOperations();
 		mapOps = connectionFactory.getMapDataOperations();
 		listOps = connectionFactory.getListDataOperations();
@@ -99,14 +97,14 @@ public class ReliabilityCaseBuffer {
 	}
 
 	public <T> ListData<T> getList(String name) {
-		ListData<T> l = new ListData<T>(name);
+		ListData<T> l = new ListData<T>(formInternalKey(name));
 		l.setOperations(listOps);
 		return l;
 	}
 	
 	public <K, V> MapData<K, V> getMap(String name) {
-		MapData<K, V> m = new MapData<K, V>(name);
-		m.setOperations(listOps);
+		MapData<K, V> m = new MapData<K, V>(formInternalKey(name));
+		m.setOperations(mapOps);
 		return m;
 	}
 
