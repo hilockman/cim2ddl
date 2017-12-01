@@ -16,7 +16,7 @@ ads:
   temp:
     dir: ./temp
 
-  appDir: E:/ZNDProject/bin_x64
+  appDir: E:/ZNDProject/SoftwareBeta/bin_x64
 
 state-estimate:
   listenPort: 9002

@@ -1,8 +1,12 @@
 package com.znd.ei;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -277,20 +281,43 @@ public class Utils {
 //		return classes;
 //	}
 
+	public static Gson s_gson = new Gson();
+	
 	public static <T> T toObject(String str, Class<T> clazz) {
-		Gson gson = new Gson();
-		return gson.fromJson(str, clazz);
+		return s_gson.fromJson(str, clazz);
 	}
 
 	public static String toJSon(Object obj) {
-		Gson gson = new Gson();
-		return gson.toJson(obj);
+		return s_gson.toJson(obj);
 	}
 	
+
 	public static String toJson(Map<String, String> valueMap) {
-		Gson gson = new Gson();
-		return gson.toJson(valueMap);
+		return s_gson.toJson(valueMap);
 	}
 	
+	
+    public static String fileToString(File file) {
+    	try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			
+			StringBuffer buffer = new StringBuffer();
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				buffer.append(line);
+			
+			}
+			br.close();
+			return buffer.toString();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 } 

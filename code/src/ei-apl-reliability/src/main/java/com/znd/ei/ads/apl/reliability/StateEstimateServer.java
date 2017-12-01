@@ -2,6 +2,7 @@ package com.znd.ei.ads.apl.reliability;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
@@ -76,39 +77,25 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 	private Bootstrap clientBootStrap;
 	
 	
-	
-	@PostConstruct
-	public void init() {
-//		new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				if (AppUtil.checkAppIsRunning("GCStateEstimateServer")) {
-//					logger.info("***********StateEstimateServer is running ****************");
-//
-//				} else {
-//
-//					String path = baseDir + "/GCStateEstimateServer";
-//					logger.info("***********StateEstimateServer start****************"+path);
-//					appExec = AppUtil.execBuilder(path);
-//					appExec.exec();
-//				}
-//
-//			}
-//		}).start();
-		
-		
-
-
-	}
-
 
 	private Charset defaultCharset = Charset.forName("GBK");
-	private void start(ReliabilityCaseBuffer buffer, PRAdequacySetting setting, CountDownLatch latch, Semaphore semaphore) throws InterruptedException {
+	/**
+	 * 开始监听来自StateEstimate计算服务的消息
+	 * @param buffer
+	 * @param setting
+	 * @param latch
+	 * @param semaphore
+	 * @throws InterruptedException
+	 */
+	private void startListen(ReliabilityCaseBuffer buffer,
+			PRAdequacySetting setting,
+			CountDownLatch serverFinishedLatch) throws InterruptedException {
+		Semaphore semaphore = new Semaphore(properties.getServerThread(), true);
+
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		StateEstimateServer server = this;
-		 ListData<FState> taskList;
+		ListData<FState> taskList;
 		MapData<String, ResponseEstimate> resultMap;
         taskList = buffer.getList(ReliabilityCaseBuffer.ESTIMATE_TASK_LIST);
         resultMap = buffer.getMap(ReliabilityCaseBuffer.ESTIMATE_RESULT_MAP);
@@ -128,8 +115,13 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 							        ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
 							        ch.pipeline().addLast("decoder", new StringDecoder(defaultCharset));
 							        ch.pipeline().addLast("encoder", new StringEncoder(defaultCharset));
-									latch.await();
-									StateEstimateResponseHandler handler = new StateEstimateResponseHandler(taskList, resultMap, taskSize, currentTaskIndex, server, semaphore) {
+							       
+									StateEstimateResponseHandler handler = new StateEstimateResponseHandler(taskList, 
+											resultMap, 
+											taskSize, 
+											currentTaskIndex, 
+											server, 
+											semaphore) {
 										
 										@Override
 										public void closeParent(Long delay, TimeUnit unit) {
@@ -145,7 +137,7 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 													try {
 														bossGroup.shutdownGracefully().sync();									
 														workerGroup.shutdownGracefully().sync();
-														
+														serverFinishedLatch.countDown();
 													} catch (InterruptedException e) {
 														// TODO Auto-generated catch block
 														e.printStackTrace();
@@ -192,23 +184,19 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 
 
-	public StateEstimateResult execute(FState state) {
-
-		return null;
-	}
 
 
 	@Override
 	public void exec(ReliabilityCaseBuffer buffer, PRAdequacySetting setting) {
 
-		CountDownLatch latch = new CountDownLatch(1);
-		Semaphore semaphore = new Semaphore(properties.getServerThread(), true);
+		CountDownLatch serverFinishedLatch = new CountDownLatch(1);
+		
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				try {
-					start(buffer, setting, latch, semaphore);
+					startListen(buffer, setting,serverFinishedLatch);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -222,12 +210,19 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		ready.getContent().setPRAdequacySetting(setting);
 		
 		String msg = Utils.toJSon(ready);
-		sendMessage(msg, latch);
+		sendMessage(msg);
+		System.out.println("Wait for server finished ...");
+		try {
+			serverFinishedLatch.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 
-	public void sendMessage(String msg, CountDownLatch latch) {
+	public void sendMessage(String msg) {
 		new Thread(new Runnable() {
 			
 			@Override
@@ -251,8 +246,7 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		             });
 					
 			
-					// Start the client.
-					
+					// Start the client.				
 					ChannelFuture future = clientBootStrap.connect(properties.getServerIp(), properties.getServerPort()).sync();
 					future.addListener(new ChannelFutureListener() {
 						
@@ -266,10 +260,7 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 						}
 					});
 	
-					// Wait until the connection is closed.
-					if (latch != null)
-					    latch.countDown();
-					
+	
 					future.channel().closeFuture().sync();
 					System.out.println("Disconnect to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
 										
@@ -283,6 +274,9 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 			}
 		}).start();
 	}
+
+
+	
 
 
 

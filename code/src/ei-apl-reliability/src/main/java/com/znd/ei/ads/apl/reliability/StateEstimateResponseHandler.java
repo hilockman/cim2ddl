@@ -3,12 +3,6 @@ package com.znd.ei.ads.apl.reliability;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,7 +30,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 	private Semaphore semaphore;
 	private StateEstimateServer server;
 	private AtomicInteger currentTaskIndex;
-
+	
 
     public StateEstimateResponseHandler(ListData<FState> taskList,
 			MapData<String, ResponseEstimate> resultMap, Integer taskSize,
@@ -48,6 +42,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 		this.server = server;
 		this.currentTaskIndex = currentTaskIndex;
 		this.taskSize = taskSize;
+
 	}
       
     public abstract void closeParent(Long delay, TimeUnit unit);
@@ -57,7 +52,6 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
     	System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ msg.toString());
     	String content = msg.toString();
     	if (content.contains(Commands.DATA_READY)) {
-
     	} else if (content.contains(Commands.STATE_ESTIMATE)){
     		int index = currentTaskIndex.get();
     		ResponseEstimate result = Utils.toObject(content, ResponseEstimate.class);
@@ -91,16 +85,18 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 		try { 
 			while (semaphore.tryAcquire()) {
 				//发送下一次计算任务
-				task = taskList.lpop();
+				synchronized(taskList) {
+					task = taskList.lpop();
+				}
 				if (task != null) {
 					RequestEstimate request = new RequestEstimate();
 					
 					request.getContent().setFState(task);
-					//String responseMsg = Utils.toJSon(request);
+					String responseMsg = Utils.toJSon(request);
 					
-					String responseMsg = fileToString(new File("D:\\GitHub\\cim2ddl\\documents\\交互\\4 response_estimate.json"));
+					//String responseMsg = fileToString(new File("D:\\GitHub\\cim2ddl\\documents\\交互\\4 response_estimate.json"));
 					if (server != null)
-						server.sendMessage(responseMsg, null);
+						server.sendMessage(responseMsg);
 				} else { //
 					System.out.println("Task is finished :"+taskList.getKey());
 					ctx.close();
@@ -111,32 +107,8 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
     }
     
-
-
-    private String fileToString(File file) {
-    	try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			
-			StringBuffer buffer = new StringBuffer();
-			String line = null;
-			while ((line = br.readLine()) != null) {
-				buffer.append(line);
-			
-			}
-			br.close();
-			return buffer.toString();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
