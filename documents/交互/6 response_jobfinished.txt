@@ -1,0 +1,7 @@
+{
+   "Command" : "JobFinished",
+   "Content" : {
+      "Message" : "计算任务关闭完成",
+      "Value" : "1"
+   }
+}

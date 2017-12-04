@@ -2,15 +2,16 @@ package com.znd.ei.ads.web.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ReliabilityUploadConfig {
+import com.znd.ei.ads.config.PRAdequacySetting;
+
+public class ReliabilityUploadConfig   {
 
     private String modelName;
 
     private MultipartFile[] files;
     
-    private String sampleConfig;
-    private String estimateConfig;
 
+    private String setting;
 
 	public MultipartFile[] getFiles() {
 		return files;
@@ -20,21 +21,7 @@ public class ReliabilityUploadConfig {
 		this.files = files;
 	}
 
-	public String getSampleConfig() {
-		return sampleConfig;
-	}
 
-	public void setSampleConfig(String sampleConfig) {
-		this.sampleConfig = sampleConfig;
-	}
-
-	public String getEstimateConfig() {
-		return estimateConfig;
-	}
-
-	public void setEstimateConfig(String estimateConfig) {
-		this.estimateConfig = estimateConfig;
-	}
 
 	public String getModelName() {
 		return modelName;
@@ -43,5 +30,14 @@ public class ReliabilityUploadConfig {
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
 	}
+
+	public String getSetting() {
+		return setting;
+	}
+
+	public void setSetting(String setting) {
+		this.setting = setting;
+	}
+
 
 }

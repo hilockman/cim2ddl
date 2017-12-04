@@ -185,6 +185,7 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 
 
 
+	
 
 	@Override
 	public void exec(ReliabilityCaseBuffer buffer, PRAdequacySetting setting) {
@@ -206,14 +207,14 @@ public class StateEstimateServer implements StateEstimateRemoteServer {
 		
 		
 		RequestDataReady ready = new RequestDataReady();
-		ready.setValue(properties.getServerThread());
+		ready.setValue(String.valueOf(properties.getServerThread()));
 		ready.getContent().setPRAdequacySetting(setting);
 		
 		String msg = Utils.toJSon(ready);
 		sendMessage(msg);
 		System.out.println("Wait for server finished ...");
 		try {
-			serverFinishedLatch.wait();
+			serverFinishedLatch.await();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

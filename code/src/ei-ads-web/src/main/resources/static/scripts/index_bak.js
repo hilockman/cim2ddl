@@ -1,44 +1,35 @@
 var stateSampleConfigNames = [];
-
+var stateEstimateConfigNames = [];
 
 var init = function() {
 	
-	var modelName = localStorage['modelName']; 
+	var modelName = localStorage['modelConfig']; 
 	$("#modelName").val(modelName); 
 	$("#modelName").change(function() { 
-	  localStorage['modelName'] = $(this).val(); 
-	  console.log("modelName :"+$(this).val()); 
+	localStorage['modelConfig'] = $("#modelName").val(); 
+	  console.log("modelName :"+$("#modelName").val()); 
 	}); 
 	
 	$.ajax({
-		url : "pr/adequacySetting",
+		url : "pr/stateSampleConfig",
 		type : "GET",
 		data : null,
 
 		success : function(config) {
-			console.log("PRAdequacySetting = " + JSON.stringify(config));
+			console.log("stateSampleConfig = " + JSON.stringify(config));
 
 			$.each(config, function(name, value) {
 				var control = $("#" + name);
-//				if (control == null)
-//					continue;
-				
-				//stateSampleConfigNames.push(name);
+				stateSampleConfigNames.push(name);
 				// console.log("control type is "+control.attr('type')+",
 				// id="+name);
-				if (control.length != 0) {
-					if (control.attr('type') == "text") {
-						control.val(value);
-					} 
-					else if (control.attr('type') == "checkbox") {
-						value == '1' ? control.attr("checked", true) : control
-								.attr("checked", false);
-					} else {
-						var cname = "input[name='{0}'][value={1}]".format(name,
-								value);
-						$(cname).attr("checked", true);
-					} 
-			    }
+				if (control.attr('type') == "text") {
+					control.val(value);
+				} else {
+					var cname = "input[name='{0}'][value={1}]".format(name,
+							value);
+					$(cname).attr("checked", true);
+				}
 			});
 
 		},
@@ -47,17 +38,29 @@ var init = function() {
 		}
 	});
 
+	$.ajax({
+		url : "pr/stateEstimateConfig",
+		type : "GET",
+		data : null,
 
-	$("input[type=file]").change(function() {
-		var file = $(this).val();
-		 var pos=file.lastIndexOf("\\");
-		    
-		var fileName = file.substring(pos+1); 
-		pos = fileName.lastIndexOf('.');
-		var modelName = fileName.substring(0, pos);
-		$('#modelName').val(modelName);
-		localStorage['modelName'] = modelName; 
-		//alert("on change file:"+fileName);
+		success : function(config) {
+			console.log(JSON.stringify(config));
+
+			$.each(config, function(name, value) {
+				var control = $("#" + name);
+				stateEstimateConfigNames.push(name);
+
+				if (control.attr('type') == "checkbox") {
+					value == '1' ? control.attr("checked", true) : control
+							.attr("checked", false);
+				} else {
+					control.val(value);
+				}
+			});
+		},
+		error : function() {
+			alert("get default config failed!");
+		}
 	});
 
 	$("#pbar_outerdiv").hide();};
@@ -95,23 +98,53 @@ $.fn.serializeObject = function()
 var browser = LogBrowser();
 $('#start-calc-reliability').click(
 		function() {
-			var f = $("#pr-adequacy-setting-form");
-			var prAdequacySetting = f.serializeObject();
+			var f = $("#state-estimate-config-form");
+			var estimateConfig = f.serializeObject();
 			
+			var f1 = $("#state-sample-config-form");
+
+			
+			var sampleConfig = f1.serializeObject();
 			var checkbox = f.find("input[type=checkbox]"); 
 			$.each(checkbox, function(key, val) { 
-				prAdequacySetting[$(val).attr('name')] = ($(val).is(":checked") ? 1 : 0);		 
+			    estimateConfig[$(val).attr('name')] = ($(val).is(":checked") ? 1 : 0);		 
             }); 
 			
+//			var sampleConfig = {};
+//			for ( var i in stateSampleConfigNames) {
+//				var name = stateSampleConfigNames[i];
+//				var control = $("#" + name);
+//				// console.log("control type is "+control.attr('type')+",
+//				// id="+name);
+//				if (control.attr('type') == "text") {
+//					sampleConfig[name] = control.val();
+//				}
+//			}
+			
+			
+
+			//console.log("estimateConfig=" + estimateConfig);
+
+//			var estimateConfig = {};
+//			for ( var i in stateEstimateConfigNames) {
+//				var name = stateEstimateConfigNames[i];
+//				var control = $("#" + name);
+//				// console.log("control type is "+control.attr('type')+",
+//				// id="+name);
+//				if (control.attr('type') == "text") {
+//					estimateConfig[name] = control.val();
+//				}
+//			}
+//			
 		    // Get form
-		    //var form = $('#model-config-form')[0];
-			var form = $('#pr-adequacy-setting-form')[0];
+		    var form = $('#model-config-form')[0];
 
 		    var data = new FormData(form);
 			
-		    var setting = JSON.stringify(prAdequacySetting);
-		    data.append("setting", setting);
-					   
+		    data.append("sampleConfig", JSON.stringify(sampleConfig));
+		    data.append("estimateConfig", JSON.stringify(estimateConfig));
+					    
+
 			$.ajax({
 				type : "POST",
 				enctype : 'multipart/form-data',

@@ -207,34 +207,34 @@ public class ReliabilityApl {
 
 	@Autowired
 	RedissonClient redissonClient;
-
-	@AplFunction(desc = "模型加载:加载BPA模型,BPA网络模型转可靠性网络模型")
-	public void loadModel(@In(create_AllModel) StringData createConfig,
-			@Out(created_BPAModel) MemDBData bPAModel,
-			@Out(created_PRModel) MemDBData pRModel,
-			@Out(get_Reliability) StringData calcTask) throws ACPException,
-			UnsupportedOperation {
-
-		LOGGER.info("----------------start create_BPAModel------------------------");
-		LOGGER.info("config:" + createConfig.getContent());
-		callBpaLoader();
-
-		bPAModel.setEntryName(MDBDefine.g_strBpaDBEntry);
-		bPAModel.setArea(modelArea);
-
-		callBpa2Pr();
-		pRModel.setEntryName(MDBDefine.g_strPRDBEntry);
-		pRModel.setArea(modelArea);
-
-		// AdsServer server = connectionFactory.getServer();
-		// if (server != null)
-		// server.publish(created_StateSampleTask, state_sample);
-
-		calcTask.setKey(pRModel.getArea() + ":task:" + powersystem_reliability);
-
-		LOGGER.info("----------------end create_BPAModel------------------------");
-
-	}
+//
+//	@AplFunction(desc = "模型加载:加载BPA模型,BPA网络模型转可靠性网络模型")
+//	public void loadModel(@In(create_AllModel) StringData createConfig,
+//			@Out(created_BPAModel) MemDBData bPAModel,
+//			@Out(created_PRModel) MemDBData pRModel,
+//			@Out(get_Reliability) StringData calcTask) throws ACPException,
+//			UnsupportedOperation {
+//
+//		LOGGER.info("----------------start create_BPAModel------------------------");
+//		LOGGER.info("config:" + createConfig.getContent());
+//		callBpaLoader();
+//
+//		bPAModel.setEntryName(MDBDefine.g_strBpaDBEntry);
+//		bPAModel.setArea(modelArea);
+//
+//		callBpa2Pr();
+//		pRModel.setEntryName(MDBDefine.g_strPRDBEntry);
+//		pRModel.setArea(modelArea);
+//
+//		// AdsServer server = connectionFactory.getServer();
+//		// if (server != null)
+//		// server.publish(created_StateSampleTask, state_sample);
+//
+//		calcTask.setKey(pRModel.getArea() + ":task:" + powersystem_reliability);
+//
+//		LOGGER.info("----------------end create_BPAModel------------------------");
+//
+//	}
 	
 	private void callStateSample(StateSampleConfig config) {
 		System.out.println("call StateSample , config = "+config);
@@ -323,7 +323,7 @@ public class ReliabilityApl {
 	}
 	
 	@Autowired
-	private StateEstimateServer stateEstimateServer; 
+	private StateEstimateRemoteServer stateEstimateServer; 
 	
 
 	
@@ -363,6 +363,9 @@ public class ReliabilityApl {
 		
 		log(modelName, "Start state estimate...");
 		PRAdequacySetting config = new PRAdequacySetting();
+		config.setANAMinStateProb(sampleConfig.getfANAMinStateProb());
+		config.setAuxLoadAdjust(estimateConfig.getAuxLoadAdjust());
+		
 		 stateEstimateServer.exec(buffer, config);
 		
 //		int threadNum = 2;
@@ -405,27 +408,27 @@ public class ReliabilityApl {
 		 
 	}
 	
-	private StateEstimateResult executeStateEstimate(FState state) {
-		//return stateEstimateServer.execute(state);
-		return null;
-	}
-	@AplFunction( desc = "do reliability")
-	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {
-		String modelName = data.getContent();
-		ObjectRefDataOperations strOps = connectionFactory.getObjectRefOperations();
-		String configKey = modelName+":config:estimateConfig";
-		String config = strOps.get(configKey);
-		if (config == null || config.isEmpty()) {
-			log(modelName, "configKey is empty");
-		}
-		StateEstimateConfig estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
-		
-		callReliabilityIndex(estimateConfig);
-	}
+//	private StateEstimateResult executeStateEstimate(FState state) {
+//		//return stateEstimateServer.execute(state);
+//		return null;
+//	}
+//	@AplFunction( desc = "do reliability")
+//	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {
+//		String modelName = data.getContent();
+//		ObjectRefDataOperations strOps = connectionFactory.getObjectRefOperations();
+//		String configKey = modelName+":config:estimateConfig";
+//		String config = strOps.get(configKey);
+//		if (config == null || config.isEmpty()) {
+//			log(modelName, "configKey is empty");
+//		}
+//		StateEstimateConfig estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
+//		
+//		callReliabilityIndex(estimateConfig);
+//	}
 	
-	private void processStateEstimate(String modelName, PRAdequacySetting config) {
-       
-	}
+//	private void processStateEstimate(String modelName, PRAdequacySetting config) {
+//       
+//	}
 
 	public class LogInfo {
 		private Date date;
@@ -491,82 +494,82 @@ public class ReliabilityApl {
 
 	}
 
-	@AplFunction(desc = "calc reliability")
-	public void calcReliability(
-			@In(get_Reliability) StringData calcTask,
-			@Out(created_StateSampleResult) MapData<Integer, StateSampleTask> stateSampleResult,
-			@Out(created_StateEsteimateResult) MapData<Integer, StateEstimateResult> stateEstimateResult,
-			@Out(created_ReliabilityIndexResult) ObjectRefData<ReliabilityIndexResult> reliabilityIndexResult) {
-		LOGGER.info("----------------start calc reliability------------------------");
-		// 状态抽样
-		callStateSample();
+//	@AplFunction(desc = "calc reliability")
+//	public void calcReliability(
+//			@In(get_Reliability) StringData calcTask,
+//			@Out(created_StateSampleResult) MapData<Integer, StateSampleTask> stateSampleResult,
+//			@Out(created_StateEsteimateResult) MapData<Integer, StateEstimateResult> stateEstimateResult,
+//			@Out(created_ReliabilityIndexResult) ObjectRefData<ReliabilityIndexResult> reliabilityIndexResult) {
+//		LOGGER.info("----------------start calc reliability------------------------");
+//		// 状态抽样
+//		callStateSample();
+//
+//		int count = 0;
+//		Iterable<FState> fStates = fStateDao.findAll();
+//		Map<Integer, StateSampleTask> resultMap = new HashMap<>();
+//		for (FState state : fStates) {
+//			StateSampleTask task = new StateSampleTask();
+//			task.setState(state);
+//			resultMap.put(count, task);
+//			count++;
+//			if (count == 1)
+//				LOGGER.info(state.toString());
+//
+//		}
+//		LOGGER.info("FState count=" + count);
+//
+//		Iterable<FStateFDev> fStateFDevs = fStateFDevDao.findAll();
+//		count = 0;
+//		for (FStateFDev dev : fStateFDevs) {
+//			StateSampleTask rt = resultMap.get(dev.getFStateNo());
+//			if (rt == null) {
+//				continue;
+//			}
+//			count++;
+//			rt.getDevs().add(dev);
+//
+//			if (count == 1)
+//				LOGGER.info(dev.toString());
+//
+//		}
+//		LOGGER.info("FStateFDev count=" + count);
+//
+//		RMap<Integer, StateSampleTask> map = redissonClient
+//				.getMap("sampleStateMap");
+//
+//		Set<Entry<Integer, StateSampleTask>> s = resultMap.entrySet();
+//		for (Entry<Integer, StateSampleTask> e : s) {
+//			map.put(e.getKey(), e.getValue());
+//		}
+//
+//		RMapReduce<Integer, StateSampleTask, Integer, StateEstimateResult> mapReduce = map
+//				.<Integer, StateEstimateResult> mapReduce()
+//				.mapper(new StateSampleMap()).reducer(new StateSampleReducer());
+//
+//		System.out.println("Start state estimate ...");
+//		Map<Integer, StateEstimateResult> mapToResult = mapReduce.execute();
+//
+//		stateEstimateResult.putAll(mapToResult);
+//
+//		System.out.println("Start reliability index");
+//		ReliabilityIndexResult indexResult = mapReduce
+//				.execute(new StateSampleCollator());
+//		reliabilityIndexResult.setContent(indexResult);
+//
+//		LOGGER.info("----------------end calc reliability------------------------");
+//	}
 
-		int count = 0;
-		Iterable<FState> fStates = fStateDao.findAll();
-		Map<Integer, StateSampleTask> resultMap = new HashMap<>();
-		for (FState state : fStates) {
-			StateSampleTask task = new StateSampleTask();
-			task.setState(state);
-			resultMap.put(count, task);
-			count++;
-			if (count == 1)
-				LOGGER.info(state.toString());
+//	@AplFunction(desc = "download state estimate result")
+//	public void downloadEstimateResult(
+//			@In(created_StateEsteimateResult) MapData<Integer, StateEstimateResult> stateEstimateResult) {
+//
+//	}
 
-		}
-		LOGGER.info("FState count=" + count);
-
-		Iterable<FStateFDev> fStateFDevs = fStateFDevDao.findAll();
-		count = 0;
-		for (FStateFDev dev : fStateFDevs) {
-			StateSampleTask rt = resultMap.get(dev.getFStateNo());
-			if (rt == null) {
-				continue;
-			}
-			count++;
-			rt.getDevs().add(dev);
-
-			if (count == 1)
-				LOGGER.info(dev.toString());
-
-		}
-		LOGGER.info("FStateFDev count=" + count);
-
-		RMap<Integer, StateSampleTask> map = redissonClient
-				.getMap("sampleStateMap");
-
-		Set<Entry<Integer, StateSampleTask>> s = resultMap.entrySet();
-		for (Entry<Integer, StateSampleTask> e : s) {
-			map.put(e.getKey(), e.getValue());
-		}
-
-		RMapReduce<Integer, StateSampleTask, Integer, StateEstimateResult> mapReduce = map
-				.<Integer, StateEstimateResult> mapReduce()
-				.mapper(new StateSampleMap()).reducer(new StateSampleReducer());
-
-		System.out.println("Start state estimate ...");
-		Map<Integer, StateEstimateResult> mapToResult = mapReduce.execute();
-
-		stateEstimateResult.putAll(mapToResult);
-
-		System.out.println("Start reliability index");
-		ReliabilityIndexResult indexResult = mapReduce
-				.execute(new StateSampleCollator());
-		reliabilityIndexResult.setContent(indexResult);
-
-		LOGGER.info("----------------end calc reliability------------------------");
-	}
-
-	@AplFunction(desc = "download state estimate result")
-	public void downloadEstimateResult(
-			@In(created_StateEsteimateResult) MapData<Integer, StateEstimateResult> stateEstimateResult) {
-
-	}
-
-	@AplFunction(desc = "download reliability index result")
-	public void downloadReliabilityIndexResult(
-			@In(created_ReliabilityIndexResult) ObjectRefData<ReliabilityIndexResult> reliabilityIndexResult) {
-
-	}
+//	@AplFunction(desc = "download reliability index result")
+//	public void downloadReliabilityIndexResult(
+//			@In(created_ReliabilityIndexResult) ObjectRefData<ReliabilityIndexResult> reliabilityIndexResult) {
+//
+//	}
 
 	// @AplFunction(desc = "BPA模型加载")
 	// public void loadBPA(@In("create_BPAModel") StringData createConfig,

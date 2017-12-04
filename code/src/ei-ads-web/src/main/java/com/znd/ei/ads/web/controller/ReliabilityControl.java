@@ -37,6 +37,7 @@ import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.config.AdsResult;
 import com.znd.ei.ads.config.FileInfo;
+import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.ads.config.StateSampleConfig;
 import com.znd.ei.ads.web.model.ReliabilityUploadConfig;
@@ -70,59 +71,63 @@ public class ReliabilityControl {
 		}
 	}
 
-	@RequestMapping(path = "/stateSampleConfig", method = RequestMethod.GET)
-	public @ResponseBody StateSampleConfig stateSampleConfig() {
-		StateSampleConfig config = new StateSampleConfig();
+	@RequestMapping(path = "/adequacySetting", method = RequestMethod.GET)
+	public @ResponseBody PRAdequacySetting prAdequacySetting() {
+		PRAdequacySetting config = new PRAdequacySetting();
+//		String str = Utils.toJSon(config);
+//		return str;
 		return config;
 	}
 
-	@RequestMapping(path = "/stateEstimateConfig", method = RequestMethod.GET)
-	public @ResponseBody StateEstimateConfig stateEstimateConfig() {
-		StateEstimateConfig config = new StateEstimateConfig();
-		return config;
-	}
 
-	@RequestMapping(path = "/serverConfig", method = RequestMethod.GET)
-	public @ResponseBody StateEstimateConfig serverConfig() {
-		StateEstimateConfig config = new StateEstimateConfig();
-		return config;
-	}
+	
+//	@RequestMapping(path = "/stateEstimateConfig", method = RequestMethod.GET)
+//	public @ResponseBody StateEstimateConfig stateEstimateConfig() {
+//		StateEstimateConfig config = new StateEstimateConfig();
+//		return config;
+//	}
+//
+//	@RequestMapping(path = "/serverConfig", method = RequestMethod.GET)
+//	public @ResponseBody StateEstimateConfig serverConfig() {
+//		StateEstimateConfig config = new StateEstimateConfig();
+//		return config;
+//	}
+//
+//	@RequestMapping(path = "/calcReliability", method = RequestMethod.POST)
+//	public @ResponseBody AdsResult calcReliability(
+//			StateSampleConfig sampleConfig, StateEstimateConfig estimateConfig) {
+//		System.out
+//				.println("---------------start calcReliability---------------");
+//		System.out.println("calcReliability : sampleConfig = "
+//				+ sampleConfig.toString());
+//		System.out.println("calcReliability : estimateConfig = "
+//				+ estimateConfig.toString());
+//		System.out.println("---------------end calcReliability---------------");
+//
+//		return AdsResult.ok("accepted!");
+//	}
 
-	@RequestMapping(path = "/calcReliability", method = RequestMethod.POST)
-	public @ResponseBody AdsResult calcReliability(
-			StateSampleConfig sampleConfig, StateEstimateConfig estimateConfig) {
-		System.out
-				.println("---------------start calcReliability---------------");
-		System.out.println("calcReliability : sampleConfig = "
-				+ sampleConfig.toString());
-		System.out.println("calcReliability : estimateConfig = "
-				+ estimateConfig.toString());
-		System.out.println("---------------end calcReliability---------------");
-
-		return AdsResult.ok("accepted!");
-	}
-
-	@RequestMapping(path = "/uploadFile", method = RequestMethod.POST)
-	public @ResponseBody String handelUploadFile(
-			@RequestParam("file") MultipartFile file) {
-		String name = "test11";
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File(name + "-uploaded")));
-				stream.write(bytes);
-				stream.close();
-				return "You successfully uploaded " + name + " into " + name
-						+ "-uploaded !";
-			} catch (Exception e) {
-				return "You failed to upload " + name + " => " + e.getMessage();
-			}
-		} else {
-			return "You failed to upload " + name
-					+ " because the file was empty.";
-		}
-	}
+//	@RequestMapping(path = "/uploadFile", method = RequestMethod.POST)
+//	public @ResponseBody String handelUploadFile(
+//			@RequestParam("file") MultipartFile file) {
+//		String name = "test11";
+//		if (!file.isEmpty()) {
+//			try {
+//				byte[] bytes = file.getBytes();
+//				BufferedOutputStream stream = new BufferedOutputStream(
+//						new FileOutputStream(new File(name + "-uploaded")));
+//				stream.write(bytes);
+//				stream.close();
+//				return "You successfully uploaded " + name + " into " + name
+//						+ "-uploaded !";
+//			} catch (Exception e) {
+//				return "You failed to upload " + name + " => " + e.getMessage();
+//			}
+//		} else {
+//			return "You failed to upload " + name
+//					+ " because the file was empty.";
+//		}
+//	}
 
 	// // 3.1.3 maps html form to a Model
 	// @PostMapping("/submitCalc")
@@ -202,12 +207,7 @@ public class ReliabilityControl {
 			for (int i = 0; i < keys.size(); i++) {
 				executeDF.RedissonDBKey().BatchDEL(keys.get(0).getValue());
 			}
-			// StateSampleConfig sampleConfig =
-			// Utils.toObject(config.getSampleConfig(),
-			// StateSampleConfig.class);
-			// StateEstimateConfig estimateConfig =
-			// Utils.toObject(config.getEstimateConfig(),
-			// StateEstimateConfig.class);
+
 			Path path = Paths.get(UPLOADED_FOLDER, config.getModelName());
 			File file = path.toFile();
 			if (!file.exists()) {
@@ -215,29 +215,7 @@ public class ReliabilityControl {
 			}
 
 			
-			boolean containFiles = saveUploadedFiles(path,
-					Arrays.asList(config.getFiles()), new FileByteProcessor() {
-
-						@Override
-						public void process(String fileName, byte[] bytes) {
-//							try {
-//								RedissonDBString dbstring = executeDF
-//										.RedissonDBString();
-//								
-//								//int pos = fileName.lastIndexOf('.');
-//								//String suffix = fileName.substring(pos);
-//								String key = modelNameTag + ":file:" + fileName;
-//								logger.info(
-//										"Upload file to redis : key = {}, size = {}. ",
-//										key, bytes.length);
-//								dbstring.<String> SET(key, MAX_FILE_TIME_OUT,
-//										new String(bytes));
-//							} catch (RedissonDBException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-						}
-					});
+			saveUploadedFiles(path, Arrays.asList(config.getFiles()), null);
 
 			if (file.isDirectory()) { // try upload loacal file
 				RedissonDBString dbstring = executeDF.RedissonDBString();
@@ -282,16 +260,14 @@ public class ReliabilityControl {
 
 
 			RedissonDBString dbstring = executeDF.RedissonDBString();
-			String key = modelNameTag + ":config:StateSampleConfig";
+			String key = modelNameTag + ":config:PRAdequacySetting";
+			//String value  = Utils.toJSon((PRAdequacySetting)config);
+			String value  = config.getSetting();
 			logger.info("Upload config to redis : key = {}, content = {}. ",
-					key, config.getSampleConfig());
+					key, value);
 			dbstring.<String> SET(key, MAX_FILE_TIME_OUT,
-					config.getSampleConfig());
-			key = modelNameTag + ":config:StateEstimateConfig";
-			logger.info("Upload config to redis : key = {}, content = {}. ",
-					key, config.getEstimateConfig());
-			dbstring.<String> SET(key, MAX_FILE_TIME_OUT,
-					config.getEstimateConfig());
+					value);
+
 			logger.info("sendMessage : cc = {}, content = {}. ",
 					"post_Reliability", modelName);
 			sendMessage("post_Reliability", modelName);
@@ -327,7 +303,8 @@ public class ReliabilityControl {
 			Path path = Paths.get(base.toAbsolutePath().toString(), fileName);
 			logger.info("save file : " + path.toAbsolutePath().toString());
 			Files.write(path, bytes);
-			p.process(fileName, bytes);
+			if (p != null)
+				p.process(fileName, bytes);
 			flag = true;
 		}
 

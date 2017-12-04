@@ -35,13 +35,13 @@ public  class ExchangeData <T extends ExchangeContent> {
 		Content = content;
 	}
 	
-	public Integer getValue() {
+	public String getValue() {
 		if (Content != null)
 			return Content.getValue();
 		return null;
 	}
 
-	public void setValue(Integer value) {
+	public void setValue(String value) {
 		if (Content != null) 
 			Content.setValue(value);
 	}

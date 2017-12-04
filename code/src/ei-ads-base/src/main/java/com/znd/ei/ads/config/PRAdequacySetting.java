@@ -1,47 +1,111 @@
 package com.znd.ei.ads.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PRAdequacySetting {
 
-    private String ANAMinStateProb = "0.000000";     
-    private String AuxLoadAdjust = "0";              
-    private String BpaDatFile = "";                  
-    private String BpaRParamFile = "";               
-    private String BpaSwiFile = "";                  
-    private String Dc2AcFactor = "1.100000";         
-    private String EQGenAdjust = "0";                
-    private String EQLoadAdjust = "0";               
-    private String FSTMaxCumuProb = "0.990000";      
-    private String FSTMaxStateNum = "100000";        
-    private String FSTMinStateProb = "0.000000";     
-    private String GenBusLoadAsAux = "0";            
-    private String GenPELimit = "1";                 
-    private String LineELimit = "1";                 
-    private String LowVoltThreshold = "0.000000";    
-    private String MCSMinStateProb = "0.000000";     
-    private String MCSSimulateTime = "2000000";      
-    private String MaxBranFault = "20";              
-    private String MaxGenFault = "20";               
-    private String MinIslandGLRatio = "0.500000";    
-    private String MultiThread = "2";                
-    private String PRSampleMethod = "1";             
-    private String PRSampleObject = "0";             
-    private String STSMaxStateNum = "100000";        
-    private String TinyGenThreshold = "0.000000";    
-    private String TranELimit = "1";                 
-    private String UPFCAdjustRC = "1";               
-    private String UPFCELimit = "1";                 
-    private String ZIL = "0.000010";
+	@JsonProperty("ANAMinStateProb")
+    private Double ANAMinStateProb = 0.000000;   
+	
+	@JsonProperty("AuxLoadAdjust")
+    private Integer AuxLoadAdjust = 0;              
     
-	public String getANAMinStateProb() {
+	@JsonProperty("BpaDatFile")
+	private String BpaDatFile = "";
+	
+	@JsonProperty("BpaRParamFile")
+    private String BpaRParamFile = "";
+	
+	@JsonProperty("BpaSwiFile")
+    private String BpaSwiFile = "";
+    
+    @JsonProperty("Dc2AcFactor")
+    private Double Dc2AcFactor = 1.100000;
+    
+    @JsonProperty("EQGenAdjust")
+    private Integer EQGenAdjust = 0;
+    
+    @JsonProperty("EQLoadAdjust")
+    private Integer EQLoadAdjust = 0;   
+    
+    @JsonProperty("FSTMaxCumuProb")
+    private Double FSTMaxCumuProb = 0.990000;      
+    
+    @JsonProperty("FSTMaxStateNum")
+    private Integer FSTMaxStateNum = 100000; 
+    
+    @JsonProperty("FSTMinStateProb")
+    private Double FSTMinStateProb = 0.000000; 
+    
+    @JsonProperty("GenBusLoadAsAux")
+    private Integer GenBusLoadAsAux = 0;     
+    
+    @JsonProperty("GenPELimit")
+    private Integer GenPELimit = 1;     
+    
+    @JsonProperty("LineELimit")
+    private Integer LineELimit = 1;     
+    
+    @JsonProperty("LowVoltThreshold")
+    private Double LowVoltThreshold = 0.000000; 
+    
+    @JsonProperty("MCSMinStateProb")
+    private Double MCSMinStateProb = 0.000000;
+    
+    @JsonProperty("MCSSimulateTime")
+    private Integer MCSSimulateTime = 2000000;   
+    
+    @JsonProperty("MaxBranFault")
+    private Integer MaxBranFault = 20;       
+    
+    @JsonProperty("MaxGenFault")
+    private Integer MaxGenFault = 20;   
+    
+    @JsonProperty("MinIslandGLRatio")
+    private Double MinIslandGLRatio = 0.500000;   
+    
+    @JsonProperty("MultiThread")
+    private Integer MultiThread = 2;     
+    
+    @JsonProperty("PRSampleMethod")
+    private Integer PRSampleMethod = 1;  
+    
+    @JsonProperty("PRSampleObject")
+    private Integer PRSampleObject = 0;  
+    
+    @JsonProperty("STSMaxStateNum")
+    private Integer STSMaxStateNum = 100000; 
+    
+    @JsonProperty("TinyGenThreshold")
+    private Double TinyGenThreshold = 0.000000;   
+    
+    @JsonProperty("TranELimit")
+    private Integer TranELimit = 1;
+    
+    @JsonProperty("UPFCAdjustRC")
+    private Integer UPFCAdjustRC = 1;     
+    
+    @JsonProperty("UPFCELimit")
+    private Integer UPFCELimit = 1;  
+    
+    @JsonProperty("ZIL")
+    private Double ZIL = 0.000010;
+    
+	public Double getANAMinStateProb() {
 		return ANAMinStateProb;
 	}
-	public void setANAMinStateProb(String aNAMinStateProb) {
+	public void setANAMinStateProb(Double aNAMinStateProb) {
 		ANAMinStateProb = aNAMinStateProb;
 	}
-	public String getAuxLoadAdjust() {
+	public Integer getAuxLoadAdjust() {
 		return AuxLoadAdjust;
 	}
-	public void setAuxLoadAdjust(String auxLoadAdjust) {
+	public void setAuxLoadAdjust(Integer auxLoadAdjust) {
 		AuxLoadAdjust = auxLoadAdjust;
 	}
 	public String getBpaDatFile() {
@@ -62,149 +126,150 @@ public class PRAdequacySetting {
 	public void setBpaSwiFile(String bpaSwiFile) {
 		BpaSwiFile = bpaSwiFile;
 	}
-	public String getDc2AcFactor() {
+	public Double getDc2AcFactor() {
 		return Dc2AcFactor;
 	}
-	public void setDc2AcFactor(String dc2AcFactor) {
+	public void setDc2AcFactor(Double dc2AcFactor) {
 		Dc2AcFactor = dc2AcFactor;
 	}
-	public String getEQGenAdjust() {
+	public Integer getEQGenAdjust() {
 		return EQGenAdjust;
 	}
-	public void setEQGenAdjust(String eQGenAdjust) {
+	public void setEQGenAdjust(Integer eQGenAdjust) {
 		EQGenAdjust = eQGenAdjust;
 	}
-	public String getEQLoadAdjust() {
+	public Integer getEQLoadAdjust() {
 		return EQLoadAdjust;
 	}
-	public void setEQLoadAdjust(String eQLoadAdjust) {
+	public void setEQLoadAdjust(Integer eQLoadAdjust) {
 		EQLoadAdjust = eQLoadAdjust;
 	}
-	public String getFSTMaxCumuProb() {
+	public Double getFSTMaxCumuProb() {
 		return FSTMaxCumuProb;
 	}
-	public void setFSTMaxCumuProb(String fSTMaxCumuProb) {
+	public void setFSTMaxCumuProb(Double fSTMaxCumuProb) {
 		FSTMaxCumuProb = fSTMaxCumuProb;
 	}
-	public String getFSTMaxStateNum() {
+	public Integer getFSTMaxStateNum() {
 		return FSTMaxStateNum;
 	}
-	public void setFSTMaxStateNum(String fSTMaxStateNum) {
+	public void setFSTMaxStateNum(Integer fSTMaxStateNum) {
 		FSTMaxStateNum = fSTMaxStateNum;
 	}
-	public String getFSTMinStateProb() {
+	public Double getFSTMinStateProb() {
 		return FSTMinStateProb;
 	}
-	public void setFSTMinStateProb(String fSTMinStateProb) {
+	public void setFSTMinStateProb(Double fSTMinStateProb) {
 		FSTMinStateProb = fSTMinStateProb;
 	}
-	public String getGenBusLoadAsAux() {
+	public Integer getGenBusLoadAsAux() {
 		return GenBusLoadAsAux;
 	}
-	public void setGenBusLoadAsAux(String genBusLoadAsAux) {
+	public void setGenBusLoadAsAux(Integer genBusLoadAsAux) {
 		GenBusLoadAsAux = genBusLoadAsAux;
 	}
-	public String getGenPELimit() {
+	public Integer getGenPELimit() {
 		return GenPELimit;
 	}
-	public void setGenPELimit(String genPELimit) {
+	public void setGenPELimit(Integer genPELimit) {
 		GenPELimit = genPELimit;
 	}
-	public String getLineELimit() {
+	public Integer getLineELimit() {
 		return LineELimit;
 	}
-	public void setLineELimit(String lineELimit) {
+	public void setLineELimit(Integer lineELimit) {
 		LineELimit = lineELimit;
 	}
-	public String getLowVoltThreshold() {
+	public Double getLowVoltThreshold() {
 		return LowVoltThreshold;
 	}
-	public void setLowVoltThreshold(String lowVoltThreshold) {
+	public void setLowVoltThreshold(Double lowVoltThreshold) {
 		LowVoltThreshold = lowVoltThreshold;
 	}
-	public String getMCSMinStateProb() {
+	public Double getMCSMinStateProb() {
 		return MCSMinStateProb;
 	}
-	public void setMCSMinStateProb(String mCSMinStateProb) {
+	public void setMCSMinStateProb(Double mCSMinStateProb) {
 		MCSMinStateProb = mCSMinStateProb;
 	}
-	public String getMCSSimulateTime() {
+	public Integer getMCSSimulateTime() {
 		return MCSSimulateTime;
 	}
-	public void setMCSSimulateTime(String mCSSimulateTime) {
+	public void setMCSSimulateTime(Integer mCSSimulateTime) {
 		MCSSimulateTime = mCSSimulateTime;
 	}
-	public String getMaxBranFault() {
+	public Integer getMaxBranFault() {
 		return MaxBranFault;
 	}
-	public void setMaxBranFault(String maxBranFault) {
+	public void setMaxBranFault(Integer maxBranFault) {
 		MaxBranFault = maxBranFault;
 	}
-	public String getMaxGenFault() {
+	public Integer getMaxGenFault() {
 		return MaxGenFault;
 	}
-	public void setMaxGenFault(String maxGenFault) {
+	public void setMaxGenFault(Integer maxGenFault) {
 		MaxGenFault = maxGenFault;
 	}
-	public String getMinIslandGLRatio() {
+	public Double getMinIslandGLRatio() {
 		return MinIslandGLRatio;
 	}
-	public void setMinIslandGLRatio(String minIslandGLRatio) {
+	public void setMinIslandGLRatio(Double minIslandGLRatio) {
 		MinIslandGLRatio = minIslandGLRatio;
 	}
-	public String getMultiThread() {
+	public Integer getMultiThread() {
 		return MultiThread;
 	}
-	public void setMultiThread(String multiThread) {
+	public void setMultiThread(Integer multiThread) {
 		MultiThread = multiThread;
 	}
-	public String getPRSampleMethod() {
+	public Integer getPRSampleMethod() {
 		return PRSampleMethod;
 	}
-	public void setPRSampleMethod(String pRSampleMethod) {
+	public void setPRSampleMethod(Integer pRSampleMethod) {
 		PRSampleMethod = pRSampleMethod;
 	}
-	public String getPRSampleObject() {
+	public Integer getPRSampleObject() {
 		return PRSampleObject;
 	}
-	public void setPRSampleObject(String pRSampleObject) {
+	public void setPRSampleObject(Integer pRSampleObject) {
 		PRSampleObject = pRSampleObject;
 	}
-	public String getSTSMaxStateNum() {
+	public Integer getSTSMaxStateNum() {
 		return STSMaxStateNum;
 	}
-	public void setSTSMaxStateNum(String sTSMaxStateNum) {
+	public void setSTSMaxStateNum(Integer sTSMaxStateNum) {
 		STSMaxStateNum = sTSMaxStateNum;
 	}
-	public String getTinyGenThreshold() {
+	public Double getTinyGenThreshold() {
 		return TinyGenThreshold;
 	}
-	public void setTinyGenThreshold(String tinyGenThreshold) {
+	public void setTinyGenThreshold(Double tinyGenThreshold) {
 		TinyGenThreshold = tinyGenThreshold;
 	}
-	public String getTranELimit() {
+	public Integer getTranELimit() {
 		return TranELimit;
 	}
-	public void setTranELimit(String tranELimit) {
+	public void setTranELimit(Integer tranELimit) {
 		TranELimit = tranELimit;
 	}
-	public String getUPFCAdjustRC() {
+	public Integer getUPFCAdjustRC() {
 		return UPFCAdjustRC;
 	}
-	public void setUPFCAdjustRC(String uPFCAdjustRC) {
+	public void setUPFCAdjustRC(Integer uPFCAdjustRC) {
 		UPFCAdjustRC = uPFCAdjustRC;
 	}
-	public String getUPFCELimit() {
+	public Integer getUPFCELimit() {
 		return UPFCELimit;
 	}
-	public void setUPFCELimit(String uPFCELimit) {
+	public void setUPFCELimit(Integer uPFCELimit) {
 		UPFCELimit = uPFCELimit;
 	}
-	public String getZIL() {
+	public Double getZIL() {
 		return ZIL;
 	}
-	public void setZIL(String zIL) {
+	public void setZIL(Double zIL) {
 		ZIL = zIL;
-	}                 
+	}
+    
 
 }

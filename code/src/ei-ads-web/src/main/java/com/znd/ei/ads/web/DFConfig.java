@@ -3,6 +3,7 @@ package com.znd.ei.ads.web;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 
 import com.ZhongND.RedisADF.ADFService.ADFService;
 import com.ZhongND.RedisADF.ADFService.ADFServiceEntry;
@@ -56,5 +57,10 @@ public class DFConfig {
 //	public BarComponent barComponent() {
 //		...
 //	}
+	
+	@Bean
+	public HttpMessageConverter jacksonMessageConverter() {
+		return new org.springframework.http.converter.json.MappingJackson2HttpMessageConverter();
+	}
 
 }

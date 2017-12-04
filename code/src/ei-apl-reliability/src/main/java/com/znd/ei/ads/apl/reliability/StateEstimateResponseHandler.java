@@ -13,6 +13,7 @@ import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.apl.reliability.bean.Commands;
 import com.znd.ei.ads.apl.reliability.bean.RequestEstimate;
+import com.znd.ei.ads.apl.reliability.bean.RequestJobFinished;
 import com.znd.ei.ads.apl.reliability.bean.ResponseEstimate;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 
@@ -70,12 +71,15 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
     		semaphore.release();
     		if (resultMap.size() == taskSize) {
     			System.out.println("Finishes State Estimate : taskSize ="+taskSize);
-    			ctx.close();
-    			closeParent(null, null);
+    			stopJob();
     			return;
     		}
     		
     		
+    	} else if (content.contains(Commands.JOB_FINISHED)) {
+    		System.out.println("Received message : "+content);
+			ctx.close();
+			closeParent(0l, TimeUnit.MINUTES);
     	} else { //
     		System.err.println("Unknown command:"+msg.toString());
     		return;
@@ -91,7 +95,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 				if (task != null) {
 					RequestEstimate request = new RequestEstimate();
 					
-					request.getContent().setFState(task);
+					request.getContent().getFState().add(task);
 					String responseMsg = Utils.toJSon(request);
 					
 					//String responseMsg = fileToString(new File("D:\\GitHub\\cim2ddl\\documents\\交互\\4 response_estimate.json"));
@@ -99,8 +103,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 						server.sendMessage(responseMsg);
 				} else { //
 					System.out.println("Task is finished :"+taskList.getKey());
-					ctx.close();
-					closeParent(0l, TimeUnit.MINUTES);
+					stopJob();
 				}
 			}
 		} catch (ACPException e) {
@@ -108,6 +111,13 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 			e.printStackTrace();
 		}
     }
+	
+	private void stopJob() {
+		RequestJobFinished request = new RequestJobFinished();
+		String responseMsg = Utils.toJSon(request);
+		if (server != null)
+			server.sendMessage(responseMsg);
+	}
     
 
 	@Override
