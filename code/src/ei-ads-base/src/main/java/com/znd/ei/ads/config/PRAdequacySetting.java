@@ -73,7 +73,7 @@ public class PRAdequacySetting {
     private Integer MultiThread = 2;     
     
     @JsonProperty("PRSampleMethod")
-    private Integer PRSampleMethod = 1;  
+    private Integer PRSampleMethod = 0;  
     
     @JsonProperty("PRSampleObject")
     private Integer PRSampleObject = 0;  
@@ -95,6 +95,7 @@ public class PRAdequacySetting {
     
     @JsonProperty("ZIL")
     private Double ZIL = 0.000010;
+    
     
 	public Double getANAMinStateProb() {
 		return ANAMinStateProb;
@@ -269,6 +270,28 @@ public class PRAdequacySetting {
 	}
 	public void setZIL(Double zIL) {
 		ZIL = zIL;
+	}
+	@Override
+	public String toString() {
+		return "PRAdequacySetting [ANAMinStateProb=" + ANAMinStateProb
+				+ ", AuxLoadAdjust=" + AuxLoadAdjust + ", BpaDatFile="
+				+ BpaDatFile + ", BpaRParamFile=" + BpaRParamFile
+				+ ", BpaSwiFile=" + BpaSwiFile + ", Dc2AcFactor=" + Dc2AcFactor
+				+ ", EQGenAdjust=" + EQGenAdjust + ", EQLoadAdjust="
+				+ EQLoadAdjust + ", FSTMaxCumuProb=" + FSTMaxCumuProb
+				+ ", FSTMaxStateNum=" + FSTMaxStateNum + ", FSTMinStateProb="
+				+ FSTMinStateProb + ", GenBusLoadAsAux=" + GenBusLoadAsAux
+				+ ", GenPELimit=" + GenPELimit + ", LineELimit=" + LineELimit
+				+ ", LowVoltThreshold=" + LowVoltThreshold
+				+ ", MCSMinStateProb=" + MCSMinStateProb + ", MCSSimulateTime="
+				+ MCSSimulateTime + ", MaxBranFault=" + MaxBranFault
+				+ ", MaxGenFault=" + MaxGenFault + ", MinIslandGLRatio="
+				+ MinIslandGLRatio + ", MultiThread=" + MultiThread
+				+ ", PRSampleMethod=" + PRSampleMethod + ", PRSampleObject="
+				+ PRSampleObject + ", STSMaxStateNum=" + STSMaxStateNum
+				+ ", TinyGenThreshold=" + TinyGenThreshold + ", TranELimit="
+				+ TranELimit + ", UPFCAdjustRC=" + UPFCAdjustRC
+				+ ", UPFCELimit=" + UPFCELimit + ", ZIL=" + ZIL + "]";
 	}
     
 

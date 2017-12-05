@@ -56,9 +56,9 @@
 				</legend>
 				<div class="fitem">
 					<label> 状态抽样类型:</label> 
-					<input name="PRSampleObject" id="all_net" value="1" type="radio" checked="checked" /><label for="all_net">全网</label>
-				    <input name="PRSampleObject" id="transmission" value="2" type="radio" /><label for="transmission">输电</label> 
-				    <input name="PRSampleObject" id="generation" value="3" type="radio" /><label for="generation">发电</label>
+					<input name="PRSampleObject" id="all_net" value="0" type="radio" checked="checked" /><label for="all_net">全网</label>
+				    <input name="PRSampleObject" id="transmission" value="1" type="radio" /><label for="transmission">输电</label> 
+				    <input name="PRSampleObject" id="generation" value="2" type="radio" /><label for="generation">发电</label>
 				</div>
 				<div class="fitem">
 					<label> 状态抽样方法:</label> 
@@ -176,6 +176,7 @@
 		<div id="control-panel">
 			<button id="start-calc-reliability">启动可靠性计算</button>
 			<button id="cancel-calc-reliability">取消可靠性计算</button>
+			<button id="clear-database">清除数据库</button>
 			<label id="request-response"></label>
 		</div>
 		

@@ -60,7 +60,8 @@ var init = function() {
 		//alert("on change file:"+fileName);
 	});
 
-	$("#pbar_outerdiv").hide();};
+	$("#pbar_outerdiv").hide();
+};
 
 $(document).ready(init);
 
@@ -93,6 +94,24 @@ $.fn.serializeObject = function()
 };
 
 var browser = LogBrowser();
+
+$('#clear-database').click(function() {
+	var data = $("#modelName").val();
+	$.ajax({
+		url : "pr/clearDatabase/"+data,
+		type : "POST",
+		data : null,
+
+		success : function(msg) {
+			console.log(msg);
+
+		},
+		error : function() {
+			alert("fail to clear!");
+		}
+	});
+});
+
 $('#start-calc-reliability').click(
 		function() {
 			var f = $("#pr-adequacy-setting-form");

@@ -19,10 +19,10 @@ ads:
   appDir: E:/ZNDProject/SoftwareBeta/bin_x64
 
 state-estimate:
-  listenPort: 9002
+  listenPort: 9003
   serverPort: 8950
   serverIp: 127.0.0.1
-  serverThread: 1
+  serverThread: 4
   readyResponseTimeOut: 5
   cachedDir: D:/GitHub/cim2ddl/code/pr-dir
   
@@ -37,23 +37,3 @@ io:
   netty:
     leakDetection:
       level: advanced
-spring:
-  redis:
-    database: 0  
-    host: 92.168.1.10
-    port: 7000
-    cluster:
-      nodes: 
-        - 192.168.3.70:7000
-        - 192.168.3.70:7001
-        - 192.168.3.70:7002
-        - 192.168.3.70:7003
-        - 192.168.3.70:7004
-        - 192.168.3.70:7005
-    password:  
-    pool:
-      max-active: 8  
-      max-wait: -1  
-      max-idle: 8  
-      min-idle: 0  
-    timeout: 0 

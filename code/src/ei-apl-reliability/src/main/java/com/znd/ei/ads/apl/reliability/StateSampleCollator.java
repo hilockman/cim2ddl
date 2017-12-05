@@ -14,7 +14,7 @@ import org.redisson.api.mapreduce.RCollator;
 import com.znd.ei.ads.AdsUtils;
 import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
 import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
-import com.znd.ei.ads.config.StateEstimateConfig;
+import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
@@ -93,7 +93,7 @@ public class StateSampleCollator implements
 			clearAndSave(ovlAds, apl.ovlAdDao);
 					
 			// TODO : call reliability index;
-			ReliabilityApl.callReliabilityIndex(new StateEstimateConfig());
+			ReliabilityApl.callReliabilityIndex(new PRAdequacySetting());
 			Iterable<com.znd.ei.memdb.reliabilty.domain.System> results = apl.systemDao.findAll();
 			
 			ReliabilityIndexResult result = new ReliabilityIndexResult();

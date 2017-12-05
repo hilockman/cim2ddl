@@ -333,8 +333,6 @@ public final class DataFieldStorage {
 
 	}
 
-
-
 	/**
 	 * 处理从总线收到的消息
 	 * @param contentCode
@@ -351,38 +349,58 @@ public final class DataFieldStorage {
 			return;
 		}
 
-		LOGGER.info("Begin to update data field: cc={}, content={}",
-				contentCode, content);
-
-	
-		DataField df = dataFields.get(contentCode);
-		try {
-			if (df.isEmpty()){ //数据域为空，则初始化
-				df.initDataItem(content);
-				LOGGER.info("Success to update data field: cc={}, content={}",
-						contentCode, content);
-			}
-//			else if(df.dataItem.getKey() != null && df.dataItem.getKey().equals(content)) {
-//				LOGGER.info("Data file is not empty and key is same, omit update.");
-//			} 
-			else  { //数据域不为空，数据key值与消息不一致
-				if (!df.isEmpty())
-					clear(df);
-					 
-				df.initDataItem(content);
-				LOGGER.info("Success to update data field: cc={}, content={}",
-						contentCode, content);
-			} 
-		} catch (IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | InstantiationException e) {
-
-			e.printStackTrace();
-			throw new ACPException(e);
-		}
-
-		
-		aplManager.bootAplCaller(contentCode, this);
+		aplManager.bootAplCaller(contentCode, content);
 	}
+	
+
+//	/**
+//	 * 处理从总线收到的消息
+//	 * @param contentCode
+//	 * @param content
+//	 * @throws ACPException
+//	 * @throws UnsupportedOperation
+//	 */
+//	public void receivedMessage(String contentCode, String content)
+//			throws ACPException, UnsupportedOperation {
+//		LOGGER.info("DataField Receive: cc={}, content={}", contentCode,
+//				content);
+//		if (!dataFields.containsKey(contentCode)) {
+//			LOGGER.info("Dump uninterested cc={}", contentCode);
+//			return;
+//		}
+//
+//		LOGGER.info("Begin to update data field: cc={}, content={}",
+//				contentCode, content);
+//
+//	
+//		DataField df = dataFields.get(contentCode);
+//		try {
+//			if (df.isEmpty()){ //数据域为空，则初始化
+//				df.initDataItem(content);
+//				LOGGER.info("Success to update data field: cc={}, content={}",
+//						contentCode, content);
+//			}
+////			else if(df.dataItem.getKey() != null && df.dataItem.getKey().equals(content)) {
+////				LOGGER.info("Data file is not empty and key is same, omit update.");
+////			} 
+//			else  { //数据域不为空，数据key值与消息不一致
+//				if (!df.isEmpty())
+//					clear(df);
+//					 
+//				df.initDataItem(content);
+//				LOGGER.info("Success to update data field: cc={}, content={}",
+//						contentCode, content);
+//			} 
+//		} catch (IllegalAccessException | IllegalArgumentException
+//				| InvocationTargetException | InstantiationException e) {
+//
+//			e.printStackTrace();
+//			throw new ACPException(e);
+//		}
+//
+//		
+//		aplManager.bootAplCaller(contentCode, this);
+//	}
 
 	public void clear(DataField df) {
 		LOGGER.info("清除数据域:"+df.contentCode);

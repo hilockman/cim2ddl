@@ -65,16 +65,18 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
     			index = currentTaskIndex.incrementAndGet();
     		}
     		FState state = result.getContent().getFState().get(0);
-    		resultMap.set(String.valueOf(state.getFStateID()), result);
-    		
-    		//resultMap.set(String.valueOf(state.getStateNum()), result);
-    		semaphore.release();
-    		if (resultMap.size() == taskSize) {
-    			System.out.println("Finishes State Estimate : taskSize ="+taskSize);
-    			stopJob();
-    			return;
+    		synchronized(resultMap) {
+    			resultMap.set(String.valueOf(state.getFStateID()), result);
+        		if (resultMap.size() == taskSize) {
+        			System.out.println("Finishes State Estimate : taskSize ="+taskSize);
+        			stopJob();
+        			return;
+        		}
     		}
     		
+    		//resultMap.set(String.valueOf(state.getStateNum()), result);
+    		    		
+    		semaphore.release();
     		
     	} else if (content.contains(Commands.JOB_FINISHED)) {
     		System.out.println("Received message : "+content);
@@ -96,11 +98,11 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 					RequestEstimate request = new RequestEstimate();
 					
 					request.getContent().getFState().add(task);
-					String responseMsg = Utils.toJSon(request);
+					String requestMsg = Utils.toJSon(request);
 					
 					//String responseMsg = fileToString(new File("D:\\GitHub\\cim2ddl\\documents\\交互\\4 response_estimate.json"));
 					if (server != null)
-						server.sendMessage(responseMsg);
+						server.simpleSendMessage(requestMsg);
 				} else { //
 					System.out.println("Task is finished :"+taskList.getKey());
 					stopJob();
@@ -116,7 +118,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 		RequestJobFinished request = new RequestJobFinished();
 		String responseMsg = Utils.toJSon(request);
 		if (server != null)
-			server.sendMessage(responseMsg);
+			server.simpleSendMessage(responseMsg);
 	}
     
 

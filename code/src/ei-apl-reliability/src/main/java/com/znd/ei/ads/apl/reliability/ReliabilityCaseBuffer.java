@@ -30,21 +30,28 @@ public class ReliabilityCaseBuffer {
 	public static final String PR_ADEQUACY_SETTING = "config:PRAdequacySetting";
 	
 	public static final String FSTATE_LIST = "FStates";
-	public static final String FDEV_LIST = "FStates";
+	public static final String FDEV_LIST = "FDevStates";
 	public static final String ESTIMATE_TASK_LIST = "EstimateTasks";
 	public static final String ESTIMATE_RESULT_MAP = "EstimateResultMap";
 	
 	private ObjectRefDataOperations strOps;
 	private MapDataOperations mapOps;
 	private ListDataOperations listOps;
-	
+	private AbstractConnectionFactory connectionFactory;
 	public ReliabilityCaseBuffer(AbstractConnectionFactory connectionFactory, String modelName) {
 		this.setModelName(modelName);
 		strOps = connectionFactory.getObjectRefOperations();
 		mapOps = connectionFactory.getMapDataOperations();
 		listOps = connectionFactory.getListDataOperations();
+		this.connectionFactory = connectionFactory;
 	}
 	
+	
+	public void removeKeys(String... keys) {
+		for (String key : keys) {
+			connectionFactory.deleteKeys(formInternalKey(key));
+		}
+	}
 	private String prefix() {
 		return modelName;
 	}
@@ -85,7 +92,17 @@ public class ReliabilityCaseBuffer {
 		if (values == null || values.isEmpty())
 			return;
 		
-		listOps.pushAll(formInternalKey(key), values);
+		int offset = 0;
+		int batch = 1000;
+		String internalKey = formInternalKey(key);
+		while (offset < values.size()) {
+			int incre = batch;
+			int left = values.size() - offset; 
+			if (incre > left )
+				incre = left;
+			listOps.pushAll(internalKey, values.subList(offset, offset+incre));
+			offset += incre;		
+		}
 	}
 	
 	public <T> void pushAll(List<T> values) {

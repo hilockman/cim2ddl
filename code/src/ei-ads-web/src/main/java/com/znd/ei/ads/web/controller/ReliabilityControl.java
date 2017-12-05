@@ -1,9 +1,7 @@
 package com.znd.ei.ads.web.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -11,7 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,14 +31,13 @@ import com.ZhongND.RedisDF.exectueDF.ExectueDF;
 import com.ZhongND.RedisDF.exectueDF.ResultObject;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBKey;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
+import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBMap;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.config.AdsResult;
 import com.znd.ei.ads.config.FileInfo;
 import com.znd.ei.ads.config.PRAdequacySetting;
-import com.znd.ei.ads.config.StateEstimateConfig;
-import com.znd.ei.ads.config.StateSampleConfig;
 import com.znd.ei.ads.web.model.ReliabilityUploadConfig;
 
 @RestController
@@ -191,6 +189,29 @@ public class ReliabilityControl {
 		
 		return null;
 
+	}
+	
+	@PostMapping("/clearDatabase/{modelName}")
+	public @ResponseBody String clearDatabase(@PathVariable("modelName")String modelName) {
+		sendMessage("clear_Database", modelName);
+		return "ok";
+	}
+	
+	@RequestMapping("/testMap/{count}")
+	public void testMap(@PathVariable("count")int count) {
+		try {
+			System.out.println("map count:"+count);
+			RedissonDBMap m = executeDF.RedissonDBMap();
+			for (int i = 0; i < count; i++) {
+				Map<Integer, String> m1 = new HashMap<Integer, String>();
+				System.out.println("i="+i);
+				m1.put(i, "key"+i);
+				m.LockHMSET("testMap", MAX_FILE_TIME_OUT, m1);
+			}
+		} catch (RedissonDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 	@PostMapping("/submitCalc")

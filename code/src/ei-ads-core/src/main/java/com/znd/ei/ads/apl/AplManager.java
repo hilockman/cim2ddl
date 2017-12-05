@@ -150,8 +150,7 @@ public final class AplManager {
 		ClassFilter filter = (Class<?> c) -> (c.getAnnotation(AplController.class) != null); 
 		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl",
 				filter);
-		if (classes.size() == 1) // 只包含InternalAdsApls则退出
-			return;
+
 
 		LOGGER.info("Skip apls : {}", String.join(",", skips));
 		Iterator<Class<?>> it = classes.iterator();
@@ -287,6 +286,154 @@ public final class AplManager {
 		return apls.size();
 	}
 
+//	/**
+//	 * 调用应用方法
+//	 * 
+//	 * @param contentCode
+//	 * @throws ACPException
+//	 * @throws UnsupportedOperation
+//	 */
+//	@SuppressWarnings({ "rawtypes", "unchecked" })
+//	public void bootAplCaller(String contentCode, DataFieldStorage storage)
+//			throws ACPException, UnsupportedOperation {
+//		List<AppCallInfo> appCallInfos = cc2AplCallInfos.get(contentCode);
+//		if (appCallInfos == null) {
+//			return;
+//		}
+//
+//		// if (!storage.contain(contentCode))
+//		// return;
+//
+//		// 调用业务逻辑
+//		for (final AppCallInfo appCallInfo : appCallInfos) {
+//			// 正在工作则不响应
+//			if (appCallInfo.isWorking)
+//				continue;
+//
+//			List<String> inputCCs = appCallInfo.inputCCs;
+//
+//			// 判断是否启动业务逻辑
+//			boolean boot = true;
+//			if (appCallInfo.ccOper.equals(AplFunction.AND)) {
+//				boot = true;
+//				System.out.println("");
+//				for (String cc : inputCCs) {
+//					if (!storage.prepared(cc)) {
+//						boot = false;
+//						break;
+//					}
+//				}
+//			} else {
+//				boot = false;
+//				for (String cc : inputCCs) {
+//					if (storage.prepared(cc)) {
+//						boot = true;
+//						break;
+//					}
+//				}
+//			}
+//
+//			if (!boot)
+//				continue;
+//
+//			// 业务逻辑参数初始化
+//			Object dataItems[] = new DataItem[appCallInfo.paramInfos.length];
+//			int pos = 0;
+//			List<ParamInfo> outputDataItems = new ArrayList<ParamInfo>();
+//			List<DataFieldStorage.DataField> inputDataFields = new ArrayList<DataFieldStorage.DataField>();
+//			List<DataFieldStorage.DataField> outputDataFields = new ArrayList<DataFieldStorage.DataField>();
+//			List<DataItem> outputDatas = new ArrayList<DataItem>();
+//			for (ParamInfo paramInfo : appCallInfo.paramInfos) {
+//				if (paramInfo.bIn) { // 输入参数
+//					dataItems[pos++] = paramInfo.dataField.dataItem;
+//					inputDataFields.add(paramInfo.dataField);
+//				} else { // 输出参数
+//					try {
+//						// paramInfo.dataField.initDataItem();
+//						outputDataFields.add(paramInfo.dataField);
+//						DataItem item = paramInfo.dataField.createData();
+//						dataItems[pos++] = item;
+//						outputDataItems.add(paramInfo);
+//						outputDatas.add(item);
+//					} catch (InstantiationException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//						throw new ACPException(e.getMessage());
+//					} catch (IllegalAccessException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//						throw new ACPException(e.getMessage());
+//					} catch (IllegalArgumentException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					} catch (InvocationTargetException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//
+//			AppInfo appInfo = appCallInfo.appInfo;
+//			String appName = appInfo.getName();
+//			String methodName = appCallInfo.method.getName();
+//
+//			adsThreadPool.execute(new Runnable() {
+//
+//				@Override
+//				public void run() {
+//					try {
+//						LOGGER.info(String.format(
+//								"------------------开始调用:%s------------------",
+//								appCallInfo.desc));
+//						appCallInfo.isWorking = true;
+//
+//						// 调用业务逻辑，填充数据
+//						appCallInfo.method.invoke(appCallInfo.app, dataItems);
+//
+//						// 清理输入数据区域
+//						for (DataFieldStorage.DataField df : inputDataFields) {
+//							if (appCallInfo.canClear(df)) {
+//								dataFieldStorage.clear(df);
+//							}
+//						}
+//
+//						// 更新数据域
+//						for (int i = 0; i < outputDataFields.size(); i++) {
+//							DataFieldStorage.DataField df = outputDataFields
+//									.get(i);
+//							DataItem dataItem = outputDatas.get(i);
+//							df.dataItem = dataItem;
+//						}
+//						// 通过总线，发布数据
+//						for (ParamInfo paramInfo : outputDataItems) {
+//							DataFieldStorage.DataField df = paramInfo.dataField;
+//
+//							df.publishToBus();
+//
+//						}
+//
+//						LOGGER.info(String.format(
+//								"------------------结束调用:%s------------------",
+//								appCallInfo.desc));
+//					} catch (IllegalAccessException | IllegalArgumentException
+//							| InvocationTargetException | ACPException
+//							| UnsupportedOperation e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//						LOGGER.error(e.getMessage() + ", app=" + appName
+//								+ ", method=" + methodName);
+//					} finally {
+//						appCallInfo.isWorking = false;
+//					}
+//				}
+//			});
+//
+//		}
+//
+//		// 清除数据区域
+//
+//	}
+
 	/**
 	 * 调用应用方法
 	 * 
@@ -295,7 +442,7 @@ public final class AplManager {
 	 * @throws UnsupportedOperation
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void bootAplCaller(String contentCode, DataFieldStorage storage)
+	public void bootAplCaller(String contentCode, String content)
 			throws ACPException, UnsupportedOperation {
 		List<AppCallInfo> appCallInfos = cc2AplCallInfos.get(contentCode);
 		if (appCallInfos == null) {
@@ -308,75 +455,19 @@ public final class AplManager {
 		// 调用业务逻辑
 		for (final AppCallInfo appCallInfo : appCallInfos) {
 			// 正在工作则不响应
-			if (appCallInfo.isWorking)
-				continue;
-
-			List<String> inputCCs = appCallInfo.inputCCs;
-
-			// 判断是否启动业务逻辑
-			boolean boot = true;
-			if (appCallInfo.ccOper.equals(AplFunction.AND)) {
-				boot = true;
-				System.out.println("");
-				for (String cc : inputCCs) {
-					if (!storage.prepared(cc)) {
-						boot = false;
-						break;
-					}
-				}
-			} else {
-				boot = false;
-				for (String cc : inputCCs) {
-					if (storage.prepared(cc)) {
-						boot = true;
-						break;
-					}
-				}
-			}
-
-			if (!boot)
-				continue;
-
-			// 业务逻辑参数初始化
-			Object dataItems[] = new DataItem[appCallInfo.paramInfos.length];
-			int pos = 0;
-			List<ParamInfo> outputDataItems = new ArrayList<ParamInfo>();
-			List<DataFieldStorage.DataField> inputDataFields = new ArrayList<DataFieldStorage.DataField>();
-			List<DataFieldStorage.DataField> outputDataFields = new ArrayList<DataFieldStorage.DataField>();
-			List<DataItem> outputDatas = new ArrayList<DataItem>();
-			for (ParamInfo paramInfo : appCallInfo.paramInfos) {
-				if (paramInfo.bIn) { // 输入参数
-					dataItems[pos++] = paramInfo.dataField.dataItem;
-					inputDataFields.add(paramInfo.dataField);
-				} else { // 输出参数
-					try {
-						// paramInfo.dataField.initDataItem();
-						outputDataFields.add(paramInfo.dataField);
-						DataItem item = paramInfo.dataField.createData();
-						dataItems[pos++] = item;
-						outputDataItems.add(paramInfo);
-						outputDatas.add(item);
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						throw new ACPException(e.getMessage());
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						throw new ACPException(e.getMessage());
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
 			AppInfo appInfo = appCallInfo.appInfo;
 			String appName = appInfo.getName();
 			String methodName = appCallInfo.method.getName();
+
+			if (appCallInfo.isWorking) {
+				System.out.println("app is busy : app = "+appName+", method = "+methodName);
+				continue;
+			}
+		
+
+			// 业务逻辑参数初始化
+			Object dataItems[] = {content};
+
 
 			adsThreadPool.execute(new Runnable() {
 
@@ -391,39 +482,14 @@ public final class AplManager {
 						// 调用业务逻辑，填充数据
 						appCallInfo.method.invoke(appCallInfo.app, dataItems);
 
-						// 清理输入数据区域
-						for (DataFieldStorage.DataField df : inputDataFields) {
-							if (appCallInfo.canClear(df)) {
-								dataFieldStorage.clear(df);
-							}
-						}
-
-						// 更新数据域
-						for (int i = 0; i < outputDataFields.size(); i++) {
-							DataFieldStorage.DataField df = outputDataFields
-									.get(i);
-							DataItem dataItem = outputDatas.get(i);
-							df.dataItem = dataItem;
-						}
-						// 通过总线，发布数据
-						for (ParamInfo paramInfo : outputDataItems) {
-							DataFieldStorage.DataField df = paramInfo.dataField;
-
-							df.publishToBus();
-
-						}
-
 						LOGGER.info(String.format(
 								"------------------结束调用:%s------------------",
 								appCallInfo.desc));
 					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException | ACPException
-							| UnsupportedOperation e) {
+							| InvocationTargetException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						LOGGER.error(e.getMessage() + ", app=" + appName
-								+ ", method=" + methodName);
-					} finally {
+					}  finally {
 						appCallInfo.isWorking = false;
 					}
 				}
@@ -435,6 +501,7 @@ public final class AplManager {
 
 	}
 
+	
 	public ApplicationContext getContext() {
 		return context;
 	}

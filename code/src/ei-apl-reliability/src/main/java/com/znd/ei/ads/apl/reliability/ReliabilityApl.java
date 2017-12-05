@@ -1,13 +1,5 @@
 package com.znd.ei.ads.apl.reliability;
 
-import static com.znd.ei.ads.AdsServer.create_AllModel;
-import static com.znd.ei.ads.AdsServer.created_BPAModel;
-import static com.znd.ei.ads.AdsServer.created_PRModel;
-import static com.znd.ei.ads.AdsServer.created_ReliabilityIndexResult;
-import static com.znd.ei.ads.AdsServer.created_StateEsteimateResult;
-import static com.znd.ei.ads.AdsServer.created_StateSampleResult;
-import static com.znd.ei.ads.AdsServer.get_Reliability;
-import static com.znd.ei.ads.AdsServer.powersystem_reliability;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_BPA_2_PR;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_BPA_LOADER;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_RELIABILITY_INDEX;
@@ -19,49 +11,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
-import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
-import org.redisson.api.mapreduce.RMapReduce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ZhongND.memdb.MDBDefine;
 import com.znd.ei.Utils;
-import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
-import com.znd.ei.ads.acp.ObjectRefDataOperations;
-import com.znd.ei.ads.acp.UnsupportedOperation;
-import com.znd.ei.ads.adf.DataFieldStorage;
-import com.znd.ei.ads.adf.MapData;
-import com.znd.ei.ads.adf.MemDBData;
-import com.znd.ei.ads.adf.ObjectRefData;
-import com.znd.ei.ads.adf.StringData;
 import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
-import com.znd.ei.ads.apl.annotations.Out;
-import com.znd.ei.ads.apl.reliability.bean.ReliabilityIndexResult;
-import com.znd.ei.ads.apl.reliability.bean.StateEstimateResult;
-import com.znd.ei.ads.apl.reliability.bean.StateSampleTask;
 import com.znd.ei.ads.apl.reliability.server.StateEstimateRemoteServer;
 import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.ads.config.StateEstimateConfig;
-import com.znd.ei.ads.config.StateSampleConfig;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.DbException;
 import com.znd.ei.memdb.MemTable;
@@ -119,10 +85,14 @@ public class ReliabilityApl {
 	@Autowired
 	private AbstractConnectionFactory connectionFactory;
 
+	@Autowired
+	DbEntryOperations pROps;
 
-
-	private String modelArea = "RTS79";
+	@Autowired
+	DbEntryOperations bPAOps;
 	
+	
+
 	@Autowired
 	StateEstimateProperties properties;
 	
@@ -176,7 +146,7 @@ public class ReliabilityApl {
 		callStateEstimate(null, new StateEstimateConfig());
 	}
 
-	public static void callReliabilityIndex(StateEstimateConfig config) {
+	public static void callReliabilityIndex(PRAdequacySetting config) {
 		AppUtil.execBuilder(GC_RELIABILITY_INDEX).addParam(execRootPath)
 		// 直流潮流2 交流潮流系数 fDc2AcFactor
 				.addParam(config.getDc2AcFactor()).logger(new AppLogger() {
@@ -236,31 +206,31 @@ public class ReliabilityApl {
 //
 //	}
 	
-	private void callStateSample(StateSampleConfig config) {
+	private void callStateSample(PRAdequacySetting config) {
 		System.out.println("call StateSample , config = "+config);
 		AppUtil.execBuilder(GC_STATE_SAMPLE).addParam(execRootPath)
 		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
-				.addParam(config.getnPRSampleObject())
+				.addParam(config.getPRSampleObject())
 				// 抽样类型 nPRSampleMethod
-				.addParam(config.getnPRSampleMethod()).
+				.addParam(config.getPRSampleMethod()).
 				// 抽样最大发电机故障重数 nMaxGenFault
-				addParam(config.getnMaxGenFault())
+				addParam(config.getMaxGenFault())
 				// 抽样最大支路故障重数 nMaxBranFault
-				.addParam(config.getnMaxBranFault())
+				.addParam(config.getMaxBranFault())
 				// MCS最大抽样仿真时长 nMCSSimulateTime
-				.addParam(config.getnMCSSimulateTime()).
+				.addParam(config.getMCSSimulateTime()).
 				// MCS[蒙特卡罗]设备故障概率门槛值 fMCSMinStateProb
-				addParam(config.getfMCSMinStateProb()).
+				addParam(config.getMCSMinStateProb()).
 				// FST[快速排序]累积概率 fFSTMaxCumuProb
-				addParam(config.getfFSTMaxCumuProb())
+				addParam(config.getFSTMaxCumuProb())
 				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
-				.addParam(config.getfFSTMinStateProb())
+				.addParam(config.getFSTMinStateProb())
 				// FST[快速排序]最大状态数 nFSTMaxStateNum
-				.addParam(config.getnFSTMaxStateNum())
+				.addParam(config.getFSTMaxStateNum())
 				// STS[状态抽样]最大状态数 nSTSMaxStateNum
-				.addParam(config.getnSTSMaxStateNum())
+				.addParam(config.getSTSMaxStateNum())
 				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
-				.addParam(config.getfANAMinStateProb()).logger((String log)->LOGGER.info(log)).exec();
+				.addParam(config.getANAMinStateProb()).logger((String log)->LOGGER.info(log)).exec();
 	}
 	
 	private void callStateSample() {
@@ -296,6 +266,9 @@ public class ReliabilityApl {
 	}
 	
 	private void callBpaLoader(File[] files) {
+		System.out.println("Clear bpa memdb.");
+		bPAOps.clearDb();
+		
 		try {
 			AppExecuteBuilder eb = AppUtil.execBuilder(GC_BPA_LOADER).addParam(execRootPath);
 			for (File file: files) {
@@ -309,6 +282,8 @@ public class ReliabilityApl {
 	}
 
 	private void callBpa2Pr(File [] files) {
+		System.out.println("Clear pr memdb.");
+		pROps.clearDb();
 		try {
 			AppExecuteBuilder eb = AppUtil.execBuilder(GC_BPA_2_PR).addParam(execRootPath);
 			for (File file: files) {
@@ -326,17 +301,23 @@ public class ReliabilityApl {
 	private StateEstimateRemoteServer stateEstimateServer; 
 	
 
+	@AplFunction( desc = "clear database")
+	public void clearDatabase(@In("clear_Database")String data) {
+		bPAOps.clearDb();
+		pROps.clearDb();
+	}
 	
 	@AplFunction( desc = "post reliability")
-	public void calcReliability(@In("post_Reliability") StringData data) {
-		String modelName = data.getContent();
+	public void calcReliability(@In("post_Reliability") String data) {
+		long start = System.currentTimeMillis();
+		String modelName = data;
 		LOGGER.info("recieved model : ", modelName);
 		
 		ReliabilityCaseBuffer buffer = new ReliabilityCaseBuffer(connectionFactory, modelName);
 		
-		StateSampleConfig sampleConfig = buffer.get(ReliabilityCaseBuffer.STATE_SAMPLE_CONFIG, StateSampleConfig.class);
-		StateEstimateConfig estimateConfig = buffer.get(ReliabilityCaseBuffer.STATE_ESTIMATE_CONFIG, StateEstimateConfig.class);
-		
+//		StateSampleConfig sampleConfig = buffer.get(ReliabilityCaseBuffer.STATE_SAMPLE_CONFIG, StateSampleConfig.class);
+//		StateEstimateConfig estimateConfig = buffer.get(ReliabilityCaseBuffer.STATE_ESTIMATE_CONFIG, StateEstimateConfig.class);
+		PRAdequacySetting config = buffer.get(ReliabilityCaseBuffer.PR_ADEQUACY_SETTING, PRAdequacySetting.class);		
 
 		
 		File flowFile = buffer.saveFile(properties.getCachedDir(), ReliabilityCaseBuffer.FLOW_FILE);
@@ -346,26 +327,37 @@ public class ReliabilityApl {
 
 		// bpa model loader
 		 File [] files = {flowFile, stableFile, paramFile};
+		 
 		 callBpaLoader(files);
 		 callBpa2Pr(files);
 		 
 		//call state sample
-		 callStateSample(sampleConfig);
+		
+		 callStateSample(config);
 		 	
 		//upload fstates
 		List<FState> fstates = fStateDao.findAll();
-		System.out.println("Upload fstates...");
+		System.out.println("Upload fstates..., size = "+fstates.size());
+		buffer.removeKeys(ReliabilityCaseBuffer.FSTATE_LIST);
 		buffer.pushAll(ReliabilityCaseBuffer.FSTATE_LIST, fstates);
-		System.out.println("Upload tasks...");
+		
+		System.out.println("Upload tasks..., size = "+fstates.size());
+		buffer.removeKeys(ReliabilityCaseBuffer.ESTIMATE_TASK_LIST);
 		buffer.pushAll(ReliabilityCaseBuffer.ESTIMATE_TASK_LIST, fstates);
-		System.out.println("Upload fdevs...");
-		buffer.pushAll(ReliabilityCaseBuffer.FDEV_LIST, fStateFDevDao.findAll());
+		
+		
+		buffer.removeKeys(ReliabilityCaseBuffer.FDEV_LIST);
+		List<FStateFDev> devs = fStateFDevDao.findAll();
+		System.out.println("Upload fdevs..., size = "+devs.size());
+		buffer.pushAll(ReliabilityCaseBuffer.FDEV_LIST, devs);
 		
 		log(modelName, "Start state estimate...");
-		PRAdequacySetting config = new PRAdequacySetting();
-		config.setANAMinStateProb(sampleConfig.getfANAMinStateProb());
-		config.setAuxLoadAdjust(estimateConfig.getAuxLoadAdjust());
+	//	PRAdequacySetting config = new PRAdequacySetting();
+//		config.setANAMinStateProb(sampleConfig.getfANAMinStateProb());
+//		config.setAuxLoadAdjust(estimateConfig.getAuxLoadAdjust());
 		
+		
+		buffer.removeKeys(ReliabilityCaseBuffer.ESTIMATE_RESULT_MAP);
 		 stateEstimateServer.exec(buffer, config);
 		
 //		int threadNum = 2;
@@ -404,7 +396,8 @@ public class ReliabilityApl {
 //		 
 //		 //call reliability index;
 //		 connectionFactory.publish("do_ReliabilityIndex", modelName);	
-		 callReliabilityIndex(estimateConfig);
+		 callReliabilityIndex(config);
+		 System.out.println("Elapse time is :" +(System.currentTimeMillis() - start) / 1000+" s.");
 		 
 	}
 	
@@ -942,24 +935,3 @@ public class ReliabilityApl {
 	}
 }
 
-// class StateSampleResult {
-// FState state;
-// List<FStateFDev> devs = new ArrayList<FStateFDev>();
-//
-// public FState getState() {
-// return state;
-// }
-//
-// public void setState(FState state) {
-// this.state = state;
-// }
-//
-// public List<FStateFDev> getDevs() {
-// return devs;
-// }
-//
-// public void setDevs(List<FStateFDev> devs) {
-// this.devs = devs;
-// }
-//
-// }
