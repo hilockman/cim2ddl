@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.znd.ei.memdb.reliabilty.domain.ACBus;
 import com.znd.ei.memdb.reliabilty.domain.FState;
-import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
@@ -18,6 +17,7 @@ public class ResponseEstimate extends ExchangeData<ResponseEstimate.Content> {
 
 		private List<FStateOvlDev> FStateOvlDev = new ArrayList<FStateOvlDev>();
 		private List<FStateOvlAd> FStateOvlAd = new ArrayList<FStateOvlAd>();
+		private List<FStateMIsland> FStateMIsland = new ArrayList<>();
 		
 		public List<ACBus> getACBus() {
 			return ACBus;
@@ -49,6 +49,14 @@ public class ResponseEstimate extends ExchangeData<ResponseEstimate.Content> {
 
 		public void setFStateOvlAd(List<FStateOvlAd> fStateOvlAd) {
 			FStateOvlAd = fStateOvlAd;
+		}
+
+		public List<FStateMIsland> getFStateMIsland() {
+			return FStateMIsland;
+		}
+
+		public void setFStateMIsland(List<FStateMIsland> fStateMIsland) {
+			FStateMIsland = fStateMIsland;
 		}
 
 

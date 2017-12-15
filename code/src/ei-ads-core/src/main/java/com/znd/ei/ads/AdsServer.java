@@ -7,9 +7,9 @@ package com.znd.ei.ads;
  */
 public interface AdsServer {
 	
-	static final String ADS_GET_SERVERINFOS = "adsget_ServerInfos";
-	static final String ADS_REPLY_SERVERINFOS = "adsreply_ServerInfos";
-	static final String ADS_SERVERINFOS = "ads:server-infos";
+	public static final String ADS_GET_SERVERINFOS = "adsget_ServerInfos";
+	public static final String ADS_REPLY_SERVERINFOS = "adsreply_ServerInfos";
+	public static final String ADS_SERVERINFOS = "ads:server-infos";
 	public static final String create_AllModel = "create_AllModel";
 	public static final String create_BPAModel = "create_BPAModel";
 	public static final String created_BPAModel = "created_BPAModel";

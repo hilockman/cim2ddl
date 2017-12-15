@@ -124,4 +124,9 @@ public interface ConnectionFactory {
 	
 	<T> void registerService(Class<T> remoteInterface, T serviceImp);
 	
+//	//等待内容控制码返回
+//	void waitForContent(String contentCode);
+//
+//	//释放内容控制码
+//	void notifyContent(String createdEstemateresult);
 }

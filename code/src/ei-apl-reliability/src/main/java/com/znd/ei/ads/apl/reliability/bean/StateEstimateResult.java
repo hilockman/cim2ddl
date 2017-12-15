@@ -11,6 +11,10 @@ import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
 
 public class StateEstimateResult  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1555555554353253254L;
 	private FState state;
 	private List<FStateFDev> devs = new ArrayList<FStateFDev>();
 	private List<FStateMIsland> mislands = new ArrayList<FStateMIsland>();

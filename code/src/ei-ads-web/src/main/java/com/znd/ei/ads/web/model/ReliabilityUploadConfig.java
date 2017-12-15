@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.znd.ei.ads.config.PRAdequacySetting;
 
-public class ReliabilityUploadConfig   {
+public class ReliabilityUploadConfig    {
 
     private String modelName;
 

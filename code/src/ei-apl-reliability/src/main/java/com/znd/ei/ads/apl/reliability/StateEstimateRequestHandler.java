@@ -7,9 +7,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.nio.charset.Charset;
 
-import com.znd.ei.Utils;
-import com.znd.ei.ads.apl.reliability.bean.RequestDataReady;
-
 public class StateEstimateRequestHandler  extends ChannelInboundHandlerAdapter {
 	
 

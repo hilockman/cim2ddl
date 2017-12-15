@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PRAdequacySetting {
 
 	@JsonProperty("ANAMinStateProb")
-    private Double ANAMinStateProb = 0.000000;   
+    private Double ANAMinStateProb = 1.0e-9;   
 	
 	@JsonProperty("AuxLoadAdjust")
-    private Integer AuxLoadAdjust = 0;              
+    private Integer AuxLoadAdjust = 1;              
     
 	@JsonProperty("BpaDatFile")
 	private String BpaDatFile = "";
@@ -28,10 +28,10 @@ public class PRAdequacySetting {
     private Double Dc2AcFactor = 1.100000;
     
     @JsonProperty("EQGenAdjust")
-    private Integer EQGenAdjust = 0;
+    private Integer EQGenAdjust = 1;
     
     @JsonProperty("EQLoadAdjust")
-    private Integer EQLoadAdjust = 0;   
+    private Integer EQLoadAdjust = 1;   
     
     @JsonProperty("FSTMaxCumuProb")
     private Double FSTMaxCumuProb = 0.990000;      
@@ -40,7 +40,7 @@ public class PRAdequacySetting {
     private Integer FSTMaxStateNum = 100000; 
     
     @JsonProperty("FSTMinStateProb")
-    private Double FSTMinStateProb = 0.000000; 
+    private Double FSTMinStateProb = 1.0e-009; 
     
     @JsonProperty("GenBusLoadAsAux")
     private Integer GenBusLoadAsAux = 0;     
@@ -73,7 +73,7 @@ public class PRAdequacySetting {
     private Integer MultiThread = 2;     
     
     @JsonProperty("PRSampleMethod")
-    private Integer PRSampleMethod = 0;  
+    private Integer PRSampleMethod = 1;  
     
     @JsonProperty("PRSampleObject")
     private Integer PRSampleObject = 0;  

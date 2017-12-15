@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.annotation.PreDestroy;
 
 import org.redisson.RedissonNode;
+import org.redisson.api.RCountDownLatch;
 import org.redisson.api.RRemoteService;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RemoteInvocationOptions;
@@ -808,5 +809,23 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		}
 
 	}
+
+//	@Override
+//	public void waitForContent(String contentCode) {
+//		RCountDownLatch latch = redissonClient.getCountDownLatch(contentCode);
+//		latch.trySetCount(1);
+//		try {
+//			latch.await();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	@Override
+//	public void notifyContent(String contentCode) {
+//		RCountDownLatch latch = redissonClient.getCountDownLatch(contentCode);
+//		latch.countDown();
+//	}
 
 }

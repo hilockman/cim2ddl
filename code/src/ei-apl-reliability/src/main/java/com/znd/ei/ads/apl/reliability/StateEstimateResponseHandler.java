@@ -5,6 +5,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.znd.ei.Utils;
@@ -25,35 +26,42 @@ import com.znd.ei.memdb.reliabilty.domain.FState;
 public abstract class StateEstimateResponseHandler extends ChannelInboundHandlerAdapter {
 
 	//private final ReentrantLock lock;   
-	private ListData<FState> taskList;
+	private ListData<RequestEstimate> taskList;
 	private MapData<String, ResponseEstimate> resultMap;
-	private int taskSize;
-	private Semaphore semaphore;
-	private StateEstimateServer server;
+	private long taskSize;
+	private Semaphore availableWorkers;
+	private StateEstimateProxyServer server;
 	private AtomicInteger currentTaskIndex;
+	//private AtomicBoolean stopFlag;
 	
 
-    public StateEstimateResponseHandler(ListData<FState> taskList,
+    public StateEstimateResponseHandler(ListData<RequestEstimate> taskList,
 			MapData<String, ResponseEstimate> resultMap, Integer taskSize,
-			AtomicInteger currentTaskIndex, StateEstimateServer server,
-			Semaphore semaphore) {
+			AtomicInteger currentTaskIndex, StateEstimateProxyServer server,
+			Semaphore availableWorkers) {
 		this.taskList = taskList;
 		this.resultMap = resultMap;
-		this.semaphore = semaphore;
+		this.availableWorkers = availableWorkers;
 		this.server = server;
 		this.currentTaskIndex = currentTaskIndex;
-		this.taskSize = taskSize;
+		this.taskSize = (long) taskSize.intValue();
+		//this.stopFlag = stopFlag;
 
 	}
       
-    public abstract void closeParent(Long delay, TimeUnit unit);
+    public abstract void closeParent();
+    
     
 	@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) { 
     	System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ msg.toString());
     	String content = msg.toString();
+    //	server.saveLog("Server response:\n" + content);
+    	
     	if (content.contains(Commands.DATA_READY)) {
     	} else if (content.contains(Commands.STATE_ESTIMATE)){
+    		availableWorkers.release();
+    		
     		int index = currentTaskIndex.get();
     		ResponseEstimate result = Utils.toObject(content, ResponseEstimate.class);
     		if (result == null) {
@@ -64,64 +72,45 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
     			System.out.println("Received result : currentTaskIndex "+index+", sum = "+ taskSize);
     			index = currentTaskIndex.incrementAndGet();
     		}
-    		FState state = result.getContent().getFState().get(0);
+    		
+    		FState state = result.getContent().getFState().get(0);  		  		
     		synchronized(resultMap) {
     			resultMap.set(String.valueOf(state.getFStateID()), result);
-        		if (resultMap.size() == taskSize) {
-        			System.out.println("Finishes State Estimate : taskSize ="+taskSize);
-        			stopJob();
-        			return;
-        		}
     		}
-    		
-    		//resultMap.set(String.valueOf(state.getStateNum()), result);
-    		    		
-    		semaphore.release();
-    		
+    		 		
     	} else if (content.contains(Commands.JOB_FINISHED)) {
     		System.out.println("Received message : "+content);
 			ctx.close();
-			closeParent(0l, TimeUnit.MINUTES);
     	} else { //
     		System.err.println("Unknown command:"+msg.toString());
     		return;
     	}
+
     	
-		FState task = null;
+    	RequestEstimate task = null;
 		try { 
-			while (semaphore.tryAcquire()) {
+			while (availableWorkers.tryAcquire()) {
 				//发送下一次计算任务
 				synchronized(taskList) {
 					task = taskList.lpop();
 				}
 				if (task != null) {
-					RequestEstimate request = new RequestEstimate();
-					
-					request.getContent().getFState().add(task);
-					String requestMsg = Utils.toJSon(request);
-					
-					//String responseMsg = fileToString(new File("D:\\GitHub\\cim2ddl\\documents\\交互\\4 response_estimate.json"));
-					if (server != null)
-						server.simpleSendMessage(requestMsg);
-				} else { //
-					System.out.println("Task is finished :"+taskList.getKey());
-					stopJob();
+
+					String requestMsg = Utils.toJSon(task);					
+					if (server != null) {
+						server.saveLog("Server request:\n" + requestMsg);
+						server.simpleSendMessage(requestMsg, null);
+					}
+				} else {
+					closeParent();
+					break;
 				}
 			}
 		} catch (ACPException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
 	
-	private void stopJob() {
-		RequestJobFinished request = new RequestJobFinished();
-		String responseMsg = Utils.toJSon(request);
-		if (server != null)
-			server.simpleSendMessage(responseMsg);
-	}
-    
-
 	@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // Close the connection when an exception is raised.

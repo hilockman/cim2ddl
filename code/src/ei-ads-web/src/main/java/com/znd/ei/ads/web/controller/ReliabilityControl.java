@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +79,16 @@ public class ReliabilityControl {
 	}
 
 
+	private static final String SUCCESS = "success.html";
+	private static final String FAIL = "fail.html";
+	
+	@PostMapping(path="/testSubmit")
+	public String testSubmit(Model model) {
+		
+		System.out.println("Recevied submit");
+		return SUCCESS;
+	}
+	
 	
 //	@RequestMapping(path = "/stateEstimateConfig", method = RequestMethod.GET)
 //	public @ResponseBody StateEstimateConfig stateEstimateConfig() {
@@ -256,12 +267,15 @@ public class ReliabilityControl {
 					int fileIndex = 0;
 					// int count = 0;
 					int readCount = 0;
+					executeDF.RedissonDBKey().BatchDEL(keyBase);
 					while (off < buff.length && (readCount = is.read(buff, off, buff.length - off)) > 0) {
 						// count += readCount;
 						String key = keyBase;
 						if (fileIndex > 0) {
 							key = key + ":" + fileIndex;
+							executeDF.RedissonDBKey().BatchDEL(key);
 						}
+						
 						logger.info(
 								"Upload local file to redis : key = {}, size = {}. ",
 								key, readCount);
@@ -290,8 +304,8 @@ public class ReliabilityControl {
 					value);
 
 			logger.info("sendMessage : cc = {}, content = {}. ",
-					"post_Reliability", modelName);
-			sendMessage("post_Reliability", modelName);
+					"created_ReliabilityTask", modelName);
+			sendMessage("created_ReliabilityTask", modelName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return AdsResult.fail(e.getMessage());
@@ -301,6 +315,92 @@ public class ReliabilityControl {
 		return AdsResult.ok("accepted!");
 	}
 
+//	@PostMapping("/submitCalc")
+//	public String submitCalc(
+//			@ModelAttribute ReliabilityUploadConfig config) {
+//
+//		System.out.println("---------------start submitCalc---------------");
+//
+////		try {
+////			final String modelName = config.getModelName();
+////			final String modelNameTag = modelName;
+////			
+////			List<ResultObject<String, String>> keys = executeDF.RedissonDBKey().FindKeys(modelName+"*");
+////			for (int i = 0; i < keys.size(); i++) {
+////				executeDF.RedissonDBKey().BatchDEL(keys.get(0).getValue());
+////			}
+////
+////			Path path = Paths.get(UPLOADED_FOLDER, config.getModelName());
+////			File file = path.toFile();
+////			if (!file.exists()) {
+////				file.mkdirs();
+////			}
+////
+////			
+////			saveUploadedFiles(path, Arrays.asList(config.getFiles()), null);
+////
+////			if (file.isDirectory()) { // try upload loacal file
+////				RedissonDBString dbstring = executeDF.RedissonDBString();
+////
+////				byte[] buff = new byte[MAX_FILE_SIZE];
+////				File[] files = file.listFiles();
+////				for (File f : files) {
+////					String fileName = f.getName();
+////					int pos = fileName.lastIndexOf('.');
+////					String suffix = fileName.substring(pos+1);
+////
+////					String keyBase = modelNameTag + ":file:" + suffix;
+////					
+////					
+////					InputStream is = new FileInputStream(f);
+////					int off = 0;
+////					int fileIndex = 0;
+////					// int count = 0;
+////					int readCount = 0;
+////					while (off < buff.length && (readCount = is.read(buff, off, buff.length - off)) > 0) {
+////						// count += readCount;
+////						String key = keyBase;
+////						if (fileIndex > 0) {
+////							key = key + ":" + fileIndex;
+////						}
+////						logger.info(
+////								"Upload local file to redis : key = {}, size = {}. ",
+////								key, readCount);
+////						dbstring.LockSET(key, MAX_FILE_TIME_OUT, new String(buff, 0,readCount));
+////						fileIndex++;
+////						off += readCount;
+////					}
+////					
+////					FileInfo fileInfo = new FileInfo(fileName, fileIndex, off);
+////					dbstring.LockSET(keyBase+":info", MAX_FILE_TIME_OUT, Utils.toJSon(fileInfo));
+////					if (fileIndex > 1) {
+////						logger.info("Uploaded file {} , sum size = {}, split count = {}", fileName, off, fileIndex);
+////					}
+////					is.close();
+////				}
+////			}
+////
+////
+////			RedissonDBString dbstring = executeDF.RedissonDBString();
+////			String key = modelNameTag + ":config:PRAdequacySetting";
+////			//String value  = Utils.toJSon((PRAdequacySetting)config);
+////			String value  = config.getSetting();
+////			logger.info("Upload config to redis : key = {}, content = {}. ",
+////					key, value);
+////			dbstring.<String> SET(key, MAX_FILE_TIME_OUT,
+////					value);
+////
+////			logger.info("sendMessage : cc = {}, content = {}. ",
+////					"post_Reliability", modelName);
+////			sendMessage("post_Reliability", modelName);
+////		} catch (Exception e) {
+////			e.printStackTrace();
+////			return FAIL;
+////		}
+//
+//		System.out.println("---------------finished submitCalc---------------");
+//		return SUCCESS;
+//	}
 	public static void main(String[] args) {
 
 		Path path = Paths.get("e:/temp", "test1");

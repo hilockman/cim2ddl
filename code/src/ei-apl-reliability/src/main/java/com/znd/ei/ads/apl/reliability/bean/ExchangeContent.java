@@ -8,6 +8,6 @@ public class ExchangeContent {
 	}
 
 	public void setValue(String value) {
-		Value = value;
+		this.Value = value;
 	}
 }

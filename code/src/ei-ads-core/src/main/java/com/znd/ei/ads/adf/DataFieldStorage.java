@@ -1,11 +1,7 @@
 package com.znd.ei.ads.adf;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 
@@ -17,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
-import com.znd.ei.ads.acp.IOOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.apl.AplManager;
 import com.znd.ei.ads.apl.annotations.In;
@@ -32,31 +27,31 @@ import com.znd.ei.ads.apl.annotations.Out;
 public final class DataFieldStorage {
 	
 
-	public static void main(String [] args) {
-		Method[] methods = ConnectionFactory.class.getMethods();
-		for (Method m : methods) {
-			Class<?> rtType = m.getReturnType();
-			String name = rtType.getSimpleName();
-			System.out.println("search:"+m.getName());
-			if (!isIOOperationType(rtType))
-				continue;
-
-			
-			
-			String typeRex = "(\\w+)Operations";
-			Pattern pattern = Pattern.compile(typeRex);
-			Matcher mather = pattern.matcher(name);
-			String typeName = null;
-			if (mather.find()) {
-				typeName = mather.group(1);
-				System.out.println("find:"+typeName);
-				
-			}
-
-	
-		}
-
-	}
+//	public static void main(String [] args) {
+//		Method[] methods = ConnectionFactory.class.getMethods();
+//		for (Method m : methods) {
+//			Class<?> rtType = m.getReturnType();
+//			String name = rtType.getSimpleName();
+//			System.out.println("search:"+m.getName());
+//			if (!isIOOperationType(rtType))
+//				continue;
+//
+//			
+//			
+//			String typeRex = "(\\w+)Operations";
+//			Pattern pattern = Pattern.compile(typeRex);
+//			Matcher mather = pattern.matcher(name);
+//			String typeName = null;
+//			if (mather.find()) {
+//				typeName = mather.group(1);
+//				System.out.println("find:"+typeName);
+//				
+//			}
+//
+//	
+//		}
+//
+//	}
 	
 
 	private static final Logger LOGGER = LoggerFactory
@@ -71,7 +66,7 @@ public final class DataFieldStorage {
 	@Autowired
 	private ServerProperties serverProperties;
 
-	private Map<String, Method> dataType2IOMethod = new HashMap<String, Method>();
+	//private Map<String, Method> dataType2IOMethod = new HashMap<String, Method>();
 	
 
 	public DataFieldStorage() {
@@ -81,7 +76,7 @@ public final class DataFieldStorage {
 	@PostConstruct
 	public void init() {
 		try {
-			registerIO();
+//			registerIO();
 			aplManager.loadApls(this);
 			connectionFactory.register(this);
 
@@ -108,21 +103,21 @@ public final class DataFieldStorage {
 		return dataFields.containsKey(contentCode);
 	}
 	
-	/**
-	 * 数据域是否准备好
-	 * @param contentCode
-	 * @return
-	 */
-	public boolean prepared(String contentCode) {
-		if (!contain(contentCode))
-			return false;
-		
-		DataField df = dataFields.get(contentCode);
-		if (df != null && !df.isEmpty())
-			return true;
-		
-		return false;
-	}
+//	/**
+//	 * 数据域是否准备好
+//	 * @param contentCode
+//	 * @return
+//	 */
+//	public boolean prepared(String contentCode) {
+//		if (!contain(contentCode))
+//			return false;
+//		
+//		DataField df = dataFields.get(contentCode);
+//		if (df != null && !df.isEmpty())
+//			return true;
+//		
+//		return false;
+//	}
 
 	public String getServerName() {
 		if (serverProperties.getPort() == null)
@@ -131,93 +126,92 @@ public final class DataFieldStorage {
 		return serverProperties.getName() + serverProperties.getPort();
 	}
 
-	public static boolean isIOOperationType(Class<?> clazz) {
-		try {
-			if (clazz.asSubclass(IOOperations.class) != null) {
-				return true;
-			}
-			return false;
-		} catch (ClassCastException e) {
-			return false;
-		}
-
-	}
+//	public static boolean isIOOperationType(Class<?> clazz) {
+//		try {
+//			if (clazz.asSubclass(IOOperations.class) != null) {
+//				return true;
+//			}
+//			return false;
+//		} catch (ClassCastException e) {
+//			return false;
+//		}
+//
+//	}
 
 
 
 	public final class DataField {
 		public String contentCode = null;
 		public boolean autoLoad = false;
-		public DataItem dataItem = null;
-		public Method ioMethod = null;
-		public Class<?> dataType = null;
+//		public DataItem dataItem = null;
+//		public Method ioMethod = null;
+//		public Class<?> dataType = null;
 
-		IOOperations createIO() throws ACPException, IllegalAccessException,
-				IllegalArgumentException, InvocationTargetException {
-			return (IOOperations) ioMethod.invoke(connectionFactory);
-		}
+//		IOOperations createIO() throws ACPException, IllegalAccessException,
+//				IllegalArgumentException, InvocationTargetException {
+//			return (IOOperations) ioMethod.invoke(connectionFactory);
+//		}
 
-		public DataItem createData() throws InstantiationException,
-				IllegalAccessException, IllegalArgumentException, InvocationTargetException, ACPException {
-			DataItem d = (DataItem) dataType.newInstance();
-			IOOperations io = createIO();
-			// dataItem.setContentCode(contentCode);
-			d.setOperations(io);
-			return d;
-		}
+//		public DataItem createData() throws InstantiationException,
+//				IllegalAccessException, IllegalArgumentException, InvocationTargetException, ACPException {
+//			DataItem d = (DataItem) dataType.newInstance();
+//			IOOperations io = createIO();
+//			d.setOperations(io);
+//			return d;
+//		}
 
-		boolean isEmpty() {
-			return dataItem == null;
-		}
+//		boolean isEmpty() {
+//			return dataItem == null;
+//		}
 
 		
 
 
-		public void initDataItem(String key) throws IllegalAccessException,
-				IllegalArgumentException, InvocationTargetException,
-				InstantiationException, ACPException, UnsupportedOperation {
-			dataItem = createData();
-			dataItem.setKey(key);
-//			if (autoLoad) {				
-//				dataItem.getOperations().read(dataItem);
-//			}			
-		}
+//		public void initDataItem(String key) throws IllegalAccessException,
+//				IllegalArgumentException, InvocationTargetException,
+//				InstantiationException, ACPException, UnsupportedOperation {
+//			dataItem = createData();
+//			dataItem.setKey(key);
+////			if (autoLoad) {				
+////				dataItem.getOperations().read(dataItem);
+////			}			
+//		}
 
-		/**
-		 * 发布数据到总线
-		 * 
-		 * @throws ACPException
-		 * @throws InvocationTargetException
-		 * @throws IllegalArgumentException
-		 * @throws IllegalAccessException
-		 * @throws UnsupportedOperation
-		 */
-		public void publishToBus() throws IllegalAccessException,
-				IllegalArgumentException, InvocationTargetException,
-				ACPException, UnsupportedOperation {
-			//IOOperations io = createIO();
-			if (dataItem != null && !dataItem.isEmpty()) {
-				if (contentCode == null) {
-					LOGGER.error("cc is empty.");
-				}
-//				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
-//					dataItem.setKey(contentCode + ":"
-//							+ UUID.randomUUID().toString());
+//		/**
+//		 * 发布数据到总线
+//		 * 
+//		 * @throws ACPException
+//		 * @throws InvocationTargetException
+//		 * @throws IllegalArgumentException
+//		 * @throws IllegalAccessException
+//		 * @throws UnsupportedOperation
+//		 */
+//		public void publishToBus() throws IllegalAccessException,
+//				IllegalArgumentException, InvocationTargetException,
+//				ACPException, UnsupportedOperation {
+//			//IOOperations io = createIO();
+//			if (dataItem != null && !dataItem.isEmpty()) {
+//				if (contentCode == null) {
+//					LOGGER.error("cc is empty.");
 //				}
-//				IOOperations io = dataItem.getOperations();
-//				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
-//				io.write(dataItem);
-				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
-				connectionFactory.publish(contentCode, dataItem.getKey());
-			}
-		}
+////				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
+////					dataItem.setKey(contentCode + ":"
+////							+ UUID.randomUUID().toString());
+////				}
+////				IOOperations io = dataItem.getOperations();
+////				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
+////				io.write(dataItem);
+//				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
+//				connectionFactory.publish(contentCode, dataItem.getKey());
+//			}
+//		}
 
-		void clear() {
-			if (dataItem != null)
-				dataItem.clear();
-			
-			dataItem = null;
-		}
+//		void clear() {
+//			if (dataItem != null)
+//				dataItem.clear();
+//			
+//			dataItem = null;
+//		}
 	}
 
 	/**
@@ -249,22 +243,22 @@ public final class DataFieldStorage {
 
 		DataField df = new DataField();
 
-		String typeName = dataType.getSimpleName();
-		df.dataType = dataType;
-		if (!dataType2IOMethod.containsKey(typeName)) {
-			if (dataType.equals(String.class)) {
-				df.dataType = ObjectRefData.class;
-				typeName = df.dataType.getSimpleName();
-			} else {
-				throw new ACPException(
-						String.format(
-								"Fail to regist data field: cc=%s, unknow dataType : %s",
-								contentCode, dataType.getName()));
-			}
-		}
+//		String typeName = dataType.getSimpleName();
+//		df.dataType = dataType;
+//		if (!dataType2IOMethod.containsKey(typeName)) {
+//			if (dataType.equals(String.class)) {
+//				df.dataType = ObjectRefData.class;
+//				typeName = df.dataType.getSimpleName();
+//			} else {
+//				throw new ACPException(
+//						String.format(
+//								"Fail to regist data field: cc=%s, unknow dataType : %s",
+//								contentCode, dataType.getName()));
+//			}
+//		}
 
 		df.contentCode = contentCode;
-		df.ioMethod = dataType2IOMethod.get(typeName);
+//		df.ioMethod = dataType2IOMethod.get(typeName);
 		df.autoLoad = autoLoad;
 		dataFields.put(contentCode, df);
 		return df;
@@ -297,41 +291,41 @@ public final class DataFieldStorage {
 	}
 
 
-	/**
-	 * 注册IO
-	 * 
-	 * @param contentCode
-	 *            内容代码
-	 * @param dataType
-	 *            数据类型
-	 * @throws ACPException
-	 */
-	public void registerIO() throws ACPException {
-
-		Method[] methods = connectionFactory.getClass().getMethods();
-		for (Method m : methods) {
-			
-			Class<?> rtType = m.getReturnType();
-			String name = rtType.getSimpleName();
-			//System.out.println("search:"+m.getName());
-			if (!isIOOperationType(rtType))
-				continue;
-
-						
-			String typeRex = "(\\w+)Operations";
-			Pattern pattern = Pattern.compile(typeRex);
-			Matcher mather = pattern.matcher(name);
-			String typeName = null;
-			if (mather.find()) {
-				typeName = mather.group(1);
-				//System.out.println("find:"+typeName);
-				dataType2IOMethod.put(typeName, m);	
-			}
-			
-
-		}
-
-	}
+//	/**
+//	 * 注册IO
+//	 * 
+//	 * @param contentCode
+//	 *            内容代码
+//	 * @param dataType
+//	 *            数据类型
+//	 * @throws ACPException
+//	 */
+//	public void registerIO() throws ACPException {
+//
+//		Method[] methods = connectionFactory.getClass().getMethods();
+//		for (Method m : methods) {
+//			
+//			Class<?> rtType = m.getReturnType();
+//			String name = rtType.getSimpleName();
+//			//System.out.println("search:"+m.getName());
+//			if (!isIOOperationType(rtType))
+//				continue;
+//
+//						
+//			String typeRex = "(\\w+)Operations";
+//			Pattern pattern = Pattern.compile(typeRex);
+//			Matcher mather = pattern.matcher(name);
+//			String typeName = null;
+//			if (mather.find()) {
+//				typeName = mather.group(1);
+//				//System.out.println("find:"+typeName);
+//				dataType2IOMethod.put(typeName, m);	
+//			}
+//			
+//
+//		}
+//
+//	}
 
 	/**
 	 * 处理从总线收到的消息
@@ -402,10 +396,10 @@ public final class DataFieldStorage {
 //		aplManager.bootAplCaller(contentCode, this);
 //	}
 
-	public void clear(DataField df) {
-		LOGGER.info("清除数据域:"+df.contentCode);
-		df.clear();
-	}
+//	public void clear(DataField df) {
+//		LOGGER.info("清除数据域:"+df.contentCode);
+//		df.clear();
+//	}
 
 	public DataField getDataField(String contentCode) {
 		return dataFields.get(contentCode);

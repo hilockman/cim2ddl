@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
+@AplParam
 @Inherited
 public @interface In {
 	/**

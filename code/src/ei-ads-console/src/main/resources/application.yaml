@@ -1,13 +1,12 @@
 storage:
   location:com/znd/ei/memdb/domain
-logging:
-  file:log/ei-ads-console.log
+
 server:
       name: ei-ads-console
       port: 8080
 
 ads:
-  defaultlifecycle: 600
+  defaultlifecycle: 6000
   memdb:
      lifecycle: 6000
   aplSkip:
@@ -15,17 +14,16 @@ ads:
      - Test1
   temp:
     dir: ./temp
-
-  appDir: E:/ZNDProject/SoftwareBeta/bin_x64
+  appDir: ./bin_x64
 
 state-estimate:
-  listenPort: 9003
+  listenPort: 9002
   serverPort: 8950
   serverIp: 127.0.0.1
   serverThread: 4
   readyResponseTimeOut: 5
-  cachedDir: D:/GitHub/cim2ddl/code/pr-dir
-  
+  cachedDir: ./pr-dir
+  appDir: ${ads.appDir}
      
 logging:
     level:
@@ -33,6 +31,7 @@ logging:
       ClusterConnectionManager: OFF
       PubSubConnectionPool: OFF
       SlaveConnectionPool: OFF
+    file: log/ei-ads-console.log 
 io:
   netty:
     leakDetection:

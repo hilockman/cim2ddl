@@ -1,0 +1,13 @@
+
+CASE RTS79系统可靠性-安全性评价算法
+
+//FINP表示输入文件
+FILE PFDAT  RTS79
+FILE SWIDAT RTS79
+FILE RMLDAT RTS79
+FILE CRIDAT RTS79
+
+//SecurityAnalysis表示安全性评价，第1个数是抽样计算时间,第2、3个是最大发电机和支路故障重数,第4个是最大计算状态数
+CALI SecurityAnalysis 10000 10 10 100
+
+ViewEstimateResult 1

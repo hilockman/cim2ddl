@@ -12,7 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.management.RuntimeErrorException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +30,10 @@ import com.znd.ei.ClassFilter;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.AdsProperties;
 import com.znd.ei.ads.acp.ACPException;
+import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
 import com.znd.ei.ads.adf.DataFieldStorage.DataField;
-import com.znd.ei.ads.adf.DataItem;
 import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
@@ -51,15 +57,16 @@ public final class AplManager {
 	@Autowired
 	private ExecutorService adsThreadPool = null;
 
-	private Map<String, List<AppCallInfo>> cc2AplCallInfos = new HashMap<String, List<AppCallInfo>>();
+	private Map<String, List<AppCallBean>> cc2AplCallInfos = new HashMap<String, List<AppCallBean>>();
 
 	private ArrayList<Object> apls = new ArrayList<Object>();
 
 	@Autowired
 	private ApplicationContext context;
 
-	private DataFieldStorage dataFieldStorage;
-
+	@Autowired
+	private ConnectionFactory connectionFactory;
+	
 	@Autowired
 	private AdsProperties adsProperties;
 
@@ -69,13 +76,13 @@ public final class AplManager {
 		public boolean bIn;
 		public DataFieldStorage.DataField dataField;
 
-		boolean isItemDataType() {
-			return dataField.dataType.equals(paramType);
-		}
+//		boolean isItemDataType() {
+//			return dataField.dataType.equals(paramType);
+//		}
 
 	}
 
-	final class AppCallInfo {
+	final class AppCallBean {
 		public AppInfo appInfo;
 		public Object app;
 		public Method method;
@@ -86,21 +93,55 @@ public final class AplManager {
 		public List<Class<?>> inputTypes = new ArrayList<Class<?>>();
 		public String ccOper;
 		public ParamInfo[] paramInfos;
-		boolean isWorking = false;
+		AtomicBoolean isWorking = new AtomicBoolean(false);
+		public Object dataItems[];
+		public FutureTask<Integer> task;
+//		/**
+//		 * 判断数据区域是否可以清除
+//		 * 
+//		 * @param df
+//		 * @return
+//		 */
+//		public boolean canClear(DataField df) {
+//
+//			if (df.dataItem != null && !df.dataItem.canClear())
+//				return false;
+//
+//			List<AppCallInfo> appCallers = findRelatedAppCalls(df, this);
+//			return appCallers.isEmpty();
+//		}
+		
+		public FutureTask<Integer> formCallable() {
+			FutureTask<Integer> future = new FutureTask<Integer>(new Callable<Integer>() {
 
-		/**
-		 * 判断数据区域是否可以清除
-		 * 
-		 * @param df
-		 * @return
-		 */
-		public boolean canClear(DataField df) {
+				@Override
+				public Integer call() throws Exception {
+					int rt = 0;
+					try {
+						LOGGER.info(String.format(
+								"------------------开始调用:%s------------------",
+								desc));
+						isWorking.set(true);
 
-			if (df.dataItem != null && !df.dataItem.canClear())
-				return false;
+						// 调用业务逻辑，填充数据
+						method.invoke(app, dataItems);
 
-			List<AppCallInfo> appCallers = findRelatedAppCalls(df, this);
-			return appCallers.isEmpty();
+						LOGGER.info(String.format(
+								"------------------结束调用:%s------------------",
+								desc));
+						
+					} catch (IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e) {
+						e.printStackTrace();
+						rt = -1;
+					}  finally {
+						isWorking.set(false);
+					}
+					return rt;
+				}
+			});
+			
+			return future;
 		}
 	}
 
@@ -114,23 +155,23 @@ public final class AplManager {
 	 * @param appCaller
 	 * @return
 	 */
-	public List<AppCallInfo> findRelatedAppCalls(DataField inputDataField,
-			AppCallInfo appCaller) {
-		Set<AppCallInfo> appCallers = new HashSet<AppCallInfo>();
+	public List<AppCallBean> findRelatedAppCalls(DataField inputDataField,
+			AppCallBean appCaller) {
+		Set<AppCallBean> appCallers = new HashSet<AppCallBean>();
 
 		System.out.println("");
 		internalFindRelatedAppCalls(appCallers, inputDataField,
 				appCaller.outputCCs);
 
-		return new ArrayList<AppCallInfo>(appCallers);
+		return new ArrayList<AppCallBean>(appCallers);
 	}
 
-	private void internalFindRelatedAppCalls(Set<AppCallInfo> appCallerSet,
+	private void internalFindRelatedAppCalls(Set<AppCallBean> appCallerSet,
 			DataField inputDataField, List<String> inputCCs) {
 		for (String cc : inputCCs) {
-			List<AppCallInfo> appCallers = cc2AplCallInfos.get(cc);
+			List<AppCallBean> appCallers = cc2AplCallInfos.get(cc);
 			if (appCallers != null && !appCallers.isEmpty()) {
-				for (AppCallInfo info : appCallers) {
+				for (AppCallBean info : appCallers) {
 					if (info.inputCCs.contains(inputDataField.contentCode)) {
 						appCallerSet.add(info);
 					}
@@ -145,7 +186,6 @@ public final class AplManager {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void loadApls(DataFieldStorage storage)
 			throws InstantiationException, IllegalAccessException, ACPException {
-		this.dataFieldStorage = storage;
 		List skips = adsProperties.getAplSkip();
 		ClassFilter filter = (Class<?> c) -> (c.getAnnotation(AplController.class) != null); 
 		Set<Class<?>> classes = Utils.getClasses("com.znd.ei.ads.apl",
@@ -188,7 +228,7 @@ public final class AplManager {
 					continue;
 				}
 
-				AppCallInfo acInfo = new AppCallInfo();
+				AppCallBean acInfo = new AppCallBean();
 				acInfo.appInfo = appInfo;
 				acInfo.app = app;
 				acInfo.ccOper = af.ccOper();
@@ -233,10 +273,10 @@ public final class AplManager {
 						paramInfo.bIn = true;
 						cc = in.value();
 						acInfo.inputCCs.add(cc);
-						List<AppCallInfo> appCallInfos = cc2AplCallInfos
+						List<AppCallBean> appCallInfos = cc2AplCallInfos
 								.get(cc);
 						if (appCallInfos == null) {
-							appCallInfos = new ArrayList<AppCallInfo>();
+							appCallInfos = new ArrayList<AppCallBean>();
 							cc2AplCallInfos.put(cc, appCallInfos);
 						}
 						appCallInfos.add(acInfo);
@@ -269,12 +309,12 @@ public final class AplManager {
 
 	private void print() {
 		LOGGER.info("--------------------Registered apl------------------");
-		Set<Entry<String, List<AppCallInfo>>> entrys = cc2AplCallInfos
+		Set<Entry<String, List<AppCallBean>>> entrys = cc2AplCallInfos
 				.entrySet();
-		for (Entry<String, List<AppCallInfo>> e : entrys) {
+		for (Entry<String, List<AppCallBean>> e : entrys) {
 			LOGGER.info(e.getKey());
-			List<AppCallInfo> l = e.getValue();
-			for (AppCallInfo c : l)
+			List<AppCallBean> l = e.getValue();
+			for (AppCallBean c : l)
 				LOGGER.info(" {}({})", c.desc, c.name);
 		}
 		LOGGER.info(String
@@ -441,10 +481,9 @@ public final class AplManager {
 	 * @throws ACPException
 	 * @throws UnsupportedOperation
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void bootAplCaller(String contentCode, String content)
 			throws ACPException, UnsupportedOperation {
-		List<AppCallInfo> appCallInfos = cc2AplCallInfos.get(contentCode);
+		List<AppCallBean> appCallInfos = cc2AplCallInfos.get(contentCode);
 		if (appCallInfos == null) {
 			return;
 		}
@@ -453,56 +492,67 @@ public final class AplManager {
 		// return;
 
 		// 调用业务逻辑
-		for (final AppCallInfo appCallInfo : appCallInfos) {
+		for (final AppCallBean appCallInfo : appCallInfos) {
 			// 正在工作则不响应
 			AppInfo appInfo = appCallInfo.appInfo;
 			String appName = appInfo.getName();
 			String methodName = appCallInfo.method.getName();
 
-			if (appCallInfo.isWorking) {
+			if (appCallInfo.isWorking.get()) {
 				System.out.println("app is busy : app = "+appName+", method = "+methodName);
 				continue;
 			}
 		
 
 			// 业务逻辑参数初始化
-			Object dataItems[] = {content};
+			appCallInfo.dataItems = new Object[]{content};		
+			if (appCallInfo.task == null) {
+				appCallInfo.task = appCallInfo.formCallable();
+			}
+			adsThreadPool.submit(appCallInfo.task);
+			appCallInfo.task = null;
 
-
-			adsThreadPool.execute(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						LOGGER.info(String.format(
-								"------------------开始调用:%s------------------",
-								appCallInfo.desc));
-						appCallInfo.isWorking = true;
-
-						// 调用业务逻辑，填充数据
-						appCallInfo.method.invoke(appCallInfo.app, dataItems);
-
-						LOGGER.info(String.format(
-								"------------------结束调用:%s------------------",
-								appCallInfo.desc));
-					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}  finally {
-						appCallInfo.isWorking = false;
-					}
-				}
-			});
 
 		}
-
-		// 清除数据区域
 
 	}
 
 	
-	public ApplicationContext getContext() {
-		return context;
+
+	
+    /**
+     * 通过内部通道广播消息。
+     * 本地会收到并处理该内容码,处理完成后再返回
+     * @param contentCode
+     * @param key
+     * @param localRunnable
+     */	
+	public void publishAndWait(String contentCode, String key) {
+		List<AppCallBean> appCallInfos = cc2AplCallInfos.get(contentCode);
+		List<FutureTask<Integer> > tasks = new ArrayList<>();
+		if (appCallInfos != null) {
+			for (AppCallBean bean : appCallInfos) {
+				bean.task = bean.formCallable();
+				tasks.add(bean.task);
+			}
+		}
+		
+		connectionFactory.inner_publish(contentCode, key);
+		
+		if (!tasks.isEmpty()) {		
+				int i = 0;
+				for (FutureTask<Integer> task : tasks) {
+					try {
+						if (task.get() < 0) {
+							throw new RuntimeErrorException(new Error("Fail to call task :"+appCallInfos.get(i++).desc));
+						}
+					} catch (InterruptedException | ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						throw new RuntimeErrorException(new Error(e.getMessage()+ ", Fail to call task :"+appCallInfos.get(i++).desc));
+					}			
+				}
+			
+		}
 	}
 }

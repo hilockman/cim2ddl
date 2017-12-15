@@ -17,7 +17,7 @@ public class AdsNodeInitializer  implements RedissonNodeInitializer {
     	RedissonClient redisson = redissonNode.getRedisson();
     	
 
-   // 	redisson.getRemoteService().register(AdsServer.class, connection.getAdsServer());
+  //  	redisson.getRemoteService().register(AdsServer.class, connection.getAdsServer());
     	
     	 	
    //     RMap<String, Integer> map = redisson.getMap("myMap");

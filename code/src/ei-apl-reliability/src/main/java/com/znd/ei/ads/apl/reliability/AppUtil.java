@@ -24,6 +24,7 @@ public class AppUtil {
 	public static final String GC_RELIABILITY_INDEX = "GCReliabilityIndex";
 
 	
+	@SuppressWarnings("unchecked")
 	public static <T> void clearAndSave(List<T> records, MemTableRepository<T> dao) {
 		
 		

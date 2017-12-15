@@ -43,7 +43,7 @@ var init = function() {
 
 		},
 		error : function() {
-			alert("get default config failed!");
+			alert("get default PRAdequacySetting failed!");
 		}
 	});
 
@@ -146,7 +146,7 @@ $('#start-calc-reliability').click(
 				timeout : 600000,
 				success : function(msg) {
 					console.log('calc reliability request accepted : ' + JSON.stringify(msg));
-					$('#request-response').html(msg.code == 'OK'?'Request accepted!' : 'Fail to submit calc : ' + msg.detail);
+					//$('#request-response').html(msg.code == 'OK'?'Request accepted!' : 'Fail to submit calc : ' + msg.detail);
 					$("#start-calc-reliability").prop("disabled", true);
 				},
 				 error: function (e) {

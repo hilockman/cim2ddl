@@ -20,6 +20,8 @@ public class StateEstimateProperties {
 	
 	
 	private String cachedDir;
+	
+	private String appDir;
 
 	public Integer getListenPort() {
 		return listenPort;
@@ -75,5 +77,13 @@ public class StateEstimateProperties {
 
 	public void setServerId(String serverId) {
 		this.serverId = serverId;
+	}
+
+	public String getAppDir() {
+		return appDir;
+	}
+
+	public void setAppDir(String appDir) {
+		this.appDir = appDir;
 	}
 }

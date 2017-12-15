@@ -1,0 +1,225 @@
+{
+	"Command": "StateEstimate",
+	"Content": {
+		"ACBus": [{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_1",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_10",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_11",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_12",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_13",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_14",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_15",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_16",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_17",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_18",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_19",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_2",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_20",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_21",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_22",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_23",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_24",
+			"PLC": 0.0,
+			"kV": 230.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_3",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_4",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_5",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_6",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_7",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_8",
+			"PLC": 0.0,
+			"kV": 138.0
+		},
+		{
+			"EENS": 0.0,
+			"EFLC": 0.0,
+			"ELC": 0.0,
+			"Name": "BUS_9",
+			"PLC": 0.0,
+			"kV": 138.0
+		}],
+		"FState": [{
+			"BalanceCutGen": 0.0,
+			"BalanceCutLoad": 0.0,
+			"BalanceInsGen": 410.750,
+			"Durition": 1759.820,
+			"ELimit": 0,
+			"ELimitCutGen": 0.0,
+			"ELimitCutLoad": 0.0,
+			"ELimitInsGen": 0.0,
+			"ELimitResult": 0,
+			"Estimated": 1,
+			"FDevNum": 2,
+			"FLossGen": 410.750,
+			"FLossGenCap": 410.750,
+			"FLossLoad": 0.0,
+			"FStateID": 464,
+			"FaultGrade": 0,
+			"MIsland": 0,
+			"MIslandCutGen": 0.0,
+			"MIslandInsGen": 0.0,
+			"MIslandOutLoad": 0.0,
+			"MSoutIndex": -1,
+			"MaxFaultRatio": 0.0,
+			"MaxFaultZone": 0,
+			"OverLimit": 0,
+			"Probability": 0.000880,
+			"SampleType": 1,
+			"StateNum": 84
+		}],
+		"Message": "        FStateID = 464 ¼ǋ䎪³Ǣ,"Value":"1"}}
