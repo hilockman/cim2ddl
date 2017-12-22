@@ -18,11 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -33,6 +29,7 @@ import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.adf.ContentCodeDefines;
+import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
 import com.znd.ei.ads.apl.AplManager;
 import com.znd.ei.ads.apl.annotations.AplController;
@@ -56,7 +53,6 @@ import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
 
-//import com.znd.ei.memdb.reliabilty.domain.System;
 @AplController
 public class ReliabilityApl {
 	private static final Logger LOGGER = LoggerFactory
@@ -64,13 +60,7 @@ public class ReliabilityApl {
 
 
 	public String execRootPath;
-//	static {
-//		String str = System.getenv("ZND_HOME");
-//		if (str != null && !str.isEmpty()) {
-//			rootPath = str;
-//		}
-//
-//	}
+
 
 	public static ReliabilityApl INSTANCE = null;
 
@@ -171,7 +161,7 @@ public class ReliabilityApl {
 	}
 
 	public void callReliabilityIndex(PRAdequacySetting config) {
-		AppUtil.execBuilder(GC_RELIABILITY_INDEX).addParam(execRootPath)
+		AppUtil.execBuilder(execRootPath+"/"+GC_RELIABILITY_INDEX).addParam(execRootPath)
 		// 直流潮流2 交流潮流系数 fDc2AcFactor
 				.addParam(config.getDc2AcFactor()).logger(new AppLogger() {
 
@@ -182,26 +172,10 @@ public class ReliabilityApl {
 				}).exec();
 	}
 
-//	private void printDbEntry(DbEntryOperations ops) throws DbException {
-//		List<MemTable> tables = ops.getTables();
-//		for (MemTable table : tables) {
-//			long count = ops.getRecordCount(table);
-//			if (count == 0)
-//				continue;
-//
-//			LOGGER.info(String.format("Table :%s, desc:%s, count:%d",
-//					table.getName(), table.getDescription(), count));
-//			List<String[]> rt = ops.findAllRecords(table);
-//			for (String[] records : rt) {
-//				LOGGER.info(String.join(" ", records));
-//				break;
-//			}
-//		}
-//	}
 
 	@Autowired
 	private RedissonClient redissonClient;
-//
+	
 //	@AplFunction(desc = "模型加载:加载BPA模型,BPA网络模型转可靠性网络模型")
 //	public void loadModel(@In(create_AllModel) StringData createConfig,
 //			@Out(created_BPAModel) MemDBData bPAModel,
@@ -232,7 +206,7 @@ public class ReliabilityApl {
 	
 	private void callStateSample(PRAdequacySetting config) {
 		System.out.println("call StateSample , config = "+config);
-		AppUtil.execBuilder(GC_STATE_SAMPLE).addParam(execRootPath)
+		AppUtil.execBuilder(execRootPath+"/"+GC_STATE_SAMPLE).addParam(execRootPath)
 		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
 				.addParam(config.getPRSampleObject())
 				// 抽样类型 nPRSampleMethod
@@ -248,13 +222,14 @@ public class ReliabilityApl {
 				// FST[快速排序]累积概率 fFSTMaxCumuProb
 				addParam(config.getFSTMaxCumuProb())
 				// FST[快速排序]设备故障概率门槛值 fFSTMinStateProb
-				.addParam(config.getFSTMinStateProb())
+				//.addParam(config.getFSTMinStateProb())
+				.addParam(0.00000)
 				// FST[快速排序]最大状态数 nFSTMaxStateNum
 				.addParam(config.getFSTMaxStateNum())
 				// STS[状态抽样]最大状态数 nSTSMaxStateNum
 				.addParam(config.getSTSMaxStateNum())
 				// ANA[解析法]设备故障概率门槛值 fANAMinStateProb
-				.addParam(.0).logger((String log)->LOGGER.info(log)).exec();
+				.addParam(0.000000).logger((String log)->LOGGER.info(log)).exec();
 	}
 	
 
@@ -301,40 +276,13 @@ public class ReliabilityApl {
 		pROps.clearDb();
 	}
 	
-//	private AtomicBoolean localDataPrepared = new AtomicBoolean(false);
-	
-//	private PRAdequacySetting prepareMemory(ReliabilityNetBuffer buffer) {
-//		
-//		
-//		PRAdequacySetting config = buffer.get(ReliabilityNetBuffer.PR_ADEQUACY_SETTING, PRAdequacySetting.class);		
-//
-//		
-//		File flowFile = buffer.saveFile(properties.getCachedDir(), ReliabilityNetBuffer.FLOW_FILE);
-//		File stableFile = buffer.saveFile(properties.getCachedDir(), ReliabilityNetBuffer.STATLE_FILE);
-//		File paramFile = buffer.saveFile(properties.getCachedDir(), ReliabilityNetBuffer.PARAM_FILE);
-////		File flowFile = new File("E:\\data\\RTS79\\RTS79.dat");
-////		File stableFile = new File("E:\\data\\RTS79\\RTS79.swi");
-////		File paramFile = new File("E:\\data\\RTS79\\RTS79.xml");
-//
-//		config.setBpaDatFile(flowFile.getAbsolutePath());
-//		config.setBpaSwiFile(stableFile.getAbsolutePath());
-//		config.setBpaRParamFile(paramFile.getAbsolutePath());
-//
-//		// bpa model loader
-//		 File [] files = {flowFile, stableFile, paramFile};
-//		 
-//		 callBpaLoader(new File[]{flowFile, stableFile});
-//		 callBpa2Pr(files);
-//		 
-//		localDataPrepared.set(true);
-//		return config;
-//	}
+
 	
 
 	private CountDownLatch memDbCreatedLatch;
 
-	@AplFunction( desc = " create BPA and PR model")
-	public void createModel(@In(ContentCodeDefines.created_BPAFiles) String modelName) {
+	@AplFunction( desc = " create BPA and PR memory database")
+	public void createMemDb(@In(ContentCodeDefines.created_BPAFiles) String modelName) {
 		memDbCreatedLatch = new CountDownLatch(1);
 		ReliabilityNetBuffer buffer = new ReliabilityNetBuffer(connectionFactory, modelName);
 		
@@ -457,7 +405,12 @@ public class ReliabilityApl {
 		 fStateDao.deleteAll();
 		 mIslandDao.deleteAll();
 		 
+		 
 		 MapData<String, ResponseEstimate> resultMap = buffer.getMap(ReliabilityNetBuffer.ESTIMATE_RESULT_MAP);
+		ListData<FState> fstates = buffer.getList(ReliabilityNetBuffer.FSTATE_LIST);
+		List<FState> fstates0 = fstates.getContent();
+		Collections.sort(fstates0, (a, b)->a.getFStateID().compareTo(b.getFStateID()));
+		
 		 Map<String, ResponseEstimate> m = resultMap.getAll();
 		 Set<Entry<String, ResponseEstimate>> entrys = m.entrySet();
 		List<FStateOvlDev> ovlDevs = new ArrayList<>();
@@ -481,6 +434,7 @@ public class ReliabilityApl {
 			 }
 		 }
 		 
+
 		 Collections.sort(ovlAds, (a, b)->a.getFStateId().compareTo(b.getFStateId()));
 		 ovlAdDao.saveOrUpdate(ovlAds);
 		 
@@ -488,6 +442,23 @@ public class ReliabilityApl {
 		 ovlDevDao.saveOrUpdate(ovlDevs);
 		 
 		 Collections.sort(fstates1, (a, b)->a.getFStateID().compareTo(b.getFStateID()));
+//		 int i = 0;
+//		 int j = 0;
+//		 for (;i < fstates0.size() && j < fstates1.size(); ) {
+//			 FState s0 = fstates0.get(i);
+//			 FState s1 = fstates1.get(j);
+//			 int c = s0.getFStateID().compareTo(s1.getFStateID());
+//			 if (c == 0) {
+//				 s1.setProbability(s0.getProbability());
+//				 s1.setDurition(s0.getDurition());
+//				 i++;
+//				 j++;
+//			 } else if (c < 0) {
+//				 i++;
+//			 } else {
+//				 j++;
+//			 }
+//		 }		 
 		 fStateDao.saveOrUpdate(fstates1);
 		 
 		 Collections.sort(islands, (a, b)->a.getFStateId().compareTo(b.getFStateId()));
@@ -497,27 +468,7 @@ public class ReliabilityApl {
 		callReliabilityIndex(config);
 	}
 	
-//	private StateEstimateResult executeStateEstimate(FState state) {
-//		//return stateEstimateServer.execute(state);
-//		return null;
-//	}
-//	@AplFunction( desc = "do reliability")
-//	public void calcReliabilityIndex(@In("do_ReliabilityIndex") StringData data) {
-//		String modelName = data.getContent();
-//		ObjectRefDataOperations strOps = connectionFactory.getObjectRefOperations();
-//		String configKey = modelName+":config:estimateConfig";
-//		String config = strOps.get(configKey);
-//		if (config == null || config.isEmpty()) {
-//			log(modelName, "configKey is empty");
-//		}
-//		StateEstimateConfig estimateConfig = Utils.toObject(config, StateEstimateConfig.class);
-//		
-//		callReliabilityIndex(estimateConfig);
-//	}
-	
-//	private void processStateEstimate(String modelName, PRAdequacySetting config) {
-//       
-//	}
+
 
 	public class LogInfo {
 		private Date date;
@@ -563,8 +514,7 @@ public class ReliabilityApl {
 			pathFile.mkdirs();
 		}
 		
-		 
-		
+	
 		Path filePath = Paths.get(tempDir, fileName);
 		File file = filePath.toFile();
 		LOGGER.info("save file : {} ", file.getAbsolutePath());
@@ -574,7 +524,6 @@ public class ReliabilityApl {
 			fw.write(fileContent);
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

@@ -54,9 +54,11 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
     
 	@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) { 
-    	System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ msg.toString());
-    	String content = msg.toString();
-    //	server.saveLog("Server response:\n" + content);
+		String content = msg.toString();
+		System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ content.length()+" size.");
+		//System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ content);
+		
+    	server.saveLog("Server response:\n" + content);
     	
     	if (content.contains(Commands.DATA_READY)) {
     	} else if (content.contains(Commands.STATE_ESTIMATE)){
@@ -98,12 +100,20 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 
 					String requestMsg = Utils.toJSon(task);					
 					if (server != null) {
-						server.saveLog("Server request:\n" + requestMsg);
-						server.simpleSendMessage(requestMsg, null);
+						server.saveLog("Client request:\n" + requestMsg);
+						//server.simpleSendMessage(requestMsg);
+						server.sendMessage(requestMsg);
 					}
 				} else {
 					closeParent();
 					break;
+				}
+				
+				try {
+					Thread.sleep(0);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		} catch (ACPException e) {

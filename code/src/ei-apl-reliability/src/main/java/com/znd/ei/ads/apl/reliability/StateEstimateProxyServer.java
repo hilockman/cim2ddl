@@ -2,6 +2,9 @@ package com.znd.ei.ads.apl.reliability;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
@@ -26,11 +29,7 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -79,10 +78,10 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 	//private Channel responseChannel;
 
 	private Bootstrap clientBootStrap;
-	private NioEventLoopGroup clientEventGroup;
 	
 	
-	private  ExecutorService threadPool = Executors.newCachedThreadPool();
+	
+	//private  ExecutorService threadPool = Executors.newCachedThreadPool();
 
 	private Charset defaultCharset = Charset.forName("GBK");
 	
@@ -101,13 +100,16 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 	 * @param semaphore
 	 * @throws InterruptedException
 	 */
-	private void startListen(ReliabilityNetBuffer buffer,
-			PRAdequacySetting setting,
-			CountDownLatch serverFinishedLatch, CountDownLatch listenStartLatch) throws InterruptedException {
+	private ChannelFuture startListen(ReliabilityNetBuffer buffer,
+			PRAdequacySetting setting) throws InterruptedException {
 		Semaphore availableWorkers = new Semaphore(properties.getServerThread(), true);
 
+		// Start the client.
+		NioEventLoopGroup clientEventGroup = startClient();
+		
+		
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+		EventLoopGroup workerGroup = new NioEventLoopGroup();	
 		StateEstimateProxyServer server = this;
 		ListData<RequestEstimate> taskList;
 		MapData<String, ResponseEstimate> resultMap;
@@ -152,7 +154,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 										System.out.println("Task is finished :"+taskList.getKey());
 										RequestJobFinished request = new RequestJobFinished();
 										String responseMsg = Utils.toJSon(request);
-										simpleSendMessage(responseMsg, null);
+										simpleSendMessage(responseMsg);
 										try {
 											bossGroup.shutdownGracefully().sync();
 											workerGroup.shutdownGracefully().sync();
@@ -163,7 +165,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 											e.printStackTrace();
 										}									
 										
-										serverFinishedLatch.countDown();
+										//serverFinishedLatch.countDown();
 										timer.cancel();
 									}
 									
@@ -189,14 +191,17 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 		ChannelFuture f = localBootstrap.bind(properties.getListenPort()).sync(); // 8
 		logger.info(StateEstimateProxyServer.class.getName()
 				+ " started and listen on " + f.channel().localAddress());
-		listenStartLatch.countDown();
+		//listenStartLatch.countDown();
 		//responseChannel = f.channel();
-		f.channel().closeFuture().sync(); // 9
-		//responseChannel.close().sync();
-		System.out.println("监听端口已关闭。");
+		
+		return f.channel().closeFuture();
 	}
 	
-	private void startClient() {
+	/**
+	 * 启动客服端，为发送后评估任务做准备 
+	 * @return
+	 */
+	private NioEventLoopGroup startClient() {
 	
 		NioEventLoopGroup clientEventGroup = new NioEventLoopGroup();
 	
@@ -214,7 +219,8 @@ public class StateEstimateProxyServer implements StateEstimateServer {
                  p.addLast("encoder", new StringEncoder(defaultCharset));                    
 //		                     p.addLast(new StateEstimateRequestHandler(msg));
              }
-         });			
+         });	
+		return clientEventGroup;
 	}
 
 
@@ -223,21 +229,35 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 	//client
 	   	setting.setMultiThread(properties.getServerThread());
 	   	saveLog("PRAdequacySetting = \n"+Utils.toJSon(setting));
-		CountDownLatch listenStartLatch = new CountDownLatch(1);
-		CountDownLatch serverFinishedLatch = new CountDownLatch(1);
+		//CountDownLatch listenStartLatch = new CountDownLatch(1);
+		//CountDownLatch serverFinishedLatch = new CountDownLatch(1);
 		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					startListen(buffer, setting,serverFinishedLatch, listenStartLatch);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}).start();
+
+	   	
+	   	
+		ChannelFuture future = null;
+		try {
+			future = startListen(buffer, setting);			
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return ;
+		}		
+		
+//		Thread listenThread = new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				try {
+//					startListen(buffer, setting, listenStartLatch);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+		
+		//listenThread.start();
 		
 		
 //		new ChannelInitializer<SocketChannel>() {
@@ -252,37 +272,39 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 //            }
 //        }
 //		
-//		startClient();
+		
    	 
 		RequestDataReady ready = new RequestDataReady();
 		ready.setValue(String.valueOf(properties.getServerThread()));
 		ready.getContent().setPRAdequacySetting(setting);
 		
 		String msg = Utils.toJSon(ready);
-		simpleSendMessage(msg, listenStartLatch);
-		System.out.println("Wait for server finished ...");
+		simpleSendMessage(msg);
+		System.out.println("Wait for listen finished ...");
 		try {
-			serverFinishedLatch.await();
+			future.sync(); // 9
+			//responseChannel.close().sync();
+			//System.out.println("监听端口已关闭。");
+			
+			//listenThread.join();
+			System.out.println("Listen chanel finished .");
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		try {
+//			serverFinishedLatch.await();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
 		
 	}
 
 	//private Byte sendFlag = new Byte((byte) 0);
 	
-	public void simpleSendMessage(String msg, CountDownLatch listenStartLatch) {
-		if (listenStartLatch != null) {
-			try {
-				listenStartLatch.await();
-			} catch (InterruptedException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-				logger.error("Fail to send message :"+msg);
-				return;
-			}
-		}
+	public void simpleSendMessage(String msg) {
+
 		
 		Socket ouputSocket = null;							
 		//synchronized(sendFlag) {
@@ -311,7 +333,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 				}
 			}								
 		//}
-		System.out.println("Send data :\n" + msg);		
+		System.out.println("Send data : size = " + msg.length());		
 		try {
 			BufferedWriter bw = new BufferedWriter(
 					new OutputStreamWriter(
@@ -327,29 +349,24 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 		}
 	}
 
-	public void sendMessage(String msg, CountDownLatch latch) {
-		if (latch != null) {
-			try {
-				latch.await();
-			} catch (InterruptedException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-				logger.error("Fail to send message :"+msg);
-				return;
-			}
-		}
-		
-		try {
+	public void sendMessage(String msg) {
 
-	
-			// Start the client.				
-			ChannelFuture future = clientBootStrap.connect(properties.getServerIp(), properties.getServerPort()).sync();
+		try {
+			
+			//connect to server
+			ChannelFuture future = clientBootStrap.connect(properties.getServerIp(), properties.getServerPort()).sync();		
 			future.addListener(new ChannelFutureListener() {
 				
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if (future.isSuccess()) {
-						System.out.println("Connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
+						System.out.println("Connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort()+", send messag size = "+msg.length());
+						
+						Channel c = future.channel();
+						
+						ByteBuf buffer = Unpooled.copiedBuffer(msg, Charset.defaultCharset());							
+						c.writeAndFlush(buffer);
+						c.close();
 					} else {
 						System.err.println("Fail to connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
 					}
@@ -395,10 +412,5 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 			e.printStackTrace();
 		}
 	}
-
-
-	
-
-
 
 }
