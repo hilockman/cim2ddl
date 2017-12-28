@@ -14,7 +14,7 @@ ads:
      - Test1
   temp:
     dir: ./temp
-  appDir: E:\ZNDProject\SoftwareBeta/bin_x64
+  appDir: D:\GitHub\cim2ddl\code\bin_x64
 
 state-estimate:
   listenPort: 9002

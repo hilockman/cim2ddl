@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ReportConfig>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="线路最大负荷电流" RunningMacro="">
+      <XlsDes>线路最大负荷电流</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TrunkSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="TrunkSegment.Line" ColumnDes="主干线.所属线路(馈线)" ColumnType="String"/>
+        <Column ColumnName="min(TrunkSegment.MaxCurrent)" ColumnDes="主干线.线路最大负荷电流(A)" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy>TrunkSegment.Line</GroupBy>
+      <visible>true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="电缆线长度" RunningMacro="">
+      <XlsDes>电缆线路长度</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>ACLineSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="ACLineSegment.Line" ColumnDes="交流线路段.所属线路" ColumnType="String"/>
+        <Column ColumnName="Sum(ACLineSegment.Length)" ColumnDes="交流线路段.线路长度(km)" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[ACLineSegment.LineType=1]]></Restrict>
+      <GroupBy>ACLineSegment.Line</GroupBy>
+      <visible>true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="架空线长度" RunningMacro="">
+      <XlsDes>架空线长度</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>ACLineSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="ACLineSegment.Line" ColumnDes="交流线路段.所属线路" ColumnType="String"/>
+        <Column ColumnName="Sum(ACLineSegment.Length)" ColumnDes="交流线路段长度" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[ACLineSegment.LineType=0]]></Restrict>
+      <GroupBy>ACLineSegment.Line</GroupBy>
+      <visible>true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="改造线路" RunningMacro="">
+      <XlsDes>改造</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>Line</MainTable>
+      <FollowTable>SubControlArea</FollowTable>
+      <Columns>
+        <Column ColumnName="Line.Name" ColumnDes="线路.名称" ColumnType="String"/>
+        <Column ColumnName="Line.VoltageLevel" ColumnDes="线路.电压等级" ColumnType="String"/>
+        <Column ColumnName="Line.SubcontrolArea" ColumnDes="线路.所属分区" ColumnType="String"/>
+        <Column ColumnName="Line.LineLength" ColumnDes="线路.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.AreaCategory" ColumnDes="电力分区.供电分区类型" ColumnType="Integer"/>
+        <Column ColumnName="SubControlArea.Company" ColumnDes="电力分区.所属电力公司" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[Line.SubcontrolArea = SubControlArea.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[Line.Name in (select TrunkSegment.Line from TrunkSegment where TrunkSegment.PlanCharacter = '3')]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配网开关1(断路器+负荷开关)" RunningMacro="">
+      <XlsDes>配网开关1(断路器+负荷开关)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionBreaker</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionBreaker.Name" ColumnDes="配网开关.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.VoltageLevel" ColumnDes="配网开关.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.BreakerType" ColumnDes="配网开关.开关类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.Company" ColumnDes="配网开关.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.SubControlArea" ColumnDes="配网开关.所属分区" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.RTLevel" ColumnDes="配网开关.遥点级别" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.Feeder" ColumnDes="配网开关.所属馈线" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.RunTimeSpan" ColumnDes="配网开关.运行时间" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.BuildDate" ColumnDes="配网开关.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ReBuildDate" ColumnDes="配网开关.改造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.AreaCategory" ColumnDes="配网开关.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ei_invest" ColumnDes="配网开关.投资费用(万/台)" ColumnType="Float"/>
+        <Column ColumnName="DistributionBreaker.InvestMode" ColumnDes="配网开关.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ProjectCategory" ColumnDes="配网开关.工程类别" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionBreaker.BreakerType = 0 OR DistributionBreaker.BreakerType=4]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="电动汽车充换站(新投资)" RunningMacro="">
+      <XlsDes>电动汽车充换站(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>EleVehicleStation</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="EleVehicleStation.Name" ColumnDes="电动汽车充/换电站.名称" ColumnType="String"/>
+        <Column ColumnName="EleVehicleStation.ei_Invest" ColumnDes="电动汽车充/换电站.设备费用(万元/台.块)" ColumnType="Float"/>
+        <Column ColumnName="EleVehicleStation.ei_AuxInvest" ColumnDes="电动汽车充/换电站.配套设备费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="EleVehicleStation.ei_LandInvest" ColumnDes="电动汽车充/换电站.购地费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="EleVehicleStation.BuildDate" ColumnDes="电动汽车充/换电站.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="EleVehicleStation.Company" ColumnDes="电动汽车充/换电站.所属公司" ColumnType="String"/>
+        <Column ColumnName="EleVehicleStation.InvestMode" ColumnDes="电动汽车充/换电站.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[EleVehicleStation.PlanCharacter=1 or EleVehicleStation.PlanCharacter=2 or EleVehicleStation.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="电缆终端杆塔(新投资)" RunningMacro="">
+      <XlsDes>电缆终端杆塔(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionJuncPole</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionJuncPole.Name" ColumnDes="电缆终端/杆塔.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionJuncPole.ei_invest" ColumnDes="电缆终端/杆塔.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="DistributionJuncPole.BuildDate" ColumnDes="电缆终端/杆塔.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionJuncPole.Company" ColumnDes="电缆终端/杆塔.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionJuncPole.InvestMode" ColumnDes="电缆终端/杆塔.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionJuncPole.PlanCharacter=1 or DistributionJuncPole.PlanCharacter=2 OR DistributionJuncPole.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配变配电室(新投资)" RunningMacro="">
+      <XlsDes>配变配电室(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionLoad</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionLoad.Name" ColumnDes="配变/配电室.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.ei_invest" ColumnDes="配变/配电室.投资费用(万元/kVA)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.BuildDate" ColumnDes="配变/配电室.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.Company" ColumnDes="配变/配电室.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.InvestMode" ColumnDes="配变/配电室.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.PlanCharacter" ColumnDes="配变/配电室.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.VoltageLevel" ColumnDes="配变/配电室.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.RateCapacity" ColumnDes="配变/配电室.额定容量(kVA)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.AreaCategory" ColumnDes="配变/配电室.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.ProjectCategory" ColumnDes="配变/配电室.工程类别" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionLoad.PlanCharacter=1 OR DistributionLoad.PlanCharacter=2 OR DistributionLoad.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配网开关(新投资)" RunningMacro="">
+      <XlsDes>配网开关(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionBreaker</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionBreaker.Name" ColumnDes="配网开关.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.ei_invest" ColumnDes="配网开关.投资费用(万/台)" ColumnType="Float"/>
+        <Column ColumnName="DistributionBreaker.BuildDate" ColumnDes="配网开关.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.Company" ColumnDes="配网开关.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.InvestMode" ColumnDes="配网开关.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.AreaCategory" ColumnDes="配网开关.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ProjectCategory" ColumnDes="配网开关.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.VoltageLevel" ColumnDes="配网开关.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.PlanCharacter" ColumnDes="配网开关.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionBreaker.PlanCharacter=1 OR DistributionBreaker.PlanCharacter=2 OR DistributionBreaker.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配变（公司投资）" RunningMacro="">
+      <XlsDes>配变（公司投资）</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionLoad</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionLoad.Name" ColumnDes="配变/配电室.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.VoltageLevel" ColumnDes="配变/配电室.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.RateCapacity" ColumnDes="配变/配电室.额定容量(kVA)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.BuildDate" ColumnDes="配变/配电室.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.ReBuildDate" ColumnDes="配变/配电室.改造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.AreaCategory" ColumnDes="配变/配电室.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.Company" ColumnDes="配变/配电室.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.Amorphous" ColumnDes="配变/配电室.非晶合金" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.InvestMode" ColumnDes="配变/配电室.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.LoadP" ColumnDes="配变/配电室.负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.PlanCharacter" ColumnDes="配变/配电室.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionLoad.Type=0 AND DistributionLoad.InvestMode in (0,1,2,3)]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="开闭所环网柜分枝箱(新投资)" RunningMacro="">
+      <XlsDes>开闭所环网柜分枝箱(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionSwitch</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionSwitch.Name" ColumnDes="开闭所/环网柜/分支箱.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.ei_invest" ColumnDes="开闭所/环网柜/分支箱.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="DistributionSwitch.BuildDate" ColumnDes="开闭所/环网柜/分支箱.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.Company" ColumnDes="开闭所/环网柜/分支箱.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.InvestMode" ColumnDes="开闭所/环网柜/分支箱.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.VoltageLevel" ColumnDes="开闭所/环网柜/分支箱.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.PlanCharacter" ColumnDes="开闭所/环网柜/分支箱.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.AreaCategory" ColumnDes="开闭所/环网柜/分支箱.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.ProjectCategory" ColumnDes="开闭所/环网柜/分支箱.工程类别" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionSwitch.PlanCharacter=1 OR DistributionSwitch.PlanCharacter=2 OR DistributionSwitch.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="分支线(新投资)" RunningMacro="">
+      <XlsDes>分支线(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>BranchSegment</MainTable>
+      <FollowTable>TrunkSegment</FollowTable>
+      <Columns>
+        <Column ColumnName="BranchSegment.Name" ColumnDes="分支线.名称" ColumnType="String"/>
+        <Column ColumnName="BranchSegment.ei_invest" ColumnDes="分支线.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="BranchSegment.BuildDate" ColumnDes="分支线.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.Company" ColumnDes="主干线.所属公司" ColumnType="String"/>
+        <Column ColumnName="BranchSegment.InvestMode" ColumnDes="分支线.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[BranchSegment.Trunk = TrunkSegment.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[TrunkSegment.PlanCharacter=1 OR TrunkSegment.PlanCharacter=2 OR TrunkSegment.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="主干线(新投资）" RunningMacro="">
+      <XlsDes>主干线(新投资）</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TrunkSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="TrunkSegment.Name" ColumnDes="主干线.名称" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.ei_invest" ColumnDes="主干线.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.BuildDate" ColumnDes="主干线.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.Company" ColumnDes="主干线.所属公司" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.InvestMode" ColumnDes="主干线.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.ProjectCategory" ColumnDes="主干线.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.AreaCategory" ColumnDes="主干线.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.PlanCharacter" ColumnDes="主干线.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.VoltageLevel" ColumnDes="主干线.电压等级" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[TrunkSegment.PlanCharacter = 1 OR TrunkSegment.PlanCharacter = 2 OR TrunkSegment.PlanCharacter = 3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="厂站实体（新投资）" RunningMacro="">
+      <XlsDes>厂站实体(新投资)</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubstationEntity</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="SubstationEntity.Name" ColumnDes="厂站实体.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.ei_invest" ColumnDes="厂站实体.投资费用(万元/台)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.HighVoltageLevel" ColumnDes="厂站实体.最高电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.SubstationType" ColumnDes="厂站实体.厂站类型" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.PlanCharacter" ColumnDes="厂站实体.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[SubstationEntity.PlanCharacter=1 OR SubstationEntity.PlanCharacter=2 OR SubstationEntity.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="变电站+电源站实体" RunningMacro="">
+      <XlsDes>变电站+电源站实体</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubstationEntity</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="SubstationEntity.Name" ColumnDes="厂站实体.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.HighVoltageLevel" ColumnDes="厂站实体.最高电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.SubstationType" ColumnDes="厂站实体.厂站类型" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ReBuildDate" ColumnDes="厂站实体.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ei_invest" ColumnDes="厂站实体.投资费用(万元/台)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ProjectCategory" ColumnDes="厂站实体.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.LoadP" ColumnDes="厂站实体.负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[SubstationEntity.SubstationType=0 OR SubstationEntity.SubstationType=2]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="厂站" RunningMacro="">
+      <XlsDes>基础表-厂站</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubstationEntity</MainTable>
+      <FollowTable>Substation</FollowTable>
+      <Columns>
+        <Column ColumnName="Substation.Name" ColumnDes="厂站.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.Name" ColumnDes="厂站实体.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.VoltageLevel" ColumnDes="厂站实体.电压等级(电源站)" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+        <Column ColumnName="Substation.Company" ColumnDes="厂站.所属电力公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.Public" ColumnDes="厂站实体.是否公用" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ConstructType" ColumnDes="厂站实体.建设类型" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.TotalOutline" ColumnDes="厂站实体.出线间隔总数(电源站)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.InuseOutline" ColumnDes="厂站实体.已出线间隔数(电源站)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.SubControlArea" ColumnDes="厂站实体.所属分区" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.RunTimeSpan" ColumnDes="厂站实体.运行时间" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.LoadP" ColumnDes="厂站实体.负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ei_invest" ColumnDes="厂站实体.投资费用(万元/台)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.PlanCharacter" ColumnDes="厂站实体.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[SubstationEntity.ResourceID = Substation.ResourceID]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="厂站实体" RunningMacro="">
+      <XlsDes>厂站实体</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubstationEntity</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="SubstationEntity.Name" ColumnDes="厂站实体.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.VoltageLevel" ColumnDes="厂站实体.电压等级(电源站)" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.HighVoltageLevel" ColumnDes="厂站实体.最高电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.SubstationType" ColumnDes="厂站实体.厂站类型" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.TotalBay" ColumnDes="厂站实体.间隔总数(电源站)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ProjectCategory" ColumnDes="厂站实体.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.TotalOutline" ColumnDes="厂站实体.出线间隔总数(电源站)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.PlanCharacter" ColumnDes="厂站实体.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Public" ColumnDes="厂站实体.是否公用" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ConstructType" ColumnDes="厂站实体.建设类型" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.InuseOutline" ColumnDes="厂站实体.已出线间隔数(电源站)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.LoadP" ColumnDes="厂站实体.负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.SubControlArea" ColumnDes="厂站实体.所属分区" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.RunTimeSpan" ColumnDes="厂站实体.运行时间" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="历史年总电量负荷表" RunningMacro="">
+      <XlsDes>历史年总电量负荷表</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>lfiHistoryPower</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="lfiHistoryPower.Year" ColumnDes="历史年总电量负荷表.年份" ColumnType="String"/>
+        <Column ColumnName="lfiHistoryPower.Subcontrolarea" ColumnDes="历史年总电量负荷表.分区名称" ColumnType="String"/>
+        <Column ColumnName="lfiHistoryPower.Maxload" ColumnDes="历史年总电量负荷表.最大供电负荷(MW)" ColumnType="String"/>
+        <Column ColumnName="lfiHistoryPower.Power0" ColumnDes="历史年总电量负荷表.全社会用电量(亿kWh)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Power1" ColumnDes="历史年总电量负荷表.第一产业用电量(亿kWh)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Power2" ColumnDes="历史年总电量负荷表.第二产业用电量(亿kWh)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Power3" ColumnDes="历史年总电量负荷表.第三产业用电量(亿kWh)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Power4" ColumnDes="历史年总电量负荷表.居民生活用电量(亿kWh)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Load220" ColumnDes="历史年总电量负荷表.220kV负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Load110" ColumnDes="历史年总电量负荷表.110kV负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Load10" ColumnDes="历史年总电量负荷表.10kV负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="lfiHistoryPower.Load35" ColumnDes="历史年总电量负荷表.35kV负荷(MW)" ColumnType="Float"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="线路（分布电源接入）" RunningMacro="">
+      <XlsDes>线路（分布电源接入）</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>Line</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="Line.Name" ColumnDes="线路.名称" ColumnType="String"/>
+        <Column ColumnName="Line.VoltageLevel" ColumnDes="线路.电压等级" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[Line.Name in (select TrunkSegment.Line from TrunkSegment where TrunkSegment.ProjectCategory=8)]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="主干线（分布电源接入）" RunningMacro="">
+      <XlsDes>主干线（分布电源接入）</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TrunkSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="TrunkSegment.Name" ColumnDes="主干线.名称" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.VoltageLevel" ColumnDes="主干线.电压等级" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.ProjectCategory" ColumnDes="主干线.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.BuildDate" ColumnDes="主干线.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.ReBuildDate" ColumnDes="主干线.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.ei_invest" ColumnDes="主干线.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.Line" ColumnDes="主干线.所属线路(馈线)" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.LineType" ColumnDes="主干线.架空/电缆" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.Length" ColumnDes="主干线.线路长度(km)" ColumnType="Float"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[TrunkSegment.ProjectCategory=8]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="开闭所、环网柜" RunningMacro="">
+      <XlsDes>开闭所、环网柜</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionSwitch</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionSwitch.Name" ColumnDes="开闭所/环网柜/分支箱.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.VoltageLevel" ColumnDes="开闭所/环网柜/分支箱.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.Type" ColumnDes="开闭所/环网柜/分支箱.设备类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.BuildDate" ColumnDes="开闭所/环网柜/分支箱.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.ReBuildDate" ColumnDes="开闭所/环网柜/分支箱.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.Company" ColumnDes="开闭所/环网柜/分支箱.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.ProjectCategory" ColumnDes="开闭所/环网柜/分支箱.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.AreaCategory" ColumnDes="开闭所/环网柜/分支箱.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.PlanCharacter" ColumnDes="开闭所/环网柜/分支箱.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.InvestMode" ColumnDes="开闭所/环网柜/分支箱.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.DevCharacter" ColumnDes="开闭所/环网柜/分支箱.设备性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionSwitch.Type in (0,1)]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配网开关" RunningMacro="">
+      <XlsDes>配网开关</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionBreaker</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionBreaker.Name" ColumnDes="配网开关.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.VoltageLevel" ColumnDes="配网开关.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.BreakerType" ColumnDes="配网开关.开关类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.Company" ColumnDes="配网开关.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.SubControlArea" ColumnDes="配网开关.所属分区" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.RTLevel" ColumnDes="配网开关.遥点级别" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.Feeder" ColumnDes="配网开关.所属馈线" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.RunTimeSpan" ColumnDes="配网开关.运行时间" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.BuildDate" ColumnDes="配网开关.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ReBuildDate" ColumnDes="配网开关.改造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.AreaCategory" ColumnDes="配网开关.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ei_invest" ColumnDes="配网开关.投资费用(万/台)" ColumnType="Float"/>
+        <Column ColumnName="DistributionBreaker.InvestMode" ColumnDes="配网开关.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.ProjectCategory" ColumnDes="配网开关.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.PlanCharacter" ColumnDes="配网开关.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配网开关（负荷开关+断路器）" RunningMacro="">
+      <XlsDes>配网开关（断路器+负荷开关）</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionBreaker</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionBreaker.Name" ColumnDes="配网开关.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.VoltageLevel" ColumnDes="配网开关.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.BreakerType" ColumnDes="配网开关.开关类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.AreaCategory" ColumnDes="配网开关.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.Company" ColumnDes="配网开关.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionBreaker.PlanCharacter" ColumnDes="配网开关.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.InvestMode" ColumnDes="配网开关.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionBreaker.DevCharacter" ColumnDes="配网开关.设备性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionBreaker.BreakerType in(0,4)]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="环网柜" RunningMacro="">
+      <XlsDes>环网柜</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionSwitch</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionSwitch.Name" ColumnDes="开闭所/环网柜/分支箱.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.VoltageLevel" ColumnDes="开闭所/环网柜/分支箱.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.Type" ColumnDes="开闭所/环网柜/分支箱.设备类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.AreaCategory" ColumnDes="开闭所/环网柜/分支箱.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.Company" ColumnDes="开闭所/环网柜/分支箱.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.BuildDate" ColumnDes="开闭所/环网柜/分支箱.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.ReBuildDate" ColumnDes="开闭所/环网柜/分支箱.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.InvestMode" ColumnDes="开闭所/环网柜/分支箱.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.PlanCharacter" ColumnDes="开闭所/环网柜/分支箱.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.DevCharacter" ColumnDes="开闭所/环网柜/分支箱.设备性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionSwitch.Type=1]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="开闭所" RunningMacro="">
+      <XlsDes>开闭所</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionSwitch</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionSwitch.Name" ColumnDes="开闭所/环网柜/分支箱.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.VoltageLevel" ColumnDes="开闭所/环网柜/分支箱.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.Type" ColumnDes="开闭所/环网柜/分支箱.设备类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.AreaCategory" ColumnDes="开闭所/环网柜/分支箱.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.Company" ColumnDes="开闭所/环网柜/分支箱.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.BuildDate" ColumnDes="开闭所/环网柜/分支箱.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.ReBuildDate" ColumnDes="开闭所/环网柜/分支箱.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.InvestMode" ColumnDes="开闭所/环网柜/分支箱.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.PlanCharacter" ColumnDes="开闭所/环网柜/分支箱.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[DistributionSwitch.Type = 0]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="新建扩建-变电站内变压器" RunningMacro="">
+      <XlsDes>新建扩建-变电站内变压器</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>PowerTransformer</MainTable>
+      <FollowTable>SubstationEntity</FollowTable>
+      <Columns>
+        <Column ColumnName="PowerTransformer.Name" ColumnDes="变压器.名称" ColumnType="String"/>
+        <Column ColumnName="PowerTransformer.Substation" ColumnDes="变压器.厂站" ColumnType="String"/>
+        <Column ColumnName="PowerTransformer.VoltagelevelH" ColumnDes="变压器.高压电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ReBuildDate" ColumnDes="厂站实体.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="' '" ColumnDes="工程类别(空)" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="规划性质(空)" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[PowerTransformer.Substation = SubstationEntity.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[PowerTransformer.Name in (select TransformerWinding.PowerTransformer from TransformerWinding where (TransformerWinding.PlanCharacter=1 or TransformerWinding.PlanCharacter=2)]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="变压器绕组" RunningMacro="">
+      <XlsDes>变压器绕组</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TransformerWinding</MainTable>
+      <FollowTable>SubstationEntity</FollowTable>
+      <Columns>
+        <Column ColumnName="TransformerWinding.Name" ColumnDes="变压器绕组.名称" ColumnType="String"/>
+        <Column ColumnName="TransformerWinding.iVoltageLevel" ColumnDes="变压器绕组.起电压等级" ColumnType="String"/>
+        <Column ColumnName="TransformerWinding.Substation" ColumnDes="变压器绕组.厂站" ColumnType="String"/>
+        <Column ColumnName="TransformerWinding.PowerTransformer" ColumnDes="变压器绕组.所属变压器" ColumnType="String"/>
+        <Column ColumnName="TransformerWinding.sa_Result" ColumnDes="变压器绕组.N-1通过情况" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="TransformerWinding.PlanCharacter" ColumnDes="变压器绕组.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="TransformerWinding.ProjectCategory" ColumnDes="变压器绕组.工程类别" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[TransformerWinding.Substation = SubstationEntity.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="主干线（架空）" RunningMacro="">
+      <XlsDes>主干线（架空）</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TrunkSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="TrunkSegment.Name" ColumnDes="主干线.名称" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.VoltageLevel" ColumnDes="主干线.电压等级" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.LineModel" ColumnDes="主干线.线路型号" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="绝缘线/电缆线" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.AreaCategory" ColumnDes="主干线.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.Company" ColumnDes="主干线.所属公司" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[TrunkSegment.LineType=0]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="负荷 " RunningMacro="">
+      <XlsDes>负荷</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>EnergyConsumer</MainTable>
+      <FollowTable>Substation</FollowTable>
+      <Columns>
+        <Column ColumnName="EnergyConsumer.ri_customer" ColumnDes="负荷.负荷用户数" ColumnType="String"/>
+        <Column ColumnName="Substation.Company" ColumnDes="厂站.所属电力公司" ColumnType="String"/>
+        <Column ColumnName="Substation.SubcontrolArea" ColumnDes="厂站.所属电力分区" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="电力分区-&gt;一户一表率" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="电力分区-&gt;供电分区类型" ColumnType="String"/>
+        <Column ColumnName="EnergyConsumer.Substation" ColumnDes="负荷.厂站" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[EnergyConsumer.Substation = Substation.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="新扩建线路" RunningMacro="">
+      <XlsDes>新扩建线路</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>Line</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="Line.Name" ColumnDes="线路.名称" ColumnType="String"/>
+        <Column ColumnName="Line.VoltageLevel" ColumnDes="线路.电压等级" ColumnType="String"/>
+        <Column ColumnName="Line.SubcontrolArea" ColumnDes="线路.所属分区" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[Line.Name in (select TrunkSegment.Line from TrunkSegment where (TrunkSegment.PlanCharacter = 1 OR TrunkSegment.PlanCharacter = 3) and TrunkSegment.Name not in (select TrunkSegment.Name from TrunkSegment where TrunkSegment.PlanCharacter = 2))]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="新建线路" RunningMacro="">
+      <XlsDes>新建线路</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>Line</MainTable>
+      <FollowTable>SubControlArea</FollowTable>
+      <Columns>
+        <Column ColumnName="Line.Name" ColumnDes="线路.名称" ColumnType="String"/>
+        <Column ColumnName="Line.VoltageLevel" ColumnDes="线路.电压等级" ColumnType="String"/>
+        <Column ColumnName="Line.SubcontrolArea" ColumnDes="线路.所属分区" ColumnType="String"/>
+        <Column ColumnName="Line.LineLength" ColumnDes="线路.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.AreaCategory" ColumnDes="电力分区.供电分区类型" ColumnType="Integer"/>
+        <Column ColumnName="SubControlArea.Company" ColumnDes="电力分区.所属电力公司" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[Line.SubcontrolArea = SubControlArea.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[Line.Name in (select TrunkSegment.Line from TrunkSegment where (TrunkSegment.PlanCharacter = 1) and TrunkSegment.Name not in (select TrunkSegment.Name from TrunkSegment where TrunkSegment.PlanCharacter = 3))]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="新扩建主干线" RunningMacro="">
+      <XlsDes>新扩建主干线</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TrunkSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="TrunkSegment.Name" ColumnDes="主干线.名称" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.VoltageLevel" ColumnDes="主干线.电压等级" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.Line" ColumnDes="主干线.所属线路(馈线)" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.LineType" ColumnDes="主干线.架空/电缆" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.Length" ColumnDes="主干线.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.Company" ColumnDes="主干线.所属公司" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.AreaCategory" ColumnDes="主干线.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.ProjectCategory" ColumnDes="主干线.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.PlanCharacter" ColumnDes="主干线.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[TrunkSegment.PlanCharacter = 1 OR TrunkSegment.PlanCharacter = 3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="新扩建变电站实体" RunningMacro="">
+      <XlsDes>新扩建变电站实体</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubstationEntity</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="SubstationEntity.Name" ColumnDes="厂站实体.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.HighVoltageLevel" ColumnDes="厂站实体.最高电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.ProjectCategory" ColumnDes="厂站实体.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.TotalBay" ColumnDes="厂站实体.间隔总数(电源站)" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[SubstationEntity.PlanCharacter=1 OR SubstationEntity.PlanCharacter=3]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="变电站内变压器" RunningMacro="">
+      <XlsDes>变电站内变压器</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>PowerTransformer</MainTable>
+      <FollowTable>SubstationEntity</FollowTable>
+      <Columns>
+        <Column ColumnName="PowerTransformer.Name" ColumnDes="变压器.名称" ColumnType="String"/>
+        <Column ColumnName="PowerTransformer.Substation" ColumnDes="变压器.厂站" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.HighVoltageLevel" ColumnDes="厂站实体.最高电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ReBuildDate" ColumnDes="厂站实体.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="' '" ColumnDes="工程类别（空）" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="工程类别(空)" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[PowerTransformer.Substation = SubstationEntity.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[SubstationEntity.SubstationType=2]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="变电站实体" RunningMacro="">
+      <XlsDes>变电站实体</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubstationEntity</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="SubstationEntity.Name" ColumnDes="厂站实体.名称" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.HighVoltageLevel" ColumnDes="厂站实体.最高电压等级" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.LoadP" ColumnDes="厂站实体.负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.MvaCapacity" ColumnDes="厂站实体.容量(MVA)" ColumnType="Float"/>
+        <Column ColumnName="SubstationEntity.BuildDate" ColumnDes="厂站实体.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.TotalBay" ColumnDes="厂站实体.间隔总数(电源站)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.AreaCategory" ColumnDes="厂站实体.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.Company" ColumnDes="厂站实体.所属公司" ColumnType="String"/>
+        <Column ColumnName="SubstationEntity.ReBuildDate" ColumnDes="厂站实体.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.InvestMode" ColumnDes="厂站实体.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.ProjectCategory" ColumnDes="厂站实体.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.PlanCharacter" ColumnDes="厂站实体.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="SubstationEntity.TotalOutline" ColumnDes="厂站实体.出线间隔总数(电源站)" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[SubstationEntity.SubstationType=2]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="交流线路段" RunningMacro="">
+      <XlsDes>交流线路段</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>ACLineSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="ACLineSegment.Name" ColumnDes="交流线路段.名称" ColumnType="String"/>
+        <Column ColumnName="ACLineSegment.iVoltageLevel" ColumnDes="交流线路段.起电压等级" ColumnType="String"/>
+        <Column ColumnName="ACLineSegment.LineType" ColumnDes="交流线路段.架空/电缆" ColumnType="Integer"/>
+        <Column ColumnName="ACLineSegment.Length" ColumnDes="交流线路段.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="ACLineSegment.TimeSpan" ColumnDes="交流线路段.运行时间" ColumnType="Integer"/>
+        <Column ColumnName="ACLineSegment.Line" ColumnDes="交流线路段.所属线路" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="所属电力分区" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="供电区域分类" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="架空线长度" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="总长度" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配变" RunningMacro="">
+      <XlsDes>配变</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionLoad</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionLoad.Name" ColumnDes="配变/配电室.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.VoltageLevel" ColumnDes="配变/配电室.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.LoadP" ColumnDes="配变/配电室.负荷(MW)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.RateCapacity" ColumnDes="配变/配电室.额定容量(kVA)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.ShuntCap" ColumnDes="配变/配电室.无功补偿(Mvar)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.Company" ColumnDes="配变/配电室.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.AreaCategory" ColumnDes="配变/配电室.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.SubControlArea" ColumnDes="配变/配电室.所属分区" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.Feeder" ColumnDes="配变/配电室.所属馈线" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.Public" ColumnDes="配变/配电室.是否公用" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.MountType" ColumnDes="配变/配电室.安装型式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.Amorphous" ColumnDes="配变/配电室.非晶合金" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.HighLoss" ColumnDes="配变/配电室.高损变" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.BuildDate" ColumnDes="配变/配电室.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.ReBuildDate" ColumnDes="配变/配电室.改造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.RunTimeSpan" ColumnDes="配变/配电室.运行时间" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.InvestMode" ColumnDes="配变/配电室.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.ei_invest" ColumnDes="配变/配电室.投资费用(万元/kVA)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.ProjectCategory" ColumnDes="配变/配电室.工程类别" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.PlanCharacter" ColumnDes="配变/配电室.规划性质" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="电动汽车充换站" RunningMacro="">
+      <XlsDes>电动汽车充换站</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>EleVehicleStation</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="EleVehicleStation.Name" ColumnDes="电动汽车充/换电站.名称" ColumnType="String"/>
+        <Column ColumnName="EleVehicleStation.ei_Invest" ColumnDes="电动汽车充/换电站.设备费用(万元/台.块)" ColumnType="Float"/>
+        <Column ColumnName="EleVehicleStation.ei_AuxInvest" ColumnDes="电动汽车充/换电站.配套设备费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="EleVehicleStation.ei_LandInvest" ColumnDes="电动汽车充/换电站.购地费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="EleVehicleStation.BuildDate" ColumnDes="电动汽车充/换电站.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="EleVehicleStation.Company" ColumnDes="电动汽车充/换电站.所属公司" ColumnType="String"/>
+        <Column ColumnName="EleVehicleStation.InvestMode" ColumnDes="电动汽车充/换电站.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="电缆终端杆塔" RunningMacro="">
+      <XlsDes>电缆终端杆塔</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionJuncPole</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionJuncPole.Name" ColumnDes="电缆终端/杆塔.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionJuncPole.ei_invest" ColumnDes="电缆终端/杆塔.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="DistributionJuncPole.BuildDate" ColumnDes="电缆终端/杆塔.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionJuncPole.Company" ColumnDes="电缆终端/杆塔.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionJuncPole.InvestMode" ColumnDes="电缆终端/杆塔.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="配变配变电室" RunningMacro="">
+      <XlsDes>基础表-配变配电室</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionLoad</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionLoad.Name" ColumnDes="配变/配电室.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.ei_invest" ColumnDes="配变/配电室.投资费用(万元/kVA)" ColumnType="Float"/>
+        <Column ColumnName="DistributionLoad.BuildDate" ColumnDes="配变/配电室.建造日期" ColumnType="Integer"/>
+        <Column ColumnName="DistributionLoad.Company" ColumnDes="配变/配电室.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionLoad.InvestMode" ColumnDes="配变/配电室.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="开闭所环网柜分支箱" RunningMacro="">
+      <XlsDes>基础表-开闭所环网柜分支箱</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>DistributionSwitch</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="DistributionSwitch.Name" ColumnDes="开闭所/环网柜/分支箱.名称" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.VoltageLevel" ColumnDes="开闭所/环网柜/分支箱.电压等级" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.Type" ColumnDes="开闭所/环网柜/分支箱.设备类型" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.SubControlArea" ColumnDes="开闭所/环网柜/分支箱.所属分区" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.Feeder" ColumnDes="开闭所/环网柜/分支箱.所属馈线" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.BuildDate" ColumnDes="开闭所/环网柜/分支箱.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.ReBuildDate" ColumnDes="开闭所/环网柜/分支箱.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.PlanCharacter" ColumnDes="开闭所/环网柜/分支箱.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.AreaCategory" ColumnDes="开闭所/环网柜/分支箱.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.Company" ColumnDes="开闭所/环网柜/分支箱.所属公司" ColumnType="String"/>
+        <Column ColumnName="DistributionSwitch.ei_invest" ColumnDes="开闭所/环网柜/分支箱.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="DistributionSwitch.InvestMode" ColumnDes="开闭所/环网柜/分支箱.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="DistributionSwitch.ProjectCategory" ColumnDes="开闭所/环网柜/分支箱.工程类别" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="断路器" RunningMacro="">
+      <XlsDes>基础表-断路器</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>Breaker</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="Breaker.Name" ColumnDes="断路器.名称" ColumnType="String"/>
+        <Column ColumnName="Breaker.VoltageLevel" ColumnDes="断路器.电压等级" ColumnType="String"/>
+        <Column ColumnName="Breaker.Substation" ColumnDes="断路器.厂站" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="供电区域类型" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="所属电力公司" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="运行时间" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="线路" RunningMacro="">
+      <XlsDes>基础表-线路</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>Line</MainTable>
+      <FollowTable>SubControlArea</FollowTable>
+      <Columns>
+        <Column ColumnName="Line.Name" ColumnDes="线路.名称" ColumnType="String"/>
+        <Column ColumnName="Line.VoltageLevel" ColumnDes="线路.电压等级" ColumnType="String"/>
+        <Column ColumnName="Line.SubcontrolArea" ColumnDes="线路.所属分区" ColumnType="String"/>
+        <Column ColumnName="Line.ConnectMode" ColumnDes="线路.接线模式" ColumnType="Integer"/>
+        <Column ColumnName="SubControlArea.AreaCategory" ColumnDes="电力分区.供电分区类型" ColumnType="Integer"/>
+        <Column ColumnName="SubControlArea.Company" ColumnDes="电力分区.所属电力公司" ColumnType="String"/>
+        <Column ColumnName="Line.RunTimeSpan" ColumnDes="运行时间" ColumnType="Integer"/>
+        <Column ColumnName="Line.LineLength" ColumnDes="线路.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="Line.MaxCapacity" ColumnDes="线路.线路最大载流量(A)" ColumnType="String"/>
+        <Column ColumnName="Line.MaxCurrent" ColumnDes="线路.线路最大负荷电流(A)" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="' '" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[Line.SubcontrolArea = SubControlArea.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="分支线" RunningMacro="">
+      <XlsDes>基础表-分支线</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>BranchSegment</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="BranchSegment.Name" ColumnDes="分支线.名称" ColumnType="String"/>
+        <Column ColumnName="BranchSegment.Trunk" ColumnDes="分支线.所属主干线" ColumnType="String"/>
+        <Column ColumnName="BranchSegment.LineModel" ColumnDes="分支线.线路型号" ColumnType="String"/>
+        <Column ColumnName="BranchSegment.Length" ColumnDes="分支线.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="' '" ColumnDes="电压等级" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="导线面积" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="所属公司" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="供电区域分类" ColumnType="String"/>
+        <Column ColumnName="BranchSegment.ei_invest" ColumnDes="分支线.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="BranchSegment.InvestMode" ColumnDes="分支线.投资方式" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="主干线" RunningMacro="">
+      <XlsDes>基础表-主干线</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>TrunkSegment</MainTable>
+      <FollowTable>Line</FollowTable>
+      <Columns>
+        <Column ColumnName="TrunkSegment.Name" ColumnDes="主干线.名称" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.VoltageLevel" ColumnDes="主干线.电压等级" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.Line" ColumnDes="主干线.所属线路(馈线)" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.LineType" ColumnDes="主干线.架空/电缆" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.LineModel" ColumnDes="主干线.线路型号" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.Length" ColumnDes="主干线.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.AreaCategory" ColumnDes="主干线.供电区域分类" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.Company" ColumnDes="主干线.所属公司" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.Public" ColumnDes="主干线.是否公用" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.DistranCapacity" ColumnDes="主干线.配变容量(kVA)" ColumnType="Float"/>
+        <Column ColumnName="' '" ColumnDes="导线面积" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="绝缘线/裸导线" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.LineCap" ColumnDes="主干线.线上无功补偿容量(MVar)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.BuildDate" ColumnDes="主干线.建造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.ReBuildDate" ColumnDes="主干线.改造日期(年月日)" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.RunTimeSpan" ColumnDes="主干线.运行时间" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.PlanCharacter" ColumnDes="主干线.规划性质" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.sa_ResultI" ColumnDes="主干线.I侧N-1通过情况" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.sa_ResultZ" ColumnDes="主干线.Z侧N-1通过情况" ColumnType="Integer"/>
+        <Column ColumnName="TrunkSegment.LineRate" ColumnDes="主干线.线路段占线路比例(%)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.iSubstation" ColumnDes="主干线.起厂站" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.zSubstation" ColumnDes="主干线.终厂站" ColumnType="String"/>
+        <Column ColumnName="TrunkSegment.ei_invest" ColumnDes="主干线.投资费用(万元)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.InvestMode" ColumnDes="主干线.投资方式" ColumnType="Integer"/>
+        <Column ColumnName="Line.LineLength" ColumnDes="线路.线路长度(km)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.LossP" ColumnDes="主干线.损耗有功(MW)" ColumnType="Float"/>
+        <Column ColumnName="TrunkSegment.ProjectCategory" ColumnDes="主干线.工程类别" ColumnType="Integer"/>
+      </Columns>
+      <Join>
+        <Jointype>INNER JOIN</Jointype>
+        <Reference><![CDATA[TrunkSegment.Line = Line.Name]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="电力分区" RunningMacro="">
+      <XlsDes>基础表-电力分区</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>SubControlArea</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="SubControlArea.Name" ColumnDes="电力分区.名称" ColumnType="String"/>
+        <Column ColumnName="SubControlArea.rp_GDP" ColumnDes="电力分区.国内生产总值(万元)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.rp_Population" ColumnDes="电力分区.人口数" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.rp_UrbanPopulation" ColumnDes="电力分区.城镇化人口数" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.Area" ColumnDes="电力分区.分区面积(km2)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.Equity" ColumnDes="电力分区.分区产权所属" ColumnType="Integer"/>
+        <Column ColumnName="SubControlArea.Company" ColumnDes="电力分区.所属电力公司" ColumnType="String"/>
+        <Column ColumnName="SubControlArea.TotalGenp" ColumnDes="电力分区.总发电有功(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.TotalLoadP" ColumnDes="电力分区.总负荷有功(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.TotalLossP" ColumnDes="电力分区.总网损有功(MW)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.ro_saidi" ColumnDes="电力分区.分区年均停电时间(小时/户.年)" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.AreaCategory" ColumnDes="电力分区.供电分区类型" ColumnType="Integer"/>
+        <Column ColumnName="SubControlArea.ro_asai" ColumnDes="电力分区.综合平均理论供电可用率" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.ro_customernum" ColumnDes="电力分区.分区用户总数" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.rp_PowerPopulation" ColumnDes="电力分区.供电人口数" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.rp_1Meter1UserRate" ColumnDes="电力分区.一户一表率" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.rp_VoltPassRate" ColumnDes="电力分区.电压合格率" ColumnType="Float"/>
+        <Column ColumnName="SubControlArea.ro_noext_asai" ColumnDes="电力分区.独网综合平均理论供电可用率" ColumnType="Float"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+  <Report CreateDate="2015-02-06">
+    <Template XlsName="template_base.xlsx" XlsPath="D:\template\normal" isclear="true" SheetName="变压器" RunningMacro="">
+      <XlsDes>基础表-变压器</XlsDes>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Way>Horizontal</Way>
+    </Template>
+    <SQLSentence>
+      <MainTable>PowerTransformer</MainTable>
+      <FollowTable></FollowTable>
+      <Columns>
+        <Column ColumnName="PowerTransformer.Name" ColumnDes="变压器.名称" ColumnType="String"/>
+        <Column ColumnName="PowerTransformer.VoltagelevelL" ColumnDes="变压器.低压电压等级" ColumnType="String"/>
+        <Column ColumnName="PowerTransformer.Substation" ColumnDes="变压器.厂站" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="所属厂站容量" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="所属电力公司" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="供电区域分类" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="所属分区" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="运行时间" ColumnType="String"/>
+        <Column ColumnName="PowerTransformer.VoltagelevelH" ColumnDes="最高电压等级" ColumnType="String"/>
+        <Column ColumnName="' '" ColumnDes="运行时间(空)" ColumnType="String"/>
+      </Columns>
+      <Join>
+        <Jointype>NONE</Jointype>
+        <Reference><![CDATA[]]></Reference>
+      </Join>
+      <Restrict><![CDATA[]]></Restrict>
+      <GroupBy></GroupBy>
+      <visible>true,true,true,true,true,true,true,true,true,true</visible>
+    </SQLSentence>
+  </Report>
+</ReportConfig>

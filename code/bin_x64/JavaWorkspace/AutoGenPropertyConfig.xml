@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<AutoGenPropertyConfig> 
+  <RCreateMode>0</RCreateMode>
+  <AcBus>
+    <Pro table="bpaDat_acbus" name="名称" field="acbus_Name" classify="AcBus" visible="true"/>
+    <Pro table="bpaDat_acbus" name="有功" field="acbus_PGen" classify="AcBus" visible="false"/>
+    <Pro table="bpaDat_acbus" name="无功" field="acbus_LoadQ" classify="AcBus" visible="false"/>
+    <Pro table="bpaDat_acbus" name="电压" field="acbus_V" classify="AcBus" visible="false"/>
+    <Pro table="bpaDat_acbus" name="功角" field="acbus_D" classify="AcBus" visible="false"/>
+    <Pro table="bpaDat_acbus" name="频率" field="vd_RScc1" classify="AcBus" visible="false"/>
+  </AcBus>
+  <DcBus>
+    <Pro table="bpaDat_dcbus" name="名称" field="dcbus_Name" classify="DcBus" visible="true"/>
+    <Pro table="bpaDat_dcbus" name="电压" field="dcbus_KV" classify="DcBus" visible="false"/>
+  </DcBus>
+  <AcLine_init>
+    <Pro table="bpaDat_acline" name="起端有功" field="acline_Pi" classify="AcLine_init" visible="false"/>
+    <Pro table="bpaDat_acline" name="起端无功" field="acline_Qi" classify="AcLine_init" visible="false"/>
+    <Pro table="bpaDat_acline" name="起端电流" field="acline_AMP" classify="AcLine_init" visible="false"/>
+  </AcLine_init>
+  <AcLine_end>
+    <Pro table="bpaDat_acline" name="终端有功" field="acline_Pz" classify="AcLine_end" visible="false"/>
+    <Pro table="bpaDat_acline" name="终端无功" field="acline_Qz" classify="AcLine_end" visible="false"/>
+    <Pro table="bpaDat_acline" name="终端电流" field="acline_Ga0" classify="AcLine_end" visible="false"/>
+  </AcLine_end>
+  <AcLine_middle>
+    <Pro table="bpaDat_acline" name="电阻R" field="acline_R" classify="AcLine_middle" visible="false"/>
+    <Pro table="bpaDat_acline" name="电抗X" field="acline_X" classify="AcLine_middle" visible="false"/>
+  </AcLine_middle>
+  <DcLine_init>
+    <Pro table="bpaDat_dcline" name="起端有功" field="dcline_KVR" classify="DcLine_init" visible="false"/>
+    <Pro table="bpaDat_dcline" name="起端电流" field="dcline_L" classify="DcLine_init" visible="false"/>
+  </DcLine_init>
+  <DcLine_end>
+    <Pro table="bpaDat_dcline" name="终端有功" field="dcline_KVI" classify="DcLine_end" visible="false"/>
+    <Pro table="bpaDat_dcline" name="终端电流" field="dcline_C" classify="DcLine_end" visible="false"/>
+  </DcLine_end>
+  <DcLine_middel>
+    <Pro table="bpaDat_dcline" name="电阻R" field="dcline_R" classify="DcLine_middel" visible="false"/>
+    <Pro table="bpaDat_dcline" name="控制功率" field="dcline_DCPOWER" classify="DcLine_middel" visible="false"/>
+  </DcLine_middel>
+  <Tran_I>
+    <Pro table="bpaDat_wind" rcard="0" name="I侧有功" field="wind_Pi" classify="Tran_I" visible="false"/>
+    <Pro table="bpaDat_wind" rcard="0" name="I侧无功" field="wind_Qi" classify="Tran_I" visible="false"/>
+    <Pro table="bpaDat_wind" rcard="0" name="I侧电流" field="wind_SccAI" classify="Tran_I" visible="false"/>
+  </Tran_I>
+  <Tran_J>
+    <Pro table="bpaDat_wind" rcard="0" name="J侧有功" field="wind_Pz" classify="Tran_J" visible="false"/>
+    <Pro table="bpaDat_wind" rcard="0" name="J侧无功" field="wind_Qz" classify="Tran_J" visible="false"/>
+    <Pro table="bpaDat_wind" rcard="0" name="J侧电流" field="wind_SccAZ" classify="Tran_J" visible="false"/>
+  </Tran_J>
+  <Tran_middle>
+    <Pro table="bpaDat_wind" rcard="0" name="电阻R" field="wind_R" classify="Tran_middle" visible="false"/>
+    <Pro table="bpaDat_wind" rcard="0" name="电抗X" field="wind_X" classify="Tran_middle" visible="false"/>
+  </Tran_middle>
+  <subPower>
+    <Pro table="bpaDat_sub" name="名称" field="sub_Name" classify="subPower" visible="true"/>
+  </subPower>
+  <subTran>
+    <Pro table="bpaDat_sub" name="名称" field="sub_Name" classify="subTran" visible="true"/>
+  </subTran>
+</AutoGenPropertyConfig>

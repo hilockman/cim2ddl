@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<VoltageLevels>
+  <selectedAllIcon>true</selectedAllIcon>
+  <colorModel>true</colorModel>
+  <VoltageLevel>
+    <desc>VoltageLevel_400V</desc>
+    <name>0.4kV</name>
+    <volLevel>0.40</volLevel>
+    <colorName>grey</colorName>
+    <colorDesc>灰色</colorDesc>
+    <clr Red="128" Green="128" Blue="128"/>
+    <clrFilled Red="128" Green="128" Blue="128"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_690V</desc>
+    <name>0.69kV</name>
+    <volLevel>0.69</volLevel>
+    <colorName>white</colorName>
+    <colorDesc>白色</colorDesc>
+    <clr Red="255" Green="255" Blue="255"/>
+    <clrFilled Red="255" Green="255" Blue="255"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_6kV</desc>
+    <name>6kV</name>
+    <volLevel>6.30</volLevel>
+    <colorName>darkbule</colorName>
+    <colorDesc>深蓝</colorDesc>
+    <clr Red="0" Green="0" Blue="139"/>
+    <clrFilled Red="0" Green="0" Blue="139"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_10kV</desc>
+    <name>10kV</name>
+    <volLevel>10.50</volLevel>
+    <colorName>crimson</colorName>
+    <colorDesc>绛红</colorDesc>
+    <clr Red="0" Green="51" Blue="255"/>
+    <clrFilled Red="0" Green="0" Blue="255"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_13kV</desc>
+    <name>13.8kV</name>
+    <volLevel>13.80</volLevel>
+    <colorName>lightgreen</colorName>
+    <colorDesc>浅绿</colorDesc>
+    <clr Red="0" Green="210" Blue="0"/>
+    <clrFilled Red="0" Green="210" Blue="0"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_15kV</desc>
+    <name>15.75kV</name>
+    <volLevel>15.75</volLevel>
+    <colorName>darkgreen</colorName>
+    <colorDesc>绿色</colorDesc>
+    <clr Red="0" Green="128" Blue="0"/>
+    <clrFilled Red="0" Green="128" Blue="0"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_18kV</desc>
+    <name>18kV</name>
+    <volLevel>18.00</volLevel>
+    <colorName>brown</colorName>
+    <colorDesc>梨黄</colorDesc>
+    <clr Red="226" Green="172" Blue="6"/>
+    <clrFilled Red="226" Green="172" Blue="6"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_20kV</desc>
+    <name>20kV</name>
+    <volLevel>21.00</volLevel>
+    <colorName>brown</colorName>
+    <colorDesc>梨黄</colorDesc>
+    <clr Red="226" Green="172" Blue="6"/>
+    <clrFilled Red="226" Green="172" Blue="6"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_24kV</desc>
+    <name>24kV</name>
+    <volLevel>24.00</volLevel>
+    <colorName>brown</colorName>
+    <colorDesc>梨黄</colorDesc>
+    <clr Red="0" Green="0" Blue="139"/>
+    <clrFilled Red="0" Green="0" Blue="139"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_35kV</desc>
+    <name>35kV</name>
+    <volLevel>37.00</volLevel>
+    <colorName>yellow</colorName>
+    <colorDesc>鲜黄</colorDesc>
+    <clr Red="255" Green="255" Blue="0"/>
+    <clrFilled Red="255" Green="255" Blue="0"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_66kV</desc>
+    <name>66kV</name>
+    <volLevel>70.00</volLevel>
+    <colorName>gold</colorName>
+    <colorDesc>橙黄</colorDesc>
+    <clr Red="255" Green="204" Blue="0"/>
+    <clrFilled Red="255" Green="204" Blue="0"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_110kV</desc>
+    <name>110kV</name>
+    <volLevel>115.00</volLevel>
+    <colorName>vermeil</colorName>
+    <colorDesc>朱红</colorDesc>
+    <clr Red="240" Green="65" Blue="85"/>
+    <clrFilled Red="240" Green="65" Blue="85"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_220kV</desc>
+    <name>220kV</name>
+    <volLevel>230.00</volLevel>
+    <colorName>purple</colorName>
+    <colorDesc>紫色</colorDesc>
+    <clr Red="128" Green="0" Blue="128"/>
+    <clrFilled Red="128" Green="0" Blue="128"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_330kV</desc>
+    <name>330kV</name>
+    <volLevel>345.00</volLevel>
+    <colorName>brightblue</colorName>
+    <colorDesc>亮蓝</colorDesc>
+    <clr Red="30" Green="144" Blue="255"/>
+    <clrFilled Red="30" Green="144" Blue="255"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_500kV</desc>
+    <name>500kV</name>
+    <volLevel>525.00</volLevel>
+    <colorName>red</colorName>
+    <colorDesc>红色</colorDesc>
+    <clr Red="255" Green="0" Blue="0"/>
+    <clrFilled Red="255" Green="0" Blue="0"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_660kV</desc>
+    <name>660kV</name>
+    <volLevel>700.00</volLevel>
+    <colorName>orange</colorName>
+    <colorDesc>橙色</colorDesc>
+    <clr Red="250" Green="128" Blue="10"/>
+    <clrFilled Red="250" Green="128" Blue="10"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_750kV</desc>
+    <name>750kV</name>
+    <volLevel>800.00</volLevel>
+    <colorName>orange</colorName>
+    <colorDesc>橙色</colorDesc>
+    <clr Red="250" Green="128" Blue="10"/>
+    <clrFilled Red="250" Green="128" Blue="10"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+  <VoltageLevel>
+    <desc>VoltageLevel_1000kV</desc>
+    <name>1000kV</name>
+    <volLevel>1050.00</volLevel>
+    <colorName>blue</colorName>
+    <colorDesc>中蓝</colorDesc>
+    <clr Red="0" Green="0" Blue="255"/>
+    <clrFilled Red="0" Green="0" Blue="255"/>
+    <strokeSize>1</strokeSize>
+    <fnt family="Dialog" style="0" size="12"/>
+  </VoltageLevel>
+</VoltageLevels>

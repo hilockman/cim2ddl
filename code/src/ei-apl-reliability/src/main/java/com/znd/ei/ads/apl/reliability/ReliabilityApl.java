@@ -441,24 +441,7 @@ public class ReliabilityApl {
 		 Collections.sort(ovlDevs, (a, b)->a.getFStateId().compareTo(b.getFStateId()));
 		 ovlDevDao.saveOrUpdate(ovlDevs);
 		 
-		 Collections.sort(fstates1, (a, b)->a.getFStateID().compareTo(b.getFStateID()));
-//		 int i = 0;
-//		 int j = 0;
-//		 for (;i < fstates0.size() && j < fstates1.size(); ) {
-//			 FState s0 = fstates0.get(i);
-//			 FState s1 = fstates1.get(j);
-//			 int c = s0.getFStateID().compareTo(s1.getFStateID());
-//			 if (c == 0) {
-//				 s1.setProbability(s0.getProbability());
-//				 s1.setDurition(s0.getDurition());
-//				 i++;
-//				 j++;
-//			 } else if (c < 0) {
-//				 i++;
-//			 } else {
-//				 j++;
-//			 }
-//		 }		 
+		 Collections.sort(fstates1, (a, b)->a.getFStateID().compareTo(b.getFStateID()));	 
 		 fStateDao.saveOrUpdate(fstates1);
 		 
 		 Collections.sort(islands, (a, b)->a.getFStateId().compareTo(b.getFStateId()));

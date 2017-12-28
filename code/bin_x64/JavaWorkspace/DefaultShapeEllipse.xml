@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<DefaultProperties>
+  <ResourceID>620627905688855.1000</ResourceID>
+  <Type>104</Type>
+  <Layer>0</Layer>
+  <Visible>true</Visible>
+  <LBGisX>0.0</LBGisX>
+  <LBGisY>0.0</LBGisY>
+  <Closed>true</Closed>
+  <Filled>true</Filled>
+  <Color>-16777216</Color>
+  <FillColor>-1031851</FillColor>
+  <PenStyle>0</PenStyle>
+  <PenWidth>1</PenWidth>
+  <Transparent>1.0</Transparent>
+  <Gradient>false</Gradient>
+  <Tooltip></Tooltip>
+  <AnimateType>0</AnimateType>
+  <AnimatePeriod>1</AnimatePeriod>
+  <AnimateOrient>0</AnimateOrient>
+  <AnimateDensity>0</AnimateDensity>
+  <RefShapeId>0.0000</RefShapeId>
+  <RelativeXYZ>0</RelativeXYZ>
+  <RefShapePoint>-1</RefShapePoint>
+  <bCopyShape>false</bCopyShape>
+  <AnimateColor>-65536</AnimateColor>
+  <GraphicGDBDataExp>
+    <ExpResourceID>620627905663328.1000</ExpResourceID>
+    <ExpDataTable>ϵͳ</ExpDataTable>
+  </GraphicGDBDataExp>
+  <GraphicGDBDataVar>
+    <VarResourceID>620627905665880.100000</VarResourceID>
+    <VarDbase>MemDB.Bpa</VarDbase>
+    <VarDataTable>BpaDat_ACBus</VarDataTable>
+    <VarDataArray FieldName="ResourceID">620627905665880.100000</VarDataArray>
+    <VarDataArray FieldName="Name">acbus</VarDataArray>
+    <VarDataArray FieldName="CardKey">B</VarDataArray>
+    <VarDataArray FieldName="ACBus_Owner"></VarDataArray>
+    <VarDataArray FieldName="ACBus_Name">BUS_4</VarDataArray>
+    <VarDataArray FieldName="ACBus_kV">138.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_Zone"></VarDataArray>
+    <VarDataArray FieldName="ACBus_PLoad">74.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_QLoad">15.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PShunt">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_QShunt">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_Pmax">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PGen">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_Qsched_Qmax">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_Qmin">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_VHold_max">1.100000</VarDataArray>
+    <VarDataArray FieldName="ACBus_Vmin">0.900000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RBusName"></VarDataArray>
+    <VarDataArray FieldName="ACBus_RBusVolt">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_VarSppld">0.000000</VarDataArray>
+    <VarDataArray FieldName="XR_R0">0.000000</VarDataArray>
+    <VarDataArray FieldName="XR_X0">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_BpaSub">BUS_4</VarDataArray>
+    <VarDataArray FieldName="ACBus_Alias"></VarDataArray>
+    <VarDataArray FieldName="ACBus_V">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_D">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoPGen">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoQGen">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoPLoad">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoQLoad">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoQShunt">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoPNet">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_PfoQNet">0.000000</VarDataArray>
+    <VarDataArray FieldName="vd_Rerr">0.000000</VarDataArray>
+    <VarDataArray FieldName="vd_RScc1">0.000000</VarDataArray>
+    <VarDataArray FieldName="vd_RScc2">0.000000</VarDataArray>
+    <VarDataArray FieldName="vd_RScc3">0.000000</VarDataArray>
+    <VarDataArray FieldName="vd_RScc4">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RtGenP">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RtGenQ">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RtLoadP">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RtLoadQ">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RtShuntQ">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_RtVHold">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccR1">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccX1">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccR2">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccX2">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccR0">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccX0">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA1Re">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA1Im">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA2Re">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA2Im">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA0Re">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccA0Im">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV1Re">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV1Im">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV2Re">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV2Im">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV0Re">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_SccV0Im">0.000000</VarDataArray>
+    <VarDataArray FieldName="ACBus_VDipBus1">0</VarDataArray>
+    <VarDataArray FieldName="ACBus_VDipBus2">0</VarDataArray>
+    <VarDataArray FieldName="ACBus_VDipBus3">0</VarDataArray>
+    <VarDataArray FieldName="ACBus_VDipBus4">0</VarDataArray>
+    <VarDataArray FieldName="TMid">0</VarDataArray>
+    <VarDataArray FieldName="Generator">0</VarDataArray>
+    <VarDataArray FieldName="WGen">0</VarDataArray>
+    <VarDataArray FieldName="DCBound">0</VarDataArray>
+    <VarDataArray FieldName="GenLn">0</VarDataArray>
+    <VarDataArray FieldName="Status">0</VarDataArray>
+    <VarDataArray FieldName="Redcution">0</VarDataArray>
+    <VarDataArray FieldName="InRing">1</VarDataArray>
+    <VarDataArray FieldName="Radiate">0</VarDataArray>
+    <VarDataArray FieldName="ACIsland">0</VarDataArray>
+    <VarDataArray FieldName="pRLine">53</VarDataArray>
+    <VarDataArray FieldName="pRTran">8</VarDataArray>
+    <VarDataArray FieldName="pRHG">0</VarDataArray>
+    <VarDataArray FieldName="pRSub">15</VarDataArray>
+  </GraphicGDBDataVar>
+  <GraphicGDBShapeCommand>
+    <CommandResourceID>620627905687396.1000</CommandResourceID>
+  </GraphicGDBShapeCommand>
+  <CornerVertex X="606.239976" Y="14811.111215">606.239976,14811.111215</CornerVertex>
+  <CornerVertex X="606.239976" Y="14116.666563">606.239976,14116.666563</CornerVertex>
+  <CornerVertex X="1308.839389" Y="14116.666563">1308.839389,14116.666563</CornerVertex>
+  <CornerVertex X="1308.839389" Y="14811.111215">1308.839389,14811.111215</CornerVertex>
+  <FontName>Helvetica</FontName>
+  <FontHeight>10</FontHeight>
+  <FontBold>false</FontBold>
+  <FontItalic>false</FontItalic>
+  <FontColor>-16777216</FontColor>
+  <TextShowWay>0</TextShowWay>
+  <TextHorizontalAlign>1</TextHorizontalAlign>
+  <TextVerticalAlign>2</TextVerticalAlign>
+  <ShowContour>true</ShowContour>
+  <StartAngle>0</StartAngle>
+  <EndAngle>360</EndAngle>
+</DefaultProperties>

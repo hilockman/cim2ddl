@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<DefaultProperties>
+  <ResourceID>620260091232698.0000</ResourceID>
+  <Type>111</Type>
+  <Layer>0</Layer>
+  <Visible>true</Visible>
+  <LBGisX>0.0</LBGisX>
+  <LBGisY>0.0</LBGisY>
+  <Closed>true</Closed>
+  <Filled>true</Filled>
+  <Color>-8388480</Color>
+  <FillColor>-8388480</FillColor>
+  <PenStyle>0</PenStyle>
+  <PenWidth>2</PenWidth>
+  <Transparent>0.5</Transparent>
+  <Gradient>false</Gradient>
+  <Tooltip></Tooltip>
+  <AnimateType>0</AnimateType>
+  <AnimatePeriod>1</AnimatePeriod>
+  <AnimateOrient>0</AnimateOrient>
+  <AnimateDensity>0</AnimateDensity>
+  <RefShapeId>-1.0000</RefShapeId>
+  <RelativeXYZ>0</RelativeXYZ>
+  <RefShapePoint>-1</RefShapePoint>
+  <bCopyShape>false</bCopyShape>
+  <AnimateColor>-65536</AnimateColor>
+  <GraphicGDBDataExp>
+    <ExpResourceID>124183833.1491</ExpResourceID>
+    <ExpDataTable>断路器</ExpDataTable>
+    <ExpDataField>运行状态</ExpDataField>
+    <ExpDataKeyArray Auxilary="0">220kV总变电站</ExpDataKeyArray>
+    <ExpDataKeyArray Auxilary="1">220kV</ExpDataKeyArray>
+    <ExpValue>0</ExpValue>
+  </GraphicGDBDataExp>
+  <GraphicGDBDataVar>
+    <VarResourceID>124183833.149200</VarResourceID>
+    <VarDbase>MemDB.PG</VarDbase>
+    <VarDataTable>Breaker</VarDataTable>
+    <VarDataArray FieldName="Substation">220kV总变电站</VarDataArray>
+    <VarDataArray FieldName="VoltageLevel">220kV</VarDataArray>
+    <VarDataArray FieldName="Status">0</VarDataArray>
+    <VarDataArray FieldName="Category">0</VarDataArray>
+    <VarDataArray FieldName="ri_Rerr">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_Trep">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_Rchk">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_Tchk">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_Tfloc">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_RSwitch">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_TSwitch">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_Rrswh">0.000000</VarDataArray>
+    <VarDataArray FieldName="ri_Reswh">0.000000</VarDataArray>
+    <VarDataArray FieldName="ei_Invest">0.000000</VarDataArray>
+    <VarDataArray FieldName="P">0.000000</VarDataArray>
+    <VarDataArray FieldName="Q">0.000000</VarDataArray>
+    <VarDataArray FieldName="A">0.000000</VarDataArray>
+    <VarDataArray FieldName="SccAi">0.000000</VarDataArray>
+    <VarDataArray FieldName="SccAz">0.000000</VarDataArray>
+    <VarDataArray FieldName="ro_RContribution">0.000000</VarDataArray>
+    <VarDataArray FieldName="ro_UContribution">0.000000</VarDataArray>
+    <VarDataArray FieldName="ro_EnsContribution">0.000000</VarDataArray>
+    <VarDataArray FieldName="Direction">0</VarDataArray>
+    <VarDataArray FieldName="ResourceID">124183833.149200</VarDataArray>
+  </GraphicGDBDataVar>
+  <GraphicGDBShapeCommand>
+    <CommandResourceID>124183833.1493</CommandResourceID>
+  </GraphicGDBShapeCommand>
+  <CornerVertex X="13088.055556" Y="4762.500000">13088.055556,4762.500000</CornerVertex>
+  <CornerVertex X="13088.055556" Y="2662.500000">13088.055556,2662.500000</CornerVertex>
+  <CornerVertex X="14499.055556" Y="2662.500000">14499.055556,2662.500000</CornerVertex>
+  <CornerVertex X="14499.055556" Y="4762.500000">14499.055556,4762.500000</CornerVertex>
+  <FontName>Helvetica</FontName>
+  <FontHeight>12</FontHeight>
+  <FontBold>false</FontBold>
+  <FontItalic>false</FontItalic>
+  <FontColor>-16777216</FontColor>
+  <TextShowWay>0</TextShowWay>
+  <TextHorizontalAlign>1</TextHorizontalAlign>
+  <TextVerticalAlign>1</TextVerticalAlign>
+  <ShowContour>false</ShowContour>
+  <MatchValue>0</MatchValue>
+  <IconValueMatchMap Key="0" Value="break3_close">0,break3_close</IconValueMatchMap>
+  <IconValueMatchMap Key="1" Value="breaker_open">1,breaker_open</IconValueMatchMap>
+</DefaultProperties>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<DefaultProperties>
+  <ResourceID>620627905762518.1000</ResourceID>
+  <Type>110</Type>
+  <Layer>0</Layer>
+  <Visible>true</Visible>
+  <LBGisX>0.0</LBGisX>
+  <LBGisY>0.0</LBGisY>
+  <Closed>true</Closed>
+  <Filled>false</Filled>
+  <Color>-16777216</Color>
+  <PenStyle>0</PenStyle>
+  <PenWidth>2</PenWidth>
+  <Transparent>0.5</Transparent>
+  <Gradient>false</Gradient>
+  <Tooltip></Tooltip>
+  <AnimateType>0</AnimateType>
+  <AnimatePeriod>1</AnimatePeriod>
+  <AnimateOrient>0</AnimateOrient>
+  <AnimateDensity>0</AnimateDensity>
+  <RefShapeId>620627905688855.1000</RefShapeId>
+  <RelativeXYZ>0</RelativeXYZ>
+  <RefShapePoint>3</RefShapePoint>
+  <bCopyShape>false</bCopyShape>
+  <AnimateColor>-65536</AnimateColor>
+  <GraphicGDBDataExp>
+    <ExpResourceID>620627905767989.1000</ExpResourceID>
+    <ExpDataTable>节点表(ACBus)</ExpDataTable>
+    <ExpDataField>acbus_Name</ExpDataField>
+  </GraphicGDBDataExp>
+  <GraphicGDBDataVar>
+    <VarResourceID>620627905766530.100000</VarResourceID>
+    <VarDbase>MemDB.Bpa</VarDbase>
+  </GraphicGDBDataVar>
+  <GraphicGDBShapeCommand>
+    <CommandResourceID>620627905761060.1000</CommandResourceID>
+  </GraphicGDBShapeCommand>
+  <CornerVertex X="3603.373016" Y="16717.668754">3603.373016,16717.668754</CornerVertex>
+  <CornerVertex X="3603.373016" Y="16188.502087">3603.373016,16188.502087</CornerVertex>
+  <CornerVertex X="5367.261905" Y="16188.502087">5367.261905,16188.502087</CornerVertex>
+  <CornerVertex X="5367.261905" Y="16717.668754">5367.261905,16717.668754</CornerVertex>
+  <FontName>Dialog</FontName>
+  <FontHeight>12</FontHeight>
+  <FontBold>false</FontBold>
+  <FontItalic>false</FontItalic>
+  <FontColor>-16777216</FontColor>
+  <TextShowWay>0</TextShowWay>
+  <TextHorizontalAlign>0</TextHorizontalAlign>
+  <TextVerticalAlign>1</TextVerticalAlign>
+  <ShowContour>false</ShowContour>
+  <Text>BUS_4_138</Text>
+  <Precision>0</Precision>
+</DefaultProperties>

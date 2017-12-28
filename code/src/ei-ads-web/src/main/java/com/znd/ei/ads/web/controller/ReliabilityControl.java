@@ -247,7 +247,7 @@ public class ReliabilityControl {
 			}
 
 			
-			saveUploadedFiles(path, Arrays.asList(config.getFiles()), null);
+			saveUploadedFiles(path, Arrays.asList(config.getFiles()));
 
 			if (file.isDirectory()) { // try upload loacal file
 				RedissonDBString dbstring = executeDF.RedissonDBString();
@@ -409,8 +409,7 @@ public class ReliabilityControl {
 	}
 
 	// save file
-	private boolean saveUploadedFiles(Path base, List<MultipartFile> files,
-			FileByteProcessor p) throws IOException {
+	private boolean saveUploadedFiles(Path base, List<MultipartFile> files) throws IOException {
 
 		boolean flag = false;
 		for (MultipartFile file : files) {
@@ -424,8 +423,8 @@ public class ReliabilityControl {
 			Path path = Paths.get(base.toAbsolutePath().toString(), fileName);
 			logger.info("save file : " + path.toAbsolutePath().toString());
 			Files.write(path, bytes);
-			if (p != null)
-				p.process(fileName, bytes);
+//			if (p != null)
+//				p.process(fileName, bytes);
 			flag = true;
 		}
 

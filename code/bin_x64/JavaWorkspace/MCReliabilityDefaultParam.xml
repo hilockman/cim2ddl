@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<MCRParamData>
+    <BusbarSection Rerr="0.074" Trep="22.973" Rchk="16.028" Tchk="41.6925" Topr="2" Invest="50" />
+    <ACLineSegment Rerr="0.053" Trep="0.699" Rchk="0.729" Tchk="46.147" Topr="0.5" Invest="250" />
+    <TransformerWinding Rerr="0.199424" Trep="70.858" Rchk="97.899" Tchk="88.901" Topr="2.5" Invest="1200" />
+    <SeriesCompensator Rerr="0.593" Trep="1.34907" Rchk="1.151" Tchk="72.1575" Topr="1" Invest="0" />
+    <Breaker Rerr="0.17144" Trep="54.8296" Rchk="54.441" Tchk="49.0188" Topr="0.4" TSwitch="0" Invest="200" ChkBus="0" />
+    <Disconnector Rerr="0.009" Trep="100" Rchk="20.559" Tchk="38.5726" Topr="0.5" TSwitch="0.5" Invest="5" ChkBus="0" />
+    <Invest>
+        <V400V BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V6kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V10kV BusbarSection="5" ACLineSegment="0" TransformerWinding="0" SeriesCompensator="5" Breaker="3" Disconnector="0.2" />
+        <V20kV BusbarSection="5" ACLineSegment="0" TransformerWinding="0" SeriesCompensator="5" Breaker="3" Disconnector="0.2" />
+        <V35kV BusbarSection="5" ACLineSegment="0" TransformerWinding="0" SeriesCompensator="0" Breaker="4.5" Disconnector="0.6" />
+        <V66kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V110kV BusbarSection="20" ACLineSegment="160" TransformerWinding="350" SeriesCompensator="5" Breaker="110" Disconnector="3" />
+        <V220kV BusbarSection="50" ACLineSegment="250" TransformerWinding="1200" SeriesCompensator="0" Breaker="200" Disconnector="5" />
+        <V330kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V500kV BusbarSection="100" ACLineSegment="700" TransformerWinding="6000" SeriesCompensator="0" Breaker="800" Disconnector="16" />
+        <V660kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V750kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V800kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V1000kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V13.8kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V15.75kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V18kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+        <V24kV BusbarSection="50" ACLineSegment="20" TransformerWinding="500" SeriesCompensator="5" Breaker="60" Disconnector="1" />
+    </Invest>
+</MCRParamData>

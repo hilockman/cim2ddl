@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<MCReliabilityTableField>
+    <BusbarSection Field1="Substation" Field2="VoltageLevel" Field3="Name" Field4="ConnectivityNode" Field12="V" Field13="D"  />
+    <ACLineSegment Field1="iSubstation" Field2="zSubstation" Field3="iVoltageLevel" Field4="Name" Field5="MCRType" Field6="Length" Field7="MCRPower" Field8="ConnectivityNodeI" Field9="ConnectivityNodeJ" Field10="ri_Rerr" Field11="ri_Trep" Field12="ri_Rchk" Field13="ri_Tchk" Field14="ri_Tfloc" Field15="ei_Invest" />
+    <TransformerWinding Field1="Substation" Field2="iVoltageLevel" Field3="zVoltageLevel" Field4="Name" Field5="MCRType" Field6="MCRPower" Field7="ConnectivityNodeI" Field8="ConnectivityNodeJ" Field9="ri_Rerr" Field10="ri_Trep" Field11="ri_Rchk" Field12="ri_Tchk" Field13="ri_Tfloc" Field14="ei_Invest"  Field15="iTap" Field16="zTap"/>
+    <SeriesCompensator Field1="Substation" Field2="VoltageLevel" Field3="Name" Field4="ConnectivityNodeI" Field5="ConnectivityNodeJ" Field6="ri_Rerr" Field7="ri_Trep" Field8="ri_Rchk" Field9="ri_Tchk" Field10="ri_Tfloc" Field11="ei_Invest" />
+    <Breaker Field1="Substation" Field2="VoltageLevel" Field3="Name" Field4="ConnectivityNodeI" Field5="ConnectivityNodeJ" Field6="MCRCTLoc" Field7="InnerType" Field8="Status" Field9="ri_Rerr" Field10="ri_Trep" Field11="ri_Rchk" Field12="ri_Tchk" Field13="ri_Tfloc" Field14="ri_TSwitch" Field15="ei_Invest" Field16="MCRChkBus" />
+    <Disconnector Field1="Substation" Field2="VoltageLevel" Field3="Name" Field4="ConnectivityNodeI" Field5="ConnectivityNodeJ" Field6="InnerType" Field7="Status" Field8="ri_Rerr" Field9="ri_Trep" Field10="ri_Rchk" Field11="ri_Tchk" Field12="ri_Tfloc" Field13="ri_TSwitch" Field14="ei_Invest" Field15="MCRChkBus" />
+    <EnergyConsumer Field1="Substation" Field3="VoltageLevel" Field4="Name" Field7="PlanP"  Field9="PlanQ" Field8="ConnectivityNode" />
+    <SubstationEntity  Field3="VoltageLevel" Field4="Name"  Field5="MvaCapacity" Field6="GenP" Field9="GenQ" Field10="PlanVAmp" Field7="HighVoltageLevel" Field8="ConnectivityNode" />
+</MCReliabilityTableField>

@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<Graphic>
+  <GraphicID>0.000000</GraphicID>
+  <Version>201304</Version>
+  <GraphicName>ThermalSymble</GraphicName>
+  <ModelGraphic>0</ModelGraphic>
+  <LastSaveTime>1611191727</LastSaveTime>
+  <BkgColor>-1</BkgColor>
+  <BkgImage></BkgImage>
+  <BkgMode>0</BkgMode>
+  <Authority>thinkpad-PC\THINKPAD-PC\thinkpad</Authority>
+  <Iconlib>0</Iconlib>
+  <ShapeIdx></ShapeIdx>
+  <GraphicShape Type="111">
+    <ResourceID>20249599281482.0160</ResourceID>
+    <Type>111</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>true</Filled>
+    <Color>-16777216</Color>
+    <FillColor>-16777216</FillColor>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>11881645027527.6820</ExpResourceID>
+      <ExpDataTable>负荷</ExpDataTable>
+      <ExpDataField>运行状态</ExpDataField>
+      <ExpDataKeyArray Auxilary="0">石牌站</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="1">5013</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="2">5013</ExpDataKeyArray>
+      <ExpValue>0</ExpValue>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>11881645027881.682000</VarResourceID>
+      <VarDataTable>EnergyConsumer</VarDataTable>
+      <VarDataArray FieldName="ResourceID">11881645027881.682000</VarDataArray>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>11881645028234.6820</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="20813.888889" Y="23636.111111">20813.888889,23636.111111</CornerVertex>
+    <CornerVertex X="20813.888889" Y="20108.333333">20813.888889,20108.333333</CornerVertex>
+    <CornerVertex X="24341.666667" Y="20108.333333">24341.666667,20108.333333</CornerVertex>
+    <CornerVertex X="24341.666667" Y="23636.111111">24341.666667,23636.111111</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>false</ShowContour>
+    <MatchValue>0</MatchValue>
+    <IconValueMatchMap Key="0" Value="EnergyConsumer">0,EnergyConsumer</IconValueMatchMap>
+  </GraphicShape>
+  <GraphicShape Type="130">
+    <ResourceID>20295448556790.0940</ResourceID>
+    <Type>130</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.0</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>20295448491673.0940</ExpResourceID>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>20295448515384.094000</VarResourceID>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>20295448533079.0940</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="-705.555555" Y="16580.555556">-705.555555,16580.555556</CornerVertex>
+    <CornerVertex X="-705.555555" Y="13052.777778">-705.555555,13052.777778</CornerVertex>
+    <CornerVertex X="2822.222223" Y="13052.777778">2822.222223,13052.777778</CornerVertex>
+    <CornerVertex X="2822.222223" Y="16580.555556">2822.222223,16580.555556</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <GraphicSubShape Type="103">
+      <ResourceID>20288065060703.0900</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>20288064967982.0900</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>20288064983908.090000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>20288065046193.0900</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-705.555555" Y="16580.555556">-705.555555,16580.555556</CornerVertex>
+      <CornerVertex X="-705.555555" Y="13052.777778">-705.555555,13052.777778</CornerVertex>
+      <CornerVertex X="2822.222223" Y="13052.777778">2822.222223,13052.777778</CornerVertex>
+      <CornerVertex X="2822.222223" Y="16580.555556">2822.222223,16580.555556</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicSubShape>
+    <GraphicSubShape Type="104">
+      <ResourceID>20288065161209.0900</ResourceID>
+      <Type>104</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>20288065098216.0900</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>20288065112372.090000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>20288065147407.0900</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-705.555555" Y="16580.555556">-705.555555,16580.555556</CornerVertex>
+      <CornerVertex X="-705.555555" Y="13052.777778">-705.555555,13052.777778</CornerVertex>
+      <CornerVertex X="2822.222223" Y="13052.777778">2822.222223,13052.777778</CornerVertex>
+      <CornerVertex X="2822.222223" Y="16580.555556">2822.222223,16580.555556</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>true</ShowContour>
+      <StartAngle>0</StartAngle>
+      <EndAngle>360</EndAngle>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>20288065242959.0900</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>20288065184566.0900</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>20288065198368.090000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>20288065229157.0900</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>1058.333334</LocationX>
+      <LocationY>13123.333334</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>20288065323647.0940</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>20288065266316.0900</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>20288065280118.090000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>20288065310199.0940</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>1058.333334</LocationX>
+      <LocationY>16524.111111</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+  </GraphicShape>
+  <GraphicShape Type="111">
+    <ResourceID>20527087690464.0300</ResourceID>
+    <Type>111</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>true</Filled>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>11881645027527.6820</ExpResourceID>
+      <ExpDataTable>阀门</ExpDataTable>
+      <ExpDataField>运行状态</ExpDataField>
+      <ExpDataKeyArray Auxilary="0">石牌站</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="1">5013</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="2">5013</ExpDataKeyArray>
+      <ExpValue>0</ExpValue>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>11881645027881.682000</VarResourceID>
+      <VarDataTable>Valve</VarDataTable>
+      <VarDataArray FieldName="Status">0</VarDataArray>
+      <VarDataArray FieldName="ResourceID">11881645027881.682000</VarDataArray>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>11881645028234.6820</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="27163.888889" Y="23636.111111">27163.888889,23636.111111</CornerVertex>
+    <CornerVertex X="27163.888889" Y="20108.333333">27163.888889,20108.333333</CornerVertex>
+    <CornerVertex X="30691.666667" Y="20108.333333">30691.666667,20108.333333</CornerVertex>
+    <CornerVertex X="30691.666667" Y="23636.111111">30691.666667,23636.111111</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>false</ShowContour>
+    <MatchValue>0</MatchValue>
+    <IconValueMatchMap Key="1" Value="Valve">1,Valve</IconValueMatchMap>
+    <IconValueMatchMap Key="0" Value="Valve_close">0,Valve_close</IconValueMatchMap>
+  </GraphicShape>
+  <GraphicShape Type="111">
+    <ResourceID>23209033805553.0660</ResourceID>
+    <Type>111</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>true</Filled>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>1.0</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>11881645027527.6820</ExpResourceID>
+      <ExpDataTable>热源</ExpDataTable>
+      <ExpDataField>运行状态</ExpDataField>
+      <ExpDataKeyArray Auxilary="0">石牌站</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="1">5013</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="2">5013</ExpDataKeyArray>
+      <ExpValue>0</ExpValue>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>11881645027881.682000</VarResourceID>
+      <VarDataTable>HeatSource</VarDataTable>
+      <VarDataArray FieldName="ResourceID">11881645027881.682000</VarDataArray>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>11881645028234.6820</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="32808.333333" Y="23636.111111">32808.333333,23636.111111</CornerVertex>
+    <CornerVertex X="32808.333333" Y="20108.333333">32808.333333,20108.333333</CornerVertex>
+    <CornerVertex X="36336.111111" Y="20108.333333">36336.111111,20108.333333</CornerVertex>
+    <CornerVertex X="36336.111111" Y="23636.111111">36336.111111,23636.111111</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>false</ShowContour>
+    <MatchValue>1</MatchValue>
+    <IconValueMatchMap Key="1" Value="HeatSource">1,HeatSource</IconValueMatchMap>
+  </GraphicShape>
+  <GraphicShape Type="130">
+    <ResourceID>16654948453633.0840</ResourceID>
+    <Type>130</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.0</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>16654948401965.0820</ExpResourceID>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>16654948420367.082000</VarResourceID>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>16654948433815.0840</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="-1394.423281" Y="22930.555556">-1394.423281,22930.555556</CornerVertex>
+    <CornerVertex X="-1394.423281" Y="17991.666667">-1394.423281,17991.666667</CornerVertex>
+    <CornerVertex X="3544.576719" Y="17991.666667">3544.576719,17991.666667</CornerVertex>
+    <CornerVertex X="3544.576719" Y="22930.555556">3544.576719,22930.555556</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <GraphicSubShape Type="103">
+      <ResourceID>16633923963572.0820</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>16633923868730.0820</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>16633923883593.082000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>16633923941277.0820</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-1394.312170" Y="22930.555556">-1394.312170,22930.555556</CornerVertex>
+      <CornerVertex X="-1394.312170" Y="17991.666667">-1394.312170,17991.666667</CornerVertex>
+      <CornerVertex X="3544.576719" Y="17991.666667">3544.576719,17991.666667</CornerVertex>
+      <CornerVertex X="3544.576719" Y="22930.555556">3544.576719,22930.555556</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicSubShape>
+    <GraphicSubShape Type="101">
+      <ResourceID>16633924052752.0820</ResourceID>
+      <Type>101</Type>
+      <Layer>42</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>false</Closed>
+      <Filled>true</Filled>
+      <Color>-4634558</Color>
+      <FillColor>-4634558</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>1</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>4</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>16633924000377.0820</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>16633924013117.082000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>16633924040012.0820</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <VertexArray x="-1394.423281" y="18696.888889">-1394.423281,18696.888889</VertexArray>
+      <VertexArray x="-1394.423281" y="22224.888889">-1394.423281,22224.888889</VertexArray>
+      <VertexArray x="3544.576719" y="18696.888889">3544.576719,18696.888889</VertexArray>
+      <VertexArray x="3544.576719" y="22224.888889">3544.576719,22224.888889</VertexArray>
+      <VertexArray x="-1394.423281" y="18696.888889">-1394.423281,18696.888889</VertexArray>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <IniSnapObjectID>0.0</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>0.0</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>16633924121761.0820</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>16633924073632.0820</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>16633924086018.082000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>16633924109375.0820</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>-1394.312170</LocationX>
+      <LocationY>20461.111111</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>16633924189000.0820</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>16633924141578.0820</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>16633924153965.082000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>16633924176614.0820</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>3544.576719</LocationX>
+      <LocationY>20461.111111</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+  </GraphicShape>
+  <GraphicShape Type="111">
+    <ResourceID>17395721614075.3890</ResourceID>
+    <Type>111</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>true</Filled>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>11881645027527.6820</ExpResourceID>
+      <ExpDataTable>换热器</ExpDataTable>
+      <ExpDataField>运行状态</ExpDataField>
+      <ExpDataKeyArray Auxilary="0">石牌站</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="1">5013</ExpDataKeyArray>
+      <ExpDataKeyArray Auxilary="2">5013</ExpDataKeyArray>
+      <ExpValue>0</ExpValue>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>11881645027881.682000</VarResourceID>
+      <VarDataTable>HeatExchanger</VarDataTable>
+      <VarDataArray FieldName="ResourceID">11881645027881.682000</VarDataArray>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>11881645028234.6820</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="17286.111111" Y="28222.222222">17286.111111,28222.222222</CornerVertex>
+    <CornerVertex X="17286.111111" Y="24694.444445">17286.111111,24694.444445</CornerVertex>
+    <CornerVertex X="20813.888889" Y="24694.444445">20813.888889,24694.444445</CornerVertex>
+    <CornerVertex X="20813.888889" Y="28222.222222">20813.888889,28222.222222</CornerVertex>
+    <LocationVertex X="1411.111111" Y="1039.766082">1411.111111,1039.766082</LocationVertex>
+    <LocationVertex X="-1392.543860" Y="1039.766082">-1392.543860,1039.766082</LocationVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>false</ShowContour>
+    <MatchValue>0</MatchValue>
+    <IconValueMatchMap Key="0" Value="HeatExchanger">0,HeatExchanger</IconValueMatchMap>
+  </GraphicShape>
+  <GraphicShape Type="130">
+    <ResourceID>15065537596500.2010</ResourceID>
+    <Type>130</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.0</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>15065537538108.2010</ExpResourceID>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>15065537562173.201000</VarResourceID>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>15065537577744.2010</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="-5997.222222" Y="34925.000000">-5997.222222,34925.000000</CornerVertex>
+    <CornerVertex X="-5997.222222" Y="31397.222222">-5997.222222,31397.222222</CornerVertex>
+    <CornerVertex X="-2469.444444" Y="31397.222222">-2469.444444,31397.222222</CornerVertex>
+    <CornerVertex X="-2469.444444" Y="34925.000000">-2469.444444,34925.000000</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <GraphicSubShape Type="103">
+      <ResourceID>15059028221552.2000</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>15059028121402.1970</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>15059028135911.197000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>15059028209874.1970</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-5997.222222" Y="34925.000000">-5997.222222,34925.000000</CornerVertex>
+      <CornerVertex X="-5997.222222" Y="31397.222222">-5997.222222,31397.222222</CornerVertex>
+      <CornerVertex X="-2469.444444" Y="31397.222222">-2469.444444,31397.222222</CornerVertex>
+      <CornerVertex X="-2469.444444" Y="34925.000000">-2469.444444,34925.000000</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicSubShape>
+    <GraphicSubShape Type="103">
+      <ResourceID>15059028299762.2000</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>15059028250217.2000</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>15059028261542.200000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>15059028288791.2000</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-5644.444444" Y="34925.000000">-5644.444444,34925.000000</CornerVertex>
+      <CornerVertex X="-5644.444444" Y="31397.222222">-5644.444444,31397.222222</CornerVertex>
+      <CornerVertex X="-2822.222222" Y="31397.222222">-2822.222222,31397.222222</CornerVertex>
+      <CornerVertex X="-2822.222222" Y="34925.000000">-2822.222222,34925.000000</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>true</ShowContour>
+    </GraphicSubShape>
+    <GraphicSubShape Type="100">
+      <ResourceID>15059028374079.2000</ResourceID>
+      <Type>100</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-65536</Color>
+      <FillColor>-65536</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>15059028326657.2000</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>15059028337982.200000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>15059028362754.2000</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <IniVertexX>-5644.444444</IniVertexX>
+      <IniVertexY>31397.222222</IniVertexY>
+      <EndVertexX>-2822.222222</EndVertexX>
+      <EndVertexY>34925.000000</EndVertexY>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <TerminalSet>1</TerminalSet>
+      <SnapMode>0</SnapMode>
+      <IniSnapObjectID>1.50590282215522E13</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>2</IniPointType>
+      <EndSnapObjectID>1.50590282215522E13</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>2</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="100">
+      <ResourceID>15059028443441.2000</ResourceID>
+      <Type>100</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-65536</Color>
+      <FillColor>-65536</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>15059028396727.2000</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>15059028408052.200000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>15059028432116.2000</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <IniVertexX>-2822.222222</IniVertexX>
+      <IniVertexY>31397.222222</IniVertexY>
+      <EndVertexX>-5644.444444</EndVertexX>
+      <EndVertexY>34925.000000</EndVertexY>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <TerminalSet>1</TerminalSet>
+      <SnapMode>0</SnapMode>
+      <IniSnapObjectID>1.50590282215522E13</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>2</IniPointType>
+      <EndSnapObjectID>1.50590282215522E13</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>2</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>15059028512449.2000</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>15059028466090.2000</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>15059028477414.200000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>15059028501479.2000</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>-5644.444444</LocationX>
+      <LocationY>32102.777778</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>15059028581458.2010</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>15059028534744.2000</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>15059028546069.200000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>15059028570133.2010</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>-2822.222222</LocationX>
+      <LocationY>32102.777778</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+  </GraphicShape>
+  <GraphicShape Type="130">
+    <ResourceID>262924508768.1126</ResourceID>
+    <Type>130</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.0</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <GraphicGDBDataExp>
+      <ExpResourceID>262924485057.1123</ExpResourceID>
+    </GraphicGDBDataExp>
+    <GraphicGDBDataVar>
+      <VarResourceID>262924494258.112400</VarResourceID>
+    </GraphicGDBDataVar>
+    <GraphicGDBShapeCommand>
+      <CommandResourceID>262924498859.1125</CommandResourceID>
+    </GraphicGDBShapeCommand>
+    <CornerVertex X="-2116.666667" Y="29633.333333">-2116.666667,29633.333333</CornerVertex>
+    <CornerVertex X="-2116.666667" Y="23283.333333">-2116.666667,23283.333333</CornerVertex>
+    <CornerVertex X="4233.666667" Y="23283.333333">4233.666667,23283.333333</CornerVertex>
+    <CornerVertex X="4233.666667" Y="29633.333333">4233.666667,29633.333333</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <GraphicSubShape Type="103">
+      <ResourceID>189414429694.4270</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>189414306183.4267</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>189414319278.426800</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>189414421554.4269</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-2116.666666" Y="28607.070707">-2116.666666,28607.070707</CornerVertex>
+      <CornerVertex X="-2116.666666" Y="24373.737373">-2116.666666,24373.737373</CornerVertex>
+      <CornerVertex X="4233.333334" Y="24373.737373">4233.333334,24373.737373</CornerVertex>
+      <CornerVertex X="4233.333334" Y="28607.070707">4233.333334,28607.070707</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>true</ShowContour>
+    </GraphicSubShape>
+    <GraphicSubShape Type="101">
+      <ResourceID>189414557452.4274</ResourceID>
+      <Type>101</Type>
+      <Layer>42</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>true</Filled>
+      <Color>-4634558</Color>
+      <FillColor>-4634558</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>1</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>4</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>189414489149.4271</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>189414496581.427200</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>189414549666.4273</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <VertexArray x="-2116.333333" y="28607.292929">-2116.333333,28607.292929</VertexArray>
+      <VertexArray x="-2116.333333" y="24373.292929">-2116.333333,24373.292929</VertexArray>
+      <VertexArray x="4233.666667" y="28607.292929">4233.666667,28607.292929</VertexArray>
+      <VertexArray x="4233.666667" y="24373.292929">4233.666667,24373.292929</VertexArray>
+      <VertexArray x="-2116.666666" y="28607.070707">-2116.666666,28607.070707</VertexArray>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <IniSnapObjectID>1.89414429694427E11</IniSnapObjectID>
+      <IniSnapPointEnum>11</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>1.89414429694427E11</EndSnapObjectID>
+      <EndSnapPointEnum>11</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicSubShape>
+    <GraphicSubShape Type="103">
+      <ResourceID>189414638495.4278</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>189414576562.4275</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>189414583994.427600</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>189414631063.4277</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <CornerVertex X="-2116.666667" Y="29633.333333">-2116.666667,29633.333333</CornerVertex>
+      <CornerVertex X="-2116.666667" Y="23283.333333">-2116.666667,23283.333333</CornerVertex>
+      <CornerVertex X="4233.333333" Y="23283.333333">4233.333333,23283.333333</CornerVertex>
+      <CornerVertex X="4233.333333" Y="29633.333333">4233.333333,29633.333333</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicSubShape>
+    <GraphicSubShape Type="120">
+      <ResourceID>189414712813.4282</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <GraphicGDBDataExp>
+        <ExpResourceID>189414651589.4279</ExpResourceID>
+      </GraphicGDBDataExp>
+      <GraphicGDBDataVar>
+        <VarResourceID>189414658667.428000</VarResourceID>
+      </GraphicGDBDataVar>
+      <GraphicGDBShapeCommand>
+        <CommandResourceID>189414705028.4281</CommandResourceID>
+      </GraphicGDBShapeCommand>
+      <LocationX>4092.222223</LocationX>
+      <LocationY>26490.404040</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicSubShape>
+  </GraphicShape>
+</Graphic>

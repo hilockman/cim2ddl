@@ -1,0 +1,102 @@
+<MemDB>
+</MemDB>
+<!System>
+@ "ResourceID"\"Name"\"Description"\"TotalHeatingLoad"\
+# ""\""\""\0.000000\
+</System>
+<!Company>
+@ "ResourceID"\"Name"\"Description"\"TotalHeatSource"\"TotalHeatingLoad"\
+</Company>
+<!ThermalStation>
+@ "ResourceID"\"Name"\"Description"\"HeatSource"\"HeatingLoad"\"SPressure"\"HeatExchangerRange"\
+</ThermalStation>
+<!Temperature>
+@ "ResourceID"\"Name"\"Description"\"NorminalTemperature"\"MaxTemperature"\"MinTemperature"\"HeatSourceRange"\"EnergyConsumerRange"\"PipeRange"\"SupplyPipeSegmentRange"\"ReturnPipeSegmentRange"\"ValveRange"\"NodeRange"\
+</Temperature>
+<!HeatSource>
+@ "ResourceID"\"Company"\"ThermalStation"\"Temperature"\"Name"\"Description"\"ConnectivityNode"\"Type"\"Model"\"HeatingCapacity"\"RefrigerationCapacity"\"SupplyTemperature"\"ReturnTemperature"\"MediumFlow"\"HPressure"\"Supply"\"NodePtr"\"FlowTopoBus"\"EnergyTopoBus"\"FlowIsland"\"EnergyIsland"\
+</HeatSource>
+<!EnergyConsumer>
+@ "ResourceID"\"ThermalStation"\"Temperature"\"Name"\"Description"\"ConnectivityNode"\"Type"\"HeatingLoad"\"RefrigerationLoad"\"CSupplyTemperature"\"CReturnTemperature"\"CPressure"\"Consumer"\"NodePtr"\"FlowTopoBus"\"EnergyTopoBus"\"FlowIsland"\"EnergyIsland"\
+</EnergyConsumer>
+<!Pipe>
+@ "ResourceID"\"Name"\"Description"\"Temperature"\
+</Pipe>
+<!SupplyPipeSegment>
+@ "ResourceID"\"Temperature"\"Name"\"Description"\"ConnectivityNodeI"\"ConnectivityNodeJ"\"Pipe"\"NominalDiameter"\"OuterDiameter"\"WallThickness"\"InnerDiameter"\"WallAbsoluteRoughness"\"PipeLength"\"FlowVelocity"\"Impedance"\"FrictionR"\"PipeFlow"\"PressureDrop"\"PipeLoad"\"HeatLoss"\"TemperatureLoss"\"PipePtr"\"NodeIPtr"\"NodeJPtr"\"EdgeIPtr"\"EdgeJPtr"\"FlowTopoBusI"\"FlowTopoBusJ"\"EnergyTopoBusI"\"EnergyTopoBusJ"\"FlowIsland"\"EnergyIsland"\"Open"\
+</SupplyPipeSegment>
+<!ReturnPipeSegment>
+@ "ResourceID"\"Temperature"\"Name"\"Description"\"ConnectivityNodeI"\"ConnectivityNodeJ"\"Pipe"\"PipePtr"\"NodeIPtr"\"NodeJPtr"\"EdgeIPtr"\"EdgeJPtr"\"Open"\
+</ReturnPipeSegment>
+<!HeatExchanger>
+@ "ResourceID"\"ThermalStation"\"TemperatureI"\"TemperatureJ"\"Name"\"Description"\"ConnectivityNodeI"\"ConnectivityNodeJ"\"PrimaryFlow"\"SecondaryFlow"\"EnergyTransfer"\"EPressure"\"NodeIPtr"\"NodeJPtr"\"EdgeIPtr"\"EdgeJPtr"\"FlowTopoBusI"\"FlowTopoBusJ"\"EnergyTopoBusI"\"EnergyTopoBusJ"\"FlowIslandI"\"FlowIslandJ"\"EnergyIsland"\"Open"\
+</HeatExchanger>
+<!Valve>
+@ "ResourceID"\"Temperature"\"Name"\"Description"\"ConnectivityNodeI"\"ConnectivityNodeJ"\"Status"\"NodeIPtr"\"NodeJPtr"\"EdgeIPtr"\"EdgeJPtr"\"FlowIsland"\"EnergyIsland"\
+</Valve>
+<!NaturalGasBoiler>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"HeatingCapacity"\"Evaporation"\"SupplySteamPressure"\"SupplySteamTemperature"\"HeatingEfficiency"\"ExhaustTemperature"\"BathWaterCapacity"\"WarmWaterFlow"\"WarmWaterSupplyTemperature"\"WarmWaterReturnTemperature"\"BathWaterFlow"\"BathWaterSupplyTemperature"\"BathWaterReturnTemperature"\"NaturalGasConsumption"\"Size"\"Lifetime"\"PowerSupply"\
+</NaturalGasBoiler>
+<!GroundSourceHeatPump>
+@ "ResourceID"\"Name"\"Factory"\"Type"\"Kind"\"RefrigerationCapacity"\"HeatingCapacity"\"RefrigerationCop"\"HeatingCop"\"ColdWaterFlow"\"ColdWaterSupplyTemperature"\"ColdWaterReturnTemperature"\"WarmWaterSupplyTemperature"\"WarmWaterReturnTemperature"\"WarmWaterFlow"\"BathWaterFlow"\"BathWaterSupplyTemperature"\"BathWaterReturnTemperature"\"BathWaterCapacity"\"RefrigerationPower"\"HeatingPower"\"Size"\"Lifetime"\"PowerSupply"\
+</GroundSourceHeatPump>
+<!LithiumBromideAbsorptionUnit>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"RefrigerationCapacity"\"HeatingCapacity"\"RefrigerationCop"\"HeatingCop"\"FlueGasTemperature"\"ExhaustTemperature"\"HotWaterTemperature"\"SteamPressure"\"CondensateTemperature"\"BathWaterCapacity"\"ColdWaterFlow"\"ColdWaterSupplyTemperature"\"ColdWaterReturnTemperature"\"WarmWaterSupplyTemperature"\"WarmWaterReturnTemperature"\"WarmWaterFlow"\"BathWaterFlow"\"BathWaterSupplyTemperature"\"BathWaterReturnTemperature"\"RefrigerationNaturalGas"\"RefrigerationFlueGas"\"RefrigerationHotWater"\"RefrigerationSteam"\"HeatingNaturalGas"\"HeatingFlueGas"\"HeatingHotWater"\"BathWaterNaturalGas"\"BathWaterFlueGas"\"Size"\"Lifetime"\"PowerSupply"\
+</LithiumBromideAbsorptionUnit>
+<!GasTurbine>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"GeneratedPower"\"HeatLossRate"\"PowerEfficiency"\"Efficiency"\"ExhaustTemperature"\"ExhaustFlow"\
+</GasTurbine>
+<!GasEngine>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"GeneratedPower"\"HeatLossRate"\"PowerEfficiency"\"Efficiency"\"ExhaustTemperature"\"ExhaustFlow"\"CylinderOutTemperature"\"CylinderHeat"\"MidMachineInTemperature"\"MidMachineHeat"\
+</GasEngine>
+<!ElectricRefrigeration>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"RefrigerationCapacity"\"RefrigerationCop"\"ColdWaterFlow"\"ColdWaterSupplyTemperature"\"ColdWaterReturnTemperature"\"RefrigerationPower"\"Size"\"Lifetime"\"PowerSupply"\
+</ElectricRefrigeration>
+<!ElectricHeating>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"HeatingCapacity"\"HeatingCop"\"WarmWaterSupplyTemperature"\"WarmWaterReturnTemperature"\"WarmWaterFlow"\"HeatingPower"\"Size"\"Lifetime"\"PowerSupply"\
+</ElectricHeating>
+<!AirSourceHeatPump>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"RefrigerationCapacity"\"HeatingCapacity"\"RefrigerationCop"\"HeatingCop"\"WaterProductionRate"\"InPower"\"Size"\"Lifetime"\"PowerSupply"\
+</AirSourceHeatPump>
+<!SewageSourceHeatPump>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"RefrigerationCapacity"\"HeatingCapacity"\"RefrigerationCop"\"HeatingCop"\"ColdWaterFlow"\"ColdWaterSupplyTemperature"\"ColdWaterReturnTemperature"\"WarmWaterSupplyTemperature"\"WarmWaterReturnTemperature"\"WarmWaterFlow"\"BathWaterFlow"\"BathWaterSupplyTemperature"\"BathWaterReturnTemperature"\"BathWaterCapacity"\"RefrigerationPower"\"HeatingPower"\"Size"\"Lifetime"\"PowerSupply"\
+</SewageSourceHeatPump>
+<!WasteHeatBoiler>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"FlueGasFlow"\"Evaporation"\"SupplySteamPressure"\"SupplySteamTemperature"\"HeatingEfficiency"\"ExhaustTemperature"\"Size"\"Lifetime"\"PowerSupply"\
+</WasteHeatBoiler>
+<!BackPressureTurbine>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"InSteamFlow"\"MainSteamPressure"\"MainSteamTemperature"\"BackPressure"\"ExhaustSteamTemperature"\"ExhaustSteamFlow"\"Size"\"Lifetime"\"PowerSupply"\
+</BackPressureTurbine>
+<!ExtractionBackTurbine>
+@ "ResourceID"\"Name"\"Factory"\"Model"\"Type"\"Power"\"InSteamFlow"\"MainSteamPressure"\"MainSteamTemperature"\"ExtractionSteamPressure"\"ExtractionSteamTemperature"\"ExhaustSteamPressure"\"ExhaustSteamTemperature"\"ExtractionSteamFlow"\"ExhaustSteamFlow"\"Size"\"Lifetime"\"PowerSupply"\
+</ExtractionBackTurbine>
+<!Terminal>
+@ "ResourceID"\"Temperature"\"Name"\"ConnectivityNode"\
+</Terminal>
+<!ConnectivityNode>
+@ "Temperature"\"Name"\"SupplyPipeRange"\"ReturnPipeRange"\"HeatExchangerRange"\"ValveRange"\"TemperaturePtr"\"FlowTopoBus"\"EnergyTopoBus"\"FlowIsland"\"EnergyIsland"\"Open"\"Unproc"\
+</ConnectivityNode>
+<!EdgeSupplyPipeSegment>
+@ "Temperature"\"ConnectivityNode"\"Name"\"SupplyPipeSegmentPtr"\
+</EdgeSupplyPipeSegment>
+<!EdgeReturnPipeSegment>
+@ "Temperature"\"ConnectivityNode"\"Name"\"ReturnPipeSegmentPtr"\
+</EdgeReturnPipeSegment>
+<!EdgeHeatExchanger>
+@ "Temperature"\"ConnectivityNode"\"Name"\"HeatExchangerPtr"\
+</EdgeHeatExchanger>
+<!EdgeValve>
+@ "Temperature"\"ConnectivityNode"\"Name"\"ValvePtr"\
+</EdgeValve>
+<!FlowIsland>
+@ "SlackHeatSourceTemperature"\"SlackHeatSourceName"\"HeatSource"\"EnergyConsumer"\"HeatSourceNum"\"EnergyConsumerNum"\"SupplyPipeNum"\"HeatExchangerNum"\"ValveNum"\"SlackHeatSourcePtr"\"Dead"\
+</FlowIsland>
+<!FlowTopoBus>
+@ "FlowIsland"\"HeatSource"\"EnergyConsumer"\"TemperaturePtr"\
+</FlowTopoBus>
+<!EnergyIsland>
+@ "SlackHeatSourceTemperature"\"SlackHeatSourceName"\"HeatSource"\"EnergyConsumer"\"HeatSourceNum"\"EnergyConsumerNum"\"PipeNum"\"HeatExchangerNum"\"ValveNum"\"SlackHeatSourcePtr"\"Dead"\
+</EnergyIsland>
+<!EnergyTopoBus>
+@ "EnergyIsland"\"HeatSource"\"EnergyConsumer"\"TemperaturePtr"\
+</EnergyTopoBus>

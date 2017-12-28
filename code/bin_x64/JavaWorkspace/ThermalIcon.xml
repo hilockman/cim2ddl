@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<TSIconlib>
+  <GraphicID>2.725150507692595E11</GraphicID>
+  <Version>201304</Version>
+  <GraphicName>ThermalIcon</GraphicName>
+  <LastSaveTime>1611161074</LastSaveTime>
+  <Authority>thinkpad-PC\THINKPAD-PC\thinkpad</Authority>
+  <GraphicIcon name="EnergyConsumer">
+    <ResourceID>20296992529205.0940</ResourceID>
+    <Type>131</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+    <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <IconName>EnergyConsumer</IconName>
+    <OriginalWidth>80.0</OriginalWidth>
+    <OriginalHeight>80.0</OriginalHeight>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>20296992701906.0940</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+      <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+      <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+      <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="104">
+      <ResourceID>20296992798874.0940</ResourceID>
+      <Type>104</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+      <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+      <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+      <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>true</ShowContour>
+      <StartAngle>0</StartAngle>
+      <EndAngle>360</EndAngle>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>20296992896903.0940</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>40.000000</LocationX>
+      <LocationY>1.600000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>20296992978652.0940</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>40.000000</LocationX>
+      <LocationY>78.720000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+  </GraphicIcon>
+  <GraphicIcon name="Valve">
+    <ResourceID>20519361652207.0270</ResourceID>
+    <Type>131</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+    <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <IconName>Valve</IconName>
+    <OriginalWidth>80.0</OriginalWidth>
+    <OriginalHeight>80.0</OriginalHeight>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>20519361785625.0270</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.001800" Y="79.999100">0.001800,79.999100</CornerVertex>
+      <CornerVertex X="0.001800" Y="0.000900">0.001800,0.000900</CornerVertex>
+      <CornerVertex X="80.000000" Y="0.000900">80.000000,0.000900</CornerVertex>
+      <CornerVertex X="80.000000" Y="79.999100">80.000000,79.999100</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="101">
+      <ResourceID>20519361873391.0270</ResourceID>
+      <Type>101</Type>
+      <Layer>42</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>false</Closed>
+      <Filled>false</Filled>
+      <Color>-4634558</Color>
+      <FillColor>-4634558</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>1</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>4</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <VertexArray x="0.000000" y="11.423815">0.000000,11.423815</VertexArray>
+      <VertexArray x="0.000000" y="68.568986">0.000000,68.568986</VertexArray>
+      <VertexArray x="80.000000" y="11.423815">80.000000,11.423815</VertexArray>
+      <VertexArray x="80.000000" y="68.568986">80.000000,68.568986</VertexArray>
+      <VertexArray x="0.000000" y="11.423815">0.000000,11.423815</VertexArray>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <IniSnapObjectID>0.0</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>0.0</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>20519361949479.0300</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>0.001800</LocationX>
+      <LocationY>40.000000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>20519362023797.0300</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>80.000000</LocationX>
+      <LocationY>40.000000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+  </GraphicIcon>
+  <GraphicIcon name="HeatSource">
+    <ResourceID>267359898158.2566</ResourceID>
+    <Type>131</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+    <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <IconName>HeatSource</IconName>
+    <OriginalWidth>80.0</OriginalWidth>
+    <OriginalHeight>80.0</OriginalHeight>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>267360071215.2570</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.000000" Y="67.069286">0.000000,67.069286</CornerVertex>
+      <CornerVertex X="0.000000" Y="13.738752">0.000000,13.738752</CornerVertex>
+      <CornerVertex X="79.995801" Y="13.738752">79.995801,13.738752</CornerVertex>
+      <CornerVertex X="79.995801" Y="67.069286">79.995801,67.069286</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>true</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="101">
+      <ResourceID>267360160043.2574</ResourceID>
+      <Type>101</Type>
+      <Layer>42</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>true</Filled>
+      <Color>-4634558</Color>
+      <FillColor>-4634558</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>1</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>4</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <VertexArray x="0.004199" y="67.072086">0.004199,67.072086</VertexArray>
+      <VertexArray x="0.004199" y="13.733153">0.004199,13.733153</VertexArray>
+      <VertexArray x="80.000000" y="67.072086">80.000000,67.072086</VertexArray>
+      <VertexArray x="80.000000" y="13.733153">80.000000,13.733153</VertexArray>
+      <VertexArray x="0.000000" y="67.069286">0.000000,67.069286</VertexArray>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <IniSnapObjectID>0.0</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>0.0</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>267360229054.2578</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.000000" Y="79.997900">0.000000,79.997900</CornerVertex>
+      <CornerVertex X="0.000000" Y="0.002100">0.000000,0.002100</CornerVertex>
+      <CornerVertex X="79.995801" Y="0.002100">79.995801,0.002100</CornerVertex>
+      <CornerVertex X="79.995801" Y="79.997900">79.995801,79.997900</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>267360295587.2582</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>78.218116</LocationX>
+      <LocationY>40.404019</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+  </GraphicIcon>
+  <GraphicIcon name="Valve_close">
+    <ResourceID>16933184395507.0840</ResourceID>
+    <Type>131</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+    <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <IconName>Valve_close</IconName>
+    <OriginalWidth>80.0</OriginalWidth>
+    <OriginalHeight>80.0</OriginalHeight>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>16933184540956.0840</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.001800" Y="79.999100">0.001800,79.999100</CornerVertex>
+      <CornerVertex X="0.001800" Y="0.000900">0.001800,0.000900</CornerVertex>
+      <CornerVertex X="80.000000" Y="0.000900">80.000000,0.000900</CornerVertex>
+      <CornerVertex X="80.000000" Y="79.999100">80.000000,79.999100</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="101">
+      <ResourceID>16933184620227.0840</ResourceID>
+      <Type>101</Type>
+      <Layer>42</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>false</Closed>
+      <Filled>true</Filled>
+      <Color>-4634558</Color>
+      <FillColor>-4634558</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>1</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>1</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>4</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <VertexArray x="0.000000" y="11.423815">0.000000,11.423815</VertexArray>
+      <VertexArray x="0.000000" y="68.568986">0.000000,68.568986</VertexArray>
+      <VertexArray x="80.000000" y="11.423815">80.000000,11.423815</VertexArray>
+      <VertexArray x="80.000000" y="68.568986">80.000000,68.568986</VertexArray>
+      <VertexArray x="0.000000" y="11.423815">0.000000,11.423815</VertexArray>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <IniSnapObjectID>0.0</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>0.0</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>16933184690297.0840</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>0.001800</LocationX>
+      <LocationY>40.000000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>16933184770984.0860</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>80.000000</LocationX>
+      <LocationY>40.000000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+  </GraphicIcon>
+  <GraphicIcon name="HeatExchanger">
+    <ResourceID>15072891869186.2010</ResourceID>
+    <Type>131</Type>
+    <Layer>0</Layer>
+    <Visible>true</Visible>
+    <LBGisX>0.0</LBGisX>
+    <LBGisY>0.0</LBGisY>
+    <Closed>true</Closed>
+    <Filled>false</Filled>
+    <Color>-16777216</Color>
+    <PenStyle>0</PenStyle>
+    <PenWidth>2</PenWidth>
+    <Transparent>0.5</Transparent>
+    <Gradient>false</Gradient>
+    <Tooltip></Tooltip>
+    <AnimateType>0</AnimateType>
+    <AnimatePeriod>1</AnimatePeriod>
+    <AnimateOrient>0</AnimateOrient>
+    <AnimateDensity>0</AnimateDensity>
+    <RefShapeId>0.0000</RefShapeId>
+    <RelativeXYZ>0</RelativeXYZ>
+    <RefShapePoint>-1</RefShapePoint>
+    <AnimateColor>-65536</AnimateColor>
+    <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+    <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+    <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+    <FontName>Helvetica</FontName>
+    <FontHeight>12</FontHeight>
+    <FontBold>false</FontBold>
+    <FontItalic>false</FontItalic>
+    <FontColor>-16777216</FontColor>
+    <TextShowWay>0</TextShowWay>
+    <TextHorizontalAlign>1</TextHorizontalAlign>
+    <TextVerticalAlign>1</TextVerticalAlign>
+    <ShowContour>true</ShowContour>
+    <IconName>HeatExchanger</IconName>
+    <OriginalWidth>80.0</OriginalWidth>
+    <OriginalHeight>80.0</OriginalHeight>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>15072892011096.2010</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="0.000000" Y="80.000000">0.000000,80.000000</CornerVertex>
+      <CornerVertex X="0.000000" Y="0.000000">0.000000,0.000000</CornerVertex>
+      <CornerVertex X="80.000000" Y="0.000000">80.000000,0.000000</CornerVertex>
+      <CornerVertex X="80.000000" Y="80.000000">80.000000,80.000000</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>false</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="103">
+      <ResourceID>15072892102045.2010</ResourceID>
+      <Type>103</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <CornerVertex X="8.000000" Y="80.000000">8.000000,80.000000</CornerVertex>
+      <CornerVertex X="8.000000" Y="0.000000">8.000000,0.000000</CornerVertex>
+      <CornerVertex X="72.000000" Y="0.000000">72.000000,0.000000</CornerVertex>
+      <CornerVertex X="72.000000" Y="80.000000">72.000000,80.000000</CornerVertex>
+      <FontName>Helvetica</FontName>
+      <FontHeight>12</FontHeight>
+      <FontBold>false</FontBold>
+      <FontItalic>false</FontItalic>
+      <FontColor>-16777216</FontColor>
+      <TextShowWay>0</TextShowWay>
+      <TextHorizontalAlign>1</TextHorizontalAlign>
+      <TextVerticalAlign>1</TextVerticalAlign>
+      <ShowContour>true</ShowContour>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="100">
+      <ResourceID>15072892182732.2030</ResourceID>
+      <Type>100</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-65536</Color>
+      <FillColor>-65536</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <IniVertexX>8.000000</IniVertexX>
+      <IniVertexY>0.000000</IniVertexY>
+      <EndVertexX>72.000000</EndVertexX>
+      <EndVertexY>80.000000</EndVertexY>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <TerminalSet>1</TerminalSet>
+      <SnapMode>0</SnapMode>
+      <IniSnapObjectID>0.0</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>0.0</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="100">
+      <ResourceID>15072892260588.2030</ResourceID>
+      <Type>100</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-65536</Color>
+      <FillColor>-65536</FillColor>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>1.0</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <IniVertexX>72.000000</IniVertexX>
+      <IniVertexY>0.000000</IniVertexY>
+      <EndVertexX>8.000000</EndVertexX>
+      <EndVertexY>80.000000</EndVertexY>
+      <IniVertexShape>0</IniVertexShape>
+      <IniVertexSize>2</IniVertexSize>
+      <EndVertexShape>0</EndVertexShape>
+      <EndVertexSize>2</EndVertexSize>
+      <TerminalSet>1</TerminalSet>
+      <SnapMode>0</SnapMode>
+      <IniSnapObjectID>0.0</IniSnapObjectID>
+      <IniSnapPointEnum>0</IniSnapPointEnum>
+      <IniPointType>0</IniPointType>
+      <EndSnapObjectID>0.0</EndSnapObjectID>
+      <EndSnapPointEnum>0</EndSnapPointEnum>
+      <EndPointType>0</EndPointType>
+      <IniConnectivityNode></IniConnectivityNode>
+      <EndConnectivityNode></EndConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>15072892336320.2030</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>8.000000</LocationX>
+      <LocationY>16.000000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+    <GraphicIconSubShape Type="120">
+      <ResourceID>15072892410637.2030</ResourceID>
+      <Type>120</Type>
+      <Layer>0</Layer>
+      <Visible>true</Visible>
+      <LBGisX>0.0</LBGisX>
+      <LBGisY>0.0</LBGisY>
+      <Closed>true</Closed>
+      <Filled>false</Filled>
+      <Color>-16777216</Color>
+      <PenStyle>0</PenStyle>
+      <PenWidth>2</PenWidth>
+      <Transparent>0.5</Transparent>
+      <Gradient>false</Gradient>
+      <Tooltip></Tooltip>
+      <AnimateType>0</AnimateType>
+      <AnimatePeriod>1</AnimatePeriod>
+      <AnimateOrient>0</AnimateOrient>
+      <AnimateDensity>0</AnimateDensity>
+      <RefShapeId>0.0000</RefShapeId>
+      <RelativeXYZ>0</RelativeXYZ>
+      <RefShapePoint>-1</RefShapePoint>
+      <AnimateColor>-65536</AnimateColor>
+      <LocationX>72.000000</LocationX>
+      <LocationY>16.000000</LocationY>
+      <SnapObjectID>0.0</SnapObjectID>
+      <SnapPointEnum>0</SnapPointEnum>
+      <ConnectivityNode></ConnectivityNode>
+    </GraphicIconSubShape>
+  </GraphicIcon>
+</TSIconlib>

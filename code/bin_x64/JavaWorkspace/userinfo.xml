@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<UserStrore> 
+  <user> 
+    <name>aministrator</name>  
+    <password>1234</password>  
+    <role>manager</role> 
+  </user>  
+  <user> 
+    <name>wangkai</name>  
+    <password>12222</password>  
+    <role>admin</role> 
+  </user>  
+  <user> 
+    <name>323</name>  
+    <password>33</password>  
+    <role>guest</role> 
+  </user>  
+  <user>
+    <name>wangkai3</name>
+    <password>1234567</password>
+    <role>admin</role>
+  </user>
+</UserStrore>

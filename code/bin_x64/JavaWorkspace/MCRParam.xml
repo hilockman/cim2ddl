@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<MCRParamData>
+  <ferStatus status="0"/>
+  <BusbarSection Rerr="0.074" Trep="22.972973" Rchk="16.028" Tchk="41.69248" Topr="2.0"/>
+  <ACLineSegment Rerr="0.053" Trep="0.699" Rchk="0.729" Tchk="46.147"/>
+  <TransformerWinding Rerr="0.199424" Trep="70.858037" Rchk="97.899" Tchk="88.901"/>
+  <SeriesCompensator Rerr="0.593" Trep="1.349073" Rchk="1.151" Tchk="72.15746"/>
+  <Breaker Rerr="0.17144" Trep="61.540882" Rchk="54.441" Tchk="49.01882" Topr="0.4"/>
+  <Disconnector Rerr="0.009" Trep="100.0" Rchk="20.559" Tchk="38.57256" Topr="0.5" TSwitch="0.5"/>
+</MCRParamData>

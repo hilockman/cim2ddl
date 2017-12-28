@@ -18,22 +18,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-	 
-    <!-- dependency>
-    	<groupId>com.znd.ei</groupId>
-    	<artifactId>ei-acp-dfredisson</artifactId>
-    	<version>${project.version}</version>
-    </dependency -->
-    <!--dependency>
-    	<groupId>com.znd.ei</groupId>
-    	<artifactId>ei-acp-springredis</artifactId>
-    	<version>${project.version}</version>
-    </dependency-->     
-    <!-- dependency>
-    	<groupId>com.znd.ei</groupId>
-    	<artifactId>ei-ads-core</artifactId>
-    	<version>${project.version}</version>
-    </dependency -->
+
         <dependency>
 		    <groupId>com.znd</groupId>
 		    <artifactId>ZhongNDRedisDF</artifactId>
@@ -53,7 +38,17 @@
 			<groupId>com.znd.ei</groupId>
 			<artifactId>ei-ads-base</artifactId>
 			<version>${project.version}</version>
-		</dependency>		   
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!-- Optional, for bootstrap -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7</version>
+        </dependency>        				   
   </dependencies>
   	<build>
 		<plugins>
