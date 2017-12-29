@@ -3,7 +3,7 @@
     <div th:fragment="header-css">
         <!-- this is header-css -->
         <link rel="stylesheet" type="text/css"
-              href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+              href="../../bootstrap/3.3.7/css/bootstrap.min.css" />
 
         <link rel="stylesheet" th:href="@{/css/main.css}"
               href="../../css/main.css" />
@@ -15,8 +15,8 @@
 <div th:fragment="header">
     <!-- this is header -->
     <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
+        <div class="container-fluid">
+             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/}">分布式计算</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
