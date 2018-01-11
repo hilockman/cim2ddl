@@ -1,9 +1,14 @@
 package com.znd.ei.ads.web;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import com.ZhongND.RedisADF.ADFService.ADFService;
 import com.ZhongND.RedisADF.ADFService.ADFServiceEntry;
@@ -62,5 +67,37 @@ public class DFConfig {
 	public HttpMessageConverter jacksonMessageConverter() {
 		return new org.springframework.http.converter.json.MappingJackson2HttpMessageConverter();
 	}
+//	
+//    @Bean
+//    public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext){
+//        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+//        templateResolver.setApplicationContext(applicationContext);
+//        //templateResolver.setPrefix("/WEB-INF/templates/");
+//        templateResolver.setSuffix(".html");
+//        templateResolver.setTemplateMode(TemplateMode.HTML);
+//        // Template cache is true by default. Set to false if you want
+//        // templates to be automatically updated when modified.
+//        templateResolver.setCacheable(true);
+//        return templateResolver;
+//    }
+//
+//    @Bean
+//    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver){
+//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//        templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
+//        templateEngine.setTemplateResolver(templateResolver);
+//        return templateEngine;
+//    }
+//
+//    @Bean
+//    public ThymeleafViewResolver thymeleafViewResolver(SpringTemplateEngine templateEngine){
+//        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+//        viewResolver.setContentType("text/html;encoding=utf-8");
+//        viewResolver.setTemplateEngine(templateEngine);
+//        viewResolver.setViewNames(new String[] {"index","*th"});
+//        viewResolver.setOrder(Integer.valueOf(1));
+//        return viewResolver;
+//    }
+
 
 }

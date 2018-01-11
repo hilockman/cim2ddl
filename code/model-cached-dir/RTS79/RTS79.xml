@@ -110,6 +110,5 @@
         </State>
     </BpaPRManuState>
     <BpaPRParamMultState>
-        <State DevType="Gen" KeyWord="BUS_18230@1" StateNum="3" Rate1="0" Prob1="0.000126" Freq1.1="-0.240454" Freq1.2="0.240454" Freq1.3="0" Rate2="0.5" Prob2="0.028892" Freq2.1="0.240454" Freq2.2="-27.7425" Freq2.3="27.5021" Rate3="1" Prob3="0.970892" Freq3.1="0" Freq3.2="27.5021" Freq3.3="-27.5021" />
     </BpaPRParamMultState>
 </BpaPRParam>

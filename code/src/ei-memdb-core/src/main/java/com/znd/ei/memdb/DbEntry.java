@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.ZhongND.memdb.JMemDBApi;
+import com.ZhongND.memdb.MDBDefine;
 
 public class DbEntry extends DbComponent implements DbEntryOperations  {
 	
@@ -185,6 +186,17 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 
 		return records;
 	}
+	
+	public static void main(String [] args) {
+		String dbname = MDBDefine.g_strPRDBEntry;
+		JMemDBApi.initMemDB(dbname, 0, 1);
+		int index = JMemDBApi.getTableIndex(dbname, "FState"); 
+		String [] values = JMemDBApi.getRecordRowValueArray(dbname,
+				index, 855);
+		
+		System.out.println(values);
+	}
+	
 	
 	@Override
 	public long getRecordCount(MemTable table) {

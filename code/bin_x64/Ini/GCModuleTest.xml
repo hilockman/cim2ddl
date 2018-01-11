@@ -17,7 +17,7 @@
         <AuxLoadAdjust>1</AuxLoadAdjust>
         <EQGenAdjust>1</EQGenAdjust>
         <EQLoadAdjust>1</EQLoadAdjust>
-        <MCSSimulateTime>200000</MCSSimulateTime>
+        <MCSSimulateTime>2000000</MCSSimulateTime>
         <MCSMinStateProb>0.000000</MCSMinStateProb>
         <FSTMaxStateNum>100000</FSTMaxStateNum>
         <FSTMaxCumuProb>0.990000</FSTMaxCumuProb>

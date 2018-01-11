@@ -406,18 +406,18 @@ public class ReliabilityApl {
 		 mIslandDao.deleteAll();
 		 
 		 
-		 MapData<String, ResponseEstimate> resultMap = buffer.getMap(ReliabilityNetBuffer.ESTIMATE_RESULT_MAP);
+		 MapData<Integer, ResponseEstimate> resultMap = buffer.getMap(ReliabilityNetBuffer.ESTIMATE_RESULT_MAP);
 		ListData<FState> fstates = buffer.getList(ReliabilityNetBuffer.FSTATE_LIST);
 		List<FState> fstates0 = fstates.getContent();
 		Collections.sort(fstates0, (a, b)->a.getFStateID().compareTo(b.getFStateID()));
 		
-		 Map<String, ResponseEstimate> m = resultMap.getAll();
-		 Set<Entry<String, ResponseEstimate>> entrys = m.entrySet();
+		 Map<Integer, ResponseEstimate> m = resultMap.getAll();
+		 Set<Entry<Integer, ResponseEstimate>> entrys = m.entrySet();
 		List<FStateOvlDev> ovlDevs = new ArrayList<>();
 		List<FStateOvlAd> ovlAds = new ArrayList<>();
 		List<FState> fstates1 = new ArrayList<>();
 		List<FStateMIsland> islands = new ArrayList<>();
-		 for (Entry<String, ResponseEstimate> e : entrys) {
+		 for (Entry<Integer, ResponseEstimate> e : entrys) {
 			 ResponseEstimate r = e.getValue();
 			 if (r.getContent().getFStateOvlAd() != null)
 			    ovlAds.addAll(r.getContent().getFStateOvlAd());

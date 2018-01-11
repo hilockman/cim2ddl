@@ -391,8 +391,20 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			}
 		}
 
-
-
+		@Override
+		public <V> V blpop(String key) {
+			ResultObject<String, V> rt = null;
+			try {
+				if ((rt = operations.BLPOP(key, defaultLifeCycle)) != null) {
+					V str = rt.getValue();
+					return str;
+				}
+			} catch (RedissonDBException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
 		@Override
 		public <V> List<V> getAll(String key) {
 			try {
@@ -435,6 +447,18 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				e.printStackTrace();
 			}
 		}
+		
+		@Override
+		public <V> void bpush(String key, V value) {
+			List<V> values = new ArrayList<V>();
+			values.add(value);
+			try {
+				operations.LPUSH(key, defaultLifeCycle, values);
+			} catch (RedissonDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
 
 		@Override
 		public int getSize(String key) {
@@ -451,7 +475,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			
 			return 0;
 		}
-
 	}
 
 	public class ObjectRefDataOperationsImp implements
@@ -508,7 +531,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			try {
 				operations.LockSET(key, defaultLifeCycle, value);
 			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -523,7 +545,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 			try {
 				operations.LockLongDECR(key, defaultLifeCycle);
 			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -534,7 +555,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 		@Override
 		public boolean isEmpty(String key) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 

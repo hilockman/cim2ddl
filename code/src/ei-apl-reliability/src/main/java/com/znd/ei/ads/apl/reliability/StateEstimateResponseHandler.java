@@ -27,7 +27,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 
 	//private final ReentrantLock lock;   
 	private ListData<RequestEstimate> taskList;
-	private MapData<String, ResponseEstimate> resultMap;
+	private MapData<Integer, ResponseEstimate> resultMap;
 	private long taskSize;
 	private Semaphore availableWorkers;
 	private StateEstimateProxyServer server;
@@ -36,7 +36,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
 	
 
     public StateEstimateResponseHandler(ListData<RequestEstimate> taskList,
-			MapData<String, ResponseEstimate> resultMap, Integer taskSize,
+			MapData<Integer, ResponseEstimate> resultMap, Integer taskSize,
 			AtomicInteger currentTaskIndex, StateEstimateProxyServer server,
 			Semaphore availableWorkers) {
 		this.taskList = taskList;
@@ -77,7 +77,7 @@ public abstract class StateEstimateResponseHandler extends ChannelInboundHandler
     		
     		FState state = result.getContent().getFState().get(0);  		  		
     		synchronized(resultMap) {
-    			resultMap.set(String.valueOf(state.getFStateID()), result);
+    			resultMap.set(state.getFStateID(), result);
     		}
     		 		
     	} else if (content.contains(Commands.JOB_FINISHED)) {

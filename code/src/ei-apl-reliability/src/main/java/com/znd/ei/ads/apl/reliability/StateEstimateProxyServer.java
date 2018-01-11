@@ -112,7 +112,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 		EventLoopGroup workerGroup = new NioEventLoopGroup();	
 		StateEstimateProxyServer server = this;
 		ListData<RequestEstimate> taskList;
-		MapData<String, ResponseEstimate> resultMap;
+		MapData<Integer, ResponseEstimate> resultMap;
         taskList = buffer.getList(ReliabilityNetBuffer.ESTIMATE_TASK_LIST);
         resultMap = buffer.getMap(ReliabilityNetBuffer.ESTIMATE_RESULT_MAP);
         int taskSize =  taskList.getSize();
@@ -279,7 +279,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 		ready.getContent().setPRAdequacySetting(setting);
 		
 		String msg = Utils.toJSon(ready);
-		simpleSendMessage(msg);
+		sendMessage(msg);
 		System.out.println("Wait for listen finished ...");
 		try {
 			future.sync(); // 9
@@ -319,7 +319,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 							properties.getServerIp(), properties.getServerPort()));
 
 				} catch (IOException e1) {
-					System.err.println("Fail to connect to server.");
+					System.err.println("Fail to connect to server, "+properties.getServerIp()+":"+properties.getServerPort());
 					if (reconnectCount > 3) {
 						System.err.println("Fail to reconnect to server, after try "+ reconnectCount);
 						return;
@@ -360,7 +360,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if (future.isSuccess()) {
-						System.out.println("Connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort()+", send messag size = "+msg.length());
+						//System.out.println("Connected to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort()+", send messag size = "+msg.length());
 						
 						Channel c = future.channel();
 						
@@ -375,7 +375,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 
 
 			future.channel().closeFuture().sync();
-			System.out.println("Disconnect to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
+			//System.out.println("Disconnect to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
 								
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

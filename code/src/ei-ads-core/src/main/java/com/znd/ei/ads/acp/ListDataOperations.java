@@ -2,13 +2,13 @@ package com.znd.ei.ads.acp;
 
 import java.util.List;
 
-import com.znd.ei.ads.adf.ListData;
-
 
 
 public interface ListDataOperations extends IOOperations {
 
 	<V> V lpop(String key) throws ACPException;
+	
+	<V> V blpop(String key);
 
 	<V> List<V> getAll(String key);
 	
@@ -16,5 +16,7 @@ public interface ListDataOperations extends IOOperations {
 	
 	<V> void push(String key, V value);
 
+	<V> void bpush(String key, V value);
+	
 	int getSize(String key);
 }
