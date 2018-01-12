@@ -20,8 +20,8 @@ import com.znd.ei.codegen.domain.FieldInfo;
 import com.znd.ei.common.Utils;
 import com.znd.ei.memdb.DbEntry;
 import com.znd.ei.memdb.DbEntryOperations;
-import com.znd.ei.memdb.MemField;
-import com.znd.ei.memdb.MemTable;
+import com.znd.ei.memdb.MetaField;
+import com.znd.ei.memdb.MetaTable;
 
 @Component
 public class MemClassCreateService implements ClassCreateService {
@@ -67,8 +67,8 @@ public class MemClassCreateService implements ClassCreateService {
 			e.printStackTrace();
 		}
 
-		List<MemTable> tables = ops.getTables();
-		for (MemTable table : tables) {
+		List<MetaTable> tables = ops.getTables();
+		for (MetaTable table : tables) {
 			if (pattern != null) {
 				Matcher m = pattern.matcher(table.getName());
 				if (m.matches()) {
@@ -133,7 +133,7 @@ public class MemClassCreateService implements ClassCreateService {
 	}
 
 	@Override
-	public void store(MemTable table, Path location, String packageName) {
+	public void store(MetaTable table, Path location, String packageName) {
 
 		String str = location.toString();
 		// String packageName = toPackageName(str);
@@ -184,7 +184,7 @@ public class MemClassCreateService implements ClassCreateService {
 			}
 		});
 
-		List<MemField> fields = table.getFields();
+		List<MetaField> fields = table.getFields();
 		List<FieldInfo> fieldInfos = new ArrayList<FieldInfo>();
 		if (properties.isEnableEntityAnnotation()) {
 			addField(fieldInfos, "Id", "id", "Integer", "@Id",
@@ -198,7 +198,7 @@ public class MemClassCreateService implements ClassCreateService {
 				DbEntry.MEM_INDEX_COLUMN_NAME, "Integer");
 
 		for (int i = 0; i < fields.size(); i++) {
-			MemField f = fields.get(i);
+			MetaField f = fields.get(i);
 			if (f == null)
 				continue;
 

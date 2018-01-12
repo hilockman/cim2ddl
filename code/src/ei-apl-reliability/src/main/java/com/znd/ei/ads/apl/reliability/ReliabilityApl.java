@@ -39,7 +39,6 @@ import com.znd.ei.ads.apl.reliability.bean.RequestEstimate;
 import com.znd.ei.ads.apl.reliability.bean.ResponseEstimate;
 import com.znd.ei.ads.apl.reliability.server.StateEstimateServer;
 import com.znd.ei.ads.config.PRAdequacySetting;
-import com.znd.ei.ads.config.StateEstimateConfig;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.reliabilty.dao.FStateDao;
 import com.znd.ei.memdb.reliabilty.dao.FStateFDevDao;
@@ -123,42 +122,42 @@ public class ReliabilityApl {
 	private AplManager aplManager;
 	
 
-
-	public void callStateEstimate(FState state,
-			StateEstimateConfig config) {
-		AppUtil.execBuilder(GC_STATE_ESTIMATE).addParam(execRootPath)
-		// 直流潮流2 交流潮流系数 fDc2AcFactor
-				.addParam(config.getDc2AcFactor())
-				// 线路消限 bLineELimit
-				.addParam(config.getLineELimit())
-				// 主变消限 bTranELimit
-				.addParam(config.getTranELimit())
-				// 调整发电机消限 bGenPELimit
-				.addParam(config.getGenPELimit())
-				// 调整UPFC消限 bUPFCELimit
-				.addParam(config.getuPFCELimit())
-				// 厂用电参与消限 bAuxLoadAdjust
-				.addParam(config.getAuxLoadAdjust())
-				// 等值发电机参与消限 bEQGenAdjust
-				.addParam(config.geteQGenAdjust())
-				// 等值负荷参与消限 bEQLoadAdjust
-				.addParam(config.geteQLoadAdjust())
-				// 孤岛的最小容载比 fMinIslandGLRatio
-				.addParam(config.getMinIslandGLRatio())
-				// UPFC采用变容法 bUPFCAdjustRC
-				.addParam(config.getuPFCAdjustRC()).logger(new AppLogger() {
-
-					@Override
-					public void print(String log) {
-						LOGGER.info(log);
-					}
-				}).exec();
-
-	}
-
-	public void callStateEstimate() {
-		callStateEstimate(null, new StateEstimateConfig());
-	}
+//
+//	public void callStateEstimate(FState state,
+//			StateEstimateConfig config) {
+//		AppUtil.execBuilder(GC_STATE_ESTIMATE).addParam(execRootPath)
+//		// 直流潮流2 交流潮流系数 fDc2AcFactor
+//				.addParam(config.getDc2AcFactor())
+//				// 线路消限 bLineELimit
+//				.addParam(config.getLineELimit())
+//				// 主变消限 bTranELimit
+//				.addParam(config.getTranELimit())
+//				// 调整发电机消限 bGenPELimit
+//				.addParam(config.getGenPELimit())
+//				// 调整UPFC消限 bUPFCELimit
+//				.addParam(config.getuPFCELimit())
+//				// 厂用电参与消限 bAuxLoadAdjust
+//				.addParam(config.getAuxLoadAdjust())
+//				// 等值发电机参与消限 bEQGenAdjust
+//				.addParam(config.geteQGenAdjust())
+//				// 等值负荷参与消限 bEQLoadAdjust
+//				.addParam(config.geteQLoadAdjust())
+//				// 孤岛的最小容载比 fMinIslandGLRatio
+//				.addParam(config.getMinIslandGLRatio())
+//				// UPFC采用变容法 bUPFCAdjustRC
+//				.addParam(config.getuPFCAdjustRC()).logger(new AppLogger() {
+//
+//					@Override
+//					public void print(String log) {
+//						LOGGER.info(log);
+//					}
+//				}).exec();
+//
+//	}
+//
+//	public void callStateEstimate() {
+//		callStateEstimate(null, new StateEstimateConfig());
+//	}
 
 	public void callReliabilityIndex(PRAdequacySetting config) {
 		AppUtil.execBuilder(execRootPath+"/"+GC_RELIABILITY_INDEX).addParam(execRootPath)

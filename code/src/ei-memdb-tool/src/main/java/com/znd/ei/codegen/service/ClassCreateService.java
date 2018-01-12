@@ -2,7 +2,7 @@ package com.znd.ei.codegen.service;
 
 import java.nio.file.Path;
 
-import com.znd.ei.memdb.MemTable;
+import com.znd.ei.memdb.MetaTable;
 
 public interface ClassCreateService {
 
@@ -10,7 +10,7 @@ public interface ClassCreateService {
 	
     //void deleteAll();
     
-    void store(MemTable table, Path location, String packageName);
+    void store(MetaTable table, Path location, String packageName);
     
     
     void init();

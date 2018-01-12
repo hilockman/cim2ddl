@@ -3,7 +3,7 @@ package com.znd.ei.memdb;
 import java.util.List;
 
 
-public interface MemTableRepository<T> {
+public interface MemTableOperations<T> {
 
 	/**
 	 * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the

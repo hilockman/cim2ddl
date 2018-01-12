@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 public interface DbEntryOperations {
-	List<MemTable> getTables();
+	List<MetaTable> getTables();
 	String[] getTableNames();
-	MemTable findTableByName(String name);
+	MetaTable findTableByName(String name);
 	
-	Integer saveRecord(MemTable table, String [] values) throws DbException;
-	List<Integer> saveRecords(MemTable table, List<String []> records) throws DbException;
-	void updateRecords(MemTable table, List<String []> records) throws DbException;
-	List<String []> findAllRecords(MemTable table) throws DbException;
-	long getRecordCount(MemTable table);
-	void deleteRecords(MemTable table, List<String[]> records) throws DbException;
-	void deleteRecord(MemTable table, String[] record) throws DbException;
-	void clearTable(MemTable table);
+	Integer saveRecord(MetaTable table, String [] values) throws DbException;
+	List<Integer> saveRecords(MetaTable table, List<String []> records) throws DbException;
+	void updateRecords(MetaTable table, List<String []> records) throws DbException;
+	List<String []> findAllRecords(MetaTable table) throws DbException;
+	long getRecordCount(MetaTable table);
+	void deleteRecords(MetaTable table, List<String[]> records) throws DbException;
+	void deleteRecord(MetaTable table, String[] record) throws DbException;
+	void clearTable(MetaTable table);
 		
 	/**
 	 * 清除数据库

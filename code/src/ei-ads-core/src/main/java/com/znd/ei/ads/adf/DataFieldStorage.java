@@ -76,7 +76,6 @@ public final class DataFieldStorage {
 	@PostConstruct
 	public void init() {
 		try {
-//			registerIO();
 			aplManager.loadApls(this);
 			connectionFactory.register(this);
 
@@ -103,21 +102,7 @@ public final class DataFieldStorage {
 		return dataFields.containsKey(contentCode);
 	}
 	
-//	/**
-//	 * 数据域是否准备好
-//	 * @param contentCode
-//	 * @return
-//	 */
-//	public boolean prepared(String contentCode) {
-//		if (!contain(contentCode))
-//			return false;
-//		
-//		DataField df = dataFields.get(contentCode);
-//		if (df != null && !df.isEmpty())
-//			return true;
-//		
-//		return false;
-//	}
+
 
 	public String getServerName() {
 		if (serverProperties.getPort() == null)
@@ -126,92 +111,11 @@ public final class DataFieldStorage {
 		return serverProperties.getName() + serverProperties.getPort();
 	}
 
-//	public static boolean isIOOperationType(Class<?> clazz) {
-//		try {
-//			if (clazz.asSubclass(IOOperations.class) != null) {
-//				return true;
-//			}
-//			return false;
-//		} catch (ClassCastException e) {
-//			return false;
-//		}
-//
-//	}
-
 
 
 	public final class DataField {
 		public String contentCode = null;
 		public boolean autoLoad = false;
-//		public DataItem dataItem = null;
-//		public Method ioMethod = null;
-//		public Class<?> dataType = null;
-
-//		IOOperations createIO() throws ACPException, IllegalAccessException,
-//				IllegalArgumentException, InvocationTargetException {
-//			return (IOOperations) ioMethod.invoke(connectionFactory);
-//		}
-
-//		public DataItem createData() throws InstantiationException,
-//				IllegalAccessException, IllegalArgumentException, InvocationTargetException, ACPException {
-//			DataItem d = (DataItem) dataType.newInstance();
-//			IOOperations io = createIO();
-//			d.setOperations(io);
-//			return d;
-//		}
-
-//		boolean isEmpty() {
-//			return dataItem == null;
-//		}
-
-		
-
-
-//		public void initDataItem(String key) throws IllegalAccessException,
-//				IllegalArgumentException, InvocationTargetException,
-//				InstantiationException, ACPException, UnsupportedOperation {
-//			dataItem = createData();
-//			dataItem.setKey(key);
-////			if (autoLoad) {				
-////				dataItem.getOperations().read(dataItem);
-////			}			
-//		}
-
-//		/**
-//		 * 发布数据到总线
-//		 * 
-//		 * @throws ACPException
-//		 * @throws InvocationTargetException
-//		 * @throws IllegalArgumentException
-//		 * @throws IllegalAccessException
-//		 * @throws UnsupportedOperation
-//		 */
-//		public void publishToBus() throws IllegalAccessException,
-//				IllegalArgumentException, InvocationTargetException,
-//				ACPException, UnsupportedOperation {
-//			//IOOperations io = createIO();
-//			if (dataItem != null && !dataItem.isEmpty()) {
-//				if (contentCode == null) {
-//					LOGGER.error("cc is empty.");
-//				}
-////				if (dataItem.getKey() == null || dataItem.getKey().isEmpty()) { // 自动分配一个key
-////					dataItem.setKey(contentCode + ":"
-////							+ UUID.randomUUID().toString());
-////				}
-////				IOOperations io = dataItem.getOperations();
-////				LOGGER.info(String.format("Upload data : key = %s.", dataItem.getKey()));
-////				io.write(dataItem);
-//				LOGGER.info(String.format("Publish data :cc = %s key = %s.",contentCode, dataItem.getKey()));
-//				connectionFactory.publish(contentCode, dataItem.getKey());
-//			}
-//		}
-
-//		void clear() {
-//			if (dataItem != null)
-//				dataItem.clear();
-//			
-//			dataItem = null;
-//		}
 	}
 
 	/**
@@ -231,10 +135,6 @@ public final class DataFieldStorage {
 		if (dataFields.containsKey(contentCode)) {
 			DataField df = dataFields.get(contentCode);
 			if (autoLoad) {
-				df.autoLoad = true;
-			}
-			
-			if (dataType.equals(MemDBData.class)) {
 				df.autoLoad = true;
 			}
 

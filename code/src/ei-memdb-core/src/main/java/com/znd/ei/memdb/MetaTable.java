@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MemTable {
+public class MetaTable {
 	private String name;
 	private String description;
-	private List<MemField> fields;
-	private Map<String, MemField> fieldMap;
-	private List<MemField> keyFields;
+	private List<MetaField> fields;
+	private Map<String, MetaField> fieldMap;
+	private List<MetaField> keyFields;
 	private int index;
 	
 	public String getName() {
@@ -27,33 +27,33 @@ public class MemTable {
 	}
 
 
-	public void addField(MemField field) {
+	public void addField(MetaField field) {
 		if (fields == null) {
-			fields = new ArrayList<MemField>();
-			fieldMap = new HashMap<String, MemField>();
+			fields = new ArrayList<MetaField>();
+			fieldMap = new HashMap<String, MetaField>();
 		}
 		
 		fields.add(field);
 		fieldMap.put(field.getName().toUpperCase(), field);
 	}
-	public List<MemField> getFields() {
+	public List<MetaField> getFields() {
 		return fields;
 	}
-	public void setFields(List<MemField> fields) {
+	public void setFields(List<MetaField> fields) {
 		this.fields = fields;
 	}
 	
-	public MemField findFieldByName(String name) {
+	public MetaField findFieldByName(String name) {
 		return fieldMap.get(name.toUpperCase());
 	}
-	public List<MemField> getKeyFields() {
+	public List<MetaField> getKeyFields() {
 		return keyFields;
 	}
-	public void setKeyFields(List<MemField> keyFields) {
+	public void setKeyFields(List<MetaField> keyFields) {
 		this.keyFields = keyFields;
 	}
 	
-	public MemField getFiled(int index) {
+	public MetaField getFiled(int index) {
 		if (fields == null || fields.size() <= index || index < 0)
 			return null;
 		

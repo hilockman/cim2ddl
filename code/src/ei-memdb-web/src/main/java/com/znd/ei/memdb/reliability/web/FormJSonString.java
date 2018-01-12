@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.znd.ei.Utils;
 import com.znd.ei.memdb.MemIndexable;
-import com.znd.ei.memdb.MemTableRepository;
+import com.znd.ei.memdb.MemTableOperations;
 import com.znd.ei.memdb.reliabilty.dao.FStateDao;
 import com.znd.ei.memdb.reliabilty.dao.FStateFDevDao;
 import com.znd.ei.memdb.reliabilty.dao.FStateMIslandDao;
@@ -76,7 +76,7 @@ public class FormJSonString {
 		System.out.println("StateEstimateResult : \n" + Utils.toJSon(result));
 	}
 
-	<T extends MemIndexable> void findByIndex(MemTableRepository<T> dao, List<T> selected, Integer state_index, FStateGetter<T> g) {
+	<T extends MemIndexable> void findByIndex(MemTableOperations<T> dao, List<T> selected, Integer state_index, FStateGetter<T> g) {
 		Iterable<T> islandIter = dao.findAll();
 		Iterator<T> islandIt = islandIter.iterator();
 		while (islandIt.hasNext()) {

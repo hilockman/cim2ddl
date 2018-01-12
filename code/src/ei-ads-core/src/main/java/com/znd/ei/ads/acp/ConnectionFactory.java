@@ -9,7 +9,6 @@ public interface ConnectionFactory {
 	public static final String INNER_PUBLISH_CHANNEL = "ads-inner-publish-chanel";
 	public static final String INNER_REQUEST_CHANNEL = "ads-inner-request-chanel";
 
-	MemDBDataOperations getMemDBDataOperations();
 	
 	ListDataOperations getListDataOperations();
 

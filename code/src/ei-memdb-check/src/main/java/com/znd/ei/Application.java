@@ -17,8 +17,8 @@ import com.znd.ei.memdb.DbEntry;
 import com.znd.ei.memdb.DbEntryCollection;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.DbException;
-import com.znd.ei.memdb.MemField;
-import com.znd.ei.memdb.MemTable;
+import com.znd.ei.memdb.MetaField;
+import com.znd.ei.memdb.MetaTable;
 
 @SpringBootApplication
 @EnableConfigurationProperties(CheckProperties.class)
@@ -85,9 +85,9 @@ public class Application {
 				System.out.println(String.format(
 						"*********Check memdb : name=%s desc=%s***********",
 						conn.getName(), conn.getDesc()));
-				List<MemTable> tables = ops.getTables();
+				List<MetaTable> tables = ops.getTables();
 
-				for (MemTable t : tables) {
+				for (MetaTable t : tables) {
 					System.out.println("check table : " + t.getName());
 					for (Pattern excludePattern : excludeTablePatterns) {
 						Matcher isMatch = excludePattern.matcher(t.getName());
@@ -100,8 +100,8 @@ public class Application {
 						}
 					}
 
-					List<MemField> fields = t.getFields();
-					for (MemField f : fields) {
+					List<MetaField> fields = t.getFields();
+					for (MetaField f : fields) {
 
 						 //System.out.println("\tField:"+f.getName()+", Table:"+t.getName());
 

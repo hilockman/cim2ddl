@@ -1,7 +1,7 @@
 package com.znd.ei.memdb;
 
 
-public class MemField {
+public class MetaField {
 
 	private String name;
 	private String description;
@@ -10,7 +10,7 @@ public class MemField {
 	private boolean isPrimeKey;
 	int index;
 	
-	public MemField() {
+	public MetaField() {
 		isPrimeKey = false;
 	}
 	public int getLen() {

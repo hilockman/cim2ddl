@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.znd.ei.memdb.DbEntryOperations;
-import com.znd.ei.memdb.MemTable;
+import com.znd.ei.memdb.MetaTable;
 
 @Controller
 @RequestMapping(path = "/memdb")
@@ -24,9 +24,9 @@ public class PRMemDbController {
 	}
 
 	@GetMapping(path = "/table")
-	public @ResponseBody Iterable<MemTable> getTable(@RequestParam String name) {
+	public @ResponseBody Iterable<MetaTable> getTable(@RequestParam String name) {
 		if (name != null && !name.isEmpty()) {
-			return  Arrays.asList(new MemTable[]{pROps.findTableByName(name)});
+			return  Arrays.asList(new MetaTable[]{pROps.findTableByName(name)});
 		} else
 			return pROps.getTables();
 	}

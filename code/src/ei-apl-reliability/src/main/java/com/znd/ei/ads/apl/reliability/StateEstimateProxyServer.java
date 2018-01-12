@@ -53,9 +53,6 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 	private static final Logger logger = LoggerFactory
 			.getLogger(StateEstimateProxyServer.class);
 
-
-	//private AppExecuteBuilder appExec;
-
 	@Autowired
 	private StateEstimateProperties properties;
 

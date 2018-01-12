@@ -12,8 +12,8 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	
 	public static String MEM_INDEX_COLUMN_NAME = "memIndex";
 	
-	private List<MemTable> tables;
-	private HashMap<String, MemTable> tableMap;
+	private List<MetaTable> tables;
+	private HashMap<String, MetaTable> tableMap;
 
 	private Connection connection;
 	private String dbname;
@@ -28,16 +28,16 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		int tableNum = JMemDBApi.getTableNum(dbname);
 		System.out
 				.println("Init memdb, dbname:" + dbname + ", table num:" + tableNum + ".");
-		tables = new ArrayList<MemTable>();
-		tableMap = new HashMap<String, MemTable>();
+		tables = new ArrayList<MetaTable>();
+		tableMap = new HashMap<String, MetaTable>();
 		for (int i = 0; i < tableNum; i++) {
-			MemTable table = new MemTable();
+			MetaTable table = new MetaTable();
 			table.setName(JMemDBApi.getTableName(dbname, i));
 			table.setDescription(JMemDBApi.getTableDesp(dbname, i));
 
 			int fieldNum = JMemDBApi.getTableFieldNum(dbname, i);
 			for (int j = 0; j < fieldNum; j++) {
-				MemField field = new MemField();
+				MetaField field = new MetaField();
 				field.setName(JMemDBApi.getFieldName(dbname, i, j));
 				field.setDescription(JMemDBApi.getFieldDesp(dbname, i, j));
 				int type = JMemDBApi.getFieldType(dbname, i, j);
@@ -68,10 +68,10 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 			table.setIndex(i);
 
 			int rFieldNum = JMemDBApi.getTableRestrictNum(dbname, i);
-			ArrayList<MemField> keyFields = new ArrayList<MemField>();
+			ArrayList<MetaField> keyFields = new ArrayList<MetaField>();
 			for (int j = 0; j < rFieldNum; j++) {
 				int fileIndex = JMemDBApi.getTableRestrictField(dbname, i, j);
-				MemField field = table.getFiled(fileIndex);
+				MetaField field = table.getFiled(fileIndex);
 				field.setPrimeKey(true);
 				keyFields.add(field);
 			}
@@ -83,7 +83,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		}
 	}
 
-	public List<MemTable> getTables() {
+	public List<MetaTable> getTables() {
 		return tables;
 	}
 
@@ -97,12 +97,12 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	}
 
 	@Override
-	public MemTable findTableByName(String name) {
+	public MetaTable findTableByName(String name) {
 		return tableMap.get(name);
 	}
 
 	@Override
-	public Integer saveRecord(MemTable table, String[] values) throws DbException {
+	public Integer saveRecord(MetaTable table, String[] values) throws DbException {
 		List<String[]> records = new ArrayList<String[]>();
 		records.add(values);
 		List<Integer> rt = saveRecords(table, records);
@@ -114,7 +114,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	}
 
 	@Override
-	public List<Integer> saveRecords(MemTable table, List<String[]> records)
+	public List<Integer> saveRecords(MetaTable table, List<String[]> records)
 			throws DbException {
 		if (records.size() == 0)
 			return new ArrayList<Integer>();
@@ -136,7 +136,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	}
 	
 	@Override
-	public void updateRecords(MemTable table, List<String[]> records)
+	public void updateRecords(MetaTable table, List<String[]> records)
 			throws DbException {
 		if (records.size() == 0)
 			return;
@@ -151,7 +151,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		JMemDBApi.maint(dbname, 0);	
 	}  
 
-	public void deleteRecords(MemTable table, List<String[]> records) throws DbException {
+	public void deleteRecords(MetaTable table, List<String[]> records) throws DbException {
 		if (records.size() == 0)
 			return;
 		
@@ -163,7 +163,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 		JMemDBApi.maint(dbname, 0);
 	}
 	
-	public void deleteRecord(MemTable table, String[] record) throws DbException {
+	public void deleteRecord(MetaTable table, String[] record) throws DbException {
 		
 		List<String[]> records = new ArrayList<String[]>();
 		records.add(record);
@@ -171,12 +171,12 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	}	
 
 
-	public void clearTable(MemTable table) {
+	public void clearTable(MetaTable table) {
 		JMemDBApi.clearTable(dbname, table.getIndex());
 		JMemDBApi.maint(dbname, 0);
 	}
 	@Override
-	public List<String[]> findAllRecords(MemTable table) throws DbException {
+	public List<String[]> findAllRecords(MetaTable table) throws DbException {
 		int count = JMemDBApi.getTableRecordNum(dbname, table.getIndex());
 		List<String[]> records = new ArrayList<String[]>();
 		for (int i = 0; i < count; i++) {
@@ -199,7 +199,7 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	
 	
 	@Override
-	public long getRecordCount(MemTable table) {
+	public long getRecordCount(MetaTable table) {
 		return JMemDBApi.getTableRecordNum(dbname, table.getIndex());
 	}
 

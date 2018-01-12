@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-import com.znd.ei.memdb.MemTableRepository;
+import com.znd.ei.memdb.MemTableOperations;
 
 /**
  * 
@@ -25,7 +25,7 @@ public class AppUtil {
 
 	
 	@SuppressWarnings("unchecked")
-	public static <T> void clearAndSave(List<T> records, MemTableRepository<T> dao) {
+	public static <T> void clearAndSave(List<T> records, MemTableOperations<T> dao) {
 		
 		
 		if (records == null) {

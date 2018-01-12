@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.znd.ei.ads.apl.reliability.AppUtil;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.DbException;
-import com.znd.ei.memdb.MemTable;
+import com.znd.ei.memdb.MetaTable;
 import com.znd.ei.memdb.bpa.dao.ACLineRepository;
 import com.znd.ei.memdb.bpa.domain.BpaDat_ACLine;
 import com.znd.ei.memdb.reliabilty.dao.FStateDao;
@@ -113,8 +113,8 @@ public class AppUtilTest {
 	}
 
 	private void printDbEntry(DbEntryOperations ops) throws DbException {
-		List<MemTable> tables = ops.getTables();
-		for (MemTable table : tables) {
+		List<MetaTable> tables = ops.getTables();
+		for (MetaTable table : tables) {
 			long count = ops.getRecordCount(table);
 			if (count == 0)
 				continue;

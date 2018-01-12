@@ -1,4 +1,4 @@
-package com.znd.ei.ads.config;
+package com.znd.ei.ads.web.controller;
 
 import com.znd.ei.Utils;
 

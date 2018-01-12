@@ -9,10 +9,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 public class AbstractTableOperations<T> implements
-		MemTableRepository<T> {
+		MemTableOperations<T> {
 	private DbEntryOperations dbEntryOps;
 
-	private MemTable table;
+	private MetaTable table;
 
 	private Class<?> clazz;
 
@@ -55,7 +55,7 @@ public class AbstractTableOperations<T> implements
 			f.setAccessible(true);
 			fieldInfo.setField(f);
 			String name = f.getName();
-			MemField mf = table.findFieldByName(name);
+			MetaField mf = table.findFieldByName(name);
 			fieldInfo.setMemField(mf);
 
 			Class<?> fzz = f.getType();
@@ -142,7 +142,7 @@ public class AbstractTableOperations<T> implements
 					if (f == null)
 						continue;
 						
-					MemField mfield = f.getMemField();
+					MetaField mfield = f.getMemField();
 					if (mfield == null)
 						continue;
 
@@ -209,7 +209,7 @@ public class AbstractTableOperations<T> implements
 					if (f == null)
 						continue;
 
-					MemField mfield = f.getMemField();
+					MetaField mfield = f.getMemField();
 					if (mfield == null)
 						continue;
 
@@ -286,7 +286,7 @@ class FieldInfo {
 	}
 
 	private Field field;
-	private MemField memField;
+	private MetaField memField;
 
 	@SuppressWarnings("rawtypes")
 	private ValueParse valueParser;
@@ -299,11 +299,11 @@ class FieldInfo {
 		this.field = field;
 	}
 
-	public MemField getMemField() {
+	public MetaField getMemField() {
 		return memField;
 	}
 
-	public void setMemField(MemField memField) {
+	public void setMemField(MetaField memField) {
 		this.memField = memField;
 	}
 

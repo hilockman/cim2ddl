@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import com.znd.ei.common.Utils;
 import com.znd.ei.memdb.Connection;
 import com.znd.ei.memdb.DbEntryOperations;
-import com.znd.ei.memdb.MemField;
-import com.znd.ei.memdb.MemTable;
+import com.znd.ei.memdb.MetaField;
+import com.znd.ei.memdb.MetaTable;
 
 @Component
 public class CheckService {
@@ -67,9 +67,9 @@ public class CheckService {
 		System.out.println(String.format(
 				"*********Check memdb : name=%s desc=%s***********",
 				conn.getName(), conn.getDesc()));
-		List<MemTable> tables = ops.getTables();
+		List<MetaTable> tables = ops.getTables();
 		List<String> logs = new ArrayList<String>();
-		for (MemTable t : tables) {
+		for (MetaTable t : tables) {
 			check(t, logs);
 		}
 
@@ -104,12 +104,12 @@ public class CheckService {
 			check(ops, path);
 		}
 	}
-	public boolean check(MemTable t) {
+	public boolean check(MetaTable t) {
 		List<String> logs = new ArrayList<String>();
 		check(t, logs);
 		return logs.isEmpty();
 	}
-	private void check(MemTable t, List<String> logs) {
+	private void check(MetaTable t, List<String> logs) {
 		System.out.println("check table : " + t.getName());
 		for (Pattern excludePattern : invalidTablePatterns) {
 			Matcher isMatch = excludePattern.matcher(t.getName());
@@ -125,8 +125,8 @@ public class CheckService {
 			}
 		}
 
-		List<MemField> fields = t.getFields();
-		for (MemField f : fields) {
+		List<MetaField> fields = t.getFields();
+		for (MetaField f : fields) {
 
 			if (fieldPattern != null) {
 				Matcher m = fieldPattern.matcher(f.getName());

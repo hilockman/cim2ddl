@@ -11,7 +11,6 @@ import java.util.Set;
 import javax.annotation.PreDestroy;
 
 import org.redisson.RedissonNode;
-import org.redisson.api.RCountDownLatch;
 import org.redisson.api.RRemoteService;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RemoteInvocationOptions;
@@ -21,11 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.ZhongND.RedisADF.ADFService.ADFService;
 import com.ZhongND.RedisADF.ADFService.ADFServiceEntry;
-import com.ZhongND.RedisADF.rmdb.MemDBContext;
-import com.ZhongND.RedisADF.rmdb.RedisMemDB;
-import com.ZhongND.RedisADF.rmdb.Impl.RedisMemDBException;
 import com.ZhongND.RedisDF.Service.DFService;
 import com.ZhongND.RedisDF.Service.RedisService;
 import com.ZhongND.RedisDF.Service.ServiceFactory;
@@ -38,19 +33,16 @@ import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.ZhongND.RedisDF.messageDF.Listener.MessageContent;
 import com.ZhongND.RedisDF.messageDF.Listener.Event.EventCallBack;
-import com.znd.ei.ads.AdsUtils;
 import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
-import com.znd.ei.ads.acp.MemDBDataOperations;
 import com.znd.ei.ads.acp.ObjectRefDataOperations;
 import com.znd.ei.ads.acp.StringDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
 import com.znd.ei.ads.adf.DataFieldStorage;
-import com.znd.ei.ads.adf.MemDBData;
 
 public class DFRedissonConnection extends AbstractConnectionFactory {
 
@@ -60,7 +52,6 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	private RedisService redisService;
 	private DFService dfService;
-	private ADFService adfService;
 	private ExectueDF executeDF;
 
 	// private String modelZone = "test";
@@ -92,7 +83,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		this.nodeConfig = nodeConfig;
 		try {
 			this.redisService = ServiceFactory.getService();
-			this.adfService = ADFServiceEntry.getADFService();
+			ADFServiceEntry.getADFService();
 			this.dfService = redisService.getDFService();
 			this.executeDF = dfService.registry("acp");
 
@@ -103,71 +94,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private class MemDBOperationsImp implements MemDBDataOperations {
 
-		private RedisMemDB operations;
-
-		public MemDBOperationsImp() throws ACPException {
-			try {
-				if (adfService != null) {
-					LOGGER.info("adfService..registry");
-					operations = adfService
-							.registry(serverProperties.getName());
-				}
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-				throw new ACPException("Fail to adf registy : "
-						+ e.getMessage());
-			}
-		}
-
-		@Override
-		public void download(MemDBData db) {
-			if (operations == null)
-				return;
-			String key = operations.createMemDBKey(db.getArea(),
-					db.getEntryName());
-			db.setKey(key);
-			try {
-				LOGGER.info(String.format("uploadModel:%s", key));
-				synchronized (AdsUtils.shareMemoryLocker) {
-					operations.uploadModel(db.getKey(), memDbLifeCycle);
-				}
-				// memdb.pubMessage(db.getContentCode(), db.getKey());
-			} catch (RedisMemDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (RedissonDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void upload(MemDBData db) {
-			try {
-				LOGGER.info("read db : " + db.getKey());
-				MemDBContext context = operations.resloveMemDBKey(db.getKey());
-				db.setArea(context.getStrArea());
-				db.setEntryName(context.getStrDBEntry());
-				synchronized (AdsUtils.shareMemoryLocker) {
-					operations.downloadModel(db.getKey());
-				}
-			} catch (RedisMemDBException e) {
-				e.printStackTrace();
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-			}
-		}
-
-
-		@Override
-		public boolean isEmpty(String key) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-	}
 
 	public class MapDataOperationsImp implements MapDataOperations {
 		private RedissonDBMap operation;
@@ -330,7 +257,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private class ListDataOperationsImp implements ListDataOperations {
+	public class ListDataOperationsImp implements ListDataOperations {
 
 		private RedissonDBList operations;
 
@@ -551,7 +478,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	private class StringDataOperationsImp implements StringDataOperations {
+	public class StringDataOperationsImp implements StringDataOperations {
 
 		@Override
 		public boolean isEmpty(String key) {
@@ -633,16 +560,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 						.pubMessage(INNER_REQUEST_CHANNEL, message));
 	}
 
-	@Override
-	public MemDBDataOperations getMemDBDataOperations() {
-		try {
-			return new MemDBOperationsImp();
-		} catch (ACPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
+
 
 	@Override
 	public ListDataOperations getListDataOperations() {
