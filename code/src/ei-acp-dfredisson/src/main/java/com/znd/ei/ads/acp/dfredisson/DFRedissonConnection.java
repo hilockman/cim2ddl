@@ -40,9 +40,8 @@ import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.ObjectRefDataOperations;
-import com.znd.ei.ads.acp.StringDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
-import com.znd.ei.ads.adf.DataFieldStorage;
+import com.znd.ei.ads.adf.AplManager;
 
 public class DFRedissonConnection extends AbstractConnectionFactory {
 
@@ -478,26 +477,26 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 
 	}
 
-	public class StringDataOperationsImp implements StringDataOperations {
-
-		@Override
-		public boolean isEmpty(String key) {
-			return false;
-		}
-
-		// @Override
-		// public StringData read(StringData o) throws ACPException,
-		// UnsupportedOperation {
-		// return o;
-		// }
-		//
-		// @Override
-		// public void write(StringData o) throws ACPException,
-		// UnsupportedOperation {
-		//
-		// }
-
-	}
+//	public class StringDataOperationsImp implements StringDataOperations {
+//
+//		@Override
+//		public boolean isEmpty(String key) {
+//			return false;
+//		}
+//
+//		// @Override
+//		// public StringData read(StringData o) throws ACPException,
+//		// UnsupportedOperation {
+//		// return o;
+//		// }
+//		//
+//		// @Override
+//		// public void write(StringData o) throws ACPException,
+//		// UnsupportedOperation {
+//		//
+//		// }
+//
+//	}
 
 	// private class BusOperationsImp implements BusOperations {
 	//
@@ -575,7 +574,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		this.dfService = dfService;
 	}
 
-	public DataFieldStorage storage;
+	public AplManager aplManager;
 	
 
 	interface Register {
@@ -592,7 +591,7 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 						eventContent.getEventContent());
 				try {
 
-					storage.receivedMessage(eventContent.getControlCode(),
+					aplManager.receivedMessage(eventContent.getControlCode(),
 							eventContent.getEventContent());
 					LOGGER.info("Finish process cc = {}" , eventContent.getControlCode());
 				} catch (ACPException e) {
@@ -609,8 +608,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 	}
 
 	@Override
-	public void register(DataFieldStorage storage) throws Exception {
-		this.storage = storage;
+	public void register(AplManager storage) throws Exception {
+		this.aplManager = storage;
 		final String appName = storage.getServerName();
 		registerEventCallBack("外部事件", (EventCallBack c)->{dfService.registry(appName, c, true);});
 		registerEventCallBack("内部事件", (EventCallBack c)->{dfService.registry(appName+"_inner_publish",
@@ -619,11 +618,11 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 				ConnectionFactory.INNER_REQUEST_CHANNEL, c, true);});	
 	}
 
-	@Override
-	public StringDataOperations getStringDataOperations() {
-		return new StringDataOperationsImp();
-	}
-
+//	@Override
+//	public StringDataOperations getStringDataOperations() {
+//		return new StringDataOperationsImp();
+//	}
+//
 	@Override
 	public ObjectRefDataOperations getObjectRefOperations() {
 		try {
@@ -682,8 +681,8 @@ public class DFRedissonConnection extends AbstractConnectionFactory {
 		return rt.getValue();
 	}
 
-	public DataFieldStorage getStorage() {
-		return storage;
+	public AplManager getStorage() {
+		return aplManager;
 	}
 
 	/**

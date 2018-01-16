@@ -16,8 +16,8 @@ import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.UnsupportedOperation;
-import com.znd.ei.ads.adf.DataFieldStorage;
-import com.znd.ei.ads.apl.AplManager;
+import com.znd.ei.ads.adf.AplManager;
+//import com.znd.ei.ads.apl.AplManager;
 
 /**
  * 
@@ -27,11 +27,11 @@ import com.znd.ei.ads.apl.AplManager;
  */
 public class AdsServerImp implements AdsServer {
 
-	@Autowired
-	private AplManager aplManager;
+//	@Autowired
+//	private AplManager aplManager;
 	
 	@Autowired
-	private DataFieldStorage dataFieldStorage;
+	private AplManager aplManager;
 	
 	@Autowired
 	private ConnectionFactory connectionFactory;
@@ -73,7 +73,7 @@ public class AdsServerImp implements AdsServer {
 			return AdsResult.formOk(infos).toString();
 		} else {
 			try {
-				dataFieldStorage.receivedMessage(cc, content);
+				aplManager.receivedMessage(cc, content);
 				return AdsResult.formOk(null).toString();
 			} catch (ACPException | UnsupportedOperation e) {
 				return AdsResult.formFail(e.getMessage()).toString();

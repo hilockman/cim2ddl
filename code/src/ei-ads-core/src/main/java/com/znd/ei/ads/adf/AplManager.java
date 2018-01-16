@@ -1,4 +1,4 @@
-package com.znd.ei.ads.apl;
+package com.znd.ei.ads.adf;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -10,14 +10,15 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.annotation.PostConstruct;
 import javax.management.RuntimeErrorException;
 
 import org.slf4j.Logger;
@@ -29,11 +30,14 @@ import org.springframework.stereotype.Component;
 import com.znd.ei.ClassFilter;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.AdsProperties;
+import com.znd.ei.ads.ServerProperties;
 import com.znd.ei.ads.acp.ACPException;
 import com.znd.ei.ads.acp.ConnectionFactory;
 import com.znd.ei.ads.acp.UnsupportedOperation;
-import com.znd.ei.ads.adf.DataFieldStorage;
-import com.znd.ei.ads.adf.DataFieldStorage.DataField;
+//import com.znd.ei.ads.apl.AplManager;
+import com.znd.ei.ads.apl.AppInfo;
+//import com.znd.ei.ads.apl.AplManager.AppCallBean;
+//import com.znd.ei.ads.apl.AplManager.ParamInfo;
 import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
@@ -41,18 +45,25 @@ import com.znd.ei.ads.apl.annotations.Out;
 
 /**
  * 
- * @author wangheng 应用管理用于应用注册
+ * @author wangheng 应用注册和管理
  *
  */
 @Component
 public final class AplManager {
-
-	public static void main(String[] args) {
-		System.out.println(new String().getClass().equals(String.class));
-	}
-
+	
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(AplManager.class);
+
+
+	@Autowired
+	private ConnectionFactory connectionFactory;
+
+	@Autowired
+	private ServerProperties serverProperties;
+
+	public AplManager() {
+
+	}
 
 	@Autowired
 	private ExecutorService adsThreadPool = null;
@@ -64,9 +75,7 @@ public final class AplManager {
 	@Autowired
 	private ApplicationContext context;
 
-	@Autowired
-	private ConnectionFactory connectionFactory;
-	
+
 	@Autowired
 	private AdsProperties adsProperties;
 
@@ -74,12 +83,6 @@ public final class AplManager {
 		public String cc;
 		public Class<?> paramType;
 		public boolean bIn;
-		public DataFieldStorage.DataField dataField;
-
-//		boolean isItemDataType() {
-//			return dataField.dataType.equals(paramType);
-//		}
-
 	}
 
 	final class AppCallBean {
@@ -96,20 +99,7 @@ public final class AplManager {
 		AtomicBoolean isWorking = new AtomicBoolean(false);
 		public Object dataItems[];
 		public FutureTask<Integer> task;
-//		/**
-//		 * 判断数据区域是否可以清除
-//		 * 
-//		 * @param df
-//		 * @return
-//		 */
-//		public boolean canClear(DataField df) {
-//
-//			if (df.dataItem != null && !df.dataItem.canClear())
-//				return false;
-//
-//			List<AppCallInfo> appCallers = findRelatedAppCalls(df, this);
-//			return appCallers.isEmpty();
-//		}
+
 		
 		public FutureTask<Integer> formCallable() {
 			FutureTask<Integer> future = new FutureTask<Integer>(new Callable<Integer>() {
@@ -144,47 +134,191 @@ public final class AplManager {
 			return future;
 		}
 	}
+	
+	@PostConstruct
+	public void init() {
+		try {
+			loadApls();
+			connectionFactory.register(this);
 
-	public AplManager() {
-	}
-
-	/**
-	 * 找到与appCaller相关的，所有input为df的appCallers
-	 * 
-	 * @param inputDataField
-	 * @param appCaller
-	 * @return
-	 */
-	public List<AppCallBean> findRelatedAppCalls(DataField inputDataField,
-			AppCallBean appCaller) {
-		Set<AppCallBean> appCallers = new HashSet<AppCallBean>();
-
-		System.out.println("");
-		internalFindRelatedAppCalls(appCallers, inputDataField,
-				appCaller.outputCCs);
-
-		return new ArrayList<AppCallBean>(appCallers);
-	}
-
-	private void internalFindRelatedAppCalls(Set<AppCallBean> appCallerSet,
-			DataField inputDataField, List<String> inputCCs) {
-		for (String cc : inputCCs) {
-			List<AppCallBean> appCallers = cc2AplCallInfos.get(cc);
-			if (appCallers != null && !appCallers.isEmpty()) {
-				for (AppCallBean info : appCallers) {
-					if (info.inputCCs.contains(inputDataField.contentCode)) {
-						appCallerSet.add(info);
-					}
-
-					internalFindRelatedAppCalls(appCallerSet, inputDataField,
-							info.outputCCs);
-				}
-			}
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ACPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
+	//private Map<String, DataField> dataFields = new HashMap<String, DataField>();
+	private Set<String> dataFields = new HashSet<String>();
 
+	// private Map<String, Method> cc2Operations = new HashMap<String,
+	// Method>();
+
+	public boolean contain(String contentCode) {
+		return dataFields.contains(contentCode);
+	}
+	
+
+
+	public String getServerName() {
+		if (serverProperties.getPort() == null)
+			return serverProperties.getName();
+
+		return serverProperties.getName() + serverProperties.getPort();
+	}
+
+
+
+//	public final class DataField {
+//		public String contentCode = null;
+//		public boolean autoLoad = false;
+//	}
+
+	/**
+	 * 注册数据域
+	 * @param contentCode
+	 * @param dataType
+	 * @param paramName
+	 * @param autoLoad
+	 * @return
+	 * @throws ACPException
+	 */
+//	public DataField register(String contentCode, Class<?> dataType,
+//			String paramName, boolean autoLoad) throws ACPException {
+//		if (contentCode.isEmpty())
+//			contentCode = paramName;
+//
+//		if (dataFields.containsKey(contentCode)) {
+//			DataField df = dataFields.get(contentCode);
+//			if (autoLoad) {
+//				df.autoLoad = true;
+//			}
+//
+//			return df;
+//		}
+//
+//		DataField df = new DataField();
+//
+////		String typeName = dataType.getSimpleName();
+////		df.dataType = dataType;
+////		if (!dataType2IOMethod.containsKey(typeName)) {
+////			if (dataType.equals(String.class)) {
+////				df.dataType = ObjectRefData.class;
+////				typeName = df.dataType.getSimpleName();
+////			} else {
+////				throw new ACPException(
+////						String.format(
+////								"Fail to regist data field: cc=%s, unknow dataType : %s",
+////								contentCode, dataType.getName()));
+////			}
+////		}
+//
+//		df.contentCode = contentCode;
+////		df.ioMethod = dataType2IOMethod.get(typeName);
+//		df.autoLoad = autoLoad;
+//		dataFields.put(contentCode, df);
+//		return df;
+//	}
+	public void register(String contentCode, Class<?> dataType,
+			String paramName, boolean autoLoad) throws ACPException {
+		if (contentCode.isEmpty())
+			contentCode = paramName;
+
+		dataFields.add(contentCode);
+	}
+	
+//	/**
+//	 * 根据输入参数注册数据域
+//	 * @param a
+//	 * @param dataType
+//	 * @param paramName
+//	 * @return
+//	 * @throws ACPException
+//	 */
+//	public DataField register(In a, Class<?> dataType, String paramName)
+//			throws ACPException {
+//		return register(a.value(), dataType, paramName, a.autoLoad());
+//	}
+	/**
+	 * 根据输入参数注册数据域
+	 * @param a
+	 * @param dataType
+	 * @param paramName
+	 * @return
+	 * @throws ACPException
+	 */
+	public void register(In a, Class<?> dataType, String paramName)
+			throws ACPException {
+		register(a.value(), dataType, paramName, a.autoLoad());
+	}
+
+//	/**
+//	 * 根据输出参数注册数据域
+//	 * @param a
+//	 * @param dataType
+//	 * @param paramName
+//	 * @return
+//	 * @throws ACPException
+//	 */
+//	public DataField register(Out a, Class<?> dataType, String paramName)
+//			throws ACPException {
+//		return register(a.value(), dataType, paramName, false);
+//	}
+	/**
+	 * 根据输出参数注册数据域
+	 * @param a
+	 * @param dataType
+	 * @param paramName
+	 * @return
+	 * @throws ACPException
+	 */
+	public void register(Out a, Class<?> dataType, String paramName)
+			throws ACPException {
+		register(a.value(), dataType, paramName, false);
+	}
+
+
+
+
+	/**
+	 * 处理从总线收到的消息
+	 * @param contentCode
+	 * @param content
+	 * @throws ACPException
+	 * @throws UnsupportedOperation
+	 */
+	public void receivedMessage(String contentCode, String content)
+			throws ACPException, UnsupportedOperation {
+		LOGGER.info("DataField Receive: cc={}, content={}", contentCode,
+				content);
+		if (!dataFields.contains(contentCode)) {
+			LOGGER.info("Dump uninterested cc={}", contentCode);
+			return;
+		}
+
+		bootAplCaller(contentCode, content);
+	}
+	
+
+
+//	public AplManager getAplManager() {
+//		return aplManager;
+//	}
+
+	public ConnectionFactory getConnectionFactory() {
+		return connectionFactory;
+	}
+	
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void loadApls(DataFieldStorage storage)
+	public void loadApls()
 			throws InstantiationException, IllegalAccessException, ACPException {
 		List skips = adsProperties.getAplSkip();
 		ClassFilter filter = (Class<?> c) -> (c.getAnnotation(AplController.class) != null); 
@@ -264,7 +398,7 @@ public final class AplManager {
 						cc = out.value();
 						acInfo.outputCCs.add(cc);
 
-						paramInfo.dataField = storage.register(out,
+						register(out,
 								paramInfo.paramType, param.getName());
 					}
 
@@ -280,7 +414,7 @@ public final class AplManager {
 							cc2AplCallInfos.put(cc, appCallInfos);
 						}
 						appCallInfos.add(acInfo);
-						paramInfo.dataField = storage.register(in,
+						register(in,
 								paramInfo.paramType, param.getName());
 					}
 					paramInfo.cc = cc;
@@ -324,156 +458,7 @@ public final class AplManager {
 
 	public int getAplCount() {
 		return apls.size();
-	}
-
-//	/**
-//	 * 调用应用方法
-//	 * 
-//	 * @param contentCode
-//	 * @throws ACPException
-//	 * @throws UnsupportedOperation
-//	 */
-//	@SuppressWarnings({ "rawtypes", "unchecked" })
-//	public void bootAplCaller(String contentCode, DataFieldStorage storage)
-//			throws ACPException, UnsupportedOperation {
-//		List<AppCallInfo> appCallInfos = cc2AplCallInfos.get(contentCode);
-//		if (appCallInfos == null) {
-//			return;
-//		}
-//
-//		// if (!storage.contain(contentCode))
-//		// return;
-//
-//		// 调用业务逻辑
-//		for (final AppCallInfo appCallInfo : appCallInfos) {
-//			// 正在工作则不响应
-//			if (appCallInfo.isWorking)
-//				continue;
-//
-//			List<String> inputCCs = appCallInfo.inputCCs;
-//
-//			// 判断是否启动业务逻辑
-//			boolean boot = true;
-//			if (appCallInfo.ccOper.equals(AplFunction.AND)) {
-//				boot = true;
-//				System.out.println("");
-//				for (String cc : inputCCs) {
-//					if (!storage.prepared(cc)) {
-//						boot = false;
-//						break;
-//					}
-//				}
-//			} else {
-//				boot = false;
-//				for (String cc : inputCCs) {
-//					if (storage.prepared(cc)) {
-//						boot = true;
-//						break;
-//					}
-//				}
-//			}
-//
-//			if (!boot)
-//				continue;
-//
-//			// 业务逻辑参数初始化
-//			Object dataItems[] = new DataItem[appCallInfo.paramInfos.length];
-//			int pos = 0;
-//			List<ParamInfo> outputDataItems = new ArrayList<ParamInfo>();
-//			List<DataFieldStorage.DataField> inputDataFields = new ArrayList<DataFieldStorage.DataField>();
-//			List<DataFieldStorage.DataField> outputDataFields = new ArrayList<DataFieldStorage.DataField>();
-//			List<DataItem> outputDatas = new ArrayList<DataItem>();
-//			for (ParamInfo paramInfo : appCallInfo.paramInfos) {
-//				if (paramInfo.bIn) { // 输入参数
-//					dataItems[pos++] = paramInfo.dataField.dataItem;
-//					inputDataFields.add(paramInfo.dataField);
-//				} else { // 输出参数
-//					try {
-//						// paramInfo.dataField.initDataItem();
-//						outputDataFields.add(paramInfo.dataField);
-//						DataItem item = paramInfo.dataField.createData();
-//						dataItems[pos++] = item;
-//						outputDataItems.add(paramInfo);
-//						outputDatas.add(item);
-//					} catch (InstantiationException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//						throw new ACPException(e.getMessage());
-//					} catch (IllegalAccessException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//						throw new ACPException(e.getMessage());
-//					} catch (IllegalArgumentException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					} catch (InvocationTargetException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//
-//			AppInfo appInfo = appCallInfo.appInfo;
-//			String appName = appInfo.getName();
-//			String methodName = appCallInfo.method.getName();
-//
-//			adsThreadPool.execute(new Runnable() {
-//
-//				@Override
-//				public void run() {
-//					try {
-//						LOGGER.info(String.format(
-//								"------------------开始调用:%s------------------",
-//								appCallInfo.desc));
-//						appCallInfo.isWorking = true;
-//
-//						// 调用业务逻辑，填充数据
-//						appCallInfo.method.invoke(appCallInfo.app, dataItems);
-//
-//						// 清理输入数据区域
-//						for (DataFieldStorage.DataField df : inputDataFields) {
-//							if (appCallInfo.canClear(df)) {
-//								dataFieldStorage.clear(df);
-//							}
-//						}
-//
-//						// 更新数据域
-//						for (int i = 0; i < outputDataFields.size(); i++) {
-//							DataFieldStorage.DataField df = outputDataFields
-//									.get(i);
-//							DataItem dataItem = outputDatas.get(i);
-//							df.dataItem = dataItem;
-//						}
-//						// 通过总线，发布数据
-//						for (ParamInfo paramInfo : outputDataItems) {
-//							DataFieldStorage.DataField df = paramInfo.dataField;
-//
-//							df.publishToBus();
-//
-//						}
-//
-//						LOGGER.info(String.format(
-//								"------------------结束调用:%s------------------",
-//								appCallInfo.desc));
-//					} catch (IllegalAccessException | IllegalArgumentException
-//							| InvocationTargetException | ACPException
-//							| UnsupportedOperation e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//						LOGGER.error(e.getMessage() + ", app=" + appName
-//								+ ", method=" + methodName);
-//					} finally {
-//						appCallInfo.isWorking = false;
-//					}
-//				}
-//			});
-//
-//		}
-//
-//		// 清除数据区域
-//
-//	}
-
+	}	
 	/**
 	 * 调用应用方法
 	 * 
@@ -555,4 +540,6 @@ public final class AplManager {
 			
 		}
 	}
+	
+	
 }

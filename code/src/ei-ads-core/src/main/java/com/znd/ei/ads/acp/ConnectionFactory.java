@@ -3,8 +3,13 @@ package com.znd.ei.ads.acp;
 import java.util.Set;
 
 import com.znd.ei.ads.AdsServer;
-import com.znd.ei.ads.adf.DataFieldStorage;
+import com.znd.ei.ads.adf.AplManager;
 
+/**
+ * 
+ * @author wangheng
+ *
+ */
 public interface ConnectionFactory {
 	public static final String INNER_PUBLISH_CHANNEL = "ads-inner-publish-chanel";
 	public static final String INNER_REQUEST_CHANNEL = "ads-inner-request-chanel";
@@ -12,13 +17,13 @@ public interface ConnectionFactory {
 	
 	ListDataOperations getListDataOperations();
 
-	//BusOperations getBusOperations();
-	
-	StringDataOperations getStringDataOperations();
-	
+//	//BusOperations getBusOperations();
+//	
+//	StringDataOperations getStringDataOperations();
+//	
 	ObjectRefDataOperations getObjectRefOperations();
 	
-	void register(DataFieldStorage manager) throws Exception;
+	void register(AplManager manager) throws Exception;
 	
 	MapDataOperations getMapDataOperations();
 	

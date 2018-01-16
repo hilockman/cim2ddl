@@ -3,7 +3,6 @@ package com.znd.ei.ads.apl.reliability;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_BPA_2_PR;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_BPA_LOADER;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_RELIABILITY_INDEX;
-import static com.znd.ei.ads.apl.reliability.AppUtil.GC_STATE_ESTIMATE;
 import static com.znd.ei.ads.apl.reliability.AppUtil.GC_STATE_SAMPLE;
 
 import java.io.File;
@@ -29,9 +28,9 @@ import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
 import com.znd.ei.ads.adf.ContentCodeDefines;
+import com.znd.ei.ads.adf.AplManager;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
-import com.znd.ei.ads.apl.AplManager;
 import com.znd.ei.ads.apl.annotations.AplController;
 import com.znd.ei.ads.apl.annotations.AplFunction;
 import com.znd.ei.ads.apl.annotations.In;
@@ -61,16 +60,12 @@ public class ReliabilityApl {
 	public String execRootPath;
 
 
-	public static ReliabilityApl INSTANCE = null;
-
-	
-	
 	private StateEstimateProperties properties;
 
 	
 
 	public ReliabilityApl(StateEstimateProperties properties) {
-		INSTANCE = this;
+		
 		this.properties = properties;
 		execRootPath = properties.getAppDir();
 		if (!new File(execRootPath).exists()) {
