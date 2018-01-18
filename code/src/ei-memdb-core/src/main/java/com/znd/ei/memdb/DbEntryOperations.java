@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface DbEntryOperations {
+	String getName();
+	 String getDescription();
 	List<MetaTable> getTables();
 	String[] getTableNames();
 	MetaTable findTableByName(String name);

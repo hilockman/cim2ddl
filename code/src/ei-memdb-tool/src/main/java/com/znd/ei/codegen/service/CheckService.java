@@ -24,7 +24,7 @@ public class CheckService {
 
 	private Pattern fieldPattern = null;
 	private List<Pattern> invalidTablePatterns = new ArrayList<Pattern>();
-	List<Pattern> invalidFieldPatterns = new ArrayList<Pattern>();
+	private List<Pattern> invalidFieldPatterns = new ArrayList<Pattern>();
 
 	@Autowired
 	public CheckService(CheckProperties properties) {
@@ -73,6 +73,10 @@ public class CheckService {
 			check(t, logs);
 		}
 
+		File dir = new File(path);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
 		File logFile = new File(path + "/" + conn.getName() + ".check.log");
 		if (logs.size() > 0) {
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="RTS79">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FDevStates">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="FDevState" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FStates">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="FState" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="config">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PRAdequacySetting"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="file">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="dat">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="info"/>
+										<xs:element name="data" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="swi">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="info"/>
+										<xs:element name="data" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="xml">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="info"/>
+										<xs:element name="data" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="EstimateTasks"/>
+				<xs:element name="EstimateResultMap"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

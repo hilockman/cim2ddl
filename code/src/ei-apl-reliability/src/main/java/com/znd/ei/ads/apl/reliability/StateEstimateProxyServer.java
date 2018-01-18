@@ -103,8 +103,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 
 		// Start the client.
 		NioEventLoopGroup clientEventGroup = startClient();
-		
-		
+				
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
 		EventLoopGroup workerGroup = new NioEventLoopGroup();	
 		StateEstimateProxyServer server = this;
@@ -226,12 +225,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 	//client
 	   	setting.setMultiThread(properties.getServerThread());
 	   	saveLog("PRAdequacySetting = \n"+Utils.toJSon(setting));
-		//CountDownLatch listenStartLatch = new CountDownLatch(1);
-		//CountDownLatch serverFinishedLatch = new CountDownLatch(1);
-		
 
-	   	
-	   	
 		ChannelFuture future = null;
 		try {
 			future = startListen(buffer, setting);			
@@ -241,36 +235,7 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 			return ;
 		}		
 		
-//		Thread listenThread = new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				try {
-//					startListen(buffer, setting, listenStartLatch);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-		
-		//listenThread.start();
-		
-		
-//		new ChannelInitializer<SocketChannel>() {
-//
-//            @Override
-//            public void initChannel(SocketChannel ch) throws Exception {
-//                ChannelPipeline p = ch.pipeline();
-//           	 p.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-//                p.addLast("decoder", new StringDecoder(defaultCharset));
-//                p.addLast("encoder", new StringEncoder(defaultCharset));                    
-////		                     p.addLast(new StateEstimateRequestHandler(msg));
-//            }
-//        }
-//		
-		
-   	 
+  	 
 		RequestDataReady ready = new RequestDataReady();
 		ready.setValue(String.valueOf(properties.getServerThread()));
 		ready.getContent().setPRAdequacySetting(setting);
@@ -280,26 +245,16 @@ public class StateEstimateProxyServer implements StateEstimateServer {
 		System.out.println("Wait for listen finished ...");
 		try {
 			future.sync(); // 9
-			//responseChannel.close().sync();
-			//System.out.println("监听端口已关闭。");
-			
-			//listenThread.join();
+
 			System.out.println("Listen chanel finished .");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-//		try {
-//			serverFinishedLatch.await();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
+
 		
 	}
 
-	//private Byte sendFlag = new Byte((byte) 0);
-	
+
 	public void simpleSendMessage(String msg) {
 
 		

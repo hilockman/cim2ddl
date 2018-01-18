@@ -4,7 +4,7 @@
   <class id="1" language="java" name="com.znd.ei.ads.apl.reliability.bean.ExchangeContent" project="ei-apl-reliability" 
     file="/ei-apl-reliability/src/main/java/com/znd/ei/ads/apl/reliability/bean/ExchangeContent.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1312" y="117"/>    
+    <position height="-1" width="-1" x="640" y="154"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -14,7 +14,7 @@
   <class id="2" language="java" name="com.znd.ei.ads.apl.reliability.bean.ExchangeData" project="ei-apl-reliability" 
     file="/ei-apl-reliability/src/main/java/com/znd/ei/ads/apl/reliability/bean/ExchangeData.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="997" y="323"/>    
+    <position height="-1" width="-1" x="381" y="159"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -24,7 +24,7 @@
   <class id="3" language="java" name="com.znd.ei.ads.apl.reliability.bean.RequestDataReady" project="ei-apl-reliability" 
     file="/ei-apl-reliability/src/main/java/com/znd/ei/ads/apl/reliability/bean/RequestDataReady.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1314" y="462"/>    
+    <position height="-1" width="-1" x="621" y="366"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -34,7 +34,7 @@
   <class id="4" language="java" name="com.znd.ei.ads.apl.reliability.bean.RequestEstimate" project="ei-apl-reliability" 
     file="/ei-apl-reliability/src/main/java/com/znd/ei/ads/apl/reliability/bean/RequestEstimate.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="997" y="604"/>    
+    <position height="-1" width="-1" x="446" y="495"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -45,7 +45,7 @@
     project="ei-apl-reliability" 
     file="/ei-apl-reliability/src/main/java/com/znd/ei/ads/apl/reliability/bean/RequestJobFinished.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="646" y="118"/>    
+    <position height="-1" width="-1" x="114" y="324"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -55,7 +55,7 @@
   <class id="6" language="java" name="com.znd.ei.ads.apl.reliability.bean.ResponseEstimate" project="ei-apl-reliability" 
     file="/ei-apl-reliability/src/main/java/com/znd/ei/ads/apl/reliability/bean/ResponseEstimate.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="637" y="604"/>    
+    <position height="-1" width="-1" x="206" y="461"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -64,26 +64,30 @@
   </class>  
   <association id="7">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="8" name="Content"/>      
-      <multiplicity id="9" minimum="0" maximum="1"/>    
+      <attribute id="8" name="Content">        
+        <position height="0" width="0" x="-672" y="37"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-672" y="37"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="10">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="11">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <generalization id="12">    
-    <end type="SOURCE" refId="3"/>    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
   <generalization id="13">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -163,8 +163,8 @@ public class ReliabilityControl {
 	// 3.1.3 maps html form to a Model
 
 	public static int MAX_FILE_SIZE = 1024 * 1024 * 5;
-	public static long MAX_FILE_TIME_OUT = 6000l;
-	public static long MAX_LOG_TIME_OUT = 6000l;
+	public static long MAX_FILE_TIME_OUT = 60000l;
+	public static long MAX_LOG_TIME_OUT = 60000l;
 
 	@RequestMapping("/log/{modelName}")
 	public @ResponseBody List<String> getModelLog(
