@@ -1,0 +1,12 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,ObjectID,ObjectId,STRING,64
+2,Substation,厂站,STRING,64
+3,VoltageLevel,电压等级,STRING,16
+4,Name,名称,STRING,64
+5,Description,描述,STRING,64
+6,Status,运行状态,INTEGER,1
+7,ConnectivityNode,节点,STRING,64
+8,ei_Invest,投资费用(万元),DOUBLE,4
+9,NodePtr,节点索引,INTEGER,4
+10,Island,岛,INTEGER,2

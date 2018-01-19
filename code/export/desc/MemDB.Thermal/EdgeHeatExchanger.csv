@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,Temperature,温度,STRING,32
+1,ConnectivityNode,节点,STRING,64
+2,Name,名称,STRING,64
+3,HeatExchangerPtr,换热器索引,INTEGER,4

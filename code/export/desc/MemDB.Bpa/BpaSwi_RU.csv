@@ -1,0 +1,11 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,RU_BusI,母线名称1,STRING,10
+2,RU_kVI,基准电压1(kV),DOUBLE,4
+3,RU_BusJ,母线名称2,STRING,10
+4,RU_kVJ,基准电压2(kV),DOUBLE,4
+5,RU_Loop,并联线路的回路标志,INTEGER,1
+6,RU_FTrip,母线频率的门槛值(Hz),DOUBLE,4
+7,RU_TRelay,继电器动作所需时延(周),DOUBLE,4
+8,RU_TTrip,通讯和开关动作时间(周),DOUBLE,4
+9,RU_TDelay,传送操作时延(周),DOUBLE,4

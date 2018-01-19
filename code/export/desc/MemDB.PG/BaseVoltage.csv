@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,32
+2,nominalVoltage,计算基准值(kV),DOUBLE,4
+3,lowVLimit,电压最小值(kV),DOUBLE,4
+4,higVhLimit,电压最大值(kV),DOUBLE,4
+5,scALimit,短路电流限值(kA),DOUBLE,4

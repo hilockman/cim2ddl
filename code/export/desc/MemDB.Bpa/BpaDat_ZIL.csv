@@ -1,0 +1,11 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ZIL_BusI,母线名称1,STRING,10
+2,ZIL_kVI,基准电压1(kV),DOUBLE,4
+3,ZIL_BusJ,母线名称2,STRING,10
+4,ZIL_kVJ,基准电压2(kV),DOUBLE,4
+5,ZIL_Loop,并联线路的回路标志,INTEGER,1
+6,ZIL_R,电阻(pu),DOUBLE,4
+7,ZIL_X,电抗(pu),DOUBLE,4
+8,ZIL_MBus,合并母线名称,STRING,10
+9,ZIL_MkV,合并基准电压(kV),DOUBLE,4

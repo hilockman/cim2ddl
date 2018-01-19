@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,BusName,母线名称,STRING,10
+1,BuskV,母线电压(kV),DOUBLE,4
+2,LineHGName,高抗名称,STRING,32
+3,LineHGPtr,高抗索引,INTEGER,2

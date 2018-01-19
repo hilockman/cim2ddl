@@ -1,0 +1,16 @@
+序号,名称,描述,类型,长度
+0,Name,名称,STRING,16
+1,Gen_Bus,母线名称,STRING,10
+2,Gen_kV,基准电压(kV),DOUBLE,4
+3,Gen_ID,电机识别码,INTEGER,1
+4,Gen_PGen,有功出力(MW),DOUBLE,4
+5,Gen_QGen,无功出力(MVar),DOUBLE,4
+6,Gen_PMax,最大有功出力(MW),DOUBLE,4
+7,Gen_PMin,最小有功出力(MW),DOUBLE,4
+8,Gen_QMax,最大无功出力(MVar),DOUBLE,4
+9,Gen_QMin,最小无功出力(MVar),DOUBLE,4
+10,Gen_VHold,"安排的电压,PV值(pu)",DOUBLE,4
+11,Gen_ACBusPtr,母线索引,INTEGER,4
+12,Gen_WingGen,风电机组,INTEGER,1
+13,Gen_EQ,等值电源,INTEGER,1
+14,Gen_Status,状态,INTEGER,1

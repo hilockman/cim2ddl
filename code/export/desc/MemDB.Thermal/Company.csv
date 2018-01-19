@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,64
+2,Description,描述,STRING,64
+3,TotalHeatSource,总供热量(kW),DOUBLE,4
+4,TotalHeatingLoad,总热负荷(kW),DOUBLE,4

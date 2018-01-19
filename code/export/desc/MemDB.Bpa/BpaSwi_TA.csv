@@ -1,0 +1,10 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,发电机名称,STRING,10
+2,ACBus_kV,发电机基准电压(kV),DOUBLE,4
+3,Gen_ID,发电机识别码,INTEGER,1
+4,TA_TCH,蒸汽容积时间常数(秒),DOUBLE,4
+5,TA_K1,汽轮机K1=1.0;水轮机K1=-2.0(必须),DOUBLE,4
+6,KeyName,数据库主键,STRING,16
+7,BusPtr,发电机母线索引,INTEGER,4
+8,AppendTag,新增记录标记,INTEGER,1

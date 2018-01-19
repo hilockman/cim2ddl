@@ -1,0 +1,17 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,母线名,STRING,10
+2,ACBus_kV,基准电压,DOUBLE,4
+3,Gen_ID,发电机识别码,INTEGER,1
+4,PssST_T1,时间常数(秒),DOUBLE,4
+5,PssST_T2,时间常数(秒),DOUBLE,4
+6,PssST_T3,时间常数(秒),DOUBLE,4
+7,PssST_K,频率标么值常数,DOUBLE,4
+8,PssST_DWt1,频率偏差1,DOUBLE,4
+9,PssST_DWt2,频率偏差2,DOUBLE,4
+10,PssST_DWpt,频率偏差3,DOUBLE,4
+11,PssST_TDelay,触发延时时间常数(周),DOUBLE,4
+12,PssST_T4,时间常数(秒),DOUBLE,4
+13,KeyName,数据库主键,STRING,16
+14,BusPtr,发电机母线索引,INTEGER,4
+15,AppendTag,新增记录标记,INTEGER,1

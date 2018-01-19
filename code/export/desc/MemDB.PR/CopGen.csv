@@ -1,0 +1,11 @@
+序号,名称,描述,类型,长度
+0,SerialNo,设备索引,INTEGER,4
+1,Capacity,发电机容量(MW),DOUBLE,8
+2,Alpha,折算系数,DOUBLE,8
+3,S1Capacity,发电机折算容量1(MW),DOUBLE,8
+4,S2Capacity,发电机折算容量2(MW),DOUBLE,8
+5,Rerr,故障率(次/天),DOUBLE,8
+6,Trep,修复时间(天/次),DOUBLE,8
+7,Rrep,修复率(次/天),DOUBLE,8
+8,Rout,停运率(次/天),DOUBLE,8
+9,ThreeState,三状态,INTEGER,1

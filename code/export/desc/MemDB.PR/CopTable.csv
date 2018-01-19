@@ -1,0 +1,10 @@
+序号,名称,描述,类型,长度
+0,State,状态,INTEGER,4
+1,OutageCapacity,停运发电容量(MW),DOUBLE,8
+2,AvailCapacity,可用发电容量(MW),DOUBLE,8
+3,StateProb,状态概率,DOUBLE,8
+4,AccumProb,状态累计概率,DOUBLE,8
+5,StateFreq,状态频率(次),DOUBLE,8
+6,AccumFreq,状态累计频率(次),DOUBLE,8
+7,DepRP,递增有效离去率,DOUBLE,8
+8,DepRN,递减有效离去率,DOUBLE,8

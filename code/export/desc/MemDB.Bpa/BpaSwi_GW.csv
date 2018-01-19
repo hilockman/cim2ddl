@@ -1,0 +1,14 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,发电机名称,STRING,10
+2,ACBus_kV,发电机基准电压(kV),DOUBLE,4
+3,Gen_ID,发电机识别码,INTEGER,1
+4,Gen_Pmax,原动机最大输出功率(MW),DOUBLE,4
+5,Gen_Pmin,原动机最小输出功率(MW),DOUBLE,4
+6,GW_R,调差系数,DOUBLE,4
+7,GW_T1,控制时间,DOUBLE,4
+8,GW_T2,一般为零,DOUBLE,4
+9,GW_T3,伺服机时间常数,DOUBLE,4
+10,KeyName,数据库主键,STRING,16
+11,BusPtr,发电机母线索引,INTEGER,4
+12,AppendTag,新增记录标记,INTEGER,1

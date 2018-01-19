@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,Bus,母线名称,STRING,32
+1,kV,母线电压(kV),DOUBLE,4
+2,Name,线路名称,STRING,32
+3,LinePtr,线路索引,INTEGER,4

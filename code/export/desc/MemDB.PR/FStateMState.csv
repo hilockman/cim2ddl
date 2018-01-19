@@ -1,0 +1,4 @@
+序号,名称,描述,类型,长度
+0,MSDevType,多状态设备类型,INTEGER,1
+1,MSDevIndex,多状态设备索引,INTEGER,4
+2,MStatePout,多状态出力状态,DOUBLE,8

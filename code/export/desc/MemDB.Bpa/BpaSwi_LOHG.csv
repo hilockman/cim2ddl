@@ -1,0 +1,10 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,LO+_BusI,母线名称1,STRING,10
+2,LO+_kVI,基准电压1(kV),DOUBLE,4
+3,LO+_BusJ,母线名称2,STRING,10
+4,LO+_kVJ,基准电压2(kV),DOUBLE,4
+5,LO+_Loop,并联线路的回路标志,INTEGER,1
+6,LO+_X0I,线路前侧高抗对应的等值零序电抗(pu),DOUBLE,4
+7,LO+_X0J,线路后侧高抗对应的等值零序电抗(pu),DOUBLE,4
+8,KeyName,线路高抗名称,STRING,32

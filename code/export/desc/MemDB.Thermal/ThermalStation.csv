@@ -1,0 +1,8 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,64
+2,Description,描述,STRING,64
+3,HeatSource,热力站供热量(kW),DOUBLE,4
+4,HeatingLoad,热力站热负荷(kW),DOUBLE,4
+5,SPressure,压力(Pa),DOUBLE,4
+6,HeatExchangerRange,换热器索引范围,INTEGER,4

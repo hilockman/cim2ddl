@@ -25,3 +25,6 @@ gencode:
    enableEntityAnnotation: false
 logging:
    file: log/myapp.log
+   level:
+     # com.znd: ERROR
+      root: ERROR

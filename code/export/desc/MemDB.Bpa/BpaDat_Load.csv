@@ -1,0 +1,10 @@
+序号,名称,描述,类型,长度
+0,Name,名称,STRING,16
+1,Load_Bus,母线名称,STRING,10
+2,Load_kV,基准电压(kV),DOUBLE,4
+3,Load_PLoad,有功出力(MW),DOUBLE,4
+4,Load_QLoad,无功出力(MVar),DOUBLE,4
+5,Load_ACBusPtr,母线索引,INTEGER,4
+6,Load_Aux,厂用电,INTEGER,1
+7,Load_EQ,等值负荷,INTEGER,1
+8,Load_Status,状态,INTEGER,1

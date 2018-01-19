@@ -1,0 +1,12 @@
+序号,名称,描述,类型,长度
+0,GraphicID,资源ID,DOUBLE,8
+1,Version,版本号,INTEGER,4
+2,GraphicName,图形名称,STRING,64
+3,ModelGraphic,图模/图符,INTEGER,1
+4,LastSaveTime,图形保存时间,INTEGER,4
+5,BkgColor,背景颜色,INTEGER,4
+6,BkgImage,背景图片,STRING,64
+7,BkgMode,背景图片方式,INTEGER,2
+8,Authority,授权,STRING,64
+9,Iconlib,图符库,INTEGER,1
+10,ShapeIdx,Shape索引,INTEGER,4

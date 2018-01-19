@@ -1,0 +1,9 @@
+序号,名称,描述,类型,长度
+0,DevType,设备类型,INTEGER,1
+1,KeyWord,关键字,STRING,16
+2,UpCapLmt,容量上限,DOUBLE,8
+3,DnCapLmt,容量下限,DOUBLE,8
+4,UpVLmt,电压上限,DOUBLE,8
+5,DnVLmt,电压下限,DOUBLE,8
+6,Rerr,故障率,DOUBLE,8
+7,Trep,修复时间,DOUBLE,8

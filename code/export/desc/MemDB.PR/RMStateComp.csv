@@ -1,0 +1,3 @@
+序号,名称,描述,类型,长度
+0,Type,类型,INTEGER,1
+1,SerialNo,设备索引,INTEGER,4

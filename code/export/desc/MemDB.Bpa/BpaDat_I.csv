@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,I_Area1,区域1名称,STRING,16
+2,I_Area2,区域2名称,STRING,16
+3,I_OutP,区域1向区域2的输出功率,DOUBLE,4

@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,GraphicID,Graphic表索引,DOUBLE,8
+1,ShapeID,Shape表索引,DOUBLE,8
+2,ParentID,DataVar表索引,DOUBLE,8
+3,FieldIndex,字段名,STRING,32
+4,FieldValue,字段值,STRING,64

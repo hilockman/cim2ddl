@@ -1,0 +1,11 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,XO_BusI,母线名称1,STRING,10
+2,XO_kVI,基准电压1(kV),DOUBLE,4
+3,XO_BusJ,母线名称2,STRING,10
+4,XO_kVJ,基准电压2(kV),DOUBLE,4
+5,XO_Loop,并联线路的回路标志,INTEGER,1
+6,XO_SID,变压器零序电抗的接入方式,INTEGER,1
+7,XO_R0,变压器零序电阻(pu),DOUBLE,4
+8,XO_X0,变压器零序电抗(pu),DOUBLE,4
+9,KeyName,变压器名称,STRING,32

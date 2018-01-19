@@ -1,0 +1,8 @@
+序号,名称,描述,类型,长度
+0,WindNum,绕组数,INTEGER,1
+1,WindH,高压绕组,STRING,32
+2,WindM,中压绕组,STRING,32
+3,WindL,低压绕组,STRING,32
+4,iRWindH,高压绕组索引,INTEGER,4
+5,iRWindM,中压绕组索引,INTEGER,4
+6,iRWindL,低压绕组索引,INTEGER,4

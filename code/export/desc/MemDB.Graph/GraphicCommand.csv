@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源ID,DOUBLE,8
+1,GraphicID,Graphic表索引,DOUBLE,8
+2,ParentID,Shape表索引,DOUBLE,8
+3,CommandType,命令类型,INTEGER,2
+4,CommandLine,命令行,STRING,64
+5,ParamIdx,参数索引,INTEGER,4

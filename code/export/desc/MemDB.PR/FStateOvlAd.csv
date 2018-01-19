@@ -1,0 +1,8 @@
+序号,名称,描述,类型,长度
+0,FStateId,状态ID,INTEGER,4
+1,FStateNo,状态序号,INTEGER,4
+2,OvlDevTyp,越限设备类型,INTEGER,1
+3,OvlDevice,越限设备索引,INTEGER,4
+4,AdjDevTyp,调整设备类型,INTEGER,1
+5,AdjDevice,调整设备索引,INTEGER,4
+6,AdjValue,功率调整量(MW),DOUBLE,4

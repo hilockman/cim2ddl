@@ -1,0 +1,14 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,32
+2,Description,描述,STRING,64
+3,NorminalTemperature,标称温度值,DOUBLE,4
+4,MaxTemperature,最高温度值,DOUBLE,4
+5,MinTemperature,最低温度值,DOUBLE,4
+6,HeatSourceRange,热源索引范围,INTEGER,4
+7,EnergyConsumerRange,负荷索引范围,INTEGER,4
+8,PipeRange,管道索引范围,INTEGER,4
+9,SupplyPipeSegmentRange,供水管道段索引范围,INTEGER,4
+10,ReturnPipeSegmentRange,回水管道段索引范围,INTEGER,4
+11,ValveRange,阀门索引范围,INTEGER,4
+12,NodeRange,节点索引范围,INTEGER,4

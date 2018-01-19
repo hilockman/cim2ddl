@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,EnergyIsland,岛,INTEGER,4
+1,HeatSource,节点热源供热量(kW),DOUBLE,4
+2,EnergyConsumer,节点负荷需热量(kW),DOUBLE,4
+3,TemperaturePtr,温度索引,INTEGER,4

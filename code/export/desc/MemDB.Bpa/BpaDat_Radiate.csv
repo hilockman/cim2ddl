@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,BoundBusName,电源母线名称,STRING,10
+1,BoundBuskV,电源母线电压(kV),DOUBLE,4
+2,GenP,网内发电有功(MW),DOUBLE,4
+3,LoadP,网内负荷有功(MW),DOUBLE,4
+4,LoadQ,网内负荷无功(MVar),DOUBLE,4
+5,iRBoundBus,电源母线索引,INTEGER,4

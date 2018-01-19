@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,Name,分区名称,STRING,16
+1,Area,区域名称,STRING,16
+2,TotalGenP,分区发电(MW),DOUBLE,4
+3,TotalLoadP,分区负荷(MW),DOUBLE,4
+4,FCutLoadP,分区事故切负荷(MW),DOUBLE,4

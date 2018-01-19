@@ -1,0 +1,12 @@
+序号,名称,描述,类型,长度
+0,SlackEnergySourceTemperature,岛平衡源温度,STRING,32
+1,SlackEnergySourceName,岛平衡源名称,STRING,64
+2,HeatSource,岛热源供热量(kW),DOUBLE,4
+3,EnergyConsumer,岛负荷需热量(kW),DOUBLE,4
+4,HeatSourceNum,岛内热源数,INTEGER,4
+5,EnergyConsumerNum,岛内负荷数,INTEGER,4
+6,PipeNum,岛内管道数,INTEGER,4
+7,HeatExchangerNum,岛内换热器数,INTEGER,4
+8,ValveNum,岛内阀数,INTEGER,4
+9,SlackEnergySourcePtr,平衡源索引,INTEGER,4
+10,Dead,死岛标志,INTEGER,1

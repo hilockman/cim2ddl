@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,发电机名称,STRING,10
+2,ACBus_kV,发电机基准电压(kV),DOUBLE,4
+3,Gen_ID,发电机识别码,INTEGER,1
+4,TD_TCH,蒸汽容积时间常数(秒),DOUBLE,4
+5,TD_FHP,高压缸功率比例,DOUBLE,4
+6,TD_TRH,再热器时间常数,DOUBLE,4
+7,TD_FIP,中压缸功率比例,DOUBLE,4
+8,TD_TCO,交叉管时间常数,DOUBLE,4
+9,TD_FLP_1,低压缸功率比例或比例的一半,DOUBLE,4
+10,TD_FLP_2,低压缸功率比例或比例的一半,DOUBLE,4
+11,KeyName,数据库主键,STRING,16
+12,BusPtr,发电机母线索引,INTEGER,4
+13,AppendTag,新增记录标记,INTEGER,1

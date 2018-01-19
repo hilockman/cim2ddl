@@ -1,0 +1,16 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,发电机名称,STRING,10
+2,ACBus_kV,发电机基准电压(kV),DOUBLE,4
+3,Gen_ID,发电机识别码,INTEGER,1
+4,Gen_Pmax,原动机最大输出功率(MW),DOUBLE,4
+5,GG_R,调差系数,DOUBLE,4
+6,GG_T1,控制时间,DOUBLE,4
+7,GG_T2,水轮机恢复时间,DOUBLE,4
+8,GG_T3,伺服机时间常数,DOUBLE,4
+9,GG_T4,汽轮机阀时间常数,DOUBLE,4
+10,GG_T5,水轮机1/2倍水锤效应时间常数/汽轮机再热器时间常数,DOUBLE,4
+11,GG_F,水轮机F=－2;对汽轮机F=再热器前轴容量/总的轴容量,DOUBLE,4
+12,KeyName,数据库主键,STRING,16
+13,BusPtr,发电机母线索引,INTEGER,4
+14,AppendTag,新增记录标记,INTEGER,1

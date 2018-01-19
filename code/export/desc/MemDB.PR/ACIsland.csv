@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,GenP,岛发电(MW),DOUBLE,8
+1,LoadP,岛负荷(MW),DOUBLE,8
+2,BusNum,岛内母线数,INTEGER,4
+3,SwingBus,平衡节点,INTEGER,4
+4,Dead,死岛,INTEGER,1

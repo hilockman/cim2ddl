@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源ID,STRING,64
+1,LinkName,连接名称,STRING,32
+2,LinkGraph,连接图形,STRING,256
+3,ShowBound,显示外框,INTEGER,1

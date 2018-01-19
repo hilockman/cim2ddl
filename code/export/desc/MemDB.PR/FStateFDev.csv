@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,FStateId,状态ID,INTEGER,4
+1,FStateNo,状态序号,INTEGER,4
+2,FDevTyp,故障设备类型,INTEGER,1
+3,FDevIdx,故障设备索引,INTEGER,4
+4,DFltPos,设备故障位置,INTEGER,1
+5,DFltTyp,设备故障类型,INTEGER,1

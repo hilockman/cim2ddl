@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源ID,STRING,64
+1,Name,图纸名称,STRING,64
+2,Path,图纸文件,STRING,256
+3,CreateDate,建立日期,INTEGER,4
+4,CreateTime,建立时间,INTEGER,4
+5,ModifyDate,修改日期,INTEGER,4
+6,ModifyTime,修改时间,INTEGER,4
+7,Creator,图纸创建,STRING,32
+8,Modifier,图纸修改,STRING,32
+9,Reviewer,图纸审核,STRING,32
+10,Approver,图纸批准,STRING,32
+11,Project,所属项目,STRING,32
+12,Scheme,规划设计方案,STRING,32
+13,Version,图纸版本,STRING,32

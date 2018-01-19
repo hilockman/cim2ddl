@@ -1,0 +1,14 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,发电机名称,STRING,10
+2,ACBus_KV,发电机基准电压(kV),DOUBLE,4
+3,Gen_ID,发电机识别码ID,INTEGER,1
+4,GX_TSH,过热器容积时间常数,DOUBLE,4
+5,GX_TD,汽包蓄热容积时间常数,DOUBLE,4
+6,GX_TW,锅炉燃料释放的时间常数,DOUBLE,4
+7,GX_K,过热器及主汽管道流量系数,DOUBLE,4
+8,GX_Tdelay,延时,DOUBLE,4
+9,GX_Limit_MAX,输出限幅环节的最大值,DOUBLE,4
+10,GX_Limit_MIN,输出限幅环节最小值,DOUBLE,4
+11,KeyName,数据库主键,STRING,16
+12,BusPtr,发电机母线索引,INTEGER,4

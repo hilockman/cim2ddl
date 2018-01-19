@@ -1,0 +1,11 @@
+序号,名称,描述,类型,长度
+0,Name,名称,STRING,64
+1,iCompany,起公司,STRING,32
+2,iSubcontrolArea,起分区,STRING,32
+3,iSubstation,起厂站,STRING,64
+4,iVoltageLevel,起电压等级,STRING,16
+5,zCompany,终公司,STRING,32
+6,zSubcontrolArea,终分区,STRING,32
+7,zSubstation,终厂站,STRING,64
+8,zVoltageLevel,终电压等级,STRING,16
+9,ConnectivityNode,量测节点,STRING,64

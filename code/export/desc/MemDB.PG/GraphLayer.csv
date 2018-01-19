@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,Drawing,图纸ID,STRING,64
+1,GeName,层名称,STRING,64
+2,GeColor,颜色,INTEGER,4
+3,GeLineStyle,线型,STRING,32
+4,GeLineWidth,线宽,DOUBLE,4

@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源ID,DOUBLE,8
+1,GraphicID,Graphic表索引,DOUBLE,8
+2,ParentID,Shape表索引,DOUBLE,8
+3,VarDbase,数据库名称,STRING,32
+4,VarTable,表名称,STRING,32
+5,FieldIdx,字段值索引,INTEGER,4

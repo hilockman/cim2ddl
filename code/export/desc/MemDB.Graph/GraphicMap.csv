@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,GraphicID,Graphic表索引,DOUBLE,8
+1,ParentID,Shape表索引,DOUBLE,8
+2,MatchKey,匹配值,STRING,16
+3,MatchValue,字符串、图符或图片名称,STRING,64

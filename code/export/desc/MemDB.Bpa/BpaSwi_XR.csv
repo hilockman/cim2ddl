@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,母线名称,STRING,10
+2,ACBus_kV,基准电压(kV),DOUBLE,4
+3,XR_R0,对地支路零序电阻(PU),DOUBLE,4
+4,XR_X0,对地支路零序电抗(PU),DOUBLE,4

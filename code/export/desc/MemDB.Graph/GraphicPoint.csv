@@ -1,0 +1,13 @@
+序号,名称,描述,类型,长度
+0,GraphicID,Graphic表索引,DOUBLE,8
+1,ParentID,Shape表索引,DOUBLE,8
+2,Auxiliary,辅助信息,INTEGER,4
+3,Type,点类型,INTEGER,1
+4,X,坐标X,DOUBLE,4
+5,Y,坐标Y,DOUBLE,4
+6,Z,坐标Z,DOUBLE,4
+7,VertexShape,端点形状,INTEGER,2
+8,VertexSize,端点大小,INTEGER,2
+9,SnapObjectID,捕捉对象ID,DOUBLE,8
+10,SnapPointEnum,捕捉点枚举值,INTEGER,2
+11,ConnectivityNode,拓扑节点,STRING,64

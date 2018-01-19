@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,RA_BusI,母线名称1,STRING,10
+2,RA_kVI,基准电压1(kV),DOUBLE,4
+3,RA_BusJ,母线名称2,STRING,10
+4,RA_kVJ,基准电压2(kV),DOUBLE,4
+5,RA_Loop,并联线路的回路标志,INTEGER,1
+6,RA_CBus1,控制母线名称1,STRING,10
+7,RA_CkV1,控制母线基准电压1(kV),DOUBLE,4
+8,RA_V1,母线1低电压限制值(pu),DOUBLE,4
+9,RA_T1,母线1低电压时间延迟(周),DOUBLE,4
+10,RA_CBus2,控制母线名称2,STRING,10
+11,RA_CkV2,控制母线基准电压2(kV),DOUBLE,4
+12,RA_V2,母线2低电压限制值(pu),DOUBLE,4
+13,RA_T2,母线2低电压时间延迟(周),DOUBLE,4

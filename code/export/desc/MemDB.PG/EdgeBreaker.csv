@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,Substation,厂站,STRING,64
+1,VoltageLevel,电压等级,STRING,16
+2,ConnectivityNode,节点,STRING,64
+3,Name,名称,STRING,64
+4,BreakerPtr,开关索引,INTEGER,4

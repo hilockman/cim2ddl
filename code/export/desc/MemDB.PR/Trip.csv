@@ -1,0 +1,9 @@
+序号,名称,描述,类型,长度
+0,TripDevNum,开断设备数,INTEGER,2
+1,TrB1Type,开断设备1类型,INTEGER,1
+2,TrB1Bran,开断设备1索引,INTEGER,4
+3,TrB2Type,开断设备2类型,INTEGER,1
+4,TrB2Bran,开断设备2索引,INTEGER,4
+5,FaultType,故障类型,INTEGER,1
+6,OutageLoadP,失电总负荷,DOUBLE,4
+7,OverLmt,是否越限,INTEGER,1

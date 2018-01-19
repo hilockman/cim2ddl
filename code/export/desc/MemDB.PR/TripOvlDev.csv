@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,Trip,开断故障索引,INTEGER,4
+1,OvlmtDevTyp,越限设备类型,INTEGER,1
+2,OvlmtDevIdx,越限设备索引,INTEGER,4
+3,OvLmtValue,越限值(MW),DOUBLE,4
+4,Rated,额定值(MW),DOUBLE,4

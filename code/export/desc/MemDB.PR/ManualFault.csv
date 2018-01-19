@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,Name,设置事件名称(Id),STRING,64
+1,FDevType,故障设备类型,INTEGER,1
+2,FDevName,故障设备名称,STRING,64
+3,FDevSerno,故障设备索引,INTEGER,4
+4,Proc,标记状态,INTEGER,1

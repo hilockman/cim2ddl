@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,64
+2,Factory,厂家,STRING,64
+3,Model,型号,STRING,64
+4,Type,机组类型,STRING,64
+5,FlueGasFlow,入口烟气流量(t/h),DOUBLE,4
+6,Evaporation,额定蒸发量(t/h),DOUBLE,4
+7,SupplySteamPressure,出口蒸汽压力(MPa),DOUBLE,4
+8,SupplySteamTemperature,出口蒸汽温度(℃),DOUBLE,4
+9,HeatingEfficiency,制热效率,DOUBLE,4
+10,ExhaustTemperature,额定排烟温度(℃),DOUBLE,4
+11,Size,机组尺寸(mm),DOUBLE,4
+12,Lifetime,产品设计寿命(年),DOUBLE,4
+13,PowerSupply,电源(V/Hz),DOUBLE,4

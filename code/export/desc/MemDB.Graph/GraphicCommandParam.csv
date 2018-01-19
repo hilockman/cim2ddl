@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,GraphicID,Graphic表索引,DOUBLE,8
+1,ShapeID,Shape表索引,DOUBLE,8
+2,ParentID,Command表索引,DOUBLE,8
+3,ParamIndex,参数序号,INTEGER,2
+4,ParamValue,命令参数,STRING,32

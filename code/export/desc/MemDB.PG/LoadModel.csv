@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,Name,名称,STRING,64
+1,Description,描述,STRING,64
+2,PIMP,恒定阻抗有功负荷比例(<1),DOUBLE,4
+3,PCUR,恒定电流有功负荷比例(<1),DOUBLE,4
+4,PCON,恒定功率有功负荷比例(<1),DOUBLE,4
+5,PV,电压指数相关的有功负荷比例(<1),DOUBLE,4
+6,NP,有功电压指数,DOUBLE,4
+7,DPf,频率变化1％的有功变化百分数(<1),DOUBLE,4
+8,QIMP,恒定阻抗无功负荷比例(<1),DOUBLE,4
+9,QCUR,恒定电流无功负荷比例(<1),DOUBLE,4
+10,QCON,恒定功率无功负荷比例(<1),DOUBLE,4
+11,QV,电压指数相关的无功负荷比例(<1),DOUBLE,4
+12,NQ,无功电压指数,DOUBLE,4
+13,DQF,频率变化1％的无功变化百分数(<1),DOUBLE,4

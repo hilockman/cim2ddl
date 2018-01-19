@@ -1,0 +1,8 @@
+序号,名称,描述,类型,长度
+0,Name,共因故障名称(Id),STRING,64
+1,CommonFaultType,共因故障类型,INTEGER,1
+2,CommonDeviceType,共因设备类型,INTEGER,1
+3,DevType,设备类型,INTEGER,1
+4,DevName,设备名称,STRING,64
+5,DevSerNo,设备索引,INTEGER,4
+6,Proc,标记状态,INTEGER,1

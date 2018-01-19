@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,Drawing,图纸ID,STRING,64
+1,GeTable,表,STRING,32
+2,GeParent,父ID,STRING,64
+3,Serial,点序号,INTEGER,4
+4,VertexX,点坐标X,DOUBLE,8
+5,VertexY,点坐标Y,DOUBLE,8

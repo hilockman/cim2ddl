@@ -1,0 +1,9 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,32
+2,Description,描述,STRING,64
+3,TapMin,最小档位,INTEGER,1
+4,TapMax,最大档位,INTEGER,1
+5,TapNom,正常档位,INTEGER,1
+6,TapNeutral,中间档位,INTEGER,1
+7,TapStep,档距,DOUBLE,4

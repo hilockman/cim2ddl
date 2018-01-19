@@ -1,0 +1,6 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,等值发电机名称,STRING,10
+2,ACBus_kV,等值发电机电压,DOUBLE,4
+3,BusPtr,等值发电机母线索引,INTEGER,4
+4,DCBus,直流母线,INTEGER,1

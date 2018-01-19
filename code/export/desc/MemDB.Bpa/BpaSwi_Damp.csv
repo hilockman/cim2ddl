@@ -1,0 +1,14 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,电机母线名,STRING,10
+2,ACBus_kV,电机母线电压(kV),DOUBLE,4
+3,Damp_ID,电机识别码,INTEGER,1
+4,Damp_MVA,电机额定容量,DOUBLE,4
+5,Damp_PF,电机功率因数,DOUBLE,4
+6,Damp_Xdpp,直轴次暂态电抗Xdpp(pu),DOUBLE,4
+7,Damp_Xqpp,交轴次暂态电抗Xqpp(pu),DOUBLE,4
+8,Damp_Td0pp,直轴次暂态时间常数Td0pp(秒),DOUBLE,4
+9,Damp_Tq0pp,交轴次暂态时间常数Tq0pp(秒),DOUBLE,4
+10,KeyName,数据库主键,STRING,16
+11,BusPtr,发电机母线索引,INTEGER,4
+12,AppendTag,新增记录标记,INTEGER,1

@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,FStateId,状态ID,INTEGER,4
+1,FStateNo,状态序号,INTEGER,4
+2,OutageBus,孤岛母线,INTEGER,4
+3,OutageLoadP,孤岛负荷功率(MW),DOUBLE,4

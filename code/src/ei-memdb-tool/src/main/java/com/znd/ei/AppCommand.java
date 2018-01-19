@@ -1,6 +1,6 @@
 package com.znd.ei;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +44,8 @@ public class AppCommand  {
 			System.out.println("--showdb");
 			System.out.println("--showtable");
 			System.out.println("--desctable");
+			System.out.println("--export=csv export info to csvfile");
+			
 			return;
 		}
 		if (args.containsOption("showdbs")) {
@@ -67,7 +69,8 @@ public class AppCommand  {
 				}
 			}	
 		}
-		
+		//boolean export = args.containsOption("export");
+		boolean export = true;
 		if (args.containsOption("showtable")) {
 			List<String> tables = args.getOptionValues("showtable");
 			List<String> dbs = args.getOptionValues("db");
@@ -124,6 +127,83 @@ public class AppCommand  {
 				   System.out.println(String.format("Table sum is %d",tablesum));
 				}
 			}	
+		}
+		
+		if (args.containsOption("desctable")) {
+			List<String> tables = args.getOptionValues("desctable");
+			List<String> dbs = args.getOptionValues("db");
+			System.out.println("Table filter is : "+String.join(",", tables));
+			 int tablesum = 0;
+			String path = "export/desc";
+			if (export) {
+				File file = new File(path);
+				if (!file.exists()) {
+					file.mkdirs();
+				}
+			}
+			for (DbEntryOperations ops : opss) {
+				if (dbs == null || dbs.isEmpty() || dbs.contains(ops.getName())) {	
+				   String base = path+"/" +ops.getName();	
+					File baseDir = new File(base);
+					if (!baseDir.exists()) {
+						baseDir.mkdirs();
+					}
+					
+				   System.out.println(ops.getName()+" "+ops.getDescription());
+				   List<MetaTable> mtables = ops.getTables();
+				  
+				   for (MetaTable table : mtables) {
+					   boolean flag = false;
+					  if (tables == null || tables.isEmpty())
+						  flag = true;
+					  else {
+						  for (String rx : tables) {
+							  if (rx.compareTo(table.getName()) == 0) {
+								  flag = true;
+								  break;
+							  }
+						  }
+					  }
+					 
+
+					   if (flag) {
+						   System.out.println("    "+table.getName()+" "+table.getDescription());
+						   List<MetaField> fields = table.getFields();
+						   String dent = "       ";
+						   CSVFile file = null;
+						   if (export) {
+							   
+							   file = new CSVFile(base+"/"+table.getName()+".csv");
+							   file.line().add("序号").add("名称").add("描述").add("类型").add("长度").end();
+						   }
+						   for (MetaField f : fields) {
+							   System.out.print(dent+f.getIndex()+" "+f.getName()+" "+f.getDescription()+" "+f.getType()+" "+f.getLen());
+							   System.out.println();
+							   if (file != null) {
+								   file.line().add(f.getIndex()).add(f.getName()).add(f.getDescription()).add(f.getType().name()).add(f.getLen()).end();
+							   }
+							   
+						   }
+						   
+						   if (file != null) {
+							   file.close();
+							   System.out.println("Save to file :"+file.getPath());
+						   }
+						    
+						   tablesum++;
+					   }
+				   }
+				   
+
+				}
+				
+			}	
+			
+		   if (tablesum==0) {
+				System.out.println("Find no table.");
+				return;
+		   }
+		   System.out.println(String.format("Table sum is %d",tablesum));
 		}
 		
 		if (args.containsOption("check")) {

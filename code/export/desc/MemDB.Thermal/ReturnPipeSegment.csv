@@ -1,0 +1,14 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Temperature,温度,STRING,32
+2,Name,名称,STRING,64
+3,Description,描述,STRING,64
+4,ConnectivityNodeI,起节点,STRING,64
+5,ConnectivityNodeJ,终节点,STRING,64
+6,Pipe,所属管道,STRING,64
+7,PipePtr,管道索引,INTEGER,4
+8,NodeIPtr,起节点索引,INTEGER,4
+9,NodeJPtr,终节点索引,INTEGER,4
+10,EdgeIPtr,起边设备索引,INTEGER,4
+11,EdgeJPtr,终边设备索引,INTEGER,4
+12,Open,中间信息,INTEGER,1

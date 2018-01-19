@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,PFCASE,潮流方式名,STRING,16
+2,ITSKP,写求解文件的步长,INTEGER,1
+3,NOPRNT,"NOPRNT,为1时打印全部输入数据",INTEGER,1
+4,DSW,输出文件摇摆曲线显示开关,INTEGER,1
+5,IWSCC,采用新减负荷卡减负荷标记,INTEGER,1
+6,ZSW,对零序卡进行检查标志,INTEGER,1
+7,X2FAC,不对称故障时发电机X2与Xdp之比,DOUBLE,4
+8,XFACT,发电机Xdpp与Xdp之比,DOUBLE,4
+9,TDODPS,隐级机的Tdopp(秒),DOUBLE,4
+10,TQODPS,隐级机的Tdopp(秒),DOUBLE,4
+11,TDODPH,凸级水轮机的Tqopp(秒),DOUBLE,4
+12,TQODPH,凸级水轮机的Tdopp(秒),DOUBLE,4
+13,CFACL2,负序负荷导纳(pu),DOUBLE,4

@@ -1,0 +1,13 @@
+序号,名称,描述,类型,长度
+0,Temperature,温度,STRING,32
+1,Name,名称,STRING,64
+2,SupplyPipeRange,供水管道段记录范围,INTEGER,4
+3,ReturnPipeRange,回水管道段记录范围,INTEGER,4
+4,HeatExchangerRange,换热器记录范围,INTEGER,4
+5,ValveRange,阀门记录范围,INTEGER,4
+6,TemperaturePtr,温度索引,INTEGER,4
+7,FlowTopoBus,潮流拓扑节点,INTEGER,4
+8,EnergyTopoBus,能流拓扑节点,INTEGER,4
+9,FlowIsland,潮流岛,INTEGER,4
+10,EnergyIsland,能流岛,INTEGER,4
+11,Open,状态,INTEGER,1

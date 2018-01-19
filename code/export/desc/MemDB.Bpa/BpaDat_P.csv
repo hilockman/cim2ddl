@@ -1,0 +1,8 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,P_Zone,所有者代码,STRING,4
+2,P_LoadPFactor,负荷有功修改因子,DOUBLE,4
+3,P_LoadQFactor,负荷无功修改因子,DOUBLE,4
+4,P_GenPFactor,发电出力有功修改因子,DOUBLE,4
+5,P_GenQFactor,发电出力无功修改因子,DOUBLE,4
+6,P_Status,状态,INTEGER,1

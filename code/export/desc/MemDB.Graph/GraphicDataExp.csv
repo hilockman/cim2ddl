@@ -1,0 +1,11 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源ID,DOUBLE,8
+1,GraphicID,Graphic表索引,DOUBLE,8
+2,ParentID,Shape表索引,DOUBLE,8
+3,DataTable,表名称,STRING,32
+4,DataField,表字段,STRING,32
+5,DataKey1,检索关键字1,STRING,64
+6,DataKey2,检索关键字2,STRING,64
+7,DataKey3,检索关键字3,STRING,64
+8,DataKey4,检索关键字4,STRING,64
+9,Value,值,STRING,64
