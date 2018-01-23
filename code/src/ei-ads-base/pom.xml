@@ -3,9 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.znd.ei</groupId>
+    <groupId>com.ZhongND.ei</groupId>
     <artifactId>ei-cim</artifactId>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>ei-ads-base</artifactId>
   <name>ei-ads-base</name>
@@ -15,7 +15,7 @@
   </properties>
   <dependencies>
    		<dependency>
-			<groupId>com.znd.ei</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-base</artifactId>
 			<version>${project.version}</version>
 		</dependency> 	

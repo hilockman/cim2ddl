@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                               http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.znd.ei</groupId>
-	<version>1.0</version>
+	<groupId>com.ZhongND.ei</groupId>
+	<version>1.0.1-SNAPSHOT</version>
 	<artifactId>ei-cim</artifactId>
 	<packaging>pom</packaging>
 	<name>Energy Internet Common Information Model</name>
@@ -23,7 +23,6 @@
 		<module>ei-memdb-core</module>
 		<module>ei-memdb</module>
 		<module>ei-memdb-tool</module>
-		<module>ei-memdb-check</module>
 		<module>ei-ads-core</module>
 		<module>ei-apl-reliability</module>
 		<module>ei-acp-dfredisson</module>
@@ -46,9 +45,10 @@
 		<java.version>1.8</java.version>
 		<!-- spring.version>4.2.1.RELEASE</spring.version -->
 		<!-- spring-data.version>Gosling-RELEASE</spring-data.version -->
-		<znd.version>3.2</znd.version>
 		<target.dir>../../lib</target.dir>
 		<config.dir>../../config</config.dir>
+		<znd.groupId>com.ZhongND</znd.groupId>
+		<znd.version>3.2</znd.version>		
 	</properties>
 
 	<dependencyManagement>
@@ -88,6 +88,7 @@
 			<artifactId>maven-compiler-plugin</artifactId> <configuration> <source>1.8</source> 
 			<target>1.8</target> </configuration> </plugin> </plugins> </pluginManagement> -->
 	</build>
+	<!--  
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
@@ -100,5 +101,33 @@
 			<url>http://repo.spring.io/milestone</url>
 		</pluginRepository>
 	</pluginRepositories>
-
+-->
+<!-- 
+	<repositories>  
+	    <repository>  
+	        <id>maven-public</id>  
+	        <name>Maven Public</name>  
+	        <url>http://192.168.1.27:8081/repository/maven-public/</url>  
+	    </repository>    
+	</repositories>  
+	<pluginRepositories> 
+	    <pluginRepository>  
+	        <id>maven-public</id>  
+	        <name>Maven Public</name>  
+	         <url>http://192.168.1.27:8081/repository/maven-public/</url>   
+	    </pluginRepository> 	
+	</pluginRepositories> 
+ -->	
+	<distributionManagement>    
+	    <repository>    
+	        <id>nexus-releases</id>    
+	        <name>Maven Release Repository</name>    
+	        <url>http://192.168.1.27:8081/repository/maven-releases/</url>    
+	    </repository>    
+	        <snapshotRepository>    
+	        <id>nexus-releases</id>    
+	        <name>Maven Snapshot Repository</name>    
+	        <url>http://192.168.1.27:8081/repository/maven-snapshots/</url>    
+	    </snapshotRepository>    
+	</distributionManagement>   	
 </project>

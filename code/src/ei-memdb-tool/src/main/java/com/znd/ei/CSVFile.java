@@ -60,7 +60,6 @@ public class CSVFile {
 		try {
 			bufferWriter = new BufferedWriter(new FileWriter(fileName));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		path = fileName;

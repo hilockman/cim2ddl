@@ -3,12 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.znd.ei</groupId>
+    <groupId>com.ZhongND.ei</groupId>
     <artifactId>ei-cim</artifactId>
     <version>1.0</version>
   </parent>
   <artifactId>test-proxy</artifactId>
-  <version>1.0</version>
   <name>test-proxy</name>
   <url>http://maven.apache.org</url>
   <properties>

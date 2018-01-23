@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.znd.ei</groupId>
+		<groupId>com.ZhongND.ei</groupId>
 		<artifactId>ei-cim</artifactId>
-		<version>1.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ei-ads-console</artifactId>
 	<name>ei-ads-console</name>
@@ -16,7 +16,7 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.znd.ei</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-acp-dfredisson</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -25,7 +25,7 @@
 			<version>${project.version}</version> </dependency -->
 
 		<dependency>
-			<groupId>com.znd.ei</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-apl-reliability</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -87,6 +87,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	<!-- 
 	<repositories>
 		<repository>
 			<id>spring-releases</id>
@@ -101,5 +102,7 @@
 			<url>https://repo.spring.io/libs-release</url>
 		</pluginRepository>
 	</pluginRepositories>
+	 -->
+	 
 
 </project>

@@ -3,9 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.znd.ei</groupId>
+    <groupId>com.ZhongND.ei</groupId>
     <artifactId>ei-cim</artifactId>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>ei-ads-web</artifactId>
   <name>ei-ads-web</name>
@@ -20,12 +20,12 @@
         </dependency>
 
         <dependency>
-		    <groupId>com.znd</groupId>
+		    <groupId>${znd.groupId}</groupId>
 		    <artifactId>ZhongNDRedisDF</artifactId>
 		    <version>${znd.version}</version>
 		</dependency>
     	<dependency>
-		    <groupId>com.znd</groupId>
+		    <groupId>${znd.groupId}</groupId>
 		    <artifactId>ZhongNDRedisADF</artifactId>
 		    <version>${znd.version}</version>
 		</dependency>  
@@ -35,7 +35,7 @@
 			<version>2.10.0</version>
 		</dependency>	
 	   		<dependency>
-			<groupId>com.znd.ei</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-ads-base</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -94,18 +94,6 @@
 			</plugin>
 		</plugins>
 	</build>
-    <repositories>
-       <repository>
-           <id>spring-releases</id>
-           <name>Spring Releases</name>
-           <url>https://repo.spring.io/libs-release</url>
-       </repository>
-   </repositories>
-   <pluginRepositories>
-       <pluginRepository>
-           <id>spring-releases</id>
-           <name>Spring Releases</name>
-           <url>https://repo.spring.io/libs-release</url>
-       </pluginRepository>
-   </pluginRepositories>  
+
+
 </project>

@@ -5,10 +5,10 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="ei-persist-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ei-persist/ei-persist">
+        <dependent-module archiveName="ei-persist-1.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ei-persist/ei-persist">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ei-model-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ei-model/ei-model">
+        <dependent-module archiveName="ei-model-1.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ei-model/ei-model">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="ei-webservice"/>

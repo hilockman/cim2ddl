@@ -1,1 +1,4 @@
-mvn deploy:deploy-file -DgroupId=com.znd -DartifactId=com.znd.memdb -Dversion=1.0 -Dpackaging=jar -Dfile=ZhongNDMemDB.jar 
+call mvn deploy:deploy-file -DgroupId=com.ZhongND -DartifactId=ZhongNDMemDB -Dversion=3.2 -Dpackaging=jar -Dfile=ZhongNDMemDB.jar  -Durl=http://192.168.1.27:8081/repository/maven-releases  -DrepositoryId=nexus-releases
+call mvn deploy:deploy-file -DgroupId=com.ZhongND -DartifactId=ZhongNDRedisDF -Dversion=3.2 -Dpackaging=jar -Dfile=ZhongNDRedisDF-V3.0.jar  -Durl=http://192.168.1.27:8081/repository/maven-releases  -DrepositoryId=nexus-releases
+call mvn deploy:deploy-file -DgroupId=com.ZhongND -DartifactId=ZhongNDRedisADF -Dversion=3.2 -Dpackaging=jar -Dfile=ZhongNDRedisADF-V2.0.jar -Durl=http://192.168.1.27:8081/repository/maven-releases  -DrepositoryId=nexus-releases
+pause

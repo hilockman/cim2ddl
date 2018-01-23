@@ -7,9 +7,9 @@
 
 	<name>ei-console</name>
 	<parent>
-		<groupId>com.znd.ei</groupId>
+		<groupId>com.ZhongND.ei</groupId>
 		<artifactId>ei-cim</artifactId>
-		<version>1.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
