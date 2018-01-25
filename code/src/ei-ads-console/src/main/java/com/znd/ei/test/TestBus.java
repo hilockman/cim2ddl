@@ -43,7 +43,7 @@ public class TestBus {
 		RBufferOperation bufferOps = builder.getBufferOperation();
 		RTableOperation table = bufferOps.getTableOperation("FState");
 		List<String> colNames = table.getColumnNameArray();
-		for (int j = 0; j < 100; j++) {
+		for (int j = 0; j < 2; j++) {
 		String[] record = new String[colNames.size()];
 		String[] index = {String.valueOf(j)};
 		record[0] = index[0];
@@ -51,7 +51,7 @@ public class TestBus {
 			record[i] = String.valueOf(i);
 		}
 
-		table.setRecord(record, null);
+		table.setRecord(record, index);
 		
 		
 
@@ -61,9 +61,17 @@ public class TestBus {
 		
 		//read records
 		colNames = table.getColumnNameArray();
+		List<String[]> rt = table.getRecord(null);
+	    for (String [] rec : rt) {
+	    	System.out.print("rec :");
+	    	for (String str : rec) {
+	    		System.out.print(str+" ");
+	    	}
+	    	System.out.println();
+	    }
 		Map<String, String> conditions = new HashMap<String, String>();
 		String key = "String";
-		String value = "1";
+		String value = "1000000";
 		conditions.put(key, value);
 		List<String> list = table.getCell(colNames.get(0), conditions);
 		System.out.println("get value：" + list.toString());

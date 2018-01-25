@@ -22,3 +22,5 @@ code/src/ei-ads-web/src/main/resources/redissonnode.yaml
 code/src/ei-ads-web/src/main/resources/redissonnode.yaml2
 *.svn-base
 *.yaml1
+code/src/test/test-redisdata/logs/ZhongNDReidsDF-interface.log.1
+code/src/test/test-redisdata/logs/ZhongNDReidsDF-interface.log.2
