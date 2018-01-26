@@ -3,10 +3,14 @@ package com.znd.test.mybatis;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -18,18 +22,42 @@ import org.junit.Test;
 public class MybatisFirst {
 
     //根据id查询用户信息，得到一条记录结果
-
-    @Test
-    public void findUserByIdTest() throws IOException{
+	
+	private SqlSession createSession() throws IOException {
         // mybatis配置文件
         String resource = "SqlMapConfig.xml";
         // 得到配置文件流
         InputStream inputStream =  Resources.getResourceAsStream(resource);
+        
         //创建会话工厂，传入mybatis配置文件的信息
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		return session;
+	}
+	
+	@Test
+	public void testRunScript() throws IOException {
+
+		SqlSession session = createSession();
+		
+		Connection conn = session.getConnection();
+		
+		Reader reader = Resources.getResourceAsReader("script/CreateDB.sql");
+		
+		ScriptRunner runner = new ScriptRunner(conn);
+		runner.setErrorLogWriter(null);
+		runner.runScript(reader);
+		reader.close();
+		session.close();
+	}
+
+    @Test
+    public void findUserByIdTest() throws IOException{
 
         // 通过工厂得到SqlSession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession  = createSession();
 
         // 通过SqlSession操作数据库
         // 第一个参数：映射文件中statement的id，等于=namespace+"."+statement的id
@@ -48,17 +76,9 @@ public class MybatisFirst {
     // 根据用户名称模糊查询用户列表
     @Test
     public void findUserByNameTest() throws IOException {
-        // mybatis配置文件
-        String resource = "SqlMapConfig.xml";
-        // 得到配置文件流
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-
-        // 创建会话工厂，传入mybatis的配置文件信息
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
-                .build(inputStream);
-
         // 通过工厂得到SqlSession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession  = createSession();
+        
         // list中的user和映射文件中resultType所指定的类型一致
         List<User> list = sqlSession.selectList("test.findUserByName", "小明");
         System.out.println(list);
@@ -69,17 +89,9 @@ public class MybatisFirst {
  // 添加用户信息
     @Test
     public void insertUserTest() throws IOException {
-        // mybatis配置文件
-        String resource = "SqlMapConfig.xml";
-        // 得到配置文件流
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-
-        // 创建会话工厂，传入mybatis的配置文件信息
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
-                .build(inputStream);
-
         // 通过工厂得到SqlSession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession  = createSession();
+        
         // 插入用户对象
         User user = new User();
         user.setUsername("王小军");
@@ -102,17 +114,8 @@ public class MybatisFirst {
     // 根据id删除 用户信息
     @Test
     public void deleteUserTest() throws IOException {
-        // mybatis配置文件
-        String resource = "SqlMapConfig.xml";
-        // 得到配置文件流
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-
-        // 创建会话工厂，传入mybatis的配置文件信息
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
-                .build(inputStream);
-
         // 通过工厂得到SqlSession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession  = createSession();
 
         // 传入id删除 用户
         sqlSession.delete("test.deleteUser", 29);
@@ -125,20 +128,29 @@ public class MybatisFirst {
 
     }
 
+    // 根据删除所有用户信息
+    @Test
+    public void deleteAllUser() throws IOException {
+        // 通过工厂得到SqlSession
+        SqlSession sqlSession  = createSession();
+
+        // 传入id删除 用户
+        sqlSession.delete("test.deleteUsers");
+
+        // 提交事务
+        sqlSession.commit();
+
+        // 关闭会话
+        sqlSession.close();
+
+    }
+    
     // 更新用户信息
     @Test
     public void updateUserTest() throws IOException {
-        // mybatis配置文件
-        String resource = "SqlMapConfig.xml";
-        // 得到配置文件流
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-
-        // 创建会话工厂，传入mybatis的配置文件信息
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
-                .build(inputStream);
-
         // 通过工厂得到SqlSession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession  = createSession();
+        
         // 更新用户信息
 
         User user = new User();

@@ -20,7 +20,7 @@ import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 
 public class TestBus {
 	
-	static DFService service;
+	static private DFService service;
 	
 	static {
 		try {
@@ -47,7 +47,6 @@ public class TestBus {
 			table.setColumn("Int", RedisTableColumnType.RedisTableColumnType_int, false);
 			buffer.commit();
 			System.out.println("表已创建完毕");
-
 		} else {
 			System.out.println("无法创建表，表已存在");
 		}	
@@ -122,5 +121,10 @@ public class TestBus {
 
 	
 		service.disConnect();
+    }
+    
+    @Test
+    public void testBatch10000Records() {
+    	
     }
 }

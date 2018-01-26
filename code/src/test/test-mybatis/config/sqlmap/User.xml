@@ -59,6 +59,12 @@
         delete from user where id=#{id}
     </delete>
 
+    <!-- 删除 所有用户
+         -->
+    <delete id="deleteUsers" >
+        delete from user
+    </delete>
+    
     <!-- 根据id更新用户
     分析：
     需要传入用户的id
