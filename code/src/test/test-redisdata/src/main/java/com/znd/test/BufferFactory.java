@@ -1,26 +1,31 @@
 package com.znd.test;
 
-import com.ZhongND.RedisDataBus.ServiceFactory;
 import com.ZhongND.RedisDataBus.Api.DFService;
-import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
+import com.ZhongND.RedisDataBus.Api.RBufferBuilder;
+import com.ZhongND.RedisDataBus.Api.RMemDBApi;
+import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
+
 
 public class BufferFactory {
-	static private DFService service;
+	private DFService service;
+	private RMemDBApi memDBApi; 
+	private RMemDBBuilder memDBBuilder;
+	private RBufferBuilder bufferBuilder;
 	
-	static {
-		try {
-			service = ServiceFactory.getService();
-		} catch (RedissonDBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+	public BufferFactory(DFService service, RMemDBApi memDBApi, RMemDBBuilder memDBBuilder, RBufferBuilder bufferBuilder)
+	{
+		this.service = service;
+		this.memDBApi = memDBApi;
+		this.memDBBuilder = memDBBuilder;
+		this.bufferBuilder = bufferBuilder;
 	}
 	
-	static public MemBuffer createBuffer(String name) throws RedissonDBException  {
-		return new MemBuffer(service, name);
+	public BufferSession openSession()   {
+		return new BufferSessionImp();
 	}
 	
-	static public void destory() {
+
+	public void destory() {
 		service.disConnect();
 	}
 }
