@@ -21,10 +21,20 @@
 			<version>4.0</version>
 			<scope>test</scope>
 		</dependency>
+    <dependency>
+      <groupId>ognl</groupId>
+      <artifactId>ognl</artifactId>
+      <version>3.1.16</version>
+    </dependency>
+    <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.22.0-GA</version>
+    </dependency>		
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.2.7</version>
+			<version>3.4.6-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 		<!--dependency>

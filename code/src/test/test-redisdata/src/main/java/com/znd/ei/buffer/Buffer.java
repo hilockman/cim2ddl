@@ -1,16 +1,18 @@
-package com.znd.test;
+package com.znd.ei.buffer;
 
 import java.io.Closeable;
 import java.util.List;
 import java.util.Map;
 
-public interface BufferSession  extends Closeable {
+public interface Buffer  extends Closeable {
 
 	
 	<T> T selectOne(String statement, Object parameter);
 	<E> List<E> selectList(String statement, Object parameter);
 	<K,V> Map<K,V> selectMap(String statement, Object parameter, String mapKey);
 	int insert(String statement, Object parameter);
+	
+	
 	int update(String statement, Object parameter);
 	int delete(String statement, Object parameter);
 	
@@ -20,5 +22,9 @@ public interface BufferSession  extends Closeable {
 	int insert(String statement);
 	int update(String statement);
 	int delete(String statement);
+	void commit();
+	@Override
+	public void close();
+	
 	
 }

@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+       <setting name="logImpl" value="LOG4J"/>
+    </settings>
 	<!-- 和spring整合后 environments配置将废除 -->
 	<environments default="development">
 		<environment id="development">

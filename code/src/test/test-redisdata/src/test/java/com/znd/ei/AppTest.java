@@ -1,4 +1,4 @@
-package com.znd.test;
+package com.znd.ei;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

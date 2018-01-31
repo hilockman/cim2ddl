@@ -32,7 +32,7 @@ public class MybatisFirst {
         //创建会话工厂，传入mybatis配置文件的信息
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         
-		SqlSession session = sqlSessionFactory.openSession();
+		SqlSession session = sqlSessionFactory.openSession(false);
 		
 		return session;
 	}
@@ -106,6 +106,34 @@ public class MybatisFirst {
 
         // 获取用户信息主键
         System.out.println(user.getId());
+        // 关闭会话
+        sqlSession.close();
+
+    }
+    
+    
+    // 添加用户信息
+    @Test
+    public void insert10000UserTest() throws IOException {
+        // 通过工厂得到SqlSession
+        SqlSession sqlSession  = createSession();
+        
+        // 插入用户对象
+        for (int i = 0; i < 10000; i++) {
+        User user = new User();
+        user.setUsername("王小军"+i);
+        user.setBirthday(new Date());
+        user.setSex("1");
+        user.setAddress("河南郑州");
+
+        sqlSession.insert("test.insertUser", user);
+        }
+
+        // 提交事务
+        sqlSession.commit();
+
+//        // 获取用户信息主键
+//        System.out.println(user.getId());
         // 关闭会话
         sqlSession.close();
 

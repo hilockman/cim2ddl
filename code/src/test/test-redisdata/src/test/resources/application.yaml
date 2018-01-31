@@ -1,0 +1,13 @@
+server:
+      name: test-redisdata
+      port: 8080
+
+
+logging:
+    level:
+      interfaceLogger: OFF
+      org.redisson: OFF
+      PubSubConnectionPool: OFF
+      SlaveConnectionPool: OFF
+      com.ZhongND.RedisDataBus: OFF
+    file: log/test-redisdata.log 
