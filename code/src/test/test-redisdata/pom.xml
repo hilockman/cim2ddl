@@ -56,7 +56,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
 				<configuration>
 					<optimize>true</optimize>
 					<source>1.8</source>
@@ -64,6 +63,19 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <configuration>
+			        <threadCount>1</threadCount>
+			        <properties>
+			            <property>
+			                <name>listener</name>
+			                <value>com.znd.ei.FailFastListener</value>
+			            </property>
+			        </properties>
+			    </configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

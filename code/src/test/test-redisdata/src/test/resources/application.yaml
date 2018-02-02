@@ -5,9 +5,9 @@ server:
 
 logging:
     level:
-      interfaceLogger: OFF
+#      interfaceLogger: OFF
       org.redisson: OFF
       PubSubConnectionPool: OFF
       SlaveConnectionPool: OFF
-      com.ZhongND.RedisDataBus: OFF
+      com.ZhongND.RedisDataBus: OFF    
     file: log/test-redisdata.log 

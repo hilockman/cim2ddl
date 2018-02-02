@@ -16,7 +16,7 @@ public class TableMeta {
 	
 	private List<ColumnMeta> indexColumns = new ArrayList<>();
  
-	private RecordParser recordBuilder = RecordParser.DefaultRecordParser;
+	private ParamerterHandler recordBuilder = ParamerterHandler.DefaultParameterHandler;
 
 	public TableMeta() {
 
@@ -62,11 +62,11 @@ public class TableMeta {
 		return columns.size();
 	}
 
-	public RecordParser getRecordBuilder() {
+	public ParamerterHandler getRecordBuilder() {
 		return recordBuilder;
 	}
 
-	public void setRecordBuilder(RecordParser recordBuilder) {
+	public void setRecordBuilder(ParamerterHandler recordBuilder) {
 		this.recordBuilder = recordBuilder;
 	}
 

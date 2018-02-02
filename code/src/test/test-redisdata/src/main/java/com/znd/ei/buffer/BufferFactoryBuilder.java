@@ -14,9 +14,9 @@ import com.ZhongND.RedisDataBus.Api.RBufferOperation;
 import com.ZhongND.RedisDataBus.Api.RMemDBApi;
 import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableBuilder;
+import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.buffer.imp.BufferFactoryImp;
 
 public class BufferFactoryBuilder {
 
@@ -88,10 +88,16 @@ public class BufferFactoryBuilder {
 //		//commit
 //		bufferBuilder.commit();
 //	}
-
-	private void removeBuffer(RMemDBBuilder memDBBuilder)
+	public void removeBuffer(BufferFactory factory) throws RedissonDBException {
+		DefaultBufferFactory imp = (DefaultBufferFactory) factory;
+		factory.destory();
+		removeBuffer(imp.getMemDBBuilder(), imp.getConfig().getKey());
+	}
+	
+	private void removeBuffer(RMemDBBuilder memDBBuilder, String key)
 			throws RedissonDBException {
 		memDBBuilder.destory();
+		logger.info("Buffer destoryed : {}", key);			
 	}
 
 	private void makeBuffer(BufferConfig config, RMemDBBuilder memDBBuilder,
@@ -99,8 +105,7 @@ public class BufferFactoryBuilder {
 		
 		// 创建buffer
 		RBufferBuilder bufferBuilder = memDBBuilder.getBufferBuilder();
-		logger.info("Buffer created : {}.{}.", config.getAppName(),
-				config.getName());
+		logger.info("Buffer created : {}.", config.getKey());
 		try {
 			if (tableBuilders != null && tableBuilders.length > 0){		
 				// 创建表
@@ -111,6 +116,7 @@ public class BufferFactoryBuilder {
 		} finally {
 			// commit
 			bufferBuilder.commit();
+			logger.info("Buffer committed : {}.", config.getKey());
 		}
 	}
 
@@ -159,10 +165,18 @@ public class BufferFactoryBuilder {
 							.getBufferOperation();
 					
 					List<TableMeta> changedTables = new ArrayList<>();
+					List<String> tableNames = (bufferOperation != null) ? bufferOperation
+							.getTableNameArray() : new ArrayList<>();
 					for (TableMeta tableMeta : tableMetas) {
-						List<String> columnNames = (bufferOperation != null) ? bufferOperation
-								.getTableNameArray() : new ArrayList<>();
-
+						
+						
+						if (tableNames.indexOf(tableMeta.getName()) < 0) {
+							changedTables.add(tableMeta);
+							continue;
+						}
+														
+						RTableOperation ops = bufferOperation.getTableOperation(tableMeta.getName());
+						List<String> columnNames = ops.getColumnNameArray();
 						if (isTableChanged(columnNames, tableMeta)) {
 							changedTables.add(tableMeta);
 							
@@ -174,22 +188,23 @@ public class BufferFactoryBuilder {
 //					}
 					
 					if (!changedTables.isEmpty()) {
+						logger.info("Buffer changed, will be recreated : {}. ", config.getKey());
 						// remove buffer
-						removeBuffer(memDBBuilder);
+						removeBuffer(memDBBuilder, config.getKey());
 						// make buffer
 						makeBuffer(config, memDBBuilder, tableMetas);
 					}
 				}
 			} else if (config.getCreateFlag() == BufferConfig.CREATE) {
 				// remove buffer
-				removeBuffer(memDBBuilder);
+				removeBuffer(memDBBuilder, config.getKey());
 				// make buffer
 				makeBuffer(config, memDBBuilder, tableMetas);
 			}
 
 		}
 
-		return new BufferFactoryImp(config, service, memDBApi, memDBBuilder);
+		return new DefaultBufferFactory(config, service, memDBBuilder);
 	}
 
 //	private void clearBuffer(RMemDBBuilder memDBBuilder, String appName,
@@ -199,12 +214,7 @@ public class BufferFactoryBuilder {
 //
 //	}
 
-	public void removeBuffer(BufferFactory factory) throws RedissonDBException {
-		BufferFactoryImp imp = (BufferFactoryImp) factory;
-		factory.destory();
-		imp.getMemDBBuilder().destory();
-		logger.info("Buffer destoryed : {}.{}", imp.getConfig().getAppName(), imp.getConfig().getName());		
-	}
+
 
 //	public void clearBuffer(BufferConfig config) throws RedissonDBException {
 //		DFService service = ServiceFactory.getService();
@@ -215,7 +225,8 @@ public class BufferFactoryBuilder {
 //	}
 
 	public void removeTable(BufferFactory factory, String name) throws RedissonDBException {
-		((BufferFactoryImp)factory).getMemDBBuilder().getBufferBuilder().destory(name); 
+		((DefaultBufferFactory)factory).getMemDBBuilder().getBufferBuilder().destory(name); 
+		logger.info("Table removed : {} .", name);
 	}
 
 }

@@ -5,7 +5,7 @@ server:
 
 logging:
     level:
-      interfaceLogger: OFF
+#      interfaceLogger: OFF
       ClusterConnectionManager: OFF
       PubSubConnectionPool: OFF
       SlaveConnectionPool: OFF

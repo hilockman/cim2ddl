@@ -46,6 +46,11 @@ public class BufferConfig {
 		this.name = name;
 		return this;
 	}
+	
+	
+	public String getKey() {
+		return appName+"."+name;
+	}
 	public int getCreateFlag() {
 		return createFlag;
 	}
