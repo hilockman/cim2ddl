@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 命名空间，作用就是对sql进行分类化管理,理解为sql隔离
+ 注意：使用mapper代理方法开发，namespace有特殊重要的作用
+ -->
+<mapper namespace="com.znd.test.mybatis.AuthorMapper">
+    <!-- 在映射文件中配置很多sql语句 -->
+    <!--需求:通过id查询用户表的记录 -->
+    <!-- 通过select执行数据库查询
+     id:标识映射文件中的sql，称为statement的id
+     将sql语句封装到mappedStatement对象中，所以将id称为statement的id
+     parameterType:指定输入参数的类型
+     #{}标示一个占位符,
+     #{value}其中value表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意。
+
+     resultType：指定sql输出结果的映射的java对象类型，select指定resultType表示将单条记录映射成java对象
+     -->
+    <select id="selectAuthor" parameterType="int" resultType="com.znd.test.mybatis.Author">
+        SELECT * FROM  author  WHERE id=#{value}
+    </select>
+
+    <insert id="insertAuthor" parameterType="com.znd.test.mybatis.Author">
+        <!--
+         将插入数据的主键返回，返回到user对象中
+
+         SELECT LAST_INSERT_ID()：得到刚insert进去记录的主键值，只适用与自增主键
+
+         keyProperty：将查询到主键值设置到parameterType指定的对象的哪个属性
+         order：SELECT LAST_INSERT_ID()执行顺序，相对于insert语句来说它的执行顺序
+         resultType：指定SELECT LAST_INSERT_ID()的结果类型
+          -->
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+          SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO author (name,birthday,sex,address)values (#{name},#{birthday},#{sex},#{address})
+    
+    </insert>
+
+</mapper>

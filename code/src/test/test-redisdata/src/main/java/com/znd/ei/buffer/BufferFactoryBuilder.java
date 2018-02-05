@@ -17,6 +17,7 @@ import com.ZhongND.RedisDataBus.Api.RTableBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
+import com.znd.ei.buffer.defaults.DefaultBufferFactory;
 
 public class BufferFactoryBuilder {
 
