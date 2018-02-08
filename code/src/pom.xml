@@ -36,7 +36,8 @@
 		<module>ei-memdb-web</module>
     <module>ei-memdb-console</module>
     <module>ei-ads-base</module>
-  </modules>
+    <module>ei-ads-terminal</module>
+	</modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>

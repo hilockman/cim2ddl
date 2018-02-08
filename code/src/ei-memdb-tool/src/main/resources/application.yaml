@@ -22,6 +22,8 @@ gencode:
        entryName: MemDB.Bpa
      - packageName: com.znd.ei.memdb.reliabilty.domain
        entryName: MemDB.PR
+     - packageName: com.znd.ei.memdb.pg.domain
+       entryName: MemDB.PG  
    enableEntityAnnotation: false
 logging:
    file: log/myapp.log
