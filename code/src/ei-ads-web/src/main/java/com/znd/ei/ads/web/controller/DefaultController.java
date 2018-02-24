@@ -19,13 +19,18 @@ public class DefaultController {
     }
 
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    
     @GetMapping("/pradequacy")
     public String about() {
         return "pradequacy";
     }
 
     @GetMapping("/model")
-    public String login() {
+    public String model() {
         return "model";
     }
 
