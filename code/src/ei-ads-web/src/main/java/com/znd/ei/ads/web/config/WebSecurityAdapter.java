@@ -1,6 +1,9 @@
 package com.znd.ei.ads.web.config;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,14 +18,17 @@ import com.znd.ei.ads.web.auth.CustomAuthenticationProvider;
  * @date 2018年2月24日
  * @time 下午3:56:37
  */
+@Configuration
+//@EnableWebSecurity
+@Order(SecurityProperties.BASIC_AUTH_ORDER)
 public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
 	   @Override
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http.csrf().disable();
 	        http.authorizeRequests().antMatchers("/","/blog/**","/tag/**","friend","/login/**").permitAll()
-	                .antMatchers("/admin/**").authenticated()
+	                .antMatchers("/admin/**", "/pradequacy/**").authenticated()
 //	                .and().rememberMe().tokenValiditySeconds(3600)
-	                .and().formLogin().loginPage("/login").defaultSuccessUrl("/home").permitAll()
+	                .and().formLogin().loginPage("/admin/login").defaultSuccessUrl("/home").permitAll()
 	                .and().logout().logoutUrl("/admin/loginOut").permitAll();
 
 	    }

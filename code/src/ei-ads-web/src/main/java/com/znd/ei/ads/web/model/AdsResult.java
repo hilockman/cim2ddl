@@ -1,4 +1,4 @@
-package com.znd.ei.ads.web.controller;
+package com.znd.ei.ads.web.model;
 
 import com.znd.ei.Utils;
 

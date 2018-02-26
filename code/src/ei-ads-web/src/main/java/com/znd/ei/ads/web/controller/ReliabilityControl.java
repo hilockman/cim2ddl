@@ -38,6 +38,7 @@ import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.config.FileInfo;
 import com.znd.ei.ads.config.PRAdequacySetting;
+import com.znd.ei.ads.web.model.AdsResult;
 import com.znd.ei.ads.web.model.ReliabilityUploadConfig;
 
 @RestController

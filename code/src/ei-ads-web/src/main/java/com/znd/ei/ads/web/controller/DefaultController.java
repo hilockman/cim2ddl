@@ -19,10 +19,7 @@ public class DefaultController {
     }
 
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+
     
     @GetMapping("/pradequacy")
     public String about() {
