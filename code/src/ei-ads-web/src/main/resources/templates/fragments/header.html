@@ -1,15 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:fragment="header-css">
-        <!-- this is header-css -->
-        <link rel="stylesheet" type="text/css"
-              href="../../bootstrap/3.3.7/css/bootstrap.min.css" />
+<head th:fragment="header-css">
 
-        <link rel="stylesheet" th:href="@{/css/main.css}"
-              href="../../css/main.css" />
-              
-        <script src="../../scripts/jquery-3.2.1.js"></script>      
-    </div>
+       <!-- this is header-css -->
+       <link rel="stylesheet" type="text/css"
+             href="../../bootstrap/3.3.7/css/bootstrap.min.css" />
+
+     
+                   
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css">
+
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+        <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+             
+        <link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css" />    
+             
+       <script src="../../scripts/jquery-3.2.1.js"></script>      
+
 </head>
 <body>
 <div th:fragment="header">

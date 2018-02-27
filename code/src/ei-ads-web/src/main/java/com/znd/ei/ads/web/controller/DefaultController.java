@@ -17,10 +17,7 @@ public class DefaultController {
     public String home() {
         return "home";
     }
-
-
-
-    
+   
     @GetMapping("/pradequacy")
     public String about() {
         return "pradequacy";
