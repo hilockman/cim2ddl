@@ -79,6 +79,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>        
+        
+        
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-buffer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-memdb-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>		        
                        				   
   </dependencies>
   	<build>

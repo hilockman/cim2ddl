@@ -1,7 +1,8 @@
-package com.znd.ei.buffer;
+package com.znd.ei.ads.buffer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import com.ZhongND.RedisDataBus.Api.RTableBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.buffer.defaults.DefaultBufferFactory;
+import com.znd.ei.ads.buffer.defaults.DefaultBufferFactory;
 
 public class BufferFactoryBuilder {
 
@@ -32,25 +33,33 @@ public class BufferFactoryBuilder {
 		return config;
 	}
 
-	private static final RedisTableColumnType[] types = {
-			RedisTableColumnType.RedisTableColumnType_int,
-			RedisTableColumnType.RedisTableColumnType_boolean,
-			RedisTableColumnType.RedisTableColumnType_String,
-			RedisTableColumnType.RedisTableColumnType_double,
-			RedisTableColumnType.RedisTableColumnType_byte,
-			RedisTableColumnType.RedisTableColumnType_float,
-			RedisTableColumnType.RedisTableColumnType_long,
-			RedisTableColumnType.RedisTableColumnType_short };
+	private static final HashMap<String, RedisTableColumnType> typeMap = new HashMap<>();
 
-	public static final Integer INT = 0;
-	public static final Integer BOOLEAN = 1;
-	public static final Integer STRING = 2;
-	public static final Integer DOUBLE = 3;
-	public static final Integer BYTE = 4;
-	public static final Integer FLOAT = 5;
-	public static final Integer LONG = 6;
-	public static final Integer SHORT = 7;
 
+	public static final String INT = "int";
+	public static final String BOOLEAN = "boolean";
+	public static final String STRING = "string";
+	public static final String DOUBLE = "double";
+	public static final String BYTE = "byte";
+	public static final String FLOAT = "float";
+	public static final String LONG = "long";
+	public static final String SHORT = "short";
+	public static final String DATE = "date";
+	public static final String TIME = "time";
+	static {
+		
+		typeMap.put(INT, RedisTableColumnType.RedisTableColumnType_int);
+		typeMap.put(BOOLEAN, RedisTableColumnType.RedisTableColumnType_boolean);
+		typeMap.put(STRING, RedisTableColumnType.RedisTableColumnType_String);
+		typeMap.put(DOUBLE, RedisTableColumnType.RedisTableColumnType_double);
+		typeMap.put(BYTE, RedisTableColumnType.RedisTableColumnType_byte);
+		typeMap.put(FLOAT, RedisTableColumnType.RedisTableColumnType_float);
+		typeMap.put(LONG, RedisTableColumnType.RedisTableColumnType_long);
+		typeMap.put(SHORT, RedisTableColumnType.RedisTableColumnType_short);
+		typeMap.put(DATE, RedisTableColumnType.RedisTableColumnType_long);
+		typeMap.put(TIME, RedisTableColumnType.RedisTableColumnType_long);
+	}
+	
 	private void makeTable(RBufferBuilder bufferBuilder, TableMeta tableDefine)
 			throws RedissonDBException {
 		if (bufferBuilder.checkIsExists(tableDefine.getName()))
@@ -64,7 +73,7 @@ public class BufferFactoryBuilder {
 		for (ColumnMeta c : tableDefine.getColumns()) {
 
 			
-			tableBuilder.setColumn(c.getName(), types[c.getType()],
+			tableBuilder.setColumn(c.getName(), typeMap.get(c.getType()),
 					c.isIndexable());
 		}
 
@@ -148,64 +157,71 @@ public class BufferFactoryBuilder {
 		return i != j;
 	}
 
-	public BufferFactory build(BufferConfig config) throws RedissonDBException {
-		
-		DFService service = ServiceFactory.getService();
-		RMemDBApi memDBApi = service.connect(config.getAppName());
+	public BufferFactory build(BufferConfig config){	
+		try {
+			config.build();
+			DFService service = ServiceFactory.getService();
 
-		RMemDBBuilder memDBBuilder = memDBApi
-				.getRMemDBBuilder(config.getName());
-		TableMeta[] tableMetas = config.getTableMetas();
-		if (!memDBBuilder.checkAvailability()) {
-			makeBuffer(config, memDBBuilder, tableMetas);
-		} else {
-			if (config.getCreateFlag() == BufferConfig.UPDATE) {
-				// check buffer define changed or not ?
-				if (tableMetas != null && tableMetas.length > 0) {
-					RBufferOperation bufferOperation = memDBBuilder
-							.getBufferOperation();
-					
-					List<TableMeta> changedTables = new ArrayList<>();
-					List<String> tableNames = (bufferOperation != null) ? bufferOperation
-							.getTableNameArray() : new ArrayList<>();
-					for (TableMeta tableMeta : tableMetas) {
-						
-						
-						if (tableNames.indexOf(tableMeta.getName()) < 0) {
-							changedTables.add(tableMeta);
-							continue;
-						}
-														
-						RTableOperation ops = bufferOperation.getTableOperation(tableMeta.getName());
-						List<String> columnNames = ops.getColumnNameArray();
-						if (isTableChanged(columnNames, tableMeta)) {
-							changedTables.add(tableMeta);
-							
-						}
-					}
-					
-//					if (!changedTables.isEmpty()) {
-//						rebuildTable(memDBBuilder, changedTables);
-//					}
-					
-					if (!changedTables.isEmpty()) {
-						logger.info("Buffer changed, will be recreated : {}. ", config.getKey());
-						// remove buffer
-						removeBuffer(memDBBuilder, config.getKey());
-						// make buffer
-						makeBuffer(config, memDBBuilder, tableMetas);
-					}
-				}
-			} else if (config.getCreateFlag() == BufferConfig.CREATE) {
-				// remove buffer
-				removeBuffer(memDBBuilder, config.getKey());
-				// make buffer
+			RMemDBApi memDBApi = service.connect(config.getAppName());
+	
+			RMemDBBuilder memDBBuilder = memDBApi
+					.getRMemDBBuilder(config.getName());
+			TableMeta[] tableMetas = config.getTableMetas();
+			if (!memDBBuilder.checkAvailability()) {
 				makeBuffer(config, memDBBuilder, tableMetas);
+			} else {
+				if (config.getCreateFlag() == BufferConfig.UPDATE) {
+					// check buffer define changed or not ?
+					if (tableMetas != null && tableMetas.length > 0) {
+						RBufferOperation bufferOperation = memDBBuilder
+								.getBufferOperation();
+						
+						List<TableMeta> changedTables = new ArrayList<>();
+						List<String> tableNames = (bufferOperation != null) ? bufferOperation
+								.getTableNameArray() : new ArrayList<>();
+						for (TableMeta tableMeta : tableMetas) {
+							
+							
+							if (tableNames.indexOf(tableMeta.getName()) < 0) {
+								changedTables.add(tableMeta);
+								continue;
+							}
+															
+							RTableOperation ops = bufferOperation.getTableOperation(tableMeta.getName());
+							List<String> columnNames = ops.getColumnNameArray();
+							if (isTableChanged(columnNames, tableMeta)) {
+								changedTables.add(tableMeta);
+								
+							}
+						}
+						
+	//					if (!changedTables.isEmpty()) {
+	//						rebuildTable(memDBBuilder, changedTables);
+	//					}
+						
+						if (!changedTables.isEmpty()) {
+							logger.info("Buffer changed, will be recreated : {}. ", config.getKey());
+							// remove buffer
+							removeBuffer(memDBBuilder, config.getKey());
+							// make buffer
+							makeBuffer(config, memDBBuilder, tableMetas);
+						}
+					}
+				} else if (config.getCreateFlag() == BufferConfig.CREATE) {
+					// remove buffer
+					removeBuffer(memDBBuilder, config.getKey());
+					// make buffer
+					makeBuffer(config, memDBBuilder, tableMetas);
+				}
+	
 			}
-
+	
+			return new DefaultBufferFactory(config, service, memDBBuilder);
+		
+		} catch (RedissonDBException e) {
+			e.printStackTrace();
+			return null;
 		}
-
-		return new DefaultBufferFactory(config, service, memDBBuilder);
 	}
 
 //	private void clearBuffer(RMemDBBuilder memDBBuilder, String appName,

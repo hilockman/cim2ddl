@@ -28,6 +28,11 @@ public class DefaultController {
         return "model";
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+    
     @GetMapping("/403")
     public String error403() {
         return "/error/403";

@@ -34,10 +34,11 @@
 		<module>test-proxy</module>
 		<module>ei-ads-console</module>
 		<module>ei-memdb-web</module>
-    <module>ei-memdb-console</module>
-    <module>ei-ads-base</module>
-    <module>ei-ads-terminal</module>
-	</modules>
+	    <module>ei-memdb-console</module>
+	    <module>ei-ads-base</module>
+	    <module>ei-ads-terminal</module>
+	    <module>ei-ads-buffer</module>
+  </modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>

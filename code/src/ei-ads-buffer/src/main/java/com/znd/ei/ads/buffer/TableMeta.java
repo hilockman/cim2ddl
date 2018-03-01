@@ -1,4 +1,4 @@
-package com.znd.ei.buffer;
+package com.znd.ei.ads.buffer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class TableMeta {
 		setColumns(Arrays.asList(columns));
 	}
 
-	private void formIndexColumn() {
+	public void formIndexColumn() {
 		indexColumns.clear();
 		int i = 0;
 		for (ColumnMeta c : columns) {
@@ -52,7 +52,6 @@ public class TableMeta {
 
 	public TableMeta setColumns(List<ColumnMeta> columns) {
 		this.columns = columns;
-		formIndexColumn();
 		return this;
 	}
 

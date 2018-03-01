@@ -6,7 +6,8 @@
 </head>
 <body>
  <div  th:replace="fragments/header :: header"></div>
- <div class="container-fluid">  
+ <div id="container">
+   
 	<nav class="navbar-default navbar-static-side" role="navigation">
     <div  class="sidebar-collapse" id="categories">
 	    <ul class="nav" id="side-menu">
@@ -69,7 +70,7 @@
 										
 				for (var i = 0; i < tables.length; i++ ) {
 					var table = tables[i];
-					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"' data-toggle='tooltip' title='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
+					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
 				}
 				$("."+categoryid+" a").click(function() {
 			        
@@ -87,8 +88,7 @@
    }
 
    $(function() {
-	   $('[data-toggle="tooltip"]').tooltip();    
-	   
+    
 		$.ajax({
 			url : "model/categories",
 			type : "GET",
@@ -106,7 +106,7 @@
 					var category = list[i];
 	
 					//categories.append("<li id='"+categoryid+"'><span><i class='fa fa fa-volume-up'></i> <a href=''>"+categoryname+"</a></span></li>");
-					categories.append("<li class='"+category.type+"' id='"+itemid+"'> <a href='javascript:void(0)' data-toggle='tooltip' title= '"+category.name+"'><i class='fa fa-qrcode'></i>"
+					categories.append("<li class='"+category.type+"' id='"+itemid+"'> <a href='javascript:void(0)''><i class='fa fa-qrcode'></i>"
 	                        +"<span class='nav-label'>   "+category.alias+"   </span>"
 	                        +"<span class='fa arrow'></span>"
 	                    +"</a></li>");
@@ -120,7 +120,7 @@
 				//alert(categories);
 
 
-				
+			     
 
 			},
 			error : function() {

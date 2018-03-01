@@ -1,52 +1,52 @@
-h1{
-	color:#0000FF;
-}
 
-h2{
-	color:#FF0000;
-}
 
 footer{
     margin-top:60px;
 }
 
-.navbar {
+  .navbar-static-side {
+    z-index: 2001;
+    position: absolute;
+    width: 220px;
+  }
+.header-navbar .navbar {
     margin-bottom: 0px;
     border-radius: 0px;
 	background: #007069;
 }
 
-.navbar .nav > li > a{
+.header-navbar .navbar .nav > li > a{
+    color: aqua;
+    background-color: #007069;
+   
+}
+
+.header-navbar .navbar .nav > li > a:hover,
+.header-navbar .navbar .nav >li >a:active {
     color: aqua;
     background-color: #007069;
 }
 
-.navbar .nav > li > a:hover,
-.navbar .nav >li >a:active {
+.header-navbar .navbar .nav >li >a:visited{
     color: aqua;
     background-color: #007069;
 }
-
-.navbar .nav >li >a:visited{
-    color: aqua;
-    background-color: #007069;
-}
-.navbar .nav > li .dropdown-menu {
+.header-navbar .navbar .nav > li .dropdown-menu {
     margin: 0;
 }
-.navbar .nav > li:hover .dropdown-menu {
+.header-navbar .navbar .nav > li:hover .dropdown-menu {
     display: block;
 }
 
-.navbar-nav>.active>a:hover{
+.header-navbar .navbar-nav>.active>a:hover{
     color:#555;
     background-color:#007069}
 
-.navbar-right{
+.navbar-right {
     margin-right: 5px;
 }
 
-.nav .navbar-nav .navbar-right >li >a:hover {
+.header-navbar .nav .navbar-nav .navbar-right >li >a:hover {
     color: aqua;
     background-color: #007069;
 }

@@ -1,4 +1,4 @@
-package com.znd.ei.buffer;
+package com.znd.ei.ads.buffer;
 /**
  * 
  * @author wangheng
@@ -8,14 +8,15 @@ public class ColumnMeta {
 
 	private int index;
 	private String name;
-	private int type;
+	private String alias;
+	private String type;
 	private boolean indexable;
 	
 	public ColumnMeta() {
 		
 	}
 	
-	public ColumnMeta(String name, int type, boolean indexable) {
+	public ColumnMeta(String name, String type, boolean indexable) {
 		this.name = name;
 		this.type = type;
 		this.indexable = indexable;
@@ -28,10 +29,10 @@ public class ColumnMeta {
 		this.name = name;
 		return this;
 	}
-	public int getType() {
+	public String getType() {
 		return type;
 	}
-	public ColumnMeta setType(int type) {
+	public ColumnMeta setType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -64,7 +65,7 @@ public class ColumnMeta {
 		result = prime * result + index;
 		result = prime * result + (indexable ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + type;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -89,5 +90,13 @@ public class ColumnMeta {
 		if (type != other.type)
 			return false;
 		return true;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

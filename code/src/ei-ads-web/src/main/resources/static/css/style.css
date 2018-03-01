@@ -80,6 +80,7 @@ h5 {
   margin-right: 40px;
 }
 
+
 body.body-small .navbar-top-links li:last-child {
     margin-right: 10px;
 }
@@ -168,7 +169,7 @@ body.body-small .navbar-top-links li:last-child {
   transition: all 0.5s;
 }
 .nav > li.active {
-  border-left: 4px solid #19aa8d;
+  border-left: 0px solid;
   background: #293846;
 }
 .nav.nav-second-level > li.active {
@@ -2872,9 +2873,9 @@ a.forum-item-title:hover {
 }
 body {
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #2f4050;
+  /*background-color: #2f4050;*/
   font-size: 13px;
-  color: #676a6c;
+  /*color: #676a6c;*/
   overflow-x: hidden;
 }
 html,
@@ -3404,6 +3405,13 @@ table.table-mail tr td {
 /* BACKGROUNDS */
 .gray-bg {
   background-color: #f3f3f4;
+}
+.blue-bg {
+	backgroud-color: #19aa8d
+}
+
+.light-blue-bg {
+	backgroud-color: #00e9c5
 }
 .white-bg {
   background-color: #ffffff;

@@ -1,4 +1,4 @@
-package com.znd.ei.buffer;
+package com.znd.ei.ads.buffer;
 
 import java.io.Closeable;
 import java.util.List;

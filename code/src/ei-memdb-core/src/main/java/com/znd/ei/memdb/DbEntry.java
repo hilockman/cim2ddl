@@ -17,12 +17,18 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 
 	private Connection connection;
 	private String dbname;
+	private String id;
 
 
 	public DbEntry(Connection connection) {
 		this.setConnection(connection);
 
 		dbname = connection.getName();
+		int pos = dbname.indexOf('.');
+		if (pos < 0)
+			pos = -1;
+		setId(dbname.substring(pos+1));
+		
 		DbEntryOperations.ALL_DB_OPS.put(dbname, this);
 		JMemDBApi.initMemDB(dbname, 0, 1);
 		int tableNum = JMemDBApi.getTableNum(dbname);
@@ -239,6 +245,14 @@ public class DbEntry extends DbComponent implements DbEntryOperations  {
 	@Override
 	public String toString() {
 		return "DbEntry [connection=" + connection + ", dbname=" + dbname + "]";
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }
 

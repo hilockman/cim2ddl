@@ -1,4 +1,4 @@
-package com.znd.ei.buffer;
+package com.znd.ei.ads.buffer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,9 @@ import java.util.Map;
 public class BufferConfig {
 	
 	private String appName;
+	private String id;
 	private String name;
+	private String alias;
 	
 	private TableMeta[] tableMetas;
 	
@@ -75,5 +77,23 @@ public class BufferConfig {
 	}
 	
 	
+	void build() {
+		for (int i = 0; i < tableMetas.length; i++) {
+			tableMetas[i].formIndexColumn();
+		}
+	}
 	
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}	
 }

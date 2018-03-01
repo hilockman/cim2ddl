@@ -7,14 +7,14 @@
 
      
                    
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css">
+		<!-- link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css"-->
 
         <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
         <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
              
-        <link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css" />    
+        <!-- link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css" /-->    
              
-       <script src="../../scripts/jquery-3.2.1.js"></script>      
+        <script src="../../scripts/jquery-3.2.1.js"></script>      
 
 </head>
 <body>
@@ -28,14 +28,13 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav pull-left">
                     <li class="active"><a th:href="@{/}">主页</a></li>
-                    <li class="active"><a th:href="@{/model}">模型查看</a></li>
-                    <li class="active"><a th:href="@{/pradequacy}">可靠性计算</a></li>
+                    <li><a th:href="@{/model}">模型查看</a></li>
+                    <li><a th:href="@{/pradequacy}">可靠性计算</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right pull-right">
+                <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-
-                            <li><a th:href="@{/admin/profile}"><i class="fa fa-sun-o"></i> 个人设置</a></li>
-                            <li><a th:href="@{/admin/logout}"><i class="fa fa-sign-out"></i> 注销</a></li>
+                            <li><a th:href="@{/admin/signup}"><span class="fa fa-user"> 注册</span></a></li>
+                            <li><a th:href="@{/admin/login}"><span class="fa fa-sign-in"> 登录</span></a></li>
                         </ul>
                     </li>
                 </ul>                
