@@ -1,9 +1,19 @@
 
 
 footer{
-    margin-top:60px;
+	    text-align:center;
+		clear: both;
+		margin: 0;
+		padding-top: 16px;
+		margin-left: 12px;
+		width: 1210px;
+		line-height:24px;
+		background: #f0f0f0;
+		border-top: 0px solid #fff;
+		/*background: #fdfcf8 url(/ui2017/footer.png) top left repeat-x;*/
+		font-family:PingFangSC-Regular, '微软雅黑', Verdana, Arial, '宋体';
 }
-
+/*
   .navbar-static-side {
     z-index: 2001;
     position: absolute;
@@ -51,3 +61,4 @@ footer{
     background-color: #007069;
 }
 
+*/

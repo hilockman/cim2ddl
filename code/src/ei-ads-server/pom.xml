@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ZhongND.ei</groupId>
+    <artifactId>ei-cim</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>ei-ads-server</artifactId>
+  <name>ei-ads-server</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <deplory.dir>../../lib/${project.name}</deplory.dir>
+  </properties>
+  <dependencies>	
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>		    
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-buffer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+  </dependencies>
+ 	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.6.RELEASE</version>
+					</dependency>
+				</dependencies>				
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir dir="${deplory.dir}" />
+								<copy todir="${deplory.dir}" overwrite="true">
+									<fileset dir="${project.build.directory}"
+										erroronmissingdir="false">
+										<include name="*.jar" />
+									</fileset>
+								</copy>
+								<copy todir="${deplory.dir}" overwrite="true">
+									<fileset dir="${basedir}/src/main/resources"
+										erroronmissingdir="false">
+										<include name="*.properties" />
+										<include name="*.yaml" />
+										<include name="*.json" />
+									</fileset>
+								</copy>								
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>  
+	  
+</project>

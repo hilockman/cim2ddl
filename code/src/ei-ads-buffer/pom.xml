@@ -15,7 +15,6 @@
   </properties>
   <dependencies>
   
-    
  		<dependency>
 			<groupId>com.ZhongND.RedisDataBus</groupId>
 			<artifactId>redisdatabus</artifactId>

@@ -24,9 +24,7 @@ public  class ExchangeData <T extends ExchangeContent> {
 	public void setCommand(String command) {
 		Command = command;
 	}
-
-
-
+	
 	public T getContent() {
 		return Content;
 	}

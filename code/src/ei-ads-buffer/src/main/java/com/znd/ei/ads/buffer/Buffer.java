@@ -4,8 +4,8 @@ import java.io.Closeable;
 import java.util.List;
 import java.util.Map;
 
-public interface Buffer  extends Closeable {
-
+public interface Buffer  extends Closeable {	
+	List<TableMeta> tables();
 	
 	<T> T selectOne(String statement, Object parameter);
 	<E> List<E> selectList(String statement, Object parameter);

@@ -20,6 +20,12 @@
 			<artifactId>ei-acp-dfredisson</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+	    <dependency>
+	    	<groupId>com.ZhongND.RedisDataBus</groupId>
+	    	<artifactId>redisdatabus</artifactId>
+	    	<version>1.0.0</version>
+	    </dependency>		
 
 		<!-- dependency> <groupId>com.znd.ei</groupId> <artifactId>ei-acp-springredis</artifactId> 
 			<version>${project.version}</version> </dependency -->

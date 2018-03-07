@@ -1,0 +1,3 @@
+server:
+  name: ei-ads-server
+  port: 8080

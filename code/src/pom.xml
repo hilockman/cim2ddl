@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                               http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ZhongND.ei</groupId>
 	<version>1.0.1-SNAPSHOT</version>
 	<artifactId>ei-cim</artifactId>
@@ -10,15 +11,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.M3</version>
-		<relativePath/>
+		<version>2.0.0.RELEASE</version>
+
 	</parent>
 
 
 	<modules>
 		<module>ei-model</module>
 		<module>ei-persist</module>
-		<module>ei-webservice</module>
 		<module>ei-console</module>
 		<module>ei-memdb-core</module>
 		<module>ei-memdb</module>
@@ -29,21 +29,19 @@
 		<module>ei-ads-web</module>
 		<module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
-		<module>test-java</module>
-		<module>test-nio-client</module>
-		<module>test-proxy</module>
 		<module>ei-ads-console</module>
 		<module>ei-memdb-web</module>
 	    <module>ei-memdb-console</module>
 	    <module>ei-ads-base</module>
 	    <module>ei-ads-terminal</module>
 	    <module>ei-ads-buffer</module>
-  </modules>
+	    <module>ei-ads-server</module>
+	</modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
 		<hsqldb.version>1.8.0.7</hsqldb.version>
-		<jetty.version>9.4.6.v20170531</jetty.version>
+		
 		<java.version>1.8</java.version>
 		<!-- spring.version>4.2.1.RELEASE</spring.version -->
 		<!-- spring-data.version>Gosling-RELEASE</spring-data.version -->
@@ -55,12 +53,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+		<!-- 
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-webapp</artifactId>
 				<version>${jetty.version}</version>
 			</dependency>
-
+ -->
 			<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-framework-bom</artifactId> 
 				<version>${spring.version}</version> <scope>import</scope> <type>pom</type> 
 				</dependency> <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-releasetrain</artifactId> 
@@ -131,5 +130,40 @@
 	        <name>Maven Snapshot Repository</name>    
 	        <url>http://192.168.1.27:8081/repository/maven-snapshots/</url>    
 	    </snapshotRepository>    
-	</distributionManagement>   	
+	</distributionManagement> 
+	
+		
+
+    <!--所有请求均通过镜像 
+    <repositories>
+         <repository>
+            <id>central</id>
+            <url>http://192.168.1.27:8081/repository/maven-public/</url>
+            <releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases>
+            <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+         </repository>
+    </repositories>
+    <pluginRepositories>
+          <pluginRepository>
+             <id>central</id>
+             <url>http://192.168.1.27:8081/repository/maven-public/</url>
+             <releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases>
+             <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+          </pluginRepository>
+     </pluginRepositories>
+     -->
+     <!-- 
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
+     -->	
 </project>

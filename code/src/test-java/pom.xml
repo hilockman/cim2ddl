@@ -2,11 +2,10 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.ZhongND.ei</groupId>
-    <artifactId>ei-cim</artifactId>
+
+      <groupId>com.ZhongND.ei</groupId>
+
     <version>1.0</version>
-  </parent>
   <artifactId>test-java</artifactId>
   <name>test-java</name>
   <url>http://maven.apache.org</url>
@@ -17,8 +16,8 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
       <scope>test</scope>
+      <version>3.8.1</version>
     </dependency>
   </dependencies>
 </project>

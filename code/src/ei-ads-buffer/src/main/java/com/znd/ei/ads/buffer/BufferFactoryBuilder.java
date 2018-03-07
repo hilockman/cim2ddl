@@ -34,6 +34,7 @@ public class BufferFactoryBuilder {
 	}
 
 	private static final HashMap<String, RedisTableColumnType> typeMap = new HashMap<>();
+	private static final HashMap<RedisTableColumnType, String> inverseTypeMap = new HashMap<>();
 
 
 	public static final String INT = "int";
@@ -46,8 +47,7 @@ public class BufferFactoryBuilder {
 	public static final String SHORT = "short";
 	public static final String DATE = "date";
 	public static final String TIME = "time";
-	static {
-		
+	static {		
 		typeMap.put(INT, RedisTableColumnType.RedisTableColumnType_int);
 		typeMap.put(BOOLEAN, RedisTableColumnType.RedisTableColumnType_boolean);
 		typeMap.put(STRING, RedisTableColumnType.RedisTableColumnType_String);
@@ -58,6 +58,25 @@ public class BufferFactoryBuilder {
 		typeMap.put(SHORT, RedisTableColumnType.RedisTableColumnType_short);
 		typeMap.put(DATE, RedisTableColumnType.RedisTableColumnType_long);
 		typeMap.put(TIME, RedisTableColumnType.RedisTableColumnType_long);
+	
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_int, INT);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_boolean, BOOLEAN);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_String, STRING);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_double, DOUBLE);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_byte, BYTE);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_float, FLOAT);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_long, LONG);
+		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_short, SHORT);
+	}
+	
+	
+	public static RedisTableColumnType toType(String type) {
+		return typeMap.get(type);
+	}
+	
+	
+	public static  String toType(RedisTableColumnType type) {
+		return inverseTypeMap.get(type);
 	}
 	
 	private void makeTable(RBufferBuilder bufferBuilder, TableMeta tableDefine)
@@ -167,11 +186,15 @@ public class BufferFactoryBuilder {
 			RMemDBBuilder memDBBuilder = memDBApi
 					.getRMemDBBuilder(config.getName());
 			TableMeta[] tableMetas = config.getTableMetas();
-			if (!memDBBuilder.checkAvailability()) {
-				makeBuffer(config, memDBBuilder, tableMetas);
-			} else {
-				if (config.getCreateFlag() == BufferConfig.UPDATE) {
-					// check buffer define changed or not ?
+			boolean available = memDBBuilder.checkAvailability();
+			if (config.getCreateFlag() == BufferConfig.FALSE && !available) {
+				throw new RuntimeException("Fail to find buffer : "+config.getName());
+			}
+						
+			if (config.getCreateFlag() == BufferConfig.UPDATE) { //更新buffer
+				boolean createFlag = false;
+				// check buffer define changed or not ?
+				if (available) {
 					if (tableMetas != null && tableMetas.length > 0) {
 						RBufferOperation bufferOperation = memDBBuilder
 								.getBufferOperation();
@@ -195,32 +218,44 @@ public class BufferFactoryBuilder {
 							}
 						}
 						
-	//					if (!changedTables.isEmpty()) {
-	//						rebuildTable(memDBBuilder, changedTables);
-	//					}
-						
 						if (!changedTables.isEmpty()) {
-							logger.info("Buffer changed, will be recreated : {}. ", config.getKey());
+							logger.info("Buffer config changed, will be removed : {}. ", config.getKey());
 							// remove buffer
 							removeBuffer(memDBBuilder, config.getKey());
-							// make buffer
-							makeBuffer(config, memDBBuilder, tableMetas);
+							createFlag = true;
 						}
 					}
-				} else if (config.getCreateFlag() == BufferConfig.CREATE) {
-					// remove buffer
-					removeBuffer(memDBBuilder, config.getKey());
-					// make buffer
-					makeBuffer(config, memDBBuilder, tableMetas);
+					
+					
+					if (createFlag) {
+						logger.info("Buffer will be created : {}. ", config.getKey());
+						// make buffer
+						makeBuffer(config, memDBBuilder, tableMetas);
+					}
 				}
-	
+			} else if (config.getCreateFlag() == BufferConfig.CREATE) {
+				if (available){
+					// remove buffer
+					logger.info("Buffer config will be removed : {}. ", config.getKey());
+					removeBuffer(memDBBuilder, config.getKey());
+				}
+				
+				// make buffer
+				logger.info("Buffer will be created : {}. ", config.getKey());
+				makeBuffer(config, memDBBuilder, tableMetas);
+			} else { //从数据库中加载表信息
+				if (available) {
+					
+				}
 			}
+			
 	
 			return new DefaultBufferFactory(config, service, memDBBuilder);
 		
-		} catch (RedissonDBException e) {
-			e.printStackTrace();
-			return null;
+		} catch (RedissonDBException e) { //低层redisdatabus出错
+			throw new RuntimeException(e);
+		} finally {
+			logger.info("Succeed to build buffer : "+config.getKey());
 		}
 	}
 

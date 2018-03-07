@@ -1,8 +1,0 @@
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-	<!--cxf的3.0版本之后可能已经不需要这个配置文件了  import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" /-->
-	<!--cxf的3.0版本之后可能已经不需要这个配置文件了  import resource="classpath:META-INF/cxf/cxf-servlet.xml" /-->    
-<bean id="hello" class="demo.spring.service.HelloWorldImpl" /> 
-<jaxws:endpoint id="helloWorld" implementor="#hello" address="/HelloWorld" />
-
-</beans>

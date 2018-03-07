@@ -1,6 +1,7 @@
 package com.znd.ei.ads.buffer.defaults;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,12 @@ import org.slf4j.LoggerFactory;
 import com.ZhongND.RedisDataBus.Api.RBufferOperation;
 import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
+import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
+import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
 import com.znd.ei.ads.buffer.Buffer;
 import com.znd.ei.ads.buffer.BufferConfig;
+import com.znd.ei.ads.buffer.BufferFactoryBuilder;
 import com.znd.ei.ads.buffer.ColumnMeta;
 import com.znd.ei.ads.buffer.ParamerterHandler;
 import com.znd.ei.ads.buffer.TableMeta;
@@ -105,12 +109,8 @@ public class DefaultBuffer implements Buffer {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> List<E> selectList(String statement, Object parameter) {
-		TableMeta tableMeta = config.find(statement);
-		if (tableMeta == null) {
-			throw new RuntimeException(String.format("Fail to to parse  statemmate , find no table:'%s'. ", statement));
-		}
-		
-		
+		TableMeta tableMeta = findTableMeta(statement);
+				
 		RTableOperation tableOps = getTableOperation(tableMeta);
 		
 		Map<String, String> conditionMap  = null;
@@ -139,10 +139,7 @@ public class DefaultBuffer implements Buffer {
 
 	@Override
 	public int insert(String statement, Object parameter) {
-		TableMeta tableMeta = config.find(statement);
-		if (tableMeta == null) {
-			throw new RuntimeException(String.format("Fail to to parse  statemmate , find no table:'%s'. ", statement));
-		}
+		TableMeta tableMeta = findTableMeta(statement);
 		
 		if (autoCommit) {
 			commitRecords(tableMeta, new Object[] { parameter });
@@ -197,13 +194,50 @@ public class DefaultBuffer implements Buffer {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	private  void loadColumnMetas(TableMeta tableMeta, RBufferOperation bufferOps) throws RedissonDBException {	
+		RTableOperation tableOps = bufferOps.getTableOperation(tableMeta.getName());
+		List<String> colNames = tableOps.getColumnNameArray();
+		for (int i = 0; i < colNames.size(); i++) {
+			RedisColumnContent content = tableOps.getColumnDefine(colNames.get(i));
+			ColumnMeta col = new ColumnMeta();
+			col.setName(content.getStrFieldName());
+			col.setIndexable(content.getIndexType());
+			col.setType(BufferFactoryBuilder.toType(content.getType()));
+			tableMeta.getIndexColumns().add(col);		
+		}
+		tableMeta.formIndexColumn();
+	}
 
+	
+	private TableMeta  findTableMeta(String tableName) {
+		TableMeta tableMeta = config.find(tableName);
+		if (tableMeta == null) {
+			try {
+				RBufferOperation bufferOps = memDBBuilder.getBufferOperation();
+				List<String> tables = bufferOps.getTableNameArray();
+				Collections.sort(tables);
+				int index = Collections.binarySearch(tables, tableName);
+				if (index == -1) {
+					throw new RuntimeException(String.format("Find no table:'%s', in buffer : %s", tableName, config.getKey()));
+				}
+				tableMeta  = new TableMeta();
+				tableMeta.setName(tableName);
+				
+				loadColumnMetas(tableMeta, bufferOps);			
+				config.add(tableMeta);
+			} catch (RedissonDBException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}			
+		}
+		
+		return tableMeta;
+	}
 	@Override
 	public int delete(String statement) {
-		TableMeta tableMeta = config.find(statement);
-		if (tableMeta == null) {
-			throw new RuntimeException(String.format("Fail to to parse  statemmate , find no table:'%s'. ", statement));
-		}
+		TableMeta tableMeta = findTableMeta(statement);
+		
 		RTableOperation tableOps = getTableOperation(tableMeta);
 		try {
 			tableOps.delRecord(new HashMap<String,String>());
@@ -288,6 +322,13 @@ public class DefaultBuffer implements Buffer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();			
 		}
+	}
+
+
+	@Override
+	public List<TableMeta> tables() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

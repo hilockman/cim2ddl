@@ -1,6 +1,8 @@
 package com.znd.ei.ads.buffer;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BufferConfig {
@@ -10,7 +12,7 @@ public class BufferConfig {
 	private String name;
 	private String alias;
 	
-	private TableMeta[] tableMetas;
+	private List<TableMeta> tableMetas;
 	
 	private Map<String, TableMeta> metaMap = new HashMap<>();
 
@@ -29,7 +31,7 @@ public class BufferConfig {
 	 */
 	public static final Integer UPDATE = 2; 
 	
-	//更新标志,值为0， 1， 2
+	//更新标志,值为0， 1， 2, 缺省为update
 	private int createFlag = UPDATE; 
 	
 
@@ -61,11 +63,11 @@ public class BufferConfig {
 	}
 	
 	public TableMeta[] getTableMetas() {
-		return tableMetas;
+		return tableMetas.toArray(new TableMeta[0]);
 	}
 	
 	public void setTableMetas(TableMeta[] tableMetas) {
-		this.tableMetas = tableMetas;
+		this.tableMetas = Arrays.asList(tableMetas);
 		metaMap.clear();
 		for (TableMeta meta : tableMetas) {
 			metaMap.put(meta.getName(), meta);
@@ -78,9 +80,14 @@ public class BufferConfig {
 	
 	
 	void build() {
-		for (int i = 0; i < tableMetas.length; i++) {
-			tableMetas[i].formIndexColumn();
+		for (int i = 0; i < tableMetas.size(); i++) {
+			tableMetas.get(i).formIndexColumn();
 		}
+	}
+	
+	public void add(TableMeta tableMeta) {
+		tableMetas.add(tableMeta);
+		metaMap.put(tableMeta.getName(), tableMeta);
 	}
 	
 	public String getAlias() {

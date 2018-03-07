@@ -3,14 +3,38 @@
 <head>
    <title>模型查看</title>
    <div th:replace="fragments/header :: header-css" /></div>
-
+   <style>
+   	  nav#table-nav {
+   	  	float:left;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 200px;
+		background: transparent;
+   	  }
+   	  div#page-wrapper {
+   	  	float: left;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 600px;
+		background: transparent;
+   	  }
+   	  
+   	  ul.dbcategory {
+   	  	margin:0 0 0 15px;
+   	  	padding:0;
+   	  }
+   	  
+   	  li.nav-expand-btn {
+   	  	float: right;
+   	  }
+   </style>
 </head>
 <body>
  <div  th:replace="fragments/header :: header"></div>
  <div class="container-fluid">  
- 
- 	   <nav class="navbar-default navbar-static-side" role="navigation">
-		
+ 	   <nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">		
 		    <div  class="sidebar-collapse" id="categories">
 			    <ul class="nav" id="side-menu">
 			    </ul>
@@ -78,7 +102,7 @@
 					var table = tables[i];
 					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"' data-toggle='tooltip' title='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
 				}
-				$("."+categoryid+" a").click(function() {
+				ulist.find("."+categoryid+" a").click(function() {
 			        
 			        var tableId = $(this).attr('id');
 			        loadRecoreds(categorytype, dbid, tableId);
@@ -94,8 +118,8 @@
    }
 
    $(function() {
-	   $('[data-toggle="tooltip"]').tooltip();    
-	   
+	    $('[data-toggle="tooltip"]').tooltip();    
+
 		$.ajax({
 			url : "model/categories",
 			type : "GET",
@@ -115,18 +139,25 @@
 					//categories.append("<li id='"+categoryid+"'><span><i class='fa fa fa-volume-up'></i> <a href=''>"+categoryname+"</a></span></li>");
 					categories.append("<li class='"+category.type+"' id='"+itemid+"'> <a href='javascript:void(0)' data-toggle='tooltip' title= '"+category.name+"'><i class='fa fa-folder'></i>"
 	                        +"<span class='nav-label'>   "+category.alias+"   </span>"
-	                        +"<span class='fa arrow'></span>"
+	                        +"<span class='nav-expand-btn fa fa-caret-left'></span>"
 	                    +"</a></li>");
 					var category_element = $("#"+itemid);
-					category_element.append("<ul class='nav nav-second-level collapse in'></ul>");
+					category_element.append("<ul class='dbcategory nav nav-second-level collapse in'></ul>");
+
 					var ul_element = $("#"+itemid).children("ul");
+					if (i != 0) {
+						ul_element.hide();
+					}
 					
 					loadTables(category.type, itemid, category.id, ul_element);
 					
 				}
 				//alert(categories);
 
-
+			    $(".fa-caret-left").click(function () {
+			        var l = $(this).parent().siblings("ul");
+			        l.toggle();
+			    });
 				
 
 			},
