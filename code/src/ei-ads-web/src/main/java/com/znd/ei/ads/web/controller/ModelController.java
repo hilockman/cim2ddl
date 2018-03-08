@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.znd.ei.ads.web.model.NodeInfo;
+import com.znd.ei.ads.web.model.CategroyInfo;
 import com.znd.ei.ads.web.service.BufferService;
 import com.znd.ei.ads.web.service.MemoryService;
 
@@ -25,11 +25,11 @@ public class ModelController {
 	
     @GetMapping("/categories")
     public List getCategories() {
-    	List<NodeInfo> bufferItems = bufferService.getDbNodes();
+    	List<CategroyInfo> bufferItems = bufferService.getDbNodes();
     	
-    	List<NodeInfo> memoryItems = memoryService.getDbNodes();
+    	List<CategroyInfo> memoryItems = memoryService.getDbNodes();
     	
-    	List<NodeInfo> items = new ArrayList<>();
+    	List<CategroyInfo> items = new ArrayList<>();
     	if (bufferItems != null)
     		items.addAll(bufferItems);
     	
@@ -41,9 +41,9 @@ public class ModelController {
     
     @GetMapping("/tables/{dbtype}/{dbid}")
     public List getTables(@PathVariable String dbtype, @PathVariable String dbid) {
-    	if (dbtype.equalsIgnoreCase(NodeInfo.MEMORY)) {
+    	if (dbtype.equalsIgnoreCase(CategroyInfo.MEMORY)) {
     		return memoryService.getTableNodes(dbid);
-    	} else if (dbtype.equalsIgnoreCase(NodeInfo.BUFFER)) {
+    	} else if (dbtype.equalsIgnoreCase(CategroyInfo.BUFFER)) {
     		return bufferService.getTableNodes(dbid);
     	} else {
     		return null;

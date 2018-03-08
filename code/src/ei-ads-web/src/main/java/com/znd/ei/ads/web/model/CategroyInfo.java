@@ -1,6 +1,6 @@
 package com.znd.ei.ads.web.model;
 
-public class NodeInfo {
+public class CategroyInfo {
 
 	public static final String MEMORY = "memory";
 	public static final String BUFFER = "buffer";

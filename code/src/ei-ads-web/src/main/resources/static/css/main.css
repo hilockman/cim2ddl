@@ -1,17 +1,24 @@
 
 
-footer{
+footer {
 	    text-align:center;
 		clear: both;
 		margin: 0;
 		padding-top: 16px;
-		margin-left: 12px;
-		width: 1210px;
+		
+		width: 100%;
 		line-height:24px;
 		background: #f0f0f0;
 		border-top: 0px solid #fff;
 		/*background: #fdfcf8 url(/ui2017/footer.png) top left repeat-x;*/
 		font-family:PingFangSC-Regular, '微软雅黑', Verdana, Arial, '宋体';
+}
+
+div.container-fluid {
+	margin: 0;
+	padding:0;
+	margin-bottom:20px;
+	
 }
 /*
   .navbar-static-side {

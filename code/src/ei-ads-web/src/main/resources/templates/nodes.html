@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>分布式计算-节点配置</title>
+    <meta charset="utf-8" />
+    <div th:replace="fragments/header :: header-css">
+    </div>
+    <style>
+    	div.container-fluid #add-user-btn {
+    		float: right;
+    	}
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container-fluid">
+
+    <div id="body-title"> 
+       	<h2>节点列表</h2>     
+    </div>
+     	
+    <div><a class="btn btn-success btn-sm" id="add-user-btn" th:href="@{/newnode}" >添加节点</a></div>
+    <table class="table">
+      <thead>
+	       <tr>
+	         <th>id</th>
+	         <th>名称</th>
+	         <th>运行状态</th>
+	         <th>更新时间</th>	         
+	         <th>执行任务次数</th>
+	         <th>执行工作次数</th>
+	         <th>操作</th>
+	      </tr>     
+      </thead>
+      <tbody>
+          <tr class="gradeX" th:each="node : ${nodeList}">
+		        <td th:text="${node.id}"></td>
+		        <td>
+		            <a target="_blank" th:href="${node.url}" th:text="${node.name}">
+		            </a>
+		        </td>
+		        <td th:text="${node.status}==1?'运行':'停运'">
+		
+		        </td>
+		        <td th:text="${#dates.format(node.lastUpdate,'yyyy-MM-dd')}">2016-10-14 10:41:50</td>
+		        <td th:text="${node.taskCount}"></td>		        
+		        <td th:text="${node.jobCount}"></td>
+		        <td th:data-id="${node.id}" th:data-state="${node.status}">
+		            <button class="btn btn-primary btn-xs node-edit" type="button" title="编辑" >
+		                编辑
+		            </button>
+		            <button class="btn btn-info btn-xs node-state" type="button" th:text="${node.status}!=1?'运行':'停运'" th:title="${node.status}!=1?'运行':'停运'">
+		                停运
+		            </button>
+		
+		            <button class="btn btn-danger btn-xs node-delete" type="button" title="删除" >
+		                删除
+		            </button>	
+		        </td>
+		    </tr>
+      </tbody>
+    </table>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer">
+</div>
+ <script type="text/javascript">
+ 	$(document).ready(function () {
+ 		
+
+ 	});
+ </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.znd.ei.ads.buffer.BufferConfig;
 import com.znd.ei.ads.buffer.BufferFactory;
 import com.znd.ei.ads.buffer.TableMeta;
-import com.znd.ei.ads.web.model.NodeInfo;
+import com.znd.ei.ads.web.model.CategroyInfo;
 import com.znd.ei.ads.web.service.BufferService;
 
 @Service
@@ -22,24 +22,24 @@ public class BufferServiceImpl implements BufferService {
 	BufferConfig bufferConfig;
 	
 	@Override
-	public List<NodeInfo> getDbNodes() {
-		List<NodeInfo> items = new ArrayList<>();
-		NodeInfo rootItem = new NodeInfo();
+	public List<CategroyInfo> getDbNodes() {
+		List<CategroyInfo> items = new ArrayList<>();
+		CategroyInfo rootItem = new CategroyInfo();
 		rootItem.setId(bufferConfig.getId());
 		rootItem.setName(bufferConfig.getName());
 		rootItem.setAlias(bufferConfig.getAlias());
-		rootItem.setType(NodeInfo.BUFFER);
+		rootItem.setType(CategroyInfo.BUFFER);
 		items.add(rootItem);
 		return items;
 	}
 
 	@Override
-	public List<NodeInfo> getTableNodes(String dbid) {
+	public List<CategroyInfo> getTableNodes(String dbid) {
 		TableMeta[] tables = bufferConfig.getTableMetas();
-		List<NodeInfo> nodes = new ArrayList<>();
+		List<CategroyInfo> nodes = new ArrayList<>();
 		for (int i = 0; i < tables.length; i++) {
 			TableMeta table = tables[i];
-			NodeInfo node = new NodeInfo();
+			CategroyInfo node = new CategroyInfo();
 			node.setId(table.getName());
 			node.setName(table.getName());
 			node.setAlias(table.getName());
