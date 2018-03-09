@@ -26,4 +26,10 @@ public interface NodeService {
     NodeInfo getByUrl(String url);
     
     void save(NodeInfo info);
+
+	void deleteById(Integer nodeId);
+
+	NodeInfo getById(Integer nodeId);
+
+	void update(NodeInfo node);
 }

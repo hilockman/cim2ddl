@@ -26,7 +26,8 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http.csrf().disable();
 	        http.authorizeRequests().antMatchers("/","/blog/**","/tag/**","friend","/login/**").permitAll()
-	                .antMatchers("/admin/**", "/pradequacy/**").authenticated()
+//	                .antMatchers("/admin/**", "/pradequacy/**").authenticated()
+	                .antMatchers("/admin/**").authenticated()
 //	                .and().rememberMe().tokenValiditySeconds(3600)
 	                .and().formLogin().loginPage("/admin/login").defaultSuccessUrl("/home").permitAll()
 	                .and().logout().logoutUrl("/admin/loginOut").permitAll();

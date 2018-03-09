@@ -23,4 +23,10 @@ public interface NodeMapper {
     void save(NodeInfo info);
 
 	NodeInfo getByUrl(String url);
+
+	void deleteById(Integer id);
+
+	NodeInfo getById(Integer nodeId);
+
+	void update(NodeInfo node);
 }

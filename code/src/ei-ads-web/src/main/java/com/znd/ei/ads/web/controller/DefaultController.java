@@ -37,8 +37,13 @@ public class DefaultController {
     
     @GetMapping("/newnode")
     public String newnode() {
-        return "newnode";
+        return "new_or_update_node";
     }    
+    
+    @GetMapping("/editnode")
+    public String editnode(Model model) {
+        return "new_or_update_node";
+    }  
     
     @GetMapping("/pradequacy")
     public String about() {

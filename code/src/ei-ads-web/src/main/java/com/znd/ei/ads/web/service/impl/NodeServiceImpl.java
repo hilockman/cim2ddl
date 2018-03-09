@@ -33,4 +33,19 @@ public class NodeServiceImpl implements NodeService {
 		return mapper.getByUrl(url);
 	}
 
+	@Override
+	public void deleteById(Integer nodeId) {
+		mapper.deleteById(nodeId);
+	}
+
+	@Override
+	public NodeInfo getById(Integer nodeId) {
+		return mapper.getById(nodeId);
+	}
+
+	@Override
+	public void update(NodeInfo node) {
+		mapper.update(node);
+	}
+
 }

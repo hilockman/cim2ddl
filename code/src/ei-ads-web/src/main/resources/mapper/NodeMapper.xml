@@ -13,6 +13,12 @@
         SELECT * from ads_node where url = #{url}
     </select>
 
+
+    <!--通过地址Node对象-->
+    <select id="getById" parameterType="Integer" resultType="NodeInfo">
+        SELECT * from ads_node where id = #{id}
+    </select>
+    
     <select id="all" resultType="NodeInfo">
         select * from ads_node
     </select>
@@ -22,4 +28,12 @@
         insert into ads_node(name, url) VALUES (#{name},#{url})
     </insert>
     
+    
+    <delete id="deleteById" parameterType="Integer">
+    	delete from ads_node where id = #{id};
+    </delete>
+    
+    <update id="update">
+    	update ads_node set name = #{name}, url = #{url} where id = #{id};
+    </update>
 </mapper>

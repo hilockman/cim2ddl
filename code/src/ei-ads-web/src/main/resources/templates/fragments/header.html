@@ -2,8 +2,8 @@
 <head th:fragment="header-css">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <!-- this is header-css -->
-		<link rel="stylesheet" type="text/css"
-			href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/3.3.7/css/bootstrap.min.css}" 
+			href="../../bootstrap/3.3.7/css/bootstrap.min.css" />
 
      
                    
@@ -23,9 +23,9 @@
 	<script type="text/javascript" src="//cdn.staticfile.org/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
 	 -->
    
-        <script src="../../scripts/jquery-3.2.1.js"></script>  
+        <script  type="text/javascript" th:src="@{/scripts/jquery-3.2.1.js}" src="../../scripts/jquery-3.2.1.js"></script>  
         
-        <script type="text/javascript"
+        <script type="text/javascript" th:src="@{/bootstrap/3.3.7/js/bootstrap.min.js}" 
                 src="../../bootstrap/3.3.7/js/bootstrap.min.js"></script>    
 
     <!-- style>
