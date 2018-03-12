@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.znd.ei.ads.web.mapper.NodeMapper">
+<mapper namespace="com.znd.ei.ads.mapper.NodeMapper">
     <!--通过name获取Node对象-->
     <select id="getByName" parameterType="String" resultType="NodeInfo">
         SELECT * from ads_node where name = #{name}

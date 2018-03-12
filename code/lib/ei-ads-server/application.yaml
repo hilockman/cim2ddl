@@ -1,3 +1,35 @@
 server:
   name: ei-ads-server
   port: 8080
+
+logging: 
+  file: log/ei-ads-server.log
+  level:
+     interfaceLogger: OFF
+     org.redisson: OFF
+      
+      
+  #buffer配置  
+buffer:
+   id:  0
+   name: common
+   alias: 公共
+   tables:
+      -  
+        name:  AdsNode  
+        columns:
+            - 
+              name: id
+              alias: id
+              type: integer
+              indexable: true
+            -
+              name: name
+              alias: 名称
+              type: string
+              indexable: true              
+            -
+              name: status
+              alias: 状态
+              type: integer
+              indexable: false        

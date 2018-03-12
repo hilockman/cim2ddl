@@ -15,17 +15,24 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
 	</properties>
 	<dependencies>
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>        
+      
+        	
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-acp-dfredisson</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		
-	    <dependency>
-	    	<groupId>com.ZhongND.RedisDataBus</groupId>
-	    	<artifactId>redisdatabus</artifactId>
-	    	<version>1.0.0</version>
-	    </dependency>		
 
 		<!-- dependency> <groupId>com.znd.ei</groupId> <artifactId>ei-acp-springredis</artifactId> 
 			<version>${project.version}</version> </dependency -->
@@ -33,6 +40,11 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-apl-reliability</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-buffer</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -45,6 +57,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		 <!-- hot swapping, disable cache for template, enable live reload -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency> 
 	</dependencies>
 
 	<build>

@@ -4,6 +4,8 @@ import java.io.Closeable;
 import java.util.List;
 import java.util.Map;
 
+import com.znd.ei.ads.buffer.config.TableMeta;
+
 public interface Buffer  extends Closeable {	
 	List<TableMeta> tables();
 	

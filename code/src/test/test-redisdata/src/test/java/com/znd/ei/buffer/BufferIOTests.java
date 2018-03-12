@@ -15,11 +15,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 import com.znd.ei.ads.buffer.Buffer;
-import com.znd.ei.ads.buffer.BufferConfig;
-import com.znd.ei.ads.buffer.BufferFactory;
 import com.znd.ei.ads.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.buffer.ColumnMeta;
-import com.znd.ei.ads.buffer.TableMeta;
+import com.znd.ei.ads.buffer.config.BufferConfig;
+import com.znd.ei.ads.buffer.config.ColumnMeta;
+import com.znd.ei.ads.buffer.config.TableMeta;
+import com.znd.ei.ads.buffer.factory.BufferFactory;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行

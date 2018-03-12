@@ -8,9 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.ads.buffer.BufferConfig;
-import com.znd.ei.ads.buffer.BufferFactory;
 import com.znd.ei.ads.buffer.BufferFactoryBuilder;
+import com.znd.ei.ads.buffer.config.BufferConfig;
+import com.znd.ei.ads.buffer.factory.BufferFactory;
 
 
 @RunWith(SpringRunner.class)

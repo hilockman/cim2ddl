@@ -14,7 +14,7 @@ logging:
         
 server:
   session-timeout : 3600
-  name: ads
+  name: ei-ads-server
   port: 8080
 model:
   cachedDir: ./model-cached-dir  
@@ -30,7 +30,7 @@ spring:
     
 #mynatis配置
 mybatis:
-  type-aliases-package: com.znd.ei.ads.web.vo
+  type-aliases-package: com.znd.ei.ads.vo
   #mapper加载路径
   mapper-locations: classpath:mapper/*Mapper.xml
   #myatbis配置文件

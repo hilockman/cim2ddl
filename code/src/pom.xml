@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ZhongND.ei</groupId>
 	<version>1.0.1-SNAPSHOT</version>
@@ -27,7 +26,6 @@
 		<module>ei-apl-reliability</module>
 		<module>ei-acp-dfredisson</module>
 		<module>ei-ads-web</module>
-		<module>test-redisson-mapreduce</module>
 		<module>ei-base</module>
 		<module>ei-ads-console</module>
 		<module>ei-memdb-web</module>
@@ -36,7 +34,8 @@
 	    <module>ei-ads-terminal</module>
 	    <module>ei-ads-buffer</module>
 	    <module>ei-ads-server</module>
-	</modules>
+    <module>ei-ads-client</module>
+  </modules>
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
@@ -134,7 +133,7 @@
 	
 		
 
-    <!--所有请求均通过镜像 
+    <!--�?有请求均通过镜像 
     <repositories>
          <repository>
             <id>central</id>

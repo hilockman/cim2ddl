@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import com.znd.ei.ads.buffer.TableMeta;
+
+import com.znd.ei.ads.buffer.config.TableMeta;
 
 @Component
 @ConfigurationProperties(prefix = "buffer")

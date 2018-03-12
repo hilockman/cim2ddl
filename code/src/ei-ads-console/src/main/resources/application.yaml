@@ -2,8 +2,8 @@ storage:
   location:com/znd/ei/memdb/domain
 
 server:
-      name: ei-ads-console
-      port: 8080
+  name: ei-ads-console
+  port: 9000
 
 ads:
   defaultlifecycle: 60000
@@ -24,13 +24,14 @@ state-estimate:
   readyResponseTimeOut: 5
   cachedDir: ./pr-dir
   appDir: ${ads.appDir}
-     
+   
 logging:
     level:
       interfaceLogger: OFF
       ClusterConnectionManager: OFF
       PubSubConnectionPool: OFF
       SlaveConnectionPool: OFF
+      org.redisson: OFF 
     file: log/ei-ads-console.log 
 io:
   netty:

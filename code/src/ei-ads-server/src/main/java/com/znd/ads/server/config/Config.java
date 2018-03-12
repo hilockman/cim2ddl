@@ -4,10 +4,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.znd.ei.ads.buffer.BufferConfig;
-import com.znd.ei.ads.buffer.BufferFactory;
 import com.znd.ei.ads.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.buffer.TableMeta;
+import com.znd.ei.ads.buffer.config.BufferConfig;
+import com.znd.ei.ads.buffer.config.TableMeta;
+import com.znd.ei.ads.buffer.factory.BufferFactory;
 
 @Configuration
 @EnableAutoConfiguration
