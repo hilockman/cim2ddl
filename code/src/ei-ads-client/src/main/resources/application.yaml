@@ -23,3 +23,4 @@ ads:
      thread: 4
      heartbeat: 1000
      ip:  192.168.1.70
+     port: ${server.port}

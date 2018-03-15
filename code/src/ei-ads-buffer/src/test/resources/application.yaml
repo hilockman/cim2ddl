@@ -1,0 +1,35 @@
+logging:
+  file: log/ei-ads-web.log
+  level:
+     interfaceLogger: OFF
+     org.redisson: OFF
+      
+        
+server:
+  session-timeout : 3600
+  name: ei-ads-buffer-test
+  port: 8080
+
+
+#buffer配置  
+buffer:
+   typePackage: com.znd.ei.ads.buffer.test.model
+   #mapper加载路径
+   mapperPackage: com.znd.ei.ads.buffer.test.mapper
+   id:  0
+   name: buffer_test
+   alias: test
+   tables:
+      -  
+        name:  User  
+        columns:
+            - 
+              name: id
+              alias: id
+              type: String
+              indexable: true
+            -
+              name: name
+              alias: 名称
+              type: string
+              indexable: true                     

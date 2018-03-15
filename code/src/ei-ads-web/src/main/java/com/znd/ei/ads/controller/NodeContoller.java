@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.znd.ei.ads.model.AdsResult;
 import com.znd.ei.ads.service.NodeService;
-import com.znd.ei.ads.vo.NodeInfo;
+import com.znd.ei.ads.vo.AdsNode;
 
 @Controller
 @RequestMapping("/node")
@@ -22,12 +22,12 @@ public class NodeContoller {
 	NodeService nodeService;
 	
 	@PostMapping("/add")
-	public String add(@ModelAttribute NodeInfo node, Model model) {
-		if (node.getId() != null && node.getId() < 0)
+	public String add(@ModelAttribute AdsNode node, Model model) {
+		if (node.getId() != null || node.getId().isEmpty() || Integer.valueOf(node.getId()) < 0)
 			node.setId(null);
 		boolean newFlag = (node.getId() == null);
 		
-		NodeInfo oldNode = nodeService.getByName(node.getName());
+		AdsNode oldNode = nodeService.getByName(node.getName());
 		if (oldNode != null) {
 			if (newFlag || (!newFlag && node.getId() != oldNode.getId())) {
 				model.addAttribute("error", String.format("Node exist: name = %s", node.getName()));
@@ -63,13 +63,13 @@ public class NodeContoller {
 	}
 	
 	@GetMapping("/{nodeId}")
-	public @ResponseBody NodeInfo get(@PathVariable Integer nodeId) {		
+	public @ResponseBody AdsNode get(@PathVariable Integer nodeId) {		
 		return nodeService.getById(nodeId);
 	}
 	
 	@GetMapping("/edit/{nodeId}")
 	public String edit(@PathVariable Integer nodeId, Model model) {	
-		NodeInfo node = nodeService.getById(nodeId);
+		AdsNode node = nodeService.getById(nodeId);
 		model.addAttribute("node", node);
 		//model.addAttribute("name", node.getName()).addAttribute("id", node.getId()).addAttribute("url", node.getUrl());		
 		return "/new_or_update_node";

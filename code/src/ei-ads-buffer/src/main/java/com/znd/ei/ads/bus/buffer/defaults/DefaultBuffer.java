@@ -1,6 +1,8 @@
-package com.znd.ei.ads.buffer.factory.defaults;
+package com.znd.ei.ads.bus.buffer.defaults;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -14,15 +16,16 @@ import org.slf4j.LoggerFactory;
 import com.ZhongND.RedisDataBus.Api.RBufferOperation;
 import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
-import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
-import com.znd.ei.ads.buffer.Buffer;
-import com.znd.ei.ads.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.buffer.ParamerterHandler;
-import com.znd.ei.ads.buffer.config.BufferConfig;
-import com.znd.ei.ads.buffer.config.ColumnMeta;
-import com.znd.ei.ads.buffer.config.TableMeta;
+import com.znd.ei.ads.bus.buffer.Buffer;
+import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
+import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.ei.ads.bus.config.ColumnMeta;
+import com.znd.ei.ads.bus.config.TableMeta;
+import com.znd.ei.ads.bus.mapping.MappedStatement;
+import com.znd.ei.ads.bus.mapping.ParamerterHandler;
+import com.znd.ei.ads.bus.mapping.ResultSet;
 
 public class DefaultBuffer implements Buffer {
 	private boolean autoCommit;
@@ -31,55 +34,27 @@ public class DefaultBuffer implements Buffer {
 	private final Logger logger = LoggerFactory.getLogger(DefaultBuffer.class);
 	
 	public class RecordCache {
-		private TableMeta tableMeta;
+ 
 		private List<Object> records = new ArrayList<>();
-
-		public RecordCache(TableMeta tableMeta) {
-			this.tableMeta = tableMeta;
+		public RecordCache() {
+			
+			//this.tableMeta = tableMeta;
 		}
 		public void clear() {
 			records.clear();
 		}
 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getOuterType().hashCode();
-			result = prime * result
-					+ ((tableMeta == null) ? 0 : tableMeta.hashCode());
-			return result;
-		}
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			RecordCache other = (RecordCache) obj;
-			if (!getOuterType().equals(other.getOuterType()))
-				return false;
-			if (tableMeta == null) {
-				if (other.tableMeta != null)
-					return false;
-			} else if (!tableMeta.equals(other.tableMeta))
-				return false;
-			return true;
-		}
-
-		private DefaultBuffer getOuterType() {
-			return DefaultBuffer.this;
-		}
-
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public void addRecord(Object parameter) {
-			records.add(parameter);
+			if (parameter instanceof Collection)
+				records.addAll((Collection)parameter);
+			else
+				records.add(parameter);
 		}
 	}
 
-	private Map<TableMeta, RecordCache> caches = new HashMap<>();
+	private Map<MappedStatement, RecordCache> caches = new HashMap<>();
 
 	public DefaultBuffer(BufferConfig config, RMemDBBuilder memDBBuilder, boolean b) {
 		this.config = config;
@@ -109,6 +84,10 @@ public class DefaultBuffer implements Buffer {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> List<E> selectList(String statement, Object parameter) {
+		
+		MappedStatement mappedStatement = config.getMappedStatement(statement);
+		
+		
 		TableMeta tableMeta = findTableMeta(statement);
 				
 		RTableOperation tableOps = getTableOperation(tableMeta);
@@ -122,7 +101,8 @@ public class DefaultBuffer implements Buffer {
 			throw new IllegalArgumentException("Illegal parameter type : "+parameter.getClass());
 		}
 		try {
-			return  (List<E>) tableOps.getRecord(conditionMap);
+			return mappedStatement.handler(new ResultSet(tableOps.getRecord(conditionMap)));
+			
 		} catch (RedissonDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,17 +118,19 @@ public class DefaultBuffer implements Buffer {
 	}
 
 	@Override
-	public int insert(String statement, Object parameter) {
-		TableMeta tableMeta = findTableMeta(statement);
-		
+	public int insert(String statement, Object parameter) {	
+		MappedStatement mappedStatement = config.getMappedStatement(statement);
 		if (autoCommit) {
-			commitRecords(tableMeta, new Object[] { parameter });
+			if (parameter instanceof List )
+				commitRecords(mappedStatement, (List<Object>)parameter);
+			else
+				commitRecords(mappedStatement, Arrays.asList(parameter));
 		} else {
-			RecordCache cache = caches.get(tableMeta);
+			RecordCache cache = caches.get(mappedStatement);
 			if (cache == null) {
-				cache = new RecordCache(tableMeta);
+				cache = new RecordCache();
 				
-				caches.put(tableMeta, cache);
+				caches.put(mappedStatement, cache);
 			}
 		    cache.addRecord(parameter);
 		}
@@ -211,7 +193,7 @@ public class DefaultBuffer implements Buffer {
 
 	
 	private TableMeta  findTableMeta(String tableName) {
-		TableMeta tableMeta = config.find(tableName);
+		TableMeta tableMeta = config.getTable(tableName);
 		if (tableMeta == null) {
 			try {
 				RBufferOperation bufferOps = memDBBuilder.getBufferOperation();
@@ -252,10 +234,10 @@ public class DefaultBuffer implements Buffer {
 
 		if (!caches.isEmpty()) {
 			try {
-				Set<Entry<TableMeta, RecordCache>> set = caches.entrySet();
-				for (Entry<TableMeta, RecordCache> e : set) {
-					RecordCache c = e.getValue();
-					commitRecords(c.tableMeta, c.records.toArray(new Object[0]));
+				
+				Set<Entry<MappedStatement, RecordCache>> entrySet = caches.entrySet();
+				for (Entry<MappedStatement, RecordCache> e : entrySet) {
+					commitRecords(e.getKey(), e.getValue().records);
 				}
 
 			} finally {
@@ -265,13 +247,7 @@ public class DefaultBuffer implements Buffer {
 	}
 
 	private void clearCaches() {
-		Set<Entry<TableMeta, RecordCache>> set = caches.entrySet();
-		for (Entry<TableMeta, RecordCache> c : set) {
-			c.getValue().clear();
-		}
-
 		caches.clear();
-
 	}
 
 	private RTableOperation getTableOperation(TableMeta tableMeta){
@@ -286,11 +262,12 @@ public class DefaultBuffer implements Buffer {
 		}
 	}
 	
-	private void commitRecords(TableMeta tableMeta, Object[] objects) 
+	private void commitRecords(MappedStatement mappedStatement, List<Object> objects) 
 	{		
+		TableMeta tableMeta = mappedStatement.getTableMeta();
 		RTableOperation tableOps = getTableOperation(tableMeta);
 		
-		ParamerterHandler recordBuilder = tableMeta.getRecordBuilder();
+		ParamerterHandler parameterHandler = mappedStatement.getParameterHandler();
 		List<String[]> records = new ArrayList<>();
 		Map<String, List<String>> indexRecords = new HashMap<>();
 
@@ -304,7 +281,7 @@ public class DefaultBuffer implements Buffer {
 		}
 		
 		for (Object o : objects) {
-			String[] values = recordBuilder.toArray(tableMeta, o);
+			String[] values = parameterHandler.toArray(tableMeta, o);
 			if (values.length != tableMeta.getColumnSize()) {
 				throw new RuntimeException("Cloumn size is not match : "+ tableMeta.getName());
 			}
@@ -329,6 +306,11 @@ public class DefaultBuffer implements Buffer {
 	public List<TableMeta> tables() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public BufferConfig getConfig() {
+		return config;
 	}
 
 

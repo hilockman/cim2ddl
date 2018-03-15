@@ -7,29 +7,29 @@ import org.springframework.stereotype.Service;
 
 import com.znd.ei.ads.mapper.NodeMapper;
 import com.znd.ei.ads.service.NodeService;
-import com.znd.ei.ads.vo.NodeInfo;
+import com.znd.ei.ads.vo.AdsNode;
 @Service
 public class NodeServiceImpl implements NodeService {
 	@Autowired
 	NodeMapper mapper;
 	
 	@Override
-	public List<NodeInfo> all() {
+	public List<AdsNode> all() {
 		return mapper.all();
 	}
 
 	@Override
-	public NodeInfo getByName(String name) {
+	public AdsNode getByName(String name) {
 		return mapper.getByName(name);
 	}
 
 	@Override
-	public void save(NodeInfo info) {
+	public void save(AdsNode info) {
 		mapper.save(info);
 	}
 
 	@Override
-	public NodeInfo getByUrl(String url) {
+	public AdsNode getByUrl(String url) {
 		return mapper.getByUrl(url);
 	}
 
@@ -39,12 +39,12 @@ public class NodeServiceImpl implements NodeService {
 	}
 
 	@Override
-	public NodeInfo getById(Integer nodeId) {
+	public AdsNode getById(Integer nodeId) {
 		return mapper.getById(nodeId);
 	}
 
 	@Override
-	public void update(NodeInfo node) {
+	public void update(AdsNode node) {
 		mapper.update(node);
 	}
 

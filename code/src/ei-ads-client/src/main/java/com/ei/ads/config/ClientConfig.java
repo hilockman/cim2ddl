@@ -2,16 +2,16 @@ package com.ei.ads.config;
 
 import java.util.concurrent.ExecutorService;
 
-import com.znd.ei.ads.vo.NodeInfo;
-
 public class ClientConfig {
 	private int heartbeat = 1000;
-
 	
 	private ExecutorService threadPool;
 	
+	private Integer port;
 	
-	private NodeInfo nodeInfo;
+	private String ip;
+	
+	private String hostName;
 	
 	public int getHeartbeat() {
 		return heartbeat;
@@ -29,11 +29,29 @@ public class ClientConfig {
 		this.threadPool = threadPool;
 	}
 
-	public NodeInfo getNodeInfo() {
-		return nodeInfo;
+	public Integer getPort() {
+		return port;
 	}
 
-	public void setNodeInfo(NodeInfo nodeInfo) {
-		this.nodeInfo = nodeInfo;
+	public void setPort(Integer port) {
+		this.port = port;
 	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+
+
 }

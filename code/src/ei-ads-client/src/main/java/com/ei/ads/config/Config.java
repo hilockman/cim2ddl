@@ -1,5 +1,7 @@
 package com.ei.ads.config;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,11 +10,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.znd.ei.ads.buffer.Buffer;
-import com.znd.ei.ads.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.buffer.config.BufferConfig;
-import com.znd.ei.ads.buffer.config.TableMeta;
-import com.znd.ei.ads.buffer.factory.BufferFactory;
+import com.znd.ei.ads.bus.buffer.BufferFactory;
+import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
+import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.ei.ads.bus.config.TableMeta;
 
 @Configuration
 @EnableAutoConfiguration
@@ -85,7 +86,23 @@ public class Config {
 		}
 		
 		config.setThreadPool(pool);
-		
+		config.setPort(property.getPort());
+		if (property.getIp() != null)
+		config.setIp(property.getIp());
+		else {
+	        InetAddress ip;
+	        String hostname;
+	        try {
+	            ip = InetAddress.getLocalHost();//TODO : how to deal with a host with more than one IP address.
+	            hostname = ip.getHostName();
+	            config.setHostName(hostname);
+	            config.setIp(ip.getHostAddress());
+	        } catch (UnknownHostException e) {
+	 
+	            e.printStackTrace();
+	        }
+		}
+			
 		
 //		Buffer buffer = bufferFactory.openSession();
 ////		buffer.selectList(statement, parameter);

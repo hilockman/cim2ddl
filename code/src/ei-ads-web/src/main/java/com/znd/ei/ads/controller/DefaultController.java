@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.znd.ei.ads.service.NodeService;
-import com.znd.ei.ads.vo.NodeInfo;
+import com.znd.ei.ads.vo.AdsNode;
 
 @Controller
 public class DefaultController {
@@ -30,7 +30,7 @@ public class DefaultController {
     
     @GetMapping("/nodes")
     public String nodes(Model model) {
-    	List<NodeInfo> nodeList = nodeService.all();
+    	List<AdsNode> nodeList = nodeService.all();
     	model.addAttribute("nodeList",nodeList);
         return "nodes";
     }

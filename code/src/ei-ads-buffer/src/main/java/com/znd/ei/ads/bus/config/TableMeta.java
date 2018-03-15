@@ -1,10 +1,8 @@
-package com.znd.ei.ads.buffer.config;
+package com.znd.ei.ads.bus.config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.znd.ei.ads.buffer.ParamerterHandler;
 /**
  * 表定义
  * @author wangheng
@@ -18,7 +16,6 @@ public class TableMeta {
 	
 	private List<ColumnMeta> indexColumns = new ArrayList<>();
  
-	private ParamerterHandler recordBuilder = ParamerterHandler.DefaultParameterHandler;
 
 	public TableMeta() {
 
@@ -63,13 +60,7 @@ public class TableMeta {
 		return columns.size();
 	}
 
-	public ParamerterHandler getRecordBuilder() {
-		return recordBuilder;
-	}
 
-	public void setRecordBuilder(ParamerterHandler recordBuilder) {
-		this.recordBuilder = recordBuilder;
-	}
 
 	public List<ColumnMeta> getIndexColumns() {
 		return indexColumns;

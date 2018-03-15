@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DefaultController {
 
 	@GetMapping("/")
-	String home() {
+	public String home() {
 		return "/home";
 	}
 	
 	@GetMapping("/home")
-	String home1() {
+	public String home1() {
 		return "/home";
 	}
 }

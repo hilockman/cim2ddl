@@ -1,6 +1,6 @@
-package com.znd.ei.ads.buffer;
+package com.znd.ei.ads.bus.mapping;
 
-import com.znd.ei.ads.buffer.config.TableMeta;
+import com.znd.ei.ads.bus.config.TableMeta;
 
 public interface ParamerterHandler {
 	public final static ParamerterHandler DefaultParameterHandler = (tableMeta, o)-> { return (String[])o; };

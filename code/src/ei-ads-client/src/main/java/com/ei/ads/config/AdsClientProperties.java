@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 public class AdsClientProperties {
 	private int thread = -1;
 	private int heartbeat = 1000;
+	private int port = 9000;
+	private String ip;
 	
 	public int getThread() {
 		return thread;
@@ -23,5 +25,21 @@ public class AdsClientProperties {
 
 	public void setHeartbeat(int heartbeat) {
 		this.heartbeat = heartbeat;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 }

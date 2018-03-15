@@ -1,4 +1,4 @@
-package com.znd.ei.ads.buffer.config;
+package com.znd.ei.ads.bus.config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,17 +6,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.znd.ei.ads.bus.binding.MapperRegistry;
+import com.znd.ei.ads.bus.buffer.Buffer;
+import com.znd.ei.ads.bus.mapping.MappedStatement;
+import com.znd.ei.ads.bus.mapping.ObjectReflector;
+
 public class BufferConfig {
 	
 	private String appName;
 	private String id;
 	private String name;
 	private String alias;
+	private String typePackage;
+	private String mapperPackage;
 	
 	private List<TableMeta> tableMetas = new ArrayList<>();
 	
 	private Map<String, TableMeta> metaMap = new HashMap<>();
 
+	private MapperRegistry mapperRegistry = new MapperRegistry(this);
+		
+	private Map<Class<?>, ObjectReflector> reflectorMap = new HashMap<>();
+	
+	private Map<String, MappedStatement> statementMap = new HashMap<>();
+	
 	/**
 	 * 每次重新创建buffer
 	 */
@@ -78,7 +91,7 @@ public class BufferConfig {
 		}
 	}
 	
-	public TableMeta find(String tableName) {
+	public TableMeta getTable(String tableName) {
 		return metaMap.get(tableName);
 	}
 	
@@ -87,6 +100,9 @@ public class BufferConfig {
 		for (int i = 0; i < tableMetas.size(); i++) {
 			tableMetas.get(i).formIndexColumn();
 		}
+		
+		if (mapperPackage != null)
+			addMappers(mapperPackage);
 	}
 	
 	public void add(TableMeta tableMeta) {
@@ -107,4 +123,52 @@ public class BufferConfig {
 	public void setId(String id) {
 		this.id = id;
 	}	
+	
+	
+	public <T> T getMapper(Class<T> type, Buffer buffer) {
+		return mapperRegistry.getMapper(type, buffer);
+	}
+	
+	public void addMappers(String packageName, Class<?> superType) {
+		    mapperRegistry.addMappers(packageName, superType);
+	}
+
+	  public void addMappers(String packageName) {
+	    mapperRegistry.addMappers(packageName);
+	  }
+	
+	  public <T> void addMapper(Class<T> type) {
+	    mapperRegistry.addMapper(type);
+	  }
+		  
+	public MappedStatement getMappedStatement(String statement) {
+		MappedStatement mappedStatement = statementMap.get(statement);
+		return mappedStatement;
+	}
+
+	public ObjectReflector getReflector(Class<?> type) {
+		ObjectReflector reflectory = reflectorMap.get(type);
+		if (reflectory == null) {
+			reflectory = createReflector(type);
+			reflectorMap.put(type, reflectory);
+		}
+		
+		return reflectory;
+	}
+	
+	private ObjectReflector createReflector(Class<?> type) {
+		return new ObjectReflector(type);
+	}
+	public String getTypePackage() {
+		return typePackage;
+	}
+	public void setTypePackage(String typePackage) {
+		this.typePackage = typePackage;
+	}
+	public String getMapperPackage() {
+		return mapperPackage;
+	}
+	public void setMapperPackage(String mapperPackage) {
+		this.mapperPackage = mapperPackage;
+	}
 }

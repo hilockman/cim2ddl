@@ -1,10 +1,11 @@
-package com.znd.ei.ads.buffer;
+package com.znd.ei.ads.bus.buffer;
 
 import java.io.Closeable;
 import java.util.List;
 import java.util.Map;
 
-import com.znd.ei.ads.buffer.config.TableMeta;
+import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.ei.ads.bus.config.TableMeta;
 
 public interface Buffer  extends Closeable {	
 	List<TableMeta> tables();
@@ -27,6 +28,8 @@ public interface Buffer  extends Closeable {
 	void commit();
 	@Override
 	public void close();
+
+	BufferConfig getConfig();
 	
 	
 }

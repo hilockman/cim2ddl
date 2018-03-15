@@ -4,29 +4,29 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.znd.ei.ads.vo.NodeInfo;
+import com.znd.ei.ads.vo.AdsNode;
 @Mapper
 public interface NodeMapper {
     /**
      * 获取所有的节点
      * @return
      */
-    List<NodeInfo> all();
+    List<AdsNode> all();
     
     /**
      * 根据名称获取节点
      * @param name
      * @return
      */
-    NodeInfo getByName(String name);
+    AdsNode getByName(String name);
     
-    void save(NodeInfo info);
+    void save(AdsNode info);
 
-	NodeInfo getByUrl(String url);
+	AdsNode getByUrl(String url);
 
 	void deleteById(Integer id);
 
-	NodeInfo getById(Integer nodeId);
+	AdsNode getById(Integer nodeId);
 
-	void update(NodeInfo node);
+	void update(AdsNode node);
 }

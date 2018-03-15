@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.znd.ei.ads.buffer.config.BufferConfig;
-import com.znd.ei.ads.buffer.config.TableMeta;
-import com.znd.ei.ads.buffer.factory.BufferFactory;
+import com.znd.ei.ads.bus.buffer.BufferFactory;
+import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.ei.ads.bus.config.TableMeta;
 import com.znd.ei.ads.model.CategroyInfo;
 import com.znd.ei.ads.service.BufferService;
 

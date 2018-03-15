@@ -1,14 +1,14 @@
-package com.znd.ei.ads.buffer.factory.defaults;
+package com.znd.ei.ads.bus.buffer.defaults;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ZhongND.RedisDataBus.Api.DFService;
 import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
-import com.znd.ei.ads.buffer.Buffer;
-import com.znd.ei.ads.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.buffer.config.BufferConfig;
-import com.znd.ei.ads.buffer.factory.BufferFactory;
+import com.znd.ei.ads.bus.buffer.Buffer;
+import com.znd.ei.ads.bus.buffer.BufferFactory;
+import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
+import com.znd.ei.ads.bus.config.BufferConfig;
 
 public class DefaultBufferFactory implements BufferFactory {
 	private BufferConfig config;
@@ -64,5 +64,11 @@ public class DefaultBufferFactory implements BufferFactory {
 
 	public RMemDBBuilder getMemDBBuilder() {
 		return memDBBuilder;
+	}
+
+
+	@Override
+	public BufferConfig config() {
+		return config;
 	}
 }

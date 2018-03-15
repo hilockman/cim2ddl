@@ -1,4 +1,4 @@
-package com.znd.ei.ads.buffer;
+package com.znd.ei.ads.bus.buffer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,11 +18,10 @@ import com.ZhongND.RedisDataBus.Api.RTableBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.ads.buffer.config.BufferConfig;
-import com.znd.ei.ads.buffer.config.ColumnMeta;
-import com.znd.ei.ads.buffer.config.TableMeta;
-import com.znd.ei.ads.buffer.factory.BufferFactory;
-import com.znd.ei.ads.buffer.factory.defaults.DefaultBufferFactory;
+import com.znd.ei.ads.bus.buffer.defaults.DefaultBufferFactory;
+import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.ei.ads.bus.config.ColumnMeta;
+import com.znd.ei.ads.bus.config.TableMeta;
 
 public class BufferFactoryBuilder {
 

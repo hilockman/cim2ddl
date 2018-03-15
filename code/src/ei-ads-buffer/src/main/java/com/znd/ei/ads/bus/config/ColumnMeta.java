@@ -1,4 +1,4 @@
-package com.znd.ei.ads.buffer.config;
+package com.znd.ei.ads.bus.config;
 /**
  * 
  * @author wangheng
