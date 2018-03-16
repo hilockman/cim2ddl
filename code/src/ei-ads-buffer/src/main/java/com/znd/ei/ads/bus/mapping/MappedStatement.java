@@ -11,16 +11,17 @@ public class MappedStatement {
 	  private Class<?> resultType;
 	  private ResultSetHandler<?> resultSetHandler = ResultSetHandler.DEFAULT_HANDLER;
 	  private BufferConfig config;
+	  private String tableName;
 	  private TableMeta tableMeta;
 	  
-	  private ParamerterHandler parameterHandler = ParamerterHandler.DefaultParameterHandler;
+	  private ParameterHandler parameterHandler = ParameterHandler.DefaultParameterHandler;
 
 		
 	  public static class Build {
 		  private MappedStatement mappedStatement = new MappedStatement();
 		  
-		  public Build(BufferConfig config, String id, Class<?> resultType) {
-			  
+		  public Build(BufferConfig config, String id, Class<?> resultType, String tableName) {
+			  mappedStatement.tableName = tableName;
 			  mappedStatement.id = id;
 			  mappedStatement.config = config;
 			  mappedStatement.resultType = resultType;
@@ -29,9 +30,11 @@ public class MappedStatement {
 		  
 		  public MappedStatement build() {
 			  if (mappedStatement.resultType != null) {
-				  mappedStatement.resultSetHandler = new ObjectResultSetHandler<Object>(mappedStatement.resultType);
-				  
-				  
+				  mappedStatement.resultSetHandler = new ObjectResultSetHandler<Object>(mappedStatement.resultType);			  
+			  }
+			  
+			  if (mappedStatement.tableName != null) {
+				  mappedStatement.tableMeta = mappedStatement.config.getTable(mappedStatement.tableName);
 			  }
 			  return mappedStatement;
 		  }
@@ -56,7 +59,7 @@ public class MappedStatement {
 			return config;
 		}
 
-		public ParamerterHandler getParameterHandler() {
+		public ParameterHandler getParameterHandler() {
 			return parameterHandler;
 		}
 

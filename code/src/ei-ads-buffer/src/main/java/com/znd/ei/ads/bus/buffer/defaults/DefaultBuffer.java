@@ -22,9 +22,10 @@ import com.znd.ei.ads.bus.buffer.Buffer;
 import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
 import com.znd.ei.ads.bus.config.BufferConfig;
 import com.znd.ei.ads.bus.config.ColumnMeta;
+import com.znd.ei.ads.bus.config.MetaObject;
 import com.znd.ei.ads.bus.config.TableMeta;
 import com.znd.ei.ads.bus.mapping.MappedStatement;
-import com.znd.ei.ads.bus.mapping.ParamerterHandler;
+import com.znd.ei.ads.bus.mapping.ParameterHandler;
 import com.znd.ei.ads.bus.mapping.ResultSet;
 
 public class DefaultBuffer implements Buffer {
@@ -121,9 +122,11 @@ public class DefaultBuffer implements Buffer {
 	public int insert(String statement, Object parameter) {	
 		MappedStatement mappedStatement = config.getMappedStatement(statement);
 		if (autoCommit) {
-			if (parameter instanceof List )
-				commitRecords(mappedStatement, (List<Object>)parameter);
-			else
+			if (parameter instanceof Collection ) {
+				List<Object> objects = new ArrayList<>();
+				objects.addAll((Collection)parameter);
+				commitRecords(mappedStatement, objects);
+			} else
 				commitRecords(mappedStatement, Arrays.asList(parameter));
 		} else {
 			RecordCache cache = caches.get(mappedStatement);
@@ -136,10 +139,51 @@ public class DefaultBuffer implements Buffer {
 		}
 		return 0;
 	}
+	
+	  private Collection<Object> getParameters(Object parameter) {
+	    Collection<Object> parameters = null;
+	    if (parameter instanceof Collection) {
+	      parameters = (Collection) parameter;
+	    } else if (parameter instanceof Map) {
+	      Map parameterMap = (Map) parameter;
+	      if (parameterMap.containsKey("collection")) {
+	        parameters = (Collection) parameterMap.get("collection");
+	      } else if (parameterMap.containsKey("list")) {
+	        parameters = (List) parameterMap.get("list");
+	      } else if (parameterMap.containsKey("array")) {
+	        parameters = Arrays.asList((Object[]) parameterMap.get("array"));
+	      }
+	    }
+	    if (parameters == null) {
+	      parameters = new ArrayList<Object>();
+	      parameters.add(parameter);
+	    }
+	    return parameters;
+	  }
 
+	  
+	  private Object wrapCollection(final Object object) {
+	   if (object instanceof Collection) {
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("collection", object);
+	      if (object instanceof List) {
+	        map.put("list", object);
+	      }
+	      return map;
+	    } else if (object != null && object.getClass().isArray()) {
+	    	HashMap<String, Object> map = new HashMap<>();
+	      map.put("array", object);
+	      return map;
+	    }
+	    return object;
+	  }
+	  
 	@Override
 	public int update(String statement, Object parameter) {
-		// TODO Auto-generated method stub
+		Collection<Object> parameters = getParameters(wrapCollection(parameter));
+		for (Object object : parameters) {
+			MetaObject metaParam = config.newMetaObject(object);
+		}
 		return 0;
 	}
 
@@ -267,7 +311,7 @@ public class DefaultBuffer implements Buffer {
 		TableMeta tableMeta = mappedStatement.getTableMeta();
 		RTableOperation tableOps = getTableOperation(tableMeta);
 		
-		ParamerterHandler parameterHandler = mappedStatement.getParameterHandler();
+		ParameterHandler parameterHandler = mappedStatement.getParameterHandler();
 		List<String[]> records = new ArrayList<>();
 		Map<String, List<String>> indexRecords = new HashMap<>();
 
@@ -281,7 +325,7 @@ public class DefaultBuffer implements Buffer {
 		}
 		
 		for (Object o : objects) {
-			String[] values = parameterHandler.toArray(tableMeta, o);
+			String[] values = parameterHandler.toArrayValues(o);
 			if (values.length != tableMeta.getColumnSize()) {
 				throw new RuntimeException("Cloumn size is not match : "+ tableMeta.getName());
 			}

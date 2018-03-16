@@ -1,14 +1,18 @@
 package com.znd.ei.ads.bus.config;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.znd.ei.ads.bus.binding.BindingException;
 import com.znd.ei.ads.bus.binding.MapperRegistry;
 import com.znd.ei.ads.bus.buffer.Buffer;
+import com.znd.ei.ads.bus.buffer.defaults.MetaObject;
 import com.znd.ei.ads.bus.mapping.MappedStatement;
+import com.znd.ei.ads.bus.mapping.MappedStatement.Build;
 import com.znd.ei.ads.bus.mapping.ObjectReflector;
 
 public class BufferConfig {
@@ -145,6 +149,24 @@ public class BufferConfig {
 		MappedStatement mappedStatement = statementMap.get(statement);
 		return mappedStatement;
 	}
+	
+	public MappedStatement initMappedStatement(String id, Method method, Class<?> returnType) {
+	
+		Class<?> declaringClass = method.getDeclaringClass();
+		String className = declaringClass.getSimpleName();
+		if (!className.endsWith("Mapper")) {
+			throw new BindingException("Informat mapper name , not endsWith 'mapper': "+declaringClass.getName());
+		}
+		
+		String tableName = className.substring(0, className.length() - 6);
+		
+		Build builder = new MappedStatement.Build(this, id, returnType, tableName);
+		MappedStatement mappedStatement = builder.build();
+		statementMap.put(id, mappedStatement);
+		
+		return getMappedStatement(id);
+	}
+	
 
 	public ObjectReflector getReflector(Class<?> type) {
 		ObjectReflector reflectory = reflectorMap.get(type);
@@ -170,5 +192,9 @@ public class BufferConfig {
 	}
 	public void setMapperPackage(String mapperPackage) {
 		this.mapperPackage = mapperPackage;
+	}
+	public MetaObject newMetaObject(Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
