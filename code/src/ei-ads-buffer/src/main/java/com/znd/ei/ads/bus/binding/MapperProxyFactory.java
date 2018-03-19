@@ -1,7 +1,10 @@
 package com.znd.ei.ads.bus.binding;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,12 +35,21 @@ public class MapperProxyFactory<T> {
 	  }
 	  
 	  public static class Parser {
+		  private BufferConfig config;
+		  private Class<?> type;
 		  public Parser(BufferConfig config, Class<?> type) {
-			 
+			 this.config = config;
+			 this.type = type;
 		  }
-		public void parse() {
-			// TODO Auto-generated method stub
-			
-		}
+		public void parse() {			
+			Method[] methods = type.getMethods();
+			for (Method method : methods) {
+				Parameter[] parameters = method.getParameters();
+				List<String> argNames = new ArrayList<>();
+				for (Parameter parameter : parameters) {
+					argNames.add(parameter.getName());
+				}
+			}
+ 		}
 	  }
 }

@@ -18,6 +18,7 @@ import com.ZhongND.RedisDataBus.Api.RTableBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
+import com.znd.ei.ads.bus.binding.BindingException;
 import com.znd.ei.ads.bus.buffer.defaults.DefaultBufferFactory;
 import com.znd.ei.ads.bus.config.BufferConfig;
 import com.znd.ei.ads.bus.config.ColumnMeta;
@@ -178,16 +179,62 @@ public class BufferFactoryBuilder {
 
 		return i != j;
 	}
+	
+	public static class MemDbContext {
+		private DFService service;
+		private RMemDBApi memDBApi;
+		private RMemDBBuilder memDBBuilder;
+		public MemDbContext(DFService service, RMemDBApi memDBApi, RMemDBBuilder memDBBuilder) {
+			this.service = service;
+			this.memDBApi = memDBApi;
+			this.memDBBuilder = memDBBuilder;
+		}
+		
+		public static class Builder {
+			private MemDbContext context;
+			public Builder(BufferConfig config) throws RedissonDBException {
+				try {
+					DFService service = ServiceFactory.getService();
+	
+					RMemDBApi memDBApi = service.connect(config.getAppName());
+	
+					RMemDBBuilder memDBBuilder = memDBApi
+							.getRMemDBBuilder(config.getName());				
+					context = new MemDbContext(service, memDBApi, memDBBuilder);									
+				} catch (RedissonDBException e) {
+					throw new BindingException(e.getMessage(), e);
+				}
+			}
+			
+			public MemDbContext build() {
+				return context;
+			}
+			
+		}
 
+		public DFService getService() {
+			return service;
+		}
+
+		public RMemDBApi getMemDBApi() {
+			return memDBApi;
+		}
+
+		public RMemDBBuilder getMemDBBuilder() {
+			return memDBBuilder;
+		}
+	}
+
+
+	
 	public BufferFactory build(BufferConfig config){	
 		try {
 			config.build();
-			DFService service = ServiceFactory.getService();
+			
+			MemDbContext context = new MemDbContext.Builder(config).build();
+			DFService service = context.getService();
 
-			RMemDBApi memDBApi = service.connect(config.getAppName());
-	
-			RMemDBBuilder memDBBuilder = memDBApi
-					.getRMemDBBuilder(config.getName());
+			RMemDBBuilder memDBBuilder = context.getMemDBBuilder();
 			TableMeta[] tableMetas = config.getTableMetas();
 			boolean available = memDBBuilder.checkAvailability();
 			if (config.getCreateFlag() == BufferConfig.FALSE && !available) {

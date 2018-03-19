@@ -20,6 +20,10 @@
     <select id="selectAuthor" parameterType="int" resultType="com.znd.test.mybatis.Author">
         SELECT * FROM  author  WHERE id=#{value}
     </select>
+    
+    <update id="updateAuthor" parameterType="com.znd.test.mybatis.Author">
+    	UPDATE author SET  name = #{name}, birthday = #{birthday}, sex = #{sex}, address = #{address} where id=#{id}
+    </update>
 
     <insert id="insertAuthor" parameterType="com.znd.test.mybatis.Author">
         <!--

@@ -38,9 +38,9 @@ public class MapperMethod {
 	private final boolean returnsVoid;
 	
 	
-	public MapperMethod(Class<?> mapperInterface, Method method,
-			BufferConfig config) {
-		String name = method.getName().toLowerCase();
+	public static MethodType getMethodType(String methodName) {
+		MethodType methodType = null;
+		String name = methodName.toLowerCase();
 		if (name.startsWith("get") || name.startsWith("find") || name.startsWith("query")) {
 			methodType = MethodType.SELECT;
 		} else if (name.startsWith("delete") || name.startsWith("remove")) {
@@ -49,7 +49,14 @@ public class MapperMethod {
 			methodType = MethodType.INSERT;
 		} else if (name.startsWith("update")) {
 			methodType = MethodType.UPDATE;
-		} else {
+		} 
+		return methodType;
+	}
+	
+	public MapperMethod(Class<?> mapperInterface, Method method,
+			BufferConfig config) {
+		methodType = getMethodType(method.getName());
+		if (methodType == null) {
 			throw new BindingException("Unkown method type : "+method.getName());
 		}
 		

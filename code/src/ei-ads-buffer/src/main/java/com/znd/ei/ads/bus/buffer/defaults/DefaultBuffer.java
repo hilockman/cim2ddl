@@ -181,8 +181,17 @@ public class DefaultBuffer implements Buffer {
 	@Override
 	public int update(String statement, Object parameter) {
 		Collection<Object> parameters = getParameters(wrapCollection(parameter));
+		MappedStatement mappedStatement = config.getMappedStatement(statement);
+		final String[] keyProperties = mappedStatement.getKeyProperties();
+		ResultSet rs = new ResultSet();
+		
 		for (Object object : parameters) {
 			MetaObject metaParam = config.newMetaObject(object);
+			
+			int i = 0;
+			for (; i < keyProperties.length; i++ ) {
+				
+			}
 		}
 		return 0;
 	}
@@ -237,7 +246,7 @@ public class DefaultBuffer implements Buffer {
 
 	
 	private TableMeta  findTableMeta(String tableName) {
-		TableMeta tableMeta = config.getTable(tableName);
+		TableMeta tableMeta = config.getTableMeta(tableName);
 		if (tableMeta == null) {
 			try {
 				RBufferOperation bufferOps = memDBBuilder.getBufferOperation();

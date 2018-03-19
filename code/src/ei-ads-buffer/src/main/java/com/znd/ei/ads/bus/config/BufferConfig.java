@@ -7,10 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ZhongND.RedisDataBus.ServiceFactory;
+import com.ZhongND.RedisDataBus.Api.DFService;
+import com.ZhongND.RedisDataBus.Api.RBufferOperation;
+import com.ZhongND.RedisDataBus.Api.RMemDBApi;
+import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
+import com.ZhongND.RedisDataBus.Api.RTableOperation;
+import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
+import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
 import com.znd.ei.ads.bus.binding.BindingException;
 import com.znd.ei.ads.bus.binding.MapperRegistry;
 import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.buffer.defaults.MetaObject;
+import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
 import com.znd.ei.ads.bus.mapping.MappedStatement;
 import com.znd.ei.ads.bus.mapping.MappedStatement.Build;
 import com.znd.ei.ads.bus.mapping.ObjectReflector;
@@ -95,11 +103,60 @@ public class BufferConfig {
 		}
 	}
 	
-	public TableMeta getTable(String tableName) {
-		return metaMap.get(tableName);
+	public TableMeta getTableMeta(String tableName) {
+		if (metaMap.containsKey(tableName))
+			return metaMap.get(tableName);
+		
+		TableMeta tableMeta = loadTableMetaFromDb(tableName);
+		if (tableMeta != null) {
+			tableMetas.add(tableMeta);
+			metaMap.put(tableName, tableMeta);
+		}
+		return tableMeta;
 	}
 	
 	
+	private TableMeta loadTableMetaFromDb(String tableName) {	
+		try {
+			DFService service = ServiceFactory.getService();
+			RMemDBApi memDBApi = service.connect(getAppName());
+			
+			RMemDBBuilder memDBBuilder = memDBApi
+					.getRMemDBBuilder(getName());
+			boolean available = memDBBuilder.checkAvailability();
+			if (!available) {
+				throw new BindingException("Fail to call check memDb availability : "+getName());
+			}
+			
+			RBufferOperation bufferOperation = memDBBuilder
+					.getBufferOperation();
+			RTableOperation tableOps = bufferOperation.getTableOperation(tableName);
+			if (tableOps == null) {
+				throw new BindingException("Fail to get table operations : "+tableName);
+			}
+			
+			TableMeta tableMeta = new TableMeta();
+			tableMeta.setName(tableName);
+			
+		
+			List<String> columnNames = tableOps.getColumnNameArray();
+			for (String columnName : columnNames) {
+				ColumnMeta columnMeta = new ColumnMeta();
+				RedisColumnContent colDefine = tableOps.getColumnDefine(columnName);
+				colDefine.getIndexType();
+				columnMeta.setIndexable(colDefine.getIndexType());
+				columnMeta.setName(columnName);
+				columnMeta.setType(BufferFactoryBuilder.toType(colDefine.getType()));
+				columnMeta.setDbIndex(tableOps.getColumnIndex(columnName));
+				tableMeta.getColumns().add(columnMeta);
+			}
+			tableMeta.formIndexColumn();
+			return tableMeta;
+		} catch (RedissonDBException e) {
+			throw new BindingException(e.getMessage(), e);
+		}
+
+	}
 	public void build() {
 		for (int i = 0; i < tableMetas.size(); i++) {
 			tableMetas.get(i).formIndexColumn();
@@ -160,7 +217,7 @@ public class BufferConfig {
 		
 		String tableName = className.substring(0, className.length() - 6);
 		
-		Build builder = new MappedStatement.Build(this, id, returnType, tableName);
+		Build builder = new MappedStatement.Build(this, id, method, returnType, tableName);
 		MappedStatement mappedStatement = builder.build();
 		statementMap.put(id, mappedStatement);
 		

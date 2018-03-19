@@ -11,6 +11,7 @@ public class ColumnMeta {
 	private String alias;
 	private String type;
 	private boolean indexable;
+	private int dbIndex;
 	
 	public ColumnMeta() {
 		
@@ -98,5 +99,13 @@ public class ColumnMeta {
 
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	public int getDbIndex() {
+		return dbIndex;
+	}
+
+	public void setDbIndex(int dbIndex) {
+		this.dbIndex = dbIndex;
 	}
 }

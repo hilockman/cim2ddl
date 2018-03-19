@@ -1,7 +1,11 @@
 package com.znd.ei.ads.bus.mapping;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.znd.ei.ads.bus.binding.BindingException;
 import com.znd.ei.ads.bus.config.BufferConfig;
 import com.znd.ei.ads.bus.config.TableMeta;
 import com.znd.ei.ads.bus.mapping.impl.ObjectResultSetHandler;
@@ -16,15 +20,17 @@ public class MappedStatement {
 	  
 	  private ParameterHandler parameterHandler = ParameterHandler.DefaultParameterHandler;
 
+	  private List<ParameterMapping> pamameterMappings = new ArrayList<>();
 		
 	  public static class Build {
 		  private MappedStatement mappedStatement = new MappedStatement();
-		  
-		  public Build(BufferConfig config, String id, Class<?> resultType, String tableName) {
+		  private final Method method;
+		  public Build(BufferConfig config, String id, Method method, Class<?> resultType, String tableName) {
 			  mappedStatement.tableName = tableName;
 			  mappedStatement.id = id;
 			  mappedStatement.config = config;
 			  mappedStatement.resultType = resultType;
+			  this.method = method;
 			  
 		  }
 		  
@@ -34,7 +40,17 @@ public class MappedStatement {
 			  }
 			  
 			  if (mappedStatement.tableName != null) {
-				  mappedStatement.tableMeta = mappedStatement.config.getTable(mappedStatement.tableName);
+				  mappedStatement.tableMeta = mappedStatement.config.getTableMeta(mappedStatement.tableName);
+				  if (mappedStatement.tableMeta == null) {
+					  throw new BindingException("Unknow table name : "+mappedStatement.tableName);
+				  }
+			  }
+			  
+			  Parameter[] params = method.getParameters();
+			  for (int i = 0; i < params.length; i++) {
+				  Parameter param = params[i];
+				  String argName = param.getName();
+				  Class<?> argType = param.getType();
 			  }
 			  return mappedStatement;
 		  }
@@ -65,6 +81,11 @@ public class MappedStatement {
 
 		public TableMeta getTableMeta() {
 			return tableMeta;
+		}
+
+		public String[] getKeyProperties() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 }

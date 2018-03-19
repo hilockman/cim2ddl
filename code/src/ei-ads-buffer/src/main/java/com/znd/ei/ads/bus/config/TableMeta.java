@@ -2,7 +2,9 @@ package com.znd.ei.ads.bus.config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /**
  * 表定义
  * @author wangheng
@@ -16,15 +18,19 @@ public class TableMeta {
 	
 	private List<ColumnMeta> indexColumns = new ArrayList<>();
  
+	private Map<String, ColumnMeta> columnMap = new HashMap<>();
 
 	public TableMeta() {
 
 	}
 
-	
 	public TableMeta(String name, ColumnMeta[] columns) {
 		this.name = name;
 		setColumns(Arrays.asList(columns));
+	}
+	
+	public ColumnMeta findColumn(String name) {
+		return columnMap.get(name);
 	}
 
 	public void formIndexColumn() {
@@ -34,6 +40,8 @@ public class TableMeta {
 			c.setIndex(i++);
 			if (c.isIndexable())
 				indexColumns.add(c);
+			
+			columnMap.put(c.getName(), c);
 		}
 	}
 	public String getName() {
