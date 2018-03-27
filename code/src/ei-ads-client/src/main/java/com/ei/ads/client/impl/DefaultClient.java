@@ -34,6 +34,9 @@ public class DefaultClient implements Client {
 	
 	private AtomicBoolean exit = new AtomicBoolean(false);  
 	
+	
+	private AdsNode node;
+	
 	@PostConstruct
 	public void start() {
 		config.getThreadPool().execute(new Runnable() {
@@ -67,11 +70,11 @@ public class DefaultClient implements Client {
 	private void init() {
 		Buffer buffer = bufferFactory.openSession();
 		BufferConfig bufferConfig = bufferFactory.config();
+		
 		AdsNodeMapper mapper = bufferConfig.getMapper(AdsNodeMapper.class, buffer);
 		String url = "http://"+config.getIp()+":"+config.getPort();
-		AdsNode node = mapper.getNodeByUrl(url);
-		
-		
+		node = mapper.getNodeByUrl(url);
+			
 		if (node == null) {
 			
 			node = new AdsNode();
@@ -81,15 +84,23 @@ public class DefaultClient implements Client {
 			mapper.insert(node);
 			
 			logger.info("Succeed to regist ads node : "+node.getName());
+			
 		} 
 		
+		buffer.close();
 		
 		
 	}
 
 	//更新buffer中的节点表对应计算节点时间。
 	private void heatBeat() {
+		Buffer buffer = bufferFactory.openSession();
+		BufferConfig bufferConfig = bufferFactory.config();
 		
+		AdsNodeMapper mapper = bufferConfig.getMapper(AdsNodeMapper.class, buffer);
+		node.setLastUpdate(new Date());
+		mapper.update(node);
+		buffer.close();
 	}
 	
 	//更改节点状态

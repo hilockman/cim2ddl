@@ -14,6 +14,7 @@ public class DabaBusProperties {
 	private String id;
 	private String name;
 	private String alias;
+	private String createFlag;
 	
 	private List<TableMeta> tables;
 
@@ -47,5 +48,13 @@ public class DabaBusProperties {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCreateFlag() {
+		return createFlag;
+	}
+
+	public void setCreateFlag(String createFlag) {
+		this.createFlag = createFlag;
 	}
 }

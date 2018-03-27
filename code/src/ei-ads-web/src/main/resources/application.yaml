@@ -41,6 +41,7 @@ buffer:
    id:  0
    name: common
    alias: 公共
+   createFlag: create
    tables:
       -  
         name:  AdsNode  

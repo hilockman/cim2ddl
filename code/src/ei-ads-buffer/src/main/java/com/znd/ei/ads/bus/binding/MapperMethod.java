@@ -6,12 +6,13 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.ei.ads.bus.type.TypeHandlerRegistry;
 
 public class MapperMethod {
 
@@ -28,10 +29,12 @@ public class MapperMethod {
 	    }
 	    parameterExists = available;
 	  }
-	  
+	
+	private final TypeHandlerRegistry typeHandlerRegistry;
 	private final MethodType methodType;
 	private final Class<?> returnType;
-	private final String name;
+	private Class<?> returnTypeArgument;
+ 	private final String name;
 	private final List<String> argNames = new ArrayList<String>();
 	
 	private final boolean returnsMany;
@@ -53,8 +56,8 @@ public class MapperMethod {
 		return methodType;
 	}
 	
-	public MapperMethod(Class<?> mapperInterface, Method method,
-			BufferConfig config) {
+	public MapperMethod(Class<?> mapperInterface, Method method, TypeHandlerRegistry typeHandlerRegistry) {
+		this.typeHandlerRegistry = typeHandlerRegistry;
 		methodType = getMethodType(method.getName());
 		if (methodType == null) {
 			throw new BindingException("Unkown method type : "+method.getName());
@@ -62,9 +65,13 @@ public class MapperMethod {
 		
 		Type type = method.getGenericReturnType();
 		if (type instanceof Class<?>) {
-		    this.returnType = (Class<?>) type;
+		    returnType = (Class<?>) type;
 		} else if (type instanceof ParameterizedType) {
 			returnType = (Class<?>) ((ParameterizedType)type).getRawType();
+			Type[] typeArguments = ((ParameterizedType)type).getActualTypeArguments();
+			if (typeArguments.length > 0) {
+				returnTypeArgument = (Class<?>) typeArguments[0];
+			}
 		} else {
 			returnType = method.getReturnType();
 		}
@@ -74,18 +81,14 @@ public class MapperMethod {
 		
 		this.name = mapperInterface.getName()+"."+method.getName();
 		
-		if (parameterExists) {
+		if (!parameterExists) {
 			throw new BindingException("Unknown java.lang.reflect.Parameter");
 		}
 		Parameter[] parameters = method.getParameters();
 		for (Parameter parameter : parameters) {
 			argNames.add(parameter.getName());
 		}
-		
-		config.initMappedStatement(this.name, method, returnType);	
-		
-		
-		
+					
 	}
 	  private Object rowCountResult(int rowCount) {
 		    final Object result;
@@ -101,26 +104,33 @@ public class MapperMethod {
 		      throw new BindingException("Mapper method '" + name + "' has an unsupported return type: " + returnType);
 		    }
 		    return result;
-		  }
+	  }
 	  
 	  
-	    public Object convertArgsToCommandParam(Object[] args) {
-	        final int paramCount = argNames.size();
-	        if (args == null || paramCount == 0) {
-	          return null;
-	        } else if (paramCount == 1) {
-	          return args[0];
-	        } else {
-	          final Map<String, Object> param = new TreeMap<String, Object>();
-	          int i = 0;
-	          for (String str : argNames) {
-	            param.put(str, args[i]);
-	            i++;
-	          }
-	          return param;
-	        }
-	      
-	      }
+    public Object convertArgsToCommandParam(Object[] args) {
+        final int paramCount = argNames.size();
+        if (args == null || paramCount == 0) {
+          return null;
+        } else if (paramCount == 1) {
+          Object arg = args[0];
+          Class<? extends Object> argType = arg.getClass();
+          if (typeHandlerRegistry.hasTypeHandler(argType)) {
+        	  Map<String, Object> argMap = new HashMap<>();
+        	  argMap.put(argNames.get(0), args[0]);
+        	  return argMap;
+          }
+          return arg;
+        } else {
+          final Map<String, Object> param = new TreeMap<String, Object>();
+          int i = 0;
+          for (String str : argNames) {
+            param.put(str, args[i]);
+            i++;
+          }
+          return param;
+        }
+      
+      }
 	    
 	public Object execute(Buffer buffer, Object[] args) {
 		
@@ -154,6 +164,18 @@ public class MapperMethod {
 	    }
 	    
 		return result;
+	}
+
+	public MethodType getMethodType() {
+		return methodType;
+	}
+
+	public Class<?> getReturnTypeArgument() {
+		return returnTypeArgument != null ? returnTypeArgument : returnType;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

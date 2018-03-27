@@ -205,8 +205,9 @@ public class BufferIOTests {
 		TableMeta[] tableMetas = {new TableMeta().setName("MyTable").setColumns(Arrays.asList(columns))};
 		config.setTableMetas(tableMetas);
 		BufferFactory factory = b.build(config);	
-		b.removeTable(factory, tableMetas[0].getName());
 		
+		config.getBufferContext().removeTable(tableMetas[0].getName());
+	
 		factory.destory();
 
 		System.out.println("------------------------end TestBus.dropOneTable()----------------------------");
@@ -328,9 +329,8 @@ public class BufferIOTests {
 		session.insert(tableMeta.getName(), record);
 		
 		session.close();
-		
-		factory.destory();
-		b.removeBuffer(factory);
+	
+		config.getBufferContext().removeBuffer();
 		System.out.println("------------------------end TestBus.insertOneRecord()----------------------------"+count);	
 
     }
@@ -341,7 +341,7 @@ public class BufferIOTests {
 		System.out.println("------------------------start TestBus.destory()----------------------------");
 
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
-		b.removeBuffer(TEST_FACTORY);
+		TEST_FACTORY.config().getBufferContext().removeBuffer();
 
 		System.out.println("------------------------end TestBus.destory()----------------------------");
 	}

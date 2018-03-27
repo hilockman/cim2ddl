@@ -7,8 +7,8 @@ import com.znd.ei.ads.buffer.test.model.User;
 public interface UserMapper {
 
 	
-	User findUserByName(String name);
-	
+//	User findUserByName(String name);
+//	
 	User findUserById(String id);
 	
 	int insertUser(User user);

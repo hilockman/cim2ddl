@@ -12,6 +12,7 @@ public class ColumnMeta {
 	private String type;
 	private boolean indexable;
 	private int dbIndex;
+	private String dbType;
 	
 	public ColumnMeta() {
 		
@@ -107,5 +108,13 @@ public class ColumnMeta {
 
 	public void setDbIndex(int dbIndex) {
 		this.dbIndex = dbIndex;
+	}
+
+	public String getDbType() {
+		return dbType;
+	}
+
+	public void setDbType(String dbType) {
+		this.dbType = dbType;
 	}
 }

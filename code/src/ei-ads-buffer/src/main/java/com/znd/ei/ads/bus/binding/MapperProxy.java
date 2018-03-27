@@ -8,6 +8,7 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import com.znd.ei.ads.bus.buffer.Buffer;
+import com.znd.ei.ads.bus.config.BufferConfig;
 
 public class MapperProxy<T> implements InvocationHandler{
 
@@ -68,7 +69,9 @@ public class MapperProxy<T> implements InvocationHandler{
 	  private MapperMethod cachedMapperMethod(Method method) {
 		    MapperMethod mapperMethod = methodCache.get(method);
 		    if (mapperMethod == null) {
-		      mapperMethod = new MapperMethod(mapperInterface, method, buffer.getConfig());
+		      BufferConfig config = buffer.getConfig();
+		      mapperMethod = new MapperMethod(mapperInterface, method, config.getTypeHandlerRegistry());
+		      config.initMappedStatement(mapperMethod.getMethodType(), mapperMethod.getName(), method, mapperMethod.getReturnTypeArgument());	
 		      methodCache.put(method, mapperMethod);
 		    }
 		    return mapperMethod;

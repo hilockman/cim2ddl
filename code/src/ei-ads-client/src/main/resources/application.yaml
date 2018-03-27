@@ -17,6 +17,7 @@ buffer:
    id:  0
    name: common
    alias: 公共    
+   createFlag: false
    
 ads:
   client: 

@@ -7,21 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ZhongND.RedisDataBus.ServiceFactory;
-import com.ZhongND.RedisDataBus.Api.DFService;
-import com.ZhongND.RedisDataBus.Api.RBufferOperation;
-import com.ZhongND.RedisDataBus.Api.RMemDBApi;
-import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
-import com.ZhongND.RedisDataBus.Api.RTableOperation;
-import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
 import com.znd.ei.ads.bus.binding.BindingException;
 import com.znd.ei.ads.bus.binding.MapperRegistry;
+import com.znd.ei.ads.bus.binding.MethodType;
 import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
+import com.znd.ei.ads.bus.executor.Executor;
+import com.znd.ei.ads.bus.mapping.DefaultReflectorFactory;
 import com.znd.ei.ads.bus.mapping.MappedStatement;
 import com.znd.ei.ads.bus.mapping.MappedStatement.Build;
-import com.znd.ei.ads.bus.mapping.ObjectReflector;
+import com.znd.ei.ads.bus.reflection.MetaObject;
+import com.znd.ei.ads.bus.reflection.Reflector;
+import com.znd.ei.ads.bus.reflection.ReflectorFactory;
+import com.znd.ei.ads.bus.statement.RoutingStatementHandler;
+import com.znd.ei.ads.bus.statement.StatementHandler;
+import com.znd.ei.ads.bus.type.TypeHandler;
+import com.znd.ei.ads.bus.type.TypeHandlerRegistry;
 
 public class BufferConfig {
 	
@@ -38,29 +38,33 @@ public class BufferConfig {
 
 	private MapperRegistry mapperRegistry = new MapperRegistry(this);
 		
-	private Map<Class<?>, ObjectReflector> reflectorMap = new HashMap<>();
+	private DefaultReflectorFactory reflectorFactory = new DefaultReflectorFactory();
 	
 	private Map<String, MappedStatement> statementMap = new HashMap<>();
+	
+	private BufferContext bufferContext;
+	
+	
+	private TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry();
 	
 	/**
 	 * 每次重新创建buffer
 	 */
-	public static final Integer CREATE = 0; 
+	public static final String CREATE = "create"; 
 	
 	/**
 	 * 不更新
 	 */
-	public static final Integer FALSE = 1;  
+	public static final String FALSE = "false";  
 	
 	/**
 	 * 每次检查buffer定义，如果有变化则更新
 	 */
-	public static final Integer UPDATE = 2; 
+	public static final String UPDATE = "update"; 
 	
 	//更新标志,值为0， 1， 2, 缺省为update
-	private int createFlag = UPDATE; 
+	private String createFlag = "upate"; 
 	
-
 	
 	public String getAppName() {
 		return appName;
@@ -81,10 +85,10 @@ public class BufferConfig {
 	public String getKey() {
 		return appName+"."+name;
 	}
-	public int getCreateFlag() {
+	public String getCreateFlag() {
 		return createFlag;
 	}
-	public void setCreateFlag(int createFlag) {
+	public void setCreateFlag(String createFlag) {
 		this.createFlag = createFlag;
 	}
 	
@@ -96,7 +100,12 @@ public class BufferConfig {
 		if (tableMetas == null)
 			return;
 		
+		for (int i = 0; i < tableMetas.length; i++) {
+			tableMetas[i].formIndexColumn();
+		}
+		
 		this.tableMetas = Arrays.asList(tableMetas);
+	
 		metaMap.clear();
 		for (TableMeta meta : tableMetas) {
 			metaMap.put(meta.getName(), meta);
@@ -117,51 +126,19 @@ public class BufferConfig {
 	
 	
 	private TableMeta loadTableMetaFromDb(String tableName) {	
-		try {
-			DFService service = ServiceFactory.getService();
-			RMemDBApi memDBApi = service.connect(getAppName());
-			
-			RMemDBBuilder memDBBuilder = memDBApi
-					.getRMemDBBuilder(getName());
-			boolean available = memDBBuilder.checkAvailability();
-			if (!available) {
-				throw new BindingException("Fail to call check memDb availability : "+getName());
-			}
-			
-			RBufferOperation bufferOperation = memDBBuilder
-					.getBufferOperation();
-			RTableOperation tableOps = bufferOperation.getTableOperation(tableName);
-			if (tableOps == null) {
-				throw new BindingException("Fail to get table operations : "+tableName);
-			}
-			
-			TableMeta tableMeta = new TableMeta();
-			tableMeta.setName(tableName);
-			
 		
-			List<String> columnNames = tableOps.getColumnNameArray();
-			for (String columnName : columnNames) {
-				ColumnMeta columnMeta = new ColumnMeta();
-				RedisColumnContent colDefine = tableOps.getColumnDefine(columnName);
-				colDefine.getIndexType();
-				columnMeta.setIndexable(colDefine.getIndexType());
-				columnMeta.setName(columnName);
-				columnMeta.setType(BufferFactoryBuilder.toType(colDefine.getType()));
-				columnMeta.setDbIndex(tableOps.getColumnIndex(columnName));
-				tableMeta.getColumns().add(columnMeta);
-			}
-			tableMeta.formIndexColumn();
-			return tableMeta;
-		} catch (RedissonDBException e) {
-			throw new BindingException(e.getMessage(), e);
-		}
-
+		TableMeta tableMeta = new TableMeta();
+		tableMeta.setName(tableName);
+		
+	    bufferContext.updateTableMeta(tableMeta);
+		return tableMeta;
 	}
+	
 	public void build() {
-		for (int i = 0; i < tableMetas.size(); i++) {
-			tableMetas.get(i).formIndexColumn();
-		}
+
 		
+		
+			
 		if (mapperPackage != null)
 			addMappers(mapperPackage);
 	}
@@ -207,7 +184,7 @@ public class BufferConfig {
 		return mappedStatement;
 	}
 	
-	public MappedStatement initMappedStatement(String id, Method method, Class<?> returnType) {
+	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType) {
 	
 		Class<?> declaringClass = method.getDeclaringClass();
 		String className = declaringClass.getSimpleName();
@@ -217,7 +194,7 @@ public class BufferConfig {
 		
 		String tableName = className.substring(0, className.length() - 6);
 		
-		Build builder = new MappedStatement.Build(this, id, method, returnType, tableName);
+		Build builder = new MappedStatement.Build(this, type, id, method, returnType, tableName);
 		MappedStatement mappedStatement = builder.build();
 		statementMap.put(id, mappedStatement);
 		
@@ -225,19 +202,11 @@ public class BufferConfig {
 	}
 	
 
-	public ObjectReflector getReflector(Class<?> type) {
-		ObjectReflector reflectory = reflectorMap.get(type);
-		if (reflectory == null) {
-			reflectory = createReflector(type);
-			reflectorMap.put(type, reflectory);
-		}
-		
-		return reflectory;
+	public Reflector getReflector(Class<?> type) {
+		return reflectorFactory.findForClass(type);
 	}
 	
-	private ObjectReflector createReflector(Class<?> type) {
-		return new ObjectReflector(type);
-	}
+
 	public String getTypePackage() {
 		return typePackage;
 	}
@@ -251,7 +220,30 @@ public class BufferConfig {
 		this.mapperPackage = mapperPackage;
 	}
 	public MetaObject newMetaObject(Object object) {
-		// TODO Auto-generated method stub
-		return null;
+		return MetaObject.forObject(object, reflectorFactory);
+	}
+	
+	public TypeHandler<?> getTypeHandler(Class<?> type) {
+		return typeHandlerRegistry.getTypeHandler(type);
+	}
+	
+	public TypeHandlerRegistry getTypeHandlerRegistry() {
+		return typeHandlerRegistry;
+	}
+	
+	public boolean hasTypeHandler(Class<?> type) {
+		return typeHandlerRegistry.hasTypeHandler(type);
+	}
+	public BufferContext getBufferContext() {
+		if (bufferContext == null)
+			bufferContext = new BufferContext.Builder(this).build();
+		return bufferContext;
+	}
+	public ReflectorFactory getReflectorFactory() {
+		return reflectorFactory;
+	}
+	
+	public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter) {
+		return new RoutingStatementHandler(executor, mappedStatement, parameter);
 	}
 }

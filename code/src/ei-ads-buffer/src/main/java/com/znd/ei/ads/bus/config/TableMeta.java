@@ -48,6 +48,13 @@ public class TableMeta {
 		return name;
 	}
 
+	public Map<String, Integer> getColumnIndexMap() {
+		Map<String, Integer> m = new HashMap<>();
+		for (ColumnMeta c : columns) {
+			m.put(c.getName(), c.getIndex());
+		}
+		return m;
+	}
 	public TableMeta setName(String name) {
 		this.name = name;
 		return this;

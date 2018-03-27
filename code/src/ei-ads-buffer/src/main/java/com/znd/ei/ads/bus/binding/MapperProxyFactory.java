@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.config.BufferConfig;
 
 public class MapperProxyFactory<T> {
 	  private final Class<T> mapperInterface;
@@ -35,10 +34,8 @@ public class MapperProxyFactory<T> {
 	  }
 	  
 	  public static class Parser {
-		  private BufferConfig config;
 		  private Class<?> type;
-		  public Parser(BufferConfig config, Class<?> type) {
-			 this.config = config;
+		  public Parser(Class<?> type) {
 			 this.type = type;
 		  }
 		public void parse() {			

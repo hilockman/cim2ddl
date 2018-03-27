@@ -12,17 +12,13 @@ import com.znd.ei.ads.bus.config.BufferConfig;
 
 public class DefaultBufferFactory implements BufferFactory {
 	private BufferConfig config;
-	private DFService service;
-	//private RMemDBApi memDBApi; 
-	RMemDBBuilder memDBBuilder;
+
 	private final Logger logger = LoggerFactory.getLogger(BufferFactoryBuilder.class);
 	
-	public DefaultBufferFactory(BufferConfig config, DFService service, RMemDBBuilder memDBBuilder)
+	public DefaultBufferFactory(BufferConfig config)
 	{
 		this.config = config;
-		this.service = service;
-		//this.memDBApi = memDBApi;
-		this.memDBBuilder = memDBBuilder;
+
 	}
 	
 	
@@ -31,25 +27,18 @@ public class DefaultBufferFactory implements BufferFactory {
 	}
 	
 	public Buffer openSession(boolean autoCommit)   {		
-		Buffer b = new DefaultBuffer(config, memDBBuilder, autoCommit);
+		Buffer b = new DefaultBuffer(config, config.getBufferContext(), autoCommit);
 		logger.info("Buffer opened : " + config.getKey());
 		return b;
 	}
 	
 
 	public void destory() {
-		service.disConnect();
+		config.getBufferContext().close();
 		logger.info("Service disconnected: {}.{} .", config.getAppName(), config.getName());
 	}
 
 
-	public DFService getService() {
-		return service;
-	}
-
-	public void setService(DFService service) {
-		this.service = service;
-	}
 
 
 
@@ -62,9 +51,6 @@ public class DefaultBufferFactory implements BufferFactory {
 	}
 
 
-	public RMemDBBuilder getMemDBBuilder() {
-		return memDBBuilder;
-	}
 
 
 	@Override

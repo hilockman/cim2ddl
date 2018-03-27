@@ -28,7 +28,7 @@ public class Config {
 			config.setName(dabaBusProperties.getName());
 			config.setAlias(dabaBusProperties.getAlias());
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(BufferConfig.UPDATE);
+			config.setCreateFlag(dabaBusProperties.getCreateFlag());
 			List<TableMeta> tables = dabaBusProperties.getTables();
 			config.setTableMetas(tables != null? tables.toArray(new TableMeta[0]) : null);
 			return config;

@@ -32,4 +32,4 @@ buffer:
               name: name
               alias: 名称
               type: string
-              indexable: true                     
+              indexable: false                     

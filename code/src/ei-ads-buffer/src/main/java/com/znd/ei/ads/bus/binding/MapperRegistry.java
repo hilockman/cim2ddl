@@ -49,7 +49,7 @@ public class MapperRegistry {
 	        // mapper parser. If the type is already known, it won't try.
 //	        MapperAnnotationBuilder parser = new MapperAnnotationBuilder(config, type);
 //	        parser.parse();
-	        Parser builder = new MapperProxyFactory.Parser(config, type);
+	        Parser builder = new MapperProxyFactory.Parser(type);
 	        builder.parse();
 	        loadCompleted = true;
 	      } finally {

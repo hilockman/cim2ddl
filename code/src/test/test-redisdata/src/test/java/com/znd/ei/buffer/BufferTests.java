@@ -40,7 +40,7 @@ public class BufferTests {
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
 		b.build(config);
 		
-		b.removeBuffer(b.build(config));
+		config.getBufferContext().removeBuffer();
 		System.out.println("------------------------end TestBus.destoryOneBuffer()----------------------------");
 	}
 	
@@ -76,7 +76,7 @@ public class BufferTests {
 			config.setCreateFlag(BufferConfig.FALSE);
 			BufferFactoryBuilder b = new BufferFactoryBuilder();
 			BufferFactory factory = b.build(config);
-			b.removeBuffer(factory);
+			config.getBufferContext().removeBuffer();
 		}
 		System.out.println("------------------------destory TestBus.destory10Buffer()----------------------------");
 	}

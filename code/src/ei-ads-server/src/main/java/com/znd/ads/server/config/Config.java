@@ -20,7 +20,7 @@ public class Config {
 			config.setName(dabaBusProperties.getName());
 			config.setAlias(dabaBusProperties.getAlias());
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(BufferConfig.UPDATE);
+			//config.setCreateFlag(BufferConfig.UPDATE);
 			config.setTableMetas(dabaBusProperties.getTables().toArray(new TableMeta[0]));
 			return config;
 	}
