@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <title>模型查看</title>
+   <div th:replace="fragments/header :: header-css" /></div>
+</head>
+<body>
+ <div  th:replace="fragments/header :: header"></div>
+ <div id="container">
+   
+	<nav class="navbar-default navbar-static-side" role="navigation">
+    <div  class="sidebar-collapse" id="categories">
+	    <ul class="nav" id="side-menu">
+	    </ul>
+    </div>
+    </nav>
+    <div id="page-wrapper" class="dashbard-1">
+        <div class="ibox-content">
+	        <table class="table table-striped table-bordered table-hover">
+	            <thead>
+	        	<tr>
+	        	   <th>col1</th>
+	        	   <th>col2</th>
+	        	</tr>
+	        	<thead>
+	        	<tbody>
+		        	<tr class="gradeX">
+		        	   <td>val11</td>
+		        	   <td>val12</td>
+		        	</tr>  
+	        	</tbody>      	
+	        </table>
+        </div>
+    </div>
+   <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"></div>
+  </div> 
+
+
+</body>
+<script>
+
+  var loadRecoreds = function(categorytype, dbid, tableId) {
+	  
+	   
+	   $.ajax({
+			url : "model/records/"+categorytype+"/"+dbid+"/"+tableId,
+			type : "GET",
+			data : null,
+
+			success : function(records) {
+				console.log("record size = " + records.length+", table = "+tableId);    
+			},
+			error : function() {
+				alert("fail to get records  in table :" + tableId);
+			}
+		});
+  }
+   
+   var loadTables = function(categorytype, categoryid, dbid, ulist)  
+   {
+	   //alert(categoryname);
+	   $.ajax({
+			url : "model/tables/"+categorytype+"/"+dbid,
+			type : "GET",
+			data : null,
+
+			success : function(tables) {
+				console.log("tables = " + JSON.stringify(tables));
+										
+				for (var i = 0; i < tables.length; i++ ) {
+					var table = tables[i];
+					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
+				}
+				$("."+categoryid+" a").click(function() {
+			        
+			        var tableId = $(this).attr('id');
+			        loadRecoreds(categorytype, dbid, tableId);
+			       // alert('here in '+tableName);
+			       // document.getElementById(divId).className = '';
+			    });
+			     
+			},
+			error : function() {
+				alert("get tables failed in category :" + categoryname);
+			}
+		});
+   }
+
+   $(function() {
+    
+		$.ajax({
+			url : "model/categories",
+			type : "GET",
+			data : null,
+
+			success : function(list) {
+				console.log("categories = " + JSON.stringify(list));
+				var categories = $("#categories").children("ul");
+				
+				
+				
+				for (var i = 0; i < list.length; i++ ) {
+					//alert("hi");
+					var itemid = "db"+i;
+					var category = list[i];
+	
+					//categories.append("<li id='"+categoryid+"'><span><i class='fa fa fa-volume-up'></i> <a href=''>"+categoryname+"</a></span></li>");
+					categories.append("<li class='"+category.type+"' id='"+itemid+"'> <a href='javascript:void(0)''><i class='fa fa-qrcode'></i>"
+	                        +"<span class='nav-label'>   "+category.alias+"   </span>"
+	                        +"<span class='fa arrow'></span>"
+	                    +"</a></li>");
+					var category_element = $("#"+itemid);
+					category_element.append("<ul class='nav nav-second-level collapse in'></ul>");
+					var ul_element = $("#"+itemid).children("ul");
+					
+					loadTables(category.type, itemid, category.id, ul_element);
+					
+				}
+				//alert(categories);
+
+
+			     
+
+			},
+			error : function() {
+				alert("get categories failed!");
+			}
+		});
+
+   });
+</script>
+</html>

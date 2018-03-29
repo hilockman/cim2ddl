@@ -19,6 +19,11 @@
 			<artifactId>ei-base</artifactId>
 			<version>${project.version}</version>
 		</dependency> 	
+   		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-buffer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
 	    <dependency>
 	       <groupId>com.fasterxml.jackson.core</groupId>

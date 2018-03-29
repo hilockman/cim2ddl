@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.znd.ads.mapper.NodeMapper">
+    <!--通过name获取Node对象-->
+    <select id="getByName" parameterType="String" resultType="AdsNode">
+        SELECT * from ads_node where name = #{name}
+    </select>
+
+    <!--通过地址Node对象-->
+    <select id="getByUrl" parameterType="String" resultType="AdsNode">
+        SELECT * from ads_node where url = #{url}
+    </select>
+
+
+    <!--通过地址Node对象-->
+    <select id="getById" parameterType="Integer" resultType="AdsNode">
+        SELECT * from ads_node where id = #{id}
+    </select>
+    
+    <select id="all" resultType="AdsNode">
+        select * from ads_node
+    </select>
+
+    <!--通过username获取user对象-->
+    <insert id="save" useGeneratedKeys="true"   keyProperty="id">
+        insert into ads_node(name, url) VALUES (#{name},#{url})
+    </insert>
+    
+    
+    <delete id="deleteById" parameterType="Integer">
+    	delete from ads_node where id = #{id}
+    </delete>
+    
+    <update id="updateNodeInfo">
+    	update ads_node set name = #{name}, url = #{url} where id = #{id}
+    </update>
+</mapper>

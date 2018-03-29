@@ -5,10 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.ads.bus.buffer.BufferFactory;
-import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.bus.config.BufferConfig;
-import com.znd.ei.ads.bus.config.TableMeta;
+import com.znd.bus.buffer.BufferFactory;
+import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.config.BufferConfig;
+import com.znd.bus.config.CreateFlag;
+import com.znd.bus.config.TableMeta;
 
 @Configuration
 @EnableAutoConfiguration
@@ -23,7 +24,7 @@ public class DataBusConfig {
 			config.setName(dabaBusProperties.getName());
 			config.setAlias(dabaBusProperties.getAlias());
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(dabaBusProperties.getCreateFlag());
+			config.setCreateFlag(CreateFlag.valueOf(dabaBusProperties.getCreateFlag().toUpperCase()));
 			config.setTableMetas(dabaBusProperties.getTables().toArray(new TableMeta[0]));
 			return config;
 			

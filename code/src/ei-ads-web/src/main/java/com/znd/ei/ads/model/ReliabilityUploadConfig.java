@@ -2,7 +2,7 @@ package com.znd.ei.ads.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.znd.ei.ads.config.PRAdequacySetting;
+import com.znd.ads.model.PRAdequacySetting;
 
 public class ReliabilityUploadConfig    {
 

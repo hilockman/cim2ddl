@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.znd.ads.model.FileInfo;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;
@@ -15,7 +16,6 @@ import com.znd.ei.ads.acp.MapDataOperations;
 import com.znd.ei.ads.acp.ObjectRefDataOperations;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
-import com.znd.ei.ads.config.FileInfo;
 
 public class ReliabilityNetBuffer {		
 	private String modelName;

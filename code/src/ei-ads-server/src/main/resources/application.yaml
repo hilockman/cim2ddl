@@ -1,19 +1,47 @@
-server:
-  name: ei-ads-server
-  port: 8080
-
-logging: 
-  file: log/ei-ads-server.log
+tcptest:
+      serverIp: 192.168.1.33
+      serverPort: 8950
+      serverWorkers: 1
+      serverTimeOut: 900000000
+      hostIp: 192.168.1.70
+      hostPort: 9002
+logging:
+  file: log/ei-ads-web.log
   level:
      interfaceLogger: OFF
      org.redisson: OFF
       
-      
-  #buffer配置  
+        
+server:
+  session-timeout : 3600
+  name: ei-ads-server
+  port: 8080
+model:
+  cachedDir: ./model-cached-dir  
+
+  
+#数据库连接配置
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.70:3306/ads?characterEncoding=utf-8&amp;serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver  
+    
+#mynatis配置
+mybatis:
+  type-aliases-package: com.znd.ads.vo
+  #mapper加载路径
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #myatbis配置文件
+  config-location: classpath:mybatis-conf.xml   
+  
+#buffer配置  
 buffer:
    id:  0
    name: common
    alias: 公共
+   createFlag: create
    tables:
       -  
         name:  AdsNode  

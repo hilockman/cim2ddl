@@ -1,6 +1,6 @@
 package com.ei.ads.mappper;
 
-import com.znd.ei.ads.vo.AdsNode;
+import com.znd.buffer.common.model.AdsNode;
 
 public interface AdsNodeMapper {
 	AdsNode getNodeByUrl(String url);

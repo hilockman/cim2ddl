@@ -4,10 +4,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.znd.ei.ads.bus.buffer.BufferFactory;
-import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.bus.config.BufferConfig;
-import com.znd.ei.ads.bus.config.TableMeta;
+import com.znd.bus.buffer.BufferFactory;
+import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.config.BufferConfig;
+import com.znd.bus.config.CreateFlag;
+import com.znd.bus.config.TableMeta;
 
 @Configuration
 @EnableAutoConfiguration
@@ -22,7 +23,7 @@ public class DataBusConfig {
 			config.setName(property.getName());
 			config.setAlias(property.getAlias());
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag("update");
+			config.setCreateFlag(CreateFlag.UPDATE);
 			config.setTableMetas(property.getTables().toArray(new TableMeta[0]));
 			config.setTypePackage(property.getTypePackage());
 			config.setMapperPackage(property.getMapperPackage());

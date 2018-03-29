@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.znd.ads.model.PRAdequacySetting;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.adf.ListData;
 import com.znd.ei.ads.adf.MapData;
@@ -46,7 +47,6 @@ import com.znd.ei.ads.apl.reliability.bean.RequestEstimate;
 import com.znd.ei.ads.apl.reliability.bean.RequestJobFinished;
 import com.znd.ei.ads.apl.reliability.bean.ResponseEstimate;
 import com.znd.ei.ads.apl.reliability.server.StateEstimateServer;
-import com.znd.ei.ads.config.PRAdequacySetting;
 
 @Component
 public class StateEstimateProxyServer implements StateEstimateServer {

@@ -35,9 +35,9 @@ import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBList;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBMap;
 import com.ZhongND.RedisDF.exectueDF.exectue.RedissonDBString;
 import com.ZhongND.RedisDF.messageDF.RedissonPubManager;
+import com.znd.ads.model.FileInfo;
+import com.znd.ads.model.PRAdequacySetting;
 import com.znd.ei.Utils;
-import com.znd.ei.ads.config.FileInfo;
-import com.znd.ei.ads.config.PRAdequacySetting;
 import com.znd.ei.ads.model.AdsResult;
 import com.znd.ei.ads.model.ReliabilityUploadConfig;
 

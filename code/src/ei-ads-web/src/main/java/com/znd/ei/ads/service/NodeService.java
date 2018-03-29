@@ -2,7 +2,7 @@ package com.znd.ei.ads.service;
 
 import java.util.List;
 
-import com.znd.ei.ads.vo.AdsNode;
+import com.znd.buffer.common.model.AdsNode;
 
 public interface NodeService {
     /**

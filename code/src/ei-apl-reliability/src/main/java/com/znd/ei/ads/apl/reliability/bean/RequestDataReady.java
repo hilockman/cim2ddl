@@ -1,6 +1,6 @@
 package com.znd.ei.ads.apl.reliability.bean;
 
-import com.znd.ei.ads.config.PRAdequacySetting;
+import com.znd.ads.model.PRAdequacySetting;
 
 public class RequestDataReady extends ExchangeData<RequestDataReady.Content> {
 

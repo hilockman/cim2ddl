@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.znd.buffer.common.model.AdsNode;
 import com.znd.ei.ads.model.AdsResult;
 import com.znd.ei.ads.service.NodeService;
-import com.znd.ei.ads.vo.AdsNode;
 
 @Controller
 @RequestMapping("/node")

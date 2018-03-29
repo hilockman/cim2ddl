@@ -8,9 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.ads.bus.buffer.BufferFactory;
-import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.bus.config.BufferConfig;
+import com.znd.bus.buffer.BufferFactory;
+import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.config.BufferConfig;
+import com.znd.bus.config.CreateFlag;
 
 
 @RunWith(SpringRunner.class)
@@ -23,7 +24,7 @@ public class BufferTests {
 		BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
 		config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-		config.setCreateFlag(BufferConfig.CREATE);
+		config.setCreateFlag(CreateFlag.CREATE);
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
 		BufferFactory f = b.build(config);
 		f.destory();
@@ -36,7 +37,7 @@ public class BufferTests {
 		BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
 		config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-		config.setCreateFlag(BufferConfig.FALSE);
+		config.setCreateFlag(CreateFlag.FALSE);
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
 		b.build(config);
 		
@@ -54,7 +55,7 @@ public class BufferTests {
 			BufferConfig config = new BufferConfig();
 			config.setName("myBuffer"+i);
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(BufferConfig.CREATE);
+			config.setCreateFlag(CreateFlag.CREATE);
 			
 			BufferFactoryBuilder b = new BufferFactoryBuilder();
 			b.build(config);
@@ -73,7 +74,7 @@ public class BufferTests {
 			BufferConfig config = new BufferConfig();
 			config.setName("myBuffer"+i);
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(BufferConfig.FALSE);
+			config.setCreateFlag(CreateFlag.FALSE);
 			BufferFactoryBuilder b = new BufferFactoryBuilder();
 			BufferFactory factory = b.build(config);
 			config.getBufferContext().removeBuffer();

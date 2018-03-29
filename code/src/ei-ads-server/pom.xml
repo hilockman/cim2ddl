@@ -15,13 +15,20 @@
     <deplory.dir>../../lib/${project.name}</deplory.dir>
   </properties>
   <dependencies>	
-        <dependency>
+         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>		    
+        </dependency>
+ 
 		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>2.10.0</version>
+		</dependency>	
+	   	
+	   	<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ei-ads-buffer</artifactId>
+			<artifactId>ei-ads-base</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		
@@ -29,13 +36,56 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        
         <!-- Optional, for bootstrap -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
+        </dependency>       
+         <!-- hot swapping, disable cache for template, enable live reload -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>       
+        <!-- spring安全 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>  
-        		
+        
+        <!-- mybatis支持 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- mysql连接池 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        
+        <!--添加切面支持-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>        
+              
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-buffer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-memdb-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>		        
+                          		
   </dependencies>
  	<build>
 		<plugins>

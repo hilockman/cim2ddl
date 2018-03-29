@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+
+<title>Power System Reliability</title>
+
+ <div th:replace="fragments/header :: header-css" >
+ </div>
+
+<script src="scripts/utils.js"></script>
+</head>
+<style>
+
+
+	<!--
+	#all-content {
+		width: 1200px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	-->
+	
+	.easyui-combobox {
+		padding: 2px;
+		widtch: 141px;
+		border: 1px solid #A4BED4;
+	}
+	
+	#configs {
+		padding: 0 0 20px 0;
+		text-align: left;
+	}
+	
+	
+	#control-panel {
+		padding: 0px 20px 20px 20px;
+		clear: right
+	}
+	
+	#log-brower  {
+		padding: 0px 20px 20px 20px;
+		display:none;
+		outline-color:#00ff00;
+		width:1160px;
+	}
+	#text-box {
+		width:1160px;
+		heigth:500px;
+	}
+	
+	.model-set-section {
+		height: 500px
+	}
+	
+	
+</style>
+<body>
+	<div th:replace="fragments/header :: header" >
+	</div>
+	<div class="container-fluid">
+		<div id="configs">
+			   <form id="pr-adequacy-setting-form" action="pr/testSubmit" method="post">
+			     <div  class="row">
+			       <div class="col-sm-4">
+				        <div class="panel panel-default model-set-section">
+							<div class="panel-heading">
+								<h2>模型设置</h2>
+							</div>
+							<div class="panel-body">
+								<div class="fitem">
+									<p> 模型名称: <input type="text" name="modelName"
+										id="modelName" class="easyui-combobox" required /></p>
+								</div>
+								<div class="fitem">
+									<p> 潮流文件: <input type="file" name="files" id="dat-file" class="easyui-combobox" required /></p>
+								</div>
+								<div class="fitem">
+									<p> 稳定文件: <input type="file" name="files" class="easyui-combobox" required /></p>
+								</div>
+								<div class="fitem">
+									<p> 参数文件: <input type="file" name="files" class="easyui-combobox"  required /></p>
+								</div>
+							</div>
+	
+				        </div>              
+	               </div>
+				   <div class="col-sm-4">
+					   <div class="panel panel-default model-set-section">
+								<div class="panel-heading">
+								<h2>抽样参数</h2> 
+								</div>
+								<div class="panel-body">
+									<div class="fitem">
+										<p> 状态抽样类型:
+										<input name="PRSampleObject" id="all_net" value="0" type="radio" checked="checked" /><span for="all_net">全网</span>
+									    <input name="PRSampleObject" id="transmission" value="1" type="radio" /><span for="transmission">输电</span> 
+									    <input name="PRSampleObject" id="generation" value="2" type="radio" /><span for="generation">发电</span></p>
+									</div>
+									<div class="fitem">
+										<p> 状态抽样方法: 
+										<input name="PRSampleMethod" value="1" type="radio" checked="checked" /><span>蒙特卡罗</span> 
+										<input name="PRSampleMethod" value="2" type="radio" /><span>解析</span>
+										<input name="PRSampleMethod" value="3" type="radio" /><span>状态抽样</span>
+										<input name="PRSampleMethod" value="4" type="radio" /><span>快速排序</span>
+										</p>
+									</div>
+									<div class="fitem">
+										<p> 最大发电机故障: <input type="text" name="MaxGenFault"
+											id="MaxGenFault" class="easyui-combobox" required /></p>
+									</div>
+									<div class="fitem">
+										<p> 最大支路故障: <input type="text" name="MaxBranFault"
+											id="MaxBranFault" class="easyui-combobox" required /></p>
+									</div>
+									<div class="fitem">
+										<p> 蒙特卡罗模拟时间: <input type="text"
+											name="MCSSimulateTime" id="MCSSimulateTime"
+											class="easyui-combobox" required /><p>
+									</div>
+									<div class="fitem">
+										<p> 蒙特卡罗最小状态概率: <input type="text"
+											name="MCSMinStateProb" id="MCSMinStateProb"
+											class="easyui-combobox" required /><p>
+									</div>
+									<div class="fitem">
+										<p> 快速排序最大累积概率: <input type="text"
+											name="FSTMaxCumuProb" id="FSTMaxCumuProb"
+											class="easyui-combobox" required /></p>
+									</div>
+									<div class="fitem">
+										<p> 快速排序最小状态概率: <input type="text"
+											name="FSTMinStateProb" id="FSTMinStateProb"
+											class="easyui-combobox" required /><p>
+									</div>
+									<div class="fitem">
+										<p> 快速排序最大状态数: <input type="text"
+											name="FSTMaxStateNum" id="FSTMaxStateNum"
+											class="easyui-combobox" required /></p>
+									</div>
+									<div class="fitem">
+										<p> 状态抽样最大状态数: <input type="text"
+											name="STSMaxStateNum" id="STSMaxStateNum"
+											class="easyui-combobox" required /></p>
+									</div>
+									<div class="fitem">
+										<p> 解析法最小状态概率: <input type="text"
+											name="ANAMinStateProb" id="ANAMinStateProb"
+											class="easyui-combobox" required /></p>
+									</div>												
+								</div>
+		
+					   </div>
+	
+	               </div>
+				   <div class="col-sm-4">			   
+				    <div class="panel panel-default model-set-section">
+							<div class="panel-heading">
+							   <h2>后评估参数</h2>
+							</div>
+							<div class="panel-body">
+								<div class="fitem">
+									<p>直变交系数:<input type="text" id="Dc2AcFactor" name="Dc2AcFactor"
+										class="easyui-combobox" /></p>
+								</div>
+								<div class="fitem">
+									<p>孤岛的最小容载比:<input type="text" id="MinIslandGLRatio" name="MinIslandGLRatio"
+										class="easyui-combobox" /></p>
+								</div>
+								<div class="fitem">
+									<input type="checkbox" id="LineELimit" name="LineELimit"/> <span>线路消限</span> 
+								</div>
+								<div class="fitem">	
+									<input type="checkbox" id="TranELimit" name="TranELimit"/> <span>主变消限</span> 
+								</div>
+								<div class="fitem">
+									<input type="checkbox" id="GenPELimit" name="GenPELimit" /> <span>调整发电机消限</span> 
+								</div>
+								<div class="fitem">
+									<input type="checkbox" id="UPFCELimit" name="UPFCELimit" /> <span>调整UPFC消限</span>
+								</div>
+								<div class="fitem">
+									<input type="checkbox" id="AuxLoadAdjust" name="AuxLoadAdjust" /><span>厂用电参与消限</span>
+								</div>
+								<div class="fitem">	
+									<input type="checkbox" id="EQGenAdjust" name="EQGenAdjust" /> <span>等值发电机参与消限</span>
+								</div>
+								<div class="fitem">	 
+									<input type="checkbox" id="EQLoadAdjust"  name="EQLoadAdjust" /> <span>等值负荷参与消限</span>
+								</div>
+								<div class="fitem">
+									<input type="checkbox" id="UPFCAdjustRC" name="UPFCAdjustRC" /><span>UPFC采用变容法</span>
+								</div>						
+							</div>
+					</div>             
+	               </div>
+			     </div>
+	
+	
+	
+	
+				<!-- input type="submit" value="启动计算"-->
+			</form>
+	</div>
+	
+
+	<div id="control-panel"  class="btn-group">
+	   <button id="start-calc-reliability" class="btn btn-primary active">启动可靠性计算</button>
+	   <button id="cancel-calc-reliability" class="btn btn-primary disable">取消可靠性计算</button>
+	   <button id="clear-database" class="btn btn-primary active">清除数据库</button>
+	   
+	</div>
+
+	<div id="log-brower" >
+	   <label id="request-response"></label>
+		<textarea id="text-box"> </textarea>
+		<div>
+		  <button id="log-update">日志更新</button>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>	
+	</div>
+    
+	
+	<script>
+	var stateSampleConfigNames = [];
+
+
+	var init = function() {
+		
+		var modelName = localStorage['modelName']; 
+		$("#modelName").val(modelName); 
+		$("#modelName").change(function() { 
+		  localStorage['modelName'] = $(this).val(); 
+		  console.log("modelName :"+$(this).val()); 
+		}); 
+		
+		$.ajax({
+			url : "pr/adequacySetting",
+			type : "GET",
+			data : null,
+
+			success : function(config) {
+				console.log("PRAdequacySetting = " + JSON.stringify(config));
+
+				$.each(config, function(name, value) {
+					var control = $("#" + name);
+
+					if (control.length != 0) {
+						if (control.attr('type') == "text") {
+							control.val(value);
+						} 
+						else if (control.attr('type') == "checkbox") {
+							value == '1' ? control.attr("checked", true) : control
+									.attr("checked", false);
+						} else {
+							var cname = "input[name='{0}'][value={1}]".format(name,
+									value);
+							$(cname).attr("checked", true);
+						} 
+				    }
+				});
+
+			},
+			error : function() {
+				alert("get default PRAdequacySetting failed!");
+			}
+		});
+
+
+		$("input[type=file]").change(function() {
+			var file = $(this).val();
+			 var pos=file.lastIndexOf("\\");
+			    
+			var fileName = file.substring(pos+1); 
+			pos = fileName.lastIndexOf('.');
+			var modelName = fileName.substring(0, pos);
+			$('#modelName').val(modelName);
+			localStorage['modelName'] = modelName; 
+			//alert("on change file:"+fileName);
+		});
+
+		$("#pbar_outerdiv").hide();
+	};
+
+	$(document).ready(init);
+
+	$('#cancel-calc-reliability').click(function() {
+		$('#request-response').html('Succeed to cancel!');
+		$("#log-brower").toggle("slow");
+		 $("#start-calc-reliability").prop("disabled", false);
+	});
+
+	$.fn.serializeObject = function()
+	{
+	    var o = {};
+	    var a = this.serializeArray();
+	    $.each(a, function() {
+	        if (o[this.name]) {
+	            if (!o[this.name].push) {
+	                o[this.name] = [o[this.name]];
+	            }
+	            o[this.name].push(this.value || '');
+	        } else {
+	            o[this.name] = this.value || '';
+	        }
+	    });
+	    return o;
+	};
+
+	var browser = LogBrowser();
+
+	$('#clear-database').click(function() {
+		var data = $("#modelName").val();
+		$.ajax({
+			url : "pr/clearDatabase/"+data,
+			type : "POST",
+			data : null,
+
+			success : function(msg) {
+				console.log(msg);
+
+			},
+			error : function() {
+				alert("fail to clear!");
+			}
+		});
+	});
+
+	$('#start-calc-reliability').click(
+			function() {
+				var f = $("#pr-adequacy-setting-form");
+				var prAdequacySetting = f.serializeObject();
+				
+				var checkbox = f.find("input[type=checkbox]"); 
+				$.each(checkbox, function(key, val) { 
+					prAdequacySetting[$(val).attr('name')] = ($(val).is(":checked") ? 1 : 0);		 
+	            }); 
+				
+			    // Get form
+			    //var form = $('#model-config-form')[0];
+				var form = $('#pr-adequacy-setting-form')[0];
+
+			    var data = new FormData(form);
+				
+			    var setting = JSON.stringify(prAdequacySetting);
+			    data.append("setting", setting);
+						   
+				$.ajax({
+					type : 'POST',
+					enctype : 'multipart/form-data',
+					url : "./pr/submitCalc",
+					data : data,
+					// http://api.jquery.com/jQuery.ajax/
+					// https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+					processData : false, // prevent jQuery from automatically
+											// transforming the data into a query
+											// string
+					contentType : false,
+					cache : false,
+					timeout : 600000,
+					success : function(msg) {
+						console.log('calc reliability request accepted : ' + JSON.stringify(msg));
+						//$('#request-response').html(msg.code == 'OK'?'Request accepted!' : 'Fail to submit calc : ' + msg.detail);
+						$("#start-calc-reliability").prop("disabled", true);
+					},
+					 error: function (e) {
+				            $("#request-response").html(e.responseText);
+				            console.log("ERROR : ", e);
+				            $("#start-calc-reliability").prop("disabled", true);
+				        }
+
+				});
+				
+				$("#log-brower").show();
+				
+				//browser.animateUpdate();
+				browser.updateLog();
+				$("#log-update").click(function () {
+					browser.updateLog();
+				});
+			});
+
+	function LogBrowser() {
+		var logger = {};
+		
+		
+		logger.timeoutVal = 3000;
+		logger.stopFlag = false;
+
+		logger.updateLog = function() {
+			var modelName = $("#modelName").val();
+			$.ajax({
+				url : "pr/log/"+modelName,
+				type : "GET",
+				data : modelName,
+
+				success : function(logs) {
+					if (logs == null)
+						return;
+					
+					console.log("get logs size : "+logs.length);
+					for (var i = 0; i < logs.length; i++) {
+						var txt = $.trim(logs[i]);
+						  var box = $("#text-box");
+						  box.val(box.val()+"\n " + txt);
+						  console.log(logs[i]);
+					}
+										
+				},
+				error : function() {
+					console.log("Fail to get logs!");
+				}
+			});
+		};
+
+		logger.stop = function() {
+			this.stopFlag = true;
+		}
+
+		logger.animateUpdate = function() {	
+			if (this.stopFlag) {
+				return;
+			} else {	 
+				this.updateLog();
+				setTimeout(function() {
+					logger.animateUpdate();
+				}, this.timeoutVal);
+			}
+		};
+		
+		return logger;
+	}
+	</script>
+
+</body>
+
+</html>

@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.znd.bus.buffer.Buffer;
+import com.znd.bus.buffer.BufferFactory;
 import com.znd.ei.ads.buffer.test.mapper.UserMapper;
 import com.znd.ei.ads.buffer.test.model.User;
-import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.buffer.BufferFactory;
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
 @SpringBootTest

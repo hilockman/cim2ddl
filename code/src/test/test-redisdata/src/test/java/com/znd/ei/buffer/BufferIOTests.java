@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.buffer.BufferFactory;
-import com.znd.ei.ads.bus.buffer.BufferFactoryBuilder;
-import com.znd.ei.ads.bus.config.BufferConfig;
-import com.znd.ei.ads.bus.config.ColumnMeta;
-import com.znd.ei.ads.bus.config.TableMeta;
+import com.znd.bus.buffer.Buffer;
+import com.znd.bus.buffer.BufferFactory;
+import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.config.BufferConfig;
+import com.znd.bus.config.ColumnMeta;
+import com.znd.bus.config.CreateFlag;
+import com.znd.bus.config.TableMeta;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
@@ -41,30 +42,30 @@ public class BufferIOTests {
 	   	config = new BufferConfig();
 			config.setName("myTestBuffer");
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(BufferConfig.CREATE);
+			config.setCreateFlag(CreateFlag.CREATE);
 			
-			ColumnMeta [] columns = {new ColumnMeta("id", BufferFactoryBuilder.INT, true),
-					new ColumnMeta("name", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("doubleCol", BufferFactoryBuilder.DOUBLE, true),
-					new ColumnMeta("booleanCol", BufferFactoryBuilder.BOOLEAN, true)};
+			ColumnMeta [] columns = {new ColumnMeta("id", true),
+					new ColumnMeta("name", true),
+					new ColumnMeta("doubleCol", true),
+					new ColumnMeta("booleanCol", true)};
 			TEST_TABLE_MATA = new TableMeta().setName("MyTestTable").setColumns(Arrays.asList(columns));
 			
 			
-			ColumnMeta [] columns1 = {new ColumnMeta("id", BufferFactoryBuilder.INT, true),
-					new ColumnMeta("col1", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col2", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col3", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col4", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col5", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col6", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col7", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col8", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col9", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col10", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col11", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col12", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col13", BufferFactoryBuilder.STRING, true),
-					new ColumnMeta("col14", BufferFactoryBuilder.STRING, true)};
+			ColumnMeta [] columns1 = {new ColumnMeta("id", true),
+					new ColumnMeta("col1", true),
+					new ColumnMeta("col2", true),
+					new ColumnMeta("col3", true),
+					new ColumnMeta("col4", true),
+					new ColumnMeta("col5", true),
+					new ColumnMeta("col6", true),
+					new ColumnMeta("col7", true),
+					new ColumnMeta("col8", true),
+					new ColumnMeta("col9", true),
+					new ColumnMeta("col10", true),
+					new ColumnMeta("col11", true),
+					new ColumnMeta("col12", true),
+					new ColumnMeta("col13", true),
+					new ColumnMeta("col14", true)};
 			
 			TEST_TABLE_MATA1= new TableMeta().setName("MyTestTable1").setColumns(Arrays.asList(columns1));
 			
@@ -132,12 +133,12 @@ public class BufferIOTests {
 		BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
 		config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-		config.setCreateFlag(BufferConfig.CREATE);
+		config.setCreateFlag(CreateFlag.CREATE);
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
-		ColumnMeta [] columns = {new ColumnMeta("id", BufferFactoryBuilder.INT, true),
-				new ColumnMeta("name", BufferFactoryBuilder.STRING, false),
-				new ColumnMeta("doubleCol", BufferFactoryBuilder.DOUBLE, false),
-				new ColumnMeta("booleanCol", BufferFactoryBuilder.BOOLEAN, false)};
+		ColumnMeta [] columns = {new ColumnMeta("id", true),
+				new ColumnMeta("name", false),
+				new ColumnMeta("doubleCol", false),
+				new ColumnMeta("booleanCol", false)};
 		TableMeta[] tableMetas = {new TableMeta().setName("MyTable").setColumns(Arrays.asList(columns))};
 		config.setTableMetas(tableMetas);
 		b.build(config).destory();
@@ -196,12 +197,12 @@ public class BufferIOTests {
     	BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
 		config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-		config.setCreateFlag(BufferConfig.UPDATE);
+		config.setCreateFlag(CreateFlag.UPDATE);
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
-		ColumnMeta [] columns = {new ColumnMeta("id", BufferFactoryBuilder.INT, true),
-				new ColumnMeta("name", BufferFactoryBuilder.STRING, true),
-				new ColumnMeta("doubleCol", BufferFactoryBuilder.DOUBLE, true),
-				new ColumnMeta("booleanCol", BufferFactoryBuilder.BOOLEAN, true)};
+		ColumnMeta [] columns = {new ColumnMeta("id", true),
+				new ColumnMeta("name", true),
+				new ColumnMeta("doubleCol", true),
+				new ColumnMeta("booleanCol", true)};
 		TableMeta[] tableMetas = {new TableMeta().setName("MyTable").setColumns(Arrays.asList(columns))};
 		config.setTableMetas(tableMetas);
 		BufferFactory factory = b.build(config);	
@@ -310,13 +311,13 @@ public class BufferIOTests {
     	BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
 		config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-		config.setCreateFlag(BufferConfig.CREATE);
+		config.setCreateFlag(CreateFlag.CREATE);
 		
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
-		ColumnMeta [] columns = {new ColumnMeta("id", BufferFactoryBuilder.INT, true),
-				new ColumnMeta("name", BufferFactoryBuilder.STRING, false),
-				new ColumnMeta("doubleCol", BufferFactoryBuilder.DOUBLE, false),
-				new ColumnMeta("booleanCol", BufferFactoryBuilder.BOOLEAN, false)};
+		ColumnMeta [] columns = {new ColumnMeta("id", true),
+				new ColumnMeta("name", false),
+				new ColumnMeta("doubleCol", false),
+				new ColumnMeta("booleanCol", false)};
 		TableMeta tableMeta = new TableMeta().setName("MyTable1").setColumns(Arrays.asList(columns));
 		config.setTableMetas(new TableMeta[]{tableMeta});
 		BufferFactory factory = b.build(config);

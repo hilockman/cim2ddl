@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.znd.buffer.common.model.AdsNode;
 import com.znd.ei.ads.service.NodeService;
-import com.znd.ei.ads.vo.AdsNode;
 
 @Controller
 public class DefaultController {

@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 import com.ei.ads.client.Client;
 import com.ei.ads.config.ClientConfig;
 import com.ei.ads.mappper.AdsNodeMapper;
-import com.znd.ei.ads.bus.buffer.Buffer;
-import com.znd.ei.ads.bus.buffer.BufferFactory;
-import com.znd.ei.ads.bus.config.BufferConfig;
-import com.znd.ei.ads.vo.AdsNode;
+import com.znd.buffer.common.model.AdsNode;
+import com.znd.bus.buffer.Buffer;
+import com.znd.bus.buffer.BufferFactory;
+import com.znd.bus.config.BufferConfig;
 
 @Component
 public class DefaultClient implements Client {	
