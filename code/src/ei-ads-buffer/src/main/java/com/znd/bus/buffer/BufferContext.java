@@ -1,6 +1,7 @@
 package com.znd.bus.buffer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,16 +10,28 @@ import org.slf4j.LoggerFactory;
 
 import com.ZhongND.RedisDataBus.ServiceFactory;
 import com.ZhongND.RedisDataBus.Api.DFService;
+import com.ZhongND.RedisDataBus.Api.MessageCallBack;
 import com.ZhongND.RedisDataBus.Api.RBufferBuilder;
 import com.ZhongND.RedisDataBus.Api.RBufferOperation;
 import com.ZhongND.RedisDataBus.Api.RMemDBApi;
 import com.ZhongND.RedisDataBus.Api.RMemDBBuilder;
+import com.ZhongND.RedisDataBus.Api.RPubSubManager;
 import com.ZhongND.RedisDataBus.Api.RTableBuilder;
 import com.ZhongND.RedisDataBus.Api.RTableOperation;
+import com.ZhongND.RedisDataBus.Enum.MessageChannel;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
+import com.ZhongND.RedisDataBus.Object.MessageContent;
 import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
 import com.znd.bus.binding.BindingException;
+import com.znd.bus.channel.Channel;
+import com.znd.bus.channel.ChannelConfig;
+import com.znd.bus.channel.ChannelType;
+import com.znd.bus.channel.Event;
+import com.znd.bus.channel.Listener;
+import com.znd.bus.channel.Message;
+import com.znd.bus.channel.defaults.DefaultChannel;
+import com.znd.bus.channel.defaults.MessageException;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.BufferConfigException;
 import com.znd.bus.config.ColumnMeta;
@@ -33,84 +46,15 @@ public  class BufferContext {
 	private final RMemDBApi memDBApi;
 	private final RMemDBBuilder memDBBuilder;
 	private RBufferOperation bufferOperation;
+	private final RPubSubManager pubSubManager;
 	
 	
-//	private static final Map<String, RedisTableColumnType> typeMap = new HashMap<>();
-//	private static final Map<Class<?>, DataType> class2TypeMap = new HashMap<>();
-//	private static final HashMap<RedisTableColumnType, String> inverseTypeMap = new HashMap<>();
-
-
-//	public static final String INT = "int";
-//	public static final String BOOLEAN = "boolean";
-//	public static final String STRING = "string";
-//	public static final String DOUBLE = "double";
-//	public static final String BYTE = "byte";
-//	public static final String FLOAT = "float";
-//	public static final String LONG = "long";
-//	public static final String SHORT = "short";
-//	public static final String DATE = "date";
-//	public static final String TIME = "time";
-//	public static final String ENUM = "enum";
-//	
-//	
-	
-//	static {		
-//		
-//		DataType[] values = DataType.values();
-//		for (DataType e : values) {
-//			typeMap.put(e.name().toLowerCase(), RedisTableColumnType.RedisTableColumnType_String);
-//		}
-//		
-//		
-//		class2TypeMap.put(String.class, DataType.STRING);
-//		class2TypeMap.put(Integer.class, DataType.INT);
-//		class2TypeMap.put(int.class, DataType.INT);
-//		class2TypeMap.put(Boolean.class, DataType.BOOLEAN);
-//		class2TypeMap.put(boolean.class, DataType.BOOLEAN);
-//		class2TypeMap.put(Double.class, DataType.DOUBLE);
-//		class2TypeMap.put(double.class, DataType.DOUBLE);
-//		class2TypeMap.put(Float.class, DataType.FLOAT);
-//		class2TypeMap.put(float.class, DataType.FLOAT);
-//		class2TypeMap.put(Short.class, DataType.SHORT);
-//		class2TypeMap.put(short.class, DataType.SHORT);
-//		class2TypeMap.put(Byte.class, DataType.BYTE);
-//		class2TypeMap.put(Byte[].class, DataType.STRING);
-//		class2TypeMap.put(byte[].class, DataType.STRING);
-//		class2TypeMap.put(char[].class, DataType.STRING);
-//		
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_int, INT);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_boolean, BOOLEAN);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_String, STRING);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_double, DOUBLE);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_byte, BYTE);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_float, FLOAT);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_long, LONG);
-////		inverseTypeMap.put(RedisTableColumnType.RedisTableColumnType_short, SHORT);
-//	}
-//	
-//	
-//	public static RedisTableColumnType toType(String type) {
-//		return typeMap.get(type.toLowerCase());
-//	}
-//	
-//	public static RedisTableColumnType toType(DataType type) {
-//		return typeMap.get(type.name().toLowerCase());
-//	}
-//	
-//	
-//	public static DataType toType(Class<?> clazz) {
-//		return class2TypeMap.get(clazz);
-//	}
-//	public static  String toType(RedisTableColumnType type) {
-//		return inverseTypeMap.get(type);
-//	}
-
-	
-	public BufferContext(String name, DFService service, RMemDBApi memDBApi, RMemDBBuilder memDBBuilder) {
+	public BufferContext(String name, DFService service, RMemDBApi memDBApi, RMemDBBuilder memDBBuilder,  RPubSubManager pubSubManager) {
 		this.name = name;
 		this.service = service;
 		this.memDBApi = memDBApi;
 		this.memDBBuilder = memDBBuilder;
+		this.pubSubManager = pubSubManager;
 	}
 	
 	public static class Builder {
@@ -130,7 +74,7 @@ public  class BufferContext {
 				RMemDBBuilder memDBBuilder = memDBApi
 						.getRMemDBBuilder(config.getName());	
 				
-				context = new BufferContext(config.getName(), service, memDBApi, memDBBuilder);									
+				context = new BufferContext(config.getName(), service, memDBApi, memDBBuilder, memDBApi.getPubSubManager());									
 			} catch (Throwable e) {
 				throw new BufferConfigException(e.getMessage(), e);
 			}
@@ -402,4 +346,104 @@ public  class BufferContext {
 		logger.info("Table created: {}, clumn size = {}.",
 				tableDefine.getName(), tableDefine.getColumnSize());
 	}
+
+	public  class ChannelWrapper implements Channel
+	{
+		private final Channel delegate;
+		public ChannelWrapper(Channel channel) {
+			this.delegate  = channel;
+		}
+
+		@Override
+		public void send(Message message) {			
+			sendMessage(delegate.getName(), message);
+		}
+
+		@Override
+		public void register(Listener listener) {
+			delegate.register(listener);
+		}
+
+		@Override
+		public void receive(Event e) {
+			delegate.receive(e);
+		}
+
+		@Override
+		public void close() {
+			
+			MessageChannel channel = MessageChannel.OTHERCHANNEL;
+			synchronized (channel) {
+				  try {
+					channel.setStrChannel(getName());
+					pubSubManager.unSubscribeMessage(channel);
+					logger.info("Succed to unsubscribe channel : {}", getName());
+				} catch (Exception e) {
+					throw new BufferException(e);
+				}
+				  				
+			}
+			
+			delegate.close();
+		}
+
+		@Override
+		public ChannelType getType() {
+			return delegate.getType();
+		}
+
+		@Override
+		public String getName() {
+			return delegate.getName();
+		}
+		
+	}
+	
+	private Channel createChannelWrapper(String name, ChannelType type) {
+		return new ChannelWrapper(new DefaultChannel(name, type));
+	}
+	
+	public Channel registChannel(ChannelConfig channelConfig) {		
+		MessageChannel channel = MessageChannel.OTHERCHANNEL;
+		synchronized (channel) {
+			try {
+				String name = channelConfig.getName();
+			    ChannelType type = channelConfig.getType();
+				channel.setStrChannel(name);
+				
+				final Channel bufferChannel = createChannelWrapper(name, type);
+				
+				if (type != ChannelType.SEND) {
+					pubSubManager.subscribeMessage(new MessageCallBack() {
+						
+						@Override
+						public void CallBack(int number, MessageContent messageContent) {
+							Event event = new Event(messageContent.getControlCode(), messageContent.getEventContent());
+							logger.debug("Receive message : number={}, content={}",number, event);
+							bufferChannel.receive(event);
+						}
+					}, channel, type == ChannelType.CACHE ? true : false);
+				}
+				return bufferChannel;
+			} catch (Exception e) {
+				throw new MessageException(e);
+			}
+		}
+	}
+	
+	public void sendMessage(String channelName, Message message) {
+		MessageChannel channel = MessageChannel.OTHERCHANNEL;
+		synchronized (channel) {
+			try {
+				channel.setStrChannel(channelName);
+				pubSubManager.publishMessage(channel, message.getCode(), message.getContent());
+				logger.debug("Send message '{}', by channel : {} ", message, channelName);
+			} catch (Exception e) {
+				throw new MessageException(e);
+			}			
+		}
+
+	}
+
+
 }

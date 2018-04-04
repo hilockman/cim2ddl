@@ -8,15 +8,12 @@ import java.util.Set;
 
 import com.znd.bus.binding.MapperProxyFactory.Parser;
 import com.znd.bus.buffer.Buffer;
-import com.znd.bus.config.BufferConfig;
 
 public class MapperRegistry {
 
-	  private final BufferConfig config;
 	  private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<Class<?>, MapperProxyFactory<?>>();
 
-	  public MapperRegistry(BufferConfig config) {
-	    this.config = config;
+	  public MapperRegistry() {
 	  }
 
 	  @SuppressWarnings("unchecked")

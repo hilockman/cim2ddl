@@ -3,6 +3,7 @@ logging:
   level:
      interfaceLogger: OFF
      org.redisson: OFF
+     com.znd.bus.buffer.BufferContext: DEBUG
       
         
 server:
@@ -13,6 +14,10 @@ server:
 
 #buffer配置  
 buffer:
+   channels:
+       -
+         name : testChannel
+         type : CACHE
    typePackage: com.znd.ei.ads.buffer.test.model
    #mapper加载路径
    mapperPackage: com.znd.ei.ads.buffer.test.mapper

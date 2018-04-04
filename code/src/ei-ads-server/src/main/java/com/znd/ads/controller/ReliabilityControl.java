@@ -1,9 +1,7 @@
 package com.znd.ads.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,24 +22,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ZhongND.RedisDataBus.Object.ResultObject;
 import com.znd.ads.model.AdsResult;
-import com.znd.ads.model.FileInfo;
 import com.znd.ads.model.PRAdequacySetting;
 import com.znd.ads.model.ReliabilityUploadConfig;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.channel.Channel;
+import com.znd.bus.channel.Message;
 import com.znd.bus.log.Log;
 import com.znd.bus.log.LogMapper;
-import com.znd.bus.message.MessageProxy;
-import com.znd.ei.Utils;
 
 @RestController
 @RequestMapping(path = "/pr")
 public class ReliabilityControl {
 
 	@Autowired
-	private MessageProxy messageProxy;
+	private Channel prChannel;
 	
 	@Autowired
 	private LogMapper bufferLogMapper;
@@ -61,7 +57,7 @@ public class ReliabilityControl {
 			return;
 		}
 
-		messageProxy.sendMessage(contentCode, key);
+		prChannel.send(new Message(contentCode, key));
 
 	}
 
@@ -156,9 +152,9 @@ public class ReliabilityControl {
 			if (!file.exists()) {
 				file.mkdirs();
 			}
-
 			
-			saveUploadedFiles(path, Arrays.asList(config.getFiles()));
+		 			
+			File[] files = cacheFiles(UPLOADED_FOLDER, modelName, Arrays.asList(config.getFiles()));
 
 //			if (file.isDirectory()) { // try upload loacal file
 //				RedissonDBString dbstring = executeDF.RedissonDBString();
@@ -326,7 +322,14 @@ public class ReliabilityControl {
 	}
 
 	// save file
-	private boolean saveUploadedFiles(Path base, List<MultipartFile> files) throws IOException {
+	private File[] cacheFiles(String root, String child, List<MultipartFile> files) throws IOException {
+		
+		Path base = Paths.get(root, child);
+		File dir = base.toFile();
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 
 		boolean flag = false;
 		for (MultipartFile file : files) {
@@ -345,7 +348,11 @@ public class ReliabilityControl {
 			flag = true;
 		}
 
-		return flag;
+		if (flag) {
+			return dir.listFiles();
+		} else {
+			return new File[0];
+		}
 
 	}
 }

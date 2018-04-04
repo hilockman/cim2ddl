@@ -59,7 +59,7 @@ public class DefaultBuffer implements Buffer {
 
 	@Override
 	public void close() {
-		logger.info("Buffer closeed : " + config.getKey());
+		logger.info("Buffer closed : " + config.getKey());
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import com.znd.bus.binding.ResolverUtil;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferContext;
 import com.znd.bus.buffer.BufferException;
+import com.znd.bus.channel.ChannelConfig;
+import com.znd.bus.channel.ChannelRegistry;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.log.Log;
 import com.znd.bus.log.LogMapper;
@@ -50,7 +53,7 @@ public class BufferConfig {
 	
 	private final Map<String, TableMeta> metaMap = new HashMap<>();
 
-	private final MapperRegistry mapperRegistry = new MapperRegistry(this);
+	private final MapperRegistry mapperRegistry = new MapperRegistry();
 		
 	private final DefaultReflectorFactory reflectorFactory = new DefaultReflectorFactory();
 	
@@ -64,6 +67,11 @@ public class BufferConfig {
 	
 	private final Logger logger = LoggerFactory.getLogger(BufferConfig.class);
 
+	
+	private List<ChannelConfig> channels;
+
+	
+	private final ChannelRegistry channelRegistry = new ChannelRegistry(); 
 	
 //	/**
 //	 * 每次重新创建buffer
@@ -184,7 +192,7 @@ public class BufferConfig {
 			}
 			
 			Index idx = f.getAnnotation(Index.class);
-			fieldMeta.setIndexable(idx != null? true : false);
+			fieldMeta.setIndexable(idx != null || name.equalsIgnoreCase("id") ? true : false);
 			tableMeta.getColumns().add(fieldMeta);
 		}
 		tableMeta.formIndexColumn();
@@ -277,6 +285,7 @@ public class BufferConfig {
 			}
 		
 			addMappers();
+			addChannels();
 		} catch (RedissonDBException e) { //低层redisdatabus出错
 			throw new BufferConfigException(e.getMessage(), e);
 		} finally {
@@ -285,6 +294,12 @@ public class BufferConfig {
 	}
 
 	
+	private void addChannels() {
+		channelRegistry.addChannels(bufferContext, channels);
+	}
+
+
+
 	public void add(TableMeta tableMeta) {
 		tableMetas.add(tableMeta);
 		metaMap.put(tableMeta.getName(), tableMeta);
@@ -320,7 +335,10 @@ public class BufferConfig {
 	  public <T> void addMapper(Class<T> type) {
 	    mapperRegistry.addMapper(type);
 	  }
-		  
+
+	public Collection<Class<?> > getMappers() {
+		return mapperRegistry.getMappers();
+	}
 	public MappedStatement getMappedStatement(String statement) {
 		MappedStatement mappedStatement = statementMap.get(statement);
 		return mappedStatement;
@@ -387,5 +405,22 @@ public class BufferConfig {
 	
 	public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter) {
 		return new RoutingStatementHandler(executor, mappedStatement, parameter);
+	}
+
+
+
+	public List<ChannelConfig> getChannels() {
+		return channels;
+	}
+
+
+
+	public void setChannels(List<ChannelConfig> channels) {
+		this.channels = channels;
+	}
+
+
+	public ChannelRegistry getChannelRegistry() {
+		return channelRegistry;
 	}
 }
