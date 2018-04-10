@@ -1,4 +1,4 @@
-package com.znd.bus.config;
+package com.znd.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.znd.bus.config;
+package com.znd.config;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -15,9 +15,6 @@ import com.znd.bus.buffer.BufferFactory;
 @EnableAutoConfiguration
 public class Config {
 
-
-
-	
 	@Bean 
 	public ClientConfig clientConfig(AdsClientProperties property, BufferFactory bufferFactory) {
 		ClientConfig config = new ClientConfig();

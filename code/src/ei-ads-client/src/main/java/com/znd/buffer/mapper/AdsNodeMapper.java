@@ -1,4 +1,4 @@
-package com.znd.bus.mappper;
+package com.znd.buffer.mapper;
 
 import com.znd.buffer.common.model.AdsNode;
 

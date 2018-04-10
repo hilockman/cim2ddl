@@ -1,4 +1,4 @@
-package com.ei.ads.client;
+package com.znd.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

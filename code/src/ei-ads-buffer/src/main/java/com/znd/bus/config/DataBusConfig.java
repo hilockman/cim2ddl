@@ -29,16 +29,18 @@ public class DataBusConfig {
 	private final Logger logger = LoggerFactory.getLogger(DataBusConfig.class);
 	
 	@Bean
-	public BufferConfig bufferConfig(DabaBusProperties dabaBusProperties) {
+	public BufferConfig bufferConfig(DabaBusProperties properties) {
 		
 		BufferConfig config = new BufferConfig();
-			config.setId(dabaBusProperties.getId());
-			config.setName(dabaBusProperties.getName());
-			config.setAlias(dabaBusProperties.getAlias());
+			config.setId(properties.getId());
+			config.setName(properties.getName());
+			config.setAlias(properties.getAlias());
+			config.setMapperPackage(properties.getMapperPackage());
+			config.setTypePackage(properties.getTypePackage());
 			config.setAppName(BufferFactoryBuilder.DEFAULT_APPNAME);
-			config.setCreateFlag(dabaBusProperties.getCreateFlag() == null ? CreateFlag.UPDATE : CreateFlag.valueOf(dabaBusProperties.getCreateFlag().toUpperCase()));
-			config.setTableMetas(dabaBusProperties.getTables().toArray(new TableMeta[0]));
-			config.setChannels(dabaBusProperties.getChannels());
+			config.setCreateFlag(properties.getCreateFlag() == null ? CreateFlag.UPDATE : CreateFlag.valueOf(properties.getCreateFlag().toUpperCase()));
+			config.setTableMetas(properties.getTables() != null ? properties.getTables().toArray(new TableMeta[0]) : null);
+			config.setChannels(properties.getChannels());
 			return config;
 	}
 	

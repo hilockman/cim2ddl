@@ -1,4 +1,4 @@
-package com.znd.bus.config;
+package com.znd.config;
 
 import java.util.concurrent.ExecutorService;
 

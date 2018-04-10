@@ -38,8 +38,19 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-ads-base</artifactId>
 			<version>${project.version}</version>
-		</dependency>		
-	   		          
+		</dependency>	
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-memdb</artifactId>
+			<version>${project.version}</version>
+		</dependency>			
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		 	   		          
   </dependencies>
   
  	<build>

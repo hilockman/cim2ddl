@@ -1,4 +1,4 @@
-package com.znd.bus.client.impl;
+package com.znd.client.impl;
 
 import java.util.Date;
 import java.util.UUID;
@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.znd.buffer.common.model.AdsNode;
+import com.znd.buffer.mapper.AdsNodeMapper;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
-import com.znd.bus.client.Client;
 import com.znd.bus.config.BufferConfig;
-import com.znd.bus.config.ClientConfig;
-import com.znd.bus.mappper.AdsNodeMapper;
+import com.znd.client.Client;
+import com.znd.config.ClientConfig;
 
 @Component
 public class DefaultClient implements Client {	

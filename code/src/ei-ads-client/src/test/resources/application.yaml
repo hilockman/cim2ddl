@@ -13,6 +13,19 @@ logging:
 
     
 
+buffer:
+   channels:
+       -
+         name : testChannel
+         type : CACHE
+   typePackage: com.znd.buffer.common.model
+   #mapper加载路径
+   mapperPackage: com.znd.buffer.mapper
+   id:  0
+   name: test_buffer
+   alias: test
+   createFlag: UPDATE
+   
 ads:  
   client: 
      thread: 4
