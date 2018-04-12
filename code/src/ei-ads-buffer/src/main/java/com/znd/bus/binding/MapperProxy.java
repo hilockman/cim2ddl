@@ -5,6 +5,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.Map;
 
 import com.znd.bus.buffer.Buffer;
@@ -24,6 +27,11 @@ public class MapperProxy<T> implements InvocationHandler{
 	}
 	
 	
+	
+
+
+
+
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
@@ -71,7 +79,7 @@ public class MapperProxy<T> implements InvocationHandler{
 		    if (mapperMethod == null) {
 		      BufferConfig config = buffer.getConfig();
 		      mapperMethod = new MapperMethod(mapperInterface, method, config.getTypeHandlerRegistry());
-		      config.initMappedStatement(mapperMethod.getMethodType(), mapperMethod.getName(), method, mapperMethod.getReturnTypeArgument());	
+		      config.initMappedStatement(mapperMethod.getMethodType(), mapperMethod.getName(), method, mapperMethod.getReturnTypeArgument(), mapperInterface);	
 		      methodCache.put(method, mapperMethod);
 		    }
 		    return mapperMethod;

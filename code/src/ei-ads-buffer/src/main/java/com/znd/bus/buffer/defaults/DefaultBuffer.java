@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,8 @@ public class DefaultBuffer implements Buffer {
 	private BufferConfig config;
 	private final Logger logger = LoggerFactory.getLogger(DefaultBuffer.class);
 	private final Executor executor;
+	private final static AtomicInteger count = new AtomicInteger(0);
+	private Integer id;
 	
 	public class RecordCache {
  
@@ -47,19 +50,25 @@ public class DefaultBuffer implements Buffer {
 
 	private Map<MappedStatement, RecordCache> caches = new HashMap<>();
 
+	
 	public DefaultBuffer(BufferConfig config, BufferContext context, boolean b) {
 		this.config = config;
 		autoCommit = b;
 		executor = new DefaultExecutor(context);
+		id = count.getAndAdd(1);
+		logger.info("Buffer opened : " + key());
 	}
 
+	private String key() {
+		return config.getKey()+"["+id+"]";
+	}
 //	public BufferImp(BufferFactoryImp factory) {
 //		this(factory, true);
 //	}
 
 	@Override
 	public void close() {
-		logger.info("Buffer closed : " + config.getKey());
+		logger.info("Buffer closed : " + key());
 	}
 
 	@Override

@@ -62,12 +62,13 @@ public class Reflector {
   private Constructor<?> defaultConstructor;	
   private final Map<String, Method> setMethods = new HashMap<>();
   private final Map<String, Method> getMethods = new HashMap<>();
-  private final Map<String, Class<?>> setTypes = new HashMap<String, Class<?>>();
-  private final Map<String, Class<?>> getTypes = new HashMap<String, Class<?>>();
-	  
+  private final Map<String, Class<?>> setTypes = new HashMap<>();
+  private final Map<String, Class<?>> getTypes = new HashMap<>();
+  private final Map<String, String> validPropertyName = new HashMap<>();	  
 	public Reflector(Class<?> type) {
 		this.type = type;
 		addDefaultConstructor(type);
+		addValidPropertyName(type);
 	    addGetMethods(type);
 	    addSetMethods(type);
 	    readablePropertyNames = getMethods.keySet().toArray(new String[getMethods.keySet().size()]);
@@ -82,7 +83,45 @@ public class Reflector {
 
 	  
 	
-	  private void addDefaultConstructor(Class<?> clazz) {
+	private void addValidPropertyName(Class<?> cls) {
+		List<Field> fields = new ArrayList<>();
+
+		
+		Class<?> currentClass = cls;
+	    while (currentClass != null) {
+	      addUniqueProperties(fields, type.getDeclaredFields());
+
+
+	      currentClass = currentClass.getSuperclass();
+	    }
+		for (Field field : fields) {
+			String name = field.getName();
+			validPropertyName.put(name.toUpperCase(), name);
+		}
+	}
+	
+	private void addUniqueProperties(List<Field> list, Field[] fields) {
+		for (Field field : fields) {
+			//String name = field.getName();
+			list.add(field);
+		}
+	}
+
+
+
+
+	private String toValidName(String name) {
+		String str =  validPropertyName.get(name.toUpperCase());
+		if (str == null) {
+			return name;
+		}
+		return str;
+	}
+
+
+
+
+	private void addDefaultConstructor(Class<?> clazz) {
 	    Constructor<?>[] consts = clazz.getDeclaredConstructors();
 	    for (Constructor<?> constructor : consts) {
 	      if (constructor.getParameterTypes().length == 0) {
@@ -261,7 +300,7 @@ public class Reflector {
                   + ". This breaks the JavaBeans specification and can cause unpredictable results.");
         }
       }
-      addGetMethod(propName, winner);
+      addGetMethod(toValidName(propName), winner);
     }
   }  
 	private void addGetMethods(Class<?> cls) {
@@ -306,7 +345,7 @@ public class Reflector {
 	      if (match == null) {
 	        throw exception;
 	      } else {
-	        addSetMethod(propName, match);
+	        addSetMethod(toValidName(propName), match);
 	      }
 	    }
 	  }

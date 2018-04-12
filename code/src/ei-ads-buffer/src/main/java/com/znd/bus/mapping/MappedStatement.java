@@ -15,6 +15,7 @@ import com.znd.bus.config.ColumnMeta;
 import com.znd.bus.config.TableMeta;
 import com.znd.bus.mapping.impl.ObjectResultSetHandler;
 import com.znd.bus.reflection.Reflector;
+import com.znd.bus.reflection.TypeParameterResolver;
 import com.znd.bus.statement.DeleteStatementHandler;
 import com.znd.bus.statement.StatementHandler;
 import com.znd.bus.type.TypeHandler;
@@ -34,6 +35,7 @@ public class MappedStatement {
 	  private String tableName;
 	  private TableMeta tableMeta;
 	  private MethodType type;
+	  private Type sourceType;
 	  
 	 // private StatementHandler parameterHandler = null;
 
@@ -47,12 +49,13 @@ public class MappedStatement {
 	  public static class Build {
 		  private MappedStatement mappedStatement = new MappedStatement();
 		  private final Method method;
-		  public Build(BufferConfig config, MethodType type, String id, Method method, Class<?> resultType, String tableName) {
+		  public Build(BufferConfig config, MethodType type, String id, Method method, Class<?> resultType, String tableName,  Type sourceType) {
 			  mappedStatement.tableName = tableName;
 			  mappedStatement.id = id;
 			  mappedStatement.config = config;
 			  mappedStatement.resultType = resultType;
 			  mappedStatement.type = type;
+			  mappedStatement.sourceType = sourceType;
 			  this.method = method;
 			  
 		  }
@@ -97,8 +100,10 @@ public class MappedStatement {
 			  if (params.length == 1) {
 				  Parameter param = params[0];
 				  String argName = param.getName();
-				  Class<?> argType = param.getType();
-				  
+				 
+				//Class<?> argType = param.getType();
+				  Type[] argTypes = TypeParameterResolver.resolveParamTypes(method, mappedStatement.sourceType);
+				  Class<?> argType = (Class<?>)argTypes[0];
 				  if (mappedStatement.config.hasTypeHandler(argType))
 					  addParameter(argName, argType);
 				  else if (argType.isArray()) {

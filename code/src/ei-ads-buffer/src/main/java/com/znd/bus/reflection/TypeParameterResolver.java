@@ -39,6 +39,8 @@ public class TypeParameterResolver {
     Class<?> declaringClass = field.getDeclaringClass();
     return resolveType(fieldType, srcType, declaringClass);
   }
+  
+  
 
   /**
    * @return The return type of the method as {@link Type}. If it has type parameters in the declaration,<br>

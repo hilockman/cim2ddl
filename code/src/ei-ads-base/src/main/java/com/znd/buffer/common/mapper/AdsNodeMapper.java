@@ -1,4 +1,4 @@
-package com.znd.buffer.mapper;
+package com.znd.buffer.common.mapper;
 
 import com.znd.buffer.common.model.AdsNode;
 
@@ -8,4 +8,6 @@ public interface AdsNodeMapper {
 	void insert(AdsNode node);
 
 	void update(AdsNode node);
+	
+	void deleteById(String id);
 }

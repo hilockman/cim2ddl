@@ -1,4 +1,4 @@
-package com.znd.bus.annotation;
+package com.znd.buffer.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

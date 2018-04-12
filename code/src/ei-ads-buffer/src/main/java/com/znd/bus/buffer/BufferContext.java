@@ -3,7 +3,9 @@ package com.znd.bus.buffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +38,158 @@ import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.BufferConfigException;
 import com.znd.bus.config.ColumnMeta;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.util.TimeCount;
+
 
 public  class BufferContext {
+	
+	public class DefaultBufferList implements List<String> {
+
+		private String id;
+		public static final String BUFFER_TASK_TABLE = "BufferTask";
+		private RTableOperation table;
+		public DefaultBufferList(String id) {
+			this.id = id;
+			try {
+				table = bufferOperation.getTableOperation(BUFFER_TASK_TABLE);
+			} catch (Throwable e) {
+				throw new BufferException(e);
+			}
+		}
+		@Override
+		public int size() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public boolean isEmpty() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public boolean contains(Object o) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public Iterator<String> iterator() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public Object[] toArray() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public <T> T[] toArray(T[] a) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean add(String e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean remove(Object o) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean containsAll(Collection<?> c) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean addAll(Collection<? extends String> c) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean addAll(int index, Collection<? extends String> c) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean removeAll(Collection<?> c) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean retainAll(Collection<?> c) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void clear() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public String get(int index) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String set(int index, String element) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void add(int index, String element) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public String remove(int index) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int indexOf(Object o) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int lastIndexOf(Object o) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public ListIterator<String> listIterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public ListIterator<String> listIterator(int index) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<String> subList(int fromIndex, int toIndex) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 	
 	private final Logger logger = LoggerFactory.getLogger(BufferContext.class);
 	
@@ -297,7 +449,7 @@ public  class BufferContext {
 		logger.info("Buffer destoryed : {}", key);			
 	}
 
-	public void makeBuffer(TableMeta[] tableBuilders) throws RedissonDBException {
+	public void makeBuffer(List<TableMeta> tableMetas) throws RedissonDBException {
 		
 		// 创建buffer
 		RBufferBuilder bufferBuilder = memDBBuilder.getBufferBuilder();
@@ -307,9 +459,9 @@ public  class BufferContext {
 			
 			//create system table : log, task
 			
-			if (tableBuilders != null && tableBuilders.length > 0){		
+			if (tableMetas != null && !tableMetas.isEmpty()){		
 				// 创建表
-				for (TableMeta tableBuilder : tableBuilders) {
+				for (TableMeta tableBuilder : tableMetas) {
 					makeTable(bufferBuilder, tableBuilder);
 				}
 			}
@@ -376,8 +528,17 @@ public  class BufferContext {
 			synchronized (channel) {
 				  try {
 					channel.setStrChannel(getName());
-					pubSubManager.unSubscribeMessage(channel);
-					logger.info("Succed to unsubscribe channel : {}", getName());
+					new TimeCount.Builder()
+					.name("unsubscribe channel '%s'", getName())
+					.logger(logger).runnable(()->{
+							try {
+								pubSubManager.unSubscribeMessage(channel);
+							} catch (Exception e) {
+								throw new BufferException(e);
+							}
+						}
+					).build().exec();
+			
 				} catch (Exception e) {
 					throw new BufferException(e);
 				}

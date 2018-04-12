@@ -72,7 +72,7 @@ public class BufferFactoryBuilder {
 		config.setName(name);
 		config.setTypePackage(typePackage);
 		config.setMapperPackage(mapperPackage);
-		config.setCreateFlag(CreateFlag.CREATE);
+		config.setCreateFlag(CreateFlag.UPDATE);
 		return new DefaultBufferFactory(config);		
 	}
 

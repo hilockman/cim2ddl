@@ -1,9 +1,15 @@
 package com.znd.bus.config;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.redisson.config.ConfigSupport;
+import org.redisson.config.RedissonNodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -28,6 +34,39 @@ public class DataBusConfig {
 
 	private final Logger logger = LoggerFactory.getLogger(DataBusConfig.class);
 	
+	//private static String FILE_NAME = "redissonnode.yaml";
+	private static String FILE_NAME = "ClusterServersConfig.cfg";
+	
+	private RedissonNodeConfig redissonNodeConfig() {
+
+		FileInputStream fis = null;
+		try {
+			URL url = org.springframework.util.ResourceUtils.getURL("classpath:"+FILE_NAME);
+			ConfigSupport support = new ConfigSupport();
+			//RedissonNodeConfig config =  support.fromYAML(url, RedissonNodeConfig.class);
+			RedissonNodeConfig config =  support.fromJSON(url, RedissonNodeConfig.class);
+			
+			return config;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return null;
+	}	
+	
 	@Bean
 	public BufferConfig bufferConfig(DabaBusProperties properties) {
 		
@@ -41,7 +80,12 @@ public class DataBusConfig {
 			config.setCreateFlag(properties.getCreateFlag() == null ? CreateFlag.UPDATE : CreateFlag.valueOf(properties.getCreateFlag().toUpperCase()));
 			config.setTableMetas(properties.getTables() != null ? properties.getTables().toArray(new TableMeta[0]) : null);
 			config.setChannels(properties.getChannels());
-			return config;
+		
+		RedissonNodeConfig redissonConfig = redissonNodeConfig();
+		if (redissonConfig != null) {
+			config.setRedissonConfig(redissonConfig);
+		}
+		return config;
 	}
 	
 	

@@ -36,12 +36,12 @@ public class DefaultBufferFactory implements BufferFactory {
 	
 	public Buffer openSession(boolean autoCommit)   {		
 		Buffer b = new DefaultBuffer(config, config.getBufferContext(), autoCommit);
-		logger.info("Buffer opened : " + config.getKey());
 		return b;
 	}
 	
 	public void destory() {
 		config.getBufferContext().close();
+		
 		logger.info("Service disconnected: {}.{} .", config.getAppName(), config.getName());
 	}
 

@@ -2,6 +2,8 @@ package com.znd.bus.config;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,11 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.RedissonNodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.bus.annotation.Index;
+import com.znd.buffer.annotation.Index;
 import com.znd.bus.binding.BindingException;
 import com.znd.bus.binding.MapperRegistry;
 import com.znd.bus.binding.MethodType;
@@ -35,10 +40,11 @@ import com.znd.bus.reflection.Reflector;
 import com.znd.bus.reflection.ReflectorFactory;
 import com.znd.bus.statement.RoutingStatementHandler;
 import com.znd.bus.statement.StatementHandler;
-import com.znd.bus.task.CalcJob;
-import com.znd.bus.task.CalcJobMapper;
+import com.znd.bus.task.BufferTask;
+import com.znd.bus.task.TaskQueue;
 import com.znd.bus.type.TypeHandler;
 import com.znd.bus.type.TypeHandlerRegistry;
+import com.znd.bus.util.TimeCount;
 
 public class BufferConfig {
 	
@@ -46,8 +52,12 @@ public class BufferConfig {
 	private String id;
 	private String name;
 	private String alias;
-	private String typePackage;
-	private String mapperPackage;
+	private List<String> typePackages = new ArrayList<>();
+	private List<String> mapperPackages = new ArrayList<>();
+	
+	private RedissonNodeConfig redissonConfig;
+	
+	private RedissonClient redissonClient;
 	
 	private final List<TableMeta> tableMetas = new ArrayList<>();
 	
@@ -222,32 +232,44 @@ public class BufferConfig {
 	  }
 	  
 	private void addTypes(){
-		if (typePackage != null && !typePackage.isEmpty())
-			addTypes(this.typePackage);
-		createDefaultTables(Log.class, CalcJob.class);
+		if (!typePackages.isEmpty()) {
+			for (String typePackage : typePackages) {
+				addTypes(typePackage);
+			}
+		}
+		createDefaultTables(Log.class, BufferTask.class);
+		logger.info("{} types are added to buffer : {}", tableMetas.size(), getKey());
 	}
 	
 	private void addMappers() {	
 		bufferContext.initOperation();
-		if (mapperPackage != null)
-			addMappers(mapperPackage);
+		if (!mapperPackages.isEmpty()) {
+			
+			for (String mapperPackage : mapperPackages)
+				addMappers(mapperPackage);
+		}
 		
 		this.addMapper(LogMapper.class);
-		this.addMapper(CalcJobMapper.class);
+		//this.addMapper(CalcJobMapper.class);
 	}
 	
+	private void updateTables(BufferContext context) {
+		for (TableMeta tableMeta : tableMetas) {
+			context.updateTableMeta(tableMeta);
+		}
+	}
 	public void buildAll() {
 		addTypes();
 	
 		try {
-			BufferContext context = getBufferContext();
-			TableMeta[] tableMetas = getTableMetas();
+			final BufferContext context = getBufferContext();
+			//TableMeta[] tableMetas = getTableMetas();
 						
 			if (getCreateFlag() == CreateFlag.UPDATE) { //更新buffer
 				boolean createFlag = false;
 				if (context.checkAvailable()) {
 					context.initOperation();
-					if (tableMetas != null && tableMetas.length > 0) {					
+					if (tableMetas != null && !tableMetas.isEmpty()) {					
 						if (context.isBufferDefineChanged(this)) {// check buffer define changed or not ?
 							logger.info("Buffer config changed, will be removed : {}. ", getKey());
 							// remove buffer
@@ -280,12 +302,19 @@ public class BufferConfig {
 				}			
 			}
 			
-			for (TableMeta tableMeta : tableMetas) {
-				context.updateTableMeta(tableMeta);
-			}
+			new TimeCount.Builder()
+			.name("update %d table(s)", tableMetas.size())
+			.logger(logger).runnable(()->{
+						updateTables(context);
+
+				}
+			).build().exec();
+			
+			
 		
 			addMappers();
 			addChannels();
+			buildClient();
 		} catch (RedissonDBException e) { //低层redisdatabus出错
 			throw new BufferConfigException(e.getMessage(), e);
 		} finally {
@@ -294,6 +323,13 @@ public class BufferConfig {
 	}
 
 	
+	private void buildClient() {
+		if (redissonConfig != null)
+		 redissonClient = Redisson.create(redissonConfig);
+	}
+
+
+
 	private void addChannels() {
 		channelRegistry.addChannels(bufferContext, channels);
 	}
@@ -344,17 +380,57 @@ public class BufferConfig {
 		return mappedStatement;
 	}
 	
-	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType) {
-	
-		Class<?> declaringClass = method.getDeclaringClass();
-		String className = declaringClass.getSimpleName();
-		if (!className.endsWith("Mapper")) {
-			throw new BindingException("Informat mapper name , not endsWith 'mapper': "+declaringClass.getName());
+	public static String resolveTableName(Type sourceType) {
+		if (sourceType instanceof ParameterizedType) {
+			ParameterizedType parameterizedType = (ParameterizedType)sourceType;
+			Type[] typeArgs = parameterizedType.getActualTypeArguments();
+		    if (typeArgs.length > 0) {
+		    	return resolveTypeName(typeArgs[0]);
+		    }
+		} else if (sourceType instanceof Class) {
+			String name = ((Class<?>)sourceType).getSimpleName();
+			
+			if (name.endsWith("Mapper")) {
+				return name.substring(0, name.length() - 6);
+			}
 		}
 		
-		String tableName = className.substring(0, className.length() - 6);
+		return null;
+		 
+	}
+	
+	private static String resolveTypeName(Type type) {
+		if (type instanceof ParameterizedType) {
+			ParameterizedType parameterizedType = (ParameterizedType)type;
+			Type[] typeArgs = parameterizedType.getActualTypeArguments();
+		    if (typeArgs.length > 0) {
+		    	return resolveTypeName(typeArgs[0]);
+		    }
+		} else if (type instanceof Class) {
+			return ((Class<?>)type).getSimpleName();
+		} 
 		
-		Build builder = new MappedStatement.Build(this, type, id, method, returnType, tableName);
+		return null;
+		
+	}
+	
+	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType, Class<?> sourceType) {
+	
+		String tableName = resolveTableName(sourceType);
+		if (tableName == null || tableName.isEmpty()) {
+			throw new BindingException("Informat mapper name , not endsWith 'mapper': "+sourceType.getName());
+		}
+//		Class<?> declaringClass = method.getDeclaringClass();
+//		
+//		String className = declaringClass.getSimpleName();
+//		if (!className.endsWith("Mapper")) {
+//			
+//			throw new BindingException("Informat mapper name , not endsWith 'mapper': "+declaringClass.getName());
+//		}
+//		
+//		String tableName = className.substring(0, className.length() - 6);
+		
+		Build builder = new MappedStatement.Build(this, type, id, method, returnType, tableName, sourceType);
 		MappedStatement mappedStatement = builder.build();
 		statementMap.put(id, mappedStatement);
 		
@@ -367,17 +443,15 @@ public class BufferConfig {
 	}
 	
 
-	public String getTypePackage() {
-		return typePackage;
-	}
 	public void setTypePackage(String typePackage) {
-		this.typePackage = typePackage;
+		if (typePackage != null && !typePackage.isEmpty())
+			this.typePackages.addAll(Arrays.asList(typePackage.split(";|,")));
 	}
-	public String getMapperPackage() {
-		return mapperPackage;
-	}
+
 	public void setMapperPackage(String mapperPackage) {
-		this.mapperPackage = mapperPackage;
+		if (mapperPackage != null && !mapperPackage.isEmpty()) {
+		    this.mapperPackages.addAll(Arrays.asList(mapperPackage.split(";|,")));;
+		}
 	}
 	public MetaObject newMetaObject(Object object) {
 		return MetaObject.forObject(object, reflectorFactory);
@@ -422,5 +496,21 @@ public class BufferConfig {
 
 	public ChannelRegistry getChannelRegistry() {
 		return channelRegistry;
+	}
+
+
+	
+	
+	public <T> TaskQueue<T> getTaskList(String id) {
+		if (redissonClient == null)
+			return null;
+		
+		return new TaskQueue<T>(redissonClient.getAtomicLong(id+".buffertaskcount"), redissonClient.getQueue(id+".buffertask"));
+	}
+	
+	
+
+	public void setRedissonConfig(RedissonNodeConfig redissonConfig) {
+		this.redissonConfig = redissonConfig;
 	}
 }

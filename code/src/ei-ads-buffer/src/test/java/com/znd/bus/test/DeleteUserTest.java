@@ -29,7 +29,7 @@ public class DeleteUserTest {
     	
     	User user = new User();
     	user.setId("1");
-    	mapper.deleteUser(user);
+    	mapper.delete(user);
     	
     	
 

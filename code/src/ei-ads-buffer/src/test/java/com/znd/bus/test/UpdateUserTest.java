@@ -26,15 +26,15 @@ public class UpdateUserTest {
     	Buffer buffer = factory.openSession(false);
     	UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);
     	
-    	User user = mapper.findUserById("1");
+    	User user = mapper.findById("1");
     	if (user != null) {
     		System.out.println("Find user :  "+ user);	
     	}
     	
     	user.setName(user.getName()+"_test");
-    	mapper.updateUser(user);
+    	mapper.update(user);
     	
-    	user = mapper.findUserById("1");
+    	user = mapper.findById("1");
     	if (user != null) {
     		System.out.println("Find user :  "+ user);	
     	}

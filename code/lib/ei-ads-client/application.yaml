@@ -12,14 +12,28 @@ logging:
     file: log/ei-ads-client.log 
 
     
-#buffer配置  
-buffer:
-   id:  0
-   name: common
-   alias: 公共    
-   
-ads:
+
+ads:  
   client: 
      thread: 4
      heartbeat: 1000
      ip:  192.168.1.70
+     port: ${server.port}
+  defaultlifecycle: 60000
+  memdb:
+     lifecycle: 60000
+  aplSkip:
+     - Test
+     - Test1
+  temp:
+    dir: ./temp
+  appDir: D:\GitHub\cim2ddl\code\bin_x64
+
+reliability:
+  listenPort: 9002
+  serverPort: 8950
+  serverIp: 127.0.0.1
+  serverThread: 4
+  readyResponseTimeOut: 5
+  cachedDir: ./pr-dir
+  appDir: ${ads.appDir}     

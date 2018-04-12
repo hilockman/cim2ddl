@@ -20,7 +20,7 @@ buffer:
          type : CACHE
    typePackage: com.znd.buffer.common.model
    #mapper加载路径
-   mapperPackage: com.znd.buffer.mapper
+   mapperPackage: com.znd.buffer.common.mapper
    id:  0
    name: test_buffer
    alias: test

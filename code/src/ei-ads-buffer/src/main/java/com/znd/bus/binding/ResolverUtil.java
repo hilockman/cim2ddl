@@ -186,6 +186,20 @@ public class ResolverUtil<T> {
    *        classes, e.g. {@code net.sourceforge.stripes}
    */
   public ResolverUtil<T> find(Test test, String packageName) {
+      ClassLoader loader = getClassLoader();
+
+      Class<?> type;
+	try {
+		type = loader.loadClass(packageName);
+		if (test.matches(type)) {
+			matches.add((Class<T>) type);
+			 return this;
+		}
+		
+	}  catch (Throwable t) {
+	}	  	    
+
+	
     String path = getPackagePath(packageName);
 
     try {

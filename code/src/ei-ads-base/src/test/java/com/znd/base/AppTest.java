@@ -1,4 +1,4 @@
-package com.znd.ei.ads;
+package com.znd.base;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

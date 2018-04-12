@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.znd.buffer.common.mapper.AdsNodeMapper;
 import com.znd.buffer.common.model.AdsNode;
-import com.znd.buffer.mapper.AdsNodeMapper;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.config.BufferConfig;

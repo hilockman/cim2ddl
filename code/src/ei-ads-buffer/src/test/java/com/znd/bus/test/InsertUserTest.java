@@ -38,7 +38,7 @@ public class InsertUserTest {
     		user.setName("user"+i);
     		users.add(user);
     	}
-    	mapper.insertUsers(users);
+    	mapper.insertList(users);
     	
     	buffer.commit();
     	buffer.close();

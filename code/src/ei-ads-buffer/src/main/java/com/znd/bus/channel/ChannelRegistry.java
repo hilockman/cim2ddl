@@ -32,6 +32,9 @@ public class ChannelRegistry implements Closeable {
 	
 	public void addChannels(BufferContext context, List<ChannelConfig> channels)
 	{
+		if (channels == null || channels.isEmpty())
+			return;
+		
 		for (ChannelConfig config : channels) {
 			Channel  c = context.registChannel(config);
 			knownChannels.put(config.getName(), c);
