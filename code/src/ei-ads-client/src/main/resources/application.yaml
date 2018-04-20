@@ -1,6 +1,6 @@
 server:
-  name: ei-ads-client
-  port: 9000
+    name: ei-ads-client
+    port: 9000
 
 logging:
     level:

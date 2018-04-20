@@ -20,13 +20,13 @@ public class CharArrayTypeHandler implements TypeHandler<char[]> {
 	@Override
 	public char[] getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : value.toCharArray();
+		return  value == null  || value.equalsIgnoreCase("null")? null : value.toCharArray();
 	}
 
 	@Override
 	public char[] getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : value.toCharArray();
+		return  value == null  || value.equalsIgnoreCase("null")? null : value.toCharArray();
 	}
 
 }

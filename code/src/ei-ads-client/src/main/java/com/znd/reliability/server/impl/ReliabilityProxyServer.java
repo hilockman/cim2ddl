@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
@@ -42,21 +41,13 @@ import org.slf4j.LoggerFactory;
 import com.znd.ads.model.PRAdequacySetting;
 import com.znd.bus.task.TaskQueue;
 import com.znd.ei.Utils;
-import com.znd.ei.memdb.reliabilty.domain.FState;
-import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
-import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
-import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
 import com.znd.reliability.config.ReliabilityProperties;
-import com.znd.reliability.mapper.FStateMIslandMapper;
-import com.znd.reliability.mapper.FStateMapper;
-import com.znd.reliability.mapper.FStateOvlAdMapper;
-import com.znd.reliability.mapper.FStateOvlDevMapper;
 import com.znd.reliability.model.Commands;
 import com.znd.reliability.model.RequestDataReady;
 import com.znd.reliability.model.RequestEstimate;
 import com.znd.reliability.model.RequestJobFinished;
 import com.znd.reliability.model.ResponseEstimate;
-import com.znd.reliability.model.ResponseEstimate.Content;
+import com.znd.reliability.server.BufferServer;
 import com.znd.reliability.server.ProxyServer;
 
 
@@ -65,16 +56,9 @@ public class ReliabilityProxyServer implements ProxyServer {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ReliabilityProxyServer.class);
 
-	
 	private ReliabilityProperties properties;
 	
-	private FStateMapper fstateMapper;
-	
-	private FStateOvlAdMapper fstateOvlAdMapper;
-	
-	private FStateOvlDevMapper fstateOvlDevMapper;
-	
-	private FStateMIslandMapper fstateMIsland;
+	private BufferServer bufferServer;
 	
 	private PRAdequacySetting setting;
 	
@@ -111,30 +95,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 	      
 	    public abstract void closeParent();
 	    
-	    private void saveResult(ResponseEstimate result) {
-	    	  	
-    		Content c = result.getContent();
-    		List<FState> fstates = c.getFState();
-    		if (fstates != null && !fstates.isEmpty()) {
-    			fstateMapper.insertList(fstates);
-    		}
-    		
-    		List<FStateMIsland> islands = c.getFStateMIsland();
-    		if (islands != null && !islands.isEmpty()) {
-    			fstateMIsland.insertList(islands);
-    		}
-    		
-    		 List<FStateOvlAd> ovlAds = c.getFStateOvlAd();
-    		if (ovlAds != null && !ovlAds.isEmpty()) {
-    			fstateOvlAdMapper.insertList(ovlAds);
-    		}
-    		
-    		List<FStateOvlDev> ovlDevs = c.getFStateOvlDev();
-    		if (ovlDevs != null && !ovlDevs.isEmpty()) {
-    			fstateOvlDevMapper.insertList(ovlDevs);
-    		}
-    		
-	    }
+	   
 		@Override
 	    public void channelRead(ChannelHandlerContext ctx, Object msg) { 
 			String content = msg.toString();
@@ -158,7 +119,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 	    			index = currentTaskIndex.incrementAndGet();
 	    		}
 	    		
-	    		saveResult(result);
+	    		bufferServer.saveResult(result);
 	    		
 	    		taskList.increaseGood();
 	    		
@@ -216,28 +177,18 @@ public class ReliabilityProxyServer implements ProxyServer {
 		public void channelActive(ChannelHandlerContext ctx) throws Exception {
 			super.channelActive(ctx);
 		}
-
-
 	}
-	
-
-	
 
 	
 	public ReliabilityProxyServer(ReliabilityProperties properties,
 			String modelName, 
 			TaskQueue<RequestEstimate> taskList,
-			FStateMapper fstateMapper,
-			FStateOvlAdMapper fstateOvlAdMapper, 
-			FStateOvlDevMapper fstateOvlDevMapper,
-			FStateMIslandMapper fstateMIsland,
+			BufferServer bufferServer,
 			PRAdequacySetting setting) {
 		this.modelName = modelName;
 		this.taskList = taskList;
 		this.properties = properties;
-		this.fstateMapper = fstateMapper;
-		this.fstateOvlAdMapper = fstateOvlAdMapper;
-		this.fstateOvlDevMapper = fstateOvlDevMapper;
+		this.bufferServer = bufferServer;
 		this.setting = setting;	
 	}
 
@@ -289,6 +240,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 		ReliabilityProxyServer server = this;
 	
         taskSize =  taskList.size();
+        System.out.println(">>>>>>>>>>>>>>>>>>>>.Task size is :" +taskSize);
         AtomicBoolean closedFlag = new AtomicBoolean(false);      
         AtomicInteger currentTaskIndex = new AtomicInteger(0);
         
@@ -323,7 +275,9 @@ public class ReliabilityProxyServer implements ProxyServer {
 //									}
 									
 									if (taskList.goodCount() == taskSize) {
+										
 										System.out.println("Task is finished :"+modelName);
+										taskList.delete();
 										RequestJobFinished request = new RequestJobFinished();
 										String responseMsg = Utils.toJSon(request);
 										simpleSendMessage(responseMsg);
@@ -471,8 +425,6 @@ public class ReliabilityProxyServer implements ProxyServer {
 			bw.close();
 			ouputSocket.close();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
 			System.out.println("Fail to send data, prepare to send data again:"+ e1.getMessage());			
 		}
 	}

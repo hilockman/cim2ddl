@@ -12,6 +12,7 @@ import com.znd.bus.executor.Executor;
 import com.znd.bus.mapping.MappedStatement;
 import com.znd.bus.mapping.ParameterMapping;
 import com.znd.bus.reflection.MetaObject;
+import com.znd.bus.type.TypeException;
 import com.znd.bus.type.TypeHandler;
 
 
@@ -33,20 +34,32 @@ public class InsertStatementHandler  extends BaseStatementHandler  {
 	public void parepared(Statement ps) {
 		InsertStatement is = (InsertStatement)ps;
 		
-		TableMeta tableMeta = mappedStatement.getTableMeta();
+		//TableMeta tableMeta = mappedStatement.getTableMeta();
 
-		List<ColumnMeta> indexColumns = tableMeta.getIndexColumns();
+		//List<ColumnMeta> indexColumns = tableMeta.getIndexColumns();
 		List< List<String> > columnValuesList = new ArrayList<>(); 
-		for (ColumnMeta c : indexColumns) {
-			List<String> l = new ArrayList<>();
-			columnValuesList.add(l);
-			is.put(c.getName(), l);
-		}
-		
-		int columnSize = tableMeta.getColumnSize();
+		//int[] indexPositions = new int[indexColumns.size()];
+		//int pos = 0;
 		
 		ParameterMapping[] properties = mappedStatement.getProperties();
 		ParameterMapping[] conditionProperties = mappedStatement.getConditionProperties();
+		for (ParameterMapping c : conditionProperties) {
+		
+			List<String> l = new ArrayList<>();
+			columnValuesList.add(l);
+			is.put(c.getProperty(), l);
+		}
+		
+//		for (ColumnMeta c : indexColumns) {
+//			
+//			List<String> l = new ArrayList<>();
+//			columnValuesList.add(l);
+//			is.put(c.getName(), l);
+//		}
+		
+		//int columnSize = tableMeta.getColumnSize();
+		int columnSize = mappedStatement.getColumnSize();
+
 		
 		List<Object> objects = (List<Object>) this.parameter;
 		for (ParameterMapping paramMapping : properties) {
@@ -72,8 +85,17 @@ public class InsertStatementHandler  extends BaseStatementHandler  {
 			int j = 0;
 			
 			for (ParameterMapping c : conditionProperties) {
-				columnValuesList.get(j++).add(values[c.getColumnIndex()]);
+				String v = values[c.getColumnIndex()];
+				if (v == null) {
+					//TODO :
+					//throw new TypeException("Index column value is null :"+ c.getProperty()+","+o);
+				}
+				columnValuesList.get(j++).add(v);
 			}
+
+//			for (ColumnMeta c : indexColumns) {
+//				columnValuesList.get(j++).add(values[c.getIndex()]);
+//			}
 			
 		}
 

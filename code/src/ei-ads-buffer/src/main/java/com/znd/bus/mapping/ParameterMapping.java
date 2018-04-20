@@ -37,4 +37,12 @@ public class ParameterMapping {
 	public int getColumnIndex() {
 		return columnIndex;
 	}
+
+	@Override
+	public String toString() {
+		return "ParameterMapping [property=" + property + ", dbColumnIndex="
+				+ dbColumnIndex + ", columnIndex=" + columnIndex
+				+ ", indexable=" + indexable + ", typeHandler=" + typeHandler
+				+ "]";
+	}
 }

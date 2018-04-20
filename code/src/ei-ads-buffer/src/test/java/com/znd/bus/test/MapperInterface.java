@@ -5,15 +5,15 @@ import java.util.List;
 public interface MapperInterface<T> {
 	T findById(String id);
 	
-	int insert(T user);
+	int insert(T o);
 	
-	void update(T user);
+	void update(T o);
 	
-	void delete(T user);
+	void delete(T o);
 	
 	List<T> findAll();
 	
-	void insertList(List<T> users);
+	void insertList(List<T> objects);
 	
 	void deleteById(String id);
 	

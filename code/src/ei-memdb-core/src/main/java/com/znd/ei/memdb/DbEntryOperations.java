@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface DbEntryOperations {
+	
 	String getId();
 	String getName();
 	String getDescription();

@@ -26,7 +26,7 @@ public class DateTypeHandler implements TypeHandler<Date> {
 	public Date getResult(ResultSet rs, String columnName) {
 		String rt = rs.get(columnName);
 		try {
-			return rt == null ? null : FORMAT.parse(rt);
+			return rt == null  || rt.equalsIgnoreCase("null") ? null : FORMAT.parse(rt);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,7 +39,7 @@ public class DateTypeHandler implements TypeHandler<Date> {
 	public Date getResult(ResultSet rs, int columnIndex) {
 		String rt = rs.get(columnIndex);
 		try {
-			return rt == null ? null : FORMAT.parse(rt);
+			return rt == null  || rt.equalsIgnoreCase("null")? null : FORMAT.parse(rt);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

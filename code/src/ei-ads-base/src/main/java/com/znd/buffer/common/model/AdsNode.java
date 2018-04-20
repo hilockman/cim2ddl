@@ -8,7 +8,11 @@ public class AdsNode {
 
 	@Index
 	private String id;
+	
+	@Index
 	private String name;
+	
+	@Index
 	private String url;
 	private Date lastUpdate;
 	private Integer status;

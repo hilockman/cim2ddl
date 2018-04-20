@@ -18,13 +18,13 @@ public class DoubleTypeHandler implements TypeHandler<Double> {
 	@Override
 	public Double getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : Double.valueOf(value);	
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Double.valueOf(value);	
 	}
 
 	@Override
 	public Double getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : Double.valueOf(value);	
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Double.valueOf(value);	
 	}
 
 }

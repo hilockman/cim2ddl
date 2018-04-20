@@ -10,4 +10,6 @@ public interface CalcJobMapper {
 	void deleteByName(String name);
 	List<CalcJob> findAll();
 	CalcJob findByName(String name);
+	void update(CalcJob info);
+	CalcJob findById(String id);
 }

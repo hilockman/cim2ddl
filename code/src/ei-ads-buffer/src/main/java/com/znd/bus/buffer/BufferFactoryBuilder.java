@@ -66,13 +66,15 @@ public class BufferFactoryBuilder {
 		return new DefaultBufferFactory(config);		
 	}
 
-	public BufferFactory build(String name, String typePackage, String mapperPackage){
+	public BufferFactory build(String name, String typePackage, String mapperPackage, BufferConfig defaultConfig){
 		BufferConfig config = new BufferConfig();
 		config.setAppName(DEFAULT_APPNAME);
 		config.setName(name);
 		config.setTypePackage(typePackage);
 		config.setMapperPackage(mapperPackage);
-		config.setCreateFlag(CreateFlag.UPDATE);
+		config.setCreateFlag(CreateFlag.UPDATE);	
+		config.setParent(defaultConfig);
+		
 		return new DefaultBufferFactory(config);		
 	}
 

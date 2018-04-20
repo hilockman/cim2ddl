@@ -198,7 +198,8 @@ public class BufferConfig {
 			try {
 				f = clazz.getDeclaredField(name);
 			} catch (NoSuchFieldException | SecurityException e) {
-				throw new BufferConfigException("No such field or inaccessable :"+name+" in class:"+clazz, e);
+				//throw new BufferConfigException("No such field or inaccessable :"+name+" in class:"+clazz, e);
+				continue;
 			}
 			
 			Index idx = f.getAnnotation(Index.class);
@@ -513,4 +514,15 @@ public class BufferConfig {
 	public void setRedissonConfig(RedissonNodeConfig redissonConfig) {
 		this.redissonConfig = redissonConfig;
 	}
+
+
+
+	public void setParent(BufferConfig defaultConfig) {
+		if (defaultConfig == null)
+			return;
+		
+		this.redissonClient = defaultConfig.redissonClient;
+	}
+	
+	
 }

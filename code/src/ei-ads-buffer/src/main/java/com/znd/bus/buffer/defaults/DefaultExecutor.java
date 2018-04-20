@@ -51,8 +51,8 @@ public class DefaultExecutor implements Executor {
 		InsertStatement us = (InsertStatement) st;
 		
 		
-		final ParameterMapping[] keyProperties = ms.getNormalProperties();
-		final ParameterMapping[] conditionProperties = ms.getConditionProperties();
+		//final ParameterMapping[] keyProperties = ms.getNormalProperties();
+		//final ParameterMapping[] conditionProperties = ms.getConditionProperties();
 		
 			
 		TableMeta tableMeta = ms.getTableMeta();
@@ -160,9 +160,8 @@ public class DefaultExecutor implements Executor {
 		Map<String, List<String>> indexRecords = is.getIndexRecords();
 		try {
 			tableOps.setRecord(records, indexRecords);
-			logger.info("Record(s) inserted int '{}': sum = " + records.size(), tableMeta.getName());
+			logger.debug("Record(s) inserted int '{}': sum = " + records.size(), tableMeta.getName());
 		} catch (RedissonDBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();			
 		}
 	}

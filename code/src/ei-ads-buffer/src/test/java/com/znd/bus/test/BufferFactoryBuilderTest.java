@@ -21,7 +21,7 @@ public class BufferFactoryBuilderTest {
 	@Test
 	public void createBufferBuilder() throws InterruptedException {
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
-		BufferFactory factory = builder.build("builder_test", "com.znd.bus.test.model", "com.znd.bus.test.mapper");
+		BufferFactory factory = builder.build("builder_test", "com.znd.bus.test.model", "com.znd.bus.test.mapper", null);
 		Buffer buffer = factory.openSession();
 		UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);
 		User user = new User();

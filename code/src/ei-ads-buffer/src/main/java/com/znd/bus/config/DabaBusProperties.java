@@ -3,17 +3,17 @@ package com.znd.bus.config;
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.znd.bus.channel.ChannelConfig;
 
 @Component
 @ConfigurationProperties(prefix = "buffer")
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class DabaBusProperties {
 
-	
-
-	
 	private List<ChannelConfig> channels;
 
 	private String id;
@@ -26,6 +26,10 @@ public class DabaBusProperties {
 
 	private String typePackage;
 	private String mapperPackage;
+	
+	public DabaBusProperties() {
+		
+	}
 	
 	public String getName() {
 		return name;

@@ -18,13 +18,13 @@ public class FloatTypeHandler implements TypeHandler<Float> {
 	@Override
 	public Float getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : Float.valueOf(value);
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Float.valueOf(value);
 	}
 
 	@Override
 	public Float getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : Float.valueOf(value);	
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Float.valueOf(value);	
 
 	}
 

@@ -123,7 +123,8 @@ public class DefaultBuffer implements Buffer {
 		return 0;
 	}
 	
-  private Collection<Object> getParameters(Object parameter) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+private Collection<Object> getParameters(Object parameter) {
     Collection<Object> parameters = null;
     if (parameter instanceof Collection) {
       parameters = (Collection) parameter;

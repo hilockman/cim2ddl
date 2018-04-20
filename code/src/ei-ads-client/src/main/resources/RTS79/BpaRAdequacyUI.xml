@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<BpaPRAdequacySetting>
+    <Base>
+        <BpaDatFile>D:\863开发\算例数据\RTS79\RTS79.dat</BpaDatFile>
+        <BpaSwiFile>D:\863开发\算例数据\RTS79\RTS79.swi</BpaSwiFile>
+        <BpaRParamFile>D:\863开发\算例数据\RTS79\RTS79.xml</BpaRParamFile>
+        <TinyGenThreshold>0.000000</TinyGenThreshold>
+        <LowVoltThreshold>0.000000</LowVoltThreshold>
+        <ZIL>0.000000</ZIL>
+        <SampleType>0</SampleType>
+        <MaxGenFault>10</MaxGenFault>
+        <MaxBranFault>10</MaxBranFault>
+        <LineELimit>1</LineELimit>
+        <TranELimit>1</TranELimit>
+        <MCSSimulateTime>2000000</MCSSimulateTime>
+        <MCSMinStateProb>0.000000</MCSMinStateProb>
+        <FSTMaxStateNum>0</FSTMaxStateNum>
+        <FSTMaxCumuProb>0.000000</FSTMaxCumuProb>
+        <FSTMinStateProb>0.000000</FSTMinStateProb>
+        <STSMaxStateNum>0</STSMaxStateNum>
+        <ANAMinStateProb>0.000000</ANAMinStateProb>
+        <ProcessNum>10</ProcessNum>
+        <Dc2AcFactor>1.100000</Dc2AcFactor>
+        <GenBusLoadAsAux>0</GenBusLoadAsAux>
+    </Base>
+</BpaPRAdequacySetting>

@@ -2,7 +2,9 @@ package com.znd.buffer.common.model;
 
 import java.util.Date;
 
+import com.znd.ads.model.PRAdequacySetting;
 import com.znd.buffer.annotation.Index;
+import com.znd.ei.Utils;
 
 public class CalcJob {
 	@Index
@@ -19,7 +21,7 @@ public class CalcJob {
 		
 	private Date end;
 	
-	private Integer elapse;
+	private Long elapse;
 	
 	
 	public String getId() {
@@ -53,6 +55,15 @@ public class CalcJob {
 	public void setParameter(String parameter) {
 		this.parameter = parameter;
 	}
+	
+	public static void setConfig(CalcJob job, PRAdequacySetting config) {
+		job.setParameter(Utils.toJSon(config));
+	}
+	
+	public static PRAdequacySetting getConfig(CalcJob job) {
+
+		return Utils.toObject(job.getParameter(), PRAdequacySetting.class);
+	}
 
 	public Date getStart() {
 		return start;
@@ -70,11 +81,11 @@ public class CalcJob {
 		this.end = end;
 	}
 
-	public Integer getElapse() {
+	public Long getElapse() {
 		return elapse;
 	}
 
-	public void setElapse(Integer elapse) {
+	public void setElapse(Long elapse) {
 		this.elapse = elapse;
 	}
 

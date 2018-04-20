@@ -18,13 +18,13 @@ public class ShortTypeHandler implements TypeHandler<Short> {
 	@Override
 	public Short getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : Short.valueOf(value);
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Short.valueOf(value);
 	}
 
 	@Override
 	public Short getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : Short.valueOf(value);
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Short.valueOf(value);
 	}
 
 }

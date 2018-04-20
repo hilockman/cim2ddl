@@ -11,8 +11,6 @@ logging:
       org.redisson: OFF 
     file: log/ei-ads-client.log 
 
-    
-
 buffer:
    channels:
        -
@@ -29,9 +27,9 @@ buffer:
 ads:  
   client: 
      thread: 4
-     heartbeat: 1000
+     heartbeat: 2000
      ip:  192.168.1.70
-     port: ${server.port}
+     port: 9000
   defaultlifecycle: 60000
   memdb:
      lifecycle: 60000
@@ -40,7 +38,8 @@ ads:
      - Test1
   temp:
     dir: ./temp
-  appDir: D:\GitHub\cim2ddl\code\bin_x64
+  #appDir: D:\GitHub\cim2ddl\code\bin_x64
+  appDir: E:/ZNDCWare/bin_x64
 
 reliability:
   listenPort: 9002

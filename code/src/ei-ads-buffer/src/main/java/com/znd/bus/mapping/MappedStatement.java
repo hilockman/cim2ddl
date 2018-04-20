@@ -16,8 +16,6 @@ import com.znd.bus.config.TableMeta;
 import com.znd.bus.mapping.impl.ObjectResultSetHandler;
 import com.znd.bus.reflection.Reflector;
 import com.znd.bus.reflection.TypeParameterResolver;
-import com.znd.bus.statement.DeleteStatementHandler;
-import com.znd.bus.statement.StatementHandler;
 import com.znd.bus.type.TypeHandler;
 
 public class MappedStatement {
@@ -36,6 +34,7 @@ public class MappedStatement {
 	  private TableMeta tableMeta;
 	  private MethodType type;
 	  private Type sourceType;
+	  private int columnSize;
 	  
 	 // private StatementHandler parameterHandler = null;
 
@@ -83,17 +82,17 @@ public class MappedStatement {
 			  } 
 		  }
 		  
-		  public MappedStatement build() {
-
-			  
+		  public MappedStatement build() {		  
 			  if (mappedStatement.tableName != null) {
 				  mappedStatement.tableMeta = mappedStatement.config.getTableMeta(mappedStatement.tableName);
 				  if (mappedStatement.tableMeta == null) {
 					  throw new MappingError("Unknow table name : "+mappedStatement.tableName);
 				  }
+			  } else {
+				  throw new MappingError("Table name is null.");
 			  }
 			  
-
+			  mappedStatement.columnSize = mappedStatement.tableMeta.getColumnSize(); 
 			  mappedStatement.columnIndexMap = mappedStatement.tableMeta.getColumnIndexMap();
 			  
 			  Parameter[] params = method.getParameters();
@@ -103,7 +102,14 @@ public class MappedStatement {
 				 
 				//Class<?> argType = param.getType();
 				  Type[] argTypes = TypeParameterResolver.resolveParamTypes(method, mappedStatement.sourceType);
-				  Class<?> argType = (Class<?>)argTypes[0];
+				 Class<?> argType = null;
+				 Type type = argTypes[0];
+				  if (type instanceof ParameterizedType)
+					  argType = (Class<?>) ((ParameterizedType)type).getActualTypeArguments()[0];
+				  else {
+					  argType = (Class<?>)type;
+				  }
+			
 				  if (mappedStatement.config.hasTypeHandler(argType))
 					  addParameter(argName, argType);
 				  else if (argType.isArray()) {
@@ -195,6 +201,10 @@ public class MappedStatement {
 		return type;
 	}
 
-	
+	public int getColumnSize() {
+		return columnSize;
+	}
+
+
 
 }

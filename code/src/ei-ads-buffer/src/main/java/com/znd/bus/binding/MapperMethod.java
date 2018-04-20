@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.reflection.TypeParameterResolver;
 import com.znd.bus.type.TypeHandlerRegistry;
 
 public class MapperMethod {
@@ -63,12 +64,14 @@ public class MapperMethod {
 			throw new BindingException("Unkown method type : "+method.getName()+", in "+mapperInterface);
 		}
 		
-		Type type = method.getGenericReturnType();
-		if (type instanceof Class<?>) {
-		    returnType = (Class<?>) type;
-		} else if (type instanceof ParameterizedType) {
-			returnType = (Class<?>) ((ParameterizedType)type).getRawType();
-			Type[] typeArguments = ((ParameterizedType)type).getActualTypeArguments();
+		
+		Type resolvedReturnType = TypeParameterResolver.resolveReturnType(method, mapperInterface);
+		//Type type = method.getGenericReturnType();
+		if (resolvedReturnType instanceof Class<?>) {
+		    returnType = (Class<?>) resolvedReturnType;
+		} else if (resolvedReturnType instanceof ParameterizedType) {
+			returnType = (Class<?>) ((ParameterizedType)resolvedReturnType).getRawType();
+			Type[] typeArguments = ((ParameterizedType)resolvedReturnType).getActualTypeArguments();
 			if (typeArguments.length > 0) {
 				returnTypeArgument = (Class<?>) typeArguments[0];
 			}

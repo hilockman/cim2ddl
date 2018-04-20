@@ -17,12 +17,15 @@ public class StringTypeHandler implements TypeHandler<String> {
 
 	@Override
 	public String getResult(ResultSet rs, String columnName) {
-		return rs.get(columnName);
+		String value = rs.get(columnName);
+		return value == null  || value.equalsIgnoreCase("null") ? null : value;
 	}
 
 	@Override
 	public String getResult(ResultSet rs, int columnIndex) {
-		return rs.get(columnIndex);
+		String value  = rs.get(columnIndex);
+		
+		return value == null  || value.equalsIgnoreCase("null") ? null : value;
 	}
 
 }

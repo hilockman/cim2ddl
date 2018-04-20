@@ -1,6 +1,8 @@
 package com.znd.client;
 
-public interface Client {
+import com.znd.buffer.common.model.AdsNode;
 
+public interface Client {
+	AdsNode getNode();
 	void start();
 }

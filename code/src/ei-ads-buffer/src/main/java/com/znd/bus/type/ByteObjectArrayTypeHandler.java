@@ -38,13 +38,13 @@ public class ByteObjectArrayTypeHandler implements TypeHandler<Byte[]> {
 	@Override
 	public Byte[] getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : to(value.getBytes());
+		return  value == null || value.equalsIgnoreCase("null") ? null : to(value.getBytes());
 	}
 
 	@Override
 	public Byte[] getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : to(value.getBytes());
+		return  value == null || value.equalsIgnoreCase("null") ? null : to(value.getBytes());
 	}
 
 }

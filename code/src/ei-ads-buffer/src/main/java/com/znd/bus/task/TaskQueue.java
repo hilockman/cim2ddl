@@ -20,6 +20,10 @@ public class TaskQueue<T> implements Queue<T> {
 		return atomicLong.get();
 	}
 	
+	public void delete() {
+		atomicLong.delete();
+	}
+	
 	public TaskQueue(RAtomicLong atomicLong, RQueue<T> queue) {
 		atomicLong.set(0);
 		this.atomicLong = atomicLong;

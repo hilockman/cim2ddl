@@ -27,11 +27,12 @@ public class DeleteUserTest {
     	Buffer buffer = factory.openSession(false);
     	UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);
     	
+    	
     	User user = new User();
     	user.setId("1");
     	mapper.delete(user);
     	
-    	
+    	mapper.deleteAll();
 
     	buffer.close();
     	System.out.println("------------------------end DeleteUserTest.delete()----------------------------");

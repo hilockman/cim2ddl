@@ -4,6 +4,7 @@ logging:
      interfaceLogger: OFF
      org.redisson: OFF
      com.znd.bus.buffer.BufferContext: DEBUG
+     com.znd.bus.buffer.defaults.DefaultExecutor: DEBUG
       
         
 server:
@@ -18,12 +19,13 @@ buffer:
        -
          name : testChannel
          type : CACHE
-   typePackage: com.znd.ei.ads.buffer.test.model
+   typePackage: com.znd.bus.test.model
    #mapper加载路径
-   mapperPackage: com.znd.ei.ads.buffer.test.mapper
+   mapperPackage: com.znd.bus.test.mapper
    id:  0
    name: buffer_test
    alias: test
+   createFlag: CREATE
    tables:
       -  
         name:  User  

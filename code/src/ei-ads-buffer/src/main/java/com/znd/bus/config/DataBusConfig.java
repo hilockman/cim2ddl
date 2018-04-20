@@ -17,15 +17,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.ChannelConfig;
-import com.znd.bus.channel.ChannelFactory;
 import com.znd.bus.channel.ChannelRegistry;
-import com.znd.bus.channel.ChannelType;
 import com.znd.bus.log.BufferLogger;
 
 @Configuration
@@ -103,8 +102,11 @@ public class DataBusConfig {
 		
 		return names;
 	}
-	
+
+
+	  
 	@Bean 
+	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public Buffer defaultBuffer(ConfigurableApplicationContext context, BufferConfig config, BufferFactory bufferFactory) {
 				
 		Buffer buffer =  bufferFactory.openSession();
@@ -126,9 +128,14 @@ public class DataBusConfig {
 			 if (!registed)
 				 throw new BufferConfigException("Cann't regist buffer mapper for  "+mapper +", candidate names : " + names);
 		}
-		
+//		
 		return buffer;
 	}
+	
+//  @Bean
+//  public MyPostProcessor postProcessor(Buffer defaultBuffer) {
+//    return new MyPostProcessor(defaultBuffer);
+//  }
 	
 	@Bean
 	public BufferLogger bufferLogger(BufferFactory bufferFactory) {

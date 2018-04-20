@@ -13,6 +13,7 @@ public class TimeCount {
 	private String name;
 	private Logger logger;
 	private Runnable r;
+	private double elapsedSeconds;
 
 	private TimeCount() {
 		
@@ -60,9 +61,11 @@ public class TimeCount {
 		new TimeCount.Builder().name(name).runnable(r).logger(logger).build().exec();
 	}
 	
-	public static void exec(String name, Runnable r)
+	public static TimeCount exec(String name, Runnable r)
 	{
-		new TimeCount.Builder().name(name).runnable(r).build().exec();
+		TimeCount tc = new TimeCount.Builder().name(name).runnable(r).build();
+		tc.exec();
+		return tc;
 	}
 	
 	public static final double LESS_ELAPSED_TIME = 1.0;
@@ -91,7 +94,7 @@ public class TimeCount {
 		
 		tEnd = System.currentTimeMillis();
 		tDelta = tEnd - tStart;
-		double elapsedSeconds = tDelta / 1000.0;
+		elapsedSeconds = tDelta / 1000.0;
 		log(String.format("Finished %s, consumed time is %f second.", name,  elapsedSeconds));
 
 	}

@@ -17,7 +17,7 @@ public final class Commons {
 
     public static String THEME = "themes/default";
 
-    private static final List EMPTY = new ArrayList(0);
+   // private static final List EMPTY = new ArrayList(0);
 
 
 

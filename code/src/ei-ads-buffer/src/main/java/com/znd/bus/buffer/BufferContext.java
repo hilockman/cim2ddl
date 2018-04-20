@@ -1,11 +1,8 @@
 package com.znd.bus.buffer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,153 +40,6 @@ import com.znd.bus.util.TimeCount;
 
 public  class BufferContext {
 	
-	public class DefaultBufferList implements List<String> {
-
-		private String id;
-		public static final String BUFFER_TASK_TABLE = "BufferTask";
-		private RTableOperation table;
-		public DefaultBufferList(String id) {
-			this.id = id;
-			try {
-				table = bufferOperation.getTableOperation(BUFFER_TASK_TABLE);
-			} catch (Throwable e) {
-				throw new BufferException(e);
-			}
-		}
-		@Override
-		public int size() {
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public boolean isEmpty() {
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public boolean contains(Object o) {
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public Iterator<String> iterator() {
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public Object[] toArray() {
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public <T> T[] toArray(T[] a) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public boolean add(String e) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean remove(Object o) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean containsAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean addAll(Collection<? extends String> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean addAll(int index, Collection<? extends String> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean removeAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean retainAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public void clear() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public String get(int index) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String set(int index, String element) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void add(int index, String element) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public String remove(int index) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public int indexOf(Object o) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public int lastIndexOf(Object o) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public ListIterator<String> listIterator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public ListIterator<String> listIterator(int index) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<String> subList(int fromIndex, int toIndex) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-	}
 	
 	private final Logger logger = LoggerFactory.getLogger(BufferContext.class);
 	
@@ -219,7 +69,9 @@ public  class BufferContext {
 		
 		public BufferContext build() {					
 			try {
-				
+				if (config.getName() == null || config.getName().isEmpty()) {
+					throw new BufferConfigException("buffer name is null.");
+				}
 				DFService service = ServiceFactory.getService();
 				RMemDBApi memDBApi = service.connect(config.getAppName());
 
@@ -311,18 +163,21 @@ public  class BufferContext {
 	}
 	
 	// 判断表示否改变
-	private boolean isTableChanged(List<String> columnNames,
+	private boolean isTableChanged(List<RedisColumnContent> columnNames,
 			TableMeta tableBuilder) {
 		List<ColumnMeta> columns = tableBuilder.getColumns();
 		Collections.sort(columns, (a, b) -> {
 			return a.getName().compareTo(b.getName());
 		});
-		Collections.sort(columnNames);
+		Collections.sort(columnNames, (a, b)->{ return a.getStrFieldName().compareTo(b.getStrFieldName());});
 		int i = 0, j = 0;
 		for (; i < columns.size() && j < columnNames.size();) {
 
-			int c = columns.get(i).getName().compareTo(columnNames.get(j));
+			RedisColumnContent columDefine = columnNames.get(j);
+			int c = columns.get(i).getName().compareTo(columDefine.getStrFieldName());
 			if (c == 0) {
+				if (!columDefine.getIndexType() == columns.get(i).isIndexable())
+					return true;
 				i++;
 				j++;
 				continue;
@@ -360,7 +215,11 @@ public  class BufferContext {
 												
 				RTableOperation ops = bufferOperation.getTableOperation(tableMeta.getName());
 				List<String> columnNames = ops.getColumnNameArray();
-				if (isTableChanged(columnNames, tableMeta)) {
+				List<RedisColumnContent> columnDefines = new ArrayList<>();
+				for (String columnName : columnNames){
+					columnDefines.add(ops.getColumnDefine(columnName));
+				}
+				if (isTableChanged(columnDefines, tableMeta)) {
 					changedTables.add(tableMeta);
 					
 				}

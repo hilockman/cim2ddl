@@ -22,7 +22,8 @@ public class ReliabilityBufferBuilderTest {
 	@Test
 	public void createBufferBuilder() throws InterruptedException {
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
-		BufferFactory factory = builder.build("ReliabilityBuffer_test", "com.znd.ei.memdb.reliabilty.domain;com.znd.bus.test.model", "com.znd.bus.test.mapper");
+		BufferFactory factory = builder.build("ReliabilityBuffer_test",
+				"com.znd.ei.memdb.reliabilty.domain;com.znd.bus.test.model", "com.znd.bus.test.mapper", null);
 		Buffer buffer = factory.openSession();
 //		UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);
 //		User user = new User();

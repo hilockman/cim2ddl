@@ -351,7 +351,6 @@ public class ReliabilityApl {
 		System.out.println("Upload tasks..., size = "+fstates.size());
 		buffer.removeKeys(ReliabilityNetBuffer.ESTIMATE_TASK_LIST);
 		buffer.pushAll(ReliabilityNetBuffer.ESTIMATE_TASK_LIST, tasks);
-
 				
 		//发布后评估任务
 		LOGGER.info("publish estimate tasks.");

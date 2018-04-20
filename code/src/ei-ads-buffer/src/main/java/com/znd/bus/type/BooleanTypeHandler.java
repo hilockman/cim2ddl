@@ -19,13 +19,13 @@ public class BooleanTypeHandler implements TypeHandler<Boolean> {
 	@Override
 	public Boolean getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : Boolean.valueOf(value);
+		return  value == null  || value.equalsIgnoreCase("null")? null : Boolean.valueOf(value);
 	}
 
 	@Override
 	public Boolean getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : Boolean.valueOf(value);
+		return  value == null  || value.equalsIgnoreCase("null")? null : Boolean.valueOf(value);
 	}
 
 

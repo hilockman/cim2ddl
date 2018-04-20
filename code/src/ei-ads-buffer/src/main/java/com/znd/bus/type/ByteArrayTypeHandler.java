@@ -18,13 +18,13 @@ public class ByteArrayTypeHandler implements TypeHandler<byte[]> {
 	@Override
 	public byte[] getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : value.getBytes();
+		return  value == null  || value.equalsIgnoreCase("null")? null : value.getBytes();
 	}
 
 	@Override
 	public byte[] getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : value.getBytes();
+		return  value == null  || value.equalsIgnoreCase("null")? null : value.getBytes();
 	}
 
 }

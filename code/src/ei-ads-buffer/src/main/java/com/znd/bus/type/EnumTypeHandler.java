@@ -27,14 +27,14 @@ public class EnumTypeHandler<E extends Enum<E>> implements TypeHandler<E> {
 	@Override
 	public E getResult(ResultSet rs, String columnName) {
 		String value = rs.get(columnName);
-		return  value == null ? null : Enum.valueOf(type, value);	
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Enum.valueOf(type, value);	
 
 	}
 
 	@Override
 	public E getResult(ResultSet rs, int columnIndex) {
 		String value = rs.get(columnIndex);
-		return  value == null ? null : Enum.valueOf(type, value);	
+		return  value == null  || value.equalsIgnoreCase("null") ? null : Enum.valueOf(type, value);	
 	}
 
 

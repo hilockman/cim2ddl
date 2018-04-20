@@ -21,9 +21,7 @@ public class AppUtil {
 	public static final String GC_STATE_ESTIMATE = "GCStateEstimate";
 	public static final String GC_RELIABILITY_INDEX = "GCReliabilityIndex";
 
-	
-
-	
+		
 	public static Process execute(String appPath, AppLogger appLogger, String... args) {
 		StringBuffer cmd = new StringBuffer();
 		cmd.append(appPath);
@@ -39,14 +37,15 @@ public class AppUtil {
 		
 		try {
 			Process process = Runtime.getRuntime().exec(cmd.toString());
-			InputStream is = process.getInputStream();
-			print(is, appLogger);
-			
-			InputStream eis = process.getErrorStream();
-			print(eis, appLogger);
+			if (appLogger != null) {
+				InputStream is = process.getInputStream();
+				print(is, appLogger);
+				
+				InputStream eis = process.getErrorStream();
+				print(eis, appLogger);
+			}
 			return process;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
@@ -60,8 +59,8 @@ public class AppUtil {
 	 * @param appPath
 	 * @param T
 	 */
-	public static void execute(String appPath, String... args) {
-		execute(appPath, null, args);
+	public static Process execute(String appPath, String... args) {
+		return execute(appPath, null, args);
 	}
 
 	public static void print(InputStream is, AppLogger appLogger) throws IOException {
@@ -87,10 +86,10 @@ public class AppUtil {
 	}
 	
 	public static void main(String [] args) {
-		boolean rt = checkAppIsRunning("mysqld");
+		boolean rt = isRunning("mysqld");
 		System.out.println(rt);
 	}
-	public static boolean checkAppIsRunning(String appName) {
+	public static boolean isRunning(String appName) {
 		String line;
 		String pidInfo ="";
 
