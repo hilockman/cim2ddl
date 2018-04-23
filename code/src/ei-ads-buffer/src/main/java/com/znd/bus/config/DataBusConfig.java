@@ -67,7 +67,7 @@ public class DataBusConfig {
 	}	
 	
 	@Bean
-	public BufferConfig bufferConfig(DabaBusProperties properties) {
+	public BufferConfig defaultBufferConfig(DabaBusProperties properties) {
 		
 		BufferConfig config = new BufferConfig();
 			config.setId(properties.getId());
@@ -89,9 +89,9 @@ public class DataBusConfig {
 	
 	
 	@Bean 
-	public BufferFactory bufferFactory(BufferConfig config) {
+	public BufferFactory defaultBufferFactory(BufferConfig defaultBufferConfig) {
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
-		return b.build(config);
+		return b.build(defaultBufferConfig);
 	}
 
 	private List<String> getCandidateNames(Class<?> mapper) {
@@ -107,17 +107,17 @@ public class DataBusConfig {
 	  
 	@Bean 
 	@Order(Ordered.HIGHEST_PRECEDENCE)
-	public Buffer defaultBuffer(ConfigurableApplicationContext context, BufferConfig config, BufferFactory bufferFactory) {
+	public Buffer defaultBuffer(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig, BufferFactory defaultBufferFactory) {
 				
-		Buffer buffer =  bufferFactory.openSession();
-		Collection<Class<?>> mappers = config.getMappers();
+		Buffer buffer =  defaultBufferFactory.openSession();
+		Collection<Class<?>> mappers = defaultBufferConfig.getMappers();
 		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 		for (Class<?> mapper : mappers) {
 			 List<String> names = getCandidateNames(mapper);
 			 boolean registed = false;
 			 for (String name : names) {
 					if (!beanFactory.containsBean(name)) {						
-						Object rbean = config.getMapper(mapper, buffer);
+						Object rbean = defaultBufferConfig.getMapper(mapper, buffer);
 						beanFactory.registerSingleton(name, rbean);
 						logger.info("Succeed to regist bean : "+mapper +" as '"+name+"'.");
 						registed = true;
@@ -132,19 +132,14 @@ public class DataBusConfig {
 		return buffer;
 	}
 	
-//  @Bean
-//  public MyPostProcessor postProcessor(Buffer defaultBuffer) {
-//    return new MyPostProcessor(defaultBuffer);
-//  }
-	
 	@Bean
 	public BufferLogger bufferLogger(BufferFactory bufferFactory) {
 		return bufferFactory.logger();
 	}
 	
 	@Bean
-	public ChannelRegistry channelFactory(ConfigurableApplicationContext context, BufferConfig config) {
-		ChannelRegistry channelFactory =  config.getChannelRegistry();
+	public ChannelRegistry channelFactory(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig) {
+		ChannelRegistry channelFactory =  defaultBufferConfig.getChannelRegistry();
 		Collection<String> channels = channelFactory.getChannels();
 		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 		for (String  name : channels) {

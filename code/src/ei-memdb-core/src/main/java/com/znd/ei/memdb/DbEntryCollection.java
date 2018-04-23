@@ -91,7 +91,7 @@ public class DbEntryCollection extends DbComponent {
 	
 	public DbEntry findDbEntry(String name) {
 		for (DbEntry e : dbEntrys) {
-			if (e.getName() == name) {
+			if (e.getName().compareToIgnoreCase(name) == 0) {
 				return e;
 			}
 			

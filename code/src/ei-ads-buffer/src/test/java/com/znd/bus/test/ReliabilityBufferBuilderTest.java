@@ -10,9 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.config.CreateFlag;
 import com.znd.bus.test.mapper.UserInfoMapper;
-import com.znd.bus.test.mapper.UserMapper;
-import com.znd.bus.test.model.User;
 import com.znd.bus.test.model.UserInfo;
 
 @RunWith(SpringRunner.class)
@@ -22,7 +21,7 @@ public class ReliabilityBufferBuilderTest {
 	@Test
 	public void createBufferBuilder() throws InterruptedException {
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
-		BufferFactory factory = builder.build("ReliabilityBuffer_test",
+		BufferFactory factory = builder.build("ReliabilityBuffer_test", CreateFlag.UPDATE,
 				"com.znd.ei.memdb.reliabilty.domain;com.znd.bus.test.model", "com.znd.bus.test.mapper", null);
 		Buffer buffer = factory.openSession();
 //		UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);

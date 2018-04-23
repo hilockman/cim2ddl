@@ -25,7 +25,7 @@ public class MemoryControllerTest {
 	
 	@Test
 	public void testGetDb() {
-		List connections = controller.dbList();
+		List<?> connections = controller.dbList();
 		for (Object o : connections) {
 			Connection conn = (Connection) o;
 			System.out.println("dbname = "+conn.getName()+", desc = "+conn.getDesc());
@@ -35,11 +35,11 @@ public class MemoryControllerTest {
 	
 	@Test
 	public void testGetTables() {
-		List connections = controller.dbList();
+		List<?> connections = controller.dbList();
 		for (Object o : connections) {
 			Connection conn = (Connection) o;
 				
-			List tables = controller.tableList(conn.getName());
+			List<?> tables = controller.tableList(conn.getName());
 			for (Object o1 : tables) {
 				System.out.println("db = "+conn.getName()+", table : "+o1);
 			}
@@ -49,11 +49,11 @@ public class MemoryControllerTest {
 	
 	@Test
 	public void testGetRecords() {
-		List connections = controller.dbList();
+		List<?> connections = controller.dbList();
 		for (Object o : connections) {
 			Connection conn = (Connection) o;
 				
-			List tables = controller.tableList(conn.getName());
+			List<?> tables = controller.tableList(conn.getName());
 			for (Object o1 : tables) {
 				MetaTable t = (MetaTable) o1;
 				

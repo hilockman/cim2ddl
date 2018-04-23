@@ -29,6 +29,8 @@ import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.Message;
+import com.znd.bus.config.BufferConfig;
+import com.znd.bus.config.CreateFlag;
 import com.znd.bus.log.Log;
 import com.znd.bus.log.LogMapper;
 
@@ -41,6 +43,9 @@ public class ReliabilityControl {
 	
 	@Autowired
 	private LogMapper bufferLogMapper;
+	
+	@Autowired 
+	private BufferConfig defaultBufferConfig;
 	
 	
 	private final Logger logger = LoggerFactory
@@ -140,7 +145,7 @@ public class ReliabilityControl {
 			final String modelNameTag = modelName;
 			
 			BufferFactoryBuilder builder = new BufferFactoryBuilder();
-			BufferFactory bufferFactory = builder.build(modelName, "com.znd.buffer.reliability.model", "com.znd.buffer.reliability.mapper");
+			BufferFactory bufferFactory = builder.build(modelName, CreateFlag.CREATE, "com.znd.buffer.reliability.model", "com.znd.buffer.reliability.mapper", defaultBufferConfig);
 			
 //			List<ResultObject<String, String>> keys = executeDF.RedissonDBKey().FindKeys(modelName+"*");
 //			for (int i = 0; i < keys.size(); i++) {

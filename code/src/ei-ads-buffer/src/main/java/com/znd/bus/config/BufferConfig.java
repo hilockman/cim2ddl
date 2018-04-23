@@ -272,7 +272,7 @@ public class BufferConfig {
 					context.initOperation();
 					if (tableMetas != null && !tableMetas.isEmpty()) {					
 						if (context.isBufferDefineChanged(this)) {// check buffer define changed or not ?
-							logger.info("Buffer config changed, will be removed : {}. ", getKey());
+							logger.info("Buffer config changed, buffer definition will be removed : {}. ", getKey());
 							// remove buffer
 							context.removeBuffer();
 							createFlag = true;
@@ -284,22 +284,22 @@ public class BufferConfig {
 				
 									
 				if (createFlag) {
-					logger.info("Buffer will be created : {}. ", getKey());
+					logger.info("Buffer definition will be created : {}. ", getKey());
 					// make buffer
 					context.makeBuffer(tableMetas);
 				}
 				
 			} else if (getCreateFlag()  == CreateFlag.CREATE) {
 				// remove buffer
-				logger.info("Buffer config will be removed : {}. ", getKey());
+				logger.info("Buffer definition will be removed : {}. ", getKey());
 				context.removeBuffer();
 				
 				// make buffer
-				logger.info("Buffer will be created : {}. ", getKey());
+				logger.info("Buffer definition will be created : {}. ", getKey());
 				context.makeBuffer(tableMetas);
 			} else { //check buffer is available or not
 				if (!context.checkAvailable()) {
-					throw new BufferException("Buffer is not available, create buffer first : "+ getName());
+					throw new BufferException("Buffer definition is not available, create buffer definition first : "+ getName());
 				}			
 			}
 			

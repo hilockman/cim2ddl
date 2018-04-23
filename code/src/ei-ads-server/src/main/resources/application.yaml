@@ -6,7 +6,7 @@ tcptest:
       hostIp: 192.168.1.70
       hostPort: 9002
 logging:
-  file: log/ei-ads-web.log
+  file: log/ei-ads-server.log
   level:
      interfaceLogger: OFF
      org.redisson: OFF
@@ -38,26 +38,14 @@ mybatis:
   
 #buffer配置  
 buffer:
+   channels:
+       -
+         name : commonChannel
+         type : CACHE
+   typePackage: com.znd.buffer.common.model
+   #mapper加载路径
+   mapperPackage: com.znd.buffer.common.mapper
    id:  0
    name: common
    alias: 公共
-   createFlag: create
-   tables:
-      -  
-        name:  AdsNode  
-        columns:
-            - 
-              name: id
-              alias: id
-              type: integer
-              indexable: true
-            -
-              name: name
-              alias: 名称
-              type: string
-              indexable: true              
-            -
-              name: status
-              alias: 状态
-              type: integer
-              indexable: false        
+   createFlag: CREATE   

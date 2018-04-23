@@ -12,6 +12,7 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.config.BufferConfig;
+import com.znd.bus.config.CreateFlag;
 import com.znd.bus.task.TaskQueue;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
@@ -58,7 +59,7 @@ public class BufferServerImpl implements BufferServer {
 		this.taskList = taskList;
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
 		
-		BufferFactory factory = builder.build(modelName, TYPE_PACKAGE, MAPPER_PACKAGE, config);
+		BufferFactory factory = builder.build(modelName, CreateFlag.UPDATE, TYPE_PACKAGE, MAPPER_PACKAGE, config);
 		Buffer buffer = factory.openSession();
 		
 		

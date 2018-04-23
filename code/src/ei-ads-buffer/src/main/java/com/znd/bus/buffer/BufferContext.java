@@ -287,6 +287,9 @@ public  class BufferContext {
 		}
 	}
 
+	/**
+	 * 关闭连接，会造成reddison连接关闭
+	 */
 	public void close() {
 		service.disConnect();
 	}
@@ -298,7 +301,7 @@ public  class BufferContext {
 	}
 
 	public void removeBuffer() throws RedissonDBException {
-		close();
+		//close();
 		removeBuffer(memDBBuilder, name);
 	}
 	

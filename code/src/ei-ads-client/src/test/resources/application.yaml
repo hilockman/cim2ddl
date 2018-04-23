@@ -33,13 +33,10 @@ ads:
   defaultlifecycle: 60000
   memdb:
      lifecycle: 60000
-  aplSkip:
-     - Test
-     - Test1
   temp:
     dir: ./temp
-  #appDir: D:\GitHub\cim2ddl\code\bin_x64
-  appDir: E:/ZNDCWare/bin_x64
+  appDir: D:\GitHub\cim2ddl\code\bin_x64
+  #appDir: E:/ZNDCWare/bin_x64
 
 reliability:
   listenPort: 9002

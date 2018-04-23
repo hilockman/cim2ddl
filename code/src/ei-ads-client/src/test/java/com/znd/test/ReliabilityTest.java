@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.znd.ads.model.PRAdequacySetting;
 import com.znd.buffer.common.mapper.CalcJobMapper;
 import com.znd.buffer.common.model.CalcJob;
-import com.znd.bus.util.TimeCount;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.reliability.apl.ReliabilityApl;
 import com.znd.reliability.config.ReliabilityProperties;

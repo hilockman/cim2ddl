@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.config.CreateFlag;
 import com.znd.bus.test.mapper.UserMapper;
 import com.znd.bus.test.model.User;
 
@@ -21,7 +22,7 @@ public class BufferFactoryBuilderTest {
 	@Test
 	public void createBufferBuilder() throws InterruptedException {
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
-		BufferFactory factory = builder.build("builder_test", "com.znd.bus.test.model", "com.znd.bus.test.mapper", null);
+		BufferFactory factory = builder.build("builder_test", CreateFlag.CREATE, "com.znd.bus.test.model", "com.znd.bus.test.mapper", null);
 		Buffer buffer = factory.openSession();
 		UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);
 		User user = new User();

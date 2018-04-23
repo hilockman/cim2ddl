@@ -14,9 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <deplory.dir>../../lib/${project.name}</deplory.dir>
   </properties>
-  <dependencies>
-
-        
+  <dependencies>    
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -44,12 +42,19 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-memdb</artifactId>
 			<version>${project.version}</version>
-		</dependency>			
+		</dependency>	
+				
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+         <!-- hot swapping, disable cache for template, enable live reload -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency> 		 	   		   
 		 	   		          
   </dependencies>
   
