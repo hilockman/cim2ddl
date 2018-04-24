@@ -7,26 +7,61 @@
     </div>
     <style type="text/css">
    	  nav#table-nav {
-   	  	float:left;
+   	  	//float:left;
+   	  	position:fixed;
+   	  	top: 50px;
 		margin: 0;
 		padding: 0;
 		border: 0;
-		width: 300px;
+		width: 200px;
 		background: transparent;
+		overflow: auto;
+		height : 100%;
    	  }    
-   	  
+
+	li span.selected{
+	//border: 1px solid #888;
+	background-color: #4CAF50;
+	}
+      #db ul {
+        height : 100%;
+      }
+	    
+	  div.container-fluid {
+	  	margin-top : 50px;
+	  } 	  
+	  div.container-fluid {
+	  	margin-left: 205px;
+	  }
    	  div#page-wrapper {
-   	  	float: left;
-		margin: 0;
+   	  	//float: left;
+		//margin: 0;
+		
+		
 		padding: 0;
 		border: 0;
-		width: 600px;
+		width: 88%;
+		background: transparent;
+   	  }
+   	  
+   	  #header-fixed {
+	    position: fixed;
+	    top: 0px; display:none;
+	    background-color:white;
+	  }
+   	  
+   	  #table {
+		margin: 20px;
+		margin-top : 5px;
+		margin-left : 5px;
+		padding: 0;
+		border: 0;
 		background: transparent;
    	  }
    	  
 	    .tree {
-		    min-height:20px;
-		    padding:19px;
+		    min-height:15px;
+		    padding:0px;
 		    margin-bottom:20px;
 		    background-color:#fbfbfb;
 		    border:1px solid #999;
@@ -37,10 +72,14 @@
 		    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
 		    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
 		}
+		
+		.tree>ul {
+			padding:5px
+		}
 		.tree li {
 		    list-style-type:none;
 		    margin:0;
-		    padding:10px 5px 0 5px;
+		    padding:5px 5px 0 5px;
 		    position:relative
 		}
 		.tree li::before, .tree li::after {
@@ -65,10 +104,11 @@
 		.tree li span {
 		    -moz-border-radius:5px;
 		    -webkit-border-radius:5px;
-		    border:1px solid #999;
+		   border:1px solid #999;
 		    border-radius:5px;
 		    display:inline-block;
 		    padding:3px 8px;
+		    //padding:0;
 		    text-decoration:none
 		}
 		.tree li.parent_li>span {
@@ -91,58 +131,62 @@
 
 <div th:replace="fragments/header :: header">
 </div>
-<div class="container-fluid">
-    <nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">
-		<div class="tree well" id="db">
-		    <ul>
-		    </ul>
-		</div>
-
-    </nav>
-
-	
-	<div id="page-wrapper">
-	 	<table class="table table-bordered">
-	    <thead>
-	      <tr>
-	        <th>Firstname</th>
-	        <th>Lastname</th>
-	        <th>Email</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	      <tr>
-	        <td>John</td>
-	        <td>Doe</td>
-	        <td>john@example.com</td>
-	      </tr>
-	      <tr>
-	        <td>Mary</td>
-	        <td>Moe</td>
-	        <td>mary@example.com</td>
-	      </tr>
-	      <tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-	      </tr>
-	    </tbody>	 	
-	 	</table>
+<nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">
+	<div class="tree well" id="db">
+	    <ul>
+	    </ul>
 	</div>
+</nav>
+    
+<div class="container-fluid">
+	<div id="page-wrapper">
+
+	   <div id="table">
+		 	<table class="table table-bordered table-striped">
+			    <thead>
+			      <tr>
+			        <th>Firstname</th>
+			        <th>Lastname</th>
+			        <th>Email</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td>John</td>
+			        <td>Doe</td>
+			        <td>john@example.com</td>
+			      </tr>
+			      <tr>
+			        <td>Mary</td>
+			        <td>Moe</td>
+			        <td>mary@example.com</td>
+			      </tr>
+			      <tr>
+			        <td>July</td>
+			        <td>Dooley</td>
+			        <td>july@example.com</td>
+			      </tr>
+			    </tbody>	 	
+		 	</table>	   
+	   </div>
+
+	</div>
+	<div th:replace="fragments/footer :: footer">
 </div>
 <!-- /.container -->
 
-<div th:replace="fragments/footer :: footer">
+
 </div>
 
 <script>
 	$(function () {
 
-	    
+	  
 	  var dbapi = {
-		 dbList: function(callBack) {
+		 baseUrl:'memory/',
+	     dbList: function(callBack) {
 			 jQuery.ajax({
-			        url: 'memory/dbList',
+			        url: dbapi.baseUrl+'dbList',
 			        success: function (result) {
 			        	callBack(result);
 			        },
@@ -151,32 +195,118 @@
 		 },
 		 tableList:function(dbName, callBack) {
 			 jQuery.ajax({
-			        url: 'memory/tableList/'+dbName,
+			        url: dbapi.baseUrl+'tableList/'+dbName,
 			        success: function (result) {
 			        	callBack(result);
 			        },
 			        async: false
 			    });
 		 },
+		 tableColumnList:function(dbName,tableName, callBack) {
+			 jQuery.ajax({
+			        url: dbapi.baseUrl+'tableColumnList/'+dbName+'/'+tableName,
+			        success: function (result) {
+			        	callBack(result);
+			        },
+			        async: false
+			    });
+		 },
+		 recordList:function(dbName,tableName, callBack) {
+			 jQuery.ajax({
+			        url: dbapi.baseUrl+'recordList/'+dbName+'/'+tableName,
+			        success: function (result) {
+			        	callBack(result);
+			        },
+			        async: false
+			    });			 
+		 }
+		 
+		 
 		 
 	  };
 	  
+	  var loadTableInfos = function(dbName) {
+	       $('#table table').children().remove();
+	       //alert(dbName);
+	       var str = "";
+	       
+	       var titles = [{name:"name",alias:"名称"},{name:"alias",alias:"别名"},{name:"record size",alias:"记录数"}];
+    	   str += "<thead><tr>";
+    	   for (var i=0; i < titles.length; i++) {
+    		   str += "<th title='"+titles[i].name+"'>"+titles[i].alias+'</th>'
+    	   }
+    	   str += "</tr></thead>";
+	     
+	       
+	       dbapi.tableList(dbName, function(records){
+	    	   str += "<tbody>";
+	    	   for (var i=0; i < records.length; i++) {
+	    		   str += "<tr>";
+	    		   var rec = records[i];
+	    		   
+	    			   str += '<td>'+rec.name+'</td>';
+	    			   str += '<td>'+rec.alias+'</td>';
+	    			   str += '<td>'+rec.recordSize+'</td>';
+	    		   str += "</tr>";
+	    	   }
+	    	   str += "</tbody>";
+	       }) ;
+	       $('#table table').append(str);		  
+	  }
+	  
+	   var loadTable = function(dbName, tableName) {
+	       console.log("db = "+dbName+", table = "+ tableName);
+	       $('#table table').children().remove();
+	       
+	       var str = "";
+	       dbapi.tableColumnList(dbName, tableName, function(records){
+	    	   str += "<thead><tr>";
+	    	   for (var i=0; i < records.length; i++) {
+	    		   str += "<th title='"+records[i].name+"'>"+records[i].alias+'</th>'
+	    	   }
+	    	   str += "</tr></thead>";
+	       }) ;
+	       
+	       dbapi.recordList(dbName, tableName, function(records){
+	    	   str += "<tbody>";
+	    	   for (var i=0; i < records.length; i++) {
+	    		   str += "<tr>";
+	    		   var rec = records[i];
+	    		   for (var j = 0; j < rec.length; j++) {
+	    			   str += '<td>'+rec[j]+'</td>'
+	    		   }
+	    		   str += "</tr>";
+	    	   }
+	    	   str += "</tbody>";
+	       }) ;
+	       $('#table table').append(str);
+	   }
+
+	  
+	 
 	  dbapi.dbList(function (dbs) {
 		  console.log("db size:"+dbs.length);
 		  var dbul = $("#db ul");
 		  var str = "";
+		  var defaultDb;
+		  var defaultTable;
 		  for (i in dbs) {
 			  var db = dbs[i];
-			   
+			  if (i == 0)
+				  defaultDb = db.name;
 			  
-			  str +=  "<li class='parent_li' id="+db.name+"><span><i class='fa fa-minus-circle'></i>"+db.name+"</span> <a href=''>Goes somewhere</a><ul>";
+			  var url = 
+			  str +=  "<li class='parent_li' type='db' id="+db.name+"><span title='"+db.name+"'><i class='fa fa-minus-circle'></i>"+db.alias+'('+db.tableSize+')'+"</span> <a href=''>Go</a><ul>";
 			  			  
 			  dbapi.tableList(db.name, function (tables) {
 				  console.log("db :"+ db.name+", table size:"+tables.length);
 				  
 				  for (j in tables) {
 				    var table = tables[j];
-				    str += "<li id="+table.name+"><span><i class='fa fa-leaf'></i>"+table.name+"</span> <a href=''>Goes somewhere</a></li>";
+				    if (i == 0 && j == 0)
+				    	defaultTable = table.name;
+				       
+				    str += "<li type='table' db='"+db.name+"' id='"+table.name+"'><span "+((i == 0 && j == 0)?"class='selected' " : "")+"title='"+table.name+"'><i class='fa fa-leaf'></i>"+table.alias+'('+table.recordSize+')'+"</span></li>";
 				    console.log("table :"+ table.name);
 				  }
 				  str +="</ul></li>";
@@ -185,20 +315,54 @@
 			  
 		  }
 		  dbul.append(str);
+		 // alert(defaultDb+","+defaultTable);
+		  loadTable(defaultDb, defaultTable);
 	  });
 	  
-	    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-	    $('.tree li.parent_li > span').on('click', function (e) {
-	        var children = $(this).parent('li.parent_li').find(' > ul > li');
-	        if (children.is(":visible")) {
-	            children.hide('fast');
-	            $(this).attr('title', 'Expand this branch').find(' > i').addClass('fa-plus-circle').removeClass('fa-minus-circle');
-	        } else {
-	            children.show('fast');
-	            $(this).attr('title', 'Collapse this branch').find(' > i').addClass('fa-minus-circle').removeClass('fa-plus-circle');
-	        }
-	        e.stopPropagation();
-	    });
+	  /*
+	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
+	   $('.tree li.parent_li > span').on('click', function (e) {
+	       var children = $(this).parent('li.parent_li').find(' > ul > li');
+	       if (children.is(":visible")) {
+	           children.hide('fast');
+	           $(this).find(' > i').addClass('fa-plus-circle').removeClass('fa-minus-circle');
+	       } else {
+	           children.show('fast');
+	           $(this).find(' > i').addClass('fa-minus-circle').removeClass('fa-plus-circle');
+	       }
+	       e.stopPropagation();
+	   });
+	   	  
+	  */
+
+	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
+	   $('.tree li.parent_li > span > i').on('click', function (e) {
+	       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
+	       if (children.is(":visible")) {
+	           children.hide('fast');
+	           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
+	       } else {
+	           children.show('fast');
+	           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
+	       }
+	       e.stopPropagation();
+	   });
+	   	   
+
+	   $('.tree li > span').on('click', function (e) {
+		   var li = $(this).parent('li');
+		   $('.tree li > span').removeClass('selected');
+		   $(this).addClass('selected');
+		   var dbName = li.attr("db");
+		   var tableName = li.attr("id");
+		   if (li.attr("type") == "db") {
+			  loadTableInfos(tableName); 
+		   } else
+		   	  loadTable(dbName, tableName);
+		   
+	   });  
+	   
+	  
 	});
 </script>
 </body>

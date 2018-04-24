@@ -1,5 +1,7 @@
 
-
+.navbar-inverse {
+	    min-height: 40px;
+}
 footer {
 	    text-align:center;
 		clear: both;

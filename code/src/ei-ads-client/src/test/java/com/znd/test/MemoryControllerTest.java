@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.controller.MemoryController;
-import com.znd.ei.memdb.Connection;
-import com.znd.ei.memdb.MetaTable;
+import com.znd.server.impl.MemoryServerImpl.DbInfo;
+import com.znd.server.impl.MemoryServerImpl.TableInfo;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
@@ -27,8 +27,8 @@ public class MemoryControllerTest {
 	public void testGetDb() {
 		List<?> connections = controller.dbList();
 		for (Object o : connections) {
-			Connection conn = (Connection) o;
-			System.out.println("dbname = "+conn.getName()+", desc = "+conn.getDesc());
+			
+			System.out.println(o);
 		}
 	}
 	
@@ -37,8 +37,8 @@ public class MemoryControllerTest {
 	public void testGetTables() {
 		List<?> connections = controller.dbList();
 		for (Object o : connections) {
-			Connection conn = (Connection) o;
-				
+		
+			DbInfo conn = (DbInfo)o;
 			List<?> tables = controller.tableList(conn.getName());
 			for (Object o1 : tables) {
 				System.out.println("db = "+conn.getName()+", table : "+o1);
@@ -51,13 +51,13 @@ public class MemoryControllerTest {
 	public void testGetRecords() {
 		List<?> connections = controller.dbList();
 		for (Object o : connections) {
-			Connection conn = (Connection) o;
+			DbInfo conn = (DbInfo) o;
 				
 			List<?> tables = controller.tableList(conn.getName());
 			for (Object o1 : tables) {
-				MetaTable t = (MetaTable) o1;
+				TableInfo t = (TableInfo) o1;
 				
-				System.out.println("db = "+conn.getName()+", table : "+o1+", size = "+controller.recordSize(conn.getName(), t.getName()));
+				System.out.println("db = "+conn.getName()+", table : "+o1+", size = "+t.getRecordSize());
 			}
 			System.out.println("db table size = "+tables.size());
 		}

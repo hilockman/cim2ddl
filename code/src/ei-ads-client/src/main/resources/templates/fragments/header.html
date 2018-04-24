@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
         <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
-   
         <script  type="text/javascript" th:src="@{/scripts/jquery-3.2.1.js}" src="../../scripts/jquery-3.2.1.js"></script>  
         
         <script type="text/javascript" th:src="@{/bootstrap/3.3.7/js/bootstrap.min.js}" 
@@ -17,28 +16,26 @@
 
 </head>
 <body>
-<div class="navbar navbar-inverse" th:fragment="header">
-    <!-- this is header -->
-
-            
-            <div class="navbar-header">              
-                <a class="navbar-brand" th:href="@{/}">
-                  <i class="fa fa-qrcode"></i>                  
-                                    计算节点
-                </a>
-            </div>
-              
-            <div class="nav navbar-collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a th:href="@{/}">主页</a></li>
-                </ul>    
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a th:href="@{/config}">配置</a></li>
-                </ul>  
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a th:href="@{/log}">日志</a></li>
-                </ul>                                         
-            </div>  
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <!-- this is header -->           
+     <div class="navbar-header">              
+         <a class="navbar-brand" th:href="@{/}">
+           <i class="fa fa-qrcode"></i>                  
+                             计算节点
+         </a>
+     </div>
+       
+     <div class="nav navbar-collapse">
+         <ul class="nav navbar-nav navbar-left">
+             <li class="active"><a th:href="@{/}">主页</a></li>
+         </ul>    
+         <ul class="nav navbar-nav navbar-left">
+             <li><a th:href="@{/config}">配置</a></li>
+         </ul>  
+         <ul class="nav navbar-nav navbar-left">
+             <li><a th:href="@{/log}">日志</a></li>
+         </ul>                                         
+     </div>  
 </div>
 
 </body>

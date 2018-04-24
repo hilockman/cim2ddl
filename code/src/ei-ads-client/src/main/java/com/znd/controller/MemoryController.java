@@ -22,7 +22,7 @@ public class MemoryController {
 	
 	@GetMapping("/memory/dbList")
 	public @ResponseBody List dbList() {
-		return Arrays.asList(memoryServer.getConnections());
+		return memoryServer.getConnections();
 	}
 	
 	@GetMapping("/memory/tableList/{dbName}")
@@ -31,13 +31,13 @@ public class MemoryController {
 	}
 	
 	
-	@GetMapping("/memory/recordList/{dbname}/{tableName}")
+	@GetMapping("/memory/recordList/{dbName}/{tableName}")
 	public  @ResponseBody List recordList(@PathVariable String dbName, @PathVariable String tableName) {
 		return memoryServer.getRecords(dbName, tableName);
 	}	
 	
-	@GetMapping("/memory/recordSize/{dbname}/{tableName}")
-	public  @ResponseBody Integer recordSize(@PathVariable String dbName, @PathVariable String tableName) {
-		return memoryServer.getRecordSize(dbName, tableName);
+	@GetMapping("/memory/tableColumnList/{dbName}/{tableName}")
+	public  @ResponseBody List tableColumnList(@PathVariable String dbName, @PathVariable String tableName) {
+		return memoryServer.getTableColumnList(dbName, tableName);
 	}	
 }
