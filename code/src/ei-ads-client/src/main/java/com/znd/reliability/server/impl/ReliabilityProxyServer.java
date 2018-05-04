@@ -25,6 +25,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -75,33 +76,49 @@ public class ReliabilityProxyServer implements ProxyServer {
 	 */
 	public abstract class StateEstimateResponseHandler extends ChannelInboundHandlerAdapter {
 
-
-		
 		private Semaphore availableWorkers;
 		private ReliabilityProxyServer server;
 		private AtomicInteger currentTaskIndex;
 		//private AtomicBoolean stopFlag;
 		
-
 	    public StateEstimateResponseHandler(AtomicInteger currentTaskIndex, ReliabilityProxyServer server,
 				Semaphore availableWorkers) {
 		
 			this.availableWorkers = availableWorkers;
 			this.server = server;
 			this.currentTaskIndex = currentTaskIndex;
-
-
 		}
 	      
 	    public abstract void closeParent();
 	    
-	   
+	    private void saveObject(String name, Object o) {
+	    	
+	    	String str = "./json/"+o.getClass().getSimpleName();
+	    	File dir = new File(str);
+	    	if (!dir.exists()) {
+	    		dir.mkdirs();
+	    	}
+	    	
+	    	String fileName = str+"/"+name+".json";
+	    	saveFile(fileName, Utils.toJSon(o));
+	    }
+	    private void saveFile(String fileName, String content) {
+	    	
+	    	try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+				bw.write(content);
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    }
 		@Override
 	    public void channelRead(ChannelHandlerContext ctx, Object msg) { 
 			String content = msg.toString();
 			System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ content.length()+" size.");
-			//System.out.println("Rec from "+ctx.channel().remoteAddress()+"->Server :"+ content);
-			
+
 	    	server.saveLog("Server response:\n" + content);
 	    	
 	    	if (content.contains(Commands.DATA_READY)) {
@@ -118,14 +135,11 @@ public class ReliabilityProxyServer implements ProxyServer {
 	    			System.out.println("Received result : currentTaskIndex "+index+", sum = "+ taskSize);
 	    			index = currentTaskIndex.incrementAndGet();
 	    		}
-	    		
+	    		cachedResult(result);
 	    		bufferServer.saveResult(result);
 	    		
-	    		taskList.increaseGood();
-	    		
-//	    		synchronized(resultMap) {
-//	    			resultMap.set(state.getFStateID(), result);
-//	    		} 		 		
+	    		taskList.decreaseLeft();
+	    			 		
 	    	} else if (content.contains(Commands.JOB_FINISHED)) {
 	    		System.out.println("Received message : "+content);
 				ctx.close();
@@ -145,6 +159,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 				}
 				if (task != null) {
 
+					cachedRequest(task);
 					String requestMsg = Utils.toJSon(task);					
 					if (server != null) {
 						server.saveLog("Client request:\n" + requestMsg);
@@ -166,9 +181,16 @@ public class ReliabilityProxyServer implements ProxyServer {
 			
 	    }
 		
+		private void cachedRequest(RequestEstimate task) {
+			saveObject(""+task.getContent().getFState().get(0).getFStateID(), task);		
+		}
+
+		private void cachedResult(ResponseEstimate result) {
+			saveObject(""+result.getContent().getFState().get(0).getFStateID(), result);
+		}
+
 		@Override
 	    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-	        // Close the connection when an exception is raised.
 	        cause.printStackTrace();
 	        ctx.close();
 	    }
@@ -268,13 +290,8 @@ public class ReliabilityProxyServer implements ProxyServer {
 								@Override
 								public void run() {
 							    	//判断任务是否完成
-//									long resultSize = 0l;
-//									taskList.goodCount();
-//									synchronized(resultMap) {
-//										resultSize = resultMap.size();
-//									}
-									
-									if (taskList.goodCount() == taskSize) {
+							
+									if (taskList.leftCount() == 0) {
 										
 										System.out.println("Task is finished :"+modelName);
 										taskList.delete();
@@ -317,9 +334,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 		ChannelFuture f = localBootstrap.bind(properties.getListenPort()).sync(); // 8
 		logger.info(ReliabilityProxyServer.class.getName()
 				+ " started and listen on " + f.channel().localAddress());
-		//listenStartLatch.countDown();
-		//responseChannel = f.channel();
-		
+
 		return f.channel().closeFuture();
 	}
 	
@@ -455,8 +470,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 
 
 			future.channel().closeFuture().sync();
-			//System.out.println("Disconnect to : ip = "+ properties.getServerIp()+", port = "+properties.getServerPort());
-								
+							
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

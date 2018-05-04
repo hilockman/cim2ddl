@@ -3,32 +3,38 @@ package com.znd.bus.task;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 import org.redisson.api.RAtomicLong;
 import org.redisson.api.RQueue;
+import org.redisson.api.RedissonClient;
 
 public class TaskQueue<T> implements Queue<T> {
 
-	private RAtomicLong atomicLong;
+	private RAtomicLong left;
 	private RQueue<T> queue;
 	
-	public long increaseGood() {
-		return atomicLong.incrementAndGet();
+	public long decreaseLeft() {
+		return left.decrementAndGet();
 	}
 	
-	public long goodCount() {
-		return atomicLong.get();
+	public long leftCount() {
+		return left.get();
+	}
+	
+	public void syncLeftCount() {
+		left.set(queue.size());
 	}
 	
 	public void delete() {
-		atomicLong.delete();
+		left.delete();
 	}
 	
-	public TaskQueue(RAtomicLong atomicLong, RQueue<T> queue) {
-		atomicLong.set(0);
-		this.atomicLong = atomicLong;
-		this.queue = queue;
-		
+	public TaskQueue(RedissonClient client, String id) {
+		left = client.getAtomicLong(id+":left"); 
+		left.set(0);
+		queue = client.getQueue(id+":queue");
+		queue.expire(1, TimeUnit.HOURS);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class BufferServerImpl implements BufferServer {
 		}
 		String modelName = job.getName();
 		BufferConfig config = parentBuffer.getConfig();
-		TaskQueue<RequestEstimate> taskList = config.getTaskList(job.getId());
+		TaskQueue<RequestEstimate> taskList = config.getTaskList(job.getName()+":task:"+job.getId());
 		if (taskList == null)
 			throw new AplException("Cann't create task list : "+job.getId());
 		
@@ -61,9 +61,7 @@ public class BufferServerImpl implements BufferServer {
 		
 		BufferFactory factory = builder.build(modelName, CreateFlag.UPDATE, TYPE_PACKAGE, MAPPER_PACKAGE, config);
 		Buffer buffer = factory.openSession();
-		
-		
-		
+			
 		fstateMapper = factory.config().getMapper(FStateMapper.class, buffer);
 		devMapper = factory.config().getMapper(FStateFDevMapper.class, buffer);
 		ovlAdMapper = factory.config().getMapper(FStateOvlAdMapper.class, buffer);
@@ -170,6 +168,7 @@ public class BufferServerImpl implements BufferServer {
 		t.start();
 		try {
 			t.join();
+			taskList.syncLeftCount();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

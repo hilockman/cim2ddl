@@ -14,4 +14,9 @@ public class DefaultController {
 	public String home1() {
 		return "/home";
 	}
+	
+	@GetMapping("/model")
+	public String model() {
+		return "/model";
+	}
 }

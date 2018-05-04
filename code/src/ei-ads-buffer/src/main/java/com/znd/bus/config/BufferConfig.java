@@ -506,7 +506,7 @@ public class BufferConfig {
 		if (redissonClient == null)
 			return null;
 		
-		return new TaskQueue<T>(redissonClient.getAtomicLong(id+".buffertaskcount"), redissonClient.getQueue(id+".buffertask"));
+		return new TaskQueue<T>(redissonClient, id);
 	}
 	
 	

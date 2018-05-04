@@ -1,7 +1,19 @@
 
-.navbar-inverse {
-	    min-height: 40px;
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 30px;
+    height: 30px;
+    padding-top: 0;
 }
+
+.navbar-inverse {
+	    min-height: 30px;
+	    margin-bottom : 0;
+	    background-color: #5f5f5f;
+	    border-color : #f1f1f1
+}
+
+
 footer {
 	    text-align:center;
 		clear: both;

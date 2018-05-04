@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>结算节点</title>
+    <title>节点状态</title>
     <meta charset="utf-8" />
     <div th:replace="fragments/header :: header-css">
     </div>
+
+	<script src="echarts/4.0.4/echarts.min.js"></script>
+	
     <style type="text/css">
    	  nav#table-nav {
    	  	//float:left;
@@ -13,357 +16,503 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		width: 200px;
+		width: 250px;
 		background: transparent;
 		overflow: auto;
 		height : 100%;
-   	  }    
-
-	li span.selected{
-	//border: 1px solid #888;
-	background-color: #4CAF50;
-	}
-      #db ul {
-        height : 100%;
-      }
+   	  }   
 	    
 	  div.container-fluid {
 	  	margin-top : 50px;
-	  } 	  
+	  } 	
+	    
 	  div.container-fluid {
-	  	margin-left: 205px;
+	  	margin-left: 0px;
 	  }
-   	  div#page-wrapper {
-   	  	//float: left;
-		//margin: 0;
-		
-		
+	  
+   	  div#page-wrapper {	
 		padding: 0;
 		border: 0;
-		width: 88%;
+		width: 100%;
 		background: transparent;
    	  }
    	  
-   	  #header-fixed {
-	    position: fixed;
-	    top: 0px; display:none;
-	    background-color:white;
-	  }
-   	  
-   	  #table {
-		margin: 20px;
-		margin-top : 5px;
-		margin-left : 5px;
-		padding: 0;
-		border: 0;
-		background: transparent;
-   	  }
-   	  
-	    .tree {
-		    min-height:15px;
-		    padding:0px;
-		    margin-bottom:20px;
-		    background-color:#fbfbfb;
-		    border:1px solid #999;
-		    -webkit-border-radius:4px;
-		    -moz-border-radius:4px;
-		    border-radius:4px;
-		    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
-		    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
-		    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
-		}
-		
-		.tree>ul {
-			padding:5px
-		}
-		.tree li {
-		    list-style-type:none;
-		    margin:0;
-		    padding:5px 5px 0 5px;
-		    position:relative
-		}
-		.tree li::before, .tree li::after {
-		    content:'';
-		    left:-20px;
-		    position:absolute;
-		    right:auto
-		}
-		.tree li::before {
-		    border-left:1px solid #999;
-		    bottom:50px;
-		    height:100%;
-		    top:0;
-		    width:1px
-		}
-		.tree li::after {
-		    border-top:1px solid #999;
-		    height:20px;
-		    top:25px;
-		    width:25px
-		}
-		.tree li span {
-		    -moz-border-radius:5px;
-		    -webkit-border-radius:5px;
-		   border:1px solid #999;
-		    border-radius:5px;
-		    display:inline-block;
-		    padding:3px 8px;
-		    //padding:0;
-		    text-decoration:none
-		}
-		.tree li.parent_li>span {
-		    cursor:pointer
-		}
-		.tree>ul>li::before, .tree>ul>li::after {
-		    border:0
-		}
-		.tree li:last-child::before {
-		    height:30px
-		}
-		.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
-		    background:#eee;
-		    border:1px solid #94a0b4;
-		    color:#000
-		}
+
+	.monitor-item {
+		text-align: center;
+	}
+     .monitor-value {
+     	font-size:2em;
+     }
+     
+     
     </style>
 </head>
 <body>
-
-<div th:replace="fragments/header :: header">
-</div>
-<nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">
-	<div class="tree well" id="db">
-	    <ul>
-	    </ul>
+	
+	<div th:replace="fragments/header :: header">
 	</div>
-</nav>
     
-<div class="container-fluid">
-	<div id="page-wrapper">
+	<div class="container-fluid">
+ 
+		<div id="page-wrapper">
+		   <div class="col-lg-4 col-md-4">
+	   	     <h2>CPU</h2>
+	   	     <div id="cpu" style="width:100%;height:300px;">
+	   	     </div>
+		     <div>
+		       <div  class="monitor-item col-lg-4">
+		          <p>利用率</p>
+		          <label id="load" class="monitor-value"></label>		          
+		       </div>
+		       <div id="load"  class="monitor-item  col-lg-4">
+		          <p >进程</p>
+		          <label id="processCount"  class="monitor-value"></label>		          
+		       </div>
+		       <div class="monitor-item col-lg-4">
+		          <p>线程</p>
+		          <label id="threadCount"  class="monitor-value"></label>		          
+		       </div>
+		     </div>
+	       
+	       </div>
 
-	   <div id="table">
-		 	<table class="table table-bordered table-striped">
-			    <thead>
-			      <tr>
-			        <th>Firstname</th>
-			        <th>Lastname</th>
-			        <th>Email</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
-			        <td>John</td>
-			        <td>Doe</td>
-			        <td>john@example.com</td>
-			      </tr>
-			      <tr>
-			        <td>Mary</td>
-			        <td>Moe</td>
-			        <td>mary@example.com</td>
-			      </tr>
-			      <tr>
-			        <td>July</td>
-			        <td>Dooley</td>
-			        <td>july@example.com</td>
-			      </tr>
-			    </tbody>	 	
-		 	</table>	   
-	   </div>
+	  	
+		   <div  class="col-lg-4 col-md-4">
+		    <h2>内存</h2>
+	   	     <div id="memory" style="width:100%;height:300px;">
+	   	     </div>
+		     <div>
+		       <div class="monitor-item col-lg-4">
+		          <p>使用中</p>
+		          <label id="globalUsedMemory" class="monitor-value"></label>		          
+		       </div>
+		       <div id="load" class="monitor-item col-lg-4">
+		          <p >可用</p>
+		          <label id="globalFreeMemory"  class="monitor-value"></label>		          
+		       </div>
+		       <div class="monitor-item col-lg-4">
+		          <p>虚拟机使用中</p>
+		          <label id="usedMemory"  class="monitor-value"></label>		          
+		       </div>
+		     </div>	
+		     <div>
+		       <div class="monitor-item col-lg-4">
+		          <p>虚拟机可用</p>
+		          <label id="freeMemory" class="monitor-value"></label>		          
+		       </div>
 
+		     </div>		    
+		   </div>
+		   
+		   <div class="col-lg-4 col-md-4">
+		       <h2>文件系统</h2>
+		 	   <div id="fileSystem" style="width:100%;height:300px;">
+	   	       </div>
+		   </div>
+		 	   
+		</div>
+		<div th:replace="fragments/footer :: footer">
 	</div>
-	<div th:replace="fragments/footer :: footer">
-</div>
-<!-- /.container -->
-
+	<!-- /.container -->
 
 </div>
 
 <script>
-	$(function () {
+/*
+	var $table = $('#table');
+*/	
+	const SAMPLE_INTERVAL = 1;
 
-	  
-	  var dbapi = {
-		 baseUrl:'memory/',
-	     dbList: function(callBack) {
+	function SystemInfo() {
+		this.baseUrl = 'system/';
+		this.get = function(callBack, failCallBack) { return this.query('systemInfo', callBack, failCallBack);};
+		this.getList = function(callBack, failCallBack) { return this.query('systemInfos', callBack, failCallBack);};
+		this.getCPU = function(callBack, failCallBack) { return this.query('cpu', callBack, failCallBack);};
+		this.getCPUs = function(callBack, failCallBack) { return this.query('cpus', callBack, failCallBack);};
+	}  
+	
+	SystemInfo.prototype.query =  function (url, callBack, failCallBack) {
+		     var result;
+
+		     
 			 jQuery.ajax({
-			        url: dbapi.baseUrl+'dbList',
-			        success: function (result) {
-			        	callBack(result);
-			        },
-			        async: false
+			        url: this.baseUrl+url,
+			        success: callBack != undefined ? callBack : function(record) { result = record; },
+			        async: callBack == undefined ? false : true,
+			        error: failCallBack				        
 			    });
-		 },
-		 tableList:function(dbName, callBack) {
-			 jQuery.ajax({
-			        url: dbapi.baseUrl+'tableList/'+dbName,
-			        success: function (result) {
-			        	callBack(result);
-			        },
-			        async: false
-			    });
-		 },
-		 tableColumnList:function(dbName,tableName, callBack) {
-			 jQuery.ajax({
-			        url: dbapi.baseUrl+'tableColumnList/'+dbName+'/'+tableName,
-			        success: function (result) {
-			        	callBack(result);
-			        },
-			        async: false
-			    });
-		 },
-		 recordList:function(dbName,tableName, callBack) {
-			 jQuery.ajax({
-			        url: dbapi.baseUrl+'recordList/'+dbName+'/'+tableName,
-			        success: function (result) {
-			        	callBack(result);
-			        },
-			        async: false
-			    });			 
-		 }
-		 
-		 
-		 
-	  };
-	  
-	  var loadTableInfos = function(dbName) {
-	       $('#table table').children().remove();
-	       //alert(dbName);
-	       var str = "";
-	       
-	       var titles = [{name:"name",alias:"名称"},{name:"alias",alias:"别名"},{name:"record size",alias:"记录数"}];
-    	   str += "<thead><tr>";
-    	   for (var i=0; i < titles.length; i++) {
-    		   str += "<th title='"+titles[i].name+"'>"+titles[i].alias+'</th>'
-    	   }
-    	   str += "</tr></thead>";
-	     
-	       
-	       dbapi.tableList(dbName, function(records){
-	    	   str += "<tbody>";
-	    	   for (var i=0; i < records.length; i++) {
-	    		   str += "<tr>";
-	    		   var rec = records[i];
-	    		   
-	    			   str += '<td>'+rec.name+'</td>';
-	    			   str += '<td>'+rec.alias+'</td>';
-	    			   str += '<td>'+rec.recordSize+'</td>';
-	    		   str += "</tr>";
-	    	   }
-	    	   str += "</tbody>";
-	       }) ;
-	       $('#table table').append(str);		  
+			 
+			 
+			 if (callBack == undefined) {
+				// console.log(result);
+				 return result;
+			 }
+	};	
+	
+	var sysapi = new SystemInfo();
+/*	
+	function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
+    function buildTable($el, columns, records) {    
+		$el.bootstrapTable('destroy').bootstrapTable({
+		   striped: true,                      //是否显示行间隔色
+		    width: 30,
+			height : 500,
+			pagination: records.length < 100 ? false : true ,
+			pageSize: 100,
+			pageList: [10, 25, 50, 100], 
+			minimumCountColumns: 10,             //最少允许的列数
+			showColumns : false,                  //是否显示所有的列
+			dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
+			detailView: false,
+			detailFormatter : detailFormatter,
+			search:false,
+			showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+			//queryParams: queryParams,//传递参数（*）
+		    columns: columns,
+		    data: records
+		});	
+	}	
+    */
+	  function initChart(opt) {
+		  opt.chart = echarts.init(document.getElementById(opt.name));
+		  $(window).resize(function() {
+			  //alert("resize");
+			  opt.chart.resize();
+		  });
+		  
+	
+		  opt.dataList = opt.infos.map(function(v){ return v != 0 ? ((opt.mapFunction != undefined) ? opt.mapFunction(opt.sample(v)) : v) : v;});
+	 
+		  opt.properties.forEach(function(item) { 
+	               if (item.format == undefined) 
+	               	item.format = function(value) { return value;};
+	             }
+	          );		  
+		  
+		  opt.option = {
+				title: {
+					text: opt.chartName
+				},
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'cross',
+						label: {
+							backgroundColor: '#283b56'
+						}
+					}
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						//dataView: {readOnly: false},
+						//restore: {},
+						saveAsImage: {}
+					}
+				},
+				dataZoom: {
+					show: false,
+					start: 0,
+					end: 100
+				},
+				xAxis: [
+					{
+						type: 'category',
+						boundaryGap: true,
+						data: (function (){
+							var res = [];
+							var len = 0;
+							var sum =  60 / SAMPLE_INTERVAL;
+							while (len < sum + 1) {
+								res.push(sum - len * 1);
+								len++;
+							}
+	
+							return res;
+						})()
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						scale: true,
+						name: '100%',
+						max: 100,
+						min: 0,
+						//boundaryGap: [0.2, 0.2]
+					}
+				],
+				series: [
+					{
+						name: opt.chartName,
+						type:'line',
+						data: opt.dataList,
+						areaStyle: {
+							color: '#F1F6FA'
+						},
+						color: '#117CBB'
+						//color:'#99D9EA'
+					}
+				]
+			};
+	
 	  }
 	  
-	   var loadTable = function(dbName, tableName) {
-	       console.log("db = "+dbName+", table = "+ tableName);
-	       $('#table table').children().remove();
-	       
-	       var str = "";
-	       dbapi.tableColumnList(dbName, tableName, function(records){
-	    	   str += "<thead><tr>";
-	    	   for (var i=0; i < records.length; i++) {
-	    		   str += "<th title='"+records[i].name+"'>"+records[i].alias+'</th>'
-	    	   }
-	    	   str += "</tr></thead>";
-	       }) ;
-	       
-	       dbapi.recordList(dbName, tableName, function(records){
-	    	   str += "<tbody>";
-	    	   for (var i=0; i < records.length; i++) {
-	    		   str += "<tr>";
-	    		   var rec = records[i];
-	    		   for (var j = 0; j < rec.length; j++) {
-	    			   str += '<td>'+rec[j]+'</td>'
-	    		   }
-	    		   str += "</tr>";
-	    	   }
-	    	   str += "</tbody>";
-	       }) ;
-	       $('#table table').append(str);
-	   }
-
 	  
-	 
-	  dbapi.dbList(function (dbs) {
-		  console.log("db size:"+dbs.length);
-		  var dbul = $("#db ul");
-		  var str = "";
-		  var defaultDb;
-		  var defaultTable;
-		  for (i in dbs) {
-			  var db = dbs[i];
-			  if (i == 0)
-				  defaultDb = db.name;
-			  
-			  var url = 
-			  str +=  "<li class='parent_li' type='db' id="+db.name+"><span title='"+db.name+"'><i class='fa fa-minus-circle'></i>"+db.alias+'('+db.tableSize+')'+"</span> <a href=''>Go</a><ul>";
-			  			  
-			  dbapi.tableList(db.name, function (tables) {
-				  console.log("db :"+ db.name+", table size:"+tables.length);
-				  
-				  for (j in tables) {
-				    var table = tables[j];
-				    if (i == 0 && j == 0)
-				    	defaultTable = table.name;
-				       
-				    str += "<li type='table' db='"+db.name+"' id='"+table.name+"'><span "+((i == 0 && j == 0)?"class='selected' " : "")+"title='"+table.name+"'><i class='fa fa-leaf'></i>"+table.alias+'('+table.recordSize+')'+"</span></li>";
-				    console.log("table :"+ table.name);
-				  }
-				  str +="</ul></li>";
-			  });
-			 
-			  
+	const BYTE_COUNT = {KB:1024, MB:1024*1024, GB: 1024*1024*1024};
+	
+	function formateByte(count, fixed, withoutUnit) {
+		if (fixed == undefined) {
+			fixed = 1;
+		}
+
+		if (count == 0)
+			return 0;
+		
+		var unit;
+		var value;
+		if (count < BYTE_COUNT.KB) {
+			unit = "bytes"
+			value = count;
+			
+		} else if (count < BYTE_COUNT.MB) {
+			value = (count * 1.0/(BYTE_COUNT.KB)).toFixed(fixed);
+			unit = "KB";
+		} else if (count < BYTE_COUNT.GB) {
+			value = (count * 1.0/(BYTE_COUNT.MB)).toFixed(fixed);
+			unit = "MB";
+		} else {
+			value = (count * 1.0/(BYTE_COUNT.GB)).toFixed(fixed);
+			unit = "GB";
+	    }
+		
+		if (withoutUnit != undefined && withoutUnit) {
+			return value;
+		} else {
+			return value +" "+ unit;
+		}
+		  
+	}
+	
+	function initFileSystem() {
+		 var info = sysapi.get();
+		 if (!info)
+			 return;
+		 
+		 var diskInfos = info.spaces;
+		 option = {
+				  color : ['#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					title: {
+						text: "硬盘使用量(GB)"
+					},				 
+				    tooltip : {
+				        trigger: 'axis',
+				        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['已用空间', '剩余空间']
+				    },
+				    grid: {
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    xAxis:  {
+				        type: 'value'
+				    },
+				    yAxis: {
+				        type: 'category',
+				        data: (function() {return diskInfos.map(function(item) { return item.dir;});})()
+				    },
+				    series: 
+				    	[
+				    	{
+				            name: '已用空间',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideLeft'
+				                }
+				            },
+				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.totalSpace - item.freeSpace, 1, true);}); })()
+				        },
+				    	{
+				            name: '剩余空间',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.freeSpace, 1, true);}); })()
+				        },				        
+				        ]	    	
+				};
+		 
+		  var chart = echarts.init(document.getElementById("fileSystem"));
+		  $(window).resize(function() {
+			  chart.resize();
+		  });
+		  
+		  chart.setOption(option);
+	}
+
+	$(function () {
+		/*
+	  sysapi.get(function(systemInfo) {
+		  var spaceInfos = systemInfo.spaces;
+		  
+		  var columns = [];
+		  columns.push({field:'name',title:'名称',sortable:true});
+		  columns.push({field:'total',title:'总空间',sortable:true});
+		  columns.push({field:'free',title:'剩余空间',sortable:true});
+		  columns.push({field:'usable',title:'可用空间',sortable:true});
+		  
+		  var records = [];
+
+		  var fixed = 1;
+		  for (var i = 0; i < spaceInfos.length; i++) {
+			  var info = spaceInfos[i];
+			  records.push({name:info.dir,
+				  total:formateByte(info.totalSpace,fixed), 
+				  free:formateByte(info.freeSpace,fixed), 
+				  usable:formateByte(info.usableSpace, fixed)});
 		  }
-		  dbul.append(str);
-		 // alert(defaultDb+","+defaultTable);
-		  loadTable(defaultDb, defaultTable);
+		  buildTable($table, columns, records);
 	  });
+	    */
+	    
+	 
 	  
-	  /*
-	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
-	   $('.tree li.parent_li > span').on('click', function (e) {
-	       var children = $(this).parent('li.parent_li').find(' > ul > li');
-	       if (children.is(":visible")) {
-	           children.hide('fast');
-	           $(this).find(' > i').addClass('fa-plus-circle').removeClass('fa-minus-circle');
-	       } else {
-	           children.show('fast');
-	           $(this).find(' > i').addClass('fa-minus-circle').removeClass('fa-plus-circle');
-	       }
-	       e.stopPropagation();
-	   });
-	   	  
-	  */
-
-	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
-	   $('.tree li.parent_li > span > i').on('click', function (e) {
-	       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
-	       if (children.is(":visible")) {
-	           children.hide('fast');
-	           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
-	       } else {
-	           children.show('fast');
-	           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
-	       }
-	       e.stopPropagation();
-	   });
-	   	   
-
-	   $('.tree li > span').on('click', function (e) {
-		   var li = $(this).parent('li');
-		   $('.tree li > span').removeClass('selected');
-		   $(this).addClass('selected');
-		   var dbName = li.attr("db");
-		   var tableName = li.attr("id");
-		   if (li.attr("type") == "db") {
-			  loadTableInfos(tableName); 
-		   } else
-		   	  loadTable(dbName, tableName);
-		   
-	   });  
-	   
+	    
+	    
+	// 基于准备好的dom，初始化echarts实例    
+	
+	  var infos = (function (){
+			var len = 60 / SAMPLE_INTERVAL + 1;
+			var record = sysapi.getList();
+							
+			var res = [];
+			if (record.length < len) {
+			   len -= record.length;
+			   while (len--) {
+					res.push(0);
+			   }
+			}
+			
+			res = res.concat(record.slice(record.length - len));
+			console.log(res.length);
+			return res;
+     })();
+	
+	   var cpuChartOpt = {
+		      chartName: '%CPU',
+			  name: "cpu",
+			  properties: [
+		                      { 
+			                    name:'load'
+			                  },
+		                      { 
+		                    	name:'load',
+		                        format:function(value) {return Math.round(value)+"%";}
+		                      }, 
+		                      {
+		                    	name:'processCount'
+		                      }, 
+		                      {
+		                    	name:'threadCount'
+		                      }
+			             ],	
+			  mapFunction: function(item) { return item.load; },
+			  sample: function(info) {
+						return info.cpu;
+					  },
+			  infos : infos
+	    }
 	  
-	});
+	    var memoryChartOpt = {
+		      chartName: '内存使用量',
+			  name: "memory",
+			  properties: [
+		                      { 
+		                    	name:'globalUsedMemoryRate',
+		                        format:function(value) {return Math.round(value)+"%";}
+		                      }, 
+		                      { 
+			                    name:'globalUsedMemory',
+			                    format:formateByte
+			                  }, 
+		                      {
+		                    	name:'globalFreeMemory',
+		                    	format:formateByte
+		                      }, 
+		                      {
+		                    	name:'usedMemory',
+		                    	format:formateByte
+		                      },
+		                      {
+			                    name:'freeMemory',
+		                    	format:formateByte
+			                  }
+			             ],	
+			  mapFunction: function(item) { return item.globalUsedMemoryRate; },
+			  sample: function(info) {
+						return info.memory;
+					  },
+			  infos : infos
+		    }
+	  
+
+		var opts = [cpuChartOpt, memoryChartOpt];
+		
+	    opts.forEach(function (opt) { initChart(opt);});
+		
+		setInterval(function (){
+			//axisData = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
+			var info = sysapi.get();
+			if (info)
+				opts.forEach(
+					function (opt) 
+					{ 
+						var data0 = opt.option.series[0].data;    
+						
+						var values = opt.sample(info);
+						
+						if (values != undefined) {
+							data0.shift();	
+							var p = opt.properties[0];				
+							data0.push(values[p.name]);				
+							opt.properties.slice(1).forEach(function(item) {$("#"+item.name).html(item.format(values[item.name]));});
+						}
+						
+						opt.chart.setOption(opt.option);					
+					}
+				);
+			
+	
+		}, SAMPLE_INTERVAL * 1000);	
+		
+		initFileSystem();    
+
+				
+	});   
+	
+
 </script>
 </body>
 </html>

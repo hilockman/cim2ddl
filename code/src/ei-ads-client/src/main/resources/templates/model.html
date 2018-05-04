@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>模型数据</title>
+    <meta charset="utf-8" />
+    <div th:replace="fragments/header :: header-css">
+    </div>
+
+    <style type="text/css">
+   	  nav#table-nav {
+   	  	//float:left;
+   	  	position:fixed;
+   	  	top: 50px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 250px;
+		background: transparent;
+		overflow: auto;
+		height : 100%;
+   	  }    
+
+
+	li span.selected{
+	   //border: 1px solid #888;
+	   background-color: #4CAF50;
+	}
+      #db ul {
+        height : 100%;
+      }
+	    
+	  div.container-fluid {
+	  	margin-top : 50px;
+	  } 	  
+	  div.container-fluid {
+	  	margin-left: 255px;
+	  }
+   	  div#page-wrapper {
+   	  	//float: left;
+		//margin: 0;
+		
+		
+		padding: 0;
+		border: 0;
+		width: 100%;
+		background: transparent;
+   	  }
+   	  
+
+
+	    .tree {
+		    min-height:15px;
+		    padding:0px;
+		    margin-bottom:20px;
+		    background-color:#fbfbfb;
+		    border:1px solid #999;
+		    -webkit-border-radius:4px;
+		    -moz-border-radius:4px;
+		    border-radius:4px;
+		    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+		    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+		    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+		}
+		
+		.tree>ul {
+			padding:5px
+		}
+		.tree li {
+		    list-style-type:none;
+		    margin:0;
+		    padding:5px 5px 0 5px;
+		    position:relative
+		}
+		.tree li::before, .tree li::after {
+		    content:'';
+		    left:-20px;
+		    position:absolute;
+		    right:auto
+		}
+		.tree li::before {
+		    border-left:1px solid #999;
+		    bottom:50px;
+		    height:100%;
+		    top:0;
+		    width:1px
+		}
+		.tree li::after {
+		    border-top:1px solid #999;
+		    height:20px;
+		    top:25px;
+		    width:25px
+		}
+		.tree li span {
+		    -moz-border-radius:5px;
+		    -webkit-border-radius:5px;
+		   border:1px solid #999;
+		    border-radius:5px;
+		    display:inline-block;
+		    padding:3px 8px;
+		    //padding:0;
+		    text-decoration:none
+		}
+		.tree li.parent_li>span {
+		    cursor:pointer
+		}
+		.tree>ul>li::before, .tree>ul>li::after {
+		    border:0
+		}
+		.tree li:last-child::before {
+		    height:30px
+		}
+		.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
+		    background:#eee;
+		    border:1px solid #94a0b4;
+		    color:#000
+		}
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">
+</div>
+<nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">
+	<div class="tree well" id="db">
+	    <ul>
+	    </ul>
+	</div>
+</nav>
+    
+<div class="container-fluid">
+	<div id="page-wrapper">
+
+	    <!-- div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-1" for="txt_search_name">名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_name">
+                        </div>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div-->   
+        
+	 	<table id="table">
+		    <thead>
+		      <tr>
+		        <th>Firstname</th>
+		        <th>Lastname</th>
+		        <th>Email</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>John</td>
+		        <td>Doe</td>
+		        <td>john@example.com</td>
+		      </tr>
+		      <tr>
+		        <td>Mary</td>
+		        <td>Moe</td>
+		        <td>mary@example.com</td>
+		      </tr>
+		      <tr>
+		        <td>July</td>
+		        <td>Dooley</td>
+		        <td>july@example.com</td>
+		      </tr>
+		    </tbody>	 	
+	 	</table>	   
+	  
+
+	</div>
+	<div th:replace="fragments/footer :: footer">
+</div>
+<!-- /.container -->
+
+
+</div>
+
+<script>
+
+	var $table = $('#table');
+	function Database() {
+		this.baseUrl = 'memory/';
+		
+		this.dbList = function(callBack, failCallBack) { this.query('dbList', callBack, failCallBack);};
+		
+		this.tableList = function(dbName, callBack, failCallBack) { this.query('tableList/'+dbName, callBack, failCallBack);};
+		 		 
+		this.tableColumnList = function(dbName,tableName, callBack, failCallBack) {this.query('tableColumnList/'+dbName+'/'+tableName, callBack, failCallBack);};
+		 
+		this.recordList = function(dbName,tableName, callBack, failCallBack) {this.query('recordList/'+dbName+'/'+tableName, callBack, failCallBack);};
+	}
+	
+	
+	 
+	  
+	  Database.prototype.query =  function (url, callBack, failCallBack) {
+			 jQuery.ajax({
+			        url: this.baseUrl+url,
+			        success: callBack,
+			        async:false,
+			        error: failCallBack				        
+			    });
+		 };
+		
+		 var dbapi = new Database();	 
+	  var loadTableInfos = function(dbName) {
+	       dbapi.tableList(dbName, function(records){
+		       $('#table table').children().remove();
+		       //alert(dbName);
+		       var str = "";
+		       
+		       var titles = [{name:"name",alias:"名称"},{name:"alias",alias:"别名"},{name:"record size",alias:"记录数"}];
+	    	   str += "<thead><tr>";
+	    	   for (var i=0; i < titles.length; i++) {
+	    		   str += "<th title='"+titles[i].name+"'>"+titles[i].alias+'</th>'
+	    	   }
+	    	   str += "</tr></thead>";	
+	    	   
+	    	   str += "<tbody>";
+	    	   for (var i=0; i < records.length; i++) {
+	    		   str += "<tr>";
+	    		   var rec = records[i];
+	    		   
+	    			   str += '<td>'+rec.name+'</td>';
+	    			   str += '<td>'+rec.alias+'</td>';
+	    			   str += '<td>'+rec.recordSize+'</td>';
+	    		   str += "</tr>";
+	    	   }
+	    	   str += "</tbody>";
+	    	   $('#table table').append(str);	
+	       }) ;
+	       	  
+	  }	  
+	  
+	  
+	   var loadTable = function(dbName, tableName) {
+	       dbapi.tableColumnList(dbName, tableName, function(columns){
+	    	   dbapi.recordList(dbName, tableName, function(records){
+	    	       console.log("db = "+dbName+", table = "+ tableName);
+	    	       buildTable($table, columns, records);
+	    	   }) ;
+	       }) ;
+	       
+
+	   }
+	   
+	$(function () {
+	   
+	  dbapi.dbList(function (dbs) {
+		  var fillTree = function(dbinfos) {
+			  console.log("db size:"+dbinfos.length);
+			  var dbul = $("#db ul");
+			  var str = "";
+			  var defaultDb;
+			  var defaultTable;
+			  for (i in dbinfos) {
+				  var db = dbinfos[i].db;
+				  if (i == 0)
+					  defaultDb = db.name;
+				  
+				  str +=  "<li class='parent_li' type='db' id="+db.name+"><span title='"+db.name+"'><i class='fa fa-minus-circle'></i>"+db.alias+'('+db.tableSize+')'+"</span><ul>";
+				  			  		  
+				  var tables = dbinfos[i].tables;
+				  //alert(tables);
+				  console.log("db :"+ db.name+", table size:"+tables.length);
+				  for (j in tables) {
+				    var table = tables[j];
+				    if (i == 0 && j == 0)
+				    	defaultTable = table.name;
+				       
+				    str += "<li type='table' db='"+db.name+"' id='"+table.name+"'><span "+((i == 0 && j == 0)?"class='selected' " : "")+"title='"+table.name+"'><i class='fa fa-leaf'></i>"+table.alias+'('+table.recordSize+')'+"</span></li>";
+				    console.log("table :"+ table.name);
+				  }
+				  str +="</ul></li>";		  
+			  }
+			  dbul.append(str);
+			  loadTable(defaultDb, defaultTable);
+		  }
+		  
+		  console.log("db size:"+dbs.length);
+		  var dbul = $("#db ul");
+		  var str = "";
+
+		  var dbinfos = [];
+		  for (var i = 0; i < dbs.length; i++) {
+			  var db = dbs[i];
+			  //dbinfos[i] = {db : db, tables : null };
+			  
+			  dbapi.tableList(db.name, function (tables) {
+				  console.log("db :"+ db.name+", table size:"+tables.length+", i="+i);
+				  //dbinfos[i].tables = tables;
+				  dbinfos.push({db:db, tables : tables});
+				  if (dbinfos.length == dbs.length) {
+					//  alert(dbinfos);
+					  fillTree(dbinfos);
+				  }
+			  });			  
+		  }
+
+		  
+	  });
+	  
+
+	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
+	   $('.tree li.parent_li > span > i').on('click', function (e) {
+	       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
+	       if (children.is(":visible")) {
+	           children.hide('fast');
+	           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
+	       } else {
+	           children.show('fast');
+	           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
+	       }
+	       e.stopPropagation();
+	   });
+	   	   
+
+	   $('.tree li > span').on('click', function (e) {
+		   var li = $(this).parent('li');
+		   $('.tree li > span').removeClass('selected');
+		   $(this).addClass('selected');
+		   var dbName = li.attr("db");
+		   var tableName = li.attr("id");
+		   if (li.attr("type") == "db") {
+			  dbapi.tableList(tableName, function(records){ 
+			       var titles = [{name:"name",alias:"名称"},{name:"alias",alias:"别名"},{name:"record size",alias:"记录数"}];
+		    	   tableInfos = [];
+		    	   for (var i=0; i < records.length; i++) {
+		    		   var rec = records[i];	
+		    		   tableInfos.push([rec.name, rec.alias, rec.recordSize]);
+		    	   }
+
+		    	   buildTable($table, titles, tableInfos);
+		       }) ;
+		   } else {
+		   	  loadTable(dbName, tableName);
+		   }
+		   
+	   });  
+	   
+	  
+	});
+	
+	function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
+    function buildTable($el, columnInfos, recordArrays) {
+		columns = [];
+
+		for (var i = 0; i < columnInfos.length; i++) {
+			columns.push({field:columnInfos[i].name, title:columnInfos[i].alias,sortable:false});
+		}
+		records = [];
+		
+		for (var i = 0; i < recordArrays.length; i++) {
+		    var rec = {};
+		    var row = recordArrays[i];
+			for (var j = 0; j < columns.length; j++) {
+			  rec[columns[j].field]=row[j];
+			}
+			
+			records.push(rec);
+		}
+		
+		//得到查询的参数
+	    var queryParams = function (params) {
+			alert(params);
+	        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+	            limit: params.limit,   //页面大小
+	            offset: params.offset,  //页码
+	            departmentname: $("#txt_search_name").val()
+	        };
+	        return temp;
+	    };
+	    
+		$el.bootstrapTable('destroy').bootstrapTable({
+		   striped: true,                      //是否显示行间隔色
+		    width: 30,
+			height : 600,
+			pagination: records.length < 100 ? false : true ,
+			pageSize: 100,
+			pageList: [10, 25, 50, 100], 
+			minimumCountColumns: 10,             //最少允许的列数
+			showColumns : true,                  //是否显示所有的列
+			dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
+			detailView: true,
+			detailFormatter : detailFormatter,
+			search:true,
+			showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+			//queryParams: queryParams,//传递参数（*）
+		    columns: columns,
+		    data: records
+		});
+		
+		
+	}	
+</script>
+</body>
+</html>

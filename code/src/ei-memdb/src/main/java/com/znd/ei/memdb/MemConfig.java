@@ -11,7 +11,6 @@ import com.ZhongND.memdb.MDBDefine;
 public class MemConfig {
 
 
-	
 	@Bean
 	public DbEntryOperations pROps(DbEntryCollection c) throws DbException {
 		return c.findOrCreateDbEntry(MDBDefine.g_strPRDBEntry);

@@ -5,14 +5,24 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/3.3.7/css/bootstrap.min.css}" 
 			href="../../bootstrap/3.3.7/css/bootstrap.min.css" />
 
-
+    	<link rel="stylesheet" th:href="@{/bootstrap-table/1.12.1/bootstrap-table.css}" 
+    	    href="../../bootstrap-table/1.12.1/bootstrap-table.css">
+    
+    
         <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
         <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
-        <script  type="text/javascript" th:src="@{/scripts/jquery-3.2.1.js}" src="../../scripts/jquery-3.2.1.js"></script>  
+        <script  th:src="@{/scripts/jquery-3.2.1.js}" src="../../scripts/jquery-3.2.1.js"></script>  
         
-        <script type="text/javascript" th:src="@{/bootstrap/3.3.7/js/bootstrap.min.js}" 
+        <script th:src="@{/bootstrap/3.3.7/js/bootstrap.min.js}" 
                 src="../../bootstrap/3.3.7/js/bootstrap.min.js"></script>    
+                
+
+    <script  th:src="@{/bootstrap-table/1.12.1/bootstrap-table.js}" 
+             src="../../bootstrap-table/1.12.1/bootstrap-table.js"></script>
+             
+    <script  th:src="@{/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.js}" 
+             src="../../bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.js"></script>                    
 
 </head>
 <body>
@@ -30,7 +40,7 @@
              <li class="active"><a th:href="@{/}">主页</a></li>
          </ul>    
          <ul class="nav navbar-nav navbar-left">
-             <li><a th:href="@{/config}">配置</a></li>
+             <li><a th:href="@{/model}">模型</a></li>
          </ul>  
          <ul class="nav navbar-nav navbar-left">
              <li><a th:href="@{/log}">日志</a></li>

@@ -34,3 +34,8 @@ code/src/ei-ads-client/logs/ZhongNDReidsDF-interface.log.2
 *.1
 *.1
 *.2
+code/bin_x64_/exe/ann.exe
+*.json
+*.1
+*.2
+*.rar
