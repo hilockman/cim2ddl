@@ -3,6 +3,7 @@ package com.znd.ads.service;
 import java.util.List;
 
 import com.znd.ads.model.CategroyInfo;
+import com.znd.bus.channel.Message;
 
 /**
  * buffer服务
@@ -20,6 +21,10 @@ public interface BufferService {
 
 	List<CategroyInfo> getTableNodes(String dbid);
 
+	
+	void sendMessage(Message message);
 
+	
+	List getLogs();
 
 }

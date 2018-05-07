@@ -133,8 +133,18 @@ public class BufferConfig {
 		this.createFlag = createFlag;
 	}
 	
-	public TableMeta[] getTableMetas() {
+	public TableMeta[] getCachedTableMetas() {
 		return tableMetas.toArray(new TableMeta[0]);
+	}
+	
+	public List<TableMeta> getAllTableMetas() {
+		List<String> tableNames =  bufferContext.getAllTableNames();
+		List<TableMeta> tables = new ArrayList<>();
+		for (String tableName : tableNames) {
+			tables.add(getTableMeta(tableName));
+		}
+		
+		return tables;
 	}
 	
 	private boolean containTable(String tableName) {

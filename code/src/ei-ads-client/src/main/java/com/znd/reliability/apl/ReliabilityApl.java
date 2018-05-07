@@ -16,6 +16,7 @@ import com.znd.ads.model.PRAdequacySetting;
 import com.znd.buffer.common.mapper.CalcJobMapper;
 import com.znd.buffer.common.model.CalcJob;
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.channel.Channel;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
@@ -58,9 +59,9 @@ public class ReliabilityApl {
 	private PrMemoryServer memoryServer;
 	
 	
-	
-	
-	
+	@Autowired
+	private Channel commonChannel;
+
 	public ReliabilityApl(ReliabilityProperties properties) {
 		
 		this.properties = properties;

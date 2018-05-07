@@ -126,6 +126,53 @@ public  class BufferContext {
 		return memDBBuilder;
 	}
 	
+	public List<String> getAllTableNames() {
+		try {
+			return bufferOperation.getTableNameArray();
+		} catch (RedissonDBException e) {
+					throw new BindingException("Fail to get table names .");
+		}
+				
+					
+	}
+	
+	public List<TableMeta> getTableMetas() {
+		List<TableMeta> tables = new ArrayList<>();
+		try {
+			List<String> tableNames = bufferOperation.getTableNameArray();
+			for (String tableName : tableNames) {
+				TableMeta tableMeta = new TableMeta();
+				tableMeta.setName(tableName);
+				
+				RTableOperation tableOps = bufferOperation.getTableOperation(tableName);
+				if (tableOps == null) {
+					throw new BindingException("Fail to get table operations : "+tableName);
+				}				
+				
+				List<String> columnNames = tableOps.getColumnNameArray();
+
+				int i = 0;
+				for (String columnName : columnNames) {
+					ColumnMeta columnMeta = new ColumnMeta();
+					tableMeta.getColumns().add(columnMeta);
+					
+					RedisColumnContent colDefine = tableOps.getColumnDefine(columnName);
+					colDefine.getIndexType();
+					columnMeta.setIndexable(colDefine.getIndexType());
+					columnMeta.setName(columnName);
+					//columnMeta.setType(BufferFactoryBuilder.toType(colDefine.getType()));
+					columnMeta.setDbIndex(tableOps.getColumnIndex(columnName));
+					columnMeta.setIndex(i++);
+				}
+				tableMeta.formIndexColumn();				
+			}
+		} catch (RedissonDBException e) {
+			throw new BindingException("Fail to get table names .");
+		}
+		
+		return tables;		
+	}
+	
 	public void updateTableMeta(TableMeta tableMeta)
 	{
 		try {			
@@ -204,7 +251,7 @@ public  class BufferContext {
 		try {
 			tableNames = (bufferOperation != null) ? bufferOperation
 					.getTableNameArray() : new ArrayList<>();
-			TableMeta[] tableMetas = config.getTableMetas();
+			TableMeta[] tableMetas = config.getCachedTableMetas();
 			for (TableMeta tableMeta : tableMetas) {
 				
 				

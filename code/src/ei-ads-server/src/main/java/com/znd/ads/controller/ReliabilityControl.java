@@ -25,9 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.znd.ads.model.AdsResult;
 import com.znd.ads.model.PRAdequacySetting;
 import com.znd.ads.model.ReliabilityUploadConfig;
+import com.znd.ads.service.BufferService;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
-import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.Message;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
@@ -39,10 +39,10 @@ import com.znd.bus.log.LogMapper;
 public class ReliabilityControl {
 
 	@Autowired
-	private Channel prChannel;
+	private BufferService bufferService;
 	
-	@Autowired
-	private LogMapper bufferLogMapper;
+//	@Autowired
+//	private LogMapper bufferLogMapper;
 	
 	@Autowired 
 	private BufferConfig defaultBufferConfig;
@@ -62,7 +62,7 @@ public class ReliabilityControl {
 			return;
 		}
 
-		prChannel.send(new Message(contentCode, key));
+		bufferService.sendMessage(new Message(contentCode, key));
 
 	}
 
@@ -96,7 +96,7 @@ public class ReliabilityControl {
 		//String key = modelName + ":log";
 		
 
-		return bufferLogMapper.findAll();
+		return bufferService.getLogs();
 		
 //		try {
 //			RedissonDBKey keyOps = executeDF.RedissonDBKey();

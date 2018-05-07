@@ -20,12 +20,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
  
-		<dependency>
-			<groupId>org.redisson</groupId>
-			<artifactId>redisson</artifactId>
-			<version>2.10.0</version>
-		</dependency>	
-	   	
 	   	<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-ads-base</artifactId>
@@ -43,6 +37,7 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
         </dependency>       
+        
          <!-- hot swapping, disable cache for template, enable live reload -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

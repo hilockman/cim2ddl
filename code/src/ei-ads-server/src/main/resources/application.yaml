@@ -10,7 +10,6 @@ logging:
   level:
      interfaceLogger: OFF
      org.redisson: OFF
-      
         
 server:
   session-timeout : 3600
@@ -19,7 +18,6 @@ server:
 model:
   cachedDir: ./model-cached-dir  
 
-  
 #数据库连接配置
 spring:
   datasource:
@@ -30,7 +28,7 @@ spring:
     
 #mynatis配置
 mybatis:
-  type-aliases-package: com.znd.ads.vo
+  type-aliases-package: com.znd.buffer.common.model
   #mapper加载路径
   mapper-locations: classpath:mapper/*Mapper.xml
   #myatbis配置文件
@@ -48,4 +46,4 @@ buffer:
    id:  0
    name: common
    alias: 公共
-   createFlag: CREATE   
+   createFlag: UPDATE   

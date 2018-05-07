@@ -10,11 +10,10 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
 
 import com.znd.buffer.common.mapper.AdsNodeMapper;
 import com.znd.buffer.common.model.AdsNode;
+import com.znd.bus.buffer.Buffer;
 import com.znd.client.Client;
 import com.znd.config.ClientConfig;
 
@@ -23,6 +22,7 @@ public class DefaultClient implements Client {
 	
 	private final Logger logger = LoggerFactory
 			.getLogger(DefaultClient.class);
+
 	
 	@Autowired
 	private ClientConfig config;

@@ -36,6 +36,11 @@ public class DataBusConfig {
 	//private static String FILE_NAME = "redissonnode.yaml";
 	private static String FILE_NAME = "ClusterServersConfig.cfg";
 	
+	
+	private BufferFactory defaultBufferFactory;
+	
+	private Buffer defaultBuffer;
+	
 	private RedissonNodeConfig redissonNodeConfig() {
 
 		FileInputStream fis = null;
@@ -67,7 +72,7 @@ public class DataBusConfig {
 	}	
 	
 	@Bean
-	public BufferConfig defaultBufferConfig(DabaBusProperties properties) {
+	public BufferConfig defaultBufferConfig(ConfigurableApplicationContext context, DabaBusProperties properties) {
 		
 		BufferConfig config = new BufferConfig();
 			config.setId(properties.getId());
@@ -84,14 +89,25 @@ public class DataBusConfig {
 		if (redissonConfig != null) {
 			config.setRedissonConfig(redissonConfig);
 		}
+		
+		this.defaultBufferFactory = createDefaultBufferFactory(config);
+		
+		this.defaultBuffer = defaultBufferFactory.openSession();
+		
+		registBeans(context, config);
+		
 		return config;
 	}
 	
 	
-	@Bean 
-	public BufferFactory defaultBufferFactory(BufferConfig defaultBufferConfig) {
+	private BufferFactory createDefaultBufferFactory(BufferConfig defaultBufferConfig) {
 		BufferFactoryBuilder b = new BufferFactoryBuilder();
 		return b.build(defaultBufferConfig);
+	}
+	
+	@Bean 
+	public BufferFactory defaultBufferFactory(BufferConfig defaultBufferConfig) {
+		return this.defaultBufferFactory;
 	}
 
 	private List<String> getCandidateNames(Class<?> mapper) {
@@ -104,12 +120,7 @@ public class DataBusConfig {
 	}
 
 
-	  
-	@Bean 
-	@Order(Ordered.HIGHEST_PRECEDENCE)
-	public Buffer defaultBuffer(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig, BufferFactory defaultBufferFactory) {
-				
-		Buffer buffer =  defaultBufferFactory.openSession();
+	private void registBeans(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig) {
 		Collection<Class<?>> mappers = defaultBufferConfig.getMappers();
 		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 		for (Class<?> mapper : mappers) {
@@ -117,7 +128,7 @@ public class DataBusConfig {
 			 boolean registed = false;
 			 for (String name : names) {
 					if (!beanFactory.containsBean(name)) {						
-						Object rbean = defaultBufferConfig.getMapper(mapper, buffer);
+						Object rbean = defaultBufferConfig.getMapper(mapper, defaultBuffer);
 						beanFactory.registerSingleton(name, rbean);
 						logger.info("Succeed to regist bean : "+mapper +" as '"+name+"'.");
 						registed = true;
@@ -128,8 +139,25 @@ public class DataBusConfig {
 			 if (!registed)
 				 throw new BufferConfigException("Cann't regist buffer mapper for  "+mapper +", candidate names : " + names);
 		}
+		
+		// Regist channel
+		ChannelRegistry channelFactory =  defaultBufferConfig.getChannelRegistry();
+		Collection<String> channels = channelFactory.getChannels();
+		for (String  name : channels) {
+			Channel c = channelFactory.getChannel(name);
+			beanFactory.registerSingleton(name, c);
+			logger.info("Succeed to regist channel : {}, type : {}", name, c.getType().name());
+		}
+	}
+	@Bean 
+	@Order(Ordered.HIGHEST_PRECEDENCE)
+	public Buffer defaultBuffer(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig, BufferFactory defaultBufferFactory) {
+				
+	//	Buffer buffer =  defaultBufferFactory.openSession();
+
+		
 //		
-		return buffer;
+		return defaultBuffer;
 	}
 	
 	@Bean
@@ -137,18 +165,18 @@ public class DataBusConfig {
 		return bufferFactory.logger();
 	}
 	
-	@Bean
-	public ChannelRegistry channelFactory(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig) {
-		ChannelRegistry channelFactory =  defaultBufferConfig.getChannelRegistry();
-		Collection<String> channels = channelFactory.getChannels();
-		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-		for (String  name : channels) {
-			Channel c = channelFactory.getChannel(name);
-			beanFactory.registerSingleton(name, c);
-			logger.info("Succeed to regist channel : {}, type : {}", name, c.getType().name());
-		}
-		return channelFactory;
-	}
-		
+//	@Bean
+//	public ChannelRegistry channelFactory(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig) {
+//		ChannelRegistry channelFactory =  defaultBufferConfig.getChannelRegistry();
+//		Collection<String> channels = channelFactory.getChannels();
+//		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+//		for (String  name : channels) {
+//			Channel c = channelFactory.getChannel(name);
+//			beanFactory.registerSingleton(name, c);
+//			logger.info("Succeed to regist channel : {}, type : {}", name, c.getType().name());
+//		}
+//		return channelFactory;
+//	}
+//		
 
 }

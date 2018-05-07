@@ -371,6 +371,32 @@
 		  
 		  chart.setOption(option);
 	}
+	
+	function updateChart(opts){
+		//axisData = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
+		var info = sysapi.get();
+		if (info)
+			opts.forEach(
+				function (opt) 
+				{ 
+					var data0 = opt.option.series[0].data;    
+					
+					var values = opt.sample(info);
+					
+					if (values != undefined) {
+						data0.shift();	
+						var p = opt.properties[0];				
+						data0.push(values[p.name]);				
+						opt.properties.slice(1).forEach(function(item) {$("#"+item.name).html(item.format(values[item.name]));});
+					}
+					
+					opt.chart.setOption(opt.option);					
+				}
+			);
+		
+
+	}
+	
 
 	$(function () {
 		/*
@@ -482,30 +508,9 @@
 		
 	    opts.forEach(function (opt) { initChart(opt);});
 		
-		setInterval(function (){
-			//axisData = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
-			var info = sysapi.get();
-			if (info)
-				opts.forEach(
-					function (opt) 
-					{ 
-						var data0 = opt.option.series[0].data;    
-						
-						var values = opt.sample(info);
-						
-						if (values != undefined) {
-							data0.shift();	
-							var p = opt.properties[0];				
-							data0.push(values[p.name]);				
-							opt.properties.slice(1).forEach(function(item) {$("#"+item.name).html(item.format(values[item.name]));});
-						}
-						
-						opt.chart.setOption(opt.option);					
-					}
-				);
+	    setTimeout(function() {updateChart(opts);}, 0);    
+	    setInterval(function() {updateChart(opts);}, SAMPLE_INTERVAL * 1000);
 			
-	
-		}, SAMPLE_INTERVAL * 1000);	
 		
 		initFileSystem();    
 

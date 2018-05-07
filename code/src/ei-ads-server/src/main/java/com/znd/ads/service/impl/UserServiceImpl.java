@@ -11,8 +11,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.znd.ads.mapper.UserMapper;
 import com.znd.ads.service.UserService;
-import com.znd.ads.vo.User;
-import com.znd.ads.vo.UserInfo;
+import com.znd.buffer.common.model.User;
+import com.znd.buffer.common.model.UserInfo;
 
 /**
  * Created by wangheng on 2018-02-24.

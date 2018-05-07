@@ -35,7 +35,7 @@ public class BufferServiceImpl implements BufferService {
 
 	@Override
 	public List<CategroyInfo> getTableNodes(String dbid) {
-		TableMeta[] tables = bufferConfig.getTableMetas();
+		TableMeta[] tables = bufferConfig.getCachedTableMetas();
 		List<CategroyInfo> nodes = new ArrayList<>();
 		for (int i = 0; i < tables.length; i++) {
 			TableMeta table = tables[i];

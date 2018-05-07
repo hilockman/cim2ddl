@@ -19,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.znd.ads.service.UserService;
 import com.znd.ads.util.Md5Util;
-import com.znd.ads.vo.User;
+import com.znd.buffer.common.model.User;
 
 /**
  * @author: wangheng

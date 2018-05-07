@@ -8,18 +8,23 @@ import org.springframework.stereotype.Service;
 
 import com.znd.ads.model.CategroyInfo;
 import com.znd.ads.service.BufferService;
+import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
+import com.znd.bus.channel.Message;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.log.LogMapper;
 
 @Service
 public class BufferServiceImpl implements BufferService {
 
 	@Autowired
-	BufferFactory bufferFactory;
+	private BufferConfig bufferConfig;
 	
+			
 	@Autowired
-	BufferConfig bufferConfig;
+	private LogMapper bufferLogMapper;
+	
 	
 	@Override
 	public List<CategroyInfo> getDbNodes() {
@@ -35,10 +40,9 @@ public class BufferServiceImpl implements BufferService {
 
 	@Override
 	public List<CategroyInfo> getTableNodes(String dbid) {
-		TableMeta[] tables = bufferConfig.getTableMetas();
+		List<TableMeta> tables = bufferConfig.getAllTableMetas();
 		List<CategroyInfo> nodes = new ArrayList<>();
-		for (int i = 0; i < tables.length; i++) {
-			TableMeta table = tables[i];
+		for (TableMeta table : tables) {
 			CategroyInfo node = new CategroyInfo();
 			node.setId(table.getName());
 			node.setName(table.getName());
@@ -46,6 +50,18 @@ public class BufferServiceImpl implements BufferService {
 			nodes.add(node);
 		}
 		return nodes;
+	}
+
+	@Override
+	public void sendMessage(Message message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List getLogs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
