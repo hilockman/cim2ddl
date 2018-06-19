@@ -2,7 +2,7 @@ package com.znd.ei.ads.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.znd.ads.model.PRAdequacySetting;
+import com.znd.ads.model.dto.PRAdequacySetting;
 
 public class SubmitData extends PRAdequacySetting  {
 

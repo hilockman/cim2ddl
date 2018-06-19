@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.Message;
+import com.znd.bus.channel.MessageCodeEnum;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
@@ -22,7 +23,7 @@ public class SendMessageTest {
 	@Test
 	public void sendOneMessage() {
 		System.out.println("------------------------start SendMessageTest.sendOneMessage()----------------------------");
-		testChannel.send(new Message("test", "hello!"));
+		testChannel.send(new Message(MessageCodeEnum.test, "hello!"));
 		System.out.println("------------------------end SendMessageTest.sendOneMessage()----------------------------"); 
 	}
 }

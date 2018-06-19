@@ -5,19 +5,266 @@
     <meta charset="utf-8" />
     <div th:replace="fragments/header :: header-css">
     </div>
+    <style>
+    	h4, .h4 {
+		    font-size: 18px;
+		}
+		
+		.panel {
+		    /*padding-left : 10px;
+		    padding-right : 10px;
+		    padding-top : 20px;
+			padding-bottom : 40px;*/
+			padding : 20px 10px 40px 10px;
+		}
+		
+		.panel-default {
+			border:none
+		}
+		
+		.btn-file {
+		    position: relative;
+		    overflow: hidden;
+		}
+		.btn-file input[type=file] {
+		    position: absolute;
+		    top: 0;
+		    right: 0;
+		    min-width: 100%;
+		    min-height: 100%;
+		    font-size: 100px;
+		    text-align: right;
+		    filter: alpha(opacity=0);
+		    opacity: 0;
+		    outline: none;
+		    background: white;
+		    cursor: inherit;
+		    display: block;
+		}
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
+
+      
+    <script src="bootstrap-plugin/bootstrap-hover-dropdown-2.2.1/bootstrap-hover-dropdown.js"></script>
+
 </head>
 <body>
-
 <div th:replace="fragments/header :: header">
 </div>
 <div class="container-fluid">
 
-    <div class="starter-template">
-        <h1>系统功能</h1>
-        <a th:href="@{/model}"  class="btn btn-primary" role="button">模型查看</a>
-        <a th:href="@{/pradequacy}"  class="btn btn-primary" role="button">可靠性分析</a>
+	<!--Alert Modal -->
+	<div id="alert-dlg" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="alert-title" id="alert-title">警告</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p id="alert-content"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+    <!--Alert Modal -->
+    
+
+		      
+    
+    <!--Upload Modal -->
+    <div class="modal fade" id="upload-model-dlg" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	         <form id="upload-model-form" action="/model/upload" method="post">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">模型</h4>
+		        </div>
+		        
+		        <div class="modal-body">				         
+		            <p>设置需要上传的模型文件。</p>
+	    		    <div class="from-group">
+				        <label for="name">名称</label>
+				        <input type="text" class="form-control" name="name"></input>
+			        </div>
+			        
+			         <div class="from-group">
+				        <label for="desc">描述</label>
+				        <input type="text" class="form-control" name="desc"></input>
+			        </div>
+			        
+		             <div class="from-group">
+		             	<label for="files">文件</label>
+			            <div class="input-group">
+			                <label class="input-group-btn">
+			                    <span class="btn btn-primary">
+			                        	浏览... <input type="file"  name="files"  style="display: none;" multiple>
+			                    </span>
+			                </label>
+			                
+			                <input type="text" class="form-control" readonly>
+			            </div>
+			            <div class="input-group">
+			                <label class="input-group-btn">
+			                    <span class="btn btn-primary">
+			                        	浏览... <input type="file"  name="files"  style="display: none;" multiple>
+			                    </span>
+			                </label>			                
+			                <input type="text" class="form-control" readonly>
+			            </div>
+			            <div class="input-group">
+			                <label class="input-group-btn">
+			                    <span class="btn btn-primary">
+			                        	浏览... <input type="file"  name="files" style="display: none;" multiple>
+			                    </span>
+			                </label>			                
+			                <input type="text" class="form-control" readonly>
+			            </div>	
+			            <div class="input-group">
+			                <label class="input-group-btn">
+			                    <span class="btn btn-primary">
+			                        	浏览... <input type="file"  name="files" style="display: none;" multiple>
+			                    </span>
+			                </label>			                
+			                <input type="text" class="form-control" readonly>
+			            </div>	
+			            <div class="input-group">
+			                <label class="input-group-btn">
+			                    <span class="btn btn-primary">
+			                        	浏览... <input type="file"  name="files" style="display: none;" multiple>
+			                    </span>
+			                </label>			                
+			                <input type="text" class="form-control" readonly>
+			            </div>				            			            	             	
+		             </div>
+
+		            
+		        </div>
+		        
+		        <div class="modal-footer">
+		          <button type="submit" class="btn btn-default" id="save-model-btn">保存</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		        </div>
+	        </form>
+	      </div>
+	      
+	    </div>
+    </div>    
+    <!--Upload Modal -->
+
+
+
+	<!--Job Modal -->
+	<div id="new-job-dlg" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">新增工作</h4>
+	      </div>
+
+	      <div class="modal-body">	
+	          <p>可靠性计算参数设置。</p>
+		      <div class="from-group">
+			      <label for="name">名称</label>
+			      <input type="text" class="form-control" id="name"></input>
+		      </div>
+		      <div class="from-group">
+			      <label for="desc">描述</label>
+			      <input type="text" class="form-control" id="desc"></input>
+		      </div>
+		      <div class="from-group">
+		          <label>参数</label>
+                     <table id="config-table"
+                              data-toggle="table"
+                              data-height="300"
+                             >
+                     </table>
+		      </div>	            
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary" id="commit-job-btn">提交</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+	<!--Job Modal -->
+	
+    <div class="panel panel-default">
+       	<h2 class="h4">节点</h2>     
+       	
+	    <table class="table" id="node-table">
+	      <thead>
+		       <tr>
+		         <!-- th>id</th-->
+		         <th>名称</th>
+		         <th>状态</th>
+		         <th>更新时间</th>
+		         <th>CPU</th>
+		         <th>内存</th>	         
+		         <th>执行任务次数</th>
+		         <th>执行工作次数</th>
+		         <th>操作</th>
+		      </tr>     
+	      </thead>
+	      <tbody>
+
+	      </tbody>
+	    </table>
     </div>
 
+    <div class="panel panel-default">
+	        <div class="button-group pull-right">
+		      
+		        <button type="button" class="btn" id="new-model" data-toggle="modal" data-target="#upload-model-dlg"><i class="fa fa-plus"></i>			        
+			    </button>			  
+		    </div> 	
+		    <h2 class="h4">模型</h2>     
+	       	
+		    <table class="table"  id="model-table">
+		      <thead>
+			       <tr>
+			         <th>名称</th>
+			         <th>描述</th>
+			         <th>更新时间</th>
+			         <th>占用空间</th>
+			         <th>操作</th>
+			      </tr>     
+		      </thead>
+		      <tbody>
+	
+		      </tbody>
+		   </table>
+	       
+    </div>
+         
+   <div  class="panel panel-default">
+       <h2 class="h4">工作</h2>    
+       <div id="job-toolbar">
+         <div class="form-inline" role="form">
+             <button id="add-job-btn" type="submit" class="btn btn-default"  data-toggle="modal" data-target="#new-job-dlg">
+               <i class='fa fa-plus'></i>
+             </button>
+         </div>
+       </div>
+        
+       <table id="table-job">       
+       </table>    
+   </div>
 </div>
 <!-- /.container -->
 
@@ -25,4 +272,9 @@
 </div>
 
 </body>
+ <script th:src="@{/bootstrap-table/1.12.1/extensions/treegrid/bootstrap-table-treegrid.js}" src="../bootstrap-table/1.12.1/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+ <script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
+
+ <script th:src="@{/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js}" src="../bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js"></script>
+ <script th:src="@{/scripts/home.js}" src="../scripts/home.js"></script>	
 </html>

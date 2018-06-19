@@ -56,8 +56,8 @@ public class Reflector {
 
 
   private final Class<?> type;
-  private final String[] readablePropertyNames;
-  private final String[] writeablePropertyNames;	
+  private final List<String> readablePropertyNames = new ArrayList<>();
+  private final List<String> writeablePropertyNames = new ArrayList<>();	
  // private final Map<String, Field> fieldMap = new HashMap<>();
   private Constructor<?> defaultConstructor;	
   private final Map<String, Method> setMethods = new HashMap<>();
@@ -65,31 +65,68 @@ public class Reflector {
   private final Map<String, Class<?>> setTypes = new HashMap<>();
   private final Map<String, Class<?>> getTypes = new HashMap<>();
   private final Map<String, String> validPropertyName = new HashMap<>();	  
+  private final List<String> orderedProperty = new ArrayList<String>();
 	public Reflector(Class<?> type) {
 		this.type = type;
 		addDefaultConstructor(type);
 		addValidPropertyName(type);
 	    addGetMethods(type);
 	    addSetMethods(type);
-	    readablePropertyNames = getMethods.keySet().toArray(new String[getMethods.keySet().size()]);
-	    writeablePropertyNames = setMethods.keySet().toArray(new String[setMethods.keySet().size()]);
+	    readablePropertyNames.addAll(getMethods.keySet());
+	    writeablePropertyNames.addAll(setMethods.keySet());
+	    int getPos = 0;
+	    int setPos = 0;
+	    for (String name : orderedProperty) {
+	    	int index = readablePropertyNames.indexOf(name);
+	    	
+	    	if (index >= 0) {
+	    		if (getPos != index)
+	    		   swap(readablePropertyNames, index, getPos);
+	    		getPos++;	
+	    	}
+	    	
+	    	
+            index = writeablePropertyNames.indexOf(name);
+	    	
+	    	if (index >= 0) {
+	    		if (setPos != index)
+	    		   swap(writeablePropertyNames, index, setPos);
+	    		
+	    		setPos++;
+	    	}
+	    }
 	 	    
 //		Field[] fields = type.getFields();
 //		for (Field field: fields) {
 //			fieldMap.put(field.getName(), field);
 //		}
+	    
+//	    System.out.println(setPos);
 	}
 	
 
 	  
 	
+	private <T>  void swap(List<T> l, int source, int target) {
+		T v = l.get(source);
+		
+		l.remove(source);
+		
+		l.add(target, v);
+	
+		
+	}
+
+
+
+
 	private void addValidPropertyName(Class<?> cls) {
 		List<Field> fields = new ArrayList<>();
 
 		
 		Class<?> currentClass = cls;
 	    while (currentClass != null) {
-	      addUniqueProperties(fields, type.getDeclaredFields());
+	      addUniqueProperties(fields, cls.getDeclaredFields());
 
 
 	      currentClass = currentClass.getSuperclass();
@@ -97,6 +134,9 @@ public class Reflector {
 		for (Field field : fields) {
 			String name = field.getName();
 			validPropertyName.put(name.toUpperCase(), name);
+			if (orderedProperty.indexOf(name) < 0) {
+				orderedProperty.add(name);
+			}
 		}
 	}
 	
@@ -267,6 +307,7 @@ public class Reflector {
       getMethods.put(name, method);
       Type returnType = TypeParameterResolver.resolveReturnType(method, type);
       getTypes.put(name, typeToClass(returnType));
+      //readablePropertyNames.add(name);
     }
   }
   private void resolveGetterConflicts(Map<String, List<Method>> conflictingGetters) {
@@ -371,6 +412,7 @@ public class Reflector {
 	      setMethods.put(name, method);
 	      Type[] paramTypes = TypeParameterResolver.resolveParamTypes(method, type);
 	      setTypes.put(name, typeToClass(paramTypes[0]));
+	      //writeablePropertyNames.add(name);
 	    }
 	  }
 		  
@@ -422,7 +464,7 @@ public class Reflector {
    * @return The array
    */
   public String[] getGetablePropertyNames() {
-    return readablePropertyNames;
+    return readablePropertyNames.toArray(new String[0]);
   }
 
   /*
@@ -431,7 +473,7 @@ public class Reflector {
    * @return The array
    */
   public String[] getSetablePropertyNames() {
-    return writeablePropertyNames;
+    return writeablePropertyNames.toArray(new String[0]);
   }
   /*
    * Gets the type for a property getter

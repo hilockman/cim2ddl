@@ -18,8 +18,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.znd.ads.mapper.LogMapper;
-import com.znd.buffer.common.model.LogInfo;
-import com.znd.buffer.common.model.User;
+import com.znd.ads.model.po.LogInfo;
+import com.znd.ads.model.po.User;
 
 /**
  * 日志切入类

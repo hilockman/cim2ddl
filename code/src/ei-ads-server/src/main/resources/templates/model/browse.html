@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>工作监控</title>
+    <div th:replace="fragments/header :: header-css">
+    </div>
+    <style>
+    	button#commit{
+    		flow:right;
+    	}
+    	#id-fitem {
+    		display:none;
+    	}
+    </style>
+</head>
+<body>
+  <div class="container-fluid">
+	    <div  id="add-node-form" class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 well"   th:fragment="form">		
+			<div class="panel-heading">
+				<h2>模型浏览</h2>
+			</div>
+			<div class="panel-body">
+				<div class="fitem" id="id-fitem">
+					<p> 工作id: <input type="text" name="id"
+						id="id" class="easyui-combobox"  th:value="${model?.id}"   readonly /></p>
+				</div>				
+				<div class="fitem">
+					<p> 工作名称: <input type="text" name="name"
+						id="name" class="easyui-combobox" placeholder="名称"  th:value="${model?.name}" required /></p>
+				</div>
+
+			</div>				
+			<div>
+			  <a id="back"  class="btn btn-primary" href="/home">返回</a>
+			</div>	
+			<div id="error">
+			  <a class="close" data-dismiss="alert" href="#" aria-hidden="true"  th:value="${error}"></a>
+			</div>	
+		</div>
+  </div>
+  
+
+</body>
+</html>

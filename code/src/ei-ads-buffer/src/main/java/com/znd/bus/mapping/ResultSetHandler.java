@@ -10,6 +10,7 @@ public interface ResultSetHandler<T> {
 
 		@Override
 		public List<String[]> handle(ResultSet resultSet) {
+			//System.out.println(">>>>>>>>>>>>>>>>>>DEFAULT_HANDLER.handle");
 			return resultSet.getResults();
 		}
 	};

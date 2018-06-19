@@ -8,31 +8,49 @@ import java.util.Set;
 
 import com.znd.bus.binding.MapperProxyFactory.Parser;
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.mapping.RawArrayBufferMapper;
 
 public class MapperRegistry {
 
-	  private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<Class<?>, MapperProxyFactory<?>>();
-
+	  private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
+	  private final Map<String, MapperProxyFactory<RawArrayBufferMapper>> defaultMappers = new HashMap<>();
 	  public MapperRegistry() {
 	  }
 
 	  @SuppressWarnings("unchecked")
-	  public <T> T getMapper(Class<T> type, Buffer sqlSession) {
+	  public <T> T getMapper(Class<T> type, Buffer buffer) {
 	    final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
 	    if (mapperProxyFactory == null) {
 	      throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
 	    }
 	    try {
-	      return mapperProxyFactory.newInstance(sqlSession);
+	      return mapperProxyFactory.newInstance(buffer);
 	    } catch (Exception e) {
 	      throw new BindingException("Error getting mapper instance. Cause: " + e, e);
 	    }
 	  }
 	  
+	  public RawArrayBufferMapper getMapper(String tableName, Buffer buffer) {
+		    final MapperProxyFactory<RawArrayBufferMapper> mapperProxyFactory = defaultMappers.get(tableName);
+		    if (mapperProxyFactory == null) {
+		      throw new BindingException("Table " + tableName + " is not known to the MapperRegistry.");
+		    }
+		    try {
+		      return mapperProxyFactory.newInstance(buffer);
+		    } catch (Exception e) {
+		      throw new BindingException("Error getting mapper instance. Cause: " + e, e);
+		    }
+	  }
+		
 	  public <T> boolean hasMapper(Class<T> type) {
 	    return knownMappers.containsKey(type);
 	  }
 
+	  public  boolean hasMapper(String  tableName) {
+		    return defaultMappers.containsKey(tableName);
+	  }
+	  
+	  
 	  public <T> void addMapper(Class<T> type) {
 	    if (type.isInterface()) {
 	      if (hasMapper(type)) {
@@ -56,6 +74,14 @@ public class MapperRegistry {
 	      }
 	    }
 	  }
+	  
+	  public void addRawMapper(String tableName) {	  		  
+	      if (hasMapper(tableName)) {
+	        return;
+	      }
+	      
+	      defaultMappers.put(tableName, new MapperProxyFactory<RawArrayBufferMapper>(RawArrayBufferMapper.class, tableName));	    
+	}
 
 	  /**
 	   * @since 3.2.2
@@ -82,4 +108,6 @@ public class MapperRegistry {
 	  public void addMappers(String packageName) {
 	    addMappers(packageName, Object.class);
 	  }
+
+
 }

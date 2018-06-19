@@ -70,12 +70,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>				
 				<configuration>
-				       <mainClass>com.ei.ads.Application</mainClass>
+				       <mainClass>com.znd.Application</mainClass>
 				       <archive>
 				           <manifest>
 				               <addClasspath>true</addClasspath>
 				           </manifest>
 				       </archive>
+				       
+				       <folders>
+				            <folder>
+				                JavaWorkspace
+				            </folder>
+				        </folders>
 				</configuration>        				
 				<dependencies>
 					<dependency>

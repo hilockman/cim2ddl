@@ -14,6 +14,7 @@ import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -319,5 +320,8 @@ public class Utils {
 		return null;
 	}
 
+	public static String randomKey() {
+		return UUID.randomUUID().toString();
+	}
 
 } 

@@ -7,10 +7,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.znd.buffer.common.model.CalcJob;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
+import com.znd.bus.common.model.CalcJob;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
 import com.znd.bus.task.TaskQueue;
@@ -19,12 +19,12 @@ import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
-import com.znd.reliability.apl.AplException;
-import com.znd.reliability.mapper.FStateFDevMapper;
-import com.znd.reliability.mapper.FStateMIslandMapper;
-import com.znd.reliability.mapper.FStateMapper;
-import com.znd.reliability.mapper.FStateOvlAdMapper;
-import com.znd.reliability.mapper.FStateOvlDevMapper;
+import com.znd.exception.AplException;
+import com.znd.reliability.buffer.FStateFDevBuffer;
+import com.znd.reliability.buffer.FStateMIslandBuffer;
+import com.znd.reliability.buffer.FStateBuffer;
+import com.znd.reliability.buffer.FStateOvlAdBuffer;
+import com.znd.reliability.buffer.FStateOvlDevBuffer;
 import com.znd.reliability.model.RequestEstimate;
 import com.znd.reliability.model.ResponseEstimate;
 import com.znd.reliability.model.ResponseEstimate.Content;
@@ -36,23 +36,23 @@ public class BufferServerImpl implements BufferServer {
 			.getLogger(BufferServerImpl.class);
 	
 	private final TaskQueue<RequestEstimate> taskList;
-	private final FStateMapper fstateMapper;
-	private final FStateFDevMapper devMapper;
-	private final FStateOvlAdMapper ovlAdMapper;
-	private final FStateOvlDevMapper ovlDevMapper;
-	private final FStateMIslandMapper islandMapper;
+	private final FStateBuffer fstateMapper;
+	private final FStateFDevBuffer devMapper;
+	private final FStateOvlAdBuffer ovlAdMapper;
+	private final FStateOvlDevBuffer ovlDevMapper;
+	private final FStateMIslandBuffer islandMapper;
 	
 	public static final String TYPE_PACKAGE = "com.znd.ei.memdb.reliabilty.domain";
 	public static final String MAPPER_PACKAGE = "com.znd.reliability.mapper";
 	
 	public BufferServerImpl(Buffer parentBuffer, CalcJob job) {
 	
-		if (job == null || job.getName() == null || job.getName().isEmpty()) {
+		if (job == null || job.getModelId() == null || job.getModelId().isEmpty()) {
 			throw new AplException("job is null or job name is empty :"+job);
 		}
-		String modelName = job.getName();
+		String modelName = job.getModelId();
 		BufferConfig config = parentBuffer.getConfig();
-		TaskQueue<RequestEstimate> taskList = config.getTaskList(job.getName()+":task:"+job.getId());
+		TaskQueue<RequestEstimate> taskList = config.getTaskList(job.getModelId()+":task:"+job.getId());
 		if (taskList == null)
 			throw new AplException("Cann't create task list : "+job.getId());
 		
@@ -62,11 +62,11 @@ public class BufferServerImpl implements BufferServer {
 		BufferFactory factory = builder.build(modelName, CreateFlag.UPDATE, TYPE_PACKAGE, MAPPER_PACKAGE, config);
 		Buffer buffer = factory.openSession();
 			
-		fstateMapper = factory.config().getMapper(FStateMapper.class, buffer);
-		devMapper = factory.config().getMapper(FStateFDevMapper.class, buffer);
-		ovlAdMapper = factory.config().getMapper(FStateOvlAdMapper.class, buffer);
-		ovlDevMapper = factory.config().getMapper(FStateOvlDevMapper.class, buffer);
-		islandMapper = factory.config().getMapper(FStateMIslandMapper.class, buffer);
+		fstateMapper = factory.config().getMapper(FStateBuffer.class, buffer);
+		devMapper = factory.config().getMapper(FStateFDevBuffer.class, buffer);
+		ovlAdMapper = factory.config().getMapper(FStateOvlAdBuffer.class, buffer);
+		ovlDevMapper = factory.config().getMapper(FStateOvlDevBuffer.class, buffer);
+		islandMapper = factory.config().getMapper(FStateMIslandBuffer.class, buffer);
 	}
 	
 	public BufferServerImpl(CalcJob job) {	

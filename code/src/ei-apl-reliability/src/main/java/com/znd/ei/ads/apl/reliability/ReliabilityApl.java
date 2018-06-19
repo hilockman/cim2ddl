@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.znd.ads.model.PRAdequacySetting;
+import com.znd.ads.model.dto.PRAdequacySetting;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;

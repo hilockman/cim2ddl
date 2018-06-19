@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.znd.buffer.common.model.AdsNode;
 import com.znd.ei.ads.mapper.NodeMapper;
 import com.znd.ei.ads.service.NodeService;
+import com.znd.ei.ads.vo.AdsNode;
 @Service
 public class NodeServiceImpl implements NodeService {
 	@Autowired

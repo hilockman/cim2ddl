@@ -1,6 +1,6 @@
 package com.znd.ei.ads.apl.reliability.server;
 
-import com.znd.ads.model.PRAdequacySetting;
+import com.znd.ads.model.dto.PRAdequacySetting;
 import com.znd.ei.ads.apl.reliability.ReliabilityNetBuffer;
 
 /**

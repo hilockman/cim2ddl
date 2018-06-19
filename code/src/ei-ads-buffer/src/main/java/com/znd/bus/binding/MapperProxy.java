@@ -12,18 +12,21 @@ import java.util.Map;
 
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.config.BufferConfig;
+import com.znd.bus.mapping.RawArrayBufferMapper;
 
 public class MapperProxy<T> implements InvocationHandler{
 
 	private final Buffer buffer;
 	private final Class<T> mapperInterface;
-	  private final Map<Method, MapperMethod> methodCache;
+	private final Map<Method, MapperMethod> methodCache;
+	private String tableName;  
 	
-	public MapperProxy(Buffer buffer, Class<T> mapperInterface,Map<Method, MapperMethod> methodCache)
+	public MapperProxy(Buffer buffer, Class<T> mapperInterface,Map<Method, MapperMethod> methodCache, String tableName)
 	{
 		this.buffer = buffer;
 		this.mapperInterface = mapperInterface;
 		this.methodCache = methodCache;
+		this.tableName = tableName;
 	}
 	
 	
@@ -77,10 +80,15 @@ public class MapperProxy<T> implements InvocationHandler{
 	  private MapperMethod cachedMapperMethod(Method method) {
 		    MapperMethod mapperMethod = methodCache.get(method);
 		    if (mapperMethod == null) {
-		      BufferConfig config = buffer.getConfig();
-		      mapperMethod = new MapperMethod(mapperInterface, method, config.getTypeHandlerRegistry());
-		      config.initMappedStatement(mapperMethod.getMethodType(), mapperMethod.getName(), method, mapperMethod.getReturnTypeArgument(), mapperInterface);	
-		      methodCache.put(method, mapperMethod);
+		    	 synchronized(method) {
+		    		 if (methodCache.containsKey(method)) {
+		    			 return methodCache.get(method);
+		    		 }
+				      BufferConfig config = buffer.getConfig();				      
+				      mapperMethod = new MapperMethod(mapperInterface, method, config.getTypeHandlerRegistry(), tableName);
+				      config.initMappedStatement(mapperMethod.getMethodType(), mapperMethod.getName(), method, mapperMethod.getReturnTypeArgument(), mapperInterface, tableName);
+				      methodCache.put(method, mapperMethod);
+		    	 }
 		    }
 		    return mapperMethod;
 		  }

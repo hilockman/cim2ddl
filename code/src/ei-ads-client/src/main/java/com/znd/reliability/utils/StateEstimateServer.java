@@ -1,6 +1,6 @@
 package com.znd.reliability.utils;
 
-import com.znd.ads.model.PRAdequacySetting;
+import com.znd.ads.model.dto.PRAdequacySetting;
 
 /**
  * Send command to State Estimate Server.  

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <title>总线数据查看</title>
+   <div th:replace="fragments/header :: header-css" /></div>
+  
+   <style>
+   	  nav#table-nav {
+   	  	//float:left;
+   	  	position:fixed;
+   	  	top: 50px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 250px;
+		background: transparent;
+		overflow: auto;
+		height : 100%;
+   	  }
+   	  
+	li span.selected{
+	   //border: 1px solid #888;
+	   background-color: #4CAF50;
+	}
+      #db ul {
+        height : 100%;
+      }
+	    
+	  div.container-fluid {
+	  	margin-top : 50px;
+	  } 	  
+	  div.container-fluid {
+	  	margin-left: 255px;
+	  }
+   	  div#page-wrapper {
+   	  	//float: left;
+		//margin: 0;
+			
+		padding: 0;
+		border: 0;
+		width: 100%;
+		background: transparent;
+   	  }
+   	  
+   	  
+   	  ul.dbcategory {
+   	  	margin:0 0 0 15px;
+   	  	padding:0;
+   	  }
+   	  
+   	  li.nav-expand-btn {
+   	  	float: right;
+   	  }
+   	  
+	    .tree {
+		    min-height:100%;
+		    padding:0px;
+		    margin-bottom:20px;
+		    background-color:#fbfbfb;
+		    border:1px solid #999;
+		    -webkit-border-radius:4px;
+		    -moz-border-radius:4px;
+		    border-radius:4px;
+		    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+		    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+		    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+		}
+		
+		.tree>ul {
+			padding:5px
+		}
+		.tree li {
+		    list-style-type:none;
+		    margin:0;
+		    padding:5px 5px 0 5px;
+		    position:relative
+		}
+		.tree li::before, .tree li::after {
+		    content:'';
+		    left:-20px;
+		    position:absolute;
+		    right:auto
+		}
+		.tree li::before {
+		    border-left:1px solid #999;
+		    bottom:50px;
+		    height:100%;
+		    top:0;
+		    width:1px
+		}
+		.tree li::after {
+		    border-top:1px solid #999;
+		    height:20px;
+		    top:25px;
+		    width:25px
+		}
+		.tree li span {
+		    -moz-border-radius:5px;
+		    -webkit-border-radius:5px;
+		    border:1px solid #999;
+		    border-radius:5px;
+		    display:inline-block;
+		    padding:3px 8px;
+		    //padding:0;
+		    text-decoration:none
+		}
+		.tree li.parent_li>span {
+		    cursor:pointer
+		}
+		.tree>ul>li::before, .tree>ul>li::after {
+		    border:0
+		}
+		.tree li:last-child::before {
+		    height:30px
+		}
+		.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
+		    background:#eee;
+		    border:1px solid #94a0b4;
+		    color:#000
+		}
+		   	  
+   </style>
+</head>
+<body>
+ <div  th:replace="fragments/header :: header"></div>
+ <nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">		
+  <div  class="tree well" id="categories">
+   <ul>
+   </ul>
+  </div>	    
+ </nav>
+ 	    
+ <div class="container-fluid">  
+    <div id="page-wrapper">
+	        <table id="table" class="table">
+     	
+	        </table>
+
+    </div> 	
+   	<div th:replace="fragments/footer :: footer"></div>
+</div>
+
+   <!-- /.container -->
+
+
+
+
+</body>
+<script>
+
+	function ModelFunction() {
+		this.baseUrl = 'buffer/';
+		this.getCategories = function(callBack, failCallBack) { return this.query('categories', callBack, failCallBack);};
+		this.getTableColumns = function(dbid, tableId, callBack, failCallBack) { return this.query('tableColumns/'+dbid+"/"+tableId, callBack, failCallBack);};
+		this.getRecords = function(dbid, tableId, callBack, failCallBack) { return this.query('records/'+dbid+"/"+tableId, callBack, failCallBack);};
+	}  
+	
+	ModelFunction.prototype.query =  function (url, callBack, failCallBack) {
+		     var result;
+		     
+			 jQuery.ajax({
+			        url: this.baseUrl+url,
+			        success: callBack != undefined ? callBack : function(record) { result = record; },
+			        async: callBack == undefined ? false : true,
+			        error: failCallBack				        
+			    });
+			 
+			 
+			 if (callBack == undefined) {
+				// console.log(result);
+				 return result;
+			 }
+	};	
+	
+	var modelApi = new ModelFunction();
+
+
+  var loadRecoreds = function(dbid, tableId) {
+	  
+	  columnInfos = modelApi.getTableColumns(dbid, tableId);
+	   
+	  
+	  columns = [];
+
+	  
+		for (var i = 0; i < columnInfos.length; i++) {
+			var col = columnInfos[i];
+						
+			columns.push({field:col.name, title:(col.alias ? col.alias : col.name) ,sortable:false});
+		}
+		records = [];
+		recordArrays = modelApi.getRecords(dbid, tableId);
+		if (recordArrays) {
+			for (var i = 0; i < recordArrays.length; i++) {
+			    var rec = {};
+			    var row = recordArrays[i];
+				for (var j = 0; j < columns.length; j++) {
+				  rec[columns[j].field]=row[j];
+				}
+				
+				records.push(rec);
+			}
+		}
+		
+		var t = $("#table");
+		t.children().remove();
+		buildTable(t, columns, records);
+  }
+   
+   var loadTables = function(categorytype, categoryid, dbid, ulist)  
+   {
+	   //alert(categoryname);
+	   $.ajax({
+			url : "buffer/tables/"+categorytype+"/"+dbid,
+			type : "GET",
+			data : null,
+
+			success : function(tables) {
+				console.log("tables = " + JSON.stringify(tables));
+										
+				for (var i = 0; i < tables.length; i++ ) {
+					var table = tables[i];
+					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"' data-toggle='tooltip' title='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
+				}
+				ulist.find("."+categoryid+" a").click(function() {
+			        
+			        var tableId = $(this).attr('id');
+			        loadRecoreds(categorytype, dbid, tableId);
+			       // alert('here in '+tableName);
+			       // document.getElementById(divId).className = '';
+			    });
+			     
+			},
+			error : function() {
+				alert("get tables failed in category :" + categoryname);
+			}
+		});
+   }
+
+   function buildTable($el, columns, records) {    
+		$el.bootstrapTable('destroy').bootstrapTable({
+		   striped: true,                      //是否显示行间隔色
+		    width: 300,
+			height : 800,
+			pagination: records.length < 100 ? false : true ,
+			pageSize: 100,
+			pageList: [10, 25, 50, 100], 
+			minimumCountColumns: 10,             //最少允许的列数
+			showColumns : true,                  //是否显示所有的列
+			//dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
+			detailView: false,
+			//detailFormatter : detailFormatter,
+			search:true,
+			showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+			//queryParams: queryParams,//传递参数（*）
+			showExport: true,                     //是否显示导出
+			exportDataType: "all",              //basic', 'all', 'selected'.
+		    columns: columns,
+		    data: records
+		});	
+	}	
+   
+
+   function buildTree(ul, rootItems, defaultItem, showDetail) {
+	  //console.log("db size:"+rootItems.length);
+	  ul.children().remove();
+	  if (rootItems == undefined || rootItems == null)
+		  return;
+	  
+	  var dent = 0;
+	  
+	  var defaultParent;
+	  var defaultName;
+
+	  function fillTree(dent, content, items, parent) {
+		  for (i in items) {
+			  var item = items[i];
+			  var hasChild = (item.childCount > 0 && item.children.length > 0);
+			  var isDefault = (defaultItem == item);
+			  if (defaultItem == item) {
+				  defaultParent = parent.name;
+				  defaultName = item.name;
+			  }
+			  
+			  str +=  "<li "+(dent == 0? "class='parent_li'" : "")+" parent='"+(parent ? parent.name : "-1")+"' id="+item.name+"><span title='"+item.name+"''"+(isDefault ? " class='selected' ": "")+"'><i class='fa "+(hasChild ? "fa-minus-circle" : "fa-leaf")+"'></i> "+(item.alias ? item.alias : item.name)+(item.childCount > 0 ? '('+item.childCount+')': "")+"</span>";
+			  
+			  if (!hasChild) {
+				  str += "</li>";
+				  continue;
+			  }
+			  
+			  str += "<ul>";
+			  //var childItems = item.childeren;
+			  fillTree(dent++, content, item.children, item);
+			  str +="</ul></li>";		  
+		  }  
+	  }
+	  var str = "";
+
+	  fillTree(dent, str, rootItems, null);
+	  
+	  ul.append(str); 
+	  
+	  
+	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
+	   $('.tree li.parent_li > span > i').on('click', function (e) {
+	       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
+	       if (children.is(":visible")) {
+	           children.hide('fast');
+	           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
+	       } else {
+	           children.show('fast');
+	           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
+	       }
+	       e.stopPropagation();
+	   });
+	   
+	   
+	   $('.tree li > span').on('click', function (e) {
+		   var li = $(this).parent('li');
+		   var dbName = li.attr("parent");
+		   var tableName = li.attr("id");
+		   if (dbName == "-1")
+			   return;
+		   
+		   
+		   $('.tree li > span').removeClass('selected');
+		   $(this).addClass('selected');
+
+		   if (showDetail != undefined)
+			 showDetail(dbName, tableName);
+		   
+	   }); 
+	   
+	   
+	   if (defaultParent && defaultName) {
+		   if (showDetail != undefined)
+		     showDetail(defaultParent, defaultName);
+	   }
+
+  }
+	  
+   $(function() {
+	    $('[data-toggle="tooltip"]').tooltip();  
+	    var categories = modelApi.getCategories();
+	    var items = categories.map(function(item) { 	
+	    	return {
+	    		name : item.name,
+	    		childCount : item.childCount,
+	    		children : item.children.map(function(i){ return {name:i.name,childCount:0, children : []};})
+	    	}	
+	    } );
+	    
+	    buildTree($("#categories ul"), items, items[0].children[0], loadRecoreds);
+	    
+   });
+</script>
+</html>

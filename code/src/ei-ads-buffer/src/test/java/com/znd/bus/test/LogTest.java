@@ -14,7 +14,7 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.log.BufferLogger;
 import com.znd.bus.log.Log;
-import com.znd.bus.log.LogMapper;
+import com.znd.bus.log.LogBuffer;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
@@ -25,7 +25,7 @@ public class LogTest {
 	private BufferLogger bufferLogger;
 	
 	@Autowired
-	private LogMapper logMapper;
+	private LogBuffer logMapper;
 	
 	@Test
 	public void insertLog() {

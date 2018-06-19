@@ -29,9 +29,11 @@ footer {
 }
 
 div.container-fluid {
-	margin: 0 0 20px 0;
+	margin: 50px 0 20px 0;
     padding: 0 10px 0 10px;	
 }
+
+ 	
 /*
   .navbar-static-side {
     z-index: 2001;

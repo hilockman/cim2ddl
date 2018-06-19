@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.znd.buffer.common.model.AdsNode;
+import com.znd.bus.common.model.AdsNodeInfo;
 import com.znd.controller.AdsController;
 
 @RunWith(SpringRunner.class)
@@ -20,7 +20,7 @@ public class AdsControllerTest {
 	
 	@Test
 	public void testGetNode() {
-		AdsNode node = controller.getNode();
+		AdsNodeInfo node = controller.getNode();
 		System.out.println("Node name = "+node.getName()+", url = "+node.getUrl()+", update = "+node.getLastUpdate());
 	}
 }

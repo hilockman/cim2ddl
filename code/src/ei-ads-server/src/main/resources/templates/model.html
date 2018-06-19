@@ -1,25 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-   <title>模型查看</title>
+   <title>模型数据查看</title>
    <div th:replace="fragments/header :: header-css" /></div>
+  
    <style>
+      #tree {
+      	height: 100%;
+      	border:1px solid gray; 
+        overflow-x:hidden;
+        overflow-y:scroll;
+      }
+      
+      #tree > ul {
+        border: none
+      }
    	  nav#table-nav {
-   	  	float:left;
+   	  	//float:left;
+   	  	position:fixed;
+   	  	top: 50px;
 		margin: 0;
 		padding: 0;
 		border: 0;
-		width: 200px;
+		width: 250px;
 		background: transparent;
+		overflow: auto;
+		height : 100%;
    	  }
+   	  
+	li span.selected{
+	   //border: 1px solid #888;
+	   background-color: #4CAF50;
+	}
+      #db ul {
+        height : 100%;
+      }
+	    
+	  div.container-fluid {
+	  	margin-top : 50px;
+	  } 	  
+	  div.container-fluid {
+	  	margin-left: 255px;
+	  }
    	  div#page-wrapper {
-   	  	float: left;
-		margin: 0;
+   	  	//float: left;
+		//margin: 0;
+			
 		padding: 0;
 		border: 0;
-		width: 600px;
+		width: 100%;
 		background: transparent;
    	  }
+   	  
    	  
    	  ul.dbcategory {
    	  	margin:0 0 0 15px;
@@ -29,143 +61,93 @@
    	  li.nav-expand-btn {
    	  	float: right;
    	  }
+   	  
+ 
    </style>
+   
+  <link th:href="@{/fancytree/2.28.1/skin-awesome/ui.fancytree.css}" href="../../fancytree/2.28.1/skin-awesome/ui.fancytree.css" rel="stylesheet"  class="skinswitcher">
+  <script th:src="@{/fancytree/2.28.1/jquery.fancytree-all-deps.min.js}"></script>
+ <script th:src="@{/fancytree/2.28.1/modules/jquery.fancytree.glyph.js}"></script>   
+   
+   <script type="text/javascript">
+
+  function logEvent(event, data, msg){
+//        var args = $.isArray(args) ? args.join(", ") :
+    msg = msg ? ": " + msg : "";
+    $.ui.fancytree.info("Event('" + event.type + "', node=" + data.node + ")" + msg);
+  }
+   $(function(){  // on page load
+
+	      items = modelApi.getAll();
+          dataMap = {};
+          dataItems = [];
+          allData = items.map(function (item) 
+        		  {
+        	  		 data = {title:item.name, key:item.id, parent:item.parentId};
+        	  		 if (item.parentId == null) {
+        	  			dataMap[item.id] = data;
+        	  			dataItems.push(data);
+        	  			data.children = [];
+        	  			data["folder"] = true;
+         	         }
+         	        
+        	        return data;
+        		  }
+   
+          );
+          
+          
+          allData.forEach(function (data) {
+        	  if (data.parent != null) {
+        		  dataMap[data.parent].children.push(data);
+        	  }
+          } );
+          
+          
+	      $("#tree").fancytree({
+	          extensions: ["glyph"],
+	          selectMode: 3,
+	          glyph: {
+	            preset: "awesome4",
+	            map: {}
+	          },
+	       // source: {url: "/model/all", debugDelay: 1000},
+	       source : dataItems,
+	        createNode: function(event, data) {
+	            // Optionally tweak data.node.span or bind handlers here
+	            //logEvent(event, data);
+	            data.node.setExpanded();
+	          },
+	      });
+	      
+	      $("#tree").fancytree("getTree").visit(function(node){
+	          node.setExpanded();
+	        });
+	      
+	      // Note: Loading and initialization may be asynchronous, so the nodes may not be accessible yet.
+	    });
+	</script>
 </head>
 <body>
  <div  th:replace="fragments/header :: header"></div>
+ <nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">		
+  <div  id="tree">
+   <ul>
+   </ul>
+  </div>	    
+ </nav>
+ 	    
  <div class="container-fluid">  
- 	   <nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">		
-		    <div  class="sidebar-collapse" id="categories">
-			    <ul class="nav" id="side-menu">
-			    </ul>
-		    </div>
-	   	    
- 	    </nav>
+    <div id="page-wrapper">
+	        <table id="table" class="table">
+     	
+	        </table>
 
-	    <div id="page-wrapper" class="dashbard-1">
-	        <div class="ibox-content">
-		        <table class="table table-striped table-bordered table-hover">
-		            <thead>
-		        	<tr>
-		        	   <th>col1</th>
-		        	   <th>col2</th>
-		        	</tr>
-		        	<thead>
-		        	<tbody>
-			        	<tr class="gradeX">
-			        	   <td>val11</td>
-			        	   <td>val12</td>
-			        	</tr>  
-		        	</tbody>      	
-		        </table>
-	        </div>
-	    </div> 	
- 	</div>
-
-   <!-- /.container -->
-    <div th:replace="fragments/footer :: footer"></div>
-
+    </div> 	
+   	<div th:replace="fragments/footer :: footer"></div>
+</div>
 
 
 </body>
-<script>
 
-  var loadRecoreds = function(categorytype, dbid, tableId) {
-	  
-	   
-	   $.ajax({
-			url : "model/records/"+categorytype+"/"+dbid+"/"+tableId,
-			type : "GET",
-			data : null,
-
-			success : function(records) {
-				console.log("record size = " + records.length+", table = "+tableId);    
-			},
-			error : function() {
-				alert("fail to get records  in table :" + tableId);
-			}
-		});
-  }
-   
-   var loadTables = function(categorytype, categoryid, dbid, ulist)  
-   {
-	   //alert(categoryname);
-	   $.ajax({
-			url : "model/tables/"+categorytype+"/"+dbid,
-			type : "GET",
-			data : null,
-
-			success : function(tables) {
-				console.log("tables = " + JSON.stringify(tables));
-										
-				for (var i = 0; i < tables.length; i++ ) {
-					var table = tables[i];
-					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"' data-toggle='tooltip' title='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
-				}
-				ulist.find("."+categoryid+" a").click(function() {
-			        
-			        var tableId = $(this).attr('id');
-			        loadRecoreds(categorytype, dbid, tableId);
-			       // alert('here in '+tableName);
-			       // document.getElementById(divId).className = '';
-			    });
-			     
-			},
-			error : function() {
-				alert("get tables failed in category :" + categoryname);
-			}
-		});
-   }
-
-   $(function() {
-	    $('[data-toggle="tooltip"]').tooltip();    
-
-		$.ajax({
-			url : "model/categories",
-			type : "GET",
-			data : null,
-
-			success : function(list) {
-				console.log("categories = " + JSON.stringify(list));
-				var categories = $("#categories").children("ul");
-				
-				
-				
-				for (var i = 0; i < list.length; i++ ) {
-					//alert("hi");
-					var itemid = "db"+i;
-					var category = list[i];
-	
-					//categories.append("<li id='"+categoryid+"'><span><i class='fa fa fa-volume-up'></i> <a href=''>"+categoryname+"</a></span></li>");
-					categories.append("<li class='"+category.type+"' id='"+itemid+"'> <a href='javascript:void(0)' data-toggle='tooltip' title= '"+category.name+"'><i class='fa fa-folder'></i>"
-	                        +"<span class='nav-label'>   "+category.alias+"   </span>"
-	                        +"<span class='nav-expand-btn fa fa-caret-left'></span>"
-	                    +"</a></li>");
-					var category_element = $("#"+itemid);
-					category_element.append("<ul class='dbcategory nav nav-second-level collapse in'></ul>");
-
-					var ul_element = $("#"+itemid).children("ul");
-					if (i != 0) {
-						ul_element.hide();
-					}
-					
-					loadTables(category.type, itemid, category.id, ul_element);
-					
-				}
-				//alert(categories);
-
-			    $(".fa-caret-left").click(function () {
-			        var l = $(this).parent().siblings("ul");
-			        l.toggle();
-			    });
-				
-
-			},
-			error : function() {
-				alert("get categories failed!");
-			}
-		});
-
-   });
-</script>
 </html>

@@ -13,11 +13,11 @@ public interface SystemResourceServer {
 	SystemResourceInfo get();
 	Collection<SystemResourceInfo> getList();
 	
-	MemoryInfo getMemoryInfo();
+//	MemoryInfo getMemoryInfo();
 	
-	List<SpaceInfo> getSpaceInfos();
+//	List<SpaceInfo> getSpaceInfos();
 	
-	CPUInfo getCPU();
+//	CPUInfo getCPU();
 	
-	List<CPUInfo> getHistoryCpu();
+//	List<CPUInfo> getHistoryCpu();
 }

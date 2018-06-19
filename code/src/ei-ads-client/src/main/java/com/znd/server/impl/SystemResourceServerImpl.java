@@ -26,18 +26,36 @@ import com.znd.server.SystemResourceServer;
 @Service
 public class SystemResourceServerImpl implements SystemResourceServer {
 
-	private SystemInfo si;
-	private HardwareAbstractionLayer hal;
-	private OperatingSystem os;
-	
-	private List<CPUInfo> cpuInfos = new ArrayList<>();
-	
-	private ConcurrentLinkedDeque<SystemResourceInfo> infos = new ConcurrentLinkedDeque<>();
-	
-	public SystemResourceServerImpl() {
+	private static SystemInfo si;
+	private static HardwareAbstractionLayer hal;
+	private static OperatingSystem os;
+
+	static {
 		si = new SystemInfo();
         hal = si.getHardware();
         os = si.getOperatingSystem();
+	}
+	
+	//private List<CPUInfo> cpuInfos = new ArrayList<>();
+	
+	private ConcurrentLinkedDeque<SystemResourceInfo> infos = new ConcurrentLinkedDeque<>();
+	
+	
+	public static SystemResourceInfo createSystemResourceInfo() {
+		CPUInfo cpuInfo = getCPU();
+
+		SystemResourceInfo info = new SystemResourceInfo(); 
+		
+		info.setMemory(getMemoryInfo());
+		info.setSpaces(getSpaceInfos());
+		
+		info.setTime(new Date());
+		info.setCpu(cpuInfo);
+		return info;
+	}
+	
+	public SystemResourceServerImpl() {
+
     
        
         new Thread(new Runnable() {
@@ -49,20 +67,8 @@ public class SystemResourceServerImpl implements SystemResourceServer {
 				while (true) {
 				try {
 					Thread.sleep(1000);
-					CPUInfo cpuInfo = getCPU();
-					cpuInfos.add(getCPU());
-					if (cpuInfos.size() > 200) {
-						cpuInfos.remove(0);
-					}
-					
-					SystemResourceInfo info = new SystemResourceInfo(); 
-					
-					info.setMemory(getMemoryInfo());
-					info.setSpaces(getSpaceInfos());
-					
-					info.setTime(new Date());
-					info.setCpu(cpuInfo);
-					infos.add(info);
+
+					infos.add(createSystemResourceInfo());
 					if (infos.size() > 200) {
 						infos.remove(0);
 					}
@@ -77,7 +83,7 @@ public class SystemResourceServerImpl implements SystemResourceServer {
 	}
 	
 	
-	public CPUInfo getCPU() {
+	private static CPUInfo getCPU() {
 		CentralProcessor processor = hal.getProcessor();
 		
 //		long[] prevTicks = processor.getSystemCpuLoadTicks();
@@ -95,7 +101,7 @@ public class SystemResourceServerImpl implements SystemResourceServer {
 //        long totalCpu = user + nice + sys + idle + iowait + irq + softirq + steal;
         
         CPUInfo info = new CPUInfo();
-        info.setLoad(processor.getSystemCpuLoadBetweenTicks() * 100);
+        info.setLoad(processor.getSystemCpuLoad() * 100);
         info.setProcessCount(os.getProcessCount());
         info.setThreadCount(os.getThreadCount());
 		return  info;
@@ -107,8 +113,8 @@ public class SystemResourceServerImpl implements SystemResourceServer {
 	}
 	
 	
-	@Override
-	public MemoryInfo getMemoryInfo() {
+	//@Override
+	private static MemoryInfo getMemoryInfo() {
 		GlobalMemory globalMemory = hal.getMemory();
 		MemoryInfo info = new MemoryInfo();
 		info.setFreeMemory(Runtime.getRuntime().freeMemory());
@@ -124,8 +130,8 @@ public class SystemResourceServerImpl implements SystemResourceServer {
 		return info;
 	}
 
-	@Override
-	public List<SpaceInfo> getSpaceInfos() {
+	//@Override
+	public static List<SpaceInfo> getSpaceInfos() {
 		List<SpaceInfo> infos = new ArrayList<>();
 	    /* Get a list of all filesystem roots on this system */
 	    File[] roots = File.listRoots();
@@ -150,10 +156,10 @@ public class SystemResourceServerImpl implements SystemResourceServer {
 	}
 
 
-	@Override
-	public List<CPUInfo> getHistoryCpu() {
-		return cpuInfos;
-	}
+//	//@Override
+//	public List<CPUInfo> getHistoryCpu() {
+//		return cpuInfos;
+//	}
 
 
 	@Override

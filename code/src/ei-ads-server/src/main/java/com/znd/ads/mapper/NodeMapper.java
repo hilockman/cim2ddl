@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.znd.buffer.common.model.AdsNode;
+import com.znd.ads.model.po.AdsNode;
 @Mapper
 public interface NodeMapper {
     /**
@@ -24,9 +24,9 @@ public interface NodeMapper {
 
 	AdsNode getByUrl(String url);
 
-	void deleteById(Integer id);
+	void deleteById(String id);
 
-	AdsNode getById(Integer nodeId);
+	AdsNode getById(String nodeId);
 
 	void updateNodeInfo(AdsNode node);
 }

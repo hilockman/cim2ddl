@@ -29,9 +29,7 @@
         height : 100%;
       }
 	    
-	  div.container-fluid {
-	  	margin-top : 50px;
-	  } 	  
+  
 	  div.container-fluid {
 	  	margin-left: 255px;
 	  }
@@ -201,66 +199,130 @@
 	
 	 
 	  
-	  Database.prototype.query =  function (url, callBack, failCallBack) {
-			 jQuery.ajax({
-			        url: this.baseUrl+url,
-			        success: callBack,
-			        async:false,
-			        error: failCallBack				        
-			    });
-		 };
-		
-		 var dbapi = new Database();	 
-	  var loadTableInfos = function(dbName) {
-	       dbapi.tableList(dbName, function(records){
-		       $('#table table').children().remove();
-		       //alert(dbName);
-		       var str = "";
-		       
-		       var titles = [{name:"name",alias:"名称"},{name:"alias",alias:"别名"},{name:"record size",alias:"记录数"}];
-	    	   str += "<thead><tr>";
-	    	   for (var i=0; i < titles.length; i++) {
-	    		   str += "<th title='"+titles[i].name+"'>"+titles[i].alias+'</th>'
-	    	   }
-	    	   str += "</tr></thead>";	
-	    	   
-	    	   str += "<tbody>";
-	    	   for (var i=0; i < records.length; i++) {
-	    		   str += "<tr>";
-	    		   var rec = records[i];
-	    		   
-	    			   str += '<td>'+rec.name+'</td>';
-	    			   str += '<td>'+rec.alias+'</td>';
-	    			   str += '<td>'+rec.recordSize+'</td>';
-	    		   str += "</tr>";
-	    	   }
-	    	   str += "</tbody>";
-	    	   $('#table table').append(str);	
-	       }) ;
-	       	  
-	  }	  
-	  
-	  
-	   var loadTable = function(dbName, tableName) {
-	       dbapi.tableColumnList(dbName, tableName, function(columns){
-	    	   dbapi.recordList(dbName, tableName, function(records){
-	    	       console.log("db = "+dbName+", table = "+ tableName);
-	    	       buildTable($table, columns, records);
-	    	   }) ;
-	       }) ;
+  Database.prototype.query =  function (url, callBack, failCallBack) {
+		 jQuery.ajax({
+		        url: this.baseUrl+url,
+		        success: callBack,
+		        async:false,
+		        error: failCallBack				        
+		    });
+	 };
+	
+  var dbapi = new Database();	 
+  var loadTableInfos = function(dbName) {
+       dbapi.tableList(dbName, function(records){
+	       $('#table table').children().remove();
+	       //alert(dbName);
+	       var str = "";
 	       
+	       var titles = [{name:"name",alias:"名称"},{name:"alias",alias:"别名"},{name:"record size",alias:"记录数"}];
+    	   str += "<thead><tr>";
+    	   for (var i=0; i < titles.length; i++) {
+    		   str += "<th title='"+titles[i].name+"'>"+titles[i].alias+'</th>'
+    	   }
+    	   str += "</tr></thead>";	
+    	   
+    	   str += "<tbody>";
+    	   for (var i=0; i < records.length; i++) {
+    		   str += "<tr>";
+    		   var rec = records[i];
+    		   
+    			   str += '<td>'+rec.name+'</td>';
+    			   str += '<td>'+rec.alias+'</td>';
+    			   str += '<td>'+rec.recordSize+'</td>';
+    		   str += "</tr>";
+    	   }
+    	   str += "</tbody>";
+    	   $('#table table').append(str);	
+       }) ;
+       	  
+  }	  
+	  
+	  
+   var loadTable = function(dbName, tableName) {
+       dbapi.tableColumnList(dbName, tableName, function(columns){
+    	   dbapi.recordList(dbName, tableName, function(records){
+    	       console.log("db = "+dbName+", table = "+ tableName);
+    	       $('#table').children().remove();
+    	       buildTable($table, columns, records);
+    	   }) ;
+       }) ;
+       
 
-	   }
+   }
+   
+	function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
+    function buildTable($el, columnInfos, recordArrays) {
+		columns = [];
+
+		for (var i = 0; i < columnInfos.length; i++) {
+			columns.push({field:columnInfos[i].name, title:columnInfos[i].alias,sortable:false});
+		}
+		records = [];
+		
+		for (var i = 0; i < recordArrays.length; i++) {
+		    var rec = {};
+		    var row = recordArrays[i];
+			for (var j = 0; j < columns.length; j++) {
+			  rec[columns[j].field]=row[j];
+			}
+			
+			records.push(rec);
+		}
+		
+		//得到查询的参数
+	    var queryParams = function (params) {
+			alert(params);
+	        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+	            limit: params.limit,   //页面大小
+	            offset: params.offset,  //页码
+	            departmentname: $("#txt_search_name").val()
+	        };
+	        return temp;
+	    };
+	    
+		$el.bootstrapTable('destroy').bootstrapTable({
+		   striped: true,                      //是否显示行间隔色
+		    width: 30,
+			height : 600,
+			pagination: records.length < 100 ? false : true ,
+			pageSize: 100,
+			pageList: [10, 25, 50, 100], 
+			minimumCountColumns: 10,             //最少允许的列数
+			showColumns : true,                  //是否显示所有的列
+			dataToggle: table,                    //是否显示详细视图和列表视图的切换按钮
+			detailView: true,
+			detailFormatter : detailFormatter,
+			search:true,
+			showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+			//queryParams: queryParams,//传递参数（*）
+		    columns: columns,
+		    data: records
+		});
+		
+		
+	}		   
 	   
 	$(function () {
 	   
+	  $("li.active").removeClass('active');
+	  $("li#model").addClass('active');
+	   
 	  dbapi.dbList(function (dbs) {
+		  var defaultDb;
+		  var defaultTable;
 		  var fillTree = function(dbinfos) {
 			  console.log("db size:"+dbinfos.length);
 			  var dbul = $("#db ul");
 			  var str = "";
-			  var defaultDb;
-			  var defaultTable;
+
 			  for (i in dbinfos) {
 				  var db = dbinfos[i].db;
 				  if (i == 0)
@@ -282,7 +344,7 @@
 				  str +="</ul></li>";		  
 			  }
 			  dbul.append(str);
-			  loadTable(defaultDb, defaultTable);
+			 
 		  }
 		  
 		  console.log("db size:"+dbs.length);
@@ -301,6 +363,7 @@
 				  if (dbinfos.length == dbs.length) {
 					//  alert(dbinfos);
 					  fillTree(dbinfos);
+					  loadTable(defaultDb, defaultTable);
 				  }
 			  });			  
 		  }
@@ -349,64 +412,7 @@
 	  
 	});
 	
-	function detailFormatter(index, row) {
-        var html = [];
-        $.each(row, function (key, value) {
-            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
-        });
-        return html.join('');
-    }
 
-    function buildTable($el, columnInfos, recordArrays) {
-		columns = [];
-
-		for (var i = 0; i < columnInfos.length; i++) {
-			columns.push({field:columnInfos[i].name, title:columnInfos[i].alias,sortable:false});
-		}
-		records = [];
-		
-		for (var i = 0; i < recordArrays.length; i++) {
-		    var rec = {};
-		    var row = recordArrays[i];
-			for (var j = 0; j < columns.length; j++) {
-			  rec[columns[j].field]=row[j];
-			}
-			
-			records.push(rec);
-		}
-		
-		//得到查询的参数
-	    var queryParams = function (params) {
-			alert(params);
-	        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-	            limit: params.limit,   //页面大小
-	            offset: params.offset,  //页码
-	            departmentname: $("#txt_search_name").val()
-	        };
-	        return temp;
-	    };
-	    
-		$el.bootstrapTable('destroy').bootstrapTable({
-		   striped: true,                      //是否显示行间隔色
-		    width: 30,
-			height : 600,
-			pagination: records.length < 100 ? false : true ,
-			pageSize: 100,
-			pageList: [10, 25, 50, 100], 
-			minimumCountColumns: 10,             //最少允许的列数
-			showColumns : true,                  //是否显示所有的列
-			dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
-			detailView: true,
-			detailFormatter : detailFormatter,
-			search:true,
-			showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
-			//queryParams: queryParams,//传递参数（*）
-		    columns: columns,
-		    data: records
-		});
-		
-		
-	}	
 </script>
 </body>
 </html>

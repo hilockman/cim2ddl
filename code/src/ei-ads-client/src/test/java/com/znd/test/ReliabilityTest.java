@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.znd.ads.model.PRAdequacySetting;
-import com.znd.buffer.common.mapper.CalcJobMapper;
-import com.znd.buffer.common.model.CalcJob;
+import com.znd.ads.model.dto.PRAdequacySetting;
+import com.znd.apl.ReliabilityApl;
+import com.znd.bus.common.buffer.CalcJobBuffer;
+import com.znd.bus.common.model.CalcJob;
 import com.znd.ei.memdb.DbEntryOperations;
-import com.znd.reliability.apl.ReliabilityApl;
 import com.znd.reliability.config.ReliabilityProperties;
 import com.znd.reliability.utils.AppUtil;
 
@@ -40,7 +40,7 @@ public class ReliabilityTest {
 	private String modelName = "RTS79"; 	
 	
 	@Autowired
-	private CalcJobMapper calcJobMapper;
+	private CalcJobBuffer calcJobMapper;
 	
 	
 	
@@ -67,7 +67,7 @@ public class ReliabilityTest {
 		CalcJob job = new CalcJob();
 		job.setStart(new Date());
 		job.setId(UUID.randomUUID().toString());
-		job.setName(modelName);
+		job.setModelId(modelName);
 		CalcJob.setConfig(job, new PRAdequacySetting());
 		calcJobMapper.save(job);
 		

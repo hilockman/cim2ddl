@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>编辑节点</title>
+    <div th:replace="fragments/header :: header-css">
+    </div>
+    <style>
+    	button#commit{
+    		flow:right;
+    	}
+    	#id-fitem {
+    		display:none;
+    	}
+    </style>
+</head>
+<body>
+  <div class="container-fluid">      
+	    <div   th:replace="node/fragments/nodepage :: form">		
+
+		</div>
+  </div>
+  
+  <script  type="text/javascript">
+
+	
+	$(document).ready(function () {
+		 var id = $("input#id").val();
+		 if (id != null) {
+			 $("#id-fitem").show();
+		 }
+		 
+ 		$("#cmt").on('click', function () {
+ 			//var id = $(this).parent().attr("data-id");
+ 			
+ 			var obj = {id:$("#id").val(),url:$('#url').val(), name:$('#name').val()};
+ 			console.log("update obj = "+obj);
+ 			console.log("hello!");
+  			$.ajax({
+ 				url : "/node/update",
+ 				type : "POST",
+ 				dataType : 'json',
+ 				data : obj,
+
+ 				success : function(msg) {
+ 					//alert(msg);
+ 					window.location.href ="/nodes";
+ 				},
+ 				error : function(xhr, resp, text) {
+ 					console.log(xhr, resp, text);
+ 					//alert("fail to update node : id= "+ id);
+ 					window.location.href ="/nodes";
+ 				}
+ 			});
+  			
+  			
+ 		});
+		 
+	});
+  </script>
+</body>
+</html>

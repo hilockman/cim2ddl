@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.znd.ads.model.po.AdsNode;
 import com.znd.ads.service.NodeService;
-import com.znd.buffer.common.model.AdsNode;
 
 @Controller
 public class DefaultController {
@@ -30,7 +30,7 @@ public class DefaultController {
     
     @GetMapping("/nodes")
     public String nodes(Model model) {
-    	List<AdsNode> nodeList = nodeService.all();
+    	List<AdsNode> nodeList = nodeService.getAll();
     	model.addAttribute("nodeList",nodeList);
         return "nodes";
     }
@@ -55,6 +55,11 @@ public class DefaultController {
         return "model";
     }
 
+    @GetMapping("/buffer")
+    public String buffer() {
+        return "buffer";
+    }
+    
     @GetMapping("/test")
     public String test() {
         return "test";

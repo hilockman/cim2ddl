@@ -22,9 +22,7 @@
 		height : 100%;
    	  }   
 	    
-	  div.container-fluid {
-	  	margin-top : 50px;
-	  } 	
+
 	    
 	  div.container-fluid {
 	  	margin-left: 0px;
@@ -134,7 +132,6 @@
 	
 	SystemInfo.prototype.query =  function (url, callBack, failCallBack) {
 		     var result;
-
 		     
 			 jQuery.ajax({
 			        url: this.baseUrl+url,
@@ -269,7 +266,7 @@
 	  
 	const BYTE_COUNT = {KB:1024, MB:1024*1024, GB: 1024*1024*1024};
 	
-	function formateByte(count, fixed, withoutUnit) {
+	function formateByte(count, fixed, unit) {
 		if (fixed == undefined) {
 			fixed = 1;
 		}
@@ -277,29 +274,34 @@
 		if (count == 0)
 			return 0;
 		
-		var unit;
+		//var unit;
 		var value;
-		if (count < BYTE_COUNT.KB) {
-			unit = "bytes"
-			value = count;
-			
-		} else if (count < BYTE_COUNT.MB) {
-			value = (count * 1.0/(BYTE_COUNT.KB)).toFixed(fixed);
-			unit = "KB";
-		} else if (count < BYTE_COUNT.GB) {
-			value = (count * 1.0/(BYTE_COUNT.MB)).toFixed(fixed);
-			unit = "MB";
-		} else {
-			value = (count * 1.0/(BYTE_COUNT.GB)).toFixed(fixed);
-			unit = "GB";
-	    }
-		
-		if (withoutUnit != undefined && withoutUnit) {
-			return value;
-		} else {
-			return value +" "+ unit;
+		var unitFormater = {
+			bytes : function(count) { return count; },
+		    KB : function(count) { return (count * 1.0/(BYTE_COUNT.KB)).toFixed(fixed); },
+			MB : function(count) { return (count * 1.0/(BYTE_COUNT.MB)).toFixed(fixed); },
+		    GB : function(count) { return (count * 1.0/(BYTE_COUNT.GB)).toFixed(fixed); },
 		}
-		  
+		if (unit == undefined) {
+			if (count < BYTE_COUNT.KB) {
+				unit = "bytes"
+				//value = count;			
+			} else if (count < BYTE_COUNT.MB) {
+				//value = (count * 1.0/(BYTE_COUNT.KB)).toFixed(fixed);
+				unit = "KB";
+			} else if (count < BYTE_COUNT.GB) {
+				//value = (count * 1.0/(BYTE_COUNT.MB)).toFixed(fixed);
+				unit = "MB";
+			} else {
+				//value = (count * 1.0/(BYTE_COUNT.GB)).toFixed(fixed);
+				unit = "GB";
+		    }
+			
+			return unitFormater[unit](count)+" "+unit;
+		} else {
+			return unitFormater[unit](count);
+		}
+		
 	}
 	
 	function initFileSystem() {
@@ -347,7 +349,7 @@
 				                    position: 'insideLeft'
 				                }
 				            },
-				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.totalSpace - item.freeSpace, 1, true);}); })()
+				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.totalSpace - item.freeSpace, 1, "GB");}); })()
 				        },
 				    	{
 				            name: '剩余空间',
@@ -359,7 +361,7 @@
 				                    position: 'insideRight'
 				                }
 				            },
-				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.freeSpace, 1, true);}); })()
+				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.freeSpace, 1, "GB");}); })()
 				        },				        
 				        ]	    	
 				};
@@ -435,9 +437,11 @@
 							
 			var res = [];
 			if (record.length < len) {
-			   len -= record.length;
-			   while (len--) {
+			   var n = len;
+			   n -= record.length;
+			   while (n) {
 					res.push(0);
+					n--;
 			   }
 			}
 			

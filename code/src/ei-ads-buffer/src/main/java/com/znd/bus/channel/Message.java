@@ -2,18 +2,18 @@ package com.znd.bus.channel;
 
 public class Message {
 
-	public Message(String code, String content) {
+	public Message(MessageCodeEnum code, String content) {
 		super();
 		this.code = code;
 		this.content = content;
 	}
-	private String code;
+	private MessageCodeEnum code;
 	private String content;
 	
-	public String getCode() {
+	public MessageCodeEnum getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(MessageCodeEnum code) {
 		this.code = code;
 	}
 	public String getContent() {

@@ -15,7 +15,7 @@
 
 
     <!--通过地址Node对象-->
-    <select id="getById" parameterType="Integer" resultType="AdsNode">
+    <select id="getById" parameterType="String" resultType="AdsNode">
         SELECT * from ads_node where id = #{id}
     </select>
     
@@ -29,7 +29,7 @@
     </insert>
     
     
-    <delete id="deleteById" parameterType="Integer">
+    <delete id="deleteById" parameterType="String">
     	delete from ads_node where id = #{id}
     </delete>
     

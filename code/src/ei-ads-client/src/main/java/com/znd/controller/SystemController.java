@@ -29,16 +29,16 @@ public class SystemController {
 		return resourceServer.getList();
 	}
 	
-	@GetMapping("system/cpu")
-	public @ResponseBody  CPUInfo getCPU()
-	{
-		return resourceServer.getCPU();
-	}
+//	@GetMapping("system/cpu")
+//	public @ResponseBody  CPUInfo getCPU()
+//	{
+//		return resourceServer.getCPU();
+//	}
 	
 
-	@GetMapping("system/cpus")
-	public @ResponseBody  List getCPUs()
-	{
-		return resourceServer.getHistoryCpu();
-	}
+//	@GetMapping("system/cpus")
+//	public @ResponseBody  List getCPUs()
+//	{
+//		return resourceServer.getHistoryCpu();
+//	}
 }

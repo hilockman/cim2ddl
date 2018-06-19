@@ -33,8 +33,13 @@ public class ObjectResultSetHandler<Object> implements ResultSetHandler<Object> 
 	}
 	@Override
 	public List<Object> handle(ResultSet rs) {
+		
+		
+		
 		List<Object> rt = new ArrayList<>();
 		Constructor<?> constructor = reflector.getDefaultConstructor();
+		//System.out.println(">>>>>>>>>>>>>>>>>>ObjectResultSetHandler.handle, type="+constructor.getDeclaringClass());
+		
 		String[] properties = reflector.getSetablePropertyNames();
 		
 		TypeHandler[] typeHandlers = new TypeHandler[properties.length];

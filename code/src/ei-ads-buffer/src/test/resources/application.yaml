@@ -19,13 +19,13 @@ buffer:
        -
          name : testChannel
          type : CACHE
-   typePackage: com.znd.bus.test.model
+   typePackage: com.znd.bus.test.model,com.znd.bus.common.model
    #mapper加载路径
-   mapperPackage: com.znd.bus.test.mapper
+   mapperPackage: com.znd.bus.test.mapper,com.znd.bus.common.buffer
    id:  0
    name: buffer_test
    alias: test
-   createFlag: CREATE
+   createFlag: UPDATE
    tables:
       -  
         name:  User  

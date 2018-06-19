@@ -2,14 +2,14 @@ package com.znd.ads.service;
 
 import java.util.List;
 
-import com.znd.buffer.common.model.AdsNode;
+import com.znd.ads.model.po.AdsNode;
 
 public interface NodeService {
     /**
      * 获取所有的节点
      * @return
      */
-    List<AdsNode> all();
+    List getAll();
     
     /**
      * 根据名称获取节点
@@ -27,9 +27,9 @@ public interface NodeService {
     
     void save(AdsNode info);
 
-	void deleteById(Integer nodeId);
+	void deleteById(String nodeId);
 
-	AdsNode getById(Integer nodeId);
+	AdsNode getById(String nodeId);
 
 	void update(AdsNode node);
 }

@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.znd.apl.ReliabilityApl;
 import com.znd.ei.memdb.DbEntryOperations;
-import com.znd.reliability.apl.ReliabilityApl;
 import com.znd.reliability.config.ReliabilityProperties;
 
 @RunWith(SpringRunner.class)

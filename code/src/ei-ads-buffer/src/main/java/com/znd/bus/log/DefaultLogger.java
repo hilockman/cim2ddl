@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public class DefaultLogger implements BufferLogger {
 
-	private final LogMapper mapper;
-	public DefaultLogger(LogMapper mapper)
+	private final LogBuffer mapper;
+	public DefaultLogger(LogBuffer mapper)
 	{
 		this.mapper = mapper;
 		

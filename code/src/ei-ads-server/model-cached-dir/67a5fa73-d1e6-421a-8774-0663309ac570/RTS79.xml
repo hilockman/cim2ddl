@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<BpaPRParam>
+    <BpaPRParamCommon>
+        <Param ParamType="0" DevType="Gen" KeyWord="ALL" UpVLimit="9999" DnVLimit="0" UpCapLimit="160" DnCapLimit="0" Rerr="207.952" Trep="41.884" />
+        <Param ParamType="0" DevType="Gen" KeyWord="ALL" UpVLimit="9999" DnVLimit="0" UpCapLimit="250" DnCapLimit="160" Rerr="268.031" Trep="45.85" />
+        <Param ParamType="0" DevType="Gen" KeyWord="ALL" UpVLimit="9999" DnVLimit="0" UpCapLimit="9999" DnCapLimit="250" Rerr="356.878" Trep="33.761" />
+    </BpaPRParamCommon>
+    <BpaPRParamDev>
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@1" Rerr="19.467" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@2" Rerr="19.467" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@3" Rerr="4.4694" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@4" Rerr="4.4694" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_13230@1" Rerr="9.2211" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_13230@2" Rerr="9.2211" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_13230@3" Rerr="9.2211" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_15230@1" Rerr="2.9796" Trep="60" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_15230@2" Rerr="2.9796" Trep="60" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_15230@3" Rerr="2.9796" Trep="60" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_15230@4" Rerr="2.9796" Trep="60" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_15230@5" Rerr="2.9796" Trep="60" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_15230@6" Rerr="9.125" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_16230@1" Rerr="9.125" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_18230@1" Rerr="7.9636" Trep="150" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_21230@1" Rerr="7.9636" Trep="150" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_2138@1" Rerr="19.467" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_2138@2" Rerr="19.467" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_2138@3" Rerr="4.4694" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_2138@4" Rerr="4.4694" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_22230@1" Rerr="4.4242" Trep="20" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_22230@2" Rerr="4.4242" Trep="20" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_22230@3" Rerr="4.4242" Trep="20" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_22230@4" Rerr="4.4242" Trep="20" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_22230@5" Rerr="4.4242" Trep="20" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_22230@6" Rerr="4.4242" Trep="20" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_23230@1" Rerr="9.125" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_23230@2" Rerr="9.125" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_23230@3" Rerr="7.6174" Trep="100" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_7138@1" Rerr="7.3" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_7138@2" Rerr="7.3" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_7138@3" Rerr="7.3" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="        " Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_1" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_10" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_11" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_12" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_13" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_14" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_15" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_16" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_17" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_18" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_19" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_2" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_20" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_21" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_22" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_23" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_24" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_3" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_4" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_5" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_6" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_7" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_8" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACBus" KeyWord="BUS_9" Rerr="0" Trep="0" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_11230-BUS_13230" Rerr="0.4" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_11230-BUS_14230" Rerr="0.39" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_1138-BUS_2138" Rerr="0.24" Trep="16" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_1138-BUS_3138" Rerr="0.51" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_1138-BUS_5138" Rerr="0.33" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_12230-BUS_13230" Rerr="0.4" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_12230-BUS_23230" Rerr="0.52" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_13230-BUS_23230" Rerr="0.49" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_14230-BUS_16230" Rerr="0.38" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_15230-BUS_16230" Rerr="0.33" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_15230-BUS_21230@1" Rerr="0.41" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_15230-BUS_21230@2" Rerr="0.41" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_15230-BUS_24230" Rerr="0.41" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_16230-BUS_17230" Rerr="0.35" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_16230-BUS_19230" Rerr="0.34" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_17230-BUS_18230" Rerr="0.32" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_17230-BUS_22230" Rerr="0.54" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_18230-BUS_21230@1" Rerr="0.35" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_18230-BUS_21230@2" Rerr="0.35" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_19230-BUS_20230@1" Rerr="0.38" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_19230-BUS_20230@2" Rerr="0.38" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_20230-BUS_23230@1" Rerr="0.34" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_20230-BUS_23230@2" Rerr="0.34" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_21230-BUS_22230" Rerr="0.45" Trep="11" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_2138-BUS_4138" Rerr="0.39" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_2138-BUS_6138" Rerr="0.48" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_3138-BUS_9138" Rerr="0.38" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_4138-BUS_9138" Rerr="0.36" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_5138-BUS_10138" Rerr="0.34" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_6138-BUS_10138" Rerr="0.33" Trep="35" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_7138-BUS_8138" Rerr="0.3" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_8138-BUS_10138" Rerr="0.44" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="ACLine" KeyWord="BUS_8138-BUS_9138" Rerr="0.44" Trep="10" />
+        <RParam ParamType="1" ParamSource="1" DevType="Wind" KeyWord="BUS_10138-BUS_11230" Rerr="0.02" Trep="768" />
+        <RParam ParamType="1" ParamSource="1" DevType="Wind" KeyWord="BUS_10138-BUS_12230" Rerr="0.02" Trep="768" />
+        <RParam ParamType="1" ParamSource="1" DevType="Wind" KeyWord="BUS_3138-BUS_24230" Rerr="0.02" Trep="768" />
+        <RParam ParamType="1" ParamSource="1" DevType="Wind" KeyWord="BUS_9138-BUS_11230" Rerr="0.02" Trep="768" />
+        <RParam ParamType="1" ParamSource="1" DevType="Wind" KeyWord="BUS_9138-BUS_12230" Rerr="0.02" Trep="768" />
+    </BpaPRParamDev>
+    <BpaPRManuState>
+        <State StateID="1">
+            <FDev DevType="Gen" DevName="BUS_18230@1" />
+            <FDev DevType="Gen" DevName="BUS_21230@1" />
+            <FDev DevType="Gen" DevName="BUS_23230@3" />
+        </State>
+    </BpaPRManuState>
+    <BpaPRParamMultState>
+    </BpaPRParamMultState>
+</BpaPRParam>

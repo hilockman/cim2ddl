@@ -1,4 +1,18 @@
 
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 30px;
+    height: 30px;
+    padding-top: 0;
+}
+
+.navbar-inverse {
+	    min-height: 30px;
+	    margin-bottom : 0;
+	    background-color: #5f5f5f;
+	    border-color : #f1f1f1
+}
+
 
 footer {
 	    text-align:center;
@@ -15,9 +29,26 @@ footer {
 }
 
 div.container-fluid {
-	margin: 0 0 20px 0;
+	margin: 50px 0 20px 0;
     padding: 0 10px 0 10px;	
 }
+
+
+.navbar-right {
+    margin-right: 5px;
+}
+
+.modal-dialog{
+   position: absolute;
+   left: 50%;
+   /* now you must set a margin left under zero - value is a half width your window */
+   margin-left: -312px;
+   /* this same situation is with height - example */
+   height: 500px;
+   top: 50%;
+   margin-top: -250px;
+} 
+
 /*
   .navbar-static-side {
     z-index: 2001;
@@ -57,9 +88,7 @@ div.container-fluid {
     color:#555;
     background-color:#007069}
 
-.navbar-right {
-    margin-right: 5px;
-}
+
 
 .header-navbar .nav .navbar-nav .navbar-right >li >a:hover {
     color: aqua;

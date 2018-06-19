@@ -2,7 +2,7 @@ package com.znd.ads.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.znd.buffer.common.model.LogInfo;
+import com.znd.ads.model.po.LogInfo;
 
 /**
  * 

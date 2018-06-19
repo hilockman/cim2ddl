@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.znd.buffer.annotation.Index;
+import com.znd.bus.annotation.Index;
 
 public class Log {
 

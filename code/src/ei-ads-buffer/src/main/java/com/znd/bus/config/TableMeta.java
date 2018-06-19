@@ -122,4 +122,13 @@ public class TableMeta {
 
 
 
+	@Override
+	public String toString() {
+		return "TableMeta [name=" + name + ", columns=" + columns
+				+ ", indexColumns=" + indexColumns + ", columnMap=" + columnMap
+				+ "]";
+	}
+
+
+
 }

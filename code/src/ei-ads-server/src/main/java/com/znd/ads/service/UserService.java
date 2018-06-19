@@ -1,8 +1,8 @@
 package com.znd.ads.service;
 
 
-import com.znd.buffer.common.model.User;
-import com.znd.buffer.common.model.UserInfo;
+import com.znd.ads.model.po.User;
+import com.znd.ads.model.po.UserInfo;
 
 /**
 * Created by GeneratorFx on 2017-04-11.

@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.znd.ads.model.AdsResult;
-import com.znd.ads.model.PRAdequacySetting;
 import com.znd.ads.model.ReliabilityUploadConfig;
+import com.znd.ads.model.dto.PRAdequacySetting;
 import com.znd.ads.service.BufferService;
+import com.znd.ads.service.ReliabilityService;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.channel.Message;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
 import com.znd.bus.log.Log;
-import com.znd.bus.log.LogMapper;
 
 @RestController
 @RequestMapping(path = "/pr")
@@ -48,23 +48,28 @@ public class ReliabilityControl {
 	private BufferConfig defaultBufferConfig;
 	
 	
+	@Autowired
+	private ReliabilityService reliabilityService;
+	
 	private final Logger logger = LoggerFactory
 			.getLogger(ReliabilityControl.class);
 
 	// Save the uploaded file to this folder
 	@Value("${model.cachedDir}")
 	private String UPLOADED_FOLDER;
+	
+	
 
 
-	private void sendMessage(String contentCode, String key) {
-
-		if (contentCode == null || contentCode.isEmpty()) {
-			return;
-		}
-
-		bufferService.sendMessage(new Message(contentCode, key));
-
-	}
+//	private void sendMessage(String contentCode, String key) {
+//
+//		if (contentCode == null || contentCode.isEmpty()) {
+//			return;
+//		}
+//
+//		bufferService.sendMessage(new Message(contentCode, key));
+//
+//	}
 
 	@RequestMapping(path = "/adequacySetting", method = RequestMethod.GET)
 	public @ResponseBody PRAdequacySetting prAdequacySetting() {
@@ -126,12 +131,12 @@ public class ReliabilityControl {
 
 	}
 	
-	@PostMapping("/clearDatabase/{modelName}")
-	public @ResponseBody String clearDatabase(@PathVariable("modelName")String modelName) {
-		sendMessage("clear_Database", modelName);
-		return "ok";
-	}
-	
+//	@PostMapping("/clearDatabase/{modelName}")
+//	public @ResponseBody String clearDatabase(@PathVariable("modelName")String modelName) {
+//		sendMessage("clear_Database", modelName);
+//		return "ok";
+//	}
+//	
 
 
 	@PostMapping("/submitCalc")
@@ -140,12 +145,13 @@ public class ReliabilityControl {
 
 		System.out.println("---------------start submitCalc---------------");
 
+		String jobId;
 		try {
 			final String modelName = config.getModelName();
-			final String modelNameTag = modelName;
+			//final String modelNameTag = modelName;
 			
-			BufferFactoryBuilder builder = new BufferFactoryBuilder();
-			BufferFactory bufferFactory = builder.build(modelName, CreateFlag.CREATE, "com.znd.buffer.reliability.model", "com.znd.buffer.reliability.mapper", defaultBufferConfig);
+			//BufferFactoryBuilder builder = new BufferFactoryBuilder();
+			//BufferFactory bufferFactory = builder.build(modelName, CreateFlag.CREATE, "com.znd.buffer.reliability.model", "com.znd.buffer.reliability.mapper", defaultBufferConfig);
 			
 //			List<ResultObject<String, String>> keys = executeDF.RedissonDBKey().FindKeys(modelName+"*");
 //			for (int i = 0; i < keys.size(); i++) {
@@ -160,6 +166,12 @@ public class ReliabilityControl {
 			
 		 			
 			File[] files = cacheFiles(UPLOADED_FOLDER, modelName, Arrays.asList(config.getFiles()));
+			if (files == null || files.length == 0)
+				files = file.listFiles();			
+		
+			jobId = reliabilityService.createJob(config.getModelName(), config.getSetting(), files);
+			
+			
 
 //			if (file.isDirectory()) { // try upload loacal file
 //				RedissonDBString dbstring = executeDF.RedissonDBString();
@@ -220,9 +232,9 @@ public class ReliabilityControl {
 			//TODO: upload file
 			
 			//TODO:upload config
-			logger.info("sendMessage : cc = {}, content = {}. ",
-					"created_ReliabilityTask", modelName);
-			sendMessage("created_ReliabilityTask", modelName);
+//			logger.info("sendMessage : cc = {}, content = {}. ",
+//					"created_ReliabilityTask", modelName);
+//			sendMessage("created_ReliabilityTask", modelName);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,7 +242,11 @@ public class ReliabilityControl {
 		}
 
 		System.out.println("---------------finished submitCalc---------------");
-		return AdsResult.ok("accepted!");
+		//return AdsResult.ok("accepted!");
+		if (jobId != null)
+		    return AdsResult.ok(jobId);
+		else 
+			return AdsResult.fail("fail to create job!");
 	}
 
 //	@PostMapping("/submitCalc")

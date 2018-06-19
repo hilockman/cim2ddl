@@ -1,0 +1,11 @@
+[SettingConfig]
+CriteriaMaxAngle=200.000000
+CriteriaMaxVolt	=1.200000
+CriteriaMaxVDur	=1.000000
+CriteriaMinVolt	=0.750000
+CriteriaMinVDur	=1.000000
+CriteriaMaxFreq	=52.500000
+CriteriaMaxFDur	=1.000000
+CriteriaMinFreq	=47.500000
+CriteriaMinFDur	=1.000000
+[END]

@@ -159,6 +159,9 @@ public class DefaultExecutor implements Executor {
 		List<String[]> records = is.getRecords();
 		Map<String, List<String>> indexRecords = is.getIndexRecords();
 		try {
+			if (records.isEmpty())
+				return;
+			
 			tableOps.setRecord(records, indexRecords);
 			logger.debug("Record(s) inserted int '{}': sum = " + records.size(), tableMeta.getName());
 		} catch (RedissonDBException e) {

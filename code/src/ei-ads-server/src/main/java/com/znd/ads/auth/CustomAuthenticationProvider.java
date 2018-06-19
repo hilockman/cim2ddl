@@ -1,5 +1,9 @@
 package com.znd.ads.auth;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,13 +17,15 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.znd.ads.model.po.User;
 import com.znd.ads.service.UserService;
 import com.znd.ads.util.Md5Util;
-import com.znd.buffer.common.model.User;
 
 /**
  * @author: wangheng
@@ -64,10 +70,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         HttpSession session = request.getSession();
         session.setAttribute("user",user);
         //授权
-        return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(user, password, getAuthorities(user));
     }
 
-
+    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return authorities;
+    }
+    
     @Override
     public boolean supports(Class<?> authentication) {
         return UsernamePasswordAuthenticationToken.class.equals(authentication);

@@ -29,6 +29,7 @@ import com.znd.bus.channel.ChannelType;
 import com.znd.bus.channel.Event;
 import com.znd.bus.channel.Listener;
 import com.znd.bus.channel.Message;
+import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.channel.defaults.DefaultChannel;
 import com.znd.bus.channel.defaults.MessageException;
 import com.znd.bus.config.BufferConfig;
@@ -212,7 +213,13 @@ public  class BufferContext {
 	// 判断表示否改变
 	private boolean isTableChanged(List<RedisColumnContent> columnNames,
 			TableMeta tableBuilder) {
-		List<ColumnMeta> columns = tableBuilder.getColumns();
+		List<ColumnMeta> columns = new ArrayList<>();
+		columns.addAll(tableBuilder.getColumns());
+		if (columnNames.size() != columns.size())
+			return true;
+		
+		
+			
 		Collections.sort(columns, (a, b) -> {
 			return a.getName().compareTo(b.getName());
 		});
@@ -286,41 +293,41 @@ public  class BufferContext {
 		return name;
 	}
 	
-	private  void loadColumnMetas(TableMeta tableMeta, RBufferOperation bufferOps) throws RedissonDBException {	
-		RTableOperation tableOps = bufferOps.getTableOperation(tableMeta.getName());
-		List<String> colNames = tableOps.getColumnNameArray();
-		for (int i = 0; i < colNames.size(); i++) {
-			RedisColumnContent content = tableOps.getColumnDefine(colNames.get(i));
-			ColumnMeta col = new ColumnMeta();
-			col.setName(content.getStrFieldName());
-			col.setIndexable(content.getIndexType());
-			//col.setType(BufferFactoryBuilder.toType(content.getType()));
-			tableMeta.getIndexColumns().add(col);		
-		}
-		tableMeta.formIndexColumn();
-	}
+//	private  void loadColumnMetas(TableMeta tableMeta, RBufferOperation bufferOps) throws RedissonDBException {	
+//		RTableOperation tableOps = bufferOps.getTableOperation(tableMeta.getName());
+//		List<String> colNames = tableOps.getColumnNameArray();
+//		for (int i = 0; i < colNames.size(); i++) {
+//			RedisColumnContent content = tableOps.getColumnDefine(colNames.get(i));
+//			ColumnMeta col = new ColumnMeta();
+//			col.setName(content.getStrFieldName());
+//			col.setIndexable(content.getIndexType());
+//			//col.setType(BufferFactoryBuilder.toType(content.getType()));
+//			tableMeta.getIndexColumns().add(col);		
+//		}
+//		tableMeta.formIndexColumn();
+//	}
 	
-	public TableMeta  createTableMeta(String tableName) {
-
-			try {
-				RBufferOperation bufferOps = memDBBuilder.getBufferOperation();
-				List<String> tables = bufferOps.getTableNameArray();
-				Collections.sort(tables);
-				int index = Collections.binarySearch(tables, tableName);
-				if (index == -1) {
-					throw new RuntimeException(String.format("Find no table:'%s', in buffer : %s", tableName, this.name));
-				}
-				TableMeta tableMeta = new TableMeta();
-				tableMeta.setName(tableName);
-				
-				loadColumnMetas(tableMeta, bufferOps);			
-		        return tableMeta;				
-			} catch (RedissonDBException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}			
-		
-	}
+//	public TableMeta  createTableMeta(String tableName) {
+//
+//			try {
+//				RBufferOperation bufferOps = memDBBuilder.getBufferOperation();
+//				List<String> tables = bufferOps.getTableNameArray();
+//				Collections.sort(tables);
+//				int index = Collections.binarySearch(tables, tableName);
+//				if (index == -1) {
+//					throw new RuntimeException(String.format("Find no table:'%s', in buffer : %s", tableName, this.name));
+//				}
+//				TableMeta tableMeta = new TableMeta();
+//				tableMeta.setName(tableName);
+//				
+//				loadColumnMetas(tableMeta, bufferOps);			
+//		        return tableMeta;				
+//			} catch (RedissonDBException e) {
+//				e.printStackTrace();
+//				throw new RuntimeException(e);
+//			}			
+//		
+//	}
 	
 	public RTableOperation getTableOperation(TableMeta tableMeta){
 
@@ -395,17 +402,21 @@ public  class BufferContext {
 //		for (ColumnMeta c : tableDefine.getColumns()) {
 //			tableBuilder.setColumn(c.getName(), typeMap.get(c.getType()), c.isIndexable());
 //		}
+		
+	
 
+		List<String> sb = new ArrayList<>();
 		for (ColumnMeta c : tableDefine.getColumns()) {
 			try {
-			tableBuilder.setColumn(c.getName(), RedisTableColumnType.RedisTableColumnType_String, c.isIndexable());
+			   sb.add(c.getName());
+			   tableBuilder.setColumn(c.getName(), RedisTableColumnType.RedisTableColumnType_String, c.isIndexable());
 			} catch (RedissonDBException e) {
 				throw new BufferException("Fail to create colum : "+c.getName()+" for table :"+tableDefine.getName(), e);
 			}
 		}
 		
-		logger.info("Table created: {}, clumn size = {}.",
-				tableDefine.getName(), tableDefine.getColumnSize());
+		logger.info("Table created: {}, column size = {}, columns :{}.",
+				tableDefine.getName(), tableDefine.getColumnSize(), String.join("|", sb));
 	}
 
 	public  class ChannelWrapper implements Channel
@@ -483,16 +494,16 @@ public  class BufferContext {
 				
 				final Channel bufferChannel = createChannelWrapper(name, type);
 				
-				if (type != ChannelType.SEND) {
+				if (type != ChannelType.SendOnly) {
 					pubSubManager.subscribeMessage(new MessageCallBack() {
 						
 						@Override
 						public void CallBack(int number, MessageContent messageContent) {
-							Event event = new Event(messageContent.getControlCode(), messageContent.getEventContent());
+							Event event = new Event(MessageCodeEnum.valueOf(messageContent.getControlCode()), messageContent.getEventContent());
 							logger.debug("Receive message : number={}, content={}",number, event);
 							bufferChannel.receive(event);
 						}
-					}, channel, type == ChannelType.CACHE ? true : false);
+					}, channel, type == ChannelType.Share ? true : false);
 				}
 				return bufferChannel;
 			} catch (Exception e) {
@@ -506,7 +517,7 @@ public  class BufferContext {
 		synchronized (channel) {
 			try {
 				channel.setStrChannel(channelName);
-				pubSubManager.publishMessage(channel, message.getCode(), message.getContent());
+				pubSubManager.publishMessage(channel, message.getCode().name(), message.getContent());
 				logger.debug("Send message '{}', by channel : {} ", message, channelName);
 			} catch (Exception e) {
 				throw new MessageException(e);

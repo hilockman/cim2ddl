@@ -1,0 +1,431 @@
+2018-06-06 17:31:22.991  INFO 6840 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 6840 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:31:22.998  INFO 6840 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:31:23.061  INFO 6840 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@bcef303: startup date [Wed Jun 06 17:31:23 CST 2018]; root of context hierarchy
+2018-06-06 17:31:23.844  WARN 6840 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.znd.bus.config, com.znd.bus]' package. Please check your configuration.
+2018-06-06 17:31:24.691  INFO 6840 --- [main] com.znd.bus.config.BufferConfig          : 6 types are added to buffer : pr.buffer_test
+2018-06-06 17:31:25.974  INFO 6840 --- [main] com.znd.bus.config.BufferConfig          : Buffer definition will be created : pr.buffer_test. 
+2018-06-06 17:31:26.085  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to create buffer : buffer_test.
+2018-06-06 17:31:26.260  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Table created: User, column size = 2, columns :id|name.
+2018-06-06 17:31:26.424  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Table created: FState, column size = 3, columns :id|FStateID|Durition.
+2018-06-06 17:31:26.548  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Person, column size = 3, columns :id|Name|Address.
+2018-06-06 17:31:26.653  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Table created: UserInfo, column size = 2, columns :id|name.
+2018-06-06 17:31:26.822  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Log, column size = 4, columns :id|date|logLevel|content.
+2018-06-06 17:31:26.892  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Table created: BufferTask, column size = 1, columns :id.
+2018-06-06 17:31:26.897  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to commit buffer: buffer_test.
+2018-06-06 17:31:26.916  INFO 6840 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:31:27.260  INFO 6840 --- [main] com.znd.bus.config.BufferConfig          : Finished update 6 table(s), consumed time is 0.342000 second.
+2018-06-06 17:31:27.529  INFO 6840 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:31:27.532  INFO 6840 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:31:27.535  INFO 6840 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:31:27.537  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:31:27.539  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:31:27.540  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:31:27.541  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:31:27.542  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:31:27.544  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:31:27.546  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:31:27.546  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:31:27.547  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:31:27.548  INFO 6840 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:31:28.066  WARN 6840 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+2018-06-06 17:31:28.066  INFO 6840 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer closed : pr.buffer_test[1]
+2018-06-06 17:31:28.073  INFO 6840 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2018-06-06 17:31:28.076 ERROR 6840 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to auto-configure a DataSource: 'spring.datasource.url' is not specified and no embedded datasource could be auto-configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2018-06-06 17:31:28.082 ERROR 6840 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@3972a855] to prepare test instance [com.znd.bus.test.CalcJobBufferTest@59a79443]
+
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:107) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:242) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:587) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1250) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1099) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:868) ~[spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549) ~[spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388) ~[spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327) ~[spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:138) ~[spring-boot-test-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	... 25 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:579) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	... 42 common frames omitted
+Caused by: org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:236) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.initializeDataSourceBuilder(DataSourceProperties.java:176) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:43) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:81) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_131]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_131]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_131]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_131]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	... 43 common frames omitted
+
+2018-06-06 17:32:26.462  INFO 17932 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 17932 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:32:26.463  INFO 17932 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:32:26.535  INFO 17932 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@bcef303: startup date [Wed Jun 06 17:32:26 CST 2018]; root of context hierarchy
+2018-06-06 17:32:27.259  WARN 17932 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.znd.bus.config, com.znd.bus]' package. Please check your configuration.
+2018-06-06 17:32:28.096  INFO 17932 --- [main] com.znd.bus.config.BufferConfig          : 6 types are added to buffer : pr.buffer_test
+2018-06-06 17:32:29.237  INFO 17932 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:32:30.000  INFO 17932 --- [main] com.znd.bus.config.BufferConfig          : Finished update 6 table(s), consumed time is 0.424000 second.
+2018-06-06 17:32:30.177  INFO 17932 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:32:30.179  INFO 17932 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:32:30.181  INFO 17932 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:32:30.182  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:32:30.182  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:32:30.183  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:32:30.184  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:32:30.185  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:32:30.185  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:32:30.187  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:32:30.187  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:32:30.188  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:32:30.189  INFO 17932 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:32:30.638  WARN 17932 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+2018-06-06 17:32:30.639  INFO 17932 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer closed : pr.buffer_test[1]
+2018-06-06 17:32:30.645  INFO 17932 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2018-06-06 17:32:30.647 ERROR 17932 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to auto-configure a DataSource: 'spring.datasource.url' is not specified and no embedded datasource could be auto-configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2018-06-06 17:32:30.652 ERROR 17932 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@3972a855] to prepare test instance [com.znd.bus.test.CalcJobBufferTest@47b11ec7]
+
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:107) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:242) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:587) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1250) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1099) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:760) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:868) ~[spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549) ~[spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388) ~[spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327) ~[spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:138) ~[spring-boot-test-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	... 25 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:579) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	... 42 common frames omitted
+Caused by: org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:236) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.initializeDataSourceBuilder(DataSourceProperties.java:176) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:43) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:81) ~[spring-boot-autoconfigure-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_131]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_131]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_131]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_131]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	... 43 common frames omitted
+
+2018-06-06 17:36:03.887  INFO 17420 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 17420 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:36:03.888  INFO 17420 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:36:03.958  INFO 17420 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:36:03 CST 2018]; root of context hierarchy
+2018-06-06 17:36:05.410  INFO 17420 --- [main] com.znd.bus.config.BufferConfig          : 6 types are added to buffer : pr.buffer_test
+2018-06-06 17:36:06.554  INFO 17420 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:36:07.382  INFO 17420 --- [main] com.znd.bus.config.BufferConfig          : Finished update 6 table(s), consumed time is 0.466000 second.
+2018-06-06 17:36:07.574  INFO 17420 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:36:07.576  INFO 17420 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:36:07.578  INFO 17420 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:36:07.579  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:36:07.580  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:36:07.581  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:36:07.582  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:36:07.583  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:36:07.584  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:36:07.585  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:36:07.585  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:36:07.586  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:36:07.587  INFO 17420 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:36:08.173  INFO 17420 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:36:03 CST 2018]; root of context hierarchy
+2018-06-06 17:36:08.254  INFO 17420 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-06-06 17:36:08.255  INFO 17420 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-06-06 17:36:08.303  INFO 17420 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:36:08.303  INFO 17420 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:36:08.354  INFO 17420 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:36:08.616  INFO 17420 --- [main] com.znd.bus.test.CalcJobBufferTest       : Started CalcJobBufferTest in 5.11 seconds (JVM running for 6.127)
+2018-06-06 17:36:08.946  INFO 17420 --- [Thread-4] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:36:03 CST 2018]; root of context hierarchy
+2018-06-06 17:36:08.949  INFO 17420 --- [Thread-4] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer closed : pr.buffer_test[1]
+2018-06-06 17:37:25.019  INFO 17956 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 17956 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:37:25.021  INFO 17956 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:37:25.094  INFO 17956 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@19e4fcac: startup date [Wed Jun 06 17:37:25 CST 2018]; root of context hierarchy
+2018-06-06 17:37:26.423  INFO 17956 --- [main] com.znd.bus.config.BufferConfig          : 9 types are added to buffer : pr.buffer_test
+2018-06-06 17:37:27.574  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:37:27.925  INFO 17956 --- [main] com.znd.bus.config.BufferConfig          : Buffer config changed, buffer definition will be removed : pr.buffer_test. 
+2018-06-06 17:37:28.180  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Buffer destoryed : buffer_test
+2018-06-06 17:37:28.180  INFO 17956 --- [main] com.znd.bus.config.BufferConfig          : Buffer definition will be created : pr.buffer_test. 
+2018-06-06 17:37:28.204  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to create buffer : buffer_test.
+2018-06-06 17:37:28.313  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: User, column size = 2, columns :id|name.
+2018-06-06 17:37:28.444  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Person, column size = 3, columns :id|Name|Address.
+2018-06-06 17:37:28.554  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: FState, column size = 3, columns :id|FStateID|Durition.
+2018-06-06 17:37:28.626  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: UserInfo, column size = 2, columns :id|name.
+2018-06-06 17:37:28.810  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: ModelFile, column size = 7, columns :id|modelName|name|type|content|lastUpdate|desc.
+2018-06-06 17:37:29.047  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: AdsNodeInfo, column size = 9, columns :id|name|url|lastUpdate|status|taskCount|jobCount|cpuRate|memoryRate.
+2018-06-06 17:37:29.353  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: CalcJob, column size = 13, columns :id|name|modelId|typeId|desc|parameter|progress|step|maxStep|state|start|end|elapse.
+2018-06-06 17:37:29.484  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Log, column size = 4, columns :id|date|logLevel|content.
+2018-06-06 17:37:29.530  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Table created: BufferTask, column size = 1, columns :id.
+2018-06-06 17:37:29.535  INFO 17956 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to commit buffer: buffer_test.
+2018-06-06 17:37:30.402  INFO 17956 --- [main] com.znd.bus.config.BufferConfig          : Finished update 9 table(s), consumed time is 0.865000 second.
+2018-06-06 17:37:30.598  INFO 17956 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:37:30.600  INFO 17956 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:37:30.602  INFO 17956 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:37:30.603  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:37:30.604  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:37:30.605  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:37:30.605  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:37:30.606  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:37:30.607  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:37:30.608  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:37:30.608  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:37:30.609  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:37:30.609  INFO 17956 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:37:31.156  INFO 17956 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@19e4fcac: startup date [Wed Jun 06 17:37:25 CST 2018]; root of context hierarchy
+2018-06-06 17:37:31.245  INFO 17956 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-06-06 17:37:31.248  INFO 17956 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-06-06 17:37:31.289  INFO 17956 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:37:31.290  INFO 17956 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:37:31.341  INFO 17956 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:37:31.588  INFO 17956 --- [main] com.znd.bus.test.CalcJobBufferTest       : Started CalcJobBufferTest in 7.001 seconds (JVM running for 8.07)
+2018-06-06 17:37:32.146  INFO 17956 --- [Thread-4] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@19e4fcac: startup date [Wed Jun 06 17:37:25 CST 2018]; root of context hierarchy
+2018-06-06 17:37:32.149  INFO 17956 --- [Thread-4] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer closed : pr.buffer_test[1]
+2018-06-06 17:38:24.552  INFO 4284 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 4284 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:38:24.553  INFO 4284 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:38:24.649  INFO 4284 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@75699e35: startup date [Wed Jun 06 17:38:24 CST 2018]; root of context hierarchy
+2018-06-06 17:38:26.152  INFO 4284 --- [main] com.znd.bus.config.BufferConfig          : 9 types are added to buffer : pr.buffer_test
+2018-06-06 17:38:27.465  INFO 4284 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:38:29.238  INFO 4284 --- [main] com.znd.bus.config.BufferConfig          : Finished update 9 table(s), consumed time is 0.970000 second.
+2018-06-06 17:38:29.501  INFO 4284 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:38:29.513  INFO 4284 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:38:29.517  INFO 4284 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:38:29.519  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:38:29.521  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:38:29.523  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:38:29.525  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:38:29.527  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:38:29.529  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:38:29.531  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:38:29.532  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:38:29.534  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:38:29.534  INFO 4284 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:38:30.220  INFO 4284 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@75699e35: startup date [Wed Jun 06 17:38:24 CST 2018]; root of context hierarchy
+2018-06-06 17:38:30.325  INFO 4284 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-06-06 17:38:30.328  INFO 4284 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-06-06 17:38:30.381  INFO 4284 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:38:30.381  INFO 4284 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:38:30.442  INFO 4284 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:38:30.848  INFO 4284 --- [main] com.znd.bus.test.CalcJobBufferTest       : Started CalcJobBufferTest in 6.696 seconds (JVM running for 7.905)
+2018-06-06 17:39:51.335  INFO 1676 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 1676 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:39:51.337  INFO 1676 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:39:51.401  INFO 1676 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:39:51 CST 2018]; root of context hierarchy
+2018-06-06 17:39:52.732  INFO 1676 --- [main] com.znd.bus.config.BufferConfig          : 9 types are added to buffer : pr.buffer_test
+2018-06-06 17:39:53.988  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:39:54.826  INFO 1676 --- [main] com.znd.bus.config.BufferConfig          : Buffer config changed, buffer definition will be removed : pr.buffer_test. 
+2018-06-06 17:39:55.035  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Buffer destoryed : buffer_test
+2018-06-06 17:39:55.035  INFO 1676 --- [main] com.znd.bus.config.BufferConfig          : Buffer definition will be created : pr.buffer_test. 
+2018-06-06 17:39:55.066  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to create buffer : buffer_test.
+2018-06-06 17:39:55.144  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: User, column size = 2, columns :id|name.
+2018-06-06 17:39:55.251  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: UserInfo, column size = 2, columns :id|name.
+2018-06-06 17:39:55.335  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: FState, column size = 3, columns :id|FStateID|Durition.
+2018-06-06 17:39:55.416  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Person, column size = 3, columns :id|Name|Address.
+2018-06-06 17:39:55.631  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: ModelFile, column size = 7, columns :id|modelName|name|type|content|lastUpdate|desc.
+2018-06-06 17:39:55.877  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: AdsNodeInfo, column size = 9, columns :id|name|url|lastUpdate|status|taskCount|jobCount|cpuRate|memoryRate.
+2018-06-06 17:39:56.185  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: CalcJob, column size = 13, columns :id|name|modelId|typeId|desc|parameter|progress|step|maxStep|state|start|end|elapse.
+2018-06-06 17:39:56.284  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Log, column size = 4, columns :id|date|logLevel|content.
+2018-06-06 17:39:56.354  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Table created: BufferTask, column size = 1, columns :id.
+2018-06-06 17:39:56.358  INFO 1676 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to commit buffer: buffer_test.
+2018-06-06 17:39:57.147  INFO 1676 --- [main] com.znd.bus.config.BufferConfig          : Finished update 9 table(s), consumed time is 0.785000 second.
+2018-06-06 17:39:57.325  INFO 1676 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:39:57.327  INFO 1676 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:39:57.329  INFO 1676 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:39:57.330  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:39:57.330  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:39:57.331  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:39:57.332  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:39:57.332  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:39:57.333  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:39:57.333  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:39:57.334  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:39:57.334  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:39:57.335  INFO 1676 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:39:57.913  INFO 1676 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:39:51 CST 2018]; root of context hierarchy
+2018-06-06 17:39:58.013  INFO 1676 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-06-06 17:39:58.016  INFO 1676 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-06-06 17:39:58.068  INFO 1676 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:39:58.069  INFO 1676 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:39:58.129  INFO 1676 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:39:58.391  INFO 1676 --- [main] com.znd.bus.test.CalcJobBufferTest       : Started CalcJobBufferTest in 7.438 seconds (JVM running for 8.396)
+2018-06-06 17:39:58.903  INFO 1676 --- [Thread-4] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:39:51 CST 2018]; root of context hierarchy
+2018-06-06 17:39:58.909  INFO 1676 --- [Thread-4] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer closed : pr.buffer_test[1]
+2018-06-06 17:40:45.478  INFO 5528 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 5528 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:40:45.480  INFO 5528 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:40:45.556  INFO 5528 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:40:45 CST 2018]; root of context hierarchy
+2018-06-06 17:40:47.092  INFO 5528 --- [main] com.znd.bus.config.BufferConfig          : 9 types are added to buffer : pr.buffer_test
+2018-06-06 17:40:48.250  INFO 5528 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:40:49.892  INFO 5528 --- [main] com.znd.bus.config.BufferConfig          : Finished update 9 table(s), consumed time is 0.848000 second.
+2018-06-06 17:40:50.088  INFO 5528 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:40:50.093  INFO 5528 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:40:50.096  INFO 5528 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:40:50.098  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:40:50.098  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:40:50.099  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:40:50.100  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:40:50.102  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:40:50.104  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:40:50.106  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:40:50.109  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:40:50.111  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:40:50.112  INFO 5528 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:40:50.705  INFO 5528 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@6b88ca8c: startup date [Wed Jun 06 17:40:45 CST 2018]; root of context hierarchy
+2018-06-06 17:40:50.799  INFO 5528 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-06-06 17:40:50.800  INFO 5528 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-06-06 17:40:50.853  INFO 5528 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:40:50.853  INFO 5528 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:40:50.909  INFO 5528 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:40:51.140  INFO 5528 --- [main] com.znd.bus.test.CalcJobBufferTest       : Started CalcJobBufferTest in 6.036 seconds (JVM running for 7.002)
+2018-06-06 17:41:14.018  INFO 13736 --- [main] com.znd.bus.test.CalcJobBufferTest       : Starting CalcJobBufferTest on wangheng with PID 13736 (started by ThinkPad in D:\GitHub\cim2ddl\code\src\ei-ads-buffer)
+2018-06-06 17:41:14.019  INFO 13736 --- [main] com.znd.bus.test.CalcJobBufferTest       : No active profile set, falling back to default profiles: default
+2018-06-06 17:41:14.088  INFO 13736 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@19e4fcac: startup date [Wed Jun 06 17:41:14 CST 2018]; root of context hierarchy
+2018-06-06 17:41:15.355  INFO 13736 --- [main] com.znd.bus.config.BufferConfig          : 9 types are added to buffer : pr.buffer_test
+2018-06-06 17:41:16.557  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to get buffer operation : buffer_test.
+2018-06-06 17:41:17.426  INFO 13736 --- [main] com.znd.bus.config.BufferConfig          : Buffer config changed, buffer definition will be removed : pr.buffer_test. 
+2018-06-06 17:41:17.765  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Buffer destoryed : buffer_test
+2018-06-06 17:41:17.765  INFO 13736 --- [main] com.znd.bus.config.BufferConfig          : Buffer definition will be created : pr.buffer_test. 
+2018-06-06 17:41:17.782  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to create buffer : buffer_test.
+2018-06-06 17:41:17.852  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: User, column size = 2, columns :id|name.
+2018-06-06 17:41:17.933  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: UserInfo, column size = 2, columns :id|name.
+2018-06-06 17:41:18.041  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: FState, column size = 3, columns :id|FStateID|Durition.
+2018-06-06 17:41:18.128  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Person, column size = 3, columns :id|Name|Address.
+2018-06-06 17:41:18.375  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: AdsNodeInfo, column size = 9, columns :id|name|url|lastUpdate|status|taskCount|jobCount|cpuRate|memoryRate.
+2018-06-06 17:41:18.769  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: CalcJob, column size = 13, columns :id|name|modelId|typeId|desc|parameter|progress|step|maxStep|state|start|end|elapse.
+2018-06-06 17:41:19.001  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: ModelFile, column size = 7, columns :id|modelName|name|type|content|lastUpdate|desc.
+2018-06-06 17:41:19.109  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: Log, column size = 4, columns :id|date|logLevel|content.
+2018-06-06 17:41:19.176  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Table created: BufferTask, column size = 1, columns :id.
+2018-06-06 17:41:19.181  INFO 13736 --- [main] com.znd.bus.buffer.BufferContext         : Succeed to commit buffer: buffer_test.
+2018-06-06 17:41:19.917  INFO 13736 --- [main] com.znd.bus.config.BufferConfig          : Finished update 9 table(s), consumed time is 0.734000 second.
+2018-06-06 17:41:20.132  INFO 13736 --- [main] com.znd.bus.config.BufferConfig          : Succeed to build buffer : pr.buffer_test
+2018-06-06 17:41:20.136  INFO 13736 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[0]
+2018-06-06 17:41:20.138  INFO 13736 --- [main] c.znd.bus.buffer.defaults.DefaultBuffer  : Buffer opened : pr.buffer_test[1]
+2018-06-06 17:41:20.139  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelSourceBuffer as 'modelSourceBuffer'.
+2018-06-06 17:41:20.139  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.CalcJobBuffer as 'calcJobBuffer'.
+2018-06-06 17:41:20.140  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.log.LogBuffer as 'logBuffer'.
+2018-06-06 17:41:20.140  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.ModelFileBuffer as 'modelFileBuffer'.
+2018-06-06 17:41:20.141  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserInfoMapper as 'userInfoMapper'.
+2018-06-06 17:41:20.141  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.PersonMapper as 'personMapper'.
+2018-06-06 17:41:20.142  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.UserMapper as 'userMapper'.
+2018-06-06 17:41:20.143  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.test.mapper.FStateMapper as 'fStateMapper'.
+2018-06-06 17:41:20.144  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist bean : interface com.znd.bus.common.buffer.AdsNodeInfoBuffer as 'adsNodeInfoBuffer'.
+2018-06-06 17:41:20.144  INFO 13736 --- [main] com.znd.bus.config.DataBusConfig         : Succeed to regist channel : testChannel, type : CACHE
+2018-06-06 17:41:20.682  INFO 13736 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@19e4fcac: startup date [Wed Jun 06 17:41:14 CST 2018]; root of context hierarchy
+2018-06-06 17:41:20.764  INFO 13736 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-06-06 17:41:20.766  INFO 13736 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-06-06 17:41:20.835  INFO 13736 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:41:20.835  INFO 13736 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:41:20.891  INFO 13736 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-06-06 17:41:21.132  INFO 13736 --- [main] com.znd.bus.test.CalcJobBufferTest       : Started CalcJobBufferTest in 7.496 seconds (JVM running for 8.583)

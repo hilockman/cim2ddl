@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.znd.buffer.annotation.Index;
+import com.znd.bus.annotation.Index;
 import com.znd.bus.binding.BindingException;
 import com.znd.bus.binding.MapperRegistry;
 import com.znd.bus.binding.MethodType;
@@ -31,9 +31,10 @@ import com.znd.bus.channel.ChannelConfig;
 import com.znd.bus.channel.ChannelRegistry;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.log.Log;
-import com.znd.bus.log.LogMapper;
+import com.znd.bus.log.LogBuffer;
 import com.znd.bus.mapping.MappedStatement;
 import com.znd.bus.mapping.MappedStatement.Build;
+import com.znd.bus.mapping.RawArrayBufferMapper;
 import com.znd.bus.reflection.DefaultReflectorFactory;
 import com.znd.bus.reflection.MetaObject;
 import com.znd.bus.reflection.Reflector;
@@ -139,6 +140,7 @@ public class BufferConfig {
 	
 	public List<TableMeta> getAllTableMetas() {
 		List<String> tableNames =  bufferContext.getAllTableNames();
+		
 		List<TableMeta> tables = new ArrayList<>();
 		for (String tableName : tableNames) {
 			tables.add(getTableMeta(tableName));
@@ -175,6 +177,7 @@ public class BufferConfig {
 		if (tableMeta != null) {
 			tableMetas.add(tableMeta);
 			metaMap.put(tableName, tableMeta);
+			
 		}
 		return tableMeta;
 	}
@@ -190,6 +193,10 @@ public class BufferConfig {
 	}	
 	  
 	private void addType(Class<?> clazz) {
+		if (clazz.isEnum()) {
+			return;
+		}
+		
 		String tableName = clazz.getSimpleName();
 		if (containTable(tableName))
 			return;
@@ -199,6 +206,7 @@ public class BufferConfig {
 		
 		String[] names = reflector.getGetablePropertyNames();
 
+		//System.out.println("class : +"+clazz+", columns:["+Arrays.asList(names)+"]");
 		for (String name : names) {
 			ColumnMeta fieldMeta = new ColumnMeta();
 			fieldMeta.setName(name);
@@ -228,15 +236,16 @@ public class BufferConfig {
 	}	
 	
 
+	
 	  public void addTypes(String packageName, Class<?> superType) {
 	    ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<Class<?>>();
-	    resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
+	    resolverUtil.find(new ResolverUtil.IsA(superType), packageName.trim());
 	    Set<Class<? extends Class<?>>> mapperSet = resolverUtil.getClasses();
 	    for (Class<?> mapperClass : mapperSet) {
+	     // System.out.println(mapperClass+"<-"+packageName);
 	      addType(mapperClass);
 	    }
 	  }
-
 
 	  public void addTypes(String packageName) {
 	    addTypes(packageName, Object.class);
@@ -254,13 +263,19 @@ public class BufferConfig {
 	
 	private void addMappers() {	
 		bufferContext.initOperation();
+		
+		List<String> tableNames =  bufferContext.getAllTableNames();		
+		for (String tableName : tableNames) {
+			mapperRegistry.addRawMapper(tableName);	
+		}
+		
 		if (!mapperPackages.isEmpty()) {
 			
 			for (String mapperPackage : mapperPackages)
 				addMappers(mapperPackage);
 		}
 		
-		this.addMapper(LogMapper.class);
+		this.addMapper(LogBuffer.class);
 		//this.addMapper(CalcJobMapper.class);
 	}
 	
@@ -371,19 +386,27 @@ public class BufferConfig {
 		return mapperRegistry.getMapper(type, buffer);
 	}
 	
+	public RawArrayBufferMapper getMapper(Class<RawArrayBufferMapper> type,
+			String tableName, Buffer buffer) {
+		return mapperRegistry.getMapper(tableName, buffer);
+	}
+	
+	
 	public void addMappers(String packageName, Class<?> superType) {
-		    mapperRegistry.addMappers(packageName, superType);
+		mapperRegistry.addMappers(packageName, superType);
 	}
 
-	  public void addMappers(String packageName) {
+	public void addMappers(String packageName) {
 	    mapperRegistry.addMappers(packageName);
-	  }
+	}
 	
-	  public <T> void addMapper(Class<T> type) {
+	public <T> void addMapper(Class<T> type) {
 	    mapperRegistry.addMapper(type);
-	  }
+	}
 
 	public Collection<Class<?> > getMappers() {
+
+		
 		return mapperRegistry.getMappers();
 	}
 	public MappedStatement getMappedStatement(String statement) {
@@ -402,6 +425,8 @@ public class BufferConfig {
 			String name = ((Class<?>)sourceType).getSimpleName();
 			
 			if (name.endsWith("Mapper")) {
+				return name.substring(0, name.length() - 6);
+			} else if (name.endsWith("Buffer")) {
 				return name.substring(0, name.length() - 6);
 			}
 		}
@@ -425,15 +450,17 @@ public class BufferConfig {
 		
 	}
 	
-	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType, Class<?> sourceType) {
+	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType, Class<?> sourceType, String tableName) {
 	
-		String tableName = resolveTableName(sourceType);
+		if (tableName == null)
+		    tableName = resolveTableName(sourceType);
+		
 		if (tableName == null || tableName.isEmpty()) {
 			throw new BindingException("Informat mapper name , not endsWith 'mapper': "+sourceType.getName());
 		}
 //		Class<?> declaringClass = method.getDeclaringClass();
 //		
-//		String className = declaringClass.getSimpleName();
+//		String className = declaringClasmappedStatements.getSimpleName();
 //		if (!className.endsWith("Mapper")) {
 //			
 //			throw new BindingException("Informat mapper name , not endsWith 'mapper': "+declaringClass.getName());
@@ -445,7 +472,7 @@ public class BufferConfig {
 		MappedStatement mappedStatement = builder.build();
 		statementMap.put(id, mappedStatement);
 		
-		return getMappedStatement(id);
+		return mappedStatement;
 	}
 	
 
@@ -491,27 +518,19 @@ public class BufferConfig {
 	public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter) {
 		return new RoutingStatementHandler(executor, mappedStatement, parameter);
 	}
-
-
-
+	
 	public List<ChannelConfig> getChannels() {
 		return channels;
 	}
-
-
 
 	public void setChannels(List<ChannelConfig> channels) {
 		this.channels = channels;
 	}
 
-
 	public ChannelRegistry getChannelRegistry() {
 		return channelRegistry;
 	}
 
-
-	
-	
 	public <T> TaskQueue<T> getTaskList(String id) {
 		if (redissonClient == null)
 			return null;
@@ -519,13 +538,9 @@ public class BufferConfig {
 		return new TaskQueue<T>(redissonClient, id);
 	}
 	
-	
-
 	public void setRedissonConfig(RedissonNodeConfig redissonConfig) {
 		this.redissonConfig = redissonConfig;
 	}
-
-
 
 	public void setParent(BufferConfig defaultConfig) {
 		if (defaultConfig == null)
@@ -533,6 +548,9 @@ public class BufferConfig {
 		
 		this.redissonClient = defaultConfig.redissonClient;
 	}
-	
+
+
+
+
 	
 }

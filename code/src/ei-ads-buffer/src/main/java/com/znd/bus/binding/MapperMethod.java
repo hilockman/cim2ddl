@@ -57,7 +57,8 @@ public class MapperMethod {
 		return methodType;
 	}
 	
-	public MapperMethod(Class<?> mapperInterface, Method method, TypeHandlerRegistry typeHandlerRegistry) {
+	//static Integer n = new Integer(0);
+	public MapperMethod(Class<?> mapperInterface, Method method, TypeHandlerRegistry typeHandlerRegistry, String tableName) {
 		this.typeHandlerRegistry = typeHandlerRegistry;
 		methodType = getMethodType(method.getName());
 		if (methodType == null) {
@@ -82,7 +83,10 @@ public class MapperMethod {
 		returnsVoid =  void.class.equals(returnType);
 		returnsMany = (Collection.class.isAssignableFrom(this.returnType) || this.returnType.isArray());
 		
-		this.name = mapperInterface.getName()+"."+method.getName();
+		if (tableName == null)
+			this.name = mapperInterface.getName()+"."+method.getName();
+		else
+			this.name = tableName+"."+method.getName();
 		
 		if (!parameterExists) {
 			throw new BindingException("Unknown java.lang.reflect.Parameter");

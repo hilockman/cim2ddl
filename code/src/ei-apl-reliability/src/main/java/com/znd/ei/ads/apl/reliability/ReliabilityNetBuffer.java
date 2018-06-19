@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.znd.ads.model.FileInfo;
+import com.znd.ads.model.dto.FileInfo;
 import com.znd.ei.Utils;
 import com.znd.ei.ads.acp.AbstractConnectionFactory;
 import com.znd.ei.ads.acp.ListDataOperations;

@@ -6,6 +6,7 @@ public class AdsResult {
 
 	public static String SUCCESS_CODE = "OK";
 	public static String FAIL_CODE = "FAIL";
+	public static String WARNING_CODE = "WARING";
 	
 	private String code;
 	private Object value;
@@ -54,9 +55,16 @@ public class AdsResult {
 		return new AdsResult(SUCCESS_CODE, value);
 	}
 	
+	public static AdsResult ok() {
+		return new AdsResult(SUCCESS_CODE, null);
+	}
 	
 	public static AdsResult fail(String detail) {
 		return new AdsResult(FAIL_CODE, null, detail);
+	}
+	
+	public static AdsResult fail(Throwable e) {
+		return new AdsResult(FAIL_CODE, null, e.getMessage());
 	}
 	
 }

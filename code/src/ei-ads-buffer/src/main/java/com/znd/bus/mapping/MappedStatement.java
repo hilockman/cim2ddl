@@ -14,6 +14,7 @@ import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.ColumnMeta;
 import com.znd.bus.config.TableMeta;
 import com.znd.bus.mapping.impl.ObjectResultSetHandler;
+import com.znd.bus.mapping.impl.RawArrayResultHandler;
 import com.znd.bus.reflection.Reflector;
 import com.znd.bus.reflection.TypeParameterResolver;
 import com.znd.bus.type.TypeHandler;
@@ -147,7 +148,10 @@ public class MappedStatement {
 			  mappedStatement.conditionProperties = conditionParams.toArray(new ParameterMapping[0]);
 			  
 			  if (mappedStatement.resultType != null) {
-				  mappedStatement.resultSetHandler = new ObjectResultSetHandler<Object>(mappedStatement.resultType, 
+				  if (mappedStatement.sourceType == RawArrayBufferMapper.class) {
+					  mappedStatement.resultSetHandler = new RawArrayResultHandler(); 
+				  } else 
+					  mappedStatement.resultSetHandler = new ObjectResultSetHandler<Object>(mappedStatement.resultType, 
 						  mappedStatement.config.getReflectorFactory(), 
 						  mappedStatement.config.getTypeHandlerRegistry(),
 						  mappedStatement.getColumnIndexMap());			  

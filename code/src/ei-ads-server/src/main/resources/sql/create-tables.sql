@@ -131,6 +131,28 @@ CREATE TABLE `ads_node` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dump completed on 2017-05-25  9:07:35
+
+DROP TABLE IF EXISTS `model_source`;
+CREATE TABLE `model_source` (
+  `id` varchar(36) NOT NULL,
+  `name` varchar(20) DEFAULT NULL COMMENT '名称',
+  `description` varchar(50) DEFAULT NULL  COMMENT '描述',
+  `typeName` varchar(5) DEFAULT NULL COMMENT '类型',
+  `lastUpdate` datetime DEFAULT NULL COMMENT '最后更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `calc_job`;
+CREATE TABLE `calc_job` (
+  `id` varchar(36) NOT NULL,
+  `name` varchar(36) DEFAULT NULL COMMENT '名称',
+  `typeId` varchar(36) DEFAULT NULL COMMENT '类型id',
+  `modelId` varchar(36) DEFAULT NULL COMMENT '模型id',
+  `description` varchar(50) DEFAULT NULL  COMMENT '描述',
+  `parameter` varchar(1024) DEFAULT NULL  COMMENT '参数',
+  `state` varchar(10) DEFAULT 'created'  COMMENT '状态',
+  `start` datetime DEFAULT NULL COMMENT '开始时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

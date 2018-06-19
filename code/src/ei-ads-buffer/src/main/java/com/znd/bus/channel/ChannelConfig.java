@@ -5,7 +5,7 @@ public class ChannelConfig {
 	private ChannelType type;
 	
 	public ChannelConfig() {
-		this("common", ChannelType.SEND);
+		this("common", ChannelType.SendOnly);
 	}
 	public ChannelConfig(String name, ChannelType type) {
 		this.name = name; 

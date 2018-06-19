@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.config.BufferConfig;
+import com.znd.bus.mapping.RawArrayBufferMapper;
 
 
 @RunWith(SpringRunner.class)
@@ -21,10 +23,15 @@ public class BufferTest {
 	@Autowired
 	private Buffer defaultBuffer;
 	
+	@Autowired
+	private BufferConfig defaultBufferConfig;
+	
 	@Test
 	public void getRecords() {
 		
-		List<String []> records = defaultBuffer.selectList("User");
+		RawArrayBufferMapper m = defaultBufferConfig.getMapper(RawArrayBufferMapper.class,"User", defaultBuffer);
+		
+		List<String []> records = m.getAll();
 		
 		for (String [] record : records) {
 			System.out.println(String.join(",", record));

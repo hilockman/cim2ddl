@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.znd.buffer.common.model.User;
-import com.znd.buffer.common.model.UserInfo;
+import com.znd.ads.model.po.User;
+import com.znd.ads.model.po.UserInfo;
 
 /**
  * 

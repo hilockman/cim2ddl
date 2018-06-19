@@ -39,7 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.znd.ads.model.PRAdequacySetting;
+import com.znd.ads.model.dto.PRAdequacySetting;
 import com.znd.bus.task.TaskQueue;
 import com.znd.ei.Utils;
 import com.znd.reliability.config.ReliabilityProperties;

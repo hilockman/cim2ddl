@@ -1,5 +1,7 @@
 package com.znd.ads.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.znd.ads.model.AdsResult;
+import com.znd.ads.model.po.AdsNode;
 import com.znd.ads.service.NodeService;
-import com.znd.buffer.common.model.AdsNode;
 
 @Controller
 @RequestMapping("/node")
 public class NodeContoller {
 
 	@Autowired
-	NodeService nodeService;
+	private NodeService nodeService;
+	
 	
 	@PostMapping("/add")
 	public String add(@ModelAttribute AdsNode node, Model model) {
@@ -56,22 +59,41 @@ public class NodeContoller {
 	}
 	
 	@PostMapping("/delete/{nodeId}")
-	public @ResponseBody AdsResult delete(@PathVariable Integer nodeId) {		
+	public @ResponseBody AdsResult delete(@PathVariable String nodeId) {		
 		nodeService.deleteById(nodeId);
 		
 		return AdsResult.ok(null);
 	}
 	
+	@PostMapping("/update")
+	public @ResponseBody AdsResult update(AdsNode node) {
+		AdsNode oldNode = nodeService.getById(node.getId());
+		if (oldNode != null) {
+			oldNode.setName(node.getName());
+			oldNode.setUrl(node.getUrl());
+			nodeService.update(oldNode);
+			System.out.println("Succeed to update node:"+node);
+		}
+		
+		return AdsResult.ok(null);
+	}
+	
+	
 	@GetMapping("/{nodeId}")
-	public @ResponseBody AdsNode get(@PathVariable Integer nodeId) {		
+	public @ResponseBody AdsNode get(@PathVariable String nodeId) {		
 		return nodeService.getById(nodeId);
 	}
 	
+	@GetMapping("/all")
+	public @ResponseBody List getAll() {		
+		return nodeService.getAll();
+	}
+	
+	
 	@GetMapping("/edit/{nodeId}")
-	public String edit(@PathVariable Integer nodeId, Model model) {	
+	public String edit(@PathVariable String nodeId, Model model) {	
 		AdsNode node = nodeService.getById(nodeId);
 		model.addAttribute("node", node);
-		//model.addAttribute("name", node.getName()).addAttribute("id", node.getId()).addAttribute("url", node.getUrl());		
-		return "/new_or_update_node";
+		return "/node/editnode";
 	}
 }

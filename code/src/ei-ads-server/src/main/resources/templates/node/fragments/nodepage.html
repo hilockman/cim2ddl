@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>新建节点</title>
+    <div th:replace="fragments/header :: header-css">
+    </div>
+    <style>
+    	button#commit{
+    		flow:right;
+    	}
+    	#id-fitem {
+    		display:none;
+    	}
+    </style>
+</head>
+<body>
+  <div class="container-fluid">
+	    <div  id="add-node-form" class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 well"   th:fragment="form">		
+			<div class="panel-heading">
+				<h2>节点设置</h2>
+			</div>
+			<div class="panel-body">
+				<div class="fitem" id="id-fitem">
+					<p> 标志: <input type="text" name="id"
+						id="id" class="easyui-combobox"  th:value="${node?.id}"   readonly /></p>
+				</div>				
+				<div class="fitem">
+					<p> 节点名称: <input type="text" name="name"
+						id="name" class="easyui-combobox" placeholder="名称"  th:value="${node?.name}" required /></p>
+				</div>
+				<div class="fitem">
+					<p> 访问地址: <input type="url" name="url" id="url" class="easyui-combobox" placeholder="http://" th:value="${node?.url}" required /></p>
+				</div>
+			</div>				
+			<div>
+			  <button id="cmt" class="btn btn-primary active">保存</button>
+			  <a id="back"  class="btn btn-primary" href="/nodes">返回</a>
+			</div>	
+			<div id="error">
+			  <a class="close" data-dismiss="alert" href="#" aria-hidden="true"  th:value="${error}"></a>
+			</div>	
+		</div>
+  </div>
+  
+  <script  type="text/javascript">
+
+
+
+  </script>
+</body>
+</html>

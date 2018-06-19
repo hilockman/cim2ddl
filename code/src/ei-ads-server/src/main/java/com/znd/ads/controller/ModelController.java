@@ -1,60 +1,91 @@
 package com.znd.ads.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.znd.ads.model.CategroyInfo;
-import com.znd.ads.service.BufferService;
-import com.znd.ads.service.MemoryService;
+import com.znd.ads.model.AdsResult;
+import com.znd.ads.model.ModelData;
+import com.znd.ads.model.po.ModelSource;
+import com.znd.ads.service.JobService;
+import com.znd.ads.service.ModelService;
+import com.znd.bus.common.model.CalcJob;
 
-@RestController
+@Controller
 @RequestMapping("/model")
 public class ModelController {
-	@Autowired
-	private BufferService bufferService;
+	@Autowired 
+	private ModelService modelService;
 	
 	@Autowired
-	private MemoryService memoryService;
+	private JobService jobService;
 	
-    @GetMapping("/categories")
-    public List getCategories() {
-    	List<CategroyInfo> bufferItems = bufferService.getDbNodes();
+	 @GetMapping("/browse/{modelId}")
+	 public String browse(@PathVariable String modelId, Model m) {
+		
+		 ModelSource ms = modelService.findModel(modelId);
+		 m.addAttribute("modelSource", ms);
+		 return "model";
+	 }
+	 
+    /**
+     * 获得所有模型目录名称
+     * @return
+     */
+    @GetMapping("/all")
+    public @ResponseBody List getAll() {
     	
-    	List<CategroyInfo> memoryItems = memoryService.getDbNodes();
+    	return  modelService.getAll();
+	 }	 
+
+    /**
+     * 获得所有模型目录名称
+     * @return
+     */
+    @GetMapping("/roots")
+    public @ResponseBody List getRoots() {
     	
-    	List<CategroyInfo> items = new ArrayList<>();
-    	if (bufferItems != null)
-    		items.addAll(bufferItems);
-    	
-    	if (memoryItems != null)
-    		items.addAll(memoryItems);
-    	
-        return items;
-    }
+    	return  modelService.getRoots();
+	 }	 
     
-    @GetMapping("/tables/{dbtype}/{dbid}")
-    public List getTables(@PathVariable String dbtype, @PathVariable String dbid) {
-    	if (dbtype.equalsIgnoreCase(CategroyInfo.MEMORY)) {
-    		return memoryService.getTableNodes(dbid);
-    	} else if (dbtype.equalsIgnoreCase(CategroyInfo.BUFFER)) {
-    		return bufferService.getTableNodes(dbid);
-    	} else {
-    		return null;
+    
+    @PostMapping("/upload")
+    public @ResponseBody AdsResult upload(ModelData model) {
+    	try {
+    		modelService.upload(model);
+    		return AdsResult.ok();
+    	} catch (Throwable e) {
+    		//e.printStackTrace();
+    		return AdsResult.fail(e.getMessage());
     	}
-        
     }
     
-    @GetMapping("/records/{dbtype}/{dbid}/{tableid}")
-    public List getRecords(@PathVariable String dbtype, @PathVariable String dbid, @PathVariable String tableid) {
-        return Arrays.asList("FState", "FDev");
-    } 
-    
+    @PostMapping("/remove/{modelId}") 
+    public @ResponseBody AdsResult remove(@PathVariable String modelId) {
+    	try {
+    		List<CalcJob> jobs = jobService.findByModel(modelId);
+    		if (jobs != null && !jobs.isEmpty()) {
+    			List<String> names = new ArrayList<>();
+    			for (CalcJob job : jobs) {
+    				names.add(job.getName());
+    			}
+    			return AdsResult.fail(String.format("模型'%s'已被工作使用：%s", modelId, String.join(",", names)));
+    		}
+    		modelService.remove(modelId);
+    		return AdsResult.ok();
+    	} catch (Throwable e) {
+    		//e.printStackTrace();
+    		return AdsResult.fail(e.getMessage());
+    	}
+    }
     
 }
+
