@@ -210,7 +210,7 @@ public class JobServiceImpl implements JobService {
 		logger.info("sendMessage : cc = {}, content = {}. ",
 		"created_ReliabilityJob", jobId);
 		
-		jobChannel.send(new Message(MessageCodeEnum.created_Job, jobId));
+		jobChannel.send(new Message(MessageCodeEnum.created_job, jobId));
 
 	}
 	@Override
@@ -245,7 +245,7 @@ public class JobServiceImpl implements JobService {
 			job.setId(Utils.randomKey());
 		}
 		job.setStart(new Date());
-		job.setState(CalcJobStateEnum.created);
+		//job.setState(CalcJobStateEnum.created);
 		prepareAndPublishJob(job);
 		
 		jobBuffer.insert(job);

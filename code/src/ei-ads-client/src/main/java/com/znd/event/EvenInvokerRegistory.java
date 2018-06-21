@@ -1,6 +1,5 @@
 package com.znd.event;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +21,9 @@ import com.znd.apl.annotation.AplFunction;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.ei.ClassFilter;
 import com.znd.ei.Utils;
+import com.znd.exception.EventException;
 
-@Component
+//@Component
 public class EvenInvokerRegistory {
 
 	private static final Logger logger = LoggerFactory
@@ -35,14 +34,27 @@ public class EvenInvokerRegistory {
 	
 	private final List<AplBean> aplBeans = new ArrayList<>();
 
+	private Map<String, AplBean> aplMap = new HashMap<>();
 	
-	private Map<MessageCodeEnum, EvenInvoker> listenerMap = new HashMap<>();
-	public EvenInvoker find(MessageCodeEnum code) {
-		return listenerMap.get(code);
+	private final Map<String, Map<String, EvenInvoker>> invoderMap = new HashMap<>();
+	
+	
+		
+	public EvenInvoker find(String jobType, MessageCodeEnum code) {
+		Map<String, EvenInvoker> m = invoderMap.get(jobType);
+		if (m == null)
+			throw new EventException("Fail to find invoker map , jobtype : "+ jobType);
+		EvenInvoker invoker = m.get(code.name());
+		
+		
+		if (invoker == null)
+			throw new EventException("Fail to find envent invoker , job:"+jobType+", event code : "+ code);
+		
+		return invoker;
 	}
 
 	
-	@PostConstruct
+	
 	public void init(ApplicationContext context) {
 		loadApls(context);
 	}
@@ -58,16 +70,23 @@ public class EvenInvokerRegistory {
 
 		while (it.hasNext()) {
 			Class<?> c = it.next();
-			//Annotation a = c.getAnnotation(AplController.class);
-			//AplController apl = (AplController) a;
+			AplController apl = c.getAnnotation(AplController.class);
+
 
 			// 从spring上下文获得apl对象
 			Object app = context.getBean(c);
 			
 			Method[] methods = c.getMethods();
 			
-			AplBean aplBean = new AplBean.AplBeanBuilder(app).build();
-			aplBeans.add(aplBean );
+			AplBean aplBean = new AplBean.AplBeanBuilder(app, apl).build();
+			aplBeans.add(aplBean);
+			
+			if (aplMap.containsKey(aplBean.getJobType())) {
+				throw new EventException("Apl exists for jobtype: "+ aplBean.getJobType());
+			}
+			
+			aplMap.put(aplBean.getJobType(), aplBean);
+			
 			for (Method m : methods) {
 
 				AplFunction af = m.getAnnotation(AplFunction.class);
@@ -87,13 +106,25 @@ public class EvenInvokerRegistory {
 						c.getName(), m.getName(),
 						"[" + String.join(" ", paramTypeNames) + "]"));
 				
-				listenerMap.put(af.in(), new EvenInvoker.EvenListenerBulder(app, m, aplBean.getContext()).build());
+				Map<String, EvenInvoker> map = invoderMap.get(aplBean.getJobType());
+				if (map == null) {
+					map = new HashMap<>();
+					invoderMap.put(aplBean.getJobType(), map);
+				}
+				
+				EvenInvoker listener = new EvenInvoker.EvenListenerBulder(app, m, aplBean.getContext()).build();
+				map.put(listener.getInputMessage().name(), listener);
 
 			}
 
 		}
 
 		
+	}
+
+
+	public AplBean findApl(String typeId) {
+		return aplMap.get(typeId);
 	}
 
 }

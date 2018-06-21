@@ -1,0 +1,18 @@
+
+CASE RTS79系统可靠性-蒙特卡洛抽样算法
+
+//FINP表示输入文件
+FILE PFDAT  RTS79
+FILE SWIDAT RTS79
+FILE RMLDAT RTS79
+
+//Sequential表示抽样算法，第1个数是抽样计算时间,第2、3个是最大发电机和支路故障重数
+CALI Sequential 1000000 10 10
+
+//EVAL表示后果分析
+//PFMinLCut是最新的交流潮流分析方法，当系统不收敛的时候，将所有的负荷处理成恒阻抗负荷，该功能目前不完善
+EVAL PFMinLCut 
+
+ViewEstimateResult 1
+
+

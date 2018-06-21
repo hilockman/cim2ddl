@@ -255,9 +255,13 @@ public  class BufferContext {
 	public boolean isBufferDefineChanged(BufferConfig config) {
 		List<TableMeta> changedTables = new ArrayList<>();
 		List<String> tableNames;
-		try {
-			tableNames = (bufferOperation != null) ? bufferOperation
-					.getTableNameArray() : new ArrayList<>();
+		//try {
+			try {
+				tableNames = (bufferOperation != null) ? bufferOperation
+						.getTableNameArray() : new ArrayList<>();
+			} catch (RedissonDBException e) {
+				throw new BindingException("Fail to getTableNameArray:", e);
+			}
 			TableMeta[] tableMetas = config.getCachedTableMetas();
 			for (TableMeta tableMeta : tableMetas) {
 				
@@ -266,25 +270,42 @@ public  class BufferContext {
 					changedTables.add(tableMeta);
 					continue;
 				}
-												
-				RTableOperation ops = bufferOperation.getTableOperation(tableMeta.getName());
-				List<String> columnNames = ops.getColumnNameArray();
-				List<RedisColumnContent> columnDefines = new ArrayList<>();
-				for (String columnName : columnNames){
-					columnDefines.add(ops.getColumnDefine(columnName));
+				
+				List<RedisColumnContent> columnDefines = null;
+				List<String> columnNames = null;
+				RTableOperation ops = null;
+				try {
+					ops = bufferOperation.getTableOperation(tableMeta.getName());
+				} catch (RedissonDBException e) {
+					throw new BindingException("Fail to getTableOperation: table = "+tableMeta.getName(), e);
+				}	
+				
+				try {
+				   columnNames  = ops.getColumnNameArray();
+				} catch (RedissonDBException e) {
+					throw new BindingException("Fail to getColumnNameArray: table = "+tableMeta.getName(), e);
 				}
+				
+				columnDefines = new ArrayList<>();
+				for (String columnName : columnNames){
+					try {
+					  columnDefines.add(ops.getColumnDefine(columnName));
+					} catch (RedissonDBException e) {
+						throw new BindingException("Fail to getColumnDefine: table = "+tableMeta.getName()+", columnName = "+columnName, e);
+					}	
+				}
+				
 				if (isTableChanged(columnDefines, tableMeta)) {
-					changedTables.add(tableMeta);
-					
+					changedTables.add(tableMeta);					
 				}
 			}
 			
 			if (!changedTables.isEmpty()) 
 				return true;	
 		
-		} catch (RedissonDBException e) {
-			throw new BindingException(e.getMessage(), e);
-		}
+//		} catch (RedissonDBException e) {
+//			throw new BindingException(e.getMessage(), e);
+//		}
 			
 		return false;
 	}

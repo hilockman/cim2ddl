@@ -24,6 +24,7 @@ public interface CalcJobMapper {
 			  @Result(property = "modelId", column = "modelId"),
 			  @Result(property = "typeId", column = "typeId"),
 			  @Result(property = "start", column = "start"),
+			  @Result(property = "end", column = "end"),
 			  @Result(property = "state", column = "state")
 			})
 	@Select("select * from calc_job where id = #{id}")

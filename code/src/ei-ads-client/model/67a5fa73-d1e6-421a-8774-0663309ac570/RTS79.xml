@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<BpaPRParam>
+    <BpaPRParamCommon>
+        <Param ParamType="0" DevType="Gen" KeyWord="ALL" UpVLimit="9999" DnVLimit="0" UpCapLimit="160" DnCapLimit="0" Rerr="207.952" Trep="41.884" />
+        <Param ParamType="0" DevType="Gen" KeyWord="ALL" UpVLimit="9999" DnVLimit="0" UpCapLimit="250" DnCapLimit="160" Rerr="268.031" Trep="45.85" />
+        <Param ParamType="0" DevType="Gen" KeyWord="ALL" UpVLimit="9999" DnVLimit="0" UpCapLimit="9999" DnCapLimit="250" Rerr="356.878" Trep="33.761" />
+    </BpaPRParamCommon>
+    <BpaPRParamDev>
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@1" Rerr="19.467" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@2" Rerr="19.467" Trep="50" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@3" Rerr="4.4694" Trep="40" />
+        <RParam ParamType="1" ParamSource="1" DevType="Gen" KeyWord="BUS_1138@4" Rerr="4.4694" Tre

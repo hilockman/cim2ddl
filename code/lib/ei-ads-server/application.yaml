@@ -10,11 +10,13 @@ logging:
   level:
      interfaceLogger: OFF
      org.redisson: OFF
+     com.znd.bus.buffer.BufferContext: DEBUG
         
 server:
   session-timeout : 3600
   name: ei-ads-server
   port: 8080
+  
 model:
   cachedDir: ./model-cached-dir  
 
@@ -28,7 +30,7 @@ spring:
     
 #mynatis配置
 mybatis:
-  type-aliases-package: com.znd.buffer.common.model
+  type-aliases-package: com.znd.ads.model.po
   #mapper加载路径
   mapper-locations: classpath:mapper/*Mapper.xml
   #myatbis配置文件
@@ -38,11 +40,14 @@ mybatis:
 buffer:
    channels:
        -
+         name : jobChannel
+         type : SendOnly      
+       -
          name : commonChannel
-         type : CACHE
-   typePackage: com.znd.buffer.common.model
+         type : Share
+   typePackage: com.znd.ads.model.po, com.znd.bus.common.model
    #mapper加载路径
-   mapperPackage: com.znd.buffer.common.mapper
+   mapperPackage: com.znd.bus.common.buffer
    id:  0
    name: common
    alias: 公共

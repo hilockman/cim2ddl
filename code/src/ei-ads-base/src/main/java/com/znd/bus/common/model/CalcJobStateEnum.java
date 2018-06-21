@@ -3,12 +3,15 @@ package com.znd.bus.common.model;
 
 public enum CalcJobStateEnum {
 
-
-	created,
-
+	//正在执行
 	running,
 	
+	//暂停
 	suspend,
 	
-	stop
+	//停止
+	stop,
+	
+	//异常
+	abnormal
 }

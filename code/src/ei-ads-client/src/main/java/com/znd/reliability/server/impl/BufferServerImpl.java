@@ -43,7 +43,7 @@ public class BufferServerImpl implements BufferServer {
 	private final FStateMIslandBuffer islandMapper;
 	
 	public static final String TYPE_PACKAGE = "com.znd.ei.memdb.reliabilty.domain";
-	public static final String MAPPER_PACKAGE = "com.znd.reliability.mapper";
+	public static final String MAPPER_PACKAGE = "com.znd.reliability.buffer";
 	
 	public BufferServerImpl(Buffer parentBuffer, CalcJob job) {
 	

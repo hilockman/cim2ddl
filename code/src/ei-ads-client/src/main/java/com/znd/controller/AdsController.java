@@ -18,6 +18,9 @@ public class AdsController {
 	@Autowired
 	private SystemResourceServer resourceServer;
 	
+	public AdsController() {
+		
+	}
 	@GetMapping("/node")
 	public AdsNodeInfo getNode() {
 		AdsNodeInfo node = client.getNode();

@@ -43,7 +43,7 @@ public class ReliabilityServiceImpl implements ReliabilityService {
 		info.setModelId(modelName);
 		info.setStart(new Date());
 		info.setParameter(parameter);
-		info.setState(CalcJobStateEnum.created);
+		//info.setState(CalcJobStateEnum.created);
 		info.setId(Utils.randomKey());
 		calcJobMapper.save(info);
 		logger.debug("Created job :"+modelName);
@@ -93,7 +93,7 @@ public class ReliabilityServiceImpl implements ReliabilityService {
 		
 		logger.info("sendMessage : cc = {}, content = {}. ",
 		"created_ReliabilityTask", modelName);
-        sendMessage(new Message(MessageCodeEnum.created_Job, modelName));
+        sendMessage(new Message(MessageCodeEnum.created_job, modelName));
 		
 		
 		return info.getId();

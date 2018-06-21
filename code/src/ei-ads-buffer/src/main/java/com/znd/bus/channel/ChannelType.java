@@ -8,5 +8,4 @@ public enum ChannelType {
 	
 	//独立队列
 	StandAlone
-
 }

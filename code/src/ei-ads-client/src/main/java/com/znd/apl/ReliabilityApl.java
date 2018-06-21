@@ -2,9 +2,7 @@ package com.znd.apl;
 
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
@@ -22,15 +20,16 @@ import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.buffer.ModelFileBuffer;
 import com.znd.bus.common.model.CalcJob;
-import com.znd.bus.common.model.CalcJobStateEnum;
-import com.znd.bus.common.model.ModelFile;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlAd;
 import com.znd.ei.memdb.reliabilty.domain.FStateOvlDev;
+import com.znd.event.AplContext;
 import com.znd.exception.AplException;
+import com.znd.memory.DatabaseType;
+import com.znd.memory.ShareMemHolder;
 import com.znd.reliability.config.ReliabilityProperties;
 import com.znd.reliability.server.BufferServer;
 import com.znd.reliability.server.PrMemoryServer;
@@ -71,7 +70,12 @@ public class ReliabilityApl {
 	
 	@Autowired
 	private Channel commonChannel;
-
+	
+	
+	@Autowired
+	private ShareMemHolder memHolder;
+	
+	
 	public ReliabilityApl(ReliabilityProperties properties) {
 		
 		this.properties = properties;
@@ -85,6 +89,8 @@ public class ReliabilityApl {
 
 		appDir = Paths.get(appDir).toAbsolutePath().toString();
 		logger.info("reliability appdir : "+appDir);
+		
+		//System.exit(0);
 	} 
 
 
@@ -151,22 +157,22 @@ public class ReliabilityApl {
 	
 
 
-	public void reliability(String jobId) {
-		
+	public void reliability(String jobId) {		
 		CalcJob job = calcJobBuffer.findById(jobId);
 		
 		if (job == null) {
 			throw new AplException("Cann't find job id : "+jobId );
 		}
-		String modelId = job.getModelId();
+		//String modelId = job.getModelId();
 		logger.info("Begin to reliability analysis : "+jobId);
 		
-		BufferServerImpl bufferServer = new BufferServerImpl(defaultBuffer, job);
+		BufferServer bufferServer = new BufferServerImpl(defaultBuffer, job);
 		bufferServer.clear();
 		
 		PRAdequacySetting setting = CalcJob.getConfig(job);
 		if (setting == null)
-			throw new AplException("Can't resolve setting : " + modelId);
+			throw new AplException("Can't resolve job setting : " + jobId);
+		
 		sample(setting);
 		List<FState> fstates = memoryServer.findAllFStates();
 		List<FStateFDev> devs = memoryServer.findAllFStateFDevs();
@@ -174,7 +180,7 @@ public class ReliabilityApl {
 			throw new AplException("fstate is empty : "+job.getId());
 		}
 		bufferServer.updateTasks(fstates, devs);		 
-		ProxyServer server = new ReliabilityProxyServer(properties, modelId, bufferServer.getTaskList(), bufferServer, setting);
+		ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);
 	
 		server.exec();
 	}
@@ -203,15 +209,15 @@ public class ReliabilityApl {
 		List<FStateMIsland> islands = bufferServer.getIslands();
 		
 			 
-		 Collections.sort(ovlAds, (a, b)->a.getFStateId().compareTo(b.getFStateId()));			 
-		 Collections.sort(ovlDevs, (a, b)->a.getFStateId().compareTo(b.getFStateId()));		 
-		 Collections.sort(fstates, (a, b)->a.getFStateID().compareTo(b.getFStateID()));	 
-		 Collections.sort(islands, (a, b)->a.getFStateId().compareTo(b.getFStateId()));
+		Collections.sort(ovlAds, (a, b)->a.getFStateId().compareTo(b.getFStateId()));			 
+		Collections.sort(ovlDevs, (a, b)->a.getFStateId().compareTo(b.getFStateId()));		 
+		Collections.sort(fstates, (a, b)->a.getFStateID().compareTo(b.getFStateID()));	 
+		Collections.sort(islands, (a, b)->a.getFStateId().compareTo(b.getFStateId()));
 
 			 		 		 
 		 memoryServer.saveOvlDevs(ovlDevs);
 		 memoryServer.saveOvlAds(ovlAds);
-		 memoryServer.saveFatates(fstates);
+		 memoryServer.saveFStates(fstates);
 		 memoryServer.saveIslands(islands);
 		 
 		PRAdequacySetting config = CalcJob.getConfig(job);
@@ -219,56 +225,84 @@ public class ReliabilityApl {
 	}
 	
 	
-	private void initModelFile(CalcJob job) {
+	private void initModel(CalcJob job) {
 
 		String modelId = job.getModelId();
 		if (modelId == null) {
 			throw new AplException("Job's model id is null : "+modelId);
 		}
 		
-		List<ModelFile> files = modelFileBuffer.findBy(modelId);
-		if (files == null || files.isEmpty()) {
-			throw new AplException("Mode file is empty : modelId="+modelId);
+		if (memHolder.getCurrentModelSource() != null && memHolder.getCurrentModelSource().compareTo(modelId) == 0) {
+			logger.info("Job({})'s model is same with current model : {}", job.getId(), modelId);
+			return;
 		}
 		
-		File dir = new File("./var/reliability/model/"+modelId);
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-	
-		for (ModelFile f : files) {
-			Path filePath = Paths.get(dir.getAbsolutePath(), f.getName());
-			File file = filePath.toFile();
-			FileWriter fw = null;
-			try {
-				fw = new FileWriter(file);
-				
-				
-				String fileContent = f.getContent();
-				fw.write(fileContent);				
-								
-				fw.close();
-			} catch (IOException e) {
-				
-				throw new AplException("Fail to save file :"+file.getAbsolutePath(), e);
-			}		
-			logger.info("Succed to save file : {} ", file.getAbsolutePath());
-		}
-
+		memHolder.reload(modelId, DatabaseType.BPA);
+		memHolder.reload(modelId, DatabaseType.PR);
+		
+		logger.info("Job({})'model is loaded: {}.", job.getId(), modelId);
 		
 	}
 	
-	@AplFunction(in = MessageCodeEnum.created_Job)
-	public void createdJob(String jobId) {
+	@AplFunction(value="initBuffer", desc="初始化缓存", in = MessageCodeEnum.created_job, out = MessageCodeEnum.created_reliability_task)
+	public void initBuffer(String jobId, AplContext context) {
 		CalcJob job = calcJobBuffer.findById(jobId);
 		if (job == null) {
 			throw new AplException("Job is null : "+jobId);
 		}
 		
-		initModelFile(job);
+		//初始化模型
+		initModel(job);
 		
-		job.setState(CalcJobStateEnum.running);
-		calcJobBuffer.update(job);
+		
+		
+		//初始化任务
+		logger.info("Begin to reliability analysis : "+jobId);
+		
+		BufferServer bufferServer = new BufferServerImpl(defaultBuffer, job);
+		bufferServer.clear();
+		
+		PRAdequacySetting setting = CalcJob.getConfig(job);
+		if (setting == null)
+			throw new AplException("Can't resolve job setting : " + jobId);
+		
+		sample(setting);
+		List<FState> fstates = memoryServer.findAllFStates();
+		List<FStateFDev> devs = memoryServer.findAllFStateFDevs();
+		if (fstates.isEmpty() || devs.isEmpty()) {
+			throw new AplException("fstate is empty : "+job.getId());
+		}
+		bufferServer.updateTasks(fstates, devs);	
+		
+		
+		context.setAttribute("buffer", bufferServer);
+	}
+	
+	@AplFunction(in=MessageCodeEnum.created_reliability_task)
+	public void reliability(String jobId, AplContext context) {
+		CalcJob job = calcJobBuffer.findById(jobId);
+		if (job == null) {
+			throw new AplException("Job is null : "+jobId);
+		}
+		
+		//初始化模型
+		initModel(job);
+		
+		BufferServer bufferServer = (BufferServer) context.getAttribute("buffer");
+		if (bufferServer == null) {
+			bufferServer = new BufferServerImpl(defaultBuffer, job);
+		}
+		
+		PRAdequacySetting setting = CalcJob.getConfig(job);
+		if (setting == null)
+			throw new AplException("Can't resolve job setting : " + jobId);
+	
+		//充裕度评估
+		ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
+		server.exec();
+		
+
+		reliabilityIndex(jobId);
 	}
 	
 }

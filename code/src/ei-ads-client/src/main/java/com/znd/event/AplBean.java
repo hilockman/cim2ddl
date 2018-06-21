@@ -1,9 +1,11 @@
 package com.znd.event;
 
+import com.znd.apl.annotation.AplController;
+
 public class AplBean {
 
 	
-	
+	private String jobType;
 	private Object aplObject;
 	
 	private final AplContext context = new AplContext();
@@ -11,8 +13,9 @@ public class AplBean {
 	public static class AplBeanBuilder {
 		private AplBean apl = new AplBean(); 
 		
-		public AplBeanBuilder(Object object) {
-			apl.setAplObject(object);
+		public AplBeanBuilder(Object object, AplController a) {
+			apl.aplObject = object;
+			apl.jobType = a.value();
 		}
 		
 		public AplBean build() {
@@ -32,7 +35,10 @@ public class AplBean {
 	}
 
 
-	public void setAplObject(Object aplObject) {
-		this.aplObject = aplObject;
+
+	public String getJobType() {
+		return jobType;
 	}
+
+
 }

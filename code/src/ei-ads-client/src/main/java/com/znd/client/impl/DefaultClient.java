@@ -12,19 +12,26 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.Event;
-import com.znd.bus.channel.Listener;
+import com.znd.bus.channel.Message;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.AdsNodeInfoBuffer;
+import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.model.AdsNodeInfo;
+import com.znd.bus.common.model.CalcJob;
+import com.znd.bus.common.model.CalcJobStateEnum;
 import com.znd.client.Client;
 import com.znd.config.ClientConfig;
+import com.znd.event.AplBean;
 import com.znd.event.AplContext;
 import com.znd.event.EvenInvoker;
 import com.znd.event.EvenInvokerRegistory;
 import com.znd.exception.AplException;
+import com.znd.exception.EventException;
+import com.znd.memory.ShareMemHolder;
 import com.znd.model.SystemResourceInfo;
 import com.znd.server.impl.SystemResourceServerImpl;
 
@@ -34,8 +41,8 @@ public class DefaultClient implements Client {
 	private final Logger logger = LoggerFactory
 			.getLogger(DefaultClient.class);
 	
-	@Autowired
-	private EvenInvokerRegistory evenListenerRegistory;
+	//@Autowired
+	private EvenInvokerRegistory evenListenerRegistory = new EvenInvokerRegistory();
 
 	@Autowired
 	private ClientConfig config;
@@ -50,10 +57,26 @@ public class DefaultClient implements Client {
 	@Autowired
 	private Channel jobChannel;
 	
+	@Autowired
+	private CalcJobBuffer calcJobBuffer;
+	
+	
 	private ExecutorService pool =  Executors.newCachedThreadPool();
+	
+	@Autowired
+    private ApplicationContext context;
 		
+	
+	@Autowired
+	private ShareMemHolder shareMemHolder;
+	
+	public DefaultClient() {
+		
+	}
 	@PostConstruct
 	public void start() {
+		
+		evenListenerRegistory.init(context);
 		config.getThreadPool().execute(new Runnable() {
 			
 			@Override
@@ -80,22 +103,78 @@ public class DefaultClient implements Client {
 			}
 		});
 		
-		jobChannel.register(new Listener() {
-			
-			@Override
-			public void receive(Event e) {
-				System.out.println("Receive message :"+e.getCode()+", content="+e.getContent());
-				node.setAccMsgCount(node.getAccMsgCount()+1);
-				node.setCurMsgCount(node.getAccMsgCount()+1);
-				adsNodeBuffer.update(node);
-				
-				final EvenInvoker evenListener = evenListenerRegistory.find(e.getCode());
-				if (evenListener != null)
-				    pool.execute(()->{processEvent(evenListener, e);});
-			     
-		    } 
-		});
+		jobChannel.register((e)-> {pool.execute(()->{processEvent(e);});});
 	}
+
+	private void processEvent(Event e) {
+		System.out.println("Receive message :"+e.getCode()+", content="+e.getContent());
+		node.setAccMsgCount(node.getAccMsgCount()+1);
+		node.setCurMsgCount(node.getAccMsgCount()+1);
+		adsNodeBuffer.update(node);
+		
+		//if (e.getCode() == MessageCodeEnum.created_Job || e.getCode() == MessageCodeEnum.stop_Job
+		
+		String content = e.getContent();
+		CalcJob job = null;
+		if (content != null && !content.isEmpty())
+		   job  = calcJobBuffer.findById(content);
+		
+		if (job != null) {
+			
+			AplBean aplBean = evenListenerRegistory.findApl(job.getTypeId());
+		    if (aplBean == null) {
+		    	logger.info("Can't process job :id = {} ,type= {}", job.getId(), job.getTypeId());
+		    	return;
+		    }
+		    
+		    final AplContext context = aplBean.getContext();
+		    if (e.getCode() == MessageCodeEnum.stop_Job) {
+		    	
+				context.setQuit();
+				long timeout = 60 * 1000 * 5;
+				try {
+					context.waitForJobQuit(timeout);
+				} catch (InterruptedException e1) {
+					throw new AplException("Fail to stop job， waiting is timeout :"+e.getContent(), e1);
+				} finally {
+					context.clear();
+					shareMemHolder.clear();
+				}
+	    	
+				return;
+			} else if (e.getCode() == MessageCodeEnum.created_job) {
+				context.setRunning(true);
+				
+				job.setState(CalcJobStateEnum.running);
+				calcJobBuffer.update(job);
+			}
+		    
+			//保存工作id到apl执行上下文中，用于方法调用
+		    final EvenInvoker evenListener = evenListenerRegistory.find(job.getTypeId(), e.getCode());
+		    
+			context.setAttribute("jobId", job.getId());
+			context.setAttribute("job", job);
+			
+		    if (evenListener != null) {
+		    	
+		    	try {
+		           evenListener.invoke(e.getContent());
+		    	} catch (EventException e3) {
+		    		job.setState(CalcJobStateEnum.abnormal);
+		    		calcJobBuffer.update(job);
+		    		context.clear();
+		    		throw e3;
+		    	}
+		        MessageCodeEnum outMessage = evenListener.getOutputMessage();
+		        if (outMessage != null && outMessage != MessageCodeEnum.none) {
+		        	jobChannel.send(new Message(outMessage, job.getId()));
+		        }
+		    }
+           
+		    
+		}
+	}
+		
 
 	public AdsNodeInfo getNode() {
 		synchronized(node) {
@@ -104,27 +183,7 @@ public class DefaultClient implements Client {
 	}
 	
 	
-	private void processEvent(EvenInvoker invoker, Event e){
-		
-		AplContext context = invoker.getContext();
-		if (e.getCode() == MessageCodeEnum.stop_Job) {
-			context.setQuit();
-			long timeout = 60 * 1000 * 5;
-			try {
-				context.waitForJobQuit(timeout);
-			} catch (InterruptedException e1) {
-				throw new AplException("Fail to stop job， waiting is timeout :"+e.getContent(), e1);
-			} finally {
-				context.clear();
-			}
-			return;
-		} else if (e.getCode() == MessageCodeEnum.created_Job) {
-			//保存工作id到apl执行上下文中，用于方法调用
-			context = invoker.getContext();
-			context.setAttribute("jobId", e.getContent());
-		}
-		invoker.invoke(e.getContent());
-	}
+
 	
 	//初始化计算节点配置
 	private void init() {

@@ -35,7 +35,7 @@ buffer:
        -
          name : jobChannel
          type : Share   
-   typePackage: com.znd.bus.common.model
+   typePackage: com.znd.ads.model.po, com.znd.bus.common.model
    #mapper加载路径
    mapperPackage: com.znd.bus.common.buffer
    id:  0

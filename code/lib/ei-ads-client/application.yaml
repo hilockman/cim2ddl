@@ -24,14 +24,20 @@ ads:
     dir: ./temp
   appDir: D:\GitHub\cim2ddl\code\bin_x64
 
+model:
+  cachedDir: ./model
+
 buffer:
    channels:
        -
          name : commonChannel
-         type : CACHE
-   typePackage: com.znd.buffer.common.model
+         type : Share
+       -
+         name : jobChannel
+         type : Share   
+   typePackage: com.znd.ads.model.po, com.znd.bus.common.model
    #mapper加载路径
-   mapperPackage: com.znd.buffer.common.mapper
+   mapperPackage: com.znd.bus.common.buffer
    id:  0
    name: common
    alias: common

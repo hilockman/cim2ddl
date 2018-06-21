@@ -7,6 +7,10 @@ public class MemoryException extends RuntimeException {
 		super(string, e);
 	}
 
+	public MemoryException(String string) {
+		super(string);
+	}
+
 	/**
 	 * 
 	 */

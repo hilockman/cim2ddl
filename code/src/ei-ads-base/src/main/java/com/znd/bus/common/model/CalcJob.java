@@ -39,9 +39,9 @@ public class CalcJob {
 	@Comment(alias="最大步骤数")
 	private Integer maxStep;
 	
-	@Comment(alias="状态", tr="created:新建;running:正在执行;")
-	private CalcJobStateEnum state;
-	
+	@Comment(alias="状态", tr="running:正在执行,suspend:暂停,stop:停止,abnormal:异常")
+	private CalcJobStateEnum state = CalcJobStateEnum.stop;
+		
 	@Comment(alias="开始时间")
 	private Date start;
 	

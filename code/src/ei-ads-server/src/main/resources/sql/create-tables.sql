@@ -150,8 +150,9 @@ CREATE TABLE `calc_job` (
   `modelId` varchar(36) DEFAULT NULL COMMENT '模型id',
   `description` varchar(50) DEFAULT NULL  COMMENT '描述',
   `parameter` varchar(1024) DEFAULT NULL  COMMENT '参数',
-  `state` varchar(10) DEFAULT 'created'  COMMENT '状态',
+  `state` varchar(10) DEFAULT 'stop'  COMMENT '状态',
   `start` datetime DEFAULT NULL COMMENT '开始时间',
+  `end` datetime DEFAULT NULL COMMENT '结束时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

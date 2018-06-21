@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-//Retention注解决定MyAnnotation注解的生命周期
-@Target( { ElementType.METHOD, ElementType.TYPE })
+@Target( ElementType.TYPE)
 @Inherited
 @Component
 public @interface AplController {

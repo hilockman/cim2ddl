@@ -11,17 +11,23 @@ logging:
       org.redisson: OFF 
     file: log/ei-ads-client.log 
 
+model:
+  cachedDir: ./model
+  
 buffer:
    channels:
        -
-         name : testChannel
-         type : CACHE
-   typePackage: com.znd.buffer.common.model
+         name : commonChannel
+         type : Share
+       -
+         name : jobChannel
+         type : Share   
+   typePackage: com.znd.ads.model.po, com.znd.bus.common.model
    #mapper加载路径
-   mapperPackage: com.znd.buffer.common.mapper
+   mapperPackage: com.znd.bus.common.buffer
    id:  0
    name: test_buffer
-   alias: test
+   alias: test_buffer
    createFlag: UPDATE
    
 ads:  

@@ -4,5 +4,5 @@ import com.znd.bus.common.model.AdsNodeInfo;
 
 public interface Client {
 	AdsNodeInfo getNode();
-	void start();
+	//void start();
 }

@@ -68,12 +68,22 @@ public class PrMemoryServerImpl implements PrMemoryServer {
 	}
 
 	@Override
-	public void saveFatates(List<FState> fstates) {
+	public void saveFStates(List<FState> fstates) {
 		fStateDao.saveOrUpdate(fstates);
 	}
 
 	@Override
 	public void saveIslands(List<FStateMIsland> islands) {
 		mIslandDao.saveOrUpdate(islands);
+	}
+
+	@Override
+	public void clearFState() {
+		fStateDao.deleteAll();
+	}
+
+	@Override
+	public void clearFStateFDev() {
+		fStateFDevDao.deleteAll();
 	}
 }

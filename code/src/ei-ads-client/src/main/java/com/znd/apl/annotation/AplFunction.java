@@ -19,11 +19,14 @@ import com.znd.bus.channel.MessageCodeEnum;
 @Target(ElementType.METHOD)
 @Inherited
 public @interface AplFunction {
-	//输入消息
-	MessageCodeEnum in();
-	
+	//名称
+	String value() default "";
+		
 	//方法功能描述
 	String desc() default "";
+	
+	//输入消息
+	MessageCodeEnum in();
 	
 	//输出消息
 	MessageCodeEnum out() default MessageCodeEnum.none;

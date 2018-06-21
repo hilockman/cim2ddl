@@ -63,7 +63,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 	
 	private PRAdequacySetting setting;
 	
-	private String modelName;
+	private String jobId;
 	
 	private TaskQueue<RequestEstimate> taskList;
 	
@@ -203,24 +203,15 @@ public class ReliabilityProxyServer implements ProxyServer {
 
 	
 	public ReliabilityProxyServer(ReliabilityProperties properties,
-			String modelName, 
+			String jobId, 
 			TaskQueue<RequestEstimate> taskList,
 			BufferServer bufferServer,
 			PRAdequacySetting setting) {
-		this.modelName = modelName;
+		this.jobId = jobId;
 		this.taskList = taskList;
 		this.properties = properties;
 		this.bufferServer = bufferServer;
 		this.setting = setting;	
-	}
-
-	public ReliabilityProperties getProperties() {
-		return properties;
-	}
-
-
-	public void setProperties(ReliabilityProperties properties) {
-		this.properties = properties;
 	}
 
 
@@ -293,7 +284,7 @@ public class ReliabilityProxyServer implements ProxyServer {
 							
 									if (taskList.leftCount() == 0) {
 										
-										System.out.println("Task is finished :"+modelName);
+										System.out.println("Task is finished :"+jobId);
 										taskList.delete();
 										RequestJobFinished request = new RequestJobFinished();
 										String responseMsg = Utils.toJSon(request);

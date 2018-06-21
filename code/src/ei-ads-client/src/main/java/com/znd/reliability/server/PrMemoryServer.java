@@ -20,7 +20,11 @@ public interface PrMemoryServer {
 
 	void saveOvlAds(List<FStateOvlAd> ovlAds);
 
-	void saveFatates(List<FState> fstates);
+	void saveFStates(List<FState> fstates);
 
 	void saveIslands(List<FStateMIsland> islands);
+	
+	void clearFState();
+	
+	void clearFStateFDev();
 }
