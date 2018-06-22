@@ -160,6 +160,7 @@ public class DefaultClient implements Client {
 		    	try {
 		           evenListener.invoke(e.getContent());
 		    	} catch (EventException e3) {
+		    		e3.printStackTrace();
 		    		job.setState(CalcJobStateEnum.abnormal);
 		    		calcJobBuffer.update(job);
 		    		context.clear();

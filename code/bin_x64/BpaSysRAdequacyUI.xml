@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="gb2312" standalone="no" ?>
 <BpaPRAdequacySetting>
     <Base>
-        <BpaDatFile>E:\data\RTS79\RTS79.dat</BpaDatFile>
-        <BpaSwiFile>E:\data\RTS79\RTS79.swi</BpaSwiFile>
-        <BpaRParamFile>E:\data\RTS79\RTS79.xml</BpaRParamFile>
+        <BpaDatFile>D:\GitHub\cim2ddl\code\src\ei-ads-client\model\67a5fa73-d1e6-421a-8774-0663309ac570\RTS79.dat</BpaDatFile>
+        <BpaSwiFile>D:\GitHub\cim2ddl\code\src\ei-ads-client\model\67a5fa73-d1e6-421a-8774-0663309ac570\RTS79.swi</BpaSwiFile>
+        <BpaRParamFile>D:\GitHub\cim2ddl\code\src\ei-ads-client\model\67a5fa73-d1e6-421a-8774-0663309ac570\RTS79.xml</BpaRParamFile>
         <TinyGenThreshold>0.000000</TinyGenThreshold>
         <LowVoltThreshold>0.000000</LowVoltThreshold>
         <ZIL>0.000010</ZIL>

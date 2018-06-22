@@ -228,13 +228,15 @@
     </div>
 
     <div class="panel panel-default">
-	        <div class="button-group pull-right">
-		      
-		        <button type="button" class="btn" id="new-model" data-toggle="modal" data-target="#upload-model-dlg"><i class="fa fa-plus"></i>			        
-			    </button>			  
-		    </div> 	
 		    <h2 class="h4">模型</h2>     
 	       	
+	        <div class="btn-group">
+		      
+		        <button type="button" class="btn btn-default" id="new-model" data-toggle="modal" data-target="#upload-model-dlg">
+		            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增			        
+			    </button>			  
+		    </div> 	
+
 		    <table class="table"  id="model-table">
 		      <thead>
 			       <tr>
@@ -254,12 +256,13 @@
          
    <div  class="panel panel-default">
        <h2 class="h4">工作</h2>    
-       <div id="job-toolbar">
-         <div class="form-inline" role="form">
-             <button id="add-job-btn" type="submit" class="btn btn-default"  data-toggle="modal" data-target="#new-job-dlg">
-               <i class='fa fa-plus'></i>
-             </button>
-         </div>
+       <div id="job-toolbar" class="btn-group">
+            <button id="add-job-btn" type="submit" class="btn btn-default"  data-toggle="modal" data-target="#new-job-dlg">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-default">
+               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
        </div>
         
        <table id="table-job">       

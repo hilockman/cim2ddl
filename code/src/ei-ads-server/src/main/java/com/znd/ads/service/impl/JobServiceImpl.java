@@ -171,15 +171,15 @@ public class JobServiceImpl implements JobService {
 				for (File f : files) {
 						String fileName = f.getName();
 						InputStream is = new FileInputStream(f);
-						int off = 0;
+						//int off = 0;
 
 						int readCount = 0;
 						StringBuffer sb = new StringBuffer();
-						while ((readCount = is.read(buff, off, buff.length - off)) > 0) {
+						while ((readCount = is.read(buff, 0, buff.length)) > 0) {
 						
 							sb.append(new String(buff, 0,readCount));
 	
-							off += readCount;
+							//off += readCount;
 						}
 						is.close();
 						

@@ -102,7 +102,7 @@ public class EvenInvokerRegistory {
 
 				
 				logger.info(String.format(
-						"AplFunction : %s.%s is found, param : %s.",
+						"AplFunction : '%s.%s' is found, params : %s.",
 						c.getName(), m.getName(),
 						"[" + String.join(" ", paramTypeNames) + "]"));
 				

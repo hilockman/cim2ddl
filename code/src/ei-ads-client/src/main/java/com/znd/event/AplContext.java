@@ -19,6 +19,9 @@ public class AplContext {
 	
 	private final Map<String, Object> attributeMap = new HashMap<>();
 	
+	
+	private final Byte waitFlag = 0;
+	
 	public boolean setRunning(boolean flag) {
 		return running.getAndSet(flag);
 	}
@@ -44,12 +47,12 @@ public class AplContext {
 	}
 
 	public void stopWait() {
-		quit.notifyAll();
+		waitFlag.notifyAll();
 		setRunning(false);
 	}
 	
 	public void waitForJobQuit(long timeout) throws InterruptedException {
-		quit.wait(timeout);
+		waitFlag.wait(timeout);
 	}
 	
 	public void clear() {

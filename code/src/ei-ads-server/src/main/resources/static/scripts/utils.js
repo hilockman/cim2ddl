@@ -201,8 +201,15 @@ JobFunction.prototype.query = AjaxFunction;
 
 var jobApi = new JobFunction();
 
+var ReturnCode = {
+		OK : 'OK',
+		FAIL : 'FAIL',
+		WARING : 'WARING'
+};
 
 function AdsFunctions() {
+	$.extend(this, ReturnCode);
+	
 	this.baseUrl = '';
 	this.getDefaultProperty = function(type) { return this.query("/property/default/"+type);};
 	this.getPropertyNames = function(type) { return this.query("/property/names/"+type);};

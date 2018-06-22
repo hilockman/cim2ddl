@@ -70,6 +70,7 @@ public class JobController {
     		jobService.cancel(jobId);
     		return AdsResult.ok("Succeed to cancel job :"+jobId);
     	} catch (Throwable e) {
+    		e.printStackTrace();
     		return AdsResult.fail(e.getMessage());
     	}
     }
@@ -80,6 +81,7 @@ public class JobController {
     		jobService.stop(jobId);
     		return AdsResult.ok("Succeed to cancel job :"+jobId);
     	} catch (Throwable e) {
+    		e.printStackTrace();
     		return AdsResult.fail(e.getMessage());
     	}
     }
@@ -90,6 +92,7 @@ public class JobController {
     		jobService.pause(jobId);
     		return AdsResult.ok("Succeed to cancel job :"+jobId);
     	} catch (Throwable e) {
+    		e.printStackTrace();
     		return AdsResult.fail(e.getMessage());
     	}
     }
@@ -100,6 +103,7 @@ public class JobController {
     		jobService.restart(jobId);
     		return AdsResult.ok("Succeed to restart job :"+jobId);
     	} catch (Throwable e) {
+    		e.printStackTrace();
     		return AdsResult.fail(e.getMessage());
     	}
     }    
@@ -112,6 +116,7 @@ public class JobController {
 	    	jobService.add(job);
 	    	return AdsResult.ok();
 	    } catch (Throwable e) {
+	    	e.printStackTrace();
 			return AdsResult.fail(e.getMessage());
 		}
     }

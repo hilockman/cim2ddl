@@ -222,7 +222,10 @@ var onClickJobBtn = function (btn) {
 		type : "POST",
 		data : null,
 
-		success : function() {
+		success : function(result) {
+			if (result.code == adsApi.FAIL) {
+				alert(result.detail);
+			}
 			jobApi.getJobs(initJobTable);
 		},
 		error : function() {
@@ -311,10 +314,10 @@ function updateJobTable(jobs) {
 	
 	$("#table-job").bootstrapTable('updateByUniqueId', jobs);	
     	   	
-    }
+}
    
-    function initJobTable(jobs) {
-    	jobs = extendJob(jobs);
+function initJobTable(jobs) {
+    jobs = extendJob(jobs);
     	
     	//console.log(modelMap);
 	var columns = [{
@@ -381,7 +384,6 @@ function updateJobTable(jobs) {
 	    toolbar: '#job-toolbar'
 	});	
 	
-
 }
 
 $(function () {
@@ -402,7 +404,7 @@ $(function () {
 		modelApi.getRoots(updateModels);
 		//var jobs = jobApi.getJobs();
 		//updateJobs(jobs);
-		jobApi.getJobs(updateJobTable);
+		//jobApi.getJobs(updateJobTable);
 		//jobApi.getJobs(initJobTable);
 	}, 500);
 	

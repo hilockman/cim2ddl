@@ -179,10 +179,14 @@ public class ReliabilityApl {
 		if (fstates.isEmpty() || devs.isEmpty()) {
 			throw new AplException("fstate is empty : "+job.getId());
 		}
+		
 		bufferServer.updateTasks(fstates, devs);		 
-		ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);
-	
-		server.exec();
+		
+
+			ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);
+		
+			server.exec();
+
 	}
 	
 	private void callReliabilityIndex(PRAdequacySetting config) {
@@ -267,13 +271,17 @@ public class ReliabilityApl {
 			throw new AplException("Can't resolve job setting : " + jobId);
 		
 		sample(setting);
+		
 		List<FState> fstates = memoryServer.findAllFStates();
 		List<FStateFDev> devs = memoryServer.findAllFStateFDevs();
 		if (fstates.isEmpty() || devs.isEmpty()) {
 			throw new AplException("fstate is empty : "+job.getId());
 		}
+		try {
 		bufferServer.updateTasks(fstates, devs);	
-		
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		
 		context.setAttribute("buffer", bufferServer);
 	}
@@ -297,12 +305,27 @@ public class ReliabilityApl {
 		if (setting == null)
 			throw new AplException("Can't resolve job setting : " + jobId);
 	
-		//充裕度评估
-		ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
-		server.exec();
+		String appName  = "GCStateEstimateServer";
+		Process p = null;
+		if (!AppUtil.isRunning(appName))
+		  p = AppUtil.execute(properties.getAppDir()+"/"+appName);
 		
+		try {
+			
+			//充裕度评估
+			ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
+			server.exec();
+			
+		} finally {
+			if (p != null)
+			   p.destroy();
+		}
+
 
 		reliabilityIndex(jobId);
+		
+		
+		
 	}
 	
 }

@@ -44,7 +44,7 @@ public class EvenInvoker {
 			for (int i = 0; i < parameters.length; i++) {
 				Parameter p  = parameters[i];
 				ParamInfo info = new ParamInfo();
-				info.type = p.getClass();
+				info.type = p.getType();
 				
 				AplParam a = p.getAnnotation(AplParam.class);
 				if (a != null) {
