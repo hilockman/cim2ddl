@@ -1,0 +1,240 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\GCModuleTest.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\GCModuleTest.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_GCMODULETEST_DIALOG DIALOGEX 0, 0, 660, 215
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "GCModuleTest"
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "关闭",IDCANCEL,593,194,60,14
+    LTEXT           "最大发电故障",IDC_STATIC,11,57,81,8
+    EDITTEXT        IDC_MAXFAULT_GEN,97,54,36,14,ES_AUTOHSCROLL
+    LTEXT           "蒙特卡罗模拟时间",IDC_STATIC,11,91,81,8
+    EDITTEXT        IDC_MCS_SIMULATETIME,97,88,36,14,ES_AUTOHSCROLL
+    LTEXT           "最大支路故障",IDC_STATIC,11,74,81,8
+    EDITTEXT        IDC_MAXFAULT_BRAN,97,71,36,14,ES_AUTOHSCROLL
+    LTEXT           "快速排序最小状态概率",IDC_STATIC,11,142,81,8
+    EDITTEXT        IDC_FST_MAXCUMUPROB,97,122,36,14,ES_AUTOHSCROLL
+    LTEXT           "快速排序最大状态数",IDC_STATIC,11,159,81,8
+    EDITTEXT        IDC_FST_MAXSTATE,97,156,36,14,ES_AUTOHSCROLL
+    LTEXT           "快速排序最大累积概率",IDC_STATIC,11,125,81,8
+    EDITTEXT        IDC_FST_MINSTATEPROB,97,139,36,14,ES_AUTOHSCROLL
+    CTEXT           "状态抽样类型",IDC_STATIC,11,29,50,8,SS_CENTERIMAGE
+    CONTROL         "全网",IDC_PRCOMP_ALL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,97,15,32,8
+    CONTROL         "输电",IDC_PRCOMP_LT,"Button",BS_AUTORADIOBUTTON,97,28,32,8
+    CONTROL         "发电",IDC_PRCOMP_GEN,"Button",BS_AUTORADIOBUTTON,97,41,32,8
+    GROUPBOX        "抽样参数",IDC_STATIC,7,7,132,202
+    LTEXT           "蒙特卡罗最小状态概率",IDC_STATIC,11,108,81,8
+    EDITTEXT        IDC_MCS_MINSTATEPROB,97,105,36,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANA_MINSTATEPROB,97,190,36,14,ES_AUTOHSCROLL
+    LTEXT           "状态抽样最大状态数",IDC_STATIC,11,176,81,8
+    EDITTEXT        IDC_STS_MAXSTATE,97,173,36,14,ES_AUTOHSCROLL
+    LTEXT           "解析法最小状态概率",IDC_STATIC,11,193,81,8
+    GROUPBOX        "抽样方法",IDC_STATIC,142,7,189,30
+    CONTROL         "蒙特卡罗",IDC_MONTECARLO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,146,21,46,8
+    CONTROL         "状态抽样",IDC_STATESAMPLE,"Button",BS_AUTORADIOBUTTON,232,21,46,8
+    CONTROL         "解析法",IDC_ANALYTICAL,"Button",BS_AUTORADIOBUTTON,194,21,38,8
+    CONTROL         "快速排序",IDC_FASTSORT,"Button",BS_AUTORADIOBUTTON,280,21,46,8
+    CONTROL         "线路消限",IDC_LINE_LIMIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,148,53,48,10
+    CONTROL         "主变消限",IDC_TRAN_LIMIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,148,66,48,10
+    EDITTEXT        IDC_ISLAND_MINIMAL_GLRATIO,296,132,31,14,ES_AUTOHSCROLL
+    RTEXT           "孤网源/荷比(小于源荷比的孤岛停运)≧",IDC_STATIC,148,134,143,8,SS_CENTERIMAGE
+    CONTROL         "厂用电参与消限",IDC_AUXLOAD_ADJUST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,206,53,120,10
+    CONTROL         "UPFC使用更改限值方法(缺省是潮流法)",IDC_UPFC_ADJUSTRC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,148,118,160,10
+    CONTROL         "等值电源参与功率平衡和消限",IDC_EQGEN_ADJUST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,206,66,120,10
+    CONTROL         "发电功率调整消限",IDC_GEN_ELIMIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,206,92,120,10
+    CONTROL         "UPFC控制潮流消限",IDC_UPFC_ELIMIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,206,105,120,10
+    CONTROL         "等值负荷参与功率平衡和消限",IDC_EQLOAD_ADJUST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,206,80,120,10
+    GROUPBOX        "后评估参数",IDC_STATIC,142,40,189,111
+    LTEXT           "潮流文件",IDC_STATIC,335,9,36,8
+    EDITTEXT        IDC_BPADAT_FILE,375,7,260,14,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...",IDC_DAT_BROWSE,639,7,14,14
+    LTEXT           "参数文件",IDC_STATIC,335,44,36,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_BPA_RPARAM_FILE,375,41,260,14,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...",IDC_RPARAM_BROWSE,639,41,14,14
+    LTEXT           "稳定文件",IDC_STATIC,335,26,36,8
+    EDITTEXT        IDC_BPASWI_FILE,375,24,260,14,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...",IDC_SWI_BROWSE,639,23,14,14
+    LTEXT           "直变交系数",IDC_STATIC,244,157,40,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_DC2AC_FACTOR,288,154,43,14,ES_AUTOHSCROLL
+    CONTROL         "发电机母线负荷按厂用电",IDC_GENBUS_LOAD_ASAUX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,142,156,100,10
+    PUSHBUTTON      "GCBPALoader",IDC_BPA_LOADER,335,61,60,14
+    PUSHBUTTON      "GCBPA2PR",IDC_BPA_2PR,399,61,60,14
+    PUSHBUTTON      "GCStateSample",IDC_STATE_SAMPLE,463,61,60,14
+    PUSHBUTTON      "GCStateEstimate",IDC_STATE_ESTIMATE,527,61,60,14
+    PUSHBUTTON      "GCRIndex",IDC_RELIABILITY_INDEX,593,61,60,14
+    EDITTEXT        IDC_REMOTE_PORT,269,173,32,14,ES_AUTOHSCROLL
+    LTEXT           "远程端口",IDC_STATIC,233,176,32,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_REMOTE_ADDR,180,173,48,14,ES_AUTOHSCROLL
+    LTEXT           "远程地址",IDC_STATIC,144,176,32,8,SS_CENTERIMAGE
+    PUSHBUTTON      "NDataReady",IDC_NETWORK_DATAREADY,335,194,60,14
+    PUSHBUTTON      "NStateEstimate",IDC_NETWORK_STATEESTIMATE,399,194,60,14
+    PUSHBUTTON      "NJobFinished",IDC_NETWORK_JOBFINISHED,462,194,60,14
+    EDITTEXT        IDC_LOCAL_PORT,269,192,32,14,ES_AUTOHSCROLL
+    LTEXT           "服务端口",IDC_STATIC,234,195,32,8,SS_CENTERIMAGE
+    LISTBOX         IDC_MESG_LIST,335,80,318,108,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "清除",IDC_CLEAR_MESG,527,194,60,14
+    EDITTEXT        IDC_THREAD_NUM,180,192,32,14,ES_AUTOHSCROLL
+    LTEXT           "线程数",IDC_STATIC,144,195,32,8,SS_CENTERIMAGE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "GCModuleTest.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "GCModuleTest.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_GCMODULETEST_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 653
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 208
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\GCModuleTest.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
