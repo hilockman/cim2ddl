@@ -27,8 +27,12 @@ ads:
 model:
   cachedDir: ./model
 
+
+
 buffer:
-   channels:
+   redisConfig: ClusterServersConfig.cfg
+   localConfig: SingleServerConfig.cfg
+   channels: 
        -
          name : commonChannel
          type : Share

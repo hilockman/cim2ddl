@@ -1,0 +1,1 @@
+java -Dfile.encoding=UTF-8 -cp "%JAVA_HOME%\lib\tools.jar" com.sun.tools.internal.xjc.Driver  -p com.znd.bus.message iec61968-100.xml

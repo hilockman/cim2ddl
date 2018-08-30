@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <style>
+	*, *:before, *:after {
+	  box-sizing: border-box;
+	  padding: 0;
+	  margin: 0;
+	}
+
+	html {
+	  height: 100%;
+	}
+
+	body {
+	  min-height: 100%;
+	  font-family: Lato, sans-serif;
+	  font-size: 100%;
+	  padding: 0;
+	  margin: 10px;
+	  color: #444;
+	  background-color: #fff;
+	  overflow: hidden;
+	}
+
+	svg {
+	  background: radial-gradient(ellipse at center, #fefefe 0%, #cbeeff 100%);
+	}
+
+	rect {
+	  fill: #006da1;
+	}
+
+	circle {
+	  stroke-width: 5;
+	  stroke: #f00;
+	  fill: #ff0;
+	}
+
+	p {
+	  position: absolute;
+	  right: 5px;
+	  bottom: 5px;
+	  padding: 3px 6px;
+	  background-color: rgba(255,255,255,0.8);
+	}
+ </style>
+</head>
+<body>
+	<svg id="mysvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid meet">
+  
+	  <g id="local" transform="scale(4)">
+		<rect x="50" y="50" width="100" height="100" rx="10" />
+	  </g>
+
+	</svg>
+
+	<p id="coords">co-ordinates</p>
+</body>
+<script>
+	var
+	  svg = document.getElementById('mysvg'),
+	  NS = svg.getAttribute('xmlns'),
+	  local = svg.getElementById('local'),
+	  coords = document.getElementById('coords');
+
+	// update co-ordinate output
+	svg.addEventListener('mousemove', function(e) {
+
+	  var
+		x = e.clientX,
+		y = e.clientY,
+		svgP = svgPoint(svg, x, y),
+		svgL = svgPoint(local, x, y);
+
+	  // output co-ordinates
+	  coords.textContent =
+		'[page: ' + x + ',' + y +
+		'] => [svg space: ' + Math.round(svgP.x) + ',' + Math.round(svgP.y) +
+		'] [local transformed space: ' + Math.round(svgL.x) + ',' + Math.round(svgL.y) + ']'
+		;
+
+	}, false);
+
+	// add a circle to the SVG
+	svg.addEventListener('click', function(e) {
+	  
+	  var
+		t = e.target,
+		x = e.clientX,
+		y = e.clientY,
+		target = (t == svg ? svg : t.parentNode),
+		svgP = svgPoint(target, x, y),
+		circle = document.createElementNS(NS, 'circle');
+	  
+	  circle.setAttributeNS(null, 'cx', Math.round(svgP.x));
+	  circle.setAttributeNS(null, 'cy', Math.round(svgP.y));
+	  circle.setAttributeNS(null, 'r', 10);
+	  target.appendChild(circle);
+	  
+	}, false);
+
+	// translate page to SVG co-ordinate
+	function svgPoint(element, x, y) {
+	  
+	  var pt = svg.createSVGPoint();
+	  pt.x = x;
+	  pt.y = y;
+	  return pt.matrixTransform(element.getScreenCTM().inverse());
+	  
+	}
+</script>
+</html>

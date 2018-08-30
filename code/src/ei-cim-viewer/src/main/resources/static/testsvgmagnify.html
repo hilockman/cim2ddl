@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CIM模型校验</title>
+    <meta charset="utf-8" />
+      <script  type="text/javascript"src="scripts/jquery-3.2.1.js"></script>  
+
+    <link rel="stylesheet" href="jstree/3.3.5/themes/default/style.min.css"  />
+    <style>
+    /*    
+    	.svg-container {
+		    display: block;
+		    position: relative;
+		    width: 100%;
+		    padding-bottom: 100%;
+		    vertical-align: top;
+		    overflow: hidden;
+		}
+	*/
+	
+
+   	  div.svg-container {
+   	  	/*float: left;*/
+		margin: 0;
+		padding: 0;
+		border: 0;
+		/*width: 600px;*/
+		width: 100%;
+		background: transparent;
+   	  }
+   	  	
+	.svg-content {
+		  display: block;
+		 /* position: absolute;*/
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+	}		
+	
+	g:hover > use {
+	  stroke: #002868 !important;
+	  stroke-width:200px;
+	  stroke-linejoin: round;
+	  fill: #002868 !important;
+	  cursor: pointer;
+	  fill-opacity:0.9;
+	}
+	
+	#info-box {
+	  display: none;
+	  position: absolute;
+	  top: 0px;
+	  left: 0px;
+	  z-index: 2;
+	  background-color: #ffffff;
+	  border: 2px solid #BF0A30;
+	  border-radius: 5px;
+	  padding: 5px;
+	  margin: 0;	
+	  font-family: arial;
+	}	
+	
+	.info-list {
+	   list-style: none;
+          padding: 0;
+          margin: 0;		   
+	}
+	
+	.svg-amplify {
+	/* mobile first */
+	  position: fixed;
+	  bottom: 0px; 
+	  right: 0px; 
+	  width: 300px;
+	  height: 300px;
+	  z-index: 1;
+	  background-color: #ffffff;
+	  border: 2px solid #BF0A30;		  
+	}
+    </style>
+</head>
+<body>
+	
+ <div class="container-fluid">  
+	<div id="info-box"><p>(empty)</p></div>
+	
+	<div class="svg-container" ></div>
+	<div class="svg-amplify"></div>
+ </div>
+
+
+<script th:src="@{/jstree/3.3.5/jstree.min.js}" src="../../jstree/3.3.5/jstree.min.js"></script>
+<script th:src="@{/svg.js/2.6.5/svg.js}" src="../../svg.js/2.6.5/svg.js"></script>
+
+</body>
+<script>
+function initSvg(content) {
+	$('.svg-container').html(content);
+	$('.svg-container svg')
+	.attr("preserveAspectRatio", "xMinYMin meet")
+	//.attr("viewBox", "0 0 300 300")
+	//.attr("transform", "scale(.5)")
+	.addClass('svg-content');
+	
+	$('.svg-amplify').html(content);
+	$('.svg-amplify svg')
+	//.attr("preserveAspectRatio", "xMinYMin meet")
+	.addClass('svg-content');
+	//.attr("preserveAspectRatio", "xMinYMin slice");	
+	
+
+	  
+
+
+	
+	
+	
+	$('.svg-container svg').mousemove(function(e) {
+		var svg = $(this); 
+		if (svg.length == 0)
+			  return;
+		
+		// Gets .maginfy offset coordinates.
+		//  var pt = svg[0].createSVGPoint();
+		  
+		// Gets coordinates within .maginfy.
+		  var magnify_offset = svg.offset();
+		
+		
+	    var svg1 = $('.svg-amplify svg');
+	    var pt = svg1[0].createSVGPoint();
+		pt.x = e.pageX - svg.offset().left + svg1.offset().left;
+		pt.y = e.pageY - svg.offset().top + svg1.offset().top;
+		  
+		// Gets coordinates within .maginfy.
+		  //pt.x = e.pageX - magnify_offset.left;
+		  //pt.y = e.pageY - magnify_offset.top;
+		 
+	     // pt.x = e.pageX - $(this).position().left;
+	     // pt.y = e.pageY - $(this).position().top;
+
+	    // pt.x = e.pageX;
+	     //pt.y = e.pageY;
+
+	     
+		  //var svgP = pt.matrixTransform(svg[0].getScreenCTM().inverse());
+		  var svgP = pt.matrixTransform(svg1[0].getScreenCTM().inverse());
+		  var w = 200;
+		  var h = 200;
+		  svgP.x -= w/2;
+		  svgP.y -= h/2;
+		  console.log("pt=("+pt.x+","+pt.y+")"+", svgP=("+svgP.x+","+svgP.y+"),offset=("+magnify_offset.left+", "+magnify_offset.top+")");
+		  svg1.attr("viewBox", ""+svgP.x+" "+svgP.y+" "+w+" "+h).attr("preserveAspectRatio", "xMidYMid meet");
+		  
+		});	
+}
+
+$(function() {
+	  $(document).resize(function() {
+		  //alert("resize");
+		  $('.svg-content').resize();
+	  });
+	  
+		$("use").hover(function(e) {
+			  $('#info-box').css('display','block');
+			  //$('#info-box').html($(this).data('info'));
+			  var html = '<ul class="info-list">';
+			  var p = $(this).parent();
+			  var id = p.attr('id');
+			  html += '<li>id : '+p.attr('id')+'</li>';
+			  var escaped = $("<div>").text(p.find("metadata").html()).html();
+			  html += '<li>metadata :'+escaped+'</li>';
+			  html += '</ul>';		  
+			  $('#info-box').html(html);
+
+		});
+		$("use").mouseleave(function(e) {
+		  $('#info-box').css('display','none');
+		});
+		
+		$(document).mousemove(function(e) {
+
+			  $('#info-box').css('top',e.pageY-$('#info-box').height()-30);
+			  //$('#info-box').css('left',e.pageX-($('#info-box').width())/2);
+			  $('#info-box').css('left',e.pageX);
+			}).mouseover();
+		
+
+	$.ajax({
+		url : "/svg/file/wuxipms1.0/安镇变-10kv安国线114.svg",
+		type : "GET",
+		data : null,
+
+		success : function(rt) {
+			console.log(rt);
+			if (rt.code=='OK') {
+				initSvg(rt.value);
+			} else 
+				$('.svg-container').html('<p>Fail to load file:'+file+", "+rt.detail+'</p>');
+		},
+		error : function() {
+			alert("fail to get file");
+		}
+	});
+});
+</script>
+</html>

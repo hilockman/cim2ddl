@@ -15,9 +15,9 @@ public class ChannelRegistry implements Closeable {
 
 	
 	private final Map<String, Channel> knownChannels = new HashMap<>();
-	
-	public ChannelRegistry() {
-		
+	private BufferContext context;
+	public ChannelRegistry(BufferContext context) {
+		this.context = context;
 	}
 	
 	public Channel getChannel(String name) {
@@ -29,15 +29,20 @@ public class ChannelRegistry implements Closeable {
 		return Collections.unmodifiableCollection(knownChannels.keySet());
 	}
 
+	public Channel addChannel(ChannelConfig config)
+	{
+		Channel  c = context.registChannel(config);
+		knownChannels.put(config.getName(), c);
+		return c;
+	}
 	
-	public void addChannels(BufferContext context, List<ChannelConfig> channels)
+	public void addChannels(List<ChannelConfig> channels)
 	{
 		if (channels == null || channels.isEmpty())
 			return;
 		
 		for (ChannelConfig config : channels) {
-			Channel  c = context.registChannel(config);
-			knownChannels.put(config.getName(), c);
+			addChannel(config);
 		}
 	}
 

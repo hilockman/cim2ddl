@@ -29,7 +29,7 @@ import com.znd.ads.service.BufferService;
 import com.znd.ads.service.ReliabilityService;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
-import com.znd.bus.channel.Message;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
 import com.znd.bus.log.Log;

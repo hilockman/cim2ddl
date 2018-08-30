@@ -13,6 +13,7 @@ public class TaskQueue<T> implements Queue<T> {
 
 	private RAtomicLong left;
 	private RQueue<T> queue;
+	private String name;
 	
 	public long decreaseLeft() {
 		return left.decrementAndGet();
@@ -28,12 +29,14 @@ public class TaskQueue<T> implements Queue<T> {
 	
 	public void delete() {
 		left.delete();
+		queue.delete();
 	}
 	
 	public TaskQueue(RedissonClient client, String id) {
 		left = client.getAtomicLong(id+":left"); 
 		left.set(0);
-		queue = client.getQueue(id+":queue");
+		name = id+":queue";
+		queue = client.getQueue(name);
 		queue.expire(1, TimeUnit.HOURS);
 	}
 
@@ -44,7 +47,8 @@ public class TaskQueue<T> implements Queue<T> {
 
 	@Override
 	public boolean isEmpty() {
-		return queue.isEmpty();
+		return queue.isEmpty() && left.get() <= 0;
+		//return queue.isEmpty();
 	}
 
 	@Override
@@ -79,12 +83,16 @@ public class TaskQueue<T> implements Queue<T> {
 
 	@Override
 	public boolean addAll(Collection<? extends T> c) {
-		return queue.addAll(c);
+		boolean rt = queue.addAll(c);
+		left.set(queue.size());
+		return rt;
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		return queue.removeAll(c);
+		boolean rt = queue.removeAll(c);
+		left.set(0);
+		return rt;
 	}
 
 	@Override
@@ -125,6 +133,14 @@ public class TaskQueue<T> implements Queue<T> {
 	@Override
 	public T peek() {
 		return queue.peek();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

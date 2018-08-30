@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CIM模型校验</title>
+    <meta charset="utf-8" />
+    <div th:replace="fragments/header :: header-css">
+    </div>
+    <link rel="stylesheet" th:href="@{/jstree/3.3.5/themes/default/style.min.css}" href="../../jstree/3.3.5/themes/default/style.min.css"  />
+    <style>
+    /*    
+    	.svg-container {
+		    display: block;
+		    position: relative;
+		    width: 100%;
+		    padding-bottom: 100%;
+		    vertical-align: top;
+		    overflow: hidden;
+		}
+	*/
+	
+   	  nav#file-list {
+   	  	/*float:left;
+   	  	position:fixed;*/
+   	  	top: 50px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		/*width: 250px;*/
+		background: transparent;
+		overflow: auto;
+		height : 100%;
+   	  }    
+
+   	  
+   	  div.container-fluid {
+	  	/*margin-left: 255px;*/
+	  }
+	  
+   	  div.svg-container {
+   	  	/*float: left;*/
+		margin: 0;
+		padding: 0;
+		border: 0;
+		/*width: 600px;*/
+		width: 100%;
+		background: transparent;
+   	  }
+   	  	
+	.svg-content {
+		  display: block;
+		 /* position: absolute;*/
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+	}		
+	
+	g:hover > use {
+	  stroke: #002868 !important;
+	  stroke-width:200px;
+	  stroke-linejoin: round;
+	  fill: #002868 !important;
+	  cursor: pointer;
+	  fill-opacity:0.9;
+	}
+	
+	#info-box {
+	  display: none;
+	  position: absolute;
+	  top: 0px;
+	  left: 0px;
+	  z-index: 2;
+	  background-color: #ffffff;
+	  border: 2px solid #BF0A30;
+	  border-radius: 5px;
+	  padding: 5px;
+	  margin: 0;	
+	  font-family: arial;
+	}	
+	
+	.info-list {
+	   list-style: none;
+          padding: 0;
+          margin: 0;		   
+	}
+	
+	.svg-amplify {
+	/* mobile first */
+	  position: fixed;
+	  bottom: 0px; 
+	  right: 0px; 
+	  width: 300px;
+	  height: 300px;
+	  z-index: 1;
+	  background-color: #ffffff;
+	  border: 2px solid #BF0A30;		  
+	}
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">
+</div>
+
+	<nav id="file-list" class="navbar-default navbar-static-side" >
+	  <ul>
+	    <li>Root node
+	      <ul>
+	        <li>Child node 1</li>
+	        <li>Child node 2</li>
+	      </ul>
+	    </li>
+	  </ul>
+	</nav>
+	
+ <div class="container-fluid">  
+	<div id="info-box"><p>(empty)</p></div>
+	
+	<div class="svg-container" ></div>
+	<div class="svg-amplify"></div>
+ </div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{/jstree/3.3.5/jstree.min.js}" src="../../jstree/3.3.5/jstree.min.js"></script>
+<script th:src="@{/svg.js/2.6.5/svg.js}" src="../../svg.js/2.6.5/svg.js"></script>
+<script  type="text/javascript" th:src="@{/scripts/home.js}" src="../../scripts/home.js"></script> 
+
+</body>
+</html>

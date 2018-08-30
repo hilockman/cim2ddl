@@ -237,25 +237,20 @@ var onClickJobBtn = function (btn) {
 function jobOperationFormater(value) {
 
    var states = [{
-	   				title:'停止正在进行的计算',
-	   				name:'停止',
+	   				title:'取消正在进行的计算',
+	   				name:'取消',
 	                btn:'btn-info',
-	                type:'stop'
-	             }, {
-	            	 title:'暂停正在进行的计算',
-	            	 name:'暂停',
-	            	 btn:'btn-info',
-	            	 type:'pause'
+	                type:'cancel'
 	             }, {
 	            	 title:'启动计算任务',
 	            	 name:'启动',		            	 
 	            	 btn:'btn-info',
-	            	 type:'restart'
+	            	 type:'start'
 	             }, {
-	            	 title:'取消正在计算的任务',
-	            	 name:'取消',		            	 
+	            	 title:'删除计算的任务',
+	            	 name:'删除',		            	 
 	            	 btn:'btn-warning',
-	            	 type:'cancel'
+	            	 type:'delete'
 	             }];
    
    var html = "";
@@ -619,7 +614,7 @@ $(function () {
 		
 		$.ajax({
 			type : 'POST',
-			url : "/job/add",			
+			url : "/job/create",			
 			data : job,
 			dataType:'json',
 			success : function(msg) {

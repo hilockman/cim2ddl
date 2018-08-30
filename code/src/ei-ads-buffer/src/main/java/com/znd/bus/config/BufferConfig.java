@@ -39,6 +39,8 @@ import com.znd.bus.reflection.DefaultReflectorFactory;
 import com.znd.bus.reflection.MetaObject;
 import com.znd.bus.reflection.Reflector;
 import com.znd.bus.reflection.ReflectorFactory;
+import com.znd.bus.server.BusService;
+import com.znd.bus.server.impl.BusServiceImpl;
 import com.znd.bus.statement.RoutingStatementHandler;
 import com.znd.bus.statement.StatementHandler;
 import com.znd.bus.task.BufferTask;
@@ -57,8 +59,12 @@ public class BufferConfig {
 	private List<String> mapperPackages = new ArrayList<>();
 	
 	private RedissonNodeConfig redissonConfig;
-	
+
 	private RedissonClient redissonClient;
+	
+	private RedissonNodeConfig localConfig;
+
+	private RedissonClient localClient; 
 	
 	private final List<TableMeta> tableMetas = new ArrayList<>();
 	
@@ -82,7 +88,10 @@ public class BufferConfig {
 	private List<ChannelConfig> channels;
 
 	
-	private final ChannelRegistry channelRegistry = new ChannelRegistry(); 
+	private ChannelRegistry channelRegistry; 
+	
+	
+	private BusService busServcie;
 	
 //	/**
 //	 * 每次重新创建buffer
@@ -288,8 +297,12 @@ public class BufferConfig {
 		addTypes();
 	
 		try {
-			final BufferContext context = getBufferContext();
-			//TableMeta[] tableMetas = getTableMetas();
+			bufferContext = new BufferContext.Builder(this).build();
+			
+			channelRegistry = new ChannelRegistry(bufferContext);
+			busServcie = new BusServiceImpl(channelRegistry);
+			 
+			final BufferContext context = bufferContext;
 						
 			if (getCreateFlag() == CreateFlag.UPDATE) { //更新buffer
 				boolean createFlag = false;
@@ -352,12 +365,16 @@ public class BufferConfig {
 	private void buildClient() {
 		if (redissonConfig != null)
 		 redissonClient = Redisson.create(redissonConfig);
+		
+		if (localConfig != null) {
+			localClient = Redisson.create(localConfig);
+		}
 	}
 
 
 
 	private void addChannels() {
-		channelRegistry.addChannels(bufferContext, channels);
+		channelRegistry.addChannels(channels);
 	}
 
 
@@ -507,8 +524,6 @@ public class BufferConfig {
 		return typeHandlerRegistry.hasTypeHandler(type);
 	}
 	public BufferContext getBufferContext() {
-		if (bufferContext == null)
-			bufferContext = new BufferContext.Builder(this).build();
 		return bufferContext;
 	}
 	public ReflectorFactory getReflectorFactory() {
@@ -547,10 +562,46 @@ public class BufferConfig {
 			return;
 		
 		this.redissonClient = defaultConfig.redissonClient;
+		this.localClient = defaultConfig.localClient;
 	}
 
 
 
+	public RedissonClient getRedissonClient() {
+		return redissonClient;
+	}
+
+
+
+	public RedissonNodeConfig getLocalConfig() {
+		return localConfig;
+	}
+
+
+
+	public void setLocalConfig(RedissonNodeConfig localConfig) {
+		this.localConfig = localConfig;
+	}
+
+
+
+	public RedissonClient getLocalClient() {
+		return localClient;
+	}
+
+
+
+	public void setLocalClient(RedissonClient localClient) {
+		this.localClient = localClient;
+	}
+
+
+
+	
+	public BusService getBuservice()
+	{
+		return busServcie;	
+	}
 
 	
 }

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.znd.bus.channel.Channel;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.ChannelType;
-import com.znd.bus.channel.Event;
 import com.znd.bus.channel.Listener;
-import com.znd.bus.channel.Message;
 
 public class DefaultChannel implements Channel {
 
@@ -21,7 +20,7 @@ public class DefaultChannel implements Channel {
 		
 	}
 	@Override
-	public void send(Message message) {
+	public void send(ChannelMessage message) {
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class DefaultChannel implements Channel {
 	}
 	
 	@Override
-	public void receive(Event e) {
+	public void receive(ChannelMessage e) {
 		for (Listener l : listeners) {
 			l.receive(e);
 		}

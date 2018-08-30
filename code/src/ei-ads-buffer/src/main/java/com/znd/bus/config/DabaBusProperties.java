@@ -27,6 +27,10 @@ public class DabaBusProperties {
 	private String typePackage;
 	private String mapperPackage;
 	
+	private String redisConfig;
+	
+	private String localConfig;
+	
 	public DabaBusProperties() {
 		
 	}
@@ -96,5 +100,21 @@ public class DabaBusProperties {
 
 	public void setTypePackage(String typePackage) {
 		this.typePackage = typePackage;
+	}
+
+	public String getRedisConfig() {
+		return redisConfig;
+	}
+
+	public void setRedisConfig(String redisConfig) {
+		this.redisConfig = redisConfig;
+	}
+
+	public String getLocalConfig() {
+		return localConfig;
+	}
+
+	public void setLocalConfig(String localConfig) {
+		this.localConfig = localConfig;
 	}
 }

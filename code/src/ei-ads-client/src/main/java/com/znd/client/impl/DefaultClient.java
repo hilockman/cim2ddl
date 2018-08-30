@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.Event;
-import com.znd.bus.channel.Message;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.AdsNodeInfoBuffer;
 import com.znd.bus.common.buffer.CalcJobBuffer;
@@ -53,6 +53,8 @@ public class DefaultClient implements Client {
 	private AtomicBoolean exit = new AtomicBoolean(false);  
 	
 	private AdsNodeInfo node;
+	
+	private Byte nodeUplateFlag = 0;
 	
 	@Autowired
 	private Channel jobChannel;
@@ -108,9 +110,11 @@ public class DefaultClient implements Client {
 
 	private void processEvent(Event e) {
 		System.out.println("Receive message :"+e.getCode()+", content="+e.getContent());
-		node.setAccMsgCount(node.getAccMsgCount()+1);
-		node.setCurMsgCount(node.getAccMsgCount()+1);
-		adsNodeBuffer.update(node);
+		synchronized (nodeUplateFlag) {
+		  node.setAccMsgCount(node.getAccMsgCount()+1);
+		  node.setCurMsgCount(node.getAccMsgCount()+1);
+		  adsNodeBuffer.update(node);
+		}
 		
 		//if (e.getCode() == MessageCodeEnum.created_Job || e.getCode() == MessageCodeEnum.stop_Job
 		
@@ -128,12 +132,13 @@ public class DefaultClient implements Client {
 		    }
 		    
 		    final AplContext context = aplBean.getContext();
-		    if (e.getCode() == MessageCodeEnum.stop_Job) {
+		    if (e.getCode().compareTo(MessageCodeEnum.stop_Job.name()) == 0) {
 		    	
 				context.setQuit();
 				long timeout = 60 * 1000 * 5;
 				try {
 					context.waitForJobQuit(timeout);
+					logger.info("Job finished : "+ job.getId());
 				} catch (InterruptedException e1) {
 					throw new AplException("Fail to stop job， waiting is timeout :"+e.getContent(), e1);
 				} finally {
@@ -142,11 +147,23 @@ public class DefaultClient implements Client {
 				}
 	    	
 				return;
-			} else if (e.getCode() == MessageCodeEnum.created_job) {
+			} else if (e.getCode().compareTo(MessageCodeEnum.start_job.name()) == 0) {
 				context.setRunning(true);
-				
+//				job.setStart(new Date());
+//				job.setElapse(null);
+//				job.setEnd(null);
 				job.setState(CalcJobStateEnum.running);
 				calcJobBuffer.update(job);
+				synchronized (nodeUplateFlag) {
+					Integer count = node.getJobCount();
+					if (count == null)
+						count = 0;
+					
+					node.setJobCount(count+1);
+					adsNodeBuffer.update(node);	
+				}
+				
+				
 			}
 		    
 			//保存工作id到apl执行上下文中，用于方法调用
@@ -167,8 +184,23 @@ public class DefaultClient implements Client {
 		    		throw e3;
 		    	}
 		        MessageCodeEnum outMessage = evenListener.getOutputMessage();
-		        if (outMessage != null && outMessage != MessageCodeEnum.none) {
-		        	jobChannel.send(new Message(outMessage, job.getId()));
+		        if (outMessage != null && outMessage != MessageCodeEnum.none) { 		        	
+		        	jobChannel.send(new ChannelMessage(outMessage, job.getId()));
+		        } else { //job finished
+		        	job.setState(CalcJobStateEnum.stop);
+		        	job.setEnd(new Date());
+		        	
+		        	long elapse = -1;
+		        	if (job.getStart() != null) {
+		        		elapse = job.getEnd().getTime() - job.getStart().getTime();
+		        	}
+		        	
+		        	logger.info("Job finished : "+ job.getId()+", elapse = "+elapse);
+		        	
+		        	job.setElapse(elapse);
+		        	calcJobBuffer.update(job);
+		        	
+		        	
 		        }
 		    }
            
@@ -177,15 +209,11 @@ public class DefaultClient implements Client {
 	}
 		
 
-	public AdsNodeInfo getNode() {
-		synchronized(node) {
-		   return node;
-		}
+	public AdsNodeInfo getNode() {		
+		 return node;		
 	}
 	
-	
 
-	
 	//初始化计算节点配置
 	private void init() {
 
@@ -211,7 +239,7 @@ public class DefaultClient implements Client {
 
 	//更新buffer中的节点表对应计算节点时间。
 	private void heatBeat() {
-		synchronized(node) {
+		synchronized(nodeUplateFlag) {
 		  logger.debug("update node time.");
 		  node.setLastUpdate(new Date());
 		  

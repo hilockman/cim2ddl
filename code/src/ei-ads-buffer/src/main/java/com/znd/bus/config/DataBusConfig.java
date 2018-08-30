@@ -34,20 +34,20 @@ public class DataBusConfig {
 	private final Logger logger = LoggerFactory.getLogger(DataBusConfig.class);
 	
 	//private static String FILE_NAME = "redissonnode.yaml";
-	private static String FILE_NAME = "ClusterServersConfig.cfg";
+	//private static String FILE_NAME = "ClusterServersConfig.cfg";
 	
 	
 	private BufferFactory defaultBufferFactory;
 	
 	private Buffer defaultBuffer;
 	
-	private RedissonNodeConfig redissonNodeConfig() {
+	private RedissonNodeConfig redissonNodeConfig(String fileName) {
 
 		FileInputStream fis = null;
 		try {
-			URL url = org.springframework.util.ResourceUtils.getURL("classpath:"+FILE_NAME);
+			URL url = org.springframework.util.ResourceUtils.getURL("classpath:"+fileName);
+			logger.info("reddisson config file : "+ url.getPath());
 			ConfigSupport support = new ConfigSupport();
-			//RedissonNodeConfig config =  support.fromYAML(url, RedissonNodeConfig.class);
 			RedissonNodeConfig config =  support.fromJSON(url, RedissonNodeConfig.class);
 			
 			return config;
@@ -85,9 +85,14 @@ public class DataBusConfig {
 			config.setTableMetas(properties.getTables() != null ? properties.getTables().toArray(new TableMeta[0]) : null);
 			config.setChannels(properties.getChannels());
 		
-		RedissonNodeConfig redissonConfig = redissonNodeConfig();
+		RedissonNodeConfig redissonConfig = redissonNodeConfig(properties.getRedisConfig());
 		if (redissonConfig != null) {
 			config.setRedissonConfig(redissonConfig);
+		}
+		
+		redissonConfig = redissonNodeConfig(properties.getLocalConfig());
+		if (redissonConfig != null) {
+			config.setLocalConfig(redissonConfig);
 		}
 		
 		this.defaultBufferFactory = createDefaultBufferFactory(config);
@@ -152,11 +157,6 @@ public class DataBusConfig {
 	@Bean 
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public Buffer defaultBuffer(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig, BufferFactory defaultBufferFactory) {
-				
-	//	Buffer buffer =  defaultBufferFactory.openSession();
-
-		
-//		
 		return defaultBuffer;
 	}
 	

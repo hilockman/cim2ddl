@@ -23,16 +23,16 @@ public class JobController {
 	@Autowired
 	private JobService jobService;
 	
-	@GetMapping("/newjob")
-	public String newJob(Model model) {	
-		
-		return "/job/newjob";
-	}
+//	@GetMapping("/newjob")
+//	public String newJob(Model model) {	
+//		
+//		return "/job/newjob";
+//	}
 	
 	@GetMapping("/newjobname")
-	public @ResponseBody String newJobName() {
+	public @ResponseBody String newName() {
 		
-		String prefix = "newjob";
+		String prefix = "新建工作";
 		int i = 0;
 		String newName = prefix; 
 		while(true) {
@@ -53,7 +53,7 @@ public class JobController {
 	}
 	
     @GetMapping("/all")
-    public @ResponseBody List getAllJobs() {
+    public @ResponseBody List getAll() {
     	return jobService.getAll();
     }
     
@@ -62,6 +62,17 @@ public class JobController {
     	CalcJob job = jobService.findJob(jobId);
     	m.addAttribute("job", job);
     	return "/job/browse";
+    }
+    
+    @PostMapping("delete/{jobId}")
+    public @ResponseBody AdsResult delete(@PathVariable String jobId) {
+    	try {
+    		jobService.delete(jobId);
+    		return AdsResult.ok("Succeed to cancel job :"+jobId);
+    	} catch (Throwable e) {
+    		e.printStackTrace();
+    		return AdsResult.fail(e.getMessage());
+    	}
     }
     
     @PostMapping("cancel/{jobId}")
@@ -74,46 +85,23 @@ public class JobController {
     		return AdsResult.fail(e.getMessage());
     	}
     }
-    
-    @PostMapping("stop/{jobId}")
-    public @ResponseBody AdsResult stop(@PathVariable String jobId) {
+   
+    @PostMapping("start/{jobId}")
+    public @ResponseBody AdsResult start(@PathVariable String jobId) {
     	try {
-    		jobService.stop(jobId);
-    		return AdsResult.ok("Succeed to cancel job :"+jobId);
-    	} catch (Throwable e) {
-    		e.printStackTrace();
-    		return AdsResult.fail(e.getMessage());
-    	}
-    }
-
-    @PostMapping("pause/{jobId}")
-    public @ResponseBody AdsResult pause(@PathVariable String jobId) {
-    	try {
-    		jobService.pause(jobId);
-    		return AdsResult.ok("Succeed to cancel job :"+jobId);
-    	} catch (Throwable e) {
-    		e.printStackTrace();
-    		return AdsResult.fail(e.getMessage());
-    	}
-    }
-    
-    @PostMapping("restart/{jobId}")
-    public @ResponseBody AdsResult restart(@PathVariable String jobId) {
-    	try {
-    		jobService.restart(jobId);
+    		jobService.start(jobId);
     		return AdsResult.ok("Succeed to restart job :"+jobId);
     	} catch (Throwable e) {
     		e.printStackTrace();
     		return AdsResult.fail(e.getMessage());
     	}
     }    
-    
-    
-    @PostMapping("add")
-    public @ResponseBody AdsResult add(CalcJob job) {
+        
+    @PostMapping("create")
+    public @ResponseBody AdsResult create(CalcJob job) {
     	try {    	
 	    	//System.out.println(job);
-	    	jobService.add(job);
+	    	jobService.create(job);
 	    	return AdsResult.ok();
 	    } catch (Throwable e) {
 	    	e.printStackTrace();

@@ -27,8 +27,16 @@ ads:
 model:
   cachedDir: ./model
 
+
+
 buffer:
-   channels:
+   #redisConfig: ClusterServersConfig.cfg
+   #localConfig: SingleServerConfig.cfg
+   
+   redisConfig: SingleServerConfig.cfg
+   localConfig: SingleServerConfig.cfg
+   localAddress: "redis://127.0.0.1:10001"
+   channels: 
        -
          name : commonChannel
          type : Share

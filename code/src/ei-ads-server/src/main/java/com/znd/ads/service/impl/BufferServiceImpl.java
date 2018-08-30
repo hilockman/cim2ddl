@@ -10,7 +10,7 @@ import com.znd.ads.model.CategoryInfo;
 import com.znd.ads.service.BufferService;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.Message;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.TableMeta;
 import com.znd.bus.log.LogBuffer;
@@ -60,7 +60,7 @@ public class BufferServiceImpl implements BufferService {
 	}
 
 	@Override
-	public void sendMessage(Message message) {
+	public void sendMessage(ChannelMessage message) {
 		commonChannel.send(message);
 	}
 

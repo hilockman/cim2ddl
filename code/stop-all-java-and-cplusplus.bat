@@ -8,5 +8,6 @@ taskkill /f /im GCModuleTest.exe
 taskkill /f /im BpaSysRAdequacyUI.exe 
 taskkill /f /im MemDBViewer.exe
 taskkill /f /im MemStarter.exe
+taskkill /f /im state-estimate.exe
 
 

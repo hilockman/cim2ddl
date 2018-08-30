@@ -2,7 +2,9 @@ package com.znd.bus.common.model;
 
 
 public enum CalcJobStateEnum {
-
+	//等待执行
+	waiting,
+	
 	//正在执行
 	running,
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.server.BusService;
 
 public interface Buffer  extends Closeable {	
 	List<TableMeta> tables();
@@ -31,5 +32,5 @@ public interface Buffer  extends Closeable {
 
 	BufferConfig getConfig();
 	
-	
+
 }

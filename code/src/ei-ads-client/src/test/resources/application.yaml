@@ -14,8 +14,13 @@ logging:
 model:
   cachedDir: ./model
   
+
 buffer:
-   channels:
+  # redisConfig: ClusterServersConfig.cfg
+  # localConfig: ClusterServersConfig.cfg
+   redisConfig: SingleServerConfig.cfg
+   localConfig: SingleServerConfig.cfg  
+   channels:          
        -
          name : commonChannel
          type : Share
@@ -41,7 +46,7 @@ ads:
      lifecycle: 60000
   temp:
     dir: ./temp
-  appDir: D:\GitHub\cim2ddl\code\bin_x64
+  appDir: D:/GitHub/cim2ddl/znd/bin_x64
   #appDir: E:/ZNDCWare/bin_x64
 
 reliability:

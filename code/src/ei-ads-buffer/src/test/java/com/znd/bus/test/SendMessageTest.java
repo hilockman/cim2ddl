@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.Message;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.MessageCodeEnum;
 
 @RunWith(SpringRunner.class)
@@ -23,7 +23,7 @@ public class SendMessageTest {
 	@Test
 	public void sendOneMessage() {
 		System.out.println("------------------------start SendMessageTest.sendOneMessage()----------------------------");
-		testChannel.send(new Message(MessageCodeEnum.test, "hello!"));
+		testChannel.send(new ChannelMessage(MessageCodeEnum.test, "hello!"));
 		System.out.println("------------------------end SendMessageTest.sendOneMessage()----------------------------"); 
 	}
 }

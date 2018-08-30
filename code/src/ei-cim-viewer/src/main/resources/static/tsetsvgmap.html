@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <style>
+
+	#container {
+	    width: 500px;
+	    height: 500px;
+	}
+	
+	circle {
+	  stroke-width: 5;
+	  stroke: #f00;
+	  fill: #ff0;
+	}
+ </style>
+</head>
+<body>
+    <div>
+	  <ul>
+		<li>1</li>
+		<li>1</li>		
+	  </ul>
+	</div>
+	<div style="position:fixed;top=0;">
+	    x = <span id="x"></span><br/>
+	    y = <span id="y"></span>
+	 </div>
+	<div id="container">
+	    <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" viewbox="0 0 100 100" width="800" height="800" >
+	        <rect x="0" y="0" width="100" height="100" fill="blue"/>
+	        <circle cx="10" cy="10" r="10"></circle>
+	        <circle cx="57" cy="54" r="10"></circle>
+	    </svg>
+	</div>
+</body>
+<script>
+var x = document.getElementById("x"),
+y = document.getElementById("y"),
+svg = document.querySelector("svg");
+NS = svg.getAttribute('xmlns');
+
+
+
+//add a circle to the SVG
+svg.addEventListener('click', function(e) {
+  
+  var
+    t = e.target,
+    x = e.clientX,
+    y = e.clientY,
+    target = (t == svg ? svg : t.parentNode),
+    svgP = svgPoint(target, x, y),
+    circle = document.createElementNS(NS, 'circle');
+  
+  circle.setAttributeNS(null, 'cx', Math.round(svgP.x));
+  circle.setAttributeNS(null, 'cy', Math.round(svgP.y));
+  circle.setAttributeNS(null, 'r', 10);
+  target.appendChild(circle);
+  console.log("click:("+svgP.x+","+svgP.y+")");
+}, false);
+
+svg.addEventListener("mousemove", function(evt) {
+	var pt = svg.createSVGPoint();
+	pt.x = evt.pageX;
+	pt.y = evt.pageY;
+	pt = pt.matrixTransform(svg.getScreenCTM().inverse());
+	
+	x.innerHTML = pt.x;
+	y.innerHTML = pt.y;
+	
+	NS = svg.getAttribute('xmlns');
+}, false);
+
+
+//translate page to SVG co-ordinate
+function svgPoint(element, x, y) {
+  
+  var pt = svg.createSVGPoint();
+  pt.x = x;
+  pt.y = y;
+  return pt.matrixTransform(element.getScreenCTM().inverse());
+  
+}
+</script>
+</html>

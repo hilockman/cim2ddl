@@ -1,0 +1,34 @@
+<!DOCTYPE HTML> 
+<html>
+<head> 
+    <meta charset="utf-8">
+	<title>SVG Styling via CSS Classes</title> 
+	<style type="text/css" media="screen"> 
+		body { background:#eee; margin:2em; text-align:center }
+		svg { display:block; border:1px solid #ccc; background:#fff; margin:auto }
+		.islands * { stroke-width:2px; stroke:#700; fill:#620; fill-opacity:0.5 }
+		.over    * { stroke-width:4px; stroke:#930; fill:#ff0; fill-opacity:0.9 }
+		#footer { font-style:italic; font-size:85%; color:#666 }
+	</style> 
+ 
+</head>
+<body>
+	<p>Showing how to use CSS classes on SVG groups to conditionally change the appearance of all items within a group.</p>
+	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="full"
+			 viewBox="-350 -250 700 500" width="800px" height="600px"> 
+		<g class="islands"><circle r="70" /><circle cx="150" cy="20" r="50" /></g>
+	</svg> 
+	<p id="footer">Copyright © 2011 <a href="mailto:!@phrogz.net">Gavin Kistner</a>. Written to support <a href="http://stackoverflow.com/questions/5555254/highlight-multiple-path-elements-within-svg-g-on-event-action/5555658#5555658">this Stack Overflow answer</a>.</p>
+	<script>
+		var svg  = document.getElementsByTagName('svg')[0];
+		var svgNS = svg.getAttribute('xmlns');
+		svg.addEventListener('mouseover',function(e){
+			var g = e.target.parentNode;
+			g.setAttribute('class',g.getAttribute('class')+' over');
+		},false);
+		svg.addEventListener('mouseout',function(e){
+			var g = e.target.parentNode;
+			g.setAttribute('class',g.getAttribute('class').replace(' over',''));
+		},false);
+    </script>
+</body></html>

@@ -14,13 +14,11 @@ public interface JobService {
 	
 	List<CalcJob> findByModel(String modelId);
 	
+	void delete(String jobId);
+
+	void start(String jobId);
+
+	void create(CalcJob job);
+
 	void cancel(String jobId);
-
-	void restart(String jobId);
-
-	void add(CalcJob job);
-
-	void stop(String jobId);
-
-	void pause(String jobId);
 }

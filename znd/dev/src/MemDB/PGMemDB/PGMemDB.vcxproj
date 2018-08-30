@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D4F200F8-2966-3771-BE42-9F77B5136140}</ProjectGuid>
+    <RootNamespace>PGMemDB</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>..\..\..\..\binary\win64\release\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>PGMemDB</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>..\..\..\..\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>PGMemDB</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\..\..\..\binary\win64\release\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">PGMemDB</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</PostBuildEventUseInBuild>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\..\..\..\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">PGMemDB</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -Zc:strictStrings -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;WIN64;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;_PGMEMDB_EXPORTS_;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\GitHub\cim2ddl\znd\dev\lib_release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\PGMemDB.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SetChecksum>true</SetChecksum>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;WIN64;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;_PGMEMDB_EXPORTS_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_release&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb D:\GitHub\cim2ddl\znd/binary/win64/release/pdb&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_release&#x0d;&#x0a; if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb D:\GitHub\cim2ddl\znd/binary/win64/release/pdb&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;WIN64;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;_PGMEMDB_EXPORTS_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\GitHub\cim2ddl\znd\dev\lib_debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\PGMemDB.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;WIN64;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;_PGMEMDB_EXPORTS_;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist D:\GitHub\cim2ddl\znd\bin\*.lib move /y D:\GitHub\cim2ddl\znd\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_debug&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist D:\GitHub\cim2ddl\znd\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\bin\*.pdb D:\GitHub\cim2ddl\znd/bin&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist D:\GitHub\cim2ddl\znd\bin\*.lib move /y D:\GitHub\cim2ddl\znd\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_debug&#x0d;&#x0a; if exist D:\GitHub\cim2ddl\znd\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\bin\*.pdb D:\GitHub\cim2ddl\znd/bin&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\Log.cpp" />
+    <ClCompile Include="..\MemDBBase\MemDBBase.cpp" />
+    <ClCompile Include="PGMemDB.cpp" />
+    <ClCompile Include="PGMemDBAbnorm.cpp" />
+    <ClCompile Include="PGMemDBBreakerType.cpp" />
+    <ClCompile Include="PGMemDBBusType.cpp" />
+    <ClCompile Include="PGMemDBDecompose.cpp" />
+    <ClCompile Include="PGMemDBDerived.cpp" />
+    <ClCompile Include="PGMemDBIsland.cpp" />
+    <ClCompile Include="PGMemDBMaint.cpp" />
+    <ClCompile Include="PGMemDBMisc.cpp" />
+    <ClCompile Include="PGMemDBPFAmend.cpp" />
+    <ClCompile Include="PGMemDBPointer.cpp" />
+    <ClCompile Include="PGMemDBRecord.cpp" />
+    <ClCompile Include="PGMemDBRegular.cpp" />
+    <ClCompile Include="PGMemDBStat.cpp" />
+    <ClCompile Include="PGMemDBStatus.cpp" />
+    <ClCompile Include="PGMemDBTopo.cpp" />
+    <ClCompile Include="PGMemDBTrav.cpp" />
+    <ClCompile Include="PGMemDBVolt32.cpp" />
+    <ClCompile Include="..\..\Common\StringCommon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\GitHub\cim2ddl\znd\dev\src\MemDB\MemDBBase\MemDBBase.h" />
+    <ClInclude Include="D:\GitHub\cim2ddl\znd\dev\src\MemDB\MemDBBase\MemDBBase_Check.hpp" />
+    <ClInclude Include="D:\GitHub\cim2ddl\znd\dev\src\MemDB\MemDBBase\MemDBBase_Record.hpp" />
+    <ClInclude Include="D:\GitHub\cim2ddl\znd\dev\src\MemDB\MemDBBase\MemDBBase_Sort.hpp" />
+    <ClInclude Include="D:\GitHub\cim2ddl\znd\dev\src\MemDB\MemDBBase\MemDBHash.h" />
+    <ClInclude Include="PGMemDB.h" />
+    <ClInclude Include="PGMemDBBlock.h" />
+    <ClInclude Include="PGMemDBDefine.h" />
+    <ClInclude Include="PGMemDBEnum.h" />
+    <ClInclude Include="PGMemDBExtern.h" />
+    <ClInclude Include="PGMemDBField.h" />
+    <ClInclude Include="PGMemDBTable.h" />
+    <ClInclude Include="D:\GitHub\cim2ddl\znd\dev\src\Common\StringCommon.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

@@ -3,10 +3,10 @@ package com.znd.bus.channel;
 import java.io.Closeable;
 
 public interface Channel extends Closeable {
-     void send(Message message);
+     void send(ChannelMessage message);
      void register(Listener listener);
      
-     void receive(Event e);
+     void receive(ChannelMessage e);
      
      @Override
      void close();

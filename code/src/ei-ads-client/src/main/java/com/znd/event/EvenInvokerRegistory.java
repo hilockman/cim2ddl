@@ -40,11 +40,11 @@ public class EvenInvokerRegistory {
 	
 	
 		
-	public EvenInvoker find(String jobType, MessageCodeEnum code) {
+	public EvenInvoker find(String jobType, String code) {
 		Map<String, EvenInvoker> m = invoderMap.get(jobType);
 		if (m == null)
 			throw new EventException("Fail to find invoker map , jobtype : "+ jobType);
-		EvenInvoker invoker = m.get(code.name());
+		EvenInvoker invoker = m.get(code);
 		
 		
 		if (invoker == null)

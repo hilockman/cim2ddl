@@ -38,6 +38,8 @@ mybatis:
   
 #buffer配置  
 buffer:
+   #redisConfig: ClusterServersConfig.cfg
+   redisConfig: SingleServerConfig.cfg
    channels:
        -
          name : jobChannel

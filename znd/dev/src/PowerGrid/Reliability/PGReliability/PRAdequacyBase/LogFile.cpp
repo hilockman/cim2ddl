@@ -1,0 +1,1 @@
+const	char*	g_lpszLogFile = "PRAdequacyBase.log";

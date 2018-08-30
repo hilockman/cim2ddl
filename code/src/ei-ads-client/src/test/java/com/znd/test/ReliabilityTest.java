@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.ads.model.dto.PRAdequacySetting;
@@ -68,9 +69,13 @@ public class ReliabilityTest {
 		job.setStart(new Date());
 		job.setId(UUID.randomUUID().toString());
 		job.setModelId(modelName);
-		CalcJob.setConfig(job, new PRAdequacySetting());
+		job.setName("test");
+		PRAdequacySetting setting = new PRAdequacySetting();
+		//setting.setMCSSimulateTime(20);
+		CalcJob.setConfig(job, setting);
 		calcJobMapper.save(job);
 		
+
 		{
 			File[] files = {newFile("dat"),newFile("swi") };
 			apl.callBpaLoader(files);
@@ -84,13 +89,13 @@ public class ReliabilityTest {
 		String appName  = "GCStateEstimateServer";
 		Process p = null;
 		if (!AppUtil.isRunning(appName))
-		  p = AppUtil.execute(properties.getAppDir()+"/"+appName);
+		  p = AppUtil.executeWithoutLogger(properties.getAppDir()+"/"+appName);
 		
 		assertTrue(AppUtil.isRunning(appName));
 				
 		apl.reliability(job.getId());
 
-		apl.reliabilityIndex(job.getId());
+		apl.reliabilityIndex(job.getId(), null);
 		
 		job.setEnd(new Date());
 		job.setElapse(job.getEnd().getTime() - job.getStart().getTime());
@@ -99,8 +104,5 @@ public class ReliabilityTest {
 		if (p != null)
 			p.destroy();
 		
-		
-		
-
 	}
 }

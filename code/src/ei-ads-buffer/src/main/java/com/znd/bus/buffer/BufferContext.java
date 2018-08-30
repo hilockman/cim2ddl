@@ -25,11 +25,9 @@ import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
 import com.znd.bus.binding.BindingException;
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.ChannelConfig;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.ChannelType;
-import com.znd.bus.channel.Event;
 import com.znd.bus.channel.Listener;
-import com.znd.bus.channel.Message;
-import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.channel.defaults.DefaultChannel;
 import com.znd.bus.channel.defaults.MessageException;
 import com.znd.bus.config.BufferConfig;
@@ -448,7 +446,7 @@ public  class BufferContext {
 		}
 
 		@Override
-		public void send(Message message) {			
+		public void send(ChannelMessage message) {			
 			sendMessage(delegate.getName(), message);
 		}
 
@@ -458,7 +456,7 @@ public  class BufferContext {
 		}
 
 		@Override
-		public void receive(Event e) {
+		public void receive(ChannelMessage e) {
 			delegate.receive(e);
 		}
 
@@ -520,7 +518,7 @@ public  class BufferContext {
 						
 						@Override
 						public void CallBack(int number, MessageContent messageContent) {
-							Event event = new Event(MessageCodeEnum.valueOf(messageContent.getControlCode()), messageContent.getEventContent());
+							ChannelMessage event = new ChannelMessage(messageContent.getControlCode(), messageContent.getEventContent());
 							logger.debug("Receive message : number={}, content={}",number, event);
 							bufferChannel.receive(event);
 						}
@@ -533,12 +531,12 @@ public  class BufferContext {
 		}
 	}
 	
-	public void sendMessage(String channelName, Message message) {
+	public void sendMessage(String channelName, ChannelMessage message) {
 		MessageChannel channel = MessageChannel.OTHERCHANNEL;
 		synchronized (channel) {
 			try {
 				channel.setStrChannel(channelName);
-				pubSubManager.publishMessage(channel, message.getCode().name(), message.getContent());
+				pubSubManager.publishMessage(channel, message.getCode(), message.getContent());
 				logger.debug("Send message '{}', by channel : {} ", message, channelName);
 			} catch (Exception e) {
 				throw new MessageException(e);

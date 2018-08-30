@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
+import org.redisson.config.RedissonNodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.buffer.ModelFileBuffer;
 import com.znd.bus.common.model.CalcJob;
+import com.znd.bus.config.BufferConfig;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
@@ -31,11 +33,12 @@ import com.znd.exception.AplException;
 import com.znd.memory.DatabaseType;
 import com.znd.memory.ShareMemHolder;
 import com.znd.reliability.config.ReliabilityProperties;
-import com.znd.reliability.server.BufferServer;
+import com.znd.reliability.server.PrBufferServer;
 import com.znd.reliability.server.PrMemoryServer;
-import com.znd.reliability.server.ProxyServer;
-import com.znd.reliability.server.impl.BufferServerImpl;
-import com.znd.reliability.server.impl.ReliabilityProxyServer;
+import com.znd.reliability.server.ReliabilityProxyServer;
+import com.znd.reliability.server.impl.PrBufferServerImpl;
+import com.znd.reliability.server.impl.ReliabilityProxyServerImpl;
+import com.znd.reliability.server.impl.SimpleServer;
 import com.znd.reliability.utils.AppExecuteBuilder;
 import com.znd.reliability.utils.AppUtil;
 
@@ -71,9 +74,19 @@ public class ReliabilityApl {
 	@Autowired
 	private Channel commonChannel;
 	
+//	@Autowired
+//	private Channel stateEstimateTopic;
+//	
+//	
+//	@Autowired
+//	private Channel stateEstimateResponseTopic;
 	
 	@Autowired
 	private ShareMemHolder memHolder;
+	
+	
+	@Autowired
+	private BufferConfig bufferConfig; 
 	
 	
 	public ReliabilityApl(ReliabilityProperties properties) {
@@ -155,7 +168,51 @@ public class ReliabilityApl {
 				.addParam(0.000000).logger((String log)->logger.info(log)).exec();
 	}
 	
-
+	public void reliabilityLocal(String jobId) {		
+		CalcJob job = calcJobBuffer.findById(jobId);
+		
+		if (job == null) {
+			throw new AplException("Cann't find job id : jobId = "+jobId );
+		}
+		//String modelId = job.getModelId();
+		logger.info("Begin to reliability analysis : jobId = "+jobId);
+		
+		PrBufferServer bufferServer = new PrBufferServerImpl(defaultBuffer, job);
+		bufferServer.clear();
+		
+		PRAdequacySetting setting = CalcJob.getConfig(job);
+		if (setting == null)
+			throw new AplException("Can't resolve job setting : " + jobId);
+		
+		sample(setting);
+ 		
+		String appName  = "state-estimate";
+			
+		AppUtil.kill(appName);
+		if (!AppUtil.isRunning(appName)) {
+			new Thread(()->{
+				RedissonNodeConfig localConfig = bufferConfig.getLocalConfig();				
+				AppUtil.executeWithoutLogger("D:/GitHub/cim2ddl/znd/bin/"+appName, "127.0.0.1","10001");
+			}).start();
+		}
+		  		
+		List<FState> fstates = memoryServer.findAllFStates();
+		List<FStateFDev> devs = memoryServer.findAllFStateFDevs();
+		if (fstates.isEmpty() || devs.isEmpty()) {
+			throw new AplException("fstate is empty : "+job.getId());
+		}
+		
+		bufferServer.updateTasks(fstates, devs);		
+		
+		try {
+			System.out.println("Start SimpleServer");
+		    ReliabilityProxyServer server = new SimpleServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting, bufferConfig.getLocalClient());		
+			server.exec();
+		} finally {
+			AppUtil.kill(appName);
+		}
+		bufferServer.flushResult();
+	}
 
 	public void reliability(String jobId) {		
 		CalcJob job = calcJobBuffer.findById(jobId);
@@ -166,7 +223,7 @@ public class ReliabilityApl {
 		//String modelId = job.getModelId();
 		logger.info("Begin to reliability analysis : "+jobId);
 		
-		BufferServer bufferServer = new BufferServerImpl(defaultBuffer, job);
+		PrBufferServer bufferServer = new PrBufferServerImpl(defaultBuffer, job);
 		bufferServer.clear();
 		
 		PRAdequacySetting setting = CalcJob.getConfig(job);
@@ -182,11 +239,10 @@ public class ReliabilityApl {
 		
 		bufferServer.updateTasks(fstates, devs);		 
 		
-
-			ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);
+	    ReliabilityProxyServer server = new ReliabilityProxyServerImpl(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);
 		
-			server.exec();
-
+		server.exec();
+		bufferServer.flushResult();
 	}
 	
 	private void callReliabilityIndex(PRAdequacySetting config) {
@@ -195,7 +251,7 @@ public class ReliabilityApl {
 				.addParam(config.getDc2AcFactor()).logger((String log)->logger.info(log)).exec();
 	}	
 	
-	public void reliabilityIndex(String jobId) {
+	public void reliabilityIndex(String jobId, PrBufferServer bufferServer) {
 
 		 System.out.println("Update result to memdb...");
 		 memoryServer.clear();
@@ -205,7 +261,8 @@ public class ReliabilityApl {
 			throw new AplException("Cann't find job id : "+jobId );
 		}
 				
-		BufferServer bufferServer = new BufferServerImpl(defaultBuffer, job);
+		if (bufferServer == null)
+		  bufferServer = new PrBufferServerImpl(defaultBuffer, job);
 		 
 		List<FStateOvlDev> ovlDevs = bufferServer.getAllOvlDevs(); 
 		List<FStateOvlAd> ovlAds = bufferServer.getOvlAds();
@@ -248,7 +305,7 @@ public class ReliabilityApl {
 		
 	}
 	
-	@AplFunction(value="initBuffer", desc="初始化缓存", in = MessageCodeEnum.created_job, out = MessageCodeEnum.created_reliability_task)
+	@AplFunction(value="initBuffer", desc="初始化缓存", in = MessageCodeEnum.start_job, out = MessageCodeEnum.created_reliability_task)
 	public void initBuffer(String jobId, AplContext context) {
 		CalcJob job = calcJobBuffer.findById(jobId);
 		if (job == null) {
@@ -263,7 +320,7 @@ public class ReliabilityApl {
 		//初始化任务
 		logger.info("Begin to reliability analysis : "+jobId);
 		
-		BufferServer bufferServer = new BufferServerImpl(defaultBuffer, job);
+		PrBufferServer bufferServer = new PrBufferServerImpl(defaultBuffer, job);
 		bufferServer.clear();
 		
 		PRAdequacySetting setting = CalcJob.getConfig(job);
@@ -296,9 +353,9 @@ public class ReliabilityApl {
 		//初始化模型
 		initModel(job);
 		
-		BufferServer bufferServer = (BufferServer) context.getAttribute("buffer");
+		PrBufferServer bufferServer = (PrBufferServer) context.getAttribute("buffer");
 		if (bufferServer == null) {
-			bufferServer = new BufferServerImpl(defaultBuffer, job);
+			bufferServer = new PrBufferServerImpl(defaultBuffer, job);
 		}
 		
 		PRAdequacySetting setting = CalcJob.getConfig(job);
@@ -313,16 +370,16 @@ public class ReliabilityApl {
 		try {
 			
 			//充裕度评估
-			ProxyServer server = new ReliabilityProxyServer(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
+			ReliabilityProxyServer server = new ReliabilityProxyServerImpl(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
 			server.exec();
-			
+			bufferServer.flushResult();
 		} finally {
 			if (p != null)
 			   p.destroy();
 		}
 
 
-		reliabilityIndex(jobId);
+		reliabilityIndex(jobId, bufferServer);
 		
 		
 		

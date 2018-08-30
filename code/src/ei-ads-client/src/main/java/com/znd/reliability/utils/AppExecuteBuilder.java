@@ -12,8 +12,13 @@ public class AppExecuteBuilder {
 	
 	Process process;
 	ProcessBuilder builder;
+	Boolean appendAppPath = true;
 	public AppExecuteBuilder(String appName) {
 		this.appPath = appName;
+	}
+	public AppExecuteBuilder(String appName, boolean appendAppPath) {
+		this.appPath = appName;
+		this.appendAppPath = appendAppPath;
 	}
 	
 //	public AppExecuteBuilder addParam(String param) {
@@ -31,23 +36,27 @@ public class AppExecuteBuilder {
 		this.appLogger = appLogger;
 		return this;
 	}
-	public void exec() {
+	public AppExecuteBuilder exec() {
 		
-		process = AppUtil.execute(appPath, appLogger, parameters.toArray(new String[0]));
+		process = AppUtil.executeWithLogger(appPath, appLogger, parameters.toArray(new String[0]));
+		return this;
 	}
 	
 	public static void main(String [] args) {
 		
 	}
-	public void start() {
+	
+	
+	public AppExecuteBuilder start() {
 		List<String> params = new ArrayList<String>();
 		params.addAll(parameters);
 		params.add(0, appPath);
 		
 		StringBuffer cmd = new StringBuffer();
-		cmd.append(appPath);
+		if (appendAppPath)
+			cmd.append(appPath+" ");
 		for (String param : params) {
-			cmd.append(" "+param);
+			cmd.append(param+" ");
 		}
 		if (appLogger != null) {
 			appLogger.print(cmd.toString());
@@ -57,19 +66,25 @@ public class AppExecuteBuilder {
 		builder = new 	ProcessBuilder(params.toArray(new String[0]));
 		try {
 			process = builder.start();
+			if (appLogger != null) {
 			InputStream is = process.getInputStream();
 			AppUtil.print(is, appLogger);
 			
 			InputStream eis = process.getErrorStream();
 			AppUtil.print(eis, appLogger);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return this;
 	}
 	
-	public void terminate() {
-		if (process != null)
+	public void destroy() {
+		if (process != null) {
+			System.out.println("Destory "+appPath);
 			process.destroy();
+		}
 	}
 }

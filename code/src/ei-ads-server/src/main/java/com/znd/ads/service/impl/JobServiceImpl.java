@@ -20,7 +20,7 @@ import com.znd.ads.exception.JobException;
 import com.znd.ads.mapper.CalcJobMapper;
 import com.znd.ads.service.JobService;
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.Message;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.buffer.ModelFileBuffer;
@@ -93,7 +93,7 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public void cancel(String jobId) {
+	public void delete(String jobId) {
 		CalcJob job = jobBuffer.findById(jobId);
 		if (job == null)
 			return;
@@ -109,7 +109,7 @@ public class JobServiceImpl implements JobService {
 	
 
 	@Override
-	public void stop(String jobId) {
+	public void cancel(String jobId) {
 		
 		CalcJob job = jobBuffer.findById(jobId);
 		if (job == null)
@@ -127,26 +127,11 @@ public class JobServiceImpl implements JobService {
 		
 	}
 
-	@Override
-	public void pause(String jobId) {
-		
-		CalcJob job = jobBuffer.findById(jobId);
-		if (job == null)
-			return;
-		
-		
-//		if (job.getState() == CalcJobStateEnum.running) {
-//			throw new JobException("Fail to cancel job :"+jobId+", job is running.");
-//		}
-		job.setState(CalcJobStateEnum.suspend);
-		jobMapper.update(job);
-		jobBuffer.update(job);
-		
-		logger.info("Job : {} paused.", jobId);
-	}
 
 
-	private void prepareAndPublishJob(CalcJob job) {
+
+	//准备并开始工作
+	private void prepareAndStartJob(CalcJob job) {
 		
 		String jobId = job.getId();
 		String modelId = job.getModelId();
@@ -208,13 +193,19 @@ public class JobServiceImpl implements JobService {
 		//发送消息
 		
 		logger.info("sendMessage : cc = {}, content = {}. ",
-		"created_ReliabilityJob", jobId);
+				MessageCodeEnum.start_job, jobId);
 		
-		jobChannel.send(new Message(MessageCodeEnum.created_job, jobId));
+		job.setStart(new Date());
+		job.setElapse(null);
+		job.setEnd(null);
+		job.setState(CalcJobStateEnum.waiting);
+		jobBuffer.update(job);
+		
+		jobChannel.send(new ChannelMessage(MessageCodeEnum.start_job, jobId));
 
 	}
 	@Override
-	public void restart(String jobId) {
+	public void start(String jobId) {
 		CalcJob job = jobBuffer.findById(jobId);
 		if (job == null) {
 			throw new JobException("Unknown job id :" +jobId);
@@ -224,13 +215,13 @@ public class JobServiceImpl implements JobService {
 			throw new JobException("Job  :" +jobId+", is running.");
 		}
 		
-		prepareAndPublishJob(job);
+		prepareAndStartJob(job);
 		
 		
 	}
 
 	@Override
-	public void add(CalcJob job) {
+	public void create(CalcJob job) {
 		
 		//check job is valid
 		if (job.getModelId() == null) {
@@ -245,8 +236,6 @@ public class JobServiceImpl implements JobService {
 			job.setId(Utils.randomKey());
 		}
 		job.setStart(new Date());
-		//job.setState(CalcJobStateEnum.created);
-		prepareAndPublishJob(job);
 		
 		jobBuffer.insert(job);
 		jobMapper.insert(job);

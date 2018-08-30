@@ -1,0 +1,474 @@
+Microsoft (R) COFF/PE Dumper Version 12.00.40629.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file PRAdequacyBase.lib
+
+File Type: LIBRARY
+
+FILE HEADER VALUES
+            8664 machine (x64)
+               3 number of sections
+        5B45B783 time date stamp Wed Jul 11 15:53:39 2018
+             11A file pointer to symbol table
+               8 number of symbols
+               0 size of optional header
+               0 characteristics
+
+SECTION HEADER #1
+.debug$S name
+       0 physical address
+       0 virtual address
+      48 size of raw data
+      8C file pointer to raw data (0000008C to 000000D3)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+42100040 flags
+         Initialized Data
+         Discardable
+         1 byte align
+         Read Only
+
+SECTION HEADER #2
+.idata$2 name
+       0 physical address
+       0 virtual address
+      14 size of raw data
+      D4 file pointer to raw data (000000D4 to 000000E7)
+      E8 file pointer to relocation table
+       0 file pointer to line numbers
+       3 number of relocations
+       0 number of line numbers
+C0300040 flags
+         Initialized Data
+         4 byte align
+         Read Write
+
+SECTION HEADER #3
+.idata$6 name
+       0 physical address
+       0 virtual address
+      14 size of raw data
+     106 file pointer to raw data (00000106 to 00000119)
+      E8 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+C0200040 flags
+         Initialized Data
+         2 byte align
+         Read Write
+
+FILE HEADER VALUES
+            8664 machine (x64)
+               2 number of sections
+        5B45B783 time date stamp Wed Jul 11 15:53:39 2018
+              C0 file pointer to symbol table
+               2 number of symbols
+               0 size of optional header
+               0 characteristics
+
+SECTION HEADER #1
+.debug$S name
+       0 physical address
+       0 virtual address
+      48 size of raw data
+      64 file pointer to raw data (00000064 to 000000AB)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+42100040 flags
+         Initialized Data
+         Discardable
+         1 byte align
+         Read Only
+
+SECTION HEADER #2
+.idata$3 name
+       0 physical address
+       0 virtual address
+      14 size of raw data
+      AC file pointer to raw data (000000AC to 000000BF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+C0300040 flags
+         Initialized Data
+         4 byte align
+         Read Write
+
+FILE HEADER VALUES
+            8664 machine (x64)
+               3 number of sections
+        5B45B783 time date stamp Wed Jul 11 15:53:39 2018
+              E4 file pointer to symbol table
+               2 number of symbols
+               0 size of optional header
+               0 characteristics
+
+SECTION HEADER #1
+.debug$S name
+       0 physical address
+       0 virtual address
+      48 size of raw data
+      8C file pointer to raw data (0000008C to 000000D3)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+42100040 flags
+         Initialized Data
+         Discardable
+         1 byte align
+         Read Only
+
+SECTION HEADER #2
+.idata$5 name
+       0 physical address
+       0 virtual address
+       8 size of raw data
+      D4 file pointer to raw data (000000D4 to 000000DB)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+C0400040 flags
+         Initialized Data
+         8 byte align
+         Read Write
+
+SECTION HEADER #3
+.idata$4 name
+       0 physical address
+       0 virtual address
+       8 size of raw data
+      DC file pointer to raw data (000000DC to 000000E3)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+C0400040 flags
+         Initialized Data
+         8 byte align
+         Read Write
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000004E
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ??0CPRAdequacyStateEstimate@PRAdequacyBase@@QEAA@AEBV01@@Z (public: __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::CPRAdequacyStateEstimate(class PRAdequacyBase::CPRAdequacyStateEstimate const &))
+  Type         : code
+  Name type    : name
+  Hint         : 0
+  Name         : ??0CPRAdequacyStateEstimate@PRAdequacyBase@@QEAA@AEBV01@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000047
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ??0CPRAdequacyStateEstimate@PRAdequacyBase@@QEAA@XZ (public: __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::CPRAdequacyStateEstimate(void))
+  Type         : code
+  Name type    : name
+  Hint         : 1
+  Name         : ??0CPRAdequacyStateEstimate@PRAdequacyBase@@QEAA@XZ
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000047
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ??1CPRAdequacyStateEstimate@PRAdequacyBase@@QEAA@XZ (public: __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::~CPRAdequacyStateEstimate(void))
+  Type         : code
+  Name type    : name
+  Hint         : 2
+  Name         : ??1CPRAdequacyStateEstimate@PRAdequacyBase@@QEAA@XZ
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000054
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ??4CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAAEAV01@AEBV01@@Z (public: class PRAdequacyBase::CPRAdequacyStateEstimate & __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::operator=(class PRAdequacyBase::CPRAdequacyStateEstimate const &))
+  Type         : code
+  Name type    : name
+  Hint         : 3
+  Name         : ??4CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAAEAV01@AEBV01@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006B
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?AdjustRadial@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HHNEE@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::AdjustRadial(struct _PRMemDBBlock_ *,int,int,double,unsigned char,unsigned char))
+  Type         : code
+  Name type    : name
+  Hint         : 4
+  Name         : ?AdjustRadial@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HHNEE@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006F
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?AdjustSystem@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HNEEEEEEE@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::AdjustSystem(struct _PRMemDBBlock_ *,int,double,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char))
+  Type         : code
+  Name type    : name
+  Hint         : 5
+  Name         : ?AdjustSystem@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HNEEEEEEE@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000064
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?AppendMStateParam@PRAdequacyBase@@YAHPEAU_PRMemDBBlock_@@PEAU_PR_DevMState_@@@Z (int __cdecl PRAdequacyBase::AppendMStateParam(struct _PRMemDBBlock_ *,struct _PR_DevMState_ *))
+  Type         : code
+  Name type    : name
+  Hint         : 6
+  Name         : ?AppendMStateParam@PRAdequacyBase@@YAHPEAU_PRMemDBBlock_@@PEAU_PR_DevMState_@@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006E
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?BalanceCommonFault@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HH@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::BalanceCommonFault(struct _PRMemDBBlock_ *,int,int))
+  Type         : code
+  Name type    : name
+  Hint         : 7
+  Name         : ?BalanceCommonFault@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HH@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006A
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?BalanceGenTrip@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HN@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::BalanceGenTrip(struct _PRMemDBBlock_ *,int,double))
+  Type         : code
+  Name type    : name
+  Hint         : 8
+  Name         : ?BalanceGenTrip@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HN@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000069
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?BalanceIsland@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@NH@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::BalanceIsland(struct _PRMemDBBlock_ *,double,int))
+  Type         : code
+  Name type    : name
+  Hint         : 9
+  Name         : ?BalanceIsland@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@NH@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006B
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?BalanceLoadTrip@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HN@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::BalanceLoadTrip(struct _PRMemDBBlock_ *,int,double))
+  Type         : code
+  Name type    : name
+  Hint         : 10
+  Name         : ?BalanceLoadTrip@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HN@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000070
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?BalanceLossGen@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@EHNHPEBD@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::BalanceLossGen(struct _PRMemDBBlock_ *,unsigned char,int,double,int,char const *))
+  Type         : code
+  Name type    : name
+  Hint         : 11
+  Name         : ?BalanceLossGen@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@EHNHPEBD@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000071
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?BalanceLossLoad@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@EHNHPEBD@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::BalanceLossLoad(struct _PRMemDBBlock_ *,unsigned char,int,double,int,char const *))
+  Type         : code
+  Name type    : name
+  Hint         : 12
+  Name         : ?BalanceLossLoad@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@EHNHPEBD@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006B
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?CalculateBusPQ@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@EEE@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::CalculateBusPQ(struct _PRMemDBBlock_ *,unsigned char,unsigned char,unsigned char))
+  Type         : code
+  Name type    : name
+  Hint         : 13
+  Name         : ?CalculateBusPQ@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@EEE@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000075
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?CheckFState@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAHPEAU_PRMemDBBlock_@@NHHEEEEAEAH1AEAN@Z (private: int __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::CheckFState(struct _PRMemDBBlock_ *,double,int,int,unsigned char,unsigned char,unsigned char,unsigned char,int &,int &,double &))
+  Type         : code
+  Name type    : name
+  Hint         : 14
+  Name         : ?CheckFState@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAHPEAU_PRMemDBBlock_@@NHHEEEEAEAH1AEAN@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000074
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?ExitAdequacyEstimateState@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@H@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::ExitAdequacyEstimateState(struct _PRMemDBBlock_ *,int))
+  Type         : code
+  Name type    : name
+  Hint         : 15
+  Name         : ?ExitAdequacyEstimateState@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@H@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006F
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?GenStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@HPEBD@Z (public: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::GenStateEstimate(struct _PRMemDBBlock_ *,int,char const *))
+  Type         : code
+  Name type    : name
+  Hint         : 16
+  Name         : ?GenStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@HPEBD@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000074
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?InitAdequacyEstimateState@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@H@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::InitAdequacyEstimateState(struct _PRMemDBBlock_ *,int))
+  Type         : code
+  Name type    : name
+  Hint         : 17
+  Name         : ?InitAdequacyEstimateState@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@H@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000064
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?LoadIsland@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::LoadIsland(struct _PRMemDBBlock_ *))
+  Type         : code
+  Name type    : name
+  Hint         : 18
+  Name         : ?LoadIsland@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000065
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?ModifyMStateParam@PRAdequacyBase@@YAHPEAU_PRMemDBBlock_@@HPEAU_PR_DevMState_@@@Z (int __cdecl PRAdequacyBase::ModifyMStateParam(struct _PRMemDBBlock_ *,int,struct _PR_DevMState_ *))
+  Type         : code
+  Name type    : name
+  Hint         : 19
+  Name         : ?ModifyMStateParam@PRAdequacyBase@@YAHPEAU_PRMemDBBlock_@@HPEAU_PR_DevMState_@@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000071
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?PrepareGenStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@@Z (public: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::PrepareGenStateEstimate(struct _PRMemDBBlock_ *))
+  Type         : code
+  Name type    : name
+  Hint         : 20
+  Name         : ?PrepareGenStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000072
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?PrepareSysStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@E@Z (public: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::PrepareSysStateEstimate(struct _PRMemDBBlock_ *,unsigned char))
+  Type         : code
+  Name type    : name
+  Hint         : 21
+  Name         : ?PrepareSysStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@E@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000073
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?SaveAdequacyStateXml@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HPEBD@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::SaveAdequacyStateXml(struct _PRMemDBBlock_ *,int,char const *))
+  Type         : code
+  Name type    : name
+  Hint         : 22
+  Name         : ?SaveAdequacyStateXml@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@HPEBD@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000064
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?SaveIsland@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::SaveIsland(struct _PRMemDBBlock_ *))
+  Type         : code
+  Name type    : name
+  Hint         : 23
+  Name         : ?SaveIsland@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000079
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?SysStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@HNNEEEEEEEEPEBD@Z (public: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::SysStateEstimate(struct _PRMemDBBlock_ *,int,double,double,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,char const *))
+  Type         : code
+  Name type    : name
+  Hint         : 24
+  Name         : ?SysStateEstimate@CPRAdequacyStateEstimate@PRAdequacyBase@@QEAAXPEAU_PRMemDBBlock_@@HNNEEEEEEEEPEBD@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 00000066
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?UPFCControl@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@N@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::UPFCControl(struct _PRMemDBBlock_ *,double))
+  Type         : code
+  Name type    : name
+  Hint         : 25
+  Name         : ?UPFCControl@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@N@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006F
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?UPFCInitial@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@NHEEEEAEAN@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::UPFCInitial(struct _PRMemDBBlock_ *,double,int,unsigned char,unsigned char,unsigned char,unsigned char,double &))
+  Type         : code
+  Name type    : name
+  Hint         : 26
+  Name         : ?UPFCInitial@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@NHEEEEAEAN@Z
+
+  Version      : 0
+  Machine      : 8664 (x64)
+  TimeDateStamp: 5B45B783 Wed Jul 11 15:53:39 2018
+  SizeOfData   : 0000006A
+  DLL name     : PRAdequacyBase.dll
+  Symbol name  : ?Zone599Estimate@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@H@Z (private: void __cdecl PRAdequacyBase::CPRAdequacyStateEstimate::Zone599Estimate(struct _PRMemDBBlock_ *,int))
+  Type         : code
+  Name type    : name
+  Hint         : 27
+  Name         : ?Zone599Estimate@CPRAdequacyStateEstimate@PRAdequacyBase@@AEAAXPEAU_PRMemDBBlock_@@H@Z
+
+  Summary
+
+          D8 .debug$S
+          14 .idata$2
+          14 .idata$3
+           8 .idata$4
+           8 .idata$5
+          14 .idata$6

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.znd.ads.service.ReliabilityService;
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.Message;
+import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.buffer.ModelFileBuffer;
@@ -93,14 +93,14 @@ public class ReliabilityServiceImpl implements ReliabilityService {
 		
 		logger.info("sendMessage : cc = {}, content = {}. ",
 		"created_ReliabilityTask", modelName);
-        sendMessage(new Message(MessageCodeEnum.created_job, modelName));
+        sendMessage(new ChannelMessage(MessageCodeEnum.start_job, modelName));
 		
 		
 		return info.getId();
 	}
 	
 	
-	private void sendMessage(Message message) {
+	private void sendMessage(ChannelMessage message) {
 		commonChannel.send(message);
 	}
 

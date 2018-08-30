@@ -1,0 +1,24 @@
+ Volume in drive D has no label.
+ Volume Serial Number is FAF7-F628
+
+ Directory of D:\GitHub\cim2ddl\znd\dev\src\MemDB\BpaMemDB
+
+2017/12/08  15:13            18,878 BpaMemDB.cpp
+2017/12/20  10:21            62,720 BpaMemDBData.cpp
+2017/08/03  13:42            12,637 BpaMemDBDecompose.cpp
+2017/12/08  15:13            22,680 BpaMemDBDerived.cpp
+2017/08/03  13:42             5,437 BpaMemDBDict.cpp
+2017/08/03  13:42             4,716 BpaMemDBFile.cpp
+2017/12/08  15:13            37,881 BpaMemDBFileDat.cpp
+2017/08/03  13:42               213 BpaMemDBFileIn.cpp
+2017/12/08  15:13            32,585 BpaMemDBFilePfo.cpp
+2017/12/08  15:13            38,541 BpaMemDBFileSwi.cpp
+2017/12/08  15:13            40,917 BpaMemDBMaint.cpp
+2017/08/03  13:42             2,028 BpaMemDBMisc.cpp
+2017/12/08  15:13            12,797 BpaMemDBRecord.cpp
+2017/12/08  15:13            56,265 BpaMemDBReduct.cpp
+2017/08/03  13:42             6,856 BpaMemDBTopo.cpp
+2017/08/03  13:42            37,422 BpaMemDBZil.cpp
+2017/10/30  14:48             8,632 BpaNetworkTail.cpp
+              17 File(s)        401,205 bytes
+               0 Dir(s)   9,204,047,872 bytes free
