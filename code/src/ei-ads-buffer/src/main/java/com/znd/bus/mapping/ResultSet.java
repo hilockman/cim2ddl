@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.znd.bus.binding.BindingException;
+import com.znd.bus.exception.BindingException;
 
 public class ResultSet {
 

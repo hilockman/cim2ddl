@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>计算节点-节点状态</title>
+    <meta charset="utf-8" />
+    <div th:replace="fragments/header :: header-css">
+    </div>
+
+	  <script src="echarts/4.0.4/echarts.min.js"></script>
+	
+    <style type="text/css">
+   	  nav#table-nav {
+   	  	//float:left;
+   	  	position:fixed;
+   	  	top: 50px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 250px;
+		background: transparent;
+		overflow: auto;
+		height : 100%;
+   	  }   
+	    
+
+	    
+	  div.container-fluid {
+	  	margin-left: 0px;
+	  }
+	  
+   	  div#page-wrapper {	
+		padding: 0;
+		border: 0;
+		width: 100%;
+		background: transparent;
+   	  }
+   	  
+
+		.monitor-item {
+			text-align: center;
+		}
+     .monitor-value {
+     	font-size:2em;
+     }
+     
+     
+    </style>
+</head>
+<body>
+	
+	<div th:replace="fragments/header :: header">
+	</div>
+    
+	<div class="container-fluid">
+ 
+		<div id="page-wrapper">
+		   <div class="col-lg-4 col-md-4">
+	   	     <h2>CPU</h2>
+	   	     <div id="cpu" style="width:100%;height:300px;">
+	   	     </div>
+		     <div>
+		       <div  class="monitor-item col-lg-4">
+		          <p>利用率</p>
+		          <label id="load" class="monitor-value"></label>		          
+		       </div>
+		       <div id="load"  class="monitor-item  col-lg-4">
+		          <p >进程</p>
+		          <label id="processCount"  class="monitor-value"></label>		          
+		       </div>
+		       <div class="monitor-item col-lg-4">
+		          <p>线程</p>
+		          <label id="threadCount"  class="monitor-value"></label>		          
+		       </div>
+		     </div>
+	       
+	       </div>
+
+	  	
+		   <div  class="col-lg-4 col-md-4">
+		    <h2>内存</h2>
+	   	     <div id="memory" style="width:100%;height:300px;">
+	   	     </div>
+		     <div>
+		       <div class="monitor-item col-lg-4">
+		          <p>使用中</p>
+		          <label id="globalUsedMemory" class="monitor-value"></label>		          
+		       </div>
+		       <div id="load" class="monitor-item col-lg-4">
+		          <p >可用</p>
+		          <label id="globalFreeMemory"  class="monitor-value"></label>		          
+		       </div>
+		       <div class="monitor-item col-lg-4">
+		          <p>虚拟机使用中</p>
+		          <label id="usedMemory"  class="monitor-value"></label>		          
+		       </div>
+		     </div>	
+		     <div>
+		       <div class="monitor-item col-lg-4">
+		          <p>虚拟机可用</p>
+		          <label id="freeMemory" class="monitor-value"></label>		          
+		       </div>
+
+		     </div>		    
+		   </div>
+		   
+		   <div class="col-lg-4 col-md-4">
+		       <h2>文件系统</h2>
+		 	   <div id="fileSystem" style="width:100%;height:300px;">
+	   	       </div>
+		   </div>
+		 	   
+		</div>
+		<div th:replace="fragments/footer :: footer">
+	</div>
+	<!-- /.container -->
+
+</div>
+
+<script>
+/*
+	var $table = $('#table');
+*/	
+	const SAMPLE_INTERVAL = 1;
+
+	function SystemInfo() {
+		this.baseUrl = 'system/';
+		this.get = function(callBack, failCallBack) { return this.query('systemInfo', callBack, failCallBack);};
+		this.getList = function(callBack, failCallBack) { return this.query('systemInfos', callBack, failCallBack);};
+		this.getCPU = function(callBack, failCallBack) { return this.query('cpu', callBack, failCallBack);};
+		this.getCPUs = function(callBack, failCallBack) { return this.query('cpus', callBack, failCallBack);};
+	}  
+	
+	SystemInfo.prototype.query =  function (url, callBack, failCallBack) {
+		     var result;
+		     
+			 jQuery.ajax({
+			        url: this.baseUrl+url,
+			        success: callBack != undefined ? callBack : function(record) { result = record; },
+			        async: callBack == undefined ? false : true,
+			        error: failCallBack				        
+			    });
+			 
+			 
+			 if (callBack == undefined) {
+				// console.log(result);
+				 return result;
+			 }
+	};	
+	
+	var sysapi = new SystemInfo();
+/*	
+	function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
+    function buildTable($el, columns, records) {    
+		$el.bootstrapTable('destroy').bootstrapTable({
+		   striped: true,                      //是否显示行间隔色
+		    width: 30,
+			height : 500,
+			pagination: records.length < 100 ? false : true ,
+			pageSize: 100,
+			pageList: [10, 25, 50, 100], 
+			minimumCountColumns: 10,             //最少允许的列数
+			showColumns : false,                  //是否显示所有的列
+			dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
+			detailView: false,
+			detailFormatter : detailFormatter,
+			search:false,
+			showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+			//queryParams: queryParams,//传递参数（*）
+		    columns: columns,
+		    data: records
+		});	
+	}	
+    */
+	  function initChart(opt) {
+		  opt.chart = echarts.init(document.getElementById(opt.name));
+		  $(window).resize(function() {
+			  //alert("resize");
+			  opt.chart.resize();
+		  });
+		  
+	
+		  opt.dataList = opt.infos.map(function(v){ return v != 0 ? ((opt.mapFunction != undefined) ? opt.mapFunction(opt.sample(v)) : v) : v;});
+	 
+		  opt.properties.forEach(function(item) { 
+	               if (item.format == undefined) 
+	               	item.format = function(value) { return value;};
+	             }
+	          );		  
+		  
+		  opt.option = {
+				title: {
+					text: opt.chartName
+				},
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'cross',
+						label: {
+							backgroundColor: '#283b56'
+						}
+					}
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						//dataView: {readOnly: false},
+						//restore: {},
+						saveAsImage: {}
+					}
+				},
+				dataZoom: {
+					show: false,
+					start: 0,
+					end: 100
+				},
+				xAxis: [
+					{
+						type: 'category',
+						boundaryGap: true,
+						data: (function (){
+							var res = [];
+							var len = 0;
+							var sum =  60 / SAMPLE_INTERVAL;
+							while (len < sum + 1) {
+								res.push(sum - len * 1);
+								len++;
+							}
+	
+							return res;
+						})()
+					}
+				],
+				yAxis: [
+					{
+						type: 'value',
+						scale: true,
+						name: '100%',
+						max: 100,
+						min: 0,
+						//boundaryGap: [0.2, 0.2]
+					}
+				],
+				series: [
+					{
+						name: opt.chartName,
+						type:'line',
+						data: opt.dataList,
+						areaStyle: {
+							color: '#F1F6FA'
+						},
+						color: '#117CBB'
+						//color:'#99D9EA'
+					}
+				]
+			};
+	
+	  }
+	  
+	  
+	const BYTE_COUNT = {KB:1024, MB:1024*1024, GB: 1024*1024*1024};
+	
+	function formateByte(count, fixed, unit) {
+		if (fixed == undefined) {
+			fixed = 1;
+		}
+
+		if (count == 0)
+			return 0;
+		
+		//var unit;
+		var value;
+		var unitFormater = {
+			bytes : function(count) { return count; },
+		    KB : function(count) { return (count * 1.0/(BYTE_COUNT.KB)).toFixed(fixed); },
+			MB : function(count) { return (count * 1.0/(BYTE_COUNT.MB)).toFixed(fixed); },
+		    GB : function(count) { return (count * 1.0/(BYTE_COUNT.GB)).toFixed(fixed); },
+		}
+		if (unit == undefined) {
+			if (count < BYTE_COUNT.KB) {
+				unit = "bytes"
+				//value = count;			
+			} else if (count < BYTE_COUNT.MB) {
+				//value = (count * 1.0/(BYTE_COUNT.KB)).toFixed(fixed);
+				unit = "KB";
+			} else if (count < BYTE_COUNT.GB) {
+				//value = (count * 1.0/(BYTE_COUNT.MB)).toFixed(fixed);
+				unit = "MB";
+			} else {
+				//value = (count * 1.0/(BYTE_COUNT.GB)).toFixed(fixed);
+				unit = "GB";
+		    }
+			
+			return unitFormater[unit](count)+" "+unit;
+		} else {
+			return unitFormater[unit](count);
+		}
+		
+	}
+	
+	function initFileSystem() {
+		 var info = sysapi.get();
+		 if (!info)
+			 return;
+		 
+		 var diskInfos = info.spaces;
+		 option = {
+				  color : ['#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+					title: {
+						text: "硬盘使用量(GB)"
+					},				 
+				    tooltip : {
+				        trigger: 'axis',
+				        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['已用空间', '剩余空间']
+				    },
+				    grid: {
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    xAxis:  {
+				        type: 'value'
+				    },
+				    yAxis: {
+				        type: 'category',
+				        data: (function() {return diskInfos.map(function(item) { return item.dir;});})()
+				    },
+				    series: 
+				    	[
+				    	{
+				            name: '已用空间',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideLeft'
+				                }
+				            },
+				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.totalSpace - item.freeSpace, 1, "GB");}); })()
+				        },
+				    	{
+				            name: '剩余空间',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            data: (function() {	return diskInfos.map(function(item) { return formateByte(item.freeSpace, 1, "GB");}); })()
+				        },				        
+				        ]	    	
+				};
+		 
+		  var chart = echarts.init(document.getElementById("fileSystem"));
+		  $(window).resize(function() {
+			  chart.resize();
+		  });
+		  
+		  chart.setOption(option);
+	}
+	
+	function updateChart(opts){
+		//axisData = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
+		var info = sysapi.get();
+		if (info)
+			opts.forEach(
+				function (opt) 
+				{ 
+					var data0 = opt.option.series[0].data;    
+					
+					var values = opt.sample(info);
+					
+					if (values != undefined) {
+						data0.shift();	
+						var p = opt.properties[0];				
+						data0.push(values[p.name]);				
+						opt.properties.slice(1).forEach(function(item) {$("#"+item.name).html(item.format(values[item.name]));});
+					}
+					
+					opt.chart.setOption(opt.option);					
+				}
+			);
+		
+
+	}
+	
+
+	$(function () {
+		/*
+	  sysapi.get(function(systemInfo) {
+		  var spaceInfos = systemInfo.spaces;
+		  
+		  var columns = [];
+		  columns.push({field:'name',title:'名称',sortable:true});
+		  columns.push({field:'total',title:'总空间',sortable:true});
+		  columns.push({field:'free',title:'剩余空间',sortable:true});
+		  columns.push({field:'usable',title:'可用空间',sortable:true});
+		  
+		  var records = [];
+
+		  var fixed = 1;
+		  for (var i = 0; i < spaceInfos.length; i++) {
+			  var info = spaceInfos[i];
+			  records.push({name:info.dir,
+				  total:formateByte(info.totalSpace,fixed), 
+				  free:formateByte(info.freeSpace,fixed), 
+				  usable:formateByte(info.usableSpace, fixed)});
+		  }
+		  buildTable($table, columns, records);
+	  });
+	    */
+	    
+	 
+	  
+	    
+	    
+	// 基于准备好的dom，初始化echarts实例    
+	
+	  var infos = (function (){
+			var len = 60 / SAMPLE_INTERVAL + 1;
+			var record = sysapi.getList();
+							
+			var res = [];
+			if (record.length < len) {
+			   var n = len;
+			   n -= record.length;
+			   while (n) {
+					res.push(0);
+					n--;
+			   }
+			}
+			
+			res = res.concat(record.slice(record.length - len));
+			console.log(res.length);
+			return res;
+     })();
+	
+	   var cpuChartOpt = {
+		      chartName: '%CPU',
+			  name: "cpu",
+			  properties: [
+		                      { 
+			                    name:'load'
+			                  },
+		                      { 
+		                    	name:'load',
+		                        format:function(value) {return Math.round(value)+"%";}
+		                      }, 
+		                      {
+		                    	name:'processCount'
+		                      }, 
+		                      {
+		                    	name:'threadCount'
+		                      }
+			             ],	
+			  mapFunction: function(item) { return item.load; },
+			  sample: function(info) {
+						return info.cpu;
+					  },
+			  infos : infos
+	    }
+	  
+	    var memoryChartOpt = {
+		      chartName: '内存使用量',
+			  name: "memory",
+			  properties: [
+		                      { 
+		                    	name:'globalUsedMemoryRate',
+		                        format:function(value) {return Math.round(value)+"%";}
+		                      }, 
+		                      { 
+			                    name:'globalUsedMemory',
+			                    format:formateByte
+			                  }, 
+		                      {
+		                    	name:'globalFreeMemory',
+		                    	format:formateByte
+		                      }, 
+		                      {
+		                    	name:'usedMemory',
+		                    	format:formateByte
+		                      },
+		                      {
+			                    name:'freeMemory',
+		                    	format:formateByte
+			                  }
+			             ],	
+			  mapFunction: function(item) { return item.globalUsedMemoryRate; },
+			  sample: function(info) {
+						return info.memory;
+					  },
+			  infos : infos
+		    }
+	  
+
+		var opts = [cpuChartOpt, memoryChartOpt];
+		
+	    opts.forEach(function (opt) { initChart(opt);});
+		
+	    setTimeout(function() {updateChart(opts);}, 0);    
+	    setInterval(function() {updateChart(opts);}, SAMPLE_INTERVAL * 1000);
+			
+		
+		initFileSystem();    
+
+				
+	});   
+	
+
+</script>
+</body>
+</html>

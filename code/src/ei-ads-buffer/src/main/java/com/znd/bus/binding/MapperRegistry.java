@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.znd.bus.binding.MapperProxyFactory.Parser;
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.exception.BindingException;
 import com.znd.bus.mapping.RawArrayBufferMapper;
 
 public class MapperRegistry {

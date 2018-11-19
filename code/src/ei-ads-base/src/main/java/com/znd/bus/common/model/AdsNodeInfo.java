@@ -91,5 +91,12 @@ public class AdsNodeInfo {
 	public void setAccMsgCount(Integer accMsgCount) {
 		this.accMsgCount = accMsgCount;
 	}
+	@Override
+	public String toString() {
+		return "AdsNodeInfo [id=" + id + ", name=" + name + ", url=" + url + ", lastUpdate=" + lastUpdate + ", status="
+				+ status + ", taskCount=" + taskCount + ", jobCount=" + jobCount + ", cpuRate=" + cpuRate
+				+ ", memoryRate=" + memoryRate + ", curMsgCount=" + curMsgCount + ", accMsgCount=" + accMsgCount + "]";
+	}
+
 
 }

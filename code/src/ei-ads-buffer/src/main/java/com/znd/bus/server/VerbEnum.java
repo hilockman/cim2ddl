@@ -1,5 +1,11 @@
 package com.znd.bus.server;
-
+/**
+ * 动词
+ * @author wangheng
+ * @date 2018年8月31日
+ * @time 上午10:13:54
+ * @type_name VerbEnum
+ */
 public enum VerbEnum {
 
 	/**

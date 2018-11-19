@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ZhongND.ei</groupId>
+    <artifactId>ei-cim</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>ei-ads-node</artifactId>
+  <name>ei-ads-node</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      </dependency>        
+      
+      
+
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>    
+      
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+    </dependency>
+    
+     <!-- hot swapping, disable cache for template, enable live reload -->
+     <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-devtools</artifactId>
+         <optional>true</optional>
+     </dependency>    
+      
+		<!-- https://mvnrepository.com/artifact/com.github.oshi/oshi-core -->
+	<dependency>
+	    <groupId>com.github.oshi</groupId>
+	    <artifactId>oshi-core</artifactId>
+	    <version>3.5.0</version>
+	</dependency>	     
+   
+	  	<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>	
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-memdb</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		         
+ 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ei-ads-buffer</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+		      <exclusion>
+		        <groupId>org.slf4j</groupId>
+		        <artifactId>slf4j-log4j12</artifactId>
+		      </exclusion>
+		    </exclusions>
+		</dependency>
+				         
+  </dependencies>
+</project>

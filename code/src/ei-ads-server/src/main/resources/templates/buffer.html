@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-   <title>总线数据查看</title>
+   <title>分布式计算-总线数据查看</title>
    <div th:replace="fragments/header :: header-css" /></div>
   
    <style>
    	  nav#table-nav {
-   	  	//float:left;
    	  	position:fixed;
-   	  	top: 50px;
+   	  	top: 30px;
 		margin: 0;
 		padding: 0;
+		padding-top: 10px;
 		border: 0;
 		width: 250px;
 		background: transparent;
 		overflow: auto;
 		height : 100%;
+		z-index: 1;
    	  }
    	  
 	li span.selected{
@@ -27,15 +28,11 @@
       }
 	    
 	  div.container-fluid {
-	  	margin-top : 50px;
-	  } 	  
-	  div.container-fluid {
-	  	margin-left: 255px;
+	    margin: 0;
+	    padding: 40px 5px 0 255px;
+	  	overflow:hidden;
 	  }
    	  div#page-wrapper {
-   	  	//float: left;
-		//margin: 0;
-			
 		padding: 0;
 		border: 0;
 		width: 100%;
@@ -132,6 +129,11 @@
  	    
  <div class="container-fluid">  
     <div id="page-wrapper">
+            <div id="toolbar">
+	            <button id="btn_delete_all" type="button" class="btn btn-default">
+	               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>清空
+	            </button>            
+            </div>
 	        <table id="table" class="table">
      	
 	        </table>
@@ -148,11 +150,160 @@
 </body>
 <script>
 
+
+   var modelApi = new ModelFunction();
+   var currentDb;
+   var currentTable;
+   $(function() {
+	    $('[data-toggle="tooltip"]').tooltip();  
+	    var categories = modelApi.getCategories();
+	    var items = categories.map(function(item) { 	
+	    	return {
+	    		id : item.id,
+	    		name : item.name,
+	    		childCount : item.childCount,
+	    		children : item.children.map(function(i){ return {id: i.id, name:i.name, childCount:0, children : []};})
+	    	}	
+	    } );
+
+	    if (!items || items.length == 0 || !items[0].children || items[0].children.length == 0) {
+	        console.log("Find no items");
+        }
+
+       var url = new URL(window.location.href);
+       currentDb = url.searchParams.get("dbid");
+       currentTable = url.searchParams.get("tableid");
+
+        if (currentDb == 'null' || currentTable == 'null' || currentDb == undefined || currentTable == undefined) {
+            currentDb = items[0].name;
+            currentTable = items[0].children[0].name;
+        }
+
+        buildTree($("#categories ul"), items, items[0].children[0], loadRecoreds);
+
+	    loadRecoreds(currentDb, currentTable);
+	    
+	    $("#btn_delete_all").click(function () {
+	    	let url = "buffer/records/?" + "dbid="+currentDb+"&&tableid=" + currentTable + "&&ids=*";
+			$.ajax({
+				url : url,
+				type : "DELETE",
+				data : null,
+
+				success : function(msg) {
+					console.log(msg);
+					console.log("url = "+url),
+					//window.location.href ="/buffer/records/?"+ "dbid="+currentDb+"&&tableid=" + currentTable;
+					
+					loadRecoreds(currentDb, currentTable);
+				},
+				error : function(e) {
+					alert("fail to delete nodes : error= "+e.toString());
+				}
+			});
+	    });
+	    
+   });
+   
+   
+   function buildTree(ul, rootItems, defaultItem) {
+		  //console.log("db size:"+rootItems.length);
+		  ul.children().remove();
+		  if (rootItems === undefined || rootItems == null)
+			  return;
+		  
+		  var dent = 0;
+		  
+		  // var defaultParent;
+		  // var defaultName;
+
+		  var items = [];
+		  function fillTree(dent, items, parent) {
+		      let lis = [];
+			  for (i in items) {
+				  var item = items[i];
+				  var hasChild = (item.childCount > 0 && item.children.length > 0);
+				  var isDefault = (defaultItem === item);
+				  // if (defaultItem === item) {
+					//   defaultParent = parent.name;
+					//   defaultName = item.name;
+				  // }
+
+				  let ii = $('<i></i>')
+                      .attr("class", 'fa '+(hasChild ? "fa-minus-circle" : "fa-leaf"))
+				  let span = $('<span></span>')
+                      .attr('title', item.name)
+                      .attr('class', (isDefault ? " 'selected' ": ""))
+                      .append(ii, " "+(item.alias ? item.alias : item.name)+(item.childCount > 0 ? '('+item.childCount+')': ""));
+				  let li = $('<li></li>')
+                      .attr('class', (dent == 0? 'parent_li' : ''))
+                      .attr('parent', (parent ? parent.id : "-1"))
+                      .attr('id', item.id);
+				  if (hasChild) {
+				      let child_lis = fillTree(dent++, item.children, item);
+				      let child_ul = $('<ul></ul>').append(child_lis);
+				      li.append(span, child_ul);
+                  } else
+                      li.append(span);
+                  lis.push(li);
+			  }
+
+			  return lis;
+		  }
+		  //var str = "";
+
+		  //fillTree(dent, str, rootItems, null);
+		  
+		 // ul.append(str);
+
+          ul.append(fillTree(dent, rootItems, null));
+		  
+		   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
+		   $('.tree li.parent_li > span > i').on('click', function (e) {
+		       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
+		       if (children.is(":visible")) {
+		           children.hide('fast');
+		           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
+		       } else {
+		           children.show('fast');
+		           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
+		       }
+		       e.stopPropagation();
+		   });
+		   
+		   
+		   $('.tree li > span').on('click', function (e) {
+			   var li = $(this).parent('li');
+			   var dbName = li.attr("parent");
+			   var tableName = li.attr("id");
+			   currentTable = tableName;
+			   currentDb = dbName;
+			   if (dbName == "-1")
+				   return;
+			   
+			   $('.tree li > span').removeClass('selected');
+			   $(this).addClass('selected');
+
+			   // if (showDetail != undefined)
+				//  showDetail(dbName, tableName);
+               loadRecoreds(dbName, tableName);
+		   }); 
+		   
+		   
+		   // if (defaultParent && defaultName) {
+			//    if (showDetail != undefined)
+			//      showDetail(defaultParent, defaultName);
+		   // }
+
+	  }
+		  	
+	 
+     
 	function ModelFunction() {
 		this.baseUrl = 'buffer/';
 		this.getCategories = function(callBack, failCallBack) { return this.query('categories', callBack, failCallBack);};
 		this.getTableColumns = function(dbid, tableId, callBack, failCallBack) { return this.query('tableColumns/'+dbid+"/"+tableId, callBack, failCallBack);};
-		this.getRecords = function(dbid, tableId, callBack, failCallBack) { return this.query('records/'+dbid+"/"+tableId, callBack, failCallBack);};
+		this.getRecords = function(dbid, tableId, callBack, failCallBack) { return this.query('records/?dbid='+dbid+"&&tableid="+tableId, callBack, failCallBack);};
 	}  
 	
 	ModelFunction.prototype.query =  function (url, callBack, failCallBack) {
@@ -172,187 +323,92 @@
 			 }
 	};	
 	
-	var modelApi = new ModelFunction();
+	  var loadRecoreds = function(dbid, tableId) {
+		  
+		  columnInfos = modelApi.getTableColumns(dbid, tableId);
+		   
+		  
+		  columns = [];
 
-
-  var loadRecoreds = function(dbid, tableId) {
-	  
-	  columnInfos = modelApi.getTableColumns(dbid, tableId);
-	   
-	  
-	  columns = [];
-
-	  
-		for (var i = 0; i < columnInfos.length; i++) {
-			var col = columnInfos[i];
-						
-			columns.push({field:col.name, title:(col.alias ? col.alias : col.name) ,sortable:false});
-		}
-		records = [];
-		recordArrays = modelApi.getRecords(dbid, tableId);
-		if (recordArrays) {
-			for (var i = 0; i < recordArrays.length; i++) {
-			    var rec = {};
-			    var row = recordArrays[i];
-				for (var j = 0; j < columns.length; j++) {
-				  rec[columns[j].field]=row[j];
-				}
-				
-				records.push(rec);
+		  
+			for (var i = 0; i < columnInfos.length; i++) {
+				var col = columnInfos[i];
+							
+				columns.push({field:col.name, title:(col.alias ? col.alias : col.name) ,sortable:false});
 			}
-		}
-		
-		var t = $("#table");
-		t.children().remove();
-		buildTable(t, columns, records);
-  }
-   
-   var loadTables = function(categorytype, categoryid, dbid, ulist)  
-   {
-	   //alert(categoryname);
-	   $.ajax({
-			url : "buffer/tables/"+categorytype+"/"+dbid,
-			type : "GET",
-			data : null,
-
-			success : function(tables) {
-				console.log("tables = " + JSON.stringify(tables));
-										
-				for (var i = 0; i < tables.length; i++ ) {
-					var table = tables[i];
-					ulist.append("<li class='"+categoryid+"'><a href='#'  id='"+table.name+"' data-toggle='tooltip' title='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
+			records = [];
+			recordArrays = modelApi.getRecords(dbid, tableId);
+			if (recordArrays) {
+				for (var i = 0; i < recordArrays.length; i++) {
+				    var rec = {};
+				    var row = recordArrays[i];
+					for (var j = 0; j < columns.length; j++) {
+					  rec[columns[j].field]=row[j];
+					}
+					
+					records.push(rec);
 				}
-				ulist.find("."+categoryid+" a").click(function() {
-			        
-			        var tableId = $(this).attr('id');
-			        loadRecoreds(categorytype, dbid, tableId);
-			       // alert('here in '+tableName);
-			       // document.getElementById(divId).className = '';
-			    });
-			     
-			},
-			error : function() {
-				alert("get tables failed in category :" + categoryname);
 			}
-		});
-   }
-
-   function buildTable($el, columns, records) {    
-		$el.bootstrapTable('destroy').bootstrapTable({
-		   striped: true,                      //是否显示行间隔色
-		    width: 300,
-			height : 800,
-			pagination: records.length < 100 ? false : true ,
-			pageSize: 100,
-			pageList: [10, 25, 50, 100], 
-			minimumCountColumns: 10,             //最少允许的列数
-			showColumns : true,                  //是否显示所有的列
-			//dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
-			detailView: false,
-			//detailFormatter : detailFormatter,
-			search:true,
-			showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
-			//queryParams: queryParams,//传递参数（*）
-			showExport: true,                     //是否显示导出
-			exportDataType: "all",              //basic', 'all', 'selected'.
-		    columns: columns,
-		    data: records
-		});	
-	}	
-   
-
-   function buildTree(ul, rootItems, defaultItem, showDetail) {
-	  //console.log("db size:"+rootItems.length);
-	  ul.children().remove();
-	  if (rootItems == undefined || rootItems == null)
-		  return;
-	  
-	  var dent = 0;
-	  
-	  var defaultParent;
-	  var defaultName;
-
-	  function fillTree(dent, content, items, parent) {
-		  for (i in items) {
-			  var item = items[i];
-			  var hasChild = (item.childCount > 0 && item.children.length > 0);
-			  var isDefault = (defaultItem == item);
-			  if (defaultItem == item) {
-				  defaultParent = parent.name;
-				  defaultName = item.name;
-			  }
-			  
-			  str +=  "<li "+(dent == 0? "class='parent_li'" : "")+" parent='"+(parent ? parent.name : "-1")+"' id="+item.name+"><span title='"+item.name+"''"+(isDefault ? " class='selected' ": "")+"'><i class='fa "+(hasChild ? "fa-minus-circle" : "fa-leaf")+"'></i> "+(item.alias ? item.alias : item.name)+(item.childCount > 0 ? '('+item.childCount+')': "")+"</span>";
-			  
-			  if (!hasChild) {
-				  str += "</li>";
-				  continue;
-			  }
-			  
-			  str += "<ul>";
-			  //var childItems = item.childeren;
-			  fillTree(dent++, content, item.children, item);
-			  str +="</ul></li>";		  
-		  }  
+			
+			var t = $("#table");
+			t.children().remove();
+			buildTable(t, columns, records);
 	  }
-	  var str = "";
+	   
+	   var loadTables = function(dbid, ulist)  
+	   {
+		   //alert(categoryname);
+		   $.ajax({
+				url : "buffer/tables/?dbid="+dbid,
+				type : "GET",
+				data : null,
 
-	  fillTree(dent, str, rootItems, null);
-	  
-	  ul.append(str); 
-	  
-	  
-	   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
-	   $('.tree li.parent_li > span > i').on('click', function (e) {
-	       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
-	       if (children.is(":visible")) {
-	           children.hide('fast');
-	           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
-	       } else {
-	           children.show('fast');
-	           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
-	       }
-	       e.stopPropagation();
-	   });
-	   
-	   
-	   $('.tree li > span').on('click', function (e) {
-		   var li = $(this).parent('li');
-		   var dbName = li.attr("parent");
-		   var tableName = li.attr("id");
-		   if (dbName == "-1")
-			   return;
-		   
-		   
-		   $('.tree li > span').removeClass('selected');
-		   $(this).addClass('selected');
+				success : function(tables) {
+					console.log("tables = " + JSON.stringify(tables));
+											
+					for (var i = 0; i < tables.length; i++ ) {
+						var table = tables[i];
+						ulist.append("<li id='"+dbid+"'><a href='#'  id='"+table.name+"' data-toggle='tooltip' title='"+table.name+"'><i class='fa fa-navicon'></i>"+table.alias+"</a></li>");
+					}
+					ulist.find("#"+dbid+" a").click(function() {
+				        
+				        var tableId = $(this).attr('id');
+				        loadRecoreds(dbid, tableId);
 
-		   if (showDetail != undefined)
-			 showDetail(dbName, tableName);
-		   
-	   }); 
-	   
-	   
-	   if (defaultParent && defaultName) {
-		   if (showDetail != undefined)
-		     showDetail(defaultParent, defaultName);
+				    });
+				     
+				},
+				error : function() {
+					alert("get tables failed in category :" + categoryname);
+				}
+			});
 	   }
 
-  }
-	  
-   $(function() {
-	    $('[data-toggle="tooltip"]').tooltip();  
-	    var categories = modelApi.getCategories();
-	    var items = categories.map(function(item) { 	
-	    	return {
-	    		name : item.name,
-	    		childCount : item.childCount,
-	    		children : item.children.map(function(i){ return {name:i.name,childCount:0, children : []};})
-	    	}	
-	    } );
-	    
-	    buildTree($("#categories ul"), items, items[0].children[0], loadRecoreds);
-	    
-   });
+	   function buildTable($el, columns, records) {    
+			$el.bootstrapTable('destroy').bootstrapTable({
+			   striped: true,                      //是否显示行间隔色
+			   toolbar: '#toolbar',
+			    width: 300,
+				height : 800,
+				pagination: records.length < 100 ? false : true ,
+				pageSize: 100,
+				pageList: [10, 25, 50, 100], 
+				minimumCountColumns: 10,             //最少允许的列数
+				showColumns : true,                  //是否显示所有的列
+				//dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
+				detailView: false,
+				//detailFormatter : detailFormatter,
+				search:true,
+				showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+				//queryParams: queryParams,//传递参数（*）
+				showExport: true,                     //是否显示导出
+				exportDataType: "all",              //basic', 'all', 'selected'.
+			    columns: columns,
+			    data: records
+			});	
+		}	
+	   
+
+
 </script>
 </html>

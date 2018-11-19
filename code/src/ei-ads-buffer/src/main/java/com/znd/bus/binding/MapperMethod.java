@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.exception.BindingException;
 import com.znd.bus.reflection.TypeParameterResolver;
 import com.znd.bus.type.TypeHandlerRegistry;
 

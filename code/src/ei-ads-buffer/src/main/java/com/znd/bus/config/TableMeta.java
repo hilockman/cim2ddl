@@ -12,6 +12,8 @@ import java.util.Map;
 public class TableMeta {
 
 	private String name;
+	
+	private Class<?> clazz;
 
 	private final List<ColumnMeta> columns = new ArrayList<>();
 	
@@ -127,6 +129,18 @@ public class TableMeta {
 		return "TableMeta [name=" + name + ", columns=" + columns
 				+ ", indexColumns=" + indexColumns + ", columnMap=" + columnMap
 				+ "]";
+	}
+
+
+
+	public Class<?> getClazz() {
+		return clazz;
+	}
+
+
+
+	public void setClazz(Class<?> clazz) {
+		this.clazz = clazz;
 	}
 
 

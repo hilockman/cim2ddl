@@ -6,7 +6,7 @@ import com.znd.bus.common.model.CalcJob;
 
 public interface JobService {
 
-	List getAll();
+	List<CalcJob> getAll();
 
 	CalcJob findJob(String jobId);
 	

@@ -1,10 +1,10 @@
 server:
     name: ei-ads-client
-    port: 9000
+    port: 8082
 
 logging:
     level:
-      interfaceLogger: OFF
+      #interfaceLogger: OFF
       ClusterConnectionManager: OFF
       PubSubConnectionPool: OFF
       SlaveConnectionPool: OFF
@@ -16,7 +16,8 @@ ads:
      thread: 4
      heartbeat: 1000
      ip:  192.168.1.70
-     port: 9000
+     port: 8082
+    # port: ${server.port}    
   defaultlifecycle: 60000
   memdb:
      lifecycle: 60000
@@ -27,12 +28,9 @@ ads:
 model:
   cachedDir: ./model
 
-
-
 buffer:
    #redisConfig: ClusterServersConfig.cfg
-   #localConfig: SingleServerConfig.cfg
-   
+   #localConfig: SingleServerConfig.cfg   
    redisConfig: SingleServerConfig.cfg
    localConfig: SingleServerConfig.cfg
    localAddress: "redis://127.0.0.1:10001"

@@ -1,0 +1,58 @@
+-IE:/Qt/5.11.0/msvc2017_64/mkspecs/win32-msvc
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/include/QtCharts
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/include/QtCharts/2.0.0
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/include/QtCharts/2.0.0/QtCharts
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/tmp
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/animations
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/areachart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/boxplotchart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/domain
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/layout
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/legend
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/linechart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/piechart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/scatterchart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/splinechart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/themes
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/xychart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/animations
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/areachart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis/valueaxis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis/barcategoryaxis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis/categoryaxis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis/logvalueaxis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/axis/datetimeaxis
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/domain
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart/vertical/bar
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart/vertical/stacked
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart/vertical/percent
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart/horizontal/bar
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart/horizontal/stacked
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/barchart/horizontal/percent
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/legend
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/linechart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/piechart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/scatterchart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/splinechart
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/themes
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/layout
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/3rdparty/Charts/2.0/Src/src/charts/boxplotchart
+-IE:/Qt/5.11.0/msvc2017_64/include
+-IE:/Qt/5.11.0/msvc2017_64/include/QtWidgets
+-IE:/Qt/5.11.0/msvc2017_64/include/QtGui
+-IE:/Qt/5.11.0/msvc2017_64/include/QtANGLE
+-IE:/Qt/5.11.0/msvc2017_64/include/QtCore
+-IC:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\ATLMFC\include
+-IC:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\include
+-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\ucrt
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\shared
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\um
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\winrt

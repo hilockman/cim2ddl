@@ -11,9 +11,11 @@ public class Log {
 	@Index
 	private String id;
 	
+	private String hostName;
 	private Date date;
 	private LogLevel logLevel;
 	private String content;
+	private String clazz;
 	
 	public static void main(String[] args) {
 		System.out.println(LogLevel.DEBUG);
@@ -59,4 +61,22 @@ public class Log {
 		return "Log [id=" + id + ", date=" + FORMAT.format(date) + ", logLevel="
 				+ logLevel + ", content=" + content + "]";
 	}
+
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+
+	public String getClazz() {
+		return clazz;
+	}
+
+	public void setClazz(String clazz) {
+		this.clazz = clazz;
+	}
+
+
 }

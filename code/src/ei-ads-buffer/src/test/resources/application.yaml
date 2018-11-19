@@ -1,10 +1,10 @@
 logging:
-  file: log/ei-ads-web.log
+  file: log/ei-ads-buffer.log
   level:
-     interfaceLogger: OFF
+     interfaceLogger: ERROR
      org.redisson: OFF
      com.znd.bus.buffer.BufferContext: DEBUG
-     com.znd.bus.buffer.defaults.DefaultExecutor: DEBUG
+     com.znd.bus.buffer.defaults.DefaultExecutor: ERROR
       
         
 server:
@@ -15,10 +15,12 @@ server:
 
 #buffer配置  
 buffer:
+   redisConfig: SingleServerConfig.cfg
+   localConfig: SingleServerConfig.cfg
    channels:
        -
          name : testChannel
-         type : CACHE
+         type : StandAlone
    typePackage: com.znd.bus.test.model,com.znd.bus.common.model
    #mapper加载路径
    mapperPackage: com.znd.bus.test.mapper,com.znd.bus.common.buffer
@@ -26,17 +28,4 @@ buffer:
    name: buffer_test
    alias: test
    createFlag: UPDATE
-   tables:
-      -  
-        name:  User  
-        columns:
-            - 
-              name: id
-              alias: id
-              type: String
-              indexable: true
-            -
-              name: name
-              alias: 名称
-              type: string
-              indexable: false                     
+                   

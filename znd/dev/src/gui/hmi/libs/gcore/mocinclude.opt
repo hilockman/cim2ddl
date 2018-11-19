@@ -1,0 +1,44 @@
+-IE:/Qt/5.11.0/msvc2017_64/mkspecs/win32-msvc
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore/QtAwesome
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/include
+-ID:/GitHub/cim2ddl/znd/dev/src/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore/ui
+-ID:/GitHub/cim2ddl/znd
+-ID:/GitHub/cim2ddl/znd/dev/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/include
+-ID:/GitHub/cim2ddl/znd/dev/src/gui/hmi/libs/gcore/checkcombobox
+-IE:/Qt/5.11.0/msvc2017_64/include
+-IE:/Qt/5.11.0/msvc2017_64/include/QtSvg
+-IE:/Qt/5.11.0/msvc2017_64/include/QtUiTools
+-IE:/Qt/5.11.0/msvc2017_64/include/QtWebEngineWidgets
+-IE:/Qt/5.11.0/msvc2017_64/include/QtPrintSupport
+-IE:/Qt/5.11.0/msvc2017_64/include/ActiveQt
+-IE:/Qt/5.11.0/msvc2017_64/include/QtCharts
+-IE:/Qt/5.11.0/msvc2017_64/include/QtWidgets
+-IE:/Qt/5.11.0/msvc2017_64/include/QtWebEngineCore
+-IE:/Qt/5.11.0/msvc2017_64/include/QtQuick
+-IE:/Qt/5.11.0/msvc2017_64/include/QtGui
+-IE:/Qt/5.11.0/msvc2017_64/include/QtANGLE
+-IE:/Qt/5.11.0/msvc2017_64/include/QtXml
+-IE:/Qt/5.11.0/msvc2017_64/include/QtScript
+-IE:/Qt/5.11.0/msvc2017_64/include/QtWebChannel
+-IE:/Qt/5.11.0/msvc2017_64/include/QtQml
+-IE:/Qt/5.11.0/msvc2017_64/include/QtNetwork
+-IE:/Qt/5.11.0/msvc2017_64/include/QtPositioning
+-IE:/Qt/5.11.0/msvc2017_64/include/QtCore
+-IC:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\ATLMFC\include
+-IC:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\include
+-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\ucrt
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\shared
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\um
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.14393.0\winrt

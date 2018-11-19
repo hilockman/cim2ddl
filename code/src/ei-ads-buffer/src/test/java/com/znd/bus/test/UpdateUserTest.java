@@ -1,5 +1,11 @@
 package com.znd.bus.test;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,29 +25,96 @@ public class UpdateUserTest {
 	@Autowired
 	private BufferFactory factory;
 	
+	static int index = 0;
+	static ExecutorService pool = Executors.newCachedThreadPool();
+	static Timer timer = new Timer(true);
     @Test
+   // @Repeat(10000)
     public void update() {
-    	System.out.println("------------------------start SelectUserTest.getOne()----------------------------"); 
+    	System.out.println("------------------------start UpdateUserTest----------------------------"); 
     	
-    	Buffer buffer = factory.openSession(false);
+    	Buffer buffer = factory.openSession();
     	UserMapper mapper = factory.config().getMapper(UserMapper.class, buffer);
     	
     	User user = mapper.findById("1");
     	if (user != null) {
     		System.out.println("Find user :  "+ user);	
+    	} else {
+    		user = new User();
+    		user.setId("1");
+    		user.setName("user0");
+    		mapper.insert(user);
     	}
     	
-    	user.setName(user.getName()+"_test");
-    	mapper.update(user);
+    	TimerTask task = new TimerTask() {
+			
+			@Override
+			public void run() {
+	        	User user1 = mapper.findById("1");
+	        	
+	        	
+	        	user1.setName("User_"+Math.round(Math.floor(Math.random() * 1000)));
+	        	try {
+	        	mapper.update(user1);
+	        	} catch (Throwable e) {
+	        		e.printStackTrace();
+	        	}
+	        	System.out.println("i = "+index++);
+			}
+		};
+    	timer.scheduleAtFixedRate(task, 0, 50);
+//    	for (int i = 0; i  < 1000; i++) {
+//    		pool.execute(()-> {
+//	        	User user1 = mapper.findById("1");
+//	        	
+//	        	
+//	        	user1.setName("User_"+Math.round(Math.floor(Math.random() * 1000)));
+//	        	try {
+//	        	mapper.update(user1);
+//	        	} catch (Throwable e) {
+//	        		e.printStackTrace();
+//	        	}
+//	        	
+//	//        	try {
+//	//				Thread.sleep(1000);
+//	//			} catch (InterruptedException e) {
+//	//				// TODO Auto-generated catch block
+//	//				e.printStackTrace();
+//	//			}
+//	        	System.out.println("i = "+index++);
+//    		});
+//    		
+//    	}
+
+//    	System.out.println("shutdown pool.");
+//    	pool.shutdown();
+//    	try {
+//			pool.awaitTermination(1, TimeUnit.DAYS);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     	
+    	long m = TimeUnit.SECONDS.toMillis(60 * 5);
+    	System.out.println(String.format("等待%d ms", m));
+    	
+    	try {
+			Thread.sleep(m);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	timer.cancel();
     	user = mapper.findById("1");
     	if (user != null) {
     		System.out.println("Find user :  "+ user);	
+    	} else {
+    		System.err.println("Find no user: id = 1");
     	}
     	
     	
 
     	buffer.close();
-    	System.out.println("------------------------end SelectUserTest.getOne()----------------------------");
+    	System.out.println("------------------------end UpdateUserTest----------------------------");
     }
 }

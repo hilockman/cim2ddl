@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.Event;
 import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.AdsNodeInfoBuffer;
@@ -108,7 +107,7 @@ public class DefaultClient implements Client {
 		jobChannel.register((e)-> {pool.execute(()->{processEvent(e);});});
 	}
 
-	private void processEvent(Event e) {
+	private void processEvent(ChannelMessage e) {
 		System.out.println("Receive message :"+e.getCode()+", content="+e.getContent());
 		synchronized (nodeUplateFlag) {
 		  node.setAccMsgCount(node.getAccMsgCount()+1);

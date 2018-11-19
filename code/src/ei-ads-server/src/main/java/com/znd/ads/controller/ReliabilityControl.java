@@ -93,43 +93,43 @@ public class ReliabilityControl {
 	public static long MAX_FILE_TIME_OUT = 60000l;
 	public static long MAX_LOG_TIME_OUT = 60000l;
 
-	@RequestMapping("/log/{modelName}")
-	public @ResponseBody List<Log> getModelLog(
-			@PathVariable("modelName") String modelName) {
-
-		System.out.println("------------getModelLog-------------");
-		//String key = modelName + ":log";
-		
-
-		return bufferService.getLogs();
-		
-//		try {
-//			RedissonDBKey keyOps = executeDF.RedissonDBKey();
-//			ResultObject<String, Boolean> rt1 = keyOps.EXISTS(key);
-//			if (!rt1.getValue()) {
-//				return null;
-//			}
-//			List<String> strs = new ArrayList<String>();
-//			RedissonDBList listOps;
-//			listOps = executeDF.RedissonDBList();
-//			ResultObject<String, String> rt = null;
-//			int sum = 0;
-//			while ((rt = listOps.LockLPOP(key, MAX_LOG_TIME_OUT)) != null && sum < 5) {
+//	@RequestMapping("/log/{modelName}")
+//	public @ResponseBody List<Log> getModelLog(
+//			@PathVariable("modelName") String modelName) {
 //
-//				strs.add(rt.getValue());
-//				sum++;
-//			}
-//			
-//			return strs;
-//
-//		} catch (RedissonDBException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//		System.out.println("------------getModelLog-------------");
+//		//String key = modelName + ":log";
 //		
-//		return null;
-
-	}
+//
+//		return bufferService.getLogs();
+//		
+////		try {
+////			RedissonDBKey keyOps = executeDF.RedissonDBKey();
+////			ResultObject<String, Boolean> rt1 = keyOps.EXISTS(key);
+////			if (!rt1.getValue()) {
+////				return null;
+////			}
+////			List<String> strs = new ArrayList<String>();
+////			RedissonDBList listOps;
+////			listOps = executeDF.RedissonDBList();
+////			ResultObject<String, String> rt = null;
+////			int sum = 0;
+////			while ((rt = listOps.LockLPOP(key, MAX_LOG_TIME_OUT)) != null && sum < 5) {
+////
+////				strs.add(rt.getValue());
+////				sum++;
+////			}
+////			
+////			return strs;
+////
+////		} catch (RedissonDBException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+////		
+////		return null;
+//
+//	}
 	
 //	@PostMapping("/clearDatabase/{modelName}")
 //	public @ResponseBody String clearDatabase(@PathVariable("modelName")String modelName) {

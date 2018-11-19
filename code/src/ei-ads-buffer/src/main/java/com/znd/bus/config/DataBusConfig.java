@@ -25,17 +25,13 @@ import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.ChannelRegistry;
-import com.znd.bus.log.BufferLogger;
+import com.znd.bus.server.BusService;
 
 @Configuration
 @EnableAutoConfiguration
 public class DataBusConfig {
 
 	private final Logger logger = LoggerFactory.getLogger(DataBusConfig.class);
-	
-	//private static String FILE_NAME = "redissonnode.yaml";
-	//private static String FILE_NAME = "ClusterServersConfig.cfg";
-	
 	
 	private BufferFactory defaultBufferFactory;
 	
@@ -72,7 +68,7 @@ public class DataBusConfig {
 	}	
 	
 	@Bean
-	public BufferConfig defaultBufferConfig(ConfigurableApplicationContext context, DabaBusProperties properties) {
+	public BufferConfig defaultBufferConfig(ConfigurableApplicationContext context, DataBusProperties properties) {
 		
 		BufferConfig config = new BufferConfig();
 			config.setId(properties.getId());
@@ -161,9 +157,16 @@ public class DataBusConfig {
 	}
 	
 	@Bean
-	public BufferLogger bufferLogger(BufferFactory bufferFactory) {
-		return bufferFactory.logger();
+	public BusService busService(BufferConfig defaultBufferConfig) {
+		return defaultBufferConfig.getBuservice();
 	}
+	
+//	@Bean
+//	public BufferLogger bufferLogger(BufferFactory bufferFactory) {
+//		return bufferFactory.logger();
+//	}
+//	
+	
 	
 //	@Bean
 //	public ChannelRegistry channelFactory(ConfigurableApplicationContext context, BufferConfig defaultBufferConfig) {

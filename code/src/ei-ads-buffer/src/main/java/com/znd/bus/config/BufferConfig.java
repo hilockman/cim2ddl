@@ -20,15 +20,16 @@ import org.slf4j.LoggerFactory;
 
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 import com.znd.bus.annotation.Index;
-import com.znd.bus.binding.BindingException;
 import com.znd.bus.binding.MapperRegistry;
 import com.znd.bus.binding.MethodType;
 import com.znd.bus.binding.ResolverUtil;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferContext;
-import com.znd.bus.buffer.BufferException;
+import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.channel.ChannelConfig;
 import com.znd.bus.channel.ChannelRegistry;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.log.Log;
 import com.znd.bus.log.LogBuffer;
@@ -40,7 +41,7 @@ import com.znd.bus.reflection.MetaObject;
 import com.znd.bus.reflection.Reflector;
 import com.znd.bus.reflection.ReflectorFactory;
 import com.znd.bus.server.BusService;
-import com.znd.bus.server.impl.BusServiceImpl;
+import com.znd.bus.server.defaults.DefaultBusService;
 import com.znd.bus.statement.RoutingStatementHandler;
 import com.znd.bus.statement.StatementHandler;
 import com.znd.bus.task.BufferTask;
@@ -111,6 +112,8 @@ public class BufferConfig {
 	//更新标志,值为0， 1， 2, 缺省为update
 	private CreateFlag createFlag = CreateFlag.UPDATE; 
 	
+	private boolean simpleModel = false;
+	
 	public BufferConfig() {
 		
 	}
@@ -156,6 +159,10 @@ public class BufferConfig {
 		}
 		
 		return tables;
+	}
+	
+	public List<String> getAllTableNames() {
+		return bufferContext.getAllTableNames();
 	}
 	
 	private boolean containTable(String tableName) {
@@ -207,11 +214,16 @@ public class BufferConfig {
 		}
 		
 		String tableName = clazz.getSimpleName();
-		if (containTable(tableName))
-			return;
+		if (containTable(tableName)) {
+			TableMeta oldMeta = metaMap.get(tableName);
+			throw new BufferConfigException(String.format("Types's name is conflict: '%s', '%s'"
+					,oldMeta.getClazz() != null ? oldMeta.getClazz().toString() : oldMeta.getName()
+					, clazz.toString()));
+		}
 		Reflector reflector = reflectorFactory.findForClass(clazz);
 		TableMeta tableMeta = new TableMeta();
 		tableMeta.setName(tableName);
+		tableMeta.setClazz(clazz);
 		
 		String[] names = reflector.getGetablePropertyNames();
 
@@ -236,6 +248,7 @@ public class BufferConfig {
 		tableMeta.formIndexColumn();
 		
 		tableMetas.add(tableMeta);
+		metaMap.put(tableMeta.getName(), tableMeta);
 	}
 	
 	private void createDefaultTables(Class<?> ... clazzes) {
@@ -255,7 +268,7 @@ public class BufferConfig {
 	      addType(mapperClass);
 	    }
 	  }
-
+	
 	  public void addTypes(String packageName) {
 	    addTypes(packageName, Object.class);
 	  }
@@ -293,17 +306,37 @@ public class BufferConfig {
 			context.updateTableMeta(tableMeta);
 		}
 	}
+	 
+	
+	public static boolean exist(String dbid) {
+		BufferConfig config = new BufferConfig();
+		config.setSimpleModel(true);
+		
+		BufferContext context = new BufferContext.Builder(BufferFactoryBuilder.DEFAULT_APPNAME, dbid).build();
+		try {
+			return context.checkAvailable();
+		} catch (Throwable e) {
+			return false;
+		}
+			
+	}
+	
 	public void buildAll() {
-		addTypes();
+		if (!simpleModel) {
+			addTypes();
+		}
 	
 		try {
 			bufferContext = new BufferContext.Builder(this).build();
 			
-			channelRegistry = new ChannelRegistry(bufferContext);
-			busServcie = new BusServiceImpl(channelRegistry);
-			 
+			if (!simpleModel) {
+			  channelRegistry = new ChannelRegistry(bufferContext);
+			  busServcie = new DefaultBusService(channelRegistry);
+			}
 			final BufferContext context = bufferContext;
-						
+			
+			
+			boolean changed = false;
 			if (getCreateFlag() == CreateFlag.UPDATE) { //更新buffer
 				boolean createFlag = false;
 				if (context.checkAvailable()) {
@@ -327,6 +360,8 @@ public class BufferConfig {
 					context.makeBuffer(tableMetas);
 				}
 				
+				changed = createFlag;
+				
 			} else if (getCreateFlag()  == CreateFlag.CREATE) {
 				// remove buffer
 				logger.info("Buffer definition will be removed : {}. ", getKey());
@@ -341,21 +376,26 @@ public class BufferConfig {
 				}			
 			}
 			
-			new TimeCount.Builder()
-			.name("update %d table(s)", tableMetas.size())
-			.logger(logger).runnable(()->{
-						updateTables(context);
-
-				}
-			).build().exec();
 			
+//			new TimeCount.Builder()
+//			.name("update %d table(s)", tableMetas.size())
+//			.logger(logger).runnable(()->{
+//						updateTables(context);
+//
+//				}
+//			).build().exec();
 			
-		
+				
 			addMappers();
-			addChannels();
-			buildClient();
+			if (!simpleModel) {
+				addChannels();
+			    buildClient();
+			}
 		} catch (RedissonDBException e) { //低层redisdatabus出错
 			throw new BufferConfigException(e.getMessage(), e);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			System.exit(0);
 		} finally {
 			logger.info("Succeed to build buffer : "+getKey());
 		}
@@ -377,12 +417,10 @@ public class BufferConfig {
 		channelRegistry.addChannels(channels);
 	}
 
-
-
-	public void add(TableMeta tableMeta) {
-		tableMetas.add(tableMeta);
-		metaMap.put(tableMeta.getName(), tableMeta);
-	}
+//	public void add(TableMeta tableMeta) {
+//		tableMetas.add(tableMeta);
+//		metaMap.put(tableMeta.getName(), tableMeta);
+//	}
 	
 	public String getAlias() {
 		return alias;
@@ -589,19 +627,25 @@ public class BufferConfig {
 		return localClient;
 	}
 
-
-
 	public void setLocalClient(RedissonClient localClient) {
 		this.localClient = localClient;
 	}
-
-
-
 	
 	public BusService getBuservice()
 	{
 		return busServcie;	
 	}
 
+
+
+	public boolean isSimpleModel() {
+		return simpleModel;
+	}
+
+
+
+	public void setSimpleModel(boolean simpleModel) {
+		this.simpleModel = simpleModel;
+	}
 	
 }

@@ -22,6 +22,7 @@ import com.ZhongND.memdb.MDBDefine;
 import com.znd.bus.common.buffer.ModelFileBuffer;
 import com.znd.bus.common.buffer.ModelSourceBuffer;
 import com.znd.bus.common.model.ModelFile;
+import com.znd.ei.Utils;
 import com.znd.ei.memdb.DbEntry;
 import com.znd.ei.memdb.DbEntryCollection;
 import com.znd.exception.MemoryException;
@@ -31,7 +32,7 @@ import com.znd.reliability.utils.AppUtil;
 
 @Component
 public class ShareMemHolder {
-	private static final Logger LOGGER = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(ShareMemHolder.class);
 	
 	
@@ -63,16 +64,10 @@ public class ShareMemHolder {
 	public ShareMemHolder(ReliabilityProperties properties) {
 		
 		//this.properties = properties;
-		appDir = properties.getAppDir();
-		if (!new File(appDir).exists()) {
-			appDir = System.getenv("ZND_HOME")+"\\bin_x64";
-			if (!new File(appDir).exists()) {
-				throw new RuntimeException("no find "+properties.getAppDir()+", or "+"$ZND_HOME");
-			}
+		appDir = Utils.getSysHome(properties.getAppDir());
+		if (appDir == null) {
+			logger.error("Fail to get sys home : "+appDir);
 		}
-
-		appDir = Paths.get(appDir).toAbsolutePath().toString();
-		//logger.info("reliability appdir : "+appDir);
 		registDabaseLoader();
 	} 
 	
@@ -127,12 +122,12 @@ public class ShareMemHolder {
 
 		new Thread(() -> {
 			if (AppUtil.isRunning("MemStarter")) {
-				LOGGER.info("MemStarter is running.");
+				logger.info("MemStarter is running.");
 				
 			} else {
-				LOGGER.info("Will to start MemStarter...");
-				AppUtil.execBuilder(appDir+"/MemStarter").addParam("-s").exec();
-				LOGGER.info("MemStarter started.");
+				logger.info("Will to start MemStarter...");
+				AppUtil.execBuilder(appDir+"/bin_x64/MemStarter").addParam("-s").exec();
+				logger.info("MemStarter started.");
 			}
 		}).start();	
 	}
@@ -141,9 +136,9 @@ public class ShareMemHolder {
 	@PreDestroy
 	public void destory() {
 		new Thread(() -> {
-			LOGGER.info("Will to kill MemStarter.");
-			AppUtil.execBuilder(appDir+"/MemStarter").addParam("-k").exec();
-			LOGGER.info("MemStarter is killed.");
+			logger.info("Will to kill MemStarter.");
+			AppUtil.execBuilder(appDir+"/bin_x64/MemStarter").addParam("-k").exec();
+			logger.info("MemStarter is killed.");
 			
 		}).start();	
 	}
@@ -245,11 +240,11 @@ public class ShareMemHolder {
 		}
 		
 		try {
-			AppExecuteBuilder eb = AppUtil.execBuilder(appDir+"/"+info.appName).addParam(appDir);
+			AppExecuteBuilder eb = AppUtil.execBuilder(appDir+"/bin_x64/"+info.appName).addParam(appDir);
 			for (File file: sortedFiles) {
 				eb.addParam(file.getCanonicalPath());
 			}
-			eb.logger((String log)->LOGGER.info(log)).exec();
+			eb.logger((String log)->logger.info(log)).exec();
 		} catch (IOException e) {
 			e.printStackTrace();			
 			throw new MemoryException("Fail to load dabase :"+info.entryName+", appName:"+info.appName);

@@ -25,7 +25,7 @@ public class MemoryServiceImpl implements MemoryService {
 			item.setId(dbOps[i].getId());
 			item.setName(dbOps[i].getName());
 			item.setAlias(dbOps[i].getDescription());
-			item.setType(CategoryInfo.MEMORY);
+//			item.setType(CategoryInfo.MEMORY);
 			names.add(item);
 		}
 		return names;

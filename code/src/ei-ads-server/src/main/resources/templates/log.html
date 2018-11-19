@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<meta charset="utf-8" />
+		<title>分布式计算-日志</title>
+		
+		<div th:replace="fragments/header :: header-css">
+		</div>		
+		
+
+     <link rel="stylesheet" type="text/css" th:href="@{/css/log.css}"  href="../static/css/log.css"/>		
+     <style>
+     	.table-panel {
+     		
+     	  position:relative;
+     	  overflow:auto;
+     	}
+     	
+     	table {
+
+     	}
+     	
+     	.table-panel thead {
+     		position: sticky;
+     		top: 0;
+     	}
+     	
+     </style>
+	</head>
+	<body>
+		<div th:replace="fragments/header :: header">
+		</div>
+		
+		<div class="container-fluid">
+		   <div class="table-panel">
+				<table class="table table-bordered table-condensed" id="log-table">
+					<thead>
+						<tr>
+							<th>日期</th>
+							<th>级别</th>
+							<th>节点</th>
+							<th>内容</th>
+						</tr>
+					</thead>
+					<tbody>					
+					</tbody>
+				</table>
+				<div class="monitor-tip" id="log-tip">
+					日志加载中...
+				</div>		   
+		   </div>
+
+			<div th:replace="fragments/footer :: footer">
+		
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	
+	    $(function () {
+	    	$.ajax({
+					url:"logs",
+                    success: fillLogs,
+					error: function (e) {
+						showTip("日志加载出错："+e.toString());
+                    }
+			}
+
+
+			);
+	    });
+	    
+	    function showTip(tips) {
+	    	if (tips && tips !== "") {
+		    	$("table").hide();
+		    	$("#log-tip").css("display", " flex");
+		    	$("#log-tip").html(tips);    		
+	    	} else {
+	    		$("#log-tip").hide();
+                $("table").show();
+	    	}
+
+	    }
+
+	    function fillLogs(logs) {
+			if (!logs || logs.length == 0) {
+				showTip("未找到日志记录。");
+				return;
+			} else {
+                showTip();
+			}
+			
+			let lines = logs.map(function(log){
+				return createLogLine(log);
+			});
+			$("#log-table tbody").append(lines);
+        }
+	    
+	    function createLogLine(log) {
+	    	return $("<tr></tr>").append(
+	    			$("<td></td>").text(log.date),
+	    			$("<td></td>").text(log.logLevel),	
+	    			$("<td></td>").text(log.hostName),	
+	    			$("<td></td>").text(log.content)
+	    	);
+	    }
+	</script>
+</html>

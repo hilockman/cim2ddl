@@ -7,8 +7,10 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.config.BufferConfig;
-import com.znd.bus.log.DefaultLogger;
+import com.znd.bus.log.BufferLogger;
+import com.znd.bus.log.BufferLoggerFactory;
 import com.znd.bus.log.LogBuffer;
+import com.znd.bus.log.defaults.DefaultLogger;
 import com.znd.bus.task.CalcTaskList;
 import com.znd.bus.task.DefaultCalcTaskList;
 
@@ -17,7 +19,7 @@ public class DefaultBufferFactory implements BufferFactory {
 
 	private final Logger logger = LoggerFactory.getLogger(BufferFactoryBuilder.class);
 
-	private final com.znd.bus.log.BufferLogger defaultLogger;
+	
 		
 	public DefaultBufferFactory(BufferConfig config)
 	{	
@@ -27,7 +29,7 @@ public class DefaultBufferFactory implements BufferFactory {
 		
 		Buffer buffer = openSession(true);
 		LogBuffer mapper = config.getMapper(LogBuffer.class, buffer);
-		defaultLogger =  new DefaultLogger(mapper);
+		BufferLoggerFactory.logBuffer.setLogBuffer(mapper);
 	}
 	
 	public Buffer openSession()   {
@@ -65,10 +67,9 @@ public class DefaultBufferFactory implements BufferFactory {
 	}
 	
 	
-
-	@Override
-	public com.znd.bus.log.BufferLogger logger() {	
-		return defaultLogger;
-	}
-	
+//	@Override
+//	public BufferLogger logger() {	
+//		return defaultLogger;
+//	}
+//	
 }

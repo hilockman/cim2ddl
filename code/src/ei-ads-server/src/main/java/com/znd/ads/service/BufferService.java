@@ -3,7 +3,8 @@ package com.znd.ads.service;
 import java.util.List;
 
 import com.znd.ads.model.CategoryInfo;
-import com.znd.bus.channel.ChannelMessage;
+import com.znd.bus.common.model.CategoryTypeEnum;
+import com.znd.bus.config.ColumnMeta;
 
 /**
  * buffer服务
@@ -19,16 +20,18 @@ public interface BufferService {
 	 */
 	List<CategoryInfo> getDbNodes();
 
-	List<CategoryInfo> getTableNodes(String dbid);
+	List<CategoryInfo> getTableNodes(String dbid, CategoryTypeEnum type);
 
 	
-	void sendMessage(ChannelMessage message);
+//	void sendMessage(ChannelMessage message);
 
 	
-	List getLogs();
+//	List getLogs();
 
-	List getRecords(String dbid, String tableid);
+	List<String[]> getRecords(String dbid, String tableid);
 
-	List getTableColumns(String dbid, String tableid);
+	List<ColumnMeta> getTableColumns(String dbid, String tableid);
+	
+	void removeRecords(String dbid, String tableid, String[] ids);
 
 }

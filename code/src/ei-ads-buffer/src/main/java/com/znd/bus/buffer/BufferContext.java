@@ -22,18 +22,19 @@ import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 import com.ZhongND.RedisDataBus.Object.MessageContent;
 import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
-import com.znd.bus.binding.BindingException;
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.ChannelConfig;
 import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.ChannelType;
 import com.znd.bus.channel.Listener;
 import com.znd.bus.channel.defaults.DefaultChannel;
-import com.znd.bus.channel.defaults.MessageException;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.BufferConfigException;
 import com.znd.bus.config.ColumnMeta;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
 import com.znd.bus.util.TimeCount;
 
 
@@ -58,28 +59,64 @@ public  class BufferContext {
 		this.pubSubManager = pubSubManager;
 	}
 	
+//	public static class Connection {
+//		private DFService service;
+//		private RMemDBApi memDBApi;
+//		
+//		
+//		private static volatile Connection instance;
+//		private static Object mutex = new Object();
+//
+//		private Connection() {
+//		}
+//
+//		public static Connection getInstance() {
+//			Connection result = instance;
+//			if (result == null) {
+//				synchronized (mutex) {
+//					result = instance;
+//					if (result == null)
+//						instance = result = new Connection();
+//				}
+//			}
+//			return result;
+//		}
+//		
+//	}
+	
 	public static class Builder {
 		private BufferContext context;
-		private final BufferConfig config;
+		//private final BufferConfig config;
+		private final String appName;
+		private final String name;
 		public Builder(BufferConfig config) {
-			this.config = config;
+			this.appName = config.getAppName();
+			this.name = config.getName();
+			//this.config = config;
+
+		}
+		
+		public Builder(String appName, String name) {
+			this.appName = appName;
+			this.name = name;
+			//this.config = config;
 
 		}
 		
 		public BufferContext build() {					
 			try {
-				if (config.getName() == null || config.getName().isEmpty()) {
+				if (name == null || name.isEmpty()) {
 					throw new BufferConfigException("buffer name is null.");
 				}
 				DFService service = ServiceFactory.getService();
-				RMemDBApi memDBApi = service.connect(config.getAppName());
+				RMemDBApi memDBApi = service.connect(appName);
 
 				RMemDBBuilder memDBBuilder = memDBApi
-						.getRMemDBBuilder(config.getName());	
+						.getRMemDBBuilder(name);	
 				
-				context = new BufferContext(config.getName(), service, memDBApi, memDBBuilder, memDBApi.getPubSubManager());									
+				context = new BufferContext(name, service, memDBApi, memDBBuilder, memDBApi.getPubSubManager());									
 			} catch (Throwable e) {
-				throw new BufferConfigException(e.getMessage(), e);
+				throw new BufferConfigException(e.getMessage()+", name = "+name, e);
 			}
 
 			
@@ -194,10 +231,8 @@ public  class BufferContext {
 					tableMeta.getColumns().add(columnMeta);
 				}
 				RedisColumnContent colDefine = tableOps.getColumnDefine(columnName);
-				colDefine.getIndexType();
 				columnMeta.setIndexable(colDefine.getIndexType());
 				columnMeta.setName(columnName);
-				//columnMeta.setType(BufferFactoryBuilder.toType(colDefine.getType()));
 				columnMeta.setDbIndex(tableOps.getColumnIndex(columnName));
 				columnMeta.setIndex(i++);
 			}
@@ -251,7 +286,7 @@ public  class BufferContext {
 	 */
 	
 	public boolean isBufferDefineChanged(BufferConfig config) {
-		List<TableMeta> changedTables = new ArrayList<>();
+		//List<TableMeta> changedTables = new ArrayList<>();
 		List<String> tableNames;
 		//try {
 			try {
@@ -261,12 +296,15 @@ public  class BufferContext {
 				throw new BindingException("Fail to getTableNameArray:", e);
 			}
 			TableMeta[] tableMetas = config.getCachedTableMetas();
+			
+			
 			for (TableMeta tableMeta : tableMetas) {
 				
 				
 				if (tableNames.indexOf(tableMeta.getName()) < 0) {
-					changedTables.add(tableMeta);
-					continue;
+					//changedTables.add(tableMeta);
+					//continue;
+					return true;
 				}
 				
 				List<RedisColumnContent> columnDefines = null;
@@ -294,13 +332,11 @@ public  class BufferContext {
 				}
 				
 				if (isTableChanged(columnDefines, tableMeta)) {
-					changedTables.add(tableMeta);					
+					return true;				
 				}
 			}
 			
-			if (!changedTables.isEmpty()) 
-				return true;	
-		
+	
 //		} catch (RedissonDBException e) {
 //			throw new BindingException(e.getMessage(), e);
 //		}
@@ -311,42 +347,7 @@ public  class BufferContext {
 	public String getName() {
 		return name;
 	}
-	
-//	private  void loadColumnMetas(TableMeta tableMeta, RBufferOperation bufferOps) throws RedissonDBException {	
-//		RTableOperation tableOps = bufferOps.getTableOperation(tableMeta.getName());
-//		List<String> colNames = tableOps.getColumnNameArray();
-//		for (int i = 0; i < colNames.size(); i++) {
-//			RedisColumnContent content = tableOps.getColumnDefine(colNames.get(i));
-//			ColumnMeta col = new ColumnMeta();
-//			col.setName(content.getStrFieldName());
-//			col.setIndexable(content.getIndexType());
-//			//col.setType(BufferFactoryBuilder.toType(content.getType()));
-//			tableMeta.getIndexColumns().add(col);		
-//		}
-//		tableMeta.formIndexColumn();
-//	}
-	
-//	public TableMeta  createTableMeta(String tableName) {
-//
-//			try {
-//				RBufferOperation bufferOps = memDBBuilder.getBufferOperation();
-//				List<String> tables = bufferOps.getTableNameArray();
-//				Collections.sort(tables);
-//				int index = Collections.binarySearch(tables, tableName);
-//				if (index == -1) {
-//					throw new RuntimeException(String.format("Find no table:'%s', in buffer : %s", tableName, this.name));
-//				}
-//				TableMeta tableMeta = new TableMeta();
-//				tableMeta.setName(tableName);
-//				
-//				loadColumnMetas(tableMeta, bufferOps);			
-//		        return tableMeta;				
-//			} catch (RedissonDBException e) {
-//				e.printStackTrace();
-//				throw new RuntimeException(e);
-//			}			
-//		
-//	}
+
 	
 	public RTableOperation getTableOperation(TableMeta tableMeta){
 
@@ -522,7 +523,7 @@ public  class BufferContext {
 							logger.debug("Receive message : number={}, content={}",number, event);
 							bufferChannel.receive(event);
 						}
-					}, channel, type == ChannelType.Share ? true : false);
+					}, channel, (type == ChannelType.Share ? true : false));
 				}
 				return bufferChannel;
 			} catch (Exception e) {

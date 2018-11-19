@@ -3,14 +3,17 @@ package com.znd.ads.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.znd.bus.common.model.CategoryTypeEnum;
+
 public class CategoryInfo {
 
-	public static final String MEMORY = "memory";
-	public static final String BUFFER = "buffer";
+	
+//	public static final String MEMORY = "memory";
+//	public static final String BUFFER = "buffer";
 	private String id;
 	private String name;
 	private String alias;
-	private String type;
+	private CategoryTypeEnum type = CategoryTypeEnum.common;
 	
 	private List<CategoryInfo> children = new ArrayList<>();
 	private int childCount = 0;
@@ -27,12 +30,12 @@ public class CategoryInfo {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
+//	public String getType() {
+//		return type;
+//	}
+//	public void setType(String type) {
+//		this.type = type;
+//	}
 	public String getId() {
 		return id;
 	}
@@ -50,5 +53,11 @@ public class CategoryInfo {
 	}
 	public void setChildCount(int childCount) {
 		this.childCount = childCount;
+	}
+	public CategoryTypeEnum getType() {
+		return type;
+	}
+	public void setType(CategoryTypeEnum type) {
+		this.type = type;
 	}
 }

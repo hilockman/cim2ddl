@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6aeddbeb-fa03-42b7-9a56-850eab1998b9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-acp-dfredisson/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-acp-dfredisson/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-acp-dfredisson/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-acp-dfredisson/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-acp-dfredisson/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-acp-dfredisson/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/MapperInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/operations/Operations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/AdsNodeInfoBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/AdsNodeInfoBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/CalcJobBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/CalcJobBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/ModelFileBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/ModelFileBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/ModelSourceBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/buffer/ModelSourceBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/model/AdsNodeInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-base/src/main/java/com/znd/bus/common/model/AdsNodeInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/JavaWorkspace/RedissonConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/JavaWorkspace/RedissonConfig.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/JavaWorkspace/SingleServerConfig.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/log/ei-ads-web.log.2018-06-06.070273546731592.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/BufferContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/BufferContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/BufferFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/BufferFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/defaults/DefaultBufferFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/defaults/DefaultBufferFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/defaults/DefaultExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/buffer/defaults/DefaultExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/channel/defaults/DefaultChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/channel/defaults/DefaultChannel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/BufferConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/BufferConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/DabaBusProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/DataBusProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/DataBusConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/DataBusConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/TableMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/config/TableMeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/log/DefaultLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/log/defaults/DefaultLogger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/log/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/log/Log.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/log/LogBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/log/LogBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/AdapterInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/AdapterInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/AdapterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/AdapterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/BusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/BusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/Topic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/Topic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/VerbEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/VerbEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/impl/BusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/defaults/DefaultBusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/EventMessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/EventMessageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/HeaderType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/HeaderType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/MessageBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/MessageBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/OperationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/OperationType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/PayloadType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/PayloadType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/ReplyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/ReplyType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/RequestMessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/RequestMessageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/RequestType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/RequestType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/ResponseMessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/main/java/com/znd/bus/server/message/ResponseMessageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/test/java/com/znd/bus/test/UpdateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/test/java/com/znd/bus/test/UpdateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-buffer/src/test/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-buffer/src/test/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/logs/ZhongNDReidsDF-interface.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/logs/ZhongNDReidsDF-interface.log.1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/logs/ZhongNDReidsDF-interface.log.2" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/logs/ZhongNDReidsDF-interface.log.2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/apl/ReliabilityApl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/apl/ReliabilityApl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/apl/annotation/AplController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/annotation/AplController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/apl/annotation/AplFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/annotation/AplFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/apl/annotation/AplParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/annotation/AplParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/client/impl/DefaultClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/client/impl/DefaultClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/event/AplBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/event/AplBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/event/EvenInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/event/EvenInvoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/event/EvenInvokerRegistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/event/EvenInvokerRegistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/exception/AplException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/exception/AplException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/memory/ShareMemHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/java/com/znd/memory/ShareMemHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-client/src/test/java/com/znd/test/SimpleReliabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-client/src/test/java/com/znd/test/SimpleReliabilityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-console/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-console/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-console/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-console/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-core/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-core/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-core/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-core/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/BufferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/BufferController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/DefaultController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/DefaultController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/JobController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/NodeContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/NodeContoller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/ReliabilityControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/controller/ReliabilityControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/BufferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/BufferService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/JobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/JobService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/NodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/NodeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/impl/BufferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/impl/BufferServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/impl/JobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/impl/JobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/impl/NodeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/znd/ads/service/impl/NodeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/scripts/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/scripts/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/buffer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/buffer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/model.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/model.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/nodes.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/nodes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-terminal/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-terminal/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-terminal/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-terminal/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-terminal/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-terminal/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-web/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-web/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-ads-web/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-ads-web/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-apl-reliability/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-apl-reliability/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-apl-reliability/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-apl-reliability/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-base/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-base/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-base/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-base/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-base/src/main/java/com/znd/ei/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-base/src/main/java/com/znd/ei/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-cim-viewer/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-cim-viewer/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-cim-viewer/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-cim-viewer/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/src/main/resources/static/index.html_" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/src/main/resources/static/index.html_bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/src/main/resources/static/index1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/src/main/resources/static/index_bak.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-cim-viewer/src/main/resources/static/testspringupload.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-console/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-console/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-console/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-console/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-console/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-console/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-console/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-console/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-core/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-core/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-core/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-core/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-tool/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-tool/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-tool/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-tool/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-web/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-web/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb-web/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb-web/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-memdb/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-memdb/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-model/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-model/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-model/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-model/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-persist/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-persist/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ei-persist/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../ei-persist/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-java/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../test-java/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-java/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../test-java/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-nio-client/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../test-nio-client/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-nio-client/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../test-nio-client/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-proxy/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../test-proxy/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-proxy/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../test-proxy/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/test-mybatis/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../test/test-mybatis/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/test-mybatis/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../test/test-mybatis/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/test-redisdata/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../test/test-redisdata/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/test-redisdata/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../test/test-redisdata/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../znd/bin_x64/Ini/MemDBViewer.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../../../znd/bin_x64/Ini/MemDBViewer.ini" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1337523816">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.31" value="1" />
+          <entry key="project.open.time.44" value="1" />
+          <entry key="project.open.time.46" value="1" />
+          <entry key="project.opened" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="html" value="3" />
+          <entry key="js" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="HTML" value="3" />
+          <entry key="JavaScript" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="html" value="903" />
+          <entry key="js" value="198" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="903" />
+          <entry key="JavaScript" value="198" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/buffer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4845">
+              <caret line="255" column="21" selection-start-line="255" selection-start-column="21" selection-end-line="255" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/scripts/home.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/scripts/utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3173">
+              <caret line="167" column="5" selection-start-line="167" selection-start-column="5" selection-end-line="167" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5472">
+              <caret line="288" column="2" selection-start-line="288" selection-start-column="2" selection-end-line="288" selection-end-column="2" />
+              <folding>
+                <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#0;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#1;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#2;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#3;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#4;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/log.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="51" selection-start-line="51" selection-end-line="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>moniter-tip</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/resources/templates/buffer.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/scripts/home.js" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/home.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/log.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/src/main/resources/static/bootstrap-plugin/bootstrap-hover-dropdown-2.2.1/package.json" />
+      <path value="$PROJECT_DIR$/target/classes/static/bootstrap-plugin/bootstrap-hover-dropdown-2.2.1/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="970" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ei-ads-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ei-ads-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6aeddbeb-fa03-42b7-9a56-850eab1998b9" name="Default Changelist" comment="" />
+      <created>1541470895115</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1541470895115</updated>
+      <workItem from="1541470896608" duration="7153000" />
+      <workItem from="1541553093889" duration="4113000" />
+      <workItem from="1541724328132" duration="1185000" />
+      <workItem from="1542158293802" duration="599000" />
+      <workItem from="1542242696496" duration="594000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="13644000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15587847" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.24504249" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/buffer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4845">
+          <caret line="255" column="21" selection-start-line="255" selection-start-column="21" selection-end-line="255" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/scripts/home.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/scripts/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3173">
+          <caret line="167" column="5" selection-start-line="167" selection-start-column="5" selection-end-line="167" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5472">
+          <caret line="288" column="2" selection-start-line="288" selection-start-column="2" selection-end-line="288" selection-end-column="2" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#0;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#1;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#2;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#3;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#span#0;n#label#0;n#div#4;n#div#2;n#div#1;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/log.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

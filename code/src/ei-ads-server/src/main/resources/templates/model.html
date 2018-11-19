@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-   <title>模型数据查看</title>
+   <title>分布式计算-模型数据查看</title>
    <div th:replace="fragments/header :: header-css" /></div>
   
    <style>
@@ -111,8 +111,8 @@
 	            preset: "awesome4",
 	            map: {}
 	          },
-	       // source: {url: "/model/all", debugDelay: 1000},
-	       source : dataItems,
+	        // source: {url: "/model/all", debugDelay: 1000},
+	        source : dataItems,
 	        createNode: function(event, data) {
 	            // Optionally tweak data.node.span or bind handlers here
 	            //logEvent(event, data);

@@ -12,9 +12,9 @@ import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 import com.znd.bus.buffer.BufferContext;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.exception.ExecutionException;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.mapping.MappedStatement;
-import com.znd.bus.mapping.ParameterMapping;
 import com.znd.bus.mapping.ResultSet;
 import com.znd.bus.statement.DeleteStatement;
 import com.znd.bus.statement.InsertStatement;
@@ -25,6 +25,9 @@ import com.znd.bus.statement.Statement;
 public class DefaultExecutor implements Executor {
 	
 	private final BufferContext context;
+	
+	private final static Byte wite_locker = new Byte("1");
+	
 	public DefaultExecutor(BufferContext context) {
 		this.context = context;
 	}
@@ -44,6 +47,15 @@ public class DefaultExecutor implements Executor {
 			throw new ExecutionException(e);
 		}
 	
+	}
+	
+	<K, V> void print(Map<K, V> m) {
+		
+		for (Map.Entry<K, V> e : m.entrySet()) {
+			K k = e.getKey();
+			V v = e.getValue();
+			System.out.println(String.format("(%s,%s)", (k != null ? k.toString(): "Nil"), (v != null? v.toString() : "Nil")));
+		}
 	}
 
 	@Override
@@ -66,7 +78,16 @@ public class DefaultExecutor implements Executor {
 					public void update(Map<Short, String> columns,
 							Map<String, String> conditions) {
 						try {
-							tableOps.setCells(columns, conditions);
+//							synchronized (wite_locker) {
+//								System.out.println("columns=");
+//								print(columns);
+//								System.out.println("conditions=");
+//								print(conditions);
+								tableOps.setCells(columns, conditions);
+//							}
+								
+							
+							
 						} catch (RedissonDBException e) {
 							throw new ExecutionException(e.getMessage(), e);
 						}
@@ -133,7 +154,10 @@ public class DefaultExecutor implements Executor {
 		
 		RTableOperation tableOps = getTableOperation(tableMeta);
 		try {
-			tableOps.delRecord(conditionMap);
+//			synchronized (wite_locker) {
+				tableOps.delRecord(conditionMap);
+//			}
+			
 		} catch (RedissonDBException e) {
 			throw new RuntimeException(e);
 		}
@@ -161,8 +185,9 @@ public class DefaultExecutor implements Executor {
 		try {
 			if (records.isEmpty())
 				return;
-			
-			tableOps.setRecord(records, indexRecords);
+//			synchronized (wite_locker) {
+			 tableOps.setRecord(records, indexRecords);
+//			}
 			logger.debug("Record(s) inserted int '{}': sum = " + records.size(), tableMeta.getName());
 		} catch (RedissonDBException e) {
 			e.printStackTrace();			

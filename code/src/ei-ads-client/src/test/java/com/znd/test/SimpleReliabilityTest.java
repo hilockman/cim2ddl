@@ -1,10 +1,7 @@
 package com.znd.test;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.util.Date;
-import java.util.UUID;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -12,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.ads.model.dto.PRAdequacySetting;
@@ -21,7 +17,6 @@ import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.model.CalcJob;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.reliability.config.ReliabilityProperties;
-import com.znd.reliability.utils.AppUtil;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行

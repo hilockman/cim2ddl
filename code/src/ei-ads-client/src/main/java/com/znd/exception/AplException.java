@@ -1,6 +1,5 @@
 package com.znd.exception;
 
-import com.znd.bus.channel.Event;
 
 public class AplException extends RuntimeException {
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cat</title>
+<style>
+
+</style>
+<script src="scripts/jquery-3.2.1.js"></script>
+</head>
+<body>
+<h1>test</h1>
+
+<button id="move_up">Move Up</button>
+<button id="move_down">Move Down</button>
+<button id="color">Change Color</button>
+<button id="disappear">Disappear/Re-appear</button>
+
+<div id="change_me">Make me do stuff!</div>
+<span class="Italian">Nel Mezzo</span>
+<script>
+   $(document).ready(function() {
+	   $("#change_me").animate({top:30}, 200);
+   });//end move_up
+   $(document).ready(function() {
+	   $("#change_me").animate({top:500}, 2000);
+   });//end move_down
+   $(document).ready(function() {
+	   $("#change_me").css("color", "purple");
+   });//end color
+   
+   $(document).ready(function() {
+	   $("#change_me").toggle("slow")
+   });//end disappear
+   
+   $("#move_up").click(function() {
+	  console.log("hello");
+	  console.log("hello!!!");
+	  //$("#move_up").hide();
+	  $("span.Italian").toggle();
+   });
+   
+   
+</script>
+</body>
+</html>

@@ -3,7 +3,6 @@ package com.znd.apl;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,15 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.znd.ads.model.dto.PRAdequacySetting;
-import com.znd.apl.annotation.AplController;
-import com.znd.apl.annotation.AplFunction;
+import com.znd.annotation.AplController;
+import com.znd.annotation.AplFunction;
 import com.znd.bus.buffer.Buffer;
-import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
-import com.znd.bus.common.buffer.ModelFileBuffer;
 import com.znd.bus.common.model.CalcJob;
 import com.znd.bus.config.BufferConfig;
+import com.znd.ei.Utils;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
@@ -47,7 +45,7 @@ public class ReliabilityApl {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ReliabilityApl.class);
 	
-	private String appDir;
+	private String sysHome;
 	
 	@Autowired
 	private DbEntryOperations pROps;
@@ -64,15 +62,15 @@ public class ReliabilityApl {
 	@Autowired
 	private CalcJobBuffer calcJobBuffer;
 	
-	@Autowired
-	private ModelFileBuffer modelFileBuffer;
+//	@Autowired
+//	private ModelFileBuffer modelFileBuffer;
 	
 	@Autowired
 	private PrMemoryServer memoryServer;
 	
 	
-	@Autowired
-	private Channel commonChannel;
+//	@Autowired
+//	private Channel commonChannel;
 	
 //	@Autowired
 //	private Channel stateEstimateTopic;
@@ -92,17 +90,10 @@ public class ReliabilityApl {
 	public ReliabilityApl(ReliabilityProperties properties) {
 		
 		this.properties = properties;
-		appDir = properties.getAppDir();
-		if (!new File(appDir).exists()) {
-			appDir = System.getenv("ZND_HOME")+"\\bin_x64";
-			if (!new File(appDir).exists()) {
-				throw new RuntimeException("no find "+properties.getAppDir()+", or "+"$ZND_HOME");
-			}
+		sysHome = Utils.getSysHome(properties.getAppDir());		
+		if (sysHome == null) {
+			logger.error("Fail to get sys home : "+sysHome);
 		}
-
-		appDir = Paths.get(appDir).toAbsolutePath().toString();
-		logger.info("reliability appdir : "+appDir);
-		
 		//System.exit(0);
 	} 
 
@@ -113,7 +104,7 @@ public class ReliabilityApl {
 		bPAOps.clearDb();
 		
 		try {
-			AppExecuteBuilder eb = AppUtil.execBuilder(appDir+"/"+AppUtil.GC_BPA_LOADER).addParam(appDir);
+			AppExecuteBuilder eb = AppUtil.execBuilder(sysHome+"/"+AppUtil.GC_BPA_LOADER).addParam(sysHome);
 			for (File file: files) {
 				eb.addParam(file.getCanonicalPath());
 			}
@@ -129,7 +120,7 @@ public class ReliabilityApl {
 		pROps.clearDb();
 		
 		try {
-			AppExecuteBuilder eb = AppUtil.execBuilder(appDir+"/"+AppUtil.GC_BPA_2_PR).addParam(appDir);
+			AppExecuteBuilder eb = AppUtil.execBuilder(sysHome+"/bin_x64"+AppUtil.GC_BPA_2_PR).addParam(sysHome);
 			for (File file: files) {
 				eb.addParam(file.getCanonicalPath());
 			}
@@ -142,7 +133,7 @@ public class ReliabilityApl {
 	
 	public void sample(PRAdequacySetting config) {
 		System.out.println("call StateSample , config = "+config);
-		AppUtil.execBuilder(appDir+"/"+AppUtil.GC_STATE_SAMPLE).addParam(appDir)
+		AppUtil.execBuilder(sysHome+"/bin_x64"+AppUtil.GC_STATE_SAMPLE).addParam(sysHome)
 		// 抽样对象类型，全部；支路；发电机 nPRSampleObject
 				.addParam(config.getPRSampleObject())
 				// 抽样类型 nPRSampleMethod
@@ -246,7 +237,7 @@ public class ReliabilityApl {
 	}
 	
 	private void callReliabilityIndex(PRAdequacySetting config) {
-		AppUtil.execBuilder(appDir+"/"+AppUtil.GC_RELIABILITY_INDEX).addParam(appDir)
+		AppUtil.execBuilder(sysHome+"/bin_x64"+AppUtil.GC_RELIABILITY_INDEX).addParam(sysHome)
 		// 直流潮流2 交流潮流系数 fDc2AcFactor
 				.addParam(config.getDc2AcFactor()).logger((String log)->logger.info(log)).exec();
 	}	

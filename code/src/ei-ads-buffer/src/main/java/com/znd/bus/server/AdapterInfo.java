@@ -5,7 +5,7 @@ import java.util.List;
 public class AdapterInfo {
 
 	private String name;
-	private List<Topic> topics;
+	private List<Topic.TopicEnd> topics;
 	
 	public String getName() {
 		return name;
@@ -15,11 +15,11 @@ public class AdapterInfo {
 		this.name = name;
 	}
 	
-	public List<Topic> getTopics() {
+	public List<Topic.TopicEnd> getTopics() {
 		return topics;
 	}
 	
-	public void setTopics(List<Topic> topics) {
+	public void setTopics(List<Topic.TopicEnd> topics) {
 		this.topics = topics;
 	}
 }

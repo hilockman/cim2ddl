@@ -10,8 +10,11 @@ import java.io.InputStreamReader;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -323,5 +326,26 @@ public class Utils {
 	public static String randomKey() {
 		return UUID.randomUUID().toString();
 	}
+	
+	public static String simpleRandomKey() {
+		return randomKey().replaceAll("-", "");
+	}
 
+	public static String getSysHome(String appDir) {
+		List<String> candidates = new ArrayList<>();
+		//candidates.add(appDir+"/bin_x64");
+		candidates.add(appDir);
+		//candidates.add(System.getenv("ZND_HOME")+"/bin_x64");
+		candidates.add(System.getenv("ZND_HOME"));
+		for (String path : candidates) {
+			if (new File(path).exists()) {
+				return Paths.get(path).toAbsolutePath().toString();
+			}
+		}
+
+		System.err.println("Sys home is not defined: "+appDir);
+		//System.exit(0);
+		//throw new RuntimeException("Sys home is not defined: "+appDir);
+		return null;
+	}
 } 

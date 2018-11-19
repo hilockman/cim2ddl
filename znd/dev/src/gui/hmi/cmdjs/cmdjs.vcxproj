@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C647DA85-00FA-3447-831F-63E6ADA22148}</ProjectGuid>
+    <RootNamespace>cmdjs</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>E:\smartsys_pg\binary\win64\release\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>cmdjs</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>E:\smartsys_pg\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>cmdjs</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">E:\smartsys_pg\binary\win64\release\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">cmdjs</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</PostBuildEventUseInBuild>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\smartsys_pg\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">cmdjs</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;.;include;../../include;..\libs\gcore\include;..\shared;..\..\..\..\include\sys;..\libs\svg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtScript;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtSvg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtANGLE;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore;release;C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -Zc:strictStrings -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_DEBUG;QT_SCRIPT_LIB;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\smartsys_pg\dev\lib_release\gcore.lib;E:\smartsys_pg\dev\lib_release\elog.lib;E:\smartsys_pg\dev\lib_release\eproc.lib;E:\smartsys_pg\dev\lib_release\sysrun.lib;E:\smartsys_pg\dev\lib_release\gsvg.lib;dbghelp.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Script.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Svg.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgets.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\smartsys_pg\dev\lib_release;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\cmdjs.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_DEBUG;QT_SCRIPT_LIB;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist E:\smartsys_pg\binary\win64\release\bin\*.lib move /y E:\smartsys_pg\binary\win64\release\bin\*.lib E:\smartsys_pg\dev\lib_release&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist E:\smartsys_pg\binary\win64\release\bin\*.pdb move /y E:\smartsys_pg\binary\win64\release\bin\*.pdb E:\smartsys_pg/binary/win64/release/pdb&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist E:\smartsys_pg\binary\win64\release\bin\*.lib move /y E:\smartsys_pg\binary\win64\release\bin\*.lib E:\smartsys_pg\dev\lib_release&#x0d;&#x0a; if exist E:\smartsys_pg\binary\win64\release\bin\*.pdb move /y E:\smartsys_pg\binary\win64\release\bin\*.pdb E:\smartsys_pg/binary/win64/release/pdb&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;.;include;../../include;..\libs\gcore\include;..\shared;..\..\..\..\include\sys;..\libs\svg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtScript;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtSvg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtANGLE;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore;debug;C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_SCRIPT_LIB;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\smartsys_pg\dev\lib_debug\gcore.lib;E:\smartsys_pg\dev\lib_debug\elog.lib;E:\smartsys_pg\dev\lib_debug\eproc.lib;E:\smartsys_pg\dev\lib_debug\sysrun.lib;E:\smartsys_pg\dev\lib_debug\gsvg.lib;dbghelp.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Scriptd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Svgd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgetsd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\smartsys_pg\dev\lib_debug;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\cmdjs.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_SCRIPT_LIB;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist E:\smartsys_pg\bin\*.lib move /y E:\smartsys_pg\bin\*.lib E:\smartsys_pg\dev\lib_debug&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist E:\smartsys_pg\bin\*.pdb move /y E:\smartsys_pg\bin\*.pdb E:\smartsys_pg/bin&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist E:\smartsys_pg\bin\*.lib move /y E:\smartsys_pg\bin\*.lib E:\smartsys_pg\dev\lib_debug&#x0d;&#x0a; if exist E:\smartsys_pg\bin\*.pdb move /y E:\smartsys_pg\bin\*.pdb E:\smartsys_pg/bin&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="capp.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="capp.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">capp.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SCRIPT_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1 -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/include -IE:/smartsys_pg/dev/src/gui/hmi1/include -IE:/smartsys_pg/dev/src/gui/include -IE:/smartsys_pg/dev/src/include -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/ui -IE:/smartsys_pg -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1 -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/include -IE:/smartsys_pg/dev/src/gui/hmi1/include -IE:/smartsys_pg/dev/src/gui/include -IE:/smartsys_pg/dev/src/include -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/ui -IE:/smartsys_pg -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/include -IE:/smartsys_pg/dev/src/gui/include -IE:/smartsys_pg/dev/src/gui/hmi1/libs/gcore/include -IE:/smartsys_pg/dev/src/gui/hmi1/shared -IE:/smartsys_pg/dev/include/sys -IE:/smartsys_pg/dev/src/gui/hmi1/libs/svg -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtScript -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtSvg -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore capp.h -o release\moc_capp.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC capp.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_capp.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">capp.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SCRIPT_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1 -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/include -IE:/smartsys_pg/dev/src/gui/hmi1/include -IE:/smartsys_pg/dev/src/gui/include -IE:/smartsys_pg/dev/src/include -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/ui -IE:/smartsys_pg -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1 -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/include -IE:/smartsys_pg/dev/src/gui/hmi1/include -IE:/smartsys_pg/dev/src/gui/include -IE:/smartsys_pg/dev/src/include -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/ui -IE:/smartsys_pg -IE:/smartsys_pg/dev/include -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs -IE:/smartsys_pg/dev/src/gui/hmi1/cmdjs/include -IE:/smartsys_pg/dev/src/gui/include -IE:/smartsys_pg/dev/src/gui/hmi1/libs/gcore/include -IE:/smartsys_pg/dev/src/gui/hmi1/shared -IE:/smartsys_pg/dev/include/sys -IE:/smartsys_pg/dev/src/gui/hmi1/libs/svg -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtScript -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtSvg -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore capp.h -o debug\moc_capp.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC capp.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_capp.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="debug\moc_capp.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_capp.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

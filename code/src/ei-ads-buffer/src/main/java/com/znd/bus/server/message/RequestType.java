@@ -19,6 +19,7 @@ public class RequestType {
     
 	private List<Object> any = new ArrayList<>();
 	
+
 	public Date getStartTime() {
 		return startTime;
 	}
@@ -49,4 +50,65 @@ public class RequestType {
 	public void setAny(List<Object> any) {
 		this.any = any;
 	}	
+	
+	
+	public static class Builder {
+		
+	    private Date startTime;
+	    private Date endTime;
+	    private List<OptionType> option = new ArrayList<>();
+
+	    private List<ID> id = new ArrayList<>();
+	    
+		private List<Object> any = new ArrayList<>();
+		
+		public Builder() {
+			
+		}
+		
+		public Builder startTime(Date startTime) {
+			this.startTime = startTime;
+			return this;
+		}
+		
+		public Builder endTime(Date endTime) {
+			this.endTime = endTime;
+			return this;
+		}
+		
+		public Builder option(OptionType... options) {
+			for (OptionType option: options) {
+				this.option.add(option);
+			}
+			return this;
+		}
+		
+		public Builder any(Object... objects) {
+			for (Object object: objects) {
+				this.any.add(object);
+			}
+			return this;
+		}
+		
+		
+		public Builder id(ID...ids) {
+			for (ID id : ids) {
+				this.id.add(id);
+			}
+			return this;
+		}
+		
+		public RequestType build() {
+			return new RequestType(this);
+		}
+	}
+	
+	
+	public RequestType(Builder b) {
+		this.startTime = b.startTime;
+		this.endTime = b.endTime;
+		this.option = b.option;
+		this.any = b.any;
+		this.id = b.id;
+	}
 }

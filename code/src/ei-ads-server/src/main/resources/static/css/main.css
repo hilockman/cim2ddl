@@ -1,3 +1,13 @@
+* {
+	box-sizing: border-box;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow:auto;
+}
+
 
 .navbar-brand,
 .navbar-nav li a {
@@ -13,26 +23,35 @@
 	    border-color : #f1f1f1
 }
 
+.container-fluid {
+    margin: 0;
+    padding: 50px 0px 20px 0px;	
+    position:relative;
+    height: 100%;
+    overflow: hidden;
+}
 
 footer {
 	    text-align:center;
 		clear: both;
 		margin: 0;
-		padding-top: 16px;
+		padding: 8px 0;
 		
 		width: 100%;
-		line-height:24px;
+		line-height:20px;
 		background: #f0f0f0;
 		border-top: 0px solid #fff;
 		/*background: #fdfcf8 url(/ui2017/footer.png) top left repeat-x;*/
 		font-family:PingFangSC-Regular, '微软雅黑', Verdana, Arial, '宋体';
+		
+		position: absolute;
+		bottom:0;
 }
 
-div.container-fluid {
-	margin: 50px 0 20px 0;
-    padding: 0 10px 0 10px;	
+footer p {
+	margin: 0;
+	padding: 0;
 }
-
 
 .navbar-right {
     margin-right: 5px;
@@ -48,51 +67,3 @@ div.container-fluid {
    top: 50%;
    margin-top: -250px;
 } 
-
-/*
-  .navbar-static-side {
-    z-index: 2001;
-    position: absolute;
-    width: 220px;
-  }
-.header-navbar .navbar {
-    margin-bottom: 0px;
-    border-radius: 0px;
-	background: #007069;
-}
-
-.header-navbar .navbar .nav > li > a{
-    color: aqua;
-    background-color: #007069;
-   
-}
-
-.header-navbar .navbar .nav > li > a:hover,
-.header-navbar .navbar .nav >li >a:active {
-    color: aqua;
-    background-color: #007069;
-}
-
-.header-navbar .navbar .nav >li >a:visited{
-    color: aqua;
-    background-color: #007069;
-}
-.header-navbar .navbar .nav > li .dropdown-menu {
-    margin: 0;
-}
-.header-navbar .navbar .nav > li:hover .dropdown-menu {
-    display: block;
-}
-
-.header-navbar .navbar-nav>.active>a:hover{
-    color:#555;
-    background-color:#007069}
-
-
-
-.header-navbar .nav .navbar-nav .navbar-right >li >a:hover {
-    color: aqua;
-    background-color: #007069;
-}
-
-*/

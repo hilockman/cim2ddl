@@ -1,3 +1,261 @@
+$(function () {
+    $('.js-activated').dropdownHover().dropdown();
+
+    setTimeout(function(){
+        nodeApi.getNodes(updateNodes);
+        //var jobs = jobApi.getJobs();
+        //updateJobs(jobs);
+        //initJobTable(jobs);
+        jobApi.getJobs(initJobTable);
+        modelApi.getRoots(updateModels);
+    }, 0);
+
+    setInterval(function(){
+        nodeApi.getNodes(updateNodes);
+        //jobApi.getJobs(updateJobs);
+        modelApi.getRoots(updateModels);
+        //var jobs = jobApi.getJobs();
+        //updateJobs(jobs);
+        //jobApi.getJobs(updateJobTable);
+        //jobApi.getJobs(initJobTable);
+    }, 500);
+
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    // We can watch for our custom `fileselect` event like this
+    $(':file').on('fileselect', function(event, numFiles, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+
+    });
+
+
+    $("#upload-model-form input[type=file]").change(function() {
+        var file = $(this).val();
+        var pos=file.lastIndexOf("\\");
+
+        var fileName = file.substring(pos+1);
+        pos = fileName.lastIndexOf('.');
+        var modelName = fileName.substring(0, pos);
+        var input = $('#upload-model-form input[name="name"]');
+        if (input.val()=='')
+            input.val(modelName);
+
+        var input = $('#upload-model-form input[name="desc"]');
+        if (input.val()=='')
+            input.val(modelName);
+
+        localStorage['modelName'] = modelName;
+        //alert("on change file:"+fileName);
+    });
+
+    $('#upload-model-form').submit(function(e) {
+        event.preventDefault();
+        var data = new FormData($('#upload-model-form')[0]);
+        data.append('type', 'BPA');
+        $.ajax({
+            type : 'POST',
+            enctype : 'multipart/form-data',
+            url : "/model/upload",
+            data : data,
+            processData : false, // prevent jQuery from automatically
+            // transforming the data into a query
+            // string
+            contentType : false,
+            cache : false,
+            timeout : 600000,
+            success : function(msg) {
+                if (msg.code == 'OK') {
+                    //alert('上传模型成功.');
+                    //window.close();
+                    $('#upload-model-dlg').modal('hide');
+                } else {
+                    alert('上传模型失败 : ' + msg.detail);
+                }
+
+
+            },
+            error: function (e) {
+                alert('fail to upload model : ' +e);
+            }
+        });
+    });
+
+    var $table = $('#config-table');
+
+    $('#new-job-dlg').on('shown.bs.modal', function () {
+
+        $('#new-job-dlg #name').val(jobApi.newJobName());
+
+        var records = adsApi.getDefaultProperty("reliability");
+        var datas = records.map(function (value) {
+            return {id:value.id, name:value.name, pid:value.pid, value:value};
+        });
+
+
+        var w = $table.width() *.382;
+        //console.log("table width:"+w);
+        $table.bootstrapTable('destroy').bootstrapTable({
+            // url:"/job/config/reliability",
+            //height: $(window).height(),
+            striped: true,
+            //sidePagination: 'server',
+            idField: 'id',
+            data: datas,
+            columns: [
+                {
+                    field: 'name',
+                    title: '名称',
+                    width: w
+                    //  checkbox: true
+                },
+
+                // {field: 'id', title: '编号', sortable: true, align: 'center'},
+                // {field: 'pid', title: '所属上级'},
+                {
+                    field: 'value',
+                    title: '值',
+                    // sortable: true,
+                    align: 'center',
+                    formatter: 'valueFormatter',
+                    //editable: {
+                    // type: 'text',
+                    // title: '值',
+                    // validate: function (v) {
+                    //    if (!v) return '值不能为空';
+
+                    // }
+                    //}
+                }
+            ],
+            onEditableSave: function (field, row, oldValue, $el) {
+
+            },
+            // bootstrap-table-tree-column.js 插件配置
+            // treeShowField: 'name',
+            // parentIdField: 'pid'
+            // bootstrap-table-tree-column.js 插件配置
+            // bootstrap-table-treegrid.js 插件配置
+            treeShowField: 'name',
+            parentIdField: 'pid',
+            //onLoadSuccess: function(data) {
+            onPostBody : function(data) {
+                //console.log('load');
+                // jquery.treegrid.js
+                $table.treegrid({
+                    // initialState: 'collapsed',
+                    treeColumn: 0,
+                    expanderExpandedClass: 'fa fa-minus',
+                    expanderCollapsedClass: 'fa fa-plus',
+                    onChange: function() {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+            }
+        });
+
+
+        //增加编辑行为
+        records.forEach(function(record) {
+            var editor = $('#'+record.id);
+            if (record.type == 'p_group') {
+                return;
+            } else if (record.optionValues != null && record.optionValues.length > 0) {
+                editor.editable({
+                    type: 'select',
+                    toggle: 'mouseenter',
+                    value: record.value,
+                    source : toValueList(record.optionValues),
+                    title: record.name,
+                    showbuttons:false
+                });
+            } else {
+                editor.editable({
+                    type: 'text',
+                    toggle: 'mouseenter',
+                    value: record.value,
+                    // pk: 1,
+                    //url: '/post',
+                    title: record.name,
+                    showbuttons:false
+                });
+            }
+            editor.on("save", function(e, params) {
+                //alert('Saved value: ' + params.newValue);
+                record.value = params.newValue;
+            });
+
+        });
+
+// 			$('#username').editable({
+        //			    type: 'text',
+        // pk: 1,
+        //url: '/post',
+// 			    title: 'Enter username'
+// 			});
+    });
+
+    $("#commit-job-btn").on('click', function() {
+        var config = {};
+        $table.bootstrapTable('getData').forEach(function(obj) {
+            //console.log(obj);
+
+            if (obj.value.type != 'p_group') {
+                config[obj.id] = obj.value.value;
+            }
+        });
+
+        console.log(JSON.stringify(config));
+
+
+        var job = {
+            name:$("#new-job-dlg #name").val(),
+            desc:$("#new-job-dlg #desc").val(),
+            modelId:config.modelId,
+            typeId:'reliability',
+            parameter:JSON.stringify(config)
+        };
+
+        $.ajax({
+            type : 'POST',
+            url : "/job/create",
+            data : job,
+            dataType:'json',
+            success : function(msg) {
+                if (msg.code == 'OK') {
+                    console.log('新建工作成功.');
+                    //window.close();
+                    $('#new-job-dlg').modal('hide');
+                    jobApi.getJobs(initJobTable);
+                } else {
+                    alert('上传模型失败 : ' + msg.detail);
+                }
+            },
+            error: function (e) {
+                alert('fail to upload model : ' +e);
+            }
+        });
+
+    });
+
+
+    // updateJobTable();
+
+});
+
 function myAlert(data){
 	data.title ? $('#alert-dlg #alert-title').html(data.title) : '';
 	$('#alert-dlg #alert-content').html(data.content);
@@ -15,6 +273,15 @@ function fomatFloat(value, fixed, length) {
 
 
 function updateNodes(nodes) {
+	if (!nodes || nodes.length == 0) {
+        $("#node-table").hide();
+        $("#node-table + .monitor-tip").show();
+		return;
+	} else {
+        $("#node-table").show();
+        $("#node-table + .monitor-tip").hide();
+	}
+	
 	var tbody = $("#node-table tbody");
 	tbody.children().remove();
 	var str = "";
@@ -83,6 +350,15 @@ function updateNodes(nodes) {
 
 
 function updateModels(models) {
+    if (!models && models.length == 0) {
+        $("#model-table + .monitor-tip").show();
+        $("#model-table").hide();
+        return;
+    } else {
+        $("#model-table + .monitor-tip").hide();
+        $("#model-table").show();
+    }
+
 	var tbody = $("#model-table tbody");
 	tbody.children().remove();
 	var str = "";
@@ -381,260 +657,4 @@ function initJobTable(jobs) {
 	
 }
 
-$(function () {
-	$('.js-activated').dropdownHover().dropdown();
 
-	setTimeout(function(){
-		nodeApi.getNodes(updateNodes);
-		//var jobs = jobApi.getJobs();
-		//updateJobs(jobs);
-		//initJobTable(jobs);
-		 jobApi.getJobs(initJobTable);
-		modelApi.getRoots(updateModels);
-	}, 0);
-	
-	setInterval(function(){
-		nodeApi.getNodes(updateNodes);
-		//jobApi.getJobs(updateJobs);
-		modelApi.getRoots(updateModels);
-		//var jobs = jobApi.getJobs();
-		//updateJobs(jobs);
-		//jobApi.getJobs(updateJobTable);
-		//jobApi.getJobs(initJobTable);
-	}, 500);
-	
-	  // We can attach the `fileselect` event to all file inputs on the page
-	  $(document).on('change', ':file', function() {
-	    var input = $(this),
-	        numFiles = input.get(0).files ? input.get(0).files.length : 1,
-	        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-	    input.trigger('fileselect', [numFiles, label]);
-	  });
-
-	  // We can watch for our custom `fileselect` event like this
-      $(':file').on('fileselect', function(event, numFiles, label) {
-
-          var input = $(this).parents('.input-group').find(':text'),
-              log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-          if( input.length ) {
-              input.val(log);
-          } else {
-              if( log ) alert(log);
-          }
-
-      });
-
-	  
-		$("#upload-model-form input[type=file]").change(function() {
-			var file = $(this).val();
-			 var pos=file.lastIndexOf("\\");
-			    
-			var fileName = file.substring(pos+1); 
-			pos = fileName.lastIndexOf('.');
-			var modelName = fileName.substring(0, pos);
-			var input = $('#upload-model-form input[name="name"]');
-			if (input.val()=='')
-				input.val(modelName);
-			
-			var input = $('#upload-model-form input[name="desc"]');
-			if (input.val()=='')
-				input.val(modelName);
-			
-			localStorage['modelName'] = modelName; 
-			//alert("on change file:"+fileName);
-		});
-			
-	  $('#upload-model-form').submit(function(e) {
-		 event.preventDefault();
-		 var data = new FormData($('#upload-model-form')[0]);
-         data.append('type', 'BPA');
-		$.ajax({
-			type : 'POST',
-			enctype : 'multipart/form-data',
-			url : "/model/upload",
-			data : data,
-			processData : false, // prevent jQuery from automatically
-									// transforming the data into a query
-									// string
-			contentType : false,
-			cache : false,
-			timeout : 600000,
-			success : function(msg) {
-				if (msg.code == 'OK') {
-					//alert('上传模型成功.');	
-					//window.close();
-					$('#upload-model-dlg').modal('hide');
-				} else {
-					alert('上传模型失败 : ' + msg.detail);
-				}
-				
-				
-			},
-		    error: function (e) {
-		        alert('fail to upload model : ' +e);
-		    }
-		});
-	  });
-	  
-	 var $table = $('#config-table'); 
-	  
-	 $('#new-job-dlg').on('shown.bs.modal', function () {
-		 		 
-		$('#new-job-dlg #name').val(jobApi.newJobName());	 
-		
-		 var records = adsApi.getDefaultProperty("reliability");
-		 var datas = records.map(function (value) {
-			return {id:value.id, name:value.name, pid:value.pid, value:value}; 
-		 });
-		 
-		 
-		 var w = $table.width() *.382;
-		 //console.log("table width:"+w);
-		 $table.bootstrapTable('destroy').bootstrapTable({
-		     // url:"/job/config/reliability",
-		      //height: $(window).height(),
-		      striped: true,
-		      //sidePagination: 'server',
-		      idField: 'id',
-		      data: datas,
-		      columns: [
-		        {
-		          field: 'name',
-		          title: '名称',
-		          width: w
-		        //  checkbox: true
-		        },
-
-		        // {field: 'id', title: '编号', sortable: true, align: 'center'},
-		        // {field: 'pid', title: '所属上级'},
-		        {
-		          field: 'value',
-		          title: '值',
-		         // sortable: true,
-		          align: 'center',
-		          formatter: 'valueFormatter',
-		          //editable: {
-	                   // type: 'text',
-	                   // title: '值',
-	                   // validate: function (v) {
-	                    //    if (!v) return '值不能为空';
-
-	                   // }
-	                //}
-		        }
-		      ],
-		     onEditableSave: function (field, row, oldValue, $el) {
-		    	 
-		     },
-		      // bootstrap-table-tree-column.js 插件配置
-		      // treeShowField: 'name',
-		      // parentIdField: 'pid'
-		      // bootstrap-table-tree-column.js 插件配置
-		      // bootstrap-table-treegrid.js 插件配置
-		      treeShowField: 'name',
-		      parentIdField: 'pid',
-		      //onLoadSuccess: function(data) {
- 			  onPostBody : function(data) {
- 			        //console.log('load');
- 			        // jquery.treegrid.js
- 			        $table.treegrid({
- 			          // initialState: 'collapsed',
- 			          treeColumn: 0,
- 			          expanderExpandedClass: 'fa fa-minus',
- 			          expanderCollapsedClass: 'fa fa-plus',
- 			          onChange: function() {
- 			            $table.bootstrapTable('resetWidth');
- 			          }
- 			        });
- 			  }
-		 });
-		 
-
-		//增加编辑行为
-		records.forEach(function(record) {
-			var editor = $('#'+record.id);
- 			if (record.type == 'p_group') {
- 				return;
- 			} else if (record.optionValues != null && record.optionValues.length > 0) {
- 				editor.editable({
- 	 			   type: 'select',
- 	 			   toggle: 'mouseenter',
- 	 			   value: record.value,
- 	 			   source : toValueList(record.optionValues),
- 	 			   title: record.name,
- 	 			   showbuttons:false
- 	 			}); 
- 			} else {
- 				editor.editable({
- 	 			  type: 'text',
- 	 			  toggle: 'mouseenter',
- 	 			  value: record.value,
- 	 			  // pk: 1,
- 	 			  //url: '/post',
- 	 			  title: record.name,
- 	 			  showbuttons:false
- 	 			}); 		
- 			}
- 			editor.on("save", function(e, params) {
- 			    //alert('Saved value: ' + params.newValue);
- 			    record.value = params.newValue;
- 			});
-					
-		});
-		
-// 			$('#username').editable({
- //			    type: 'text',
-		   // pk: 1,
-		    //url: '/post',
-// 			    title: 'Enter username'
-// 			});
-     });
-	 
-	 $("#commit-job-btn").on('click', function() {
-		var config = {};
-		 $table.bootstrapTable('getData').forEach(function(obj) {
-			//console.log(obj);
-			
-			if (obj.value.type != 'p_group') {
-				config[obj.id] = obj.value.value;
-			}
-		});
-
-		console.log(JSON.stringify(config));
-		
-		
-		var job = {
-				name:$("#new-job-dlg #name").val(),
-		        desc:$("#new-job-dlg #desc").val(),
-				modelId:config.modelId, 
-				typeId:'reliability', 
-				parameter:JSON.stringify(config)	
-		};
-		
-		$.ajax({
-			type : 'POST',
-			url : "/job/create",			
-			data : job,
-			dataType:'json',
-			success : function(msg) {
-				if (msg.code == 'OK') {
-					console.log('新建工作成功.');	
-					//window.close();
-					$('#new-job-dlg').modal('hide');
-					jobApi.getJobs(initJobTable);
-				} else {
-					alert('上传模型失败 : ' + msg.detail);
-				}				
-			},
-		    error: function (e) {
-		        alert('fail to upload model : ' +e);
-		    }
-		});
-		
-	 });
-	 
-	 
-	// updateJobTable();
-	 
-});

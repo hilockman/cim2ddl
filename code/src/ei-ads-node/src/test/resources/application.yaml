@@ -1,0 +1,60 @@
+server:
+  name: ei-ads-node
+  port: 9000
+
+logging:
+    level:
+      interfaceLogger: ERROR
+      ClusterConnectionManager: OFF
+      PubSubConnectionPool: OFF
+      SlaveConnectionPool: OFF
+      org.redisson: OFF 
+    file: log/ei-ads-client-test.log 
+
+model:
+  cachedDir: ./model
+  
+
+buffer:
+  # redisConfig: ClusterServersConfig.cfg
+  # localConfig: ClusterServersConfig.cfg
+   redisConfig: SingleServerConfig.cfg
+   localConfig: SingleServerConfig.cfg  
+   channels:          
+       -
+         name : commonChannel
+         type : Share
+       -
+         name : jobChannel
+         type : Share   
+   typePackage: com.znd.ads.model.po, com.znd.bus.common.model
+   #mapper加载路径
+   mapperPackage: com.znd.bus.common.buffer
+   id:  0
+   name: test_buffer
+   alias: test_buffer
+   createFlag: UPDATE
+   
+ads:  
+  client: 
+     thread: 4
+     heartbeat: 2000
+     ip:  192.168.1.70
+     #port: 9000
+     port: ${server.port} 
+  defaultlifecycle: 60000
+  memdb:
+     lifecycle: 60000
+  temp:
+    dir: ./temp
+  appDir: D:/GitHub/cim2ddl/znd/bin_x64
+  #appDir: E:/ZNDCWare/bin_x64
+
+reliability:
+  listenPort: 9002
+  serverPort: 8950
+  serverIp: 127.0.0.1
+  serverThread: 4
+  readyResponseTimeOut: 5
+  cachedDir: ./pr-dir
+  appDir: ${ads.appDir}     

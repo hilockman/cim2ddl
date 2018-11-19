@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <div th:replace="fragments/header :: header-css">
     </div>
+
     <style>
     	h4, .h4 {
 		    font-size: 18px;
-		}
+		 }
 		
 		.panel {
 		    /*padding-left : 10px;
@@ -16,7 +17,9 @@
 		    padding-top : 20px;
 			padding-bottom : 40px;*/
 			padding : 20px 10px 40px 10px;
+			min-height: 200px;
 		}
+		
 		
 		.panel-default {
 			border:none
@@ -41,11 +44,21 @@
 		    cursor: inherit;
 		    display: block;
 		}
+		.monitor-row {
+		
+		}
+		
+		.monitor-row table {
+			display:none;
+		}
+		.monitor-tip {
+			display:none;
+			text-align:center;
+		}
     </style>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
-
-      
-    <script src="bootstrap-plugin/bootstrap-hover-dropdown-2.2.1/bootstrap-hover-dropdown.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css"> -->
+    <link rel="stylesheet" th:href="@{/jquery-treegrid/css/jquery.treegrid.css}" href="../static/jquery-treegrid/css/jquery.treegrid.min.css">      
+    <script th:src="@{/bootstrap-plugin/bootstrap-hover-dropdown-2.2.1/bootstrap-hover-dropdown.js}" src="bootstrap-plugin/bootstrap-hover-dropdown-2.2.1/bootstrap-hover-dropdown.js"></script>
 
 </head>
 <body>
@@ -204,9 +217,9 @@
 	</div>
 	<!--Job Modal -->
 	
-    <div class="panel panel-default">
+    <div class="panel panel-default moniter-row">
        	<h2 class="h4">节点</h2>     
-       	
+
 	    <table class="table" id="node-table">
 	      <thead>
 		       <tr>
@@ -225,11 +238,15 @@
 
 	      </tbody>
 	    </table>
+	    <div class="monitor-tip">
+	          未发现运行节点。
+	    </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default monitor-row">
 		    <h2 class="h4">模型</h2>     
-	       	
+		    
+		    
 	        <div class="btn-group">
 		      
 		        <button type="button" class="btn btn-default" id="new-model" data-toggle="modal" data-target="#upload-model-dlg">
@@ -249,12 +266,18 @@
 		      </thead>
 		      <tbody>
 	
-		      </tbody>
-		   </table>
+		      </tbody>		
+		    </table>    
+		   
+	       	
+			<div class="monitor-tip">
+			     未发现上传模型。
+			</div>
+		  
 	       
     </div>
          
-   <div  class="panel panel-default">
+   <div  class="panel panel-default moniter-row">
        <h2 class="h4">工作</h2>    
        <div id="job-toolbar" class="btn-group">
             <button id="add-job-btn" type="submit" class="btn btn-default"  data-toggle="modal" data-target="#new-job-dlg">
@@ -266,18 +289,24 @@
        </div>
         
        <table id="table-job">       
-       </table>    
+       </table>
+	   
+
+       <div class="monitor-tip">
+       	  未发现创建了的工作。
+       </div> 
    </div>
+   <div th:replace="fragments/footer :: footer">
 </div>
 <!-- /.container -->
 
-<div th:replace="fragments/footer :: footer">
+
 </div>
 
 </body>
  <script th:src="@{/bootstrap-table/1.12.1/extensions/treegrid/bootstrap-table-treegrid.js}" src="../bootstrap-table/1.12.1/extensions/treegrid/bootstrap-table-treegrid.js"></script>
- <script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
-
- <script th:src="@{/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js}" src="../bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js"></script>
+ <!-- <script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script> -->
+ <script th:src="@{/jquery-treegrid/js/jquery.treegrid.min.js}" src="../static/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+ <script th:src="@{/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js}" src="../static/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js"></script>
  <script th:src="@{/scripts/home.js}" src="../scripts/home.js"></script>	
 </html>

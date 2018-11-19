@@ -2,7 +2,7 @@ package com.znd.ads.service;
 
 import java.util.List;
 
-import com.znd.ads.model.po.AdsNode;
+import com.znd.bus.common.model.AdsNodeInfo;
 
 public interface NodeService {
     /**
@@ -16,20 +16,20 @@ public interface NodeService {
      * @param name
      * @return
      */
-    AdsNode getByName(String name);
+    AdsNodeInfo getByName(String name);
     
     /**
      * 根据名称获取节点
      * @param name
      * @return
      */
-    AdsNode getByUrl(String url);
+    AdsNodeInfo getByUrl(String url);
     
-    void save(AdsNode info);
+//    void save(AdsNode info);
 
-	void deleteById(String nodeId);
+//	void deleteById(String nodeId);
 
-	AdsNode getById(String nodeId);
+    AdsNodeInfo getById(String nodeId);
 
-	void update(AdsNode node);
+//	void update(AdsNode node);
 }

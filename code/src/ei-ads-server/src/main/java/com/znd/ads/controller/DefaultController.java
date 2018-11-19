@@ -1,13 +1,10 @@
 package com.znd.ads.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.znd.ads.model.po.AdsNode;
 import com.znd.ads.service.NodeService;
 
 @Controller
@@ -27,13 +24,13 @@ public class DefaultController {
         return "home";
     }
    
-    
-    @GetMapping("/nodes")
-    public String nodes(Model model) {
-    	List<AdsNode> nodeList = nodeService.getAll();
-    	model.addAttribute("nodeList",nodeList);
-        return "nodes";
-    }
+//    
+//    @GetMapping("/nodes")
+//    public String nodes(Model model) {
+//    	List<AdsNode> nodeList = nodeService.getAll();
+//    	model.addAttribute("nodeList",nodeList);
+//        return "nodes";
+//    }
     
     @GetMapping("/newnode")
     public String newnode() {
@@ -63,6 +60,11 @@ public class DefaultController {
     @GetMapping("/test")
     public String test() {
         return "test";
+    }
+    
+    @GetMapping("/log")
+    public String log() {
+        return "log";
     }
     
     @GetMapping("/403")

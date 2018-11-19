@@ -36,7 +36,9 @@
 	    <module>ei-ads-server</module>
         <module>ei-ads-client</module>
     <module>ei-cim-viewer</module>
+    <module>ei-ads-node</module>
   </modules>
+
 
 	<properties>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
@@ -134,7 +136,7 @@
 	
 		
 
-    <!--�?有请求均通过镜像 
+    <!--�?有请求均通过镜像 
     <repositories>
          <repository>
             <id>central</id>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6FDA84F6-BED6-373F-989E-DEBC88907B0B}</ProjectGuid>
+    <RootNamespace>gsvg</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>E:\smartsys_pg\binary\win64\release\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>gsvg</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>E:\smartsys_pg\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>gsvg</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">E:\smartsys_pg\binary\win64\release\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">gsvg</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</PostBuildEventUseInBuild>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\smartsys_pg\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">gsvg</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.;..;./include;../include;..\..\include;../../../include;../../../../include;.;ui;E:\smartsys_pg;E:\smartsys_pg\dev\include;.;..;./include;../include;..\..\include;../../../include;../../../../include;.;ui;E:\smartsys_pg;E:\smartsys_pg\dev\include;.;..\gcore\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtSvg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineCore;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQuick;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtANGLE;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtScript;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebChannel;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQml;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore;release;C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -Zc:strictStrings -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_USING_NAMESPACE;QT_NO_COMPRESS;QT_NO_DEBUG;QT_SVG_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\smartsys_pg\dev\lib_release\elog.lib;E:\smartsys_pg\dev\lib_release\gcore.lib;E:\smartsys_pg\dev\lib_release\rtdb_client.lib;E:\smartsys_pg\dev\lib_release\datastream.lib;E:\smartsys_pg\dev\lib_release\dbclient.lib;E:\smartsys_pg\dev\lib_release\eproc.lib;E:\smartsys_pg\dev\lib_release\sysrun.lib;E:\smartsys_pg\dev\lib_release\dbsync.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Svg.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineWidgets.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgets.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineCore.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Quick.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Script.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebChannel.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Qml.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Network.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\smartsys_pg\dev\lib_release;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <BaseAddress>0x66000000</BaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\gsvg.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_USING_NAMESPACE;QT_NO_COMPRESS;QT_NO_DEBUG;QT_SVG_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist E:\smartsys_pg\binary\win64\release\bin\*.lib move /y E:\smartsys_pg\binary\win64\release\bin\*.lib E:\smartsys_pg\dev\lib_release&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist E:\smartsys_pg\binary\win64\release\bin\*.pdb move /y E:\smartsys_pg\binary\win64\release\bin\*.pdb E:\smartsys_pg/binary/win64/release/pdb&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist E:\smartsys_pg\binary\win64\release\bin\*.lib move /y E:\smartsys_pg\binary\win64\release\bin\*.lib E:\smartsys_pg\dev\lib_release&#x0d;&#x0a; if exist E:\smartsys_pg\binary\win64\release\bin\*.pdb move /y E:\smartsys_pg\binary\win64\release\bin\*.pdb E:\smartsys_pg/binary/win64/release/pdb&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.;..;./include;../include;..\..\include;../../../include;../../../../include;.;ui;E:\smartsys_pg;E:\smartsys_pg\dev\include;.;..;./include;../include;..\..\include;../../../include;../../../../include;.;ui;E:\smartsys_pg;E:\smartsys_pg\dev\include;.;..\gcore\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtSvg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineCore;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQuick;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtANGLE;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtScript;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebChannel;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQml;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore;debug;C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_USING_NAMESPACE;QT_NO_COMPRESS;QT_SVG_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\smartsys_pg\dev\lib_debug\elog.lib;E:\smartsys_pg\dev\lib_debug\gcore.lib;E:\smartsys_pg\dev\lib_debug\rtdb_client.lib;E:\smartsys_pg\dev\lib_debug\datastream.lib;E:\smartsys_pg\dev\lib_debug\dbclient.lib;E:\smartsys_pg\dev\lib_debug\eproc.lib;E:\smartsys_pg\dev\lib_debug\sysrun.lib;E:\smartsys_pg\dev\lib_debug\dbsync.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Svgd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineWidgetsd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgetsd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineCored.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Quickd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Scriptd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebChanneld.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Qmld.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Networkd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\smartsys_pg\dev\lib_debug;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <BaseAddress>0x66000000</BaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\gsvg.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_USING_NAMESPACE;QT_NO_COMPRESS;QT_SVG_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist E:\smartsys_pg\bin\*.lib move /y E:\smartsys_pg\bin\*.lib E:\smartsys_pg\dev\lib_debug&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist E:\smartsys_pg\bin\*.pdb move /y E:\smartsys_pg\bin\*.pdb E:\smartsys_pg/bin&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist E:\smartsys_pg\bin\*.lib move /y E:\smartsys_pg\bin\*.lib E:\smartsys_pg\dev\lib_debug&#x0d;&#x0a; if exist E:\smartsys_pg\bin\*.pdb move /y E:\smartsys_pg\bin\*.pdb E:\smartsys_pg/bin&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="qsvgfont.cpp" />
+    <ClCompile Include="qsvggraphics.cpp" />
+    <ClCompile Include="qsvghandler.cpp" />
+    <ClCompile Include="qsvgnode.cpp" />
+    <ClCompile Include="qsvgstructure.cpp" />
+    <ClCompile Include="qsvgstyle.cpp" />
+    <ClCompile Include="qsvgtinydocument.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="qsvgfont_p.h" />
+    <ClInclude Include="qsvggraphics_p.h" />
+    <ClInclude Include="qsvghandler_p.h" />
+    <ClInclude Include="qsvgnode_p.h" />
+    <ClInclude Include="qsvgstructure_p.h" />
+    <ClInclude Include="qsvgstyle_p.h" />
+    <ClInclude Include="qsvgtinydocument_p.h" />
+    <ClInclude Include="qtsvgglobal.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

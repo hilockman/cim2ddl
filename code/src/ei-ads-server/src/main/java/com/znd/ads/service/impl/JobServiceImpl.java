@@ -20,7 +20,6 @@ import com.znd.ads.exception.JobException;
 import com.znd.ads.mapper.CalcJobMapper;
 import com.znd.ads.service.JobService;
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.buffer.ModelFileBuffer;
@@ -28,6 +27,14 @@ import com.znd.bus.common.buffer.ModelSourceBuffer;
 import com.znd.bus.common.model.CalcJob;
 import com.znd.bus.common.model.CalcJobStateEnum;
 import com.znd.bus.common.model.ModelFile;
+import com.znd.bus.server.AdapterService;
+import com.znd.bus.server.BusService;
+import com.znd.bus.server.NounEnum;
+import com.znd.bus.server.Topic;
+import com.znd.bus.server.VerbEnum;
+import com.znd.bus.server.message.EventMessageType;
+import com.znd.bus.server.message.RequestMessageType;
+import com.znd.bus.server.message.ResponseMessageType;
 import com.znd.ei.Utils;
 
 @Service
@@ -53,16 +60,41 @@ public class JobServiceImpl implements JobService {
 	@Autowired
 	private Channel jobChannel;
 	
+	@Autowired
+	private BusService busService;
 	
-
+	
+	private AdapterService adapter;
 		
-	
 	public JobServiceImpl() {
+		
+	}
+	
+	class JobAdapter extends AdapterService {
+
+		@Override
+		public ResponseMessageType publish(EventMessageType message) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public ResponseMessageType request(RequestMessageType message) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public ResponseMessageType response(ResponseMessageType message) {
+			logger.debug("JobService receive:"+Utils.toJSon(message.getHeader()));
+			return null;
+		}
 		
 	}
 	
 	@PostConstruct
 	public void init() {
+		adapter = busService.registAdapter(new JobAdapter(), "JobControlAdapter", Topic.in(VerbEnum.execute, NounEnum.job));
 		reload();
 	}
 	
@@ -79,7 +111,7 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public List getAll() {
+	public List<CalcJob> getAll() {
 		synchronized(this) {
 			List<CalcJob> jobs = jobBuffer.findAll();
 			
@@ -97,8 +129,7 @@ public class JobServiceImpl implements JobService {
 		CalcJob job = jobBuffer.findById(jobId);
 		if (job == null)
 			return;
-		
-		
+				
 //		if (job.getState() == CalcJobStateEnum.running) {
 //			throw new JobException("Fail to cancel job :"+jobId+", job is running.");
 //		}
@@ -201,7 +232,9 @@ public class JobServiceImpl implements JobService {
 		job.setState(CalcJobStateEnum.waiting);
 		jobBuffer.update(job);
 		
-		jobChannel.send(new ChannelMessage(MessageCodeEnum.start_job, jobId));
+		//jobChannel.send(new ChannelMessage(MessageCodeEnum.start_job, jobId));
+		adapter.sendRequest(VerbEnum.execute, NounEnum.job, jobId);
+		
 
 	}
 	@Override
@@ -233,12 +266,14 @@ public class JobServiceImpl implements JobService {
 		}
 		
 		if (job.getId() == null) {
-			job.setId(Utils.randomKey());
+			job.setId(Utils.simpleRandomKey());
 		}
 		job.setStart(new Date());
 		
 		jobBuffer.insert(job);
 		jobMapper.insert(job);
+		
+		prepareAndStartJob(job);
 	}
 
 	@Override

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{209C06D3-118D-3F71-A8DF-13B7DA9426B1}</ProjectGuid>
+    <RootNamespace>ge</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>E:\smartsys_pg\binary\win64\release\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>ge</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+    <PlatformToolSet>v120</PlatformToolSet>
+    <OutputDirectory>E:\smartsys_pg\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>ge</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">E:\smartsys_pg\binary\win64\release\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">ge</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</PostBuildEventUseInBuild>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\smartsys_pg\bin\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">ge</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
+    <PostBuildEventUseInBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;..;..\..;..\include;..\shared;..\libs\gcore\include;..\libs\scripttools\debugging;..\libs\svg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtSvg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtPrintSupport;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineCore;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQuick;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtANGLE;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtXml;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtScript;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebChannel;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQml;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebSockets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore;release;C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -Zc:strictStrings -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_DEBUG;QT_SVG_LIB;QT_PRINTSUPPORT_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_XML_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_WEBSOCKETS_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\smartsys_pg\dev\lib_release\gcore.lib;E:\smartsys_pg\dev\lib_release\elog.lib;E:\smartsys_pg\dev\lib_release\eproc.lib;E:\smartsys_pg\dev\lib_release\gscripttools.lib;E:\smartsys_pg\dev\lib_release\gsvg.lib;dbghelp.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Svg.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5PrintSupport.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineWidgets.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgets.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineCore.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Quick.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Xml.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Script.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebChannel.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Qml.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebSockets.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Network.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\smartsys_pg\dev\lib_release;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\ge.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_NO_DEBUG;QT_SVG_LIB;QT_PRINTSUPPORT_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_XML_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_WEBSOCKETS_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist E:\smartsys_pg\binary\win64\release\bin\*.lib move /y E:\smartsys_pg\binary\win64\release\bin\*.lib E:\smartsys_pg\dev\lib_release&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist E:\smartsys_pg\binary\win64\release\bin\*.pdb move /y E:\smartsys_pg\binary\win64\release\bin\*.pdb E:\smartsys_pg/binary/win64/release/pdb&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist E:\smartsys_pg\binary\win64\release\bin\*.lib move /y E:\smartsys_pg\binary\win64\release\bin\*.lib E:\smartsys_pg\dev\lib_release&#x0d;&#x0a; if exist E:\smartsys_pg\binary\win64\release\bin\*.pdb move /y E:\smartsys_pg\binary\win64\release\bin\*.pdb E:\smartsys_pg/binary/win64/release/pdb&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;.;..;./include;..\include;../../include;../../../include;..\..\..\..\include;.;ui;E:\smartsys_pg;..\..\..\..\include;..;..\..;..\include;..\shared;..\libs\gcore\include;..\libs\scripttools\debugging;..\libs\svg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtSvg;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtPrintSupport;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebEngineCore;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQuick;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtANGLE;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtXml;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtScript;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebChannel;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtQml;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWebSockets;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork;C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore;debug;C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_SVG_LIB;QT_PRINTSUPPORT_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_XML_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_WEBSOCKETS_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\smartsys_pg\dev\lib_debug\gcore.lib;E:\smartsys_pg\dev\lib_debug\elog.lib;E:\smartsys_pg\dev\lib_debug\eproc.lib;E:\smartsys_pg\dev\lib_debug\gscripttools.lib;E:\smartsys_pg\dev\lib_debug\gsvg.lib;dbghelp.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Svgd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5PrintSupportd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineWidgetsd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgetsd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebEngineCored.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Quickd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Xmld.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Scriptd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebChanneld.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Qmld.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5WebSocketsd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Networkd.lib;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\smartsys_pg\dev\lib_debug;C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\ge.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;WIN32;WIN64;WEBVIEW;WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;QT_SVG_LIB;QT_PRINTSUPPORT_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_WEBENGINECORE_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_XML_LIB;QT_SCRIPT_LIB;QT_WEBCHANNEL_LIB;QT_QML_LIB;QT_WEBSOCKETS_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>cmd /c if exist E:\smartsys_pg\bin\*.lib move /y E:\smartsys_pg\bin\*.lib E:\smartsys_pg\dev\lib_debug&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A; if exist E:\smartsys_pg\bin\*.pdb move /y E:\smartsys_pg\bin\*.pdb E:\smartsys_pg/bin&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;</Command>
+      <Message>cmd /c if exist E:\smartsys_pg\bin\*.lib move /y E:\smartsys_pg\bin\*.lib E:\smartsys_pg\dev\lib_debug&#x0d;&#x0a; if exist E:\smartsys_pg\bin\*.pdb move /y E:\smartsys_pg\bin\*.pdb E:\smartsys_pg/bin&#x0d;&#x0a;</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\shared\AnimateDriver.cpp" />
+    <ClCompile Include="..\shared\CommunicatePluginMng.cpp" />
+    <ClCompile Include="ExplorerScene.cpp" />
+    <ClCompile Include="ExplorerView.cpp" />
+    <ClCompile Include="ExplorerWnd.cpp" />
+    <ClCompile Include="..\shared\GApp.cpp" />
+    <ClCompile Include="GEApp.cpp" />
+    <ClCompile Include="GEMain.cpp" />
+    <ClCompile Include="..\shared\GWnd.cpp" />
+    <ClCompile Include="websocketclientwrapper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\shared\AnimateDriver.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\shared\AnimateDriver.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt ..\shared\AnimateDriver.h -o release\moc_AnimateDriver.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../shared/AnimateDriver.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_AnimateDriver.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\shared\AnimateDriver.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt ..\shared\AnimateDriver.h -o debug\moc_AnimateDriver.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../shared/AnimateDriver.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_AnimateDriver.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="..\shared\CommunicatePluginMng.h" />
+    <CustomBuild Include="ExplorerScene.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">ExplorerScene.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt ExplorerScene.h -o release\moc_ExplorerScene.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ExplorerScene.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_ExplorerScene.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">ExplorerScene.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt ExplorerScene.h -o debug\moc_ExplorerScene.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ExplorerScene.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_ExplorerScene.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="ExplorerView.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">ExplorerView.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt ExplorerView.h -o release\moc_ExplorerView.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ExplorerView.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_ExplorerView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">ExplorerView.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt ExplorerView.h -o debug\moc_ExplorerView.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ExplorerView.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_ExplorerView.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="ExplorerWnd.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">ExplorerWnd.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt ExplorerWnd.h -o release\moc_ExplorerWnd.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ExplorerWnd.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_ExplorerWnd.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">ExplorerWnd.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt ExplorerWnd.h -o debug\moc_ExplorerWnd.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ExplorerWnd.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_ExplorerWnd.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\shared\GApp.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\shared\GApp.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt ..\shared\GApp.h -o release\moc_GApp.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../shared/GApp.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_GApp.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\shared\GApp.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt ..\shared\GApp.h -o debug\moc_GApp.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../shared/GApp.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_GApp.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="GEApp.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">GEApp.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt GEApp.h -o release\moc_GEApp.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC GEApp.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_GEApp.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">GEApp.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt GEApp.h -o debug\moc_GEApp.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC GEApp.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_GEApp.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\shared\GWnd.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\shared\GWnd.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt ..\shared\GWnd.h -o release\moc_GWnd.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../shared/GWnd.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_GWnd.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\shared\GWnd.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt ..\shared\GWnd.h -o debug\moc_GWnd.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../shared/GWnd.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_GWnd.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="websocketclientwrapper.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">websocketclientwrapper.h;release\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @release/mocinclude.opt websocketclientwrapper.h -o release\moc_websocketclientwrapper.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC websocketclientwrapper.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_websocketclientwrapper.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">websocketclientwrapper.h;debug\mocinclude.opt;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe  -DWIN32 -DWIN64 -DWEBVIEW -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN -DNOMINMAX -DQT_SVG_LIB -DQT_PRINTSUPPORT_LIB -DQT_WEBENGINEWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_WEBENGINECORE_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_SCRIPT_LIB -DQT_WEBCHANNEL_LIB -DQT_QML_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1800 -D_WIN32 -D_WIN64 @debug/mocinclude.opt websocketclientwrapper.h -o debug\moc_websocketclientwrapper.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC websocketclientwrapper.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_websocketclientwrapper.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="debug\moc_AnimateDriver.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_AnimateDriver.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_ExplorerScene.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_ExplorerScene.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_ExplorerView.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_ExplorerView.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_ExplorerWnd.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_ExplorerWnd.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_GApp.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_GApp.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_GEApp.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_GEApp.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_GWnd.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_GWnd.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_websocketclientwrapper.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_websocketclientwrapper.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

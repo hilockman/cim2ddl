@@ -6,12 +6,12 @@ package com.znd.bus.config;
  */
 public class ColumnMeta {
 
-	private int index;
+	private int index = -1;
 	private String name;
 	private String alias;
 	//private String type;
 	private boolean indexable;
-	private int dbIndex;
+	private int dbIndex = -1;
 //	private String dbType;
 	
 	public ColumnMeta() {

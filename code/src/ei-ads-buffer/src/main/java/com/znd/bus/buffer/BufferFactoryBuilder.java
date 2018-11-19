@@ -66,6 +66,8 @@ public class BufferFactoryBuilder {
 		return new DefaultBufferFactory(config);		
 	}
 
+	
+
 	public BufferFactory build(String name, CreateFlag createFlag, String typePackage, String mapperPackage, BufferConfig defaultConfig){
 		BufferConfig config = new BufferConfig();
 		config.setAppName(DEFAULT_APPNAME);
@@ -74,6 +76,7 @@ public class BufferFactoryBuilder {
 		config.setMapperPackage(mapperPackage);
 		config.setCreateFlag(createFlag);	
 		config.setParent(defaultConfig);
+		config.setSimpleModel(defaultConfig.isSimpleModel());
 		
 		return new DefaultBufferFactory(config);		
 	}

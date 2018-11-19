@@ -14,11 +14,11 @@ import com.znd.bus.common.buffer.AdsNodeInfoBuffer;
 import com.znd.bus.common.model.AdsNodeInfo;
 @Service
 public class NodeServiceImpl implements NodeService {
-	@Autowired
-	NodeMapper mapper;
+//	@Autowired
+//	NodeMapper mapper;
 	
-	@Autowired 
-	private Buffer defaultBuffer;
+//	@Autowired 
+//	private Buffer defaultBuffer;
 	
 	@Autowired
 	AdsNodeInfoBuffer adsNodeMapper;
@@ -75,34 +75,43 @@ public class NodeServiceImpl implements NodeService {
 //		return allNodes;
 	}
 
+//	@Override
+//	public AdsNode getByName(String name) {
+//		return mapper.getByName(name);
+//	}
+	
 	@Override
-	public AdsNode getByName(String name) {
-		return mapper.getByName(name);
+	public AdsNodeInfo getByName(String name) {
+//		return adsNodeMapper.getByName(name);
+		return adsNodeMapper.getNodeByName(name);
 	}
+	
+
+//	@Override
+//	public void save(AdsNode info) {
+//		mapper.save(info);
+//	}
 
 	@Override
-	public void save(AdsNode info) {
-		mapper.save(info);
+	public AdsNodeInfo getByUrl(String url) {
+//		return mapper.getByUrl(url);
+		return adsNodeMapper.getNodeByUrl(url);
 	}
 
-	@Override
-	public AdsNode getByUrl(String url) {
-		return mapper.getByUrl(url);
-	}
+//	@Override
+//	public void deleteById(String nodeId) {
+//		mapper.deleteById(nodeId);
+//	}
 
 	@Override
-	public void deleteById(String nodeId) {
-		mapper.deleteById(nodeId);
+	public AdsNodeInfo getById(String nodeId) {
+//		return mapper.getById(nodeId);
+		return adsNodeMapper.findById(nodeId);
 	}
 
-	@Override
-	public AdsNode getById(String nodeId) {
-		return mapper.getById(nodeId);
-	}
-
-	@Override
-	public void update(AdsNode node) {
-		mapper.updateNodeInfo(node);
-	}
+//	@Override
+//	public void update(AdsNode node) {
+//		mapper.updateNodeInfo(node);
+//	}
 
 }
