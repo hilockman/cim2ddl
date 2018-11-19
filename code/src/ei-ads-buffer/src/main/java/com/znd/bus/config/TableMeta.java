@@ -20,6 +20,8 @@ public class TableMeta {
 	private List<ColumnMeta> indexColumns = new ArrayList<>();
  
 	private Map<String, ColumnMeta> columnMap = new HashMap<>();
+	
+	private boolean initialized = false;
 
 	public TableMeta() {
 
@@ -141,6 +143,18 @@ public class TableMeta {
 
 	public void setClazz(Class<?> clazz) {
 		this.clazz = clazz;
+	}
+
+
+
+	public boolean isInitialized() {
+		return initialized;
+	}
+
+
+
+	public void setInitialized(boolean initialized) {
+		this.initialized = initialized;
 	}
 
 

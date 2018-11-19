@@ -220,9 +220,9 @@ public  class BufferContext {
 
 				
 			List<String> columnNames = tableOps.getColumnNameArray();
-			for (ColumnMeta column : tableMeta.getColumns()) {
-				column.setIndex(-1);
-			}
+//			for (ColumnMeta column : tableMeta.getColumns()) {
+//				column.setIndex(-1);
+//			}
 			int i = 0;
 			for (String columnName : columnNames) {
 				ColumnMeta columnMeta = tableMeta.findColumn(columnName);

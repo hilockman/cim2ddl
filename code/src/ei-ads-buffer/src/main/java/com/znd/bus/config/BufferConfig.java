@@ -306,6 +306,11 @@ public class BufferConfig {
 			context.updateTableMeta(tableMeta);
 		}
 	}
+	
+	public void upateTables(TableMeta tableMeta) {
+		this.bufferContext.updateTableMeta(tableMeta);
+		tableMeta.setInitialized(true);
+	}
 	 
 	
 	public static boolean exist(String dbid) {

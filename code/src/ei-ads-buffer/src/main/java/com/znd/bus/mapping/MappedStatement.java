@@ -83,7 +83,8 @@ public class MappedStatement {
 			  } 
 		  }
 		  
-		  public MappedStatement build() {		  
+		  public MappedStatement build() {	
+			  
 			  if (mappedStatement.tableName != null) {
 				  mappedStatement.tableMeta = mappedStatement.config.getTableMeta(mappedStatement.tableName);
 				  if (mappedStatement.tableMeta == null) {
@@ -93,8 +94,14 @@ public class MappedStatement {
 				  throw new MappingError("Table name is null.");
 			  }
 			  
+			  
+			 
+			  if (!mappedStatement.tableMeta.isInitialized()) {
+				  mappedStatement.config.upateTables(mappedStatement.tableMeta);
+			  }
 			  mappedStatement.columnSize = mappedStatement.tableMeta.getColumnSize(); 
 			  mappedStatement.columnIndexMap = mappedStatement.tableMeta.getColumnIndexMap();
+			  
 			  
 			  Parameter[] params = method.getParameters();
 			  if (params.length == 1) {
