@@ -8,7 +8,7 @@
 #include <float.h>
 namespace	BpaMemDB
 {
-	int	pfoFindACBusIndex(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV)
+	int	CBpaMemDBInterface::PfoFindACBusIndex(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV)
 	{
 		register int	i;
 		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
@@ -19,7 +19,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int	pfoFindDCBusIndex(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV)
+	int	CBpaMemDBInterface::PfoFindDCBusIndex(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV)
 	{
 		register int	i;
 		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS]; i++)
@@ -30,7 +30,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int	isPfoShuntLine(const char* lpszLine)
+	int	CBpaMemDBInterface::IsPfoShuntLine(const char* lpszLine)
 	{
 		register int	i;
 
@@ -46,7 +46,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	int	isPfoNetLine(const char* lpszLine)
+	int	CBpaMemDBInterface::IsPfoNetLine(const char* lpszLine)
 	{
 		register int	i;
 
@@ -62,7 +62,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	void splitStringBySpace(const char* lpszString, std::vector<std::string>& strEleArray)
+	void CBpaMemDBInterface::SplitStringBySpace(const char* lpszString, std::vector<std::string>& strEleArray)
 	{
 		char	szLine[1024];
 
@@ -76,7 +76,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void	resolveNumericString(const char* lpszString, char* lpszRetString)
+	void CBpaMemDBInterface::ResolveNumericString(const char* lpszString, char* lpszRetString)
 	{
 		register int	i;
 		int	nChar=0;
@@ -100,7 +100,7 @@ namespace	BpaMemDB
 		lpszRetString[nChar++]='\0';
 	}
 
-	int	ParseBpaPfoBusLine(tagBpaBlock* pBpaBlock, const char* lpszLine, const char* lpszLineExt, int& nBusIndex, unsigned char& bDCBus)
+	int	CBpaMemDBInterface::ParseBpaPfoBusLine(tagBpaBlock* pBpaBlock, const char* lpszLine, const char* lpszLineExt, int& nBusIndex, unsigned char& bDCBus)
 	{
 		int		nItem;
 		char	szBuf[MDB_CHARLEN_SHORT], szLine[1024], szRest[g_nConstMaxPrimaryKey][MDB_CHARLEN_LONG];
@@ -144,36 +144,36 @@ namespace	BpaMemDB
 
 		nBusIndex=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_ACBUS, szRest);
 		if (nBusIndex < 0)
-			nBusIndex=pfoFindACBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
+			nBusIndex=PfoFindACBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
 		if (nBusIndex >= 0)
 		{
 			nItem=2;
-			if ((int)strEleArray.size() > nItem)	{	resolveNumericString(strEleArray[nItem++].c_str(), szLine);	pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fV=StringToFloat(szLine);	}
-			if ((int)strEleArray.size() > nItem)	{	resolveNumericString(strEleArray[nItem++].c_str(), szLine);	pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fD=StringToFloat(szLine);	}
+			if ((int)strEleArray.size() > nItem)	{	ResolveNumericString(strEleArray[nItem++].c_str(), szLine);	pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fV=StringToFloat(szLine);	}
+			if ((int)strEleArray.size() > nItem)	{	ResolveNumericString(strEleArray[nItem++].c_str(), szLine);	pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fD=StringToFloat(szLine);	}
 
 			nItem=4;
 			while (nItem < (int)strEleArray.size())
 			{
 				if (strstr(strEleArray[nItem].c_str(), "有功出力") != NULL)
 				{
-					resolveNumericString(strEleArray[nItem].c_str(), szLine);
+					ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 					if (stricmp(pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].szCardKey, "BS") == 0)
 						pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fPGen=StringToFloat(szLine);
 					pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fPfoPGen=StringToFloat(szLine);
 				}
 				if (strstr(strEleArray[nItem].c_str(), "无功出力") != NULL)
 				{
-					resolveNumericString(strEleArray[nItem].c_str(), szLine);
+					ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 					pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fPfoQGen=StringToFloat(szLine);
 				}
 				if (strstr(strEleArray[nItem].c_str(), "有功负荷") != NULL)
 				{
-					resolveNumericString(strEleArray[nItem].c_str(), szLine);
+					ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 					pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fPfoPLoad=StringToFloat(szLine);
 				}
 				if (strstr(strEleArray[nItem].c_str(), "无功负荷") != NULL)
 				{
-					resolveNumericString(strEleArray[nItem].c_str(), szLine);
+					ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 					pBpaBlock->m_BpaDat_ACBusArray[nBusIndex].fPfoQLoad=StringToFloat(szLine);
 				}
 				nItem++;
@@ -185,17 +185,17 @@ namespace	BpaMemDB
 		{
 			nBusIndex=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szRest);
 			if (nBusIndex < 0)
-				nBusIndex=pfoFindDCBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
+				nBusIndex=PfoFindDCBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
 			if (nBusIndex >= 0)
 			{
 				bDCBus=1;
 
-				if (strEleArray.size() > 2)	{	resolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCV=StringToFloat(szLine);	}
-				if (strEleArray.size() > 3)	{	resolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCD=StringToFloat(szLine);	}
-				if (strEleArray.size() > 5)	{	resolveNumericString(strEleArray[5].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCP=StringToFloat(szLine);	}
-				if (strEleArray.size() > 6)	{	resolveNumericString(strEleArray[6].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCI=StringToFloat(szLine);	}
-				if (strEleArray.size() > 7)	{	resolveNumericString(strEleArray[7].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fLossP=StringToFloat(szLine);	}
-				if (strEleArray.size() > 8)	{	resolveNumericString(strEleArray[8].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fLossQ=StringToFloat(szLine);	}
+				if (strEleArray.size() > 2)	{	ResolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCV=StringToFloat(szLine);	}
+				if (strEleArray.size() > 3)	{	ResolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCD=StringToFloat(szLine);	}
+				if (strEleArray.size() > 5)	{	ResolveNumericString(strEleArray[5].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCP=StringToFloat(szLine);	}
+				if (strEleArray.size() > 6)	{	ResolveNumericString(strEleArray[6].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fDCI=StringToFloat(szLine);	}
+				if (strEleArray.size() > 7)	{	ResolveNumericString(strEleArray[7].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fLossP=StringToFloat(szLine);	}
+				if (strEleArray.size() > 8)	{	ResolveNumericString(strEleArray[8].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fLossQ=StringToFloat(szLine);	}
 
 				strcpy(szLine, lpszLineExt);
 				strEleArray.clear();
@@ -205,8 +205,8 @@ namespace	BpaMemDB
 					strEleArray.push_back(lpszToken);
 					lpszToken=strtok(NULL, " /\t\n");
 
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fACV=StringToFloat(szLine);		}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fAngle=StringToFloat(szLine);	}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fACV=StringToFloat(szLine);		}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_DCBusArray[nBusIndex].fAngle=StringToFloat(szLine);	}
 				}
 
 				return 2;
@@ -220,7 +220,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int	parseBpaPfoShunt(tagBpaBlock* pBpaBlock, const int nBus, const char* lpszLine)
+	int	CBpaMemDBInterface::ParseBpaPfoShunt(tagBpaBlock* pBpaBlock, const int nBus, const char* lpszLine)
 	{
 		int		nItem;
 // 		char	szBuf[MDB_CHARLEN_SHORT], szLine[1024];
@@ -262,12 +262,12 @@ namespace	BpaMemDB
 		{
 			if (strstr(strEleArray[nItem].c_str(), "并联无功") != NULL)
 			{
-				resolveNumericString(strEleArray[nItem].c_str(), szLine);
+				ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 				pBpaBlock->m_BpaDat_ACBusArray[nBus].fPfoQShunt=StringToFloat(szLine);
 			}
 			if (strstr(strEleArray[nItem].c_str(), "安排无功") != NULL)
 			{
-				resolveNumericString(strEleArray[nItem].c_str(), szLine);
+				ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 				pBpaBlock->m_BpaDat_ACBusArray[nBus].fPfoQShunt=StringToFloat(szLine);
 			}
 			nItem++;
@@ -276,7 +276,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	int	parseBpaPfoNet(tagBpaBlock* pBpaBlock, const int nBus, const char* lpszLine)
+	int CBpaMemDBInterface::ParseBpaPfoNet(tagBpaBlock* pBpaBlock, const int nBus, const char* lpszLine)
 	{
 		int		nItem;
 // 		char	szBuf[MDB_CHARLEN_SHORT], szLine[1024];
@@ -318,12 +318,12 @@ namespace	BpaMemDB
 		{
 			if (strstr(strEleArray[nItem].c_str(), "PNET") != NULL)
 			{
-				resolveNumericString(strEleArray[nItem].c_str(), szLine);
+				ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 				pBpaBlock->m_BpaDat_ACBusArray[nBus].fPfoPNet=StringToFloat(szLine);
 			}
 			if (strstr(strEleArray[nItem].c_str(), "QNET") != NULL)
 			{
-				resolveNumericString(strEleArray[nItem].c_str(), szLine);
+				ResolveNumericString(strEleArray[nItem].c_str(), szLine);
 				pBpaBlock->m_BpaDat_ACBusArray[nBus].fPfoQNet=StringToFloat(szLine);
 			}
 			nItem++;
@@ -332,7 +332,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	void	parseBpaPfoACLine(tagBpaBlock* pBpaBlock, const int nFrBus, const char* lpszLine)
+	void CBpaMemDBInterface::ParseBpaPfoACLine(tagBpaBlock* pBpaBlock, const int nFrBus, const char* lpszLine)
 	{
 		register int	i;
 		int		nChar;
@@ -340,10 +340,14 @@ namespace	BpaMemDB
 		char	szBuf[MDB_CHARLEN_SHORT], szLine[1024];
 		std::vector<std::string>	strEleArray;
 
+		if (strstr(lpszLine, "被控节点") != NULL && strstr(lpszLine, "的电压是") != NULL)
+			return;
+
 		nChar=0;
 		for (i=7; i<34; i++)
 			szLine[nChar++]=lpszLine[i];
 		szLine[nChar++]='\0';
+		TrimLeft(szLine);
 
 		strEleArray.clear();
 		char*	lpszToken=strtok(szLine, " \t\n");
@@ -374,20 +378,36 @@ namespace	BpaMemDB
 		unsigned char	bPDir=0;
 		unsigned char	bToDCBus=0;
 
-		if (strEleArray.size() > 0)	strcpy(szBusName, strEleArray[0].c_str());	else	return;
-		if (strEleArray.size() > 1)	strcpy(szBusVolt, strEleArray[1].c_str());	else	return;
+		if (strEleArray.size() < 2)
+		{
+			for (i=0; i<8; i++)
+				szBusName[i] = szLine[i];
+			szBusName[8] = '\0';
+
+			for (i=0; i<8; i++)
+				szBusVolt[i] = szLine[8+i];
+			szBusVolt[8] = '\0';
+
+			Trim(szBusName);
+			Trim(szBusVolt);
+		}
+		else
+		{
+			strcpy(szBusName, strEleArray[0].c_str());
+			strcpy(szBusVolt, strEleArray[1].c_str());
+		}
 
 		bToDCBus=0;
 		nBus=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_ACBUS, szBusName, szBusVolt);
 		if (nBus < 0)
-			nBus=pfoFindACBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
+			nBus=PfoFindACBusIndex(pBpaBlock, szBusName, StringToFloat(szBusVolt));
 		if (nBus < 0)
 		{
 			bToDCBus=1;
 
 			nBus=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
 			if (nBus < 0)
-				nBus=pfoFindDCBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
+				nBus=PfoFindDCBusIndex(pBpaBlock, szBusName, StringToFloat(szBusVolt));
 			if (nBus < 0)
 			{
 				Log(g_lpszLogFile, "ParseBpaPfoACLine 解析PFO母线 [%s, %s]错误 [%s]\n", szBusName, szBusVolt, lpszLine);
@@ -541,36 +561,36 @@ namespace	BpaMemDB
 			{
 				if (bPDir != 0)
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fPi=StringToFloat(szLine);			}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fQi=StringToFloat(szLine);			}
-					if (strEleArray.size() > 2)	{	resolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fLossP=StringToFloat(szLine);		}
-					if (strEleArray.size() > 3)	{	resolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fLossQ=StringToFloat(szLine);		}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fPi=StringToFloat(szLine);			}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fQi=StringToFloat(szLine);			}
+					if (strEleArray.size() > 2)	{	ResolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fLossP=StringToFloat(szLine);		}
+					if (strEleArray.size() > 3)	{	ResolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fLossQ=StringToFloat(szLine);		}
 				}
 				else
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fPz=StringToFloat(szLine);		}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fQz=StringToFloat(szLine);		}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fPz=StringToFloat(szLine);		}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_ACLineArray[nDev].fQz=StringToFloat(szLine);		}
 				}
 			}
 			else
 			{
 				if (bPDir != 0)
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPi=StringToFloat(szLine);		}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQi=StringToFloat(szLine);		}
-					if (strEleArray.size() > 2)	{	resolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossP=StringToFloat(szLine);		}
-					if (strEleArray.size() > 3)	{	resolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossQ=StringToFloat(szLine);		}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPi=StringToFloat(szLine);		}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQi=StringToFloat(szLine);		}
+					if (strEleArray.size() > 2)	{	ResolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossP=StringToFloat(szLine);		}
+					if (strEleArray.size() > 3)	{	ResolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossQ=StringToFloat(szLine);		}
 				}
 				else
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPz=StringToFloat(szLine);		}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQz=StringToFloat(szLine);		}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPz=StringToFloat(szLine);		}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQz=StringToFloat(szLine);		}
 				}
 			}
 		}
 	}
 
-	void	parseBpaPfoDCLine(tagBpaBlock* pBpaBlock, const int nFrDCBus, const char* lpszLine)
+	void CBpaMemDBInterface::ParseBpaPfoDCLine(tagBpaBlock* pBpaBlock, const int nFrDCBus, const char* lpszLine)
 	{
 		register int	i;
 		int		nChar;
@@ -583,6 +603,7 @@ namespace	BpaMemDB
 		for (i=7; i<34; i++)
 			szLine[nChar++]=lpszLine[i];
 		szLine[nChar++]='\0';
+		TrimLeft(szLine);
 
 		strEleArray.clear();
 		char*	lpszToken=strtok(szLine, " \t\n");
@@ -595,13 +616,32 @@ namespace	BpaMemDB
 		int	nBus, nDev;
 		unsigned char	bRCard=0;
 
-		if (strEleArray.size() > 0)	strcpy(szBusName, strEleArray[0].c_str());	else	return;
-		if (strEleArray.size() > 1)	strcpy(szBusVolt, strEleArray[1].c_str());	else	return;
+		//if (stricmp(pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, "青州P") == 0)
+		//	Log(g_lpszLogFile, "ParseBpaPfoDCLine Line = [%s]\n", szLine);
+
+		if (strEleArray.size() < 2)
+		{
+			for (i=0; i<8; i++)
+				szBusName[i] = szLine[i];
+			szBusName[8] = '\0';
+
+			for (i=0; i<8; i++)
+				szBusVolt[i] = szLine[8+i];
+			szBusVolt[8] = '\0';
+
+			Trim(szBusName);
+			Trim(szBusVolt);
+		}
+		else
+		{
+			strcpy(szBusName, strEleArray[0].c_str());
+			strcpy(szBusVolt, strEleArray[1].c_str());
+		}
 
 		bRCard=0;
 		nBus=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_ACBUS, szBusName, szBusVolt);
 		if (nBus < 0)
-			nBus=pfoFindACBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
+			nBus=PfoFindACBusIndex(pBpaBlock, szBusName, StringToFloat(szBusVolt));
 		if (nBus >= 0)
 		{
 			bRCard=1;
@@ -610,14 +650,14 @@ namespace	BpaMemDB
 		{
 			nBus=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
 			if (nBus < 0)
-				nBus=pfoFindDCBusIndex(pBpaBlock, strEleArray[0].c_str(), StringToFloat(strEleArray[1].c_str()));
+				nBus=PfoFindDCBusIndex(pBpaBlock, szBusName, StringToFloat(szBusVolt));
 			if (nBus < 0)
 			{
 				Log(g_lpszLogFile, "ParseBpaPfoDCLine 解析PFO母线 [%s, %s]错误 [%s]\n", szBusName, szBusVolt, lpszLine);
 				return;
 			}
 		}
-
+			
 		memset(szLine, 0, 1024);
 		strcpy(szLine, lpszLine+37);
 
@@ -631,25 +671,6 @@ namespace	BpaMemDB
 
 		if (bRCard)
 		{
-			//sprintf(szKeyName, "%s%.0f-%s%.0f",
-			//	pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].fkV,
-			//	pBpaBlock->m_BpaDat_ACBusArray[nBus].szName, pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV);
-			//nDev=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_R, szKeyName);
-			//if (nDev < 0)
-			//{
-			//	sprintf(szKeyName, "%s%.0f-%s%.0f",
-			//		pBpaBlock->m_BpaDat_ACBusArray[nBus].szName, pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV,
-			//		pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].fkV);
-			//	nDev=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_R, szKeyName);
-			//}
-			//if (nDev >= 0)
-			//{
-			//	if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_RArray[nDev].fP=StringToFloat(szLine);		}
-			//	if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_RArray[nDev].fQ=StringToFloat(szLine);		}
-			//	if (strEleArray.size() > 2)	{	ResolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_RArray[nDev].fLossP=StringToFloat(szLine);	}
-			//	if (strEleArray.size() > 3)	{	ResolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_RArray[nDev].fLossQ=StringToFloat(szLine);	}
-			//}
-
 			bPDir=1;
 			sprintf(szKeyName, "%s%.0f-%s%.0f",
 				pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].fkV,
@@ -663,19 +684,26 @@ namespace	BpaMemDB
 					pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].fkV);
 				nDev=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_WIND, szKeyName);
 			}
+			//if (stricmp(pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, "青州P") == 0)
+			//	Log(g_lpszLogFile, "R Find Wind [%s] [Dir=%d]\n", szKeyName, pBpaBlock->m_BpaDat_WindArray[nDev].fPi, bPDir);
+
 			if (nDev >= 0)
 			{
 				if (bPDir != 0)
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPi=StringToFloat(szLine);	}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQi=StringToFloat(szLine);	}
-					if (strEleArray.size() > 2)	{	resolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossP=StringToFloat(szLine);	}
-					if (strEleArray.size() > 3)	{	resolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossQ=StringToFloat(szLine);	}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPi=StringToFloat(szLine);	}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQi=StringToFloat(szLine);	}
+					if (strEleArray.size() > 2)	{	ResolveNumericString(strEleArray[2].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossP=StringToFloat(szLine);	}
+					if (strEleArray.size() > 3)	{	ResolveNumericString(strEleArray[3].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fLossQ=StringToFloat(szLine);	}
+					//if (stricmp(pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, "青州P") == 0)
+					//	Log(g_lpszLogFile, "R SetWindPQ [I] = %.2f %.2f\n", pBpaBlock->m_BpaDat_WindArray[nDev].fPi, pBpaBlock->m_BpaDat_WindArray[nDev].fQi);
 				}
 				else
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPz=StringToFloat(szLine);	}
-					if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQz=StringToFloat(szLine);	}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fPz=StringToFloat(szLine);	}
+					if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_WindArray[nDev].fQz=StringToFloat(szLine);	}
+					//if (stricmp(pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, "青州P") == 0)
+					//	Log(g_lpszLogFile, "R SetWindPQ [Z] = %.2f %.2f\n", pBpaBlock->m_BpaDat_WindArray[nDev].fPz, pBpaBlock->m_BpaDat_WindArray[nDev].fQz);
 				}
 			}
 		}
@@ -687,8 +715,10 @@ namespace	BpaMemDB
 			nDev=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCLINE, szKeyName);
 			if (nDev >= 0)
 			{
-				if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_DCLineArray[nDev].fPr=StringToFloat(szLine);		}
-				if (strEleArray.size() > 1)	{	resolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_DCLineArray[nDev].fLossP=StringToFloat(szLine);	}
+				if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_DCLineArray[nDev].fPr=StringToFloat(szLine);		}
+				if (strEleArray.size() > 1)	{	ResolveNumericString(strEleArray[1].c_str(), szLine);	pBpaBlock->m_BpaDat_DCLineArray[nDev].fLossP=StringToFloat(szLine);	}
+				//if (stricmp(pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, "青州P") == 0)
+				//	Log(g_lpszLogFile, "Find Line [%s] [Pz=%g]\n", szKeyName, pBpaBlock->m_BpaDat_DCLineArray[nDev].fPr);
 			}
 			else
 			{
@@ -698,13 +728,15 @@ namespace	BpaMemDB
 				nDev=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCLINE, szKeyName);
 				if (nDev >= 0)
 				{
-					if (strEleArray.size() > 0)	{	resolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_DCLineArray[nDev].fPi=StringToFloat(szLine);		}
+					if (strEleArray.size() > 0)	{	ResolveNumericString(strEleArray[0].c_str(), szLine);	pBpaBlock->m_BpaDat_DCLineArray[nDev].fPi=StringToFloat(szLine);		}
+					//if (stricmp(pBpaBlock->m_BpaDat_DCBusArray[nFrDCBus].szName, "青州P") == 0)
+					//	Log(g_lpszLogFile, "Find Line [%s] [Pi=%g]\n", szKeyName, pBpaBlock->m_BpaDat_DCLineArray[nDev].fPi);
 				}
 			}
 		}
 	}
 
-	int		BpaParsePfoFile(tagBpaBlock* pBpaBlock, const char* lpszBpaPfoFile)
+	int CBpaMemDBInterface::BpaParsePfoFile(tagBpaBlock* pBpaBlock, const char* lpszBpaPfoFile)
 	{
 		FILE*	fp;
 		int		nSub, nBus, nLine, nTotLine;
@@ -808,7 +840,7 @@ namespace	BpaMemDB
 						if (strPfoLineArray[nLine+nTotLine].find("系统注入") != string::npos)				{	}
 						else if (strPfoLineArray[nLine+nTotLine].find("发电机出力") != string::npos)
 						{
-							splitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
+							SplitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
 							if (strEleArray.size() == 3)
 							{
 								pBpaBlock->m_BpaDat_Case.fTotGenP=StringToFloat(strEleArray[1].c_str());
@@ -817,7 +849,7 @@ namespace	BpaMemDB
 						}
 						else if (strPfoLineArray[nLine+nTotLine].find("负荷") != string::npos)
 						{
-							splitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
+							SplitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
 							if (strEleArray.size() == 3)
 							{
 								pBpaBlock->m_BpaDat_Case.fTotLoadP=-StringToFloat(strEleArray[1].c_str());
@@ -831,7 +863,7 @@ namespace	BpaMemDB
 						else if (strPfoLineArray[nLine+nTotLine].find("等值并联导纳") != string::npos)		{	}
 						else if (strPfoLineArray[nLine+nTotLine].find("线路和变压器损耗") != string::npos)
 						{
-							splitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
+							SplitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
 							if (strEleArray.size() == 3)
 							{
 								pBpaBlock->m_BpaDat_Case.fTotLossP=-StringToFloat(strEleArray[1].c_str());
@@ -840,7 +872,7 @@ namespace	BpaMemDB
 						}
 						else if (strPfoLineArray[nLine+nTotLine].find("线路充电功率") != string::npos)
 						{
-							splitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
+							SplitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
 							if (strEleArray.size() == 2)
 							{
 								pBpaBlock->m_BpaDat_Case.fTotLineCap=StringToFloat(strEleArray[1].c_str());
@@ -848,7 +880,7 @@ namespace	BpaMemDB
 						}
 						else if (strPfoLineArray[nLine+nTotLine].find("直流换流器损耗") != string::npos)
 						{
-							splitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
+							SplitStringBySpace(strPfoLineArray[nLine+nTotLine].c_str(), strEleArray);
 							if (strEleArray.size() >= 2)
 							{
 								pBpaBlock->m_BpaDat_Case.fTotDCLoss=-StringToFloat(strEleArray[1].c_str());
@@ -874,21 +906,21 @@ namespace	BpaMemDB
 					{
 						if (bDCBus)
 						{
-							parseBpaPfoDCLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
+							ParseBpaPfoDCLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
 						}
 						else
 						{
-							if (isPfoShuntLine(strPfoLineArray[nLine].c_str()))
+							if (IsPfoShuntLine(strPfoLineArray[nLine].c_str()))
 							{
-								parseBpaPfoShunt(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
+								ParseBpaPfoShunt(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
 							}
-							else if (isPfoNetLine(strPfoLineArray[nLine].c_str()))
+							else if (IsPfoNetLine(strPfoLineArray[nLine].c_str()))
 							{
-								parseBpaPfoNet(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
+								ParseBpaPfoNet(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
 							}
 							else
 							{
-								parseBpaPfoACLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
+								ParseBpaPfoACLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str()+1);
 							}
 						}
 					}
@@ -904,21 +936,21 @@ namespace	BpaMemDB
 					{
 						if (bDCBus)
 						{
-							parseBpaPfoDCLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
+							ParseBpaPfoDCLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
 						}
 						else
 						{
-							if (isPfoShuntLine(strPfoLineArray[nLine].c_str()))
+							if (IsPfoShuntLine(strPfoLineArray[nLine].c_str()))
 							{
-								parseBpaPfoShunt(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
+								ParseBpaPfoShunt(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
 							}
-							else if (isPfoNetLine(strPfoLineArray[nLine].c_str()))
+							else if (IsPfoNetLine(strPfoLineArray[nLine].c_str()))
 							{
-								parseBpaPfoNet(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
+								ParseBpaPfoNet(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
 							}
 							else
 							{
-								parseBpaPfoACLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
+								ParseBpaPfoACLine(pBpaBlock, nBus, strPfoLineArray[nLine].c_str());
 							}
 						}
 					}
@@ -948,6 +980,27 @@ _Cyc:		nLine++;
 			pBpaBlock->m_BpaDat_SubArray[pBpaBlock->m_BpaDat_ACBusArray[nBus].nSubPtr].fShuntQ += pBpaBlock->m_BpaDat_ACBusArray[nBus].fPfoQShunt;
 		}
 
+		for (nLine=0; nLine<pBpaBlock->m_nRecordNum[BPA_DAT_R]; nLine++)
+		{
+			int nWind = BpaFindRecordbyKey(pBpaBlock, BPA_DAT_WIND, pBpaBlock->m_BpaDat_RArray[nLine].szKeyName);
+			if (nWind >= 0)
+			{
+				if (pBpaBlock->m_BpaDat_WindArray[nWind].bRCard == 1)
+				{
+					pBpaBlock->m_BpaDat_RArray[nLine].fP=pBpaBlock->m_BpaDat_WindArray[nWind].fPz;
+					pBpaBlock->m_BpaDat_RArray[nLine].fP=pBpaBlock->m_BpaDat_WindArray[nWind].fPz;
+					pBpaBlock->m_BpaDat_RArray[nLine].fLossP=pBpaBlock->m_BpaDat_WindArray[nWind].fLossP;
+					pBpaBlock->m_BpaDat_RArray[nLine].fLossQ=pBpaBlock->m_BpaDat_WindArray[nWind].fLossQ;
+				}
+				else
+				{
+					pBpaBlock->m_BpaDat_RArray[nLine].fP=pBpaBlock->m_BpaDat_WindArray[nWind].fPi;
+					pBpaBlock->m_BpaDat_RArray[nLine].fP=pBpaBlock->m_BpaDat_WindArray[nWind].fPi;
+					pBpaBlock->m_BpaDat_RArray[nLine].fLossP=pBpaBlock->m_BpaDat_WindArray[nWind].fLossP;
+					pBpaBlock->m_BpaDat_RArray[nLine].fLossQ=pBpaBlock->m_BpaDat_WindArray[nWind].fLossQ;
+				}
+			}
+		}
 		return bConvergency;
 	}
 }

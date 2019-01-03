@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -348,4 +350,21 @@ public class Utils {
 		//throw new RuntimeException("Sys home is not defined: "+appDir);
 		return null;
 	}
+		
+//	private static final ExecutorService s_thread_pool = Executors.newCachedThreadPool();
+	private static final ExecutorService s_thread_pool = Executors.newFixedThreadPool(20);
+	
+	public static ExecutorService threadPool() {
+		return s_thread_pool;
+	}
+	
+	public static JarStreamFactory s_default_jar_stream_factory = JarStreamFactory.dafaultFactory; 
+	
+	public static void setDefaultJarStreamFactory(JarStreamFactory jarStreamFactory) {
+		s_default_jar_stream_factory = jarStreamFactory;
+	}
+	public static JarStreamFactory getDefaultJarStreamFactory() {
+		return s_default_jar_stream_factory;
+	}
+	
 } 

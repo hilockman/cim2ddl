@@ -193,8 +193,7 @@ compiler_clean:
 
 ####### Compile
 
-debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
-		stdafx.h \
+debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
 		..\include\MDBDefine.h \
 		..\MemDBBase\MemDBBase_Check.hpp \
@@ -202,7 +201,8 @@ debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
 		..\MemDBBase\MemDBBase_Record.hpp \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
-		..\..\Common\String2Double.hpp
+		..\..\Common\String2Double.hpp \
+		..\MemDBBase\MemDBHash.h
 
 debug\StringCommon.obj: ..\..\Common\StringCommon.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \

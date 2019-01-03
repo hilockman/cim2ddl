@@ -7,7 +7,7 @@
 5,ConnectivityNode,节点,STRING,64
 6,Type,负荷类型,INTEGER,1
 7,HeatingLoad,热负荷(kW),DOUBLE,4
-8,RefrigerationLoad,冷负荷(kW),DOUBLE,4
+8,CoolingLoad,冷负荷(kW),DOUBLE,4
 9,CSupplyTemperature,所需供水温度(℃),DOUBLE,4
 10,CReturnTemperature,所需回水温度(℃),DOUBLE,4
 11,CPressure,压力(Pa),DOUBLE,4

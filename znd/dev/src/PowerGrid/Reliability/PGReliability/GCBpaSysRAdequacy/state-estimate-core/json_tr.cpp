@@ -12,7 +12,7 @@
 using namespace Json;
 using namespace PRAdequacyBase;
 
-CPRMemDBInterface		g_PRMemDBInterface;
+extern CPRMemDBInterface		g_PRMemDBInterface;
 namespace json_tr {
 
 
@@ -157,8 +157,15 @@ namespace json_tr {
 	void ParsePRSetting(Json::Value& sData, tagBpaPRAdequacySetting* pSetting)
 	{
 		Json::Value	sObject, sNull(nullValue);
+		Value::Members members = sData.getMemberNames();
 
-		sObject = sData.get("BpaDatFile", sNull);		if (!sObject.isNull())	pSetting->strBpaDatFile = sObject.asString();				//潮流输入文件
+
+		sObject = sData.get("BpaDatFile", sNull);		
+		if (!sObject.isNull())	
+			pSetting->strBpaDatFile = sObject.asString();				//潮流输入文件
+		else {
+			log_debug("Find no BpaDatFile\0");
+		}
 		sObject = sData.get("BpaSwiFile", sNull);		if (!sObject.isNull())	pSetting->strBpaSwiFile = sObject.asString();				//稳定输入文件，主要是用于形成发电机模型
 		sObject = sData.get("BpaRParamFile", sNull);	if (!sObject.isNull())	pSetting->strBpaRParamFile = sObject.asString();				//可靠性参数输入文件
 		sObject = sData.get("TinyGenThreshold", sNull);	if (!sObject.isNull())	pSetting->fTinyGenThreshold = sObject.asDouble();	//环辐网分解发电机容量门槛值（容量低于该门槛值的发电机认为不是发电机）

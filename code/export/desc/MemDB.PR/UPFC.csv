@@ -2,7 +2,7 @@
 0,Name,交流线路名称,STRING,32
 1,SeriesBus,串联母线名,STRING,32
 2,ParallelBus,并联母线名,STRING,32
-3,Capacity,容量(MVA),DOUBLE,4
+3,Capacity,容量(兆伏安),DOUBLE,4
 4,Rerr,故障率(次/年),DOUBLE,8
 5,Rrep,修复率(次/年),DOUBLE,8
 6,Trep,修复时间(小时/次),DOUBLE,8
@@ -13,8 +13,8 @@
 11,IMin,上限值,DOUBLE,8
 12,RerrMax,故障率上限值,DOUBLE,8
 13,RerrMin,故障率下限值,DOUBLE,8
-14,LinePse,串联侧注入功率(MW),DOUBLE,4
-15,P,串联侧控制功率(MW),DOUBLE,8
+14,LinePse,串联侧注入功率(兆瓦),DOUBLE,4
+15,P,串联侧控制功率(兆瓦),DOUBLE,8
 16,FaultFreq,故障次数(次),INTEGER,4
 17,SeriesBusPtr,串联母线索引,INTEGER,4
 18,ParallelBusPtr,并联母线索引,INTEGER,4

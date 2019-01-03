@@ -1,6 +1,6 @@
 package com.znd.bus.exception;
 
-public class BindingException extends RuntimeException {
+public class BindingException extends AdsException {
 
 	/**
 	 * 

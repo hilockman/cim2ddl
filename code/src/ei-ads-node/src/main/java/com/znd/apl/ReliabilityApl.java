@@ -4,16 +4,19 @@ package com.znd.apl;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
-import org.redisson.api.RCountDownLatch;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.RedissonNodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.znd.ads.model.dto.PRAdequacySetting;
 import com.znd.annotation.AplController;
@@ -24,6 +27,7 @@ import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.model.CalcJob;
 import com.znd.bus.common.model.CalcJobStateEnum;
 import com.znd.bus.config.BufferConfig;
+import com.znd.bus.exception.AdsException;
 import com.znd.bus.log.BufferLogger;
 import com.znd.bus.log.BufferLoggerFactory;
 import com.znd.bus.server.AdapterService;
@@ -35,6 +39,7 @@ import com.znd.bus.server.message.EventMessageType;
 import com.znd.bus.server.message.HeaderType;
 import com.znd.bus.server.message.RequestMessageType;
 import com.znd.bus.server.message.ResponseMessageType;
+import com.znd.bus.task.AQueue;
 import com.znd.ei.Utils;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.reliabilty.domain.FState;
@@ -47,6 +52,7 @@ import com.znd.exception.AplException;
 import com.znd.memory.DatabaseType;
 import com.znd.memory.ShareMemHolder;
 import com.znd.reliability.config.ReliabilityProperties;
+import com.znd.reliability.model.RequestEstimate;
 import com.znd.reliability.server.PrBufferServer;
 import com.znd.reliability.server.PrMemoryServer;
 import com.znd.reliability.server.ReliabilityProxyServer;
@@ -102,6 +108,51 @@ public class ReliabilityApl {
 	
 	private BufferLogger bufferLogger = BufferLoggerFactory.getLogger(ReliabilityApl.class);
 
+	static class HostInfo {
+		private String addresss;
+		private int port;
+		public String getAddresss() {
+			return addresss;
+		}
+		public void setAddresss(String addresss) {
+			this.addresss = addresss;
+		}
+		public int getPort() {
+			return port;
+		}
+		public void setPort(int port) {
+			this.port = port;
+		}
+	
+		/**
+		 * format "redis://127.0.0.1:10001"
+		 * @param url
+		 * @return
+		 */
+		public static HostInfo parse(String url) {
+			String prefix = "redis://";
+			
+			int pos = url.indexOf(prefix);
+			if (pos < 0 ) {
+				return null;
+			}
+			
+			int pos1 = url.lastIndexOf(':');
+			if (pos1 < 0)
+				return null;
+			
+			HostInfo info = new HostInfo();		
+			info.setAddresss(url.substring(pos + prefix.length(), pos1));
+			info.setPort(Integer.valueOf(url.substring(pos1+1)));
+			return info;
+		}
+	}
+	
+	@Value("${buffer.localAddress}")
+	private String localAddress;
+	
+	
+	private HostInfo redisHostInfo;
 	
 	public ReliabilityApl(ReliabilityProperties properties) {
 		
@@ -116,54 +167,65 @@ public class ReliabilityApl {
 	
 	@PostConstruct
 	public void init() {
-		adapter = busService.registAdapter(new AdapterService() {
+		
+		try {
+			redisHostInfo = HostInfo.parse(localAddress);
+			logger.info("local redis address : h = {}, p = {}", redisHostInfo.getAddresss(), redisHostInfo.getPort());
 			
-			@Override
-			public ResponseMessageType response(ResponseMessageType message) {
+			adapter = busService.registAdapter(new AdapterService() {
+				
+				@Override
+				public ResponseMessageType response(ResponseMessageType message) {
 
-				return null;
-			}
-			
-			@Override
-			public ResponseMessageType request(RequestMessageType message) {
-				logger.debug("ReliabilityApl收到请求: "+Utils.toJSon(message));	
-				
-				
-				HeaderType header = message.getHeader();
-				if (header.isTopic(VerbEnum.execute, NounEnum.job)) {
-					String jobId = message.getPayload().getSimpleContent();
-					logger.debug("ReliabilityApl receive execute job : jobId = {} ", jobId);	
-				    
-					//执行计算
-				    work(jobId);
-				    
-				    //回复执行
-				    sendResponse(VerbEnum.reply, NounEnum.job, jobId);
-				}
-				return null;
-			}
-			
-			@Override
-			public ResponseMessageType publish(EventMessageType message) {
-				logger.debug("ReliabilityApl收到事件 : "+Utils.toJSon(message));	
-				
-				
-				HeaderType header = message.getHeader();
-				if (header.isTopic(VerbEnum.created, NounEnum.ReliabilityBuffer)) { //收到发布可靠性计算缓存已创建事件，初始化本地缓存
-					String jobId = message.getPayload().getSimpleContent();				
-					logger.debug("ReliabilityApl receive created ReliabilityBuffer : jobId = {} ", jobId);	
-				    
-					initLocalMemory(jobId);
-				} else if (header.isTopic(VerbEnum.created, NounEnum.ReliabilityTasks)) {//抽样任务队列已经创建事件
-					String jobId = message.getPayload().getSimpleContent();		
-					logger.debug("ReliabilityApl  created ReliabilityTasks : jobId = {} ", jobId);
-					executeTasks(jobId);
+					return null;
 				}
 				
+				@Override
+				public ResponseMessageType request(RequestMessageType message) {
+					logger.info("ReliabilityApl收到请求: "+Utils.toJSon(message));	
+					
+					
+					HeaderType header = message.getHeader();
+					if (header.isTopic(VerbEnum.execute, NounEnum.job)) {
+						String jobId = message.getPayload().getSimpleContent();
+						logger.info("ReliabilityApl receive execute job : jobId = {} ", jobId);	
+					    
+						//执行计算
+					    work(jobId);
+					    
+					    //回复执行
+					    sendResponse(VerbEnum.reply, NounEnum.job, jobId);
+					}
+					return null;
+				}
 				
-				return null;
-			}
-		}, "ReliabilityAplControler", Topic.out(VerbEnum.execute, NounEnum.job));
+				@Override
+				public ResponseMessageType publish(EventMessageType message) {
+					logger.info("ReliabilityApl收到事件 : "+Utils.toJSon(message));	
+					
+					
+					HeaderType header = message.getHeader();
+					if (header.isTopic(VerbEnum.created, NounEnum.ReliabilityBuffer)) { //收到发布可靠性计算缓存已创建事件，初始化本地缓存
+						String jobId = message.getPayload().getSimpleContent();				
+						logger.info("ReliabilityApl receive created ReliabilityBuffer : jobId = {} ", jobId);	
+					    
+						initLocalMemory(jobId);
+					} else if (header.isTopic(VerbEnum.created, NounEnum.ReliabilityTasks)) {//抽样任务队列已经创建事件
+						String jobId = message.getPayload().getSimpleContent();		
+						logger.info("Start executed job's tasks : jobId = {} ", jobId);
+						executeTasks(jobId);
+					}
+					
+					
+					return null;
+				}
+			}, "ReliabilityAplControler", Topic.out(VerbEnum.execute, NounEnum.job),
+					Topic.in_and_out(VerbEnum.created, NounEnum.ReliabilityBuffer),
+					Topic.in_and_out(VerbEnum.created, NounEnum.ReliabilityTasks));
+		} catch (AdsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -172,39 +234,67 @@ public class ReliabilityApl {
 	 * @param jobId
 	 */
 	private void work(String jobId) {
+		logger.info("Start work: job = {}.", jobId);
 		CalcJob job = calcJobBuffer.findById(jobId);
+
 		
 		if (job == null) {
 			throw new AplException("Cann't find job id : jobId = "+jobId );
 		}
+		job.setStep(0);
+		job.setMaxStep(0);
+//		job.setStart(new Date());
+//		job.setState(CalcJobStateEnum.running);
+		calcJobBuffer.update(job);	
 		
 		//初始化可靠性计算缓存 create ReliabilityBuffer
+		logger.info("Start initializing the buffer : job = {} ...", job.getId());
 		PrBufferServer bufferServer = initReliabilityBuffer(job);
+		logger.info("Initializing buffer complished : job = {} .", job.getId());
 		
 		//发布可靠性计算缓存已创建事件 (publish created ReliabilityBuffer)
 		adapter.sendPublish(VerbEnum.created, NounEnum.ReliabilityBuffer, jobId);
 		
 				
 		//抽样，并形成抽样任务队列 create CalcTasks
+		logger.info("Start sampling status and creating tasks : job = {} ....", job.getId());
 		sampleAndCreateTasks(bufferServer, job);
+		logger.info("Sample and create task finished : job = {} .", job.getId());
+		
+		//等待任务队列执行完
+		AQueue<RequestEstimate> taskList = bufferServer.getTaskList();
+		int size = taskList.size();
+		JobUpdater upater = new JobUpdater(job, new JobStepIndicator() {
+			
+			@Override
+			public int step() {
+				return size - taskList.size();
+			}
+
+			@Override
+			public void waitForFinished(long waitTime, TimeUnit unit) throws InterruptedException {
+				bufferServer.waitForFinished(waitTime, unit);
+			}
+
+
+		});
+		
+			
 		
 		//发布抽样任务队列已经创建事件(publish created ReliabilityTasks)
 		adapter.sendPublish(VerbEnum.created, NounEnum.ReliabilityTasks, jobId);
 		
-		//等待任务队列执行完
-		JobUpdater updater = new JobUpdater(job);		
-		try {
-			updater.await();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		//开始跟踪工作进度，并等待工作完成
+		upater.start(size);
 		
 		
 		//后评估
 		reliabilityIndex(job, bufferServer);
 		
-			
+		job.setState(CalcJobStateEnum.stop);
+		job.setEnd(new Date());
+		calcJobBuffer.update(job);	
 	}
 	
 	/*
@@ -229,10 +319,15 @@ public class ReliabilityApl {
 
 		//可靠性计算结果存入本地 	
 		 memoryServer.clear();
+		 
 		 memoryServer.saveOvlDevs(ovlDevs);
+		 logger.info("save ovlDevs to memory: "+ovlDevs.size());
 		 memoryServer.saveOvlAds(ovlAds);
+		 logger.info("save ovlAds to memory: "+ovlAds.size());
 		 memoryServer.saveFStates(fstates);
+		 logger.info("save fstates to memory: "+fstates.size());
 		 memoryServer.saveIslands(islands);
+		 logger.info("save islands to memory: "+islands.size());
 		 
 		PRAdequacySetting config = CalcJob.getConfig(job);
 		callReliabilityIndex(config);
@@ -240,14 +335,13 @@ public class ReliabilityApl {
 		//上传可靠性指标到数据库
 		List<com.znd.ei.memdb.reliabilty.domain.System> systems = memoryServer.findAllSystems();
 		bufferServer.saveSystems(systems);
+		System.out.println("Index result is "+systems.get(0)); 
+		logger.info("save systems to buffer: "+systems.size());
+		 
 	}
 	
 	
-	private RCountDownLatch getJobLatch(CalcJob job) {
-		RedissonClient redisson = bufferConfig.getRedissonClient();
-		RCountDownLatch latch = redisson.getCountDownLatch(job.getId());
-		return latch;
-	}
+
 	
 	private void sampleAndCreateTasks(PrBufferServer bufferServer, CalcJob job) {
 
@@ -267,10 +361,10 @@ public class ReliabilityApl {
 		if (fstates.isEmpty() || devs.isEmpty()) {
 			throw new AplException("fstate is empty : "+job.getId());
 		}
-		
-		//设置闭锁
-		JobUpdater updater = new JobUpdater(job);
-		updater.setJobSize(fstates.size());
+//		
+//		//设置闭锁
+//		JobUpdater updater = new JobUpdater(job);
+//		updater.reset(fstates.size());
 
 		
 		//上传抽样状态和故障设备
@@ -291,7 +385,8 @@ public class ReliabilityApl {
 	 * @param jobId
 	 */
 	private synchronized  void  initLocalMemory(CalcJob job) {
-		String dbId = job.getId();
+		String dbId = job.getModelId();
+		
 		if (dbId == null) {
 			throw new AplException("Job's model id is null : "+dbId);
 		}
@@ -317,32 +412,107 @@ public class ReliabilityApl {
 		initLocalMemory(job);
 	}
 	
+	public interface JobStepIndicator
+	{
+		int step();
+		
+		void waitForFinished(long waitTime, TimeUnit unit) throws InterruptedException;
+	}
 	
 	public class JobUpdater
 	{
 		private CalcJob job;
-		private RCountDownLatch latch;
-		public JobUpdater(CalcJob job) {
+		private CountDownLatch latch;
+		private JobStepIndicator indicator;
+		//private JobSemaphore semaphore;
+		
+		public JobUpdater(CalcJob job, JobStepIndicator indicator) {
 			this.job = job;
-			this.latch = getJobLatch(job);
+			this.latch = new CountDownLatch(1);
+			this.indicator = indicator;
+			//this.semaphore = semaphore;
 		}
-		public void setJobSize(int size) {
-			job.setState(CalcJobStateEnum.running);
+		public void start(int size) {
+			job.setStep(0);
 			job.setMaxStep(size);
-			latch.trySetCount(size);
+//			job.setStart(new Date());
+			calcJobBuffer.update(job);
+			Timer timer = new Timer(true);
+			
+		
+			TimerTask updateStep = new TimerTask() {
+				
+				@Override
+				public void run() {
+					int step = indicator.step();
+					setStep(step);
+					if (step == size) {
+						cancel();
+						System.out.println("Job step 100%, start to check if finished.");
+	
+						latch.countDown();
+
+					}
+				}
+			};
+			
+			
+			long timeout = 15;
+			TimeUnit unit = TimeUnit.MINUTES;
+			timer.scheduleAtFixedRate(updateStep, 0, 1*1000);
+			try {
+				latch.await(timeout, unit);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				logger.error("Job finished: {}, erro", job.getName());
+			}
+
+			 try {
+				logger.info("Wait for finishing job's tasks : {}, timeount : {} {}", job.getName(), timeout, unit);
+				indicator.waitForFinished(timeout, unit);
+				
+//				job.setEnd(new Date());
+//				job.setState(CalcJobStateEnum.stop);
+//				calcJobBuffer.update(job);
+
+//				logger.info("Job finished: {}", job.getName());
+				
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				job.setState(CalcJobStateEnum.abnormal);
+				calcJobBuffer.update(job);
+				logger.error("Job timeout : > {} {} ", timeout, unit);
+			} finally {
+				timer.cancel();
+			}
+			 
+			 
+			 
+			
+		}
+		
+
+		
+		public void setStep(int step) {
+			job.setStep(step);
 			calcJobBuffer.update(job);
 		}
 		
-		public void decrease() {
-			latch.countDown();
-			job.setStep((int) latch.getCount());
-			calcJobBuffer.update(job);
-		}
-		
-		public void await() throws InterruptedException {
-			this.latch.await();
-			job.setState(CalcJobStateEnum.stop);
-		}
+//		public void await(long timeout,  TimeUnit unit) throws InterruptedException 
+//        {
+//
+//			try {
+//				latch.await(timeout, unit);
+//			} catch (InterruptedException e) {
+//				job.setState(CalcJobStateEnum.abnormal);
+//				calcJobBuffer.update(job);
+//				throw e;
+//			}			
+//
+//		}
 		
 		
 		
@@ -362,16 +532,14 @@ public class ReliabilityApl {
 		String appName  = "state-estimate";
 		
 		AppUtil.kill(appName);
-		if (!AppUtil.isRunning(appName)) {
+//		if (!AppUtil.isRunning(appName)) {
 			new Thread(()->{
 //				RedissonNodeConfig localConfig = bufferConfig.getLocalConfig();				
-				AppUtil.executeWithoutLogger(appDir+"/bin/"+appName, "127.0.0.1","10001");
+				AppUtil.executeWithoutLogger(appDir+"/bin/"+appName, "-h", redisHostInfo.addresss,"-p", redisHostInfo.port);
 			}).start();
-		}
+//		}
 		  		
-		
-		
-		
+				
 		PrBufferServer bufferServer = new PrBufferServerImpl(defaultBuffer, job);	
 		PRAdequacySetting setting = CalcJob.getConfig(job);
 		if (setting == null)
@@ -379,17 +547,21 @@ public class ReliabilityApl {
 		
 		try {
 			System.out.println("Start SimpleServer");
+			AQueue<RequestEstimate> taskList = bufferServer.getTaskList();
 		    ReliabilityProxyServer server = new SimpleServer(properties,
-		    		bufferServer.getTaskList(),
+		    		taskList,
 		    		bufferServer, 
 		    		setting, 
-		    		bufferConfig.getLocalClient(), 
-		    		new JobUpdater(job));		
+		    		bufferConfig.getLocalClient()
+		    		);		
 			server.exec();
 		} finally {
 			AppUtil.kill(appName);
 		}
+		
+
 		bufferServer.flushResult();
+		
 	}
 	
 
@@ -475,12 +647,12 @@ public class ReliabilityApl {
 		String appName  = "state-estimate";
 			
 		AppUtil.kill(appName);
-		if (!AppUtil.isRunning(appName)) {
+//		if (!AppUtil.isRunning(appName)) {
 			new Thread(()->{
-				RedissonNodeConfig localConfig = bufferConfig.getLocalConfig();				
-				AppUtil.executeWithoutLogger(appDir+"/bin/"+appName, "127.0.0.1","10001");
+				
+				AppUtil.executeWithoutLogger(appDir+"/bin/"+appName, "-h", redisHostInfo.addresss,"-p", redisHostInfo.port);
 			}).start();
-		}
+//		}
 		  		
 		List<FState> fstates = memoryServer.findAllFStates();
 		List<FStateFDev> devs = memoryServer.findAllFStateFDevs();
@@ -488,11 +660,28 @@ public class ReliabilityApl {
 			throw new AplException("fstate is empty : "+job.getId());
 		}
 		
-		bufferServer.updateTasks(fstates, devs);		
+		bufferServer.updateTasks(fstates, devs);	
+		AQueue<RequestEstimate> taskList = bufferServer.getTaskList();
+		JobUpdater upater = new JobUpdater(job, new JobStepIndicator() {
+			
+			@Override
+			public int step() {
+				return job.getMaxStep() - taskList.size();
+			}
+
+			@Override
+			public void waitForFinished(long waitTime, TimeUnit unit) throws InterruptedException {
+				bufferServer.waitForFinished(waitTime, unit);
+			}
+
+
+		});
+		
+		upater.start(taskList.size());
 		
 		try {
 			System.out.println("Start SimpleServer");
-		    ReliabilityProxyServer server = new SimpleServer(properties, bufferServer.getTaskList(), bufferServer, setting, bufferConfig.getLocalClient(), null);		
+		    ReliabilityProxyServer server = new SimpleServer(properties, taskList , bufferServer, setting, bufferConfig.getLocalClient());		
 			server.exec();
 		} finally {
 			AppUtil.kill(appName);
@@ -543,7 +732,7 @@ public class ReliabilityApl {
 	public void reliabilityIndex(String jobId, PrBufferServer bufferServer) {
 
 		 System.out.println("Update result to memdb...");
-		 memoryServer.clear();
+		 //memoryServer.clear();
 		 CalcJob job = calcJobBuffer.findById(jobId);
 			
 		if (job == null) {
@@ -593,19 +782,19 @@ public class ReliabilityApl {
 		
 		PRAdequacySetting setting = CalcJob.getConfig(job);
 		if (setting == null) {
-			bufferLogger.info("解析任务配置失败:{}", jobId);
-			throw new AplException("Can't resolve job setting : " + jobId);
+			bufferLogger.info("Fail to parse task config:jobId = {}.", jobId);
+			throw new AplException("Fail to parse task config:jobId = " + jobId);
 		}
 		
-		bufferLogger.info("开始生成抽样状态。");
+		bufferLogger.info("Start generating sampling status ...");
 		sample(setting);
 
 		List<FState> fstates = memoryServer.findAllFStates();
 		List<FStateFDev> devs = memoryServer.findAllFStateFDevs();
-		bufferLogger.info("抽样完成，生成状态数量:{}, 故障设备数:{}", fstates.size(), devs.size());
+		bufferLogger.info("Status sampling complished，the number of generated states :{}, the number of faulty devices:{}", fstates.size(), devs.size());
 		
 		if (fstates.isEmpty() || devs.isEmpty()) {
-			throw new AplException("fstate is empty : "+job.getId());
+			throw new AplException("Find no sampling states or devices : jobId="+job.getId());
 		}
 		try {
 		bufferServer.updateTasks(fstates, devs);	
@@ -616,46 +805,46 @@ public class ReliabilityApl {
 		context.setAttribute("buffer", bufferServer);
 	}
 	
-	@AplFunction(in=MessageCodeEnum.created_reliability_task)
-	public void reliability(String jobId, AplContext context) {
-		CalcJob job = calcJobBuffer.findById(jobId);
-		if (job == null) {
-			throw new AplException("Job is null : "+jobId);
-		}
-		
-		//初始化模型
-		initModel(job);
-		
-		PrBufferServer bufferServer = (PrBufferServer) context.getAttribute("buffer");
-		if (bufferServer == null) {
-			bufferServer = new PrBufferServerImpl(defaultBuffer, job);
-		}
-		
-		PRAdequacySetting setting = CalcJob.getConfig(job);
-		if (setting == null)
-			throw new AplException("Can't resolve job setting : " + jobId);
-	
-		String appName  = "GCStateEstimateServer";
-		Process p = null;
-		if (!AppUtil.isRunning(appName))
-		  p = AppUtil.execute(properties.getAppDir()+"/"+appName);
-		
-		try {
-			
-			//充裕度评估
-			ReliabilityProxyServer server = new ReliabilityProxyServerImpl(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
-			server.exec();
-			bufferServer.flushResult();
-		} finally {
-			if (p != null)
-			   p.destroy();
-		}
-
-
-		reliabilityIndex(jobId, bufferServer);
-		
-		
-		
-	}
+//	@AplFunction(in=MessageCodeEnum.created_reliability_task)
+//	public void reliability(String jobId, AplContext context) {
+//		CalcJob job = calcJobBuffer.findById(jobId);
+//		if (job == null) {
+//			throw new AplException("Job is null : "+jobId);
+//		}
+//		
+//		//初始化模型
+//		initModel(job);
+//		
+//		PrBufferServer bufferServer = (PrBufferServer) context.getAttribute("buffer");
+//		if (bufferServer == null) {
+//			bufferServer = new PrBufferServerImpl(defaultBuffer, job);
+//		}
+//		
+//		PRAdequacySetting setting = CalcJob.getConfig(job);
+//		if (setting == null)
+//			throw new AplException("Can't resolve job setting : " + jobId);
+//	
+//		String appName  = "GCStateEstimateServer";
+//		Process p = null;
+//		if (!AppUtil.isRunning(appName))
+//		  p = AppUtil.execute(properties.getAppDir()+"/"+appName);
+//		
+//		try {
+//			
+//			//充裕度评估
+//			ReliabilityProxyServer server = new ReliabilityProxyServerImpl(properties, jobId, bufferServer.getTaskList(), bufferServer, setting);		
+//			server.exec();
+//			bufferServer.flushResult();
+//		} finally {
+//			if (p != null)
+//			   p.destroy();
+//		}
+//
+//
+//		reliabilityIndex(jobId, bufferServer);
+//		
+//		
+//		
+//	}
 	
 }

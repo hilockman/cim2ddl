@@ -4,15 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
-import com.znd.ads.mapper.NodeMapper;
-import com.znd.ads.model.po.AdsNode;
 import com.znd.ads.service.NodeService;
-import com.znd.bus.buffer.Buffer;
 import com.znd.bus.common.buffer.AdsNodeInfoBuffer;
 import com.znd.bus.common.model.AdsNodeInfo;
 @Service
+@DependsOn("defaultBufferConfig")
 public class NodeServiceImpl implements NodeService {
 //	@Autowired
 //	NodeMapper mapper;
@@ -21,12 +20,12 @@ public class NodeServiceImpl implements NodeService {
 //	private Buffer defaultBuffer;
 	
 	@Autowired
-	AdsNodeInfoBuffer adsNodeMapper;
+	AdsNodeInfoBuffer adsNodeInfoBuffer;
 	
 	@Override
 	public List getAll() {
 
-		List<AdsNodeInfo> nodes1 = adsNodeMapper.findAll();
+		List<AdsNodeInfo> nodes1 = adsNodeInfoBuffer.findAll();
 		if (nodes1 == null)
 			return null;
 		
@@ -35,7 +34,7 @@ public class NodeServiceImpl implements NodeService {
 			for (AdsNodeInfo node1 : nodes1) {
 				long elapsed = 0;
 				elapsed = new Date().getTime() - node1.getLastUpdate().getTime();
-				node1.setStatus(elapsed < 5000 ? 1: 0);
+				node1.setStatus((elapsed < 1000 * 30) ? 1: 0);
 		   };
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,7 +82,7 @@ public class NodeServiceImpl implements NodeService {
 	@Override
 	public AdsNodeInfo getByName(String name) {
 //		return adsNodeMapper.getByName(name);
-		return adsNodeMapper.getNodeByName(name);
+		return adsNodeInfoBuffer.getNodeByName(name);
 	}
 	
 
@@ -95,7 +94,7 @@ public class NodeServiceImpl implements NodeService {
 	@Override
 	public AdsNodeInfo getByUrl(String url) {
 //		return mapper.getByUrl(url);
-		return adsNodeMapper.getNodeByUrl(url);
+		return adsNodeInfoBuffer.getNodeByUrl(url);
 	}
 
 //	@Override
@@ -106,7 +105,7 @@ public class NodeServiceImpl implements NodeService {
 	@Override
 	public AdsNodeInfo getById(String nodeId) {
 //		return mapper.getById(nodeId);
-		return adsNodeMapper.findById(nodeId);
+		return adsNodeInfoBuffer.findById(nodeId);
 	}
 
 //	@Override

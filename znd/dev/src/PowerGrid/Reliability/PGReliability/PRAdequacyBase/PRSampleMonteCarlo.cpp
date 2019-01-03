@@ -559,7 +559,7 @@ namespace	PRAdequacyBase
 				return;
 			}
 
-			Log(g_lpszLogFile, "        Random=%f  当前状态=%d[%f]    ", fRandom, nMState, pPRBlock->m_GeneratorArray[nComp].fMSPout);
+			//Log(g_lpszLogFile, "        Random=%f  当前状态=%d[%f]    ", fRandom, nMState, pPRBlock->m_GeneratorArray[nComp].fMSPout);
 
 			//////////////////////////////////////////////////////////////////////////
 			//	得到离去率
@@ -570,10 +570,10 @@ namespace	PRAdequacyBase
 					continue;
 
 				fBuffer=pfFreq[nMState*pPRBlock->m_DevMStateArray[nDevMState].nStateNum+i]/fDiagDep;
-				Log(g_lpszLogFile, "%d[%f %f] ", i, fDRate, fDRate+fBuffer);
+				//Log(g_lpszLogFile, "%d[%f %f] ", i, fDRate, fDRate+fBuffer);
 				fDRate += fBuffer;
 			}
-			Log(g_lpszLogFile, "\n");
+			//Log(g_lpszLogFile, "\n");
 			//	调试输出
 			//////////////////////////////////////////////////////////////////////////
 

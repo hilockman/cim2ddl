@@ -59,7 +59,7 @@ public class MapperMethod {
 	}
 	
 	//static Integer n = new Integer(0);
-	public MapperMethod(Class<?> mapperInterface, Method method, TypeHandlerRegistry typeHandlerRegistry, String tableName) {
+	public MapperMethod(Class<?> mapperInterface, Method method, TypeHandlerRegistry typeHandlerRegistry, String tableName) throws BindingException {
 		this.typeHandlerRegistry = typeHandlerRegistry;
 		methodType = getMethodType(method.getName());
 		if (methodType == null) {
@@ -98,7 +98,7 @@ public class MapperMethod {
 		}
 					
 	}
-	  private Object rowCountResult(int rowCount) {
+	  private Object rowCountResult(int rowCount) throws BindingException {
 		    final Object result;
 		    if (returnsVoid) {
 		      result = null;
@@ -140,7 +140,7 @@ public class MapperMethod {
       
       }
 	    
-	public Object execute(Buffer buffer, Object[] args) {
+	public Object execute(Buffer buffer, Object[] args) throws BindingException {
 		
 		Object result;
 		switch (methodType) {

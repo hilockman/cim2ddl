@@ -2,8 +2,8 @@
 0,ResourceID,资源ID,STRING,64
 1,Name,名称,STRING,64
 2,Model,规格,STRING,64
-3,Length,长度(KM),DOUBLE,4
-4,ei_UnitInvest,单位投资费用(万元/km),DOUBLE,4
+3,Length,长度(千米),DOUBLE,4
+4,ei_UnitInvest,单位投资费用(万元/千米),DOUBLE,4
 5,BuildDate,建造日期(年月日),INTEGER,4
 6,ReBuildDate,改造日期(年月日),INTEGER,4
 7,OutageDate,停运日期(年月日),INTEGER,4

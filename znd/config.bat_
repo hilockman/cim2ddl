@@ -1,0 +1,7 @@
+SET "TempDir=."
+CALL :normalise "%TempDir%"
+ECHO %TempDir%
+
+:normalise
+SET "TempDir=%~f1"
+GOTO :EOF

@@ -1,9 +1,9 @@
 tcptest:
-      serverIp: 192.168.1.33
+      serverIp: 127.0.0.1
       serverPort: 8950
       serverWorkers: 1
       serverTimeOut: 900000000
-      hostIp: 192.168.1.70
+      hostIp: 127.0.0.1
       hostPort: 9002
 logging:
   file: log/ei-ads-server.log
@@ -11,6 +11,7 @@ logging:
      interfaceLogger: OFF
      org.redisson: OFF
      com.znd.bus.buffer.BufferContext: DEBUG
+     com.znd.bus.binding.VFS : DEBUG
         
 server:
   session-timeout : 3600
@@ -23,7 +24,7 @@ model:
 #数据库连接配置
 spring:
   datasource:
-    url: jdbc:mysql://192.168.1.70:3306/ads?characterEncoding=utf-8&amp;serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/ads?characterEncoding=utf-8&amp;serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver  

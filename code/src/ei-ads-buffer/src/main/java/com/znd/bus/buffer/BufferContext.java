@@ -3,13 +3,18 @@ package com.znd.bus.buffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
+import org.redisson.api.RBlockingQueue;
+import org.redisson.api.RTopic;
+import org.redisson.api.RedissonClient;
+import org.redisson.api.listener.MessageListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ZhongND.RedisDataBus.ServiceFactory;
 import com.ZhongND.RedisDataBus.Api.DFService;
-import com.ZhongND.RedisDataBus.Api.MessageCallBack;
 import com.ZhongND.RedisDataBus.Api.RBufferBuilder;
 import com.ZhongND.RedisDataBus.Api.RBufferOperation;
 import com.ZhongND.RedisDataBus.Api.RMemDBApi;
@@ -20,7 +25,6 @@ import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Enum.MessageChannel;
 import com.ZhongND.RedisDataBus.Enum.RedisTableColumnType;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
-import com.ZhongND.RedisDataBus.Object.MessageContent;
 import com.ZhongND.RedisDataBus.Object.RedisColumnContent;
 import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.ChannelConfig;
@@ -35,7 +39,8 @@ import com.znd.bus.config.TableMeta;
 import com.znd.bus.exception.BindingException;
 import com.znd.bus.exception.BufferException;
 import com.znd.bus.exception.MessageException;
-import com.znd.bus.util.TimeCount;
+import com.znd.bus.server.Topic;
+import com.znd.ei.Utils;
 
 
 public  class BufferContext {
@@ -49,14 +54,18 @@ public  class BufferContext {
 	private final RMemDBBuilder memDBBuilder;
 	private RBufferOperation bufferOperation;
 	private final RPubSubManager pubSubManager;
+	private final RedissonClient redisson;
+	
+	private final ExecutorService pool = Utils.threadPool();
 	
 	
-	public BufferContext(String name, DFService service, RMemDBApi memDBApi, RMemDBBuilder memDBBuilder,  RPubSubManager pubSubManager) {
+	public BufferContext(String name, DFService service, RMemDBApi memDBApi, RMemDBBuilder memDBBuilder,  RPubSubManager pubSubManager, RedissonClient redisson) {
 		this.name = name;
 		this.service = service;
 		this.memDBApi = memDBApi;
 		this.memDBBuilder = memDBBuilder;
 		this.pubSubManager = pubSubManager;
+		this.redisson = redisson;
 	}
 	
 //	public static class Connection {
@@ -89,9 +98,11 @@ public  class BufferContext {
 		//private final BufferConfig config;
 		private final String appName;
 		private final String name;
+		private final RedissonClient redisson;
 		public Builder(BufferConfig config) {
 			this.appName = config.getAppName();
 			this.name = config.getName();
+			this.redisson = config.getRedissonClient();
 			//this.config = config;
 
 		}
@@ -99,8 +110,7 @@ public  class BufferContext {
 		public Builder(String appName, String name) {
 			this.appName = appName;
 			this.name = name;
-			//this.config = config;
-
+			this.redisson = null;
 		}
 		
 		public BufferContext build() {					
@@ -114,7 +124,7 @@ public  class BufferContext {
 				RMemDBBuilder memDBBuilder = memDBApi
 						.getRMemDBBuilder(name);	
 				
-				context = new BufferContext(name, service, memDBApi, memDBBuilder, memDBApi.getPubSubManager());									
+				context = new BufferContext(name, service, memDBApi, memDBBuilder, memDBApi.getPubSubManager(),redisson);									
 			} catch (Throwable e) {
 				throw new BufferConfigException(e.getMessage()+", name = "+name, e);
 			}
@@ -125,7 +135,7 @@ public  class BufferContext {
 		
 	}
 	
-	public void initOperation()
+	public void initOperation() throws BufferException
 	{
 		if (bufferOperation != null)
 			return;
@@ -141,8 +151,9 @@ public  class BufferContext {
 	
 	/**
 	 * check buffer is available or not.
+	 * @throws BufferException 
 	 */
-	public boolean checkAvailable() {
+	public boolean checkAvailable() throws BufferException {
 		try {
 			return memDBBuilder.checkAvailability();			
 		} catch (RedissonDBException e) {
@@ -162,7 +173,7 @@ public  class BufferContext {
 		return memDBBuilder;
 	}
 	
-	public List<String> getAllTableNames() {
+	public List<String> getAllTableNames() throws BindingException {
 		try {
 			return bufferOperation.getTableNameArray();
 		} catch (RedissonDBException e) {
@@ -172,7 +183,7 @@ public  class BufferContext {
 					
 	}
 	
-	public List<TableMeta> getTableMetas() {
+	public List<TableMeta> getTableMetas() throws BindingException {
 		List<TableMeta> tables = new ArrayList<>();
 		try {
 			List<String> tableNames = bufferOperation.getTableNameArray();
@@ -209,7 +220,7 @@ public  class BufferContext {
 		return tables;		
 	}
 	
-	public void updateTableMeta(TableMeta tableMeta)
+	public void updateTableMeta(TableMeta tableMeta) throws BindingException
 	{
 		try {			
 			String tableName = tableMeta.getName();
@@ -283,9 +294,10 @@ public  class BufferContext {
 	 * 判断buffer定义师傅有变化
 	 * @param config
 	 * @return
+	 * @throws BindingException 
 	 */
 	
-	public boolean isBufferDefineChanged(BufferConfig config) {
+	public boolean isBufferDefineChanged(BufferConfig config) throws BindingException {
 		//List<TableMeta> changedTables = new ArrayList<>();
 		List<String> tableNames;
 		//try {
@@ -385,7 +397,7 @@ public  class BufferContext {
 		logger.info("Buffer destoryed : {}", key);			
 	}
 
-	public void makeBuffer(List<TableMeta> tableMetas) throws RedissonDBException {
+	public void makeBuffer(List<TableMeta> tableMetas) throws RedissonDBException, BufferException {
 		
 		// 创建buffer
 		RBufferBuilder bufferBuilder = memDBBuilder.getBufferBuilder();
@@ -412,7 +424,7 @@ public  class BufferContext {
 	}
 
 	public void makeTable(RBufferBuilder bufferBuilder, TableMeta tableDefine)
-			throws RedissonDBException {
+			throws RedissonDBException, BufferException {
 		if (bufferBuilder.checkIsExists(tableDefine.getName()))
 			return;	
 		
@@ -448,7 +460,7 @@ public  class BufferContext {
 
 		@Override
 		public void send(ChannelMessage message) {			
-			sendMessage(delegate.getName(), message);
+			sendMessage(delegate.getTopic(), message);
 		}
 
 		@Override
@@ -460,33 +472,61 @@ public  class BufferContext {
 		public void receive(ChannelMessage e) {
 			delegate.receive(e);
 		}
-
+		
 		@Override
 		public void close() {
 			
-			MessageChannel channel = MessageChannel.OTHERCHANNEL;
-			synchronized (channel) {
-				  try {
-					channel.setStrChannel(getName());
-					new TimeCount.Builder()
-					.name("unsubscribe channel '%s'", getName())
-					.logger(logger).runnable(()->{
-							try {
-								pubSubManager.unSubscribeMessage(channel);
-							} catch (Exception e) {
-								throw new BufferException(e);
-							}
-						}
-					).build().exec();
-			
-				} catch (Exception e) {
-					throw new BufferException(e);
-				}
-				  				
-			}
+//			MessageChannel channel = MessageChannel.OTHERCHANNEL;
+//			synchronized (channel) {
+//				  try {
+//					channel.setStrChannel(getName());
+//					new TimeCount.Builder()
+//					.name("unsubscribe channel '%s'", getName())
+//					.logger(logger).runnable(()->{
+//							try {
+//								pubSubManager.unSubscribeMessage(channel);
+//							} catch (Exception e) {
+//								throw new BufferException(e);
+//							}
+//						}
+//					).build().exec();
+//			
+//				} catch (Exception e) {
+//					throw new BufferException(e);
+//				}
+//				  				
+//			}
 			
 			delegate.close();
 		}
+		
+
+//		@Override
+//		public void close() {
+//			
+//			MessageChannel channel = MessageChannel.OTHERCHANNEL;
+//			synchronized (channel) {
+//				  try {
+//					channel.setStrChannel(getName());
+//					new TimeCount.Builder()
+//					.name("unsubscribe channel '%s'", getName())
+//					.logger(logger).runnable(()->{
+//							try {
+//								pubSubManager.unSubscribeMessage(channel);
+//							} catch (Exception e) {
+//								throw new BufferException(e);
+//							}
+//						}
+//					).build().exec();
+//			
+//				} catch (Exception e) {
+//					throw new BufferException(e);
+//				}
+//				  				
+//			}
+//			
+//			delegate.close();
+//		}
 
 		@Override
 		public ChannelType getType() {
@@ -497,6 +537,12 @@ public  class BufferContext {
 		public String getName() {
 			return delegate.getName();
 		}
+
+		@Override
+		public Topic getTopic() {
+			// TODO Auto-generated method stub
+			return delegate.getTopic();
+		}
 		
 	}
 	
@@ -504,7 +550,52 @@ public  class BufferContext {
 		return new ChannelWrapper(new DefaultChannel(name, type));
 	}
 	
-	public Channel registChannel(ChannelConfig channelConfig) {		
+//	public Channel registChannel(ChannelConfig channelConfig) {		
+//		MessageChannel channel = MessageChannel.OTHERCHANNEL;
+//		synchronized (channel) {
+//			try {
+//				String name = channelConfig.getName();
+//			    ChannelType type = channelConfig.getType();
+//				channel.setStrChannel(name);
+//				
+//				final Channel bufferChannel = createChannelWrapper(name, type);
+//				
+//				if (type != ChannelType.SendOnly) {
+//					pubSubManager.subscribeMessage(new MessageCallBack() {
+//						
+//						@Override
+//						public void CallBack(int number, MessageContent messageContent) {
+//							ChannelMessage event = new ChannelMessage(messageContent.getControlCode(), messageContent.getEventContent());
+//							logger.debug("Receive message : number={}, content={}",number, event);
+//							bufferChannel.receive(event);
+//						}
+//					}, channel, (type == ChannelType.Share ? true : false));
+//					
+//					logger.info("subscribe message : channel = {}, channelType= {}", channel, type);
+//				}
+//				return bufferChannel;
+//			} catch (Exception e) {
+//				throw new MessageException(e);
+//			}
+//		}
+//	}
+//	
+//	public void sendMessage(String channelName, ChannelMessage message) {
+//		MessageChannel channel = MessageChannel.OTHERCHANNEL;
+//		synchronized (channel) {
+//			try {
+//				channel.setStrChannel(channelName);
+//				pubSubManager.publishMessage(channel, message.getCode(), message.getContent());
+//				logger.debug("Send message '{}', by channel : {} ", message, channelName);
+//			} catch (Exception e) {
+//				throw new MessageException(e);
+//			}			
+//		}
+//
+//	}
+	
+	
+	public Channel registChannel(ChannelConfig channelConfig) throws MessageException {		
 		MessageChannel channel = MessageChannel.OTHERCHANNEL;
 		synchronized (channel) {
 			try {
@@ -514,17 +605,74 @@ public  class BufferContext {
 				
 				final Channel bufferChannel = createChannelWrapper(name, type);
 				
-				if (type != ChannelType.SendOnly) {
-					pubSubManager.subscribeMessage(new MessageCallBack() {
+				
+						switch(type) {
+						   case Share: {
+							   
+							   RBlockingQueue<ChannelMessage> queue = redisson.getBlockingQueue(name);
+							   pool.execute(new Runnable() {
+									
+									@Override
+									public void run() {
+									   while(true) {
+										   ChannelMessage message = null;
+											try {
+												message = queue.poll(10, TimeUnit.MINUTES);
+											} catch (InterruptedException e) {
+												e.printStackTrace();
+												break;
+											}
+											
+											if (message == null) {
+												try {
+													Thread.sleep(10);
+												} catch (InterruptedException e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
+												continue;
+											}
+										   
+											 
+										    logger.debug("Receive {} message : content={}", type, message);
+										    final ChannelMessage msg = message;
+											pool.execute(new Runnable() {
+												
+												@Override
+												public void run() {
+													bufferChannel.receive(msg);
+												}
+											});
+											continue;
+										   
+									   }
+									} 
+								});
+						   } break;
+							case StandAlone: {
+								RTopic<ChannelMessage> topic =  redisson.getTopic(name);
+								topic.addListener(new MessageListener<ChannelMessage>() {
+								    @Override
+								    public void onMessage(String channel, ChannelMessage message) {
+										logger.debug("Receive {} message : content={}", message);
+										pool.execute(new Runnable() {
+											
+											@Override
+											public void run() {
+												bufferChannel.receive(message);
+											}
+										});
+								    	
+								    }
+								});
+							} break;
+							default:
+							break;
 						
-						@Override
-						public void CallBack(int number, MessageContent messageContent) {
-							ChannelMessage event = new ChannelMessage(messageContent.getControlCode(), messageContent.getEventContent());
-							logger.debug("Receive message : number={}, content={}",number, event);
-							bufferChannel.receive(event);
-						}
-					}, channel, (type == ChannelType.Share ? true : false));
-				}
+						
+					}
+	
+				logger.info("subscribe message : channel = {}, channelType= {}", channel, type);				
 				return bufferChannel;
 			} catch (Exception e) {
 				throw new MessageException(e);
@@ -532,19 +680,35 @@ public  class BufferContext {
 		}
 	}
 	
-	public void sendMessage(String channelName, ChannelMessage message) {
-		MessageChannel channel = MessageChannel.OTHERCHANNEL;
-		synchronized (channel) {
-			try {
-				channel.setStrChannel(channelName);
-				pubSubManager.publishMessage(channel, message.getCode(), message.getContent());
-				logger.debug("Send message '{}', by channel : {} ", message, channelName);
-			} catch (Exception e) {
-				throw new MessageException(e);
-			}			
-		}
+	public void sendMessage(Topic topic, ChannelMessage message) {
+
+			switch (Topic.type(topic.getVerb())) {
+			case Request:
+			case Tansaction:
+			{
+				RBlockingQueue<ChannelMessage> queue = redisson.getBlockingQueue(topic.getName());
+				queue.offer(message);
+				
+			}
+			break;
+			case Event:
+			case Response:
+			{
+				RTopic<ChannelMessage> t = redisson.getTopic(topic.getName());
+				t.publish(message);				
+			}
+			break;
+			default:
+				logger.error("Unknow topic verb type : {} ", topic.getVerb());
+				return;
+			}
+
+			
+			logger.debug("Send message '{}', by channel : {} ", message, topic.getName());
+
 
 	}
+
 
 
 }

@@ -5,6 +5,7 @@
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
+	extern	CBpaMemDBInterface	g_BpaMemDBInterface;
 
 	const	static	float	g_fFltStartTime=1;
 	const	static	float	g_fFltEraseTime=5;
@@ -103,7 +104,7 @@ namespace	PRAdequacyBase
 		case MDB_FLOAT:
 			if (fabs(atof(lpszValue)) > 0.00000001)
 			{
-				FormularBpaDecimalChar(lpszValue, nLen);
+				g_BpaMemDBInterface.BpaFormatDecimalChar(-1, -1, lpszValue, nLen, 0);
 				for (i=0; i<nLen; i++)
 				{
 					if (lpszValue[i] == ' ' || lpszValue[i] == '\t' || lpszValue[i] == '\n' || lpszValue[i] == '\r' || lpszValue[i] == '\0')
@@ -534,7 +535,7 @@ namespace	PRAdequacyBase
 				else
 					sprintf(szValue, "%f", fEndDT);
 
-				FormularBpaDecimalChar(szValue, 5);
+				g_BpaMemDBInterface.BpaFormatDecimalChar(-1, -1, szValue, 5, 0);
 				strLineArray[nLine][12]=' ';
 				strLineArray[nLine][13]=' ';
 				strLineArray[nLine][14]=' ';

@@ -1,8 +1,9 @@
 package com.znd.reliability.server;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import com.znd.bus.task.TaskQueue;
+import com.znd.bus.task.AQueue;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
@@ -19,11 +20,19 @@ public interface PrBufferServer {
 	void updateTasks(List<FState> fstates, List<FStateFDev> devs);
 
 	void saveResult(ResponseEstimate result);
+	
+	int getResultSize();
 
 	/**
 	 * 存入所有结果
+	 * @param semophore 
 	 */
 	void flushResult();
+	
+    /**
+     * 等待所有结果上传完成
+     */
+    void waitForFinished(long waitTime, TimeUnit unit) throws InterruptedException;
 	
 	List<FStateOvlDev> getAllOvlDevs();
 
@@ -33,9 +42,12 @@ public interface PrBufferServer {
 
 	List<FStateMIsland> getIslands();
 	
-	TaskQueue<RequestEstimate> getTaskList();
+	AQueue<RequestEstimate> getTaskList();
+	
 
 	void saveSystems(List<System> systems);
 	
-	
+//    RSemaphore getResultSemaphore();
+    
+
 }

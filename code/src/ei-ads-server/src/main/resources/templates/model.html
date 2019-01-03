@@ -5,70 +5,21 @@
    <div th:replace="fragments/header :: header-css" /></div>
   
    <style>
-      #tree {
-      	height: 100%;
-      	border:1px solid gray; 
-        overflow-x:hidden;
-        overflow-y:scroll;
+
+      #table-nav {
+      	height:100%;
       }
-      
-      #tree > ul {
-        border: none
-      }
-   	  nav#table-nav {
-   	  	//float:left;
-   	  	position:fixed;
-   	  	top: 50px;
-		margin: 0;
-		padding: 0;
-		border: 0;
-		width: 250px;
-		background: transparent;
-		overflow: auto;
-		height : 100%;
-   	  }
+
    	  
-	li span.selected{
-	   //border: 1px solid #888;
-	   background-color: #4CAF50;
-	}
-      #db ul {
-        height : 100%;
-      }
-	    
-	  div.container-fluid {
-	  	margin-top : 50px;
-	  } 	  
-	  div.container-fluid {
-	  	margin-left: 255px;
-	  }
-   	  div#page-wrapper {
-   	  	//float: left;
-		//margin: 0;
-			
-		padding: 0;
-		border: 0;
-		width: 100%;
-		background: transparent;
-   	  }
-   	  
-   	  
-   	  ul.dbcategory {
-   	  	margin:0 0 0 15px;
-   	  	padding:0;
-   	  }
-   	  
-   	  li.nav-expand-btn {
-   	  	float: right;
-   	  }
+   	 #page-wrapper textarea {
+   	 	width:100%;
+   	 	height:100%;
+   	 }
    	  
  
    </style>
    
-  <link th:href="@{/fancytree/2.28.1/skin-awesome/ui.fancytree.css}" href="../../fancytree/2.28.1/skin-awesome/ui.fancytree.css" rel="stylesheet"  class="skinswitcher">
-  <script th:src="@{/fancytree/2.28.1/jquery.fancytree-all-deps.min.js}"></script>
- <script th:src="@{/fancytree/2.28.1/modules/jquery.fancytree.glyph.js}"></script>   
-   
+
    <script type="text/javascript">
 
   function logEvent(event, data, msg){
@@ -80,74 +31,83 @@
 
 	      items = modelApi.getAll();
           dataMap = {};
-          dataItems = [];
           allData = items.map(function (item) 
         		  {
-        	  		 data = {title:item.name, key:item.id, parent:item.parentId};
-        	  		 if (item.parentId == null) {
-        	  			dataMap[item.id] = data;
-        	  			dataItems.push(data);
-        	  			data.children = [];
-        	  			data["folder"] = true;
-         	         }
+
+        	  		dataMap[item.id] = item;
+        	  		item.children = [];
+        	  		item.childCount = 0;
          	        
-        	        return data;
+        	        return item;
         		  }
    
           );
           
+          var rootItems = [];
           
           allData.forEach(function (data) {
-        	  if (data.parent != null) {
-        		  dataMap[data.parent].children.push(data);
+        	  if (data.parentId != null) {
+        		  let p = dataMap[data.parentId];
+        		  p.children.push(data);
+        		  p.childCount++;
+        	  } else {
+        		  rootItems.push(data);
         	  }
           } );
           
           
-	      $("#tree").fancytree({
-	          extensions: ["glyph"],
-	          selectMode: 3,
-	          glyph: {
-	            preset: "awesome4",
-	            map: {}
-	          },
-	        // source: {url: "/model/all", debugDelay: 1000},
-	        source : dataItems,
-	        createNode: function(event, data) {
-	            // Optionally tweak data.node.span or bind handlers here
-	            //logEvent(event, data);
-	            data.node.setExpanded();
-	          },
-	      });
-	      
-	      $("#tree").fancytree("getTree").visit(function(node){
-	          node.setExpanded();
-	        });
-	      
-	      // Note: Loading and initialization may be asynchronous, so the nodes may not be accessible yet.
+         buildTree($("#tree ul"), rootItems, rootItems[0].children[0],function click(span){
+        	 var li = span.parent('li');
+			 var folder = li.attr("parent");
+			 var file = li.attr("id");
+
+			   
+             loadFile(folder, file);
+        });
+          
+
 	    });
+   
+   
+      function loadFile(folder, file) {    	  
+    	  
+    	  var content = modelApi.getFile(folder, file);
+    	  console.log(content);
+    	  $("#file-content").html(content.value);
+      }
 	</script>
 </head>
 <body>
  <div  th:replace="fragments/header :: header"></div>
- <nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">		
-  <div  id="tree">
-   <ul>
-   </ul>
-  </div>	    
- </nav>
+
  	    
  <div class="container-fluid">  
-    <div id="page-wrapper">
-	        <table id="table" class="table">
-     	
-	        </table>
+     
+     <div class="row content-row">
+        <div class="col-xs-2 content-row-left" >
+        	<nav id="table-nav" class="navbar-default navbar-static-side" role="navigation">		
+			  <div  id="tree" class="tree well">
+			   <ul>
+			   </ul>
+			  </div>	    
+			</nav>
+        </div>
 
-    </div> 	
-   	<div th:replace="fragments/footer :: footer"></div>
+	 
+	    <div id="page-wrapper" class="col-xs-10 content-row-right">
+			
+				<textarea id="file-content" rows="" cols="">
+					test
+				</textarea>
+	
+	    </div> 
+         
+     </div>
+	<div th:replace="fragments/footer :: footer"></div>
+  
 </div>
 
-
+ 	
 </body>
 
 </html>

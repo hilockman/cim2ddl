@@ -5,4 +5,8 @@
 3,P_LoadQFactor,负荷无功修改因子,DOUBLE,4
 4,P_GenPFactor,发电出力有功修改因子,DOUBLE,4
 5,P_GenQFactor,发电出力无功修改因子,DOUBLE,4
-6,P_Status,状态,INTEGER,1
+6,P_IniLoadPFactor,Ini负荷有功修改因子,DOUBLE,4
+7,P_IniLoadQFactor,Ini负荷无功修改因子,DOUBLE,4
+8,P_IniGenPFactor,Ini发电出力有功修改因子,DOUBLE,4
+9,P_IniGenQFactor,Ini发电出力无功修改因子,DOUBLE,4
+10,P_Status,状态,INTEGER,1

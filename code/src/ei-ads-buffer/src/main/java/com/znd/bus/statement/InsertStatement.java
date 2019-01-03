@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.znd.bus.exception.ExecutionException;
+import com.znd.bus.exception.StatementException;
+
 public class InsertStatement implements Statement {
 
 	private final Map<String, List<String>> indexRecords = new HashMap<>();
@@ -25,7 +28,7 @@ public class InsertStatement implements Statement {
 
 	@Override
 	public void set(String key, String value) {
-		throw new StatementException("Not support set by key : "+key);
+		records.get(index)[columnIndexMap.get(key)] = value;
 	}
 
 
@@ -63,7 +66,7 @@ public class InsertStatement implements Statement {
 		return records.size();
 	}
 
-	public void update(int i, RowUpdateHandler h) {
+	public void update(int i, RowUpdateHandler h) throws StatementException, ExecutionException {
 		Map<Short, String> columns = new HashMap<>();
 		Map<String, String> conditions = new HashMap<>();
 		String[] record = records.get(i);

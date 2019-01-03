@@ -9,3 +9,4 @@
 7,ZIL_X,电抗(pu),DOUBLE,4
 8,ZIL_MBus,合并母线名称,STRING,10
 9,ZIL_MkV,合并基准电压(kV),DOUBLE,4
+10,KeyName,小支路名称,STRING,32

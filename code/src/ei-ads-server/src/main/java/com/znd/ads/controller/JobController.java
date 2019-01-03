@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.znd.ads.model.AdsResult;
@@ -50,17 +51,20 @@ public class JobController {
 		
 		return "/job/pradequacy";
 	}
+    
+    @GetMapping("/result")
+	public @ResponseBody Object result(@RequestParam(value="id") String id) {			
+		return jobService.getResult(id);
+	}
 	
     @GetMapping("/all")
     public @ResponseBody List<CalcJob> getAll() {
     	return jobService.getAll();
     }
     
-    @GetMapping("/browse/{jobId}")
-    public String browse(@PathVariable String jobId, Model m) {
-    	CalcJob job = jobService.findJob(jobId);
-    	m.addAttribute("job", job);
-    	return "/job/browse";
+    @GetMapping("/{jobId}")
+    public @ResponseBody CalcJob browse(@PathVariable String jobId, Model m) {
+    	return jobService.findJob(jobId);
     }
     
     @PostMapping("delete/{jobId}")
@@ -108,4 +112,6 @@ public class JobController {
 		}
     }
 
+    
+    
 }

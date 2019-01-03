@@ -50,7 +50,8 @@
 		<target.dir>../../lib</target.dir>
 		<config.dir>../../config</config.dir>
 		<znd.groupId>com.ZhongND</znd.groupId>
-		<znd.version>3.2</znd.version>		
+		<znd.version>3.2</znd.version>	
+		<znd-memdb.version>4.0</znd-memdb.version>	
 	</properties>
 
 	<dependencyManagement>

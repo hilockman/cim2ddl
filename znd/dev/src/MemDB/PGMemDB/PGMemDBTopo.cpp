@@ -37,7 +37,7 @@ namespace PGMemDB
 					if (uProcArray[nNode])
 						continue;
 
-					PGTraverseTopo(pPGBlock, nNode, bCheckStatus, bCheckStatus, N_BusBound, N_BreakerBound, nNodeNum, nNodeArray);
+					PGTraverseTopo(pPGBlock, nNode, bCheckStatus, bCheckStatus, nNodeNum, nNodeArray);
 					nBranchNum=0;
 					for (i=0; i<nNodeNum; i++)
 					{
@@ -45,7 +45,11 @@ namespace PGMemDB
 						nBranchNum += (	pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nACLineSegmentRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nACLineSegmentRange+
 							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCLineSegmentRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCLineSegmentRange+
 							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nTransformerWindingRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nTransformerWindingRange+
-							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nSeriesCompensatorRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nSeriesCompensatorRange);
+							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nSeriesCompensatorRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nSeriesCompensatorRange+
+							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nADConverterRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nADConverterRange+
+							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDDConverterRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDDConverterRange+
+							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDDConverterRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDDConverterRange+
+							pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCShortCircuitLimitRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCShortCircuitLimitRange);
 					}
 					if (nBranchNum > 0)
 					{
@@ -69,6 +73,13 @@ namespace PGMemDB
 				if (pPGBlock->m_BusbarSectionArray[i].nNode < 0)
 					continue;
 				pPGBlock->m_BusbarSectionArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_BusbarSectionArray[i].nNode].nTopoBus;
+			}
+			for (i=pPGBlock->m_VoltageLevelArray[nVolt].nDCBusbarSectionRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nDCBusbarSectionRange; i++)
+			{
+				pPGBlock->m_DCBusbarSectionArray[i].nTopoBus=-1;
+				if (pPGBlock->m_DCBusbarSectionArray[i].nNode < 0)
+					continue;
+				pPGBlock->m_DCBusbarSectionArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCBusbarSectionArray[i].nNode].nTopoBus;
 			}
 
 			for (i=pPGBlock->m_VoltageLevelArray[nVolt].nSynchronousMachineRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nSynchronousMachineRange; i++)
@@ -103,15 +114,47 @@ namespace PGMemDB
 				pPGBlock->m_GroundTransformerArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_GroundTransformerArray[i].nNode].nTopoBus;
 			}
 		}
+
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_WINDTURBINE]; i++)
+		{
+			pPGBlock->m_WindTurbineArray[i].nTopoBus=-1;
+			if (pPGBlock->m_WindTurbineArray[i].nNode < 0)
+				continue;
+			pPGBlock->m_WindTurbineArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_WindTurbineArray[i].nNode].nTopoBus;
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_PHOTOVOLTAIC]; i++)
+		{
+			pPGBlock->m_PhotoVoltaicArray[i].nTopoBus=-1;
+			if (pPGBlock->m_PhotoVoltaicArray[i].nNode < 0)
+				continue;
+			pPGBlock->m_PhotoVoltaicArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_PhotoVoltaicArray[i].nNode].nTopoBus;
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_EVSTATION]; i++)
+		{
+			pPGBlock->m_EVStationArray[i].nTopoBus=-1;
+			if (pPGBlock->m_EVStationArray[i].nNode < 0)
+				continue;
+			pPGBlock->m_EVStationArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_EVStationArray[i].nNode].nTopoBus;
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_ELECTROCHEMICALENERGYSTORAGE]; i++)
+		{
+			pPGBlock->m_ElectroChemicalEnergyStorageArray[i].nTopoBus=-1;
+			if (pPGBlock->m_ElectroChemicalEnergyStorageArray[i].nNode < 0)
+				continue;
+			pPGBlock->m_ElectroChemicalEnergyStorageArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_ElectroChemicalEnergyStorageArray[i].nNode].nTopoBus;
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_SOLARTHERMALMACHINE]; i++)
+		{
+			pPGBlock->m_SolarThermalMachineArray[i].nTopoBus=-1;
+			if (pPGBlock->m_SolarThermalMachineArray[i].nNode < 0)
+				continue;
+			pPGBlock->m_SolarThermalMachineArray[i].nTopoBus=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_SolarThermalMachineArray[i].nNode].nTopoBus;
+		}
+
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_ACLINESEGMENT]; i++)
 		{
 			pPGBlock->m_ACLineSegmentArray[i].nTopoBusI=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_ACLineSegmentArray[i].nNodeI].nTopoBus;
 			pPGBlock->m_ACLineSegmentArray[i].nTopoBusJ=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_ACLineSegmentArray[i].nNodeJ].nTopoBus;
-		}
-		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCLINESEGMENT]; i++)
-		{
-			pPGBlock->m_DCLineSegmentArray[i].nTopoBusI=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCLineSegmentArray[i].nNodeI].nTopoBus;
-			pPGBlock->m_DCLineSegmentArray[i].nTopoBusJ=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCLineSegmentArray[i].nNodeJ].nTopoBus;
 		}
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_POWERTRANSFORMER]; i++)
 		{
@@ -137,26 +180,49 @@ namespace PGMemDB
 			pPGBlock->m_SeriesCompensatorArray[i].nTopoBusI=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_SeriesCompensatorArray[i].nNodeI].nTopoBus;
 			pPGBlock->m_SeriesCompensatorArray[i].nTopoBusJ=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_SeriesCompensatorArray[i].nNodeJ].nTopoBus;
 		}
+
+
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_ACDCCONVERTER]; i++)
+		{
+			pPGBlock->m_ACDCConverterArray[i].nTopoBusAC=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_ACDCConverterArray[i].nNodeAC].nTopoBus;
+			pPGBlock->m_ACDCConverterArray[i].nTopoBusDC=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_ACDCConverterArray[i].nNodeDC].nTopoBus;
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCDCCONVERTER]; i++)
+		{
+			pPGBlock->m_DCDCConverterArray[i].nTopoBusI=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCDCConverterArray[i].nNodeI].nTopoBus;
+			pPGBlock->m_DCDCConverterArray[i].nTopoBusJ=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCDCConverterArray[i].nNodeJ].nTopoBus;
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCSHORTCIRCUITLIMIT]; i++)
+		{
+			pPGBlock->m_DCShortCircuitLimitArray[i].nTopoBusI=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCShortCircuitLimitArray[i].nNodeI].nTopoBus;
+			pPGBlock->m_DCShortCircuitLimitArray[i].nTopoBusJ=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCShortCircuitLimitArray[i].nNodeJ].nTopoBus;
+		}
+
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCLINESEGMENT]; i++)
+		{
+			pPGBlock->m_DCLineSegmentArray[i].nTopoBusI=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCLineSegmentArray[i].nNodeI].nTopoBus;
+			pPGBlock->m_DCLineSegmentArray[i].nTopoBusJ=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCLineSegmentArray[i].nNodeJ].nTopoBus;
+		}
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_RECTIFIERINVERTER]; i++)
 		{
-			pPGBlock->m_RectifierInverterArray[i].nTopBus1=-1;
-			pPGBlock->m_RectifierInverterArray[i].nTopBus2=-1;
-			pPGBlock->m_RectifierInverterArray[i].nTopBus3=-1;
+			pPGBlock->m_RectifierInverterArray[i].nTopBusAC=-1;
+			pPGBlock->m_RectifierInverterArray[i].nTopBusDCP=-1;
+			pPGBlock->m_RectifierInverterArray[i].nTopBusDCN=-1;
 
-			if (pPGBlock->m_RectifierInverterArray[i].nNode1 >= 0)
+			if (pPGBlock->m_RectifierInverterArray[i].nNodeAC >= 0)
 			{
-				if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNode1].nTopoBus > 1)
-					pPGBlock->m_RectifierInverterArray[i].nTopBus1=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNode1].nTopoBus;
+				if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNodeAC].nTopoBus > 1)
+					pPGBlock->m_RectifierInverterArray[i].nTopBusAC=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNodeAC].nTopoBus;
 			}
-			if (pPGBlock->m_RectifierInverterArray[i].nNode2 >= 0)
+			if (pPGBlock->m_RectifierInverterArray[i].nNodeDCP >= 0)
 			{
-				if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNode2].nTopoBus > 1)
-					pPGBlock->m_RectifierInverterArray[i].nTopBus2=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNode2].nTopoBus;
+				if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNodeDCP].nTopoBus > 1)
+					pPGBlock->m_RectifierInverterArray[i].nTopBusDCP=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNodeDCP].nTopoBus;
 			}
-			if (pPGBlock->m_RectifierInverterArray[i].nNode3 >= 0)
+			if (pPGBlock->m_RectifierInverterArray[i].nNodeDCN >= 0)
 			{
-				if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNode3].nTopoBus > 1)
-					pPGBlock->m_RectifierInverterArray[i].nTopBus3=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNode3].nTopoBus;
+				if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNodeDCN].nTopoBus > 1)
+					pPGBlock->m_RectifierInverterArray[i].nTopBusDCN=pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_RectifierInverterArray[i].nNodeDCN].nTopoBus;
 			}
 		}
 	}

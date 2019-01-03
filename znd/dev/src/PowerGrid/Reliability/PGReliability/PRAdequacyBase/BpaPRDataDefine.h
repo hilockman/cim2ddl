@@ -65,7 +65,7 @@ namespace	PRAdequacyBase
 		pthread_t		nParentThreadID;
 #endif
 
-		unsigned char	bMultiThread;
+		unsigned char	nMultiThread;
 		double			fAC2DCFactor;
 		double			fMinGLRatio;
 		unsigned char	bLineEOvl;

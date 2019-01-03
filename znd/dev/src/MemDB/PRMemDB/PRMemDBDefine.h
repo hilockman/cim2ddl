@@ -322,6 +322,7 @@ enum	_PREnum_Field_ACBus_	{
 	PR_ACBUS_IMIN,
 	PR_ACBUS_RERRMAX,
 	PR_ACBUS_RERRMIN,
+	PR_ACBUS_FAULTFREQ,
 	PR_ACBUS_RTV,
 	PR_ACBUS_PFD,
 	PR_ACBUS_PLC,
@@ -353,6 +354,7 @@ enum	_PREnum_Field_ACBus_	{
 	PR_ACBUS_LOADMSTATE,
 	PR_ACBUS_DCBUS,
 	PR_ACBUS_RPARAMTYPE,
+	PR_ACBUS_OUTAGE,
 };
 struct	_PR_ACBus_	{
 	char	szName[MDB_CHARLEN_SHORT];
@@ -380,6 +382,8 @@ struct	_PR_ACBus_	{
 	double	fIMin;
 	double	fRerrMax;
 	double	fRerrMin;
+
+	int		nFaultFreq;
 
 	double	fRtV;
 	double	fPfD;
@@ -413,6 +417,8 @@ struct	_PR_ACBus_	{
 	unsigned char	bLoadMState;
 	unsigned char	bDCBus;
 	unsigned char	nRParamType;
+
+	unsigned char	bOutage;
 }	DISALIGN;
 typedef	struct	_PR_ACBus_	tagPRACBus;
 
@@ -468,8 +474,8 @@ enum	_PREnum_Field_ACLine_	{
 	PR_ACLINE_RADJPTR,
 	PR_ACLINE_SERIALNO,
 	PR_ACLINE_ISLAND,
-	PR_ACLINE_OUTAGE,
 	PR_ACLINE_RPARAMTYPE,
+	PR_ACLINE_OUTAGE,
 	PR_ACLINE_TRMISLAND,
 	PR_ACLINE_TRFACTORNUM,
 
@@ -535,8 +541,8 @@ struct	_PR_ACLine_	{
 	short	nZRadial;
 	int		nIndex;
 	short	nIsland;
-	unsigned char	bOutage;
 	unsigned char	nRParamType;
+	unsigned char	bOutage;
 	unsigned char	bTrMIsland;
 	int		nTrFactorNum;
 
@@ -596,8 +602,8 @@ enum	_PREnum_Field_Wind_	{
 	PR_WIND_SERIALNO,
 	PR_WIND_ISLAND,
 	PR_WIND_GENTRAN,
-	PR_WIND_OUTAGE,
 	PR_WIND_RPARAMTYPE,
+	PR_WIND_OUTAGE,
 	PR_WIND_TRMISLAND,
 	PR_WIND_TRFACTORNUM,
 };
@@ -657,8 +663,8 @@ struct	_PR_Wind_	{
 	int		nIndex;
 	short	nIsland;
 	unsigned char	bGenTran;
-	unsigned char	bOutage;
 	unsigned char	nRParamType;
+	unsigned char	bOutage;
 	unsigned char	bTrMIsland;
 	int		nTrFactorNum;
 }	DISALIGN;
@@ -721,17 +727,12 @@ struct	_PR_Gen_	{
 	double			fIMin;
 	double			fRerrMax;
 	double			fRerrMin;
-
 	unsigned char	bMSModel;
 	unsigned char	nMStateNum;
 	double			fMSPout;
-
-
 	float			fReferenceP;
 	float			fReferenceQ;
-
 	int				nFaultFreq;
-
 	unsigned char	bEQGen;
 	short			nRadial;
 	int				nBusIndex;
@@ -790,13 +791,15 @@ struct	_PR_PowerLoad_	{
 	double			fIMin;
 	double			fRerrMax;
 	double			fRerrMin;
+
+	int				nFaultFreq;
+
 	unsigned char	bMSModel;
 	unsigned char	nMStateNum;
 	double			fMSPout;
 
 	float			fReferenceP;
 	float			fReferenceQ;
-	int				nFaultFreq;
 
 	short			nRadial;
 	int				nBusIndex;
@@ -822,6 +825,7 @@ enum	_PREnum_Field_HVDC_	{
 	PR_HVDC_RATEDC,
 	PR_HVDC_RECTV,
 	PR_HVDC_RATEDP,
+	PR_HVDC_LENGTH,
 
 	PR_HVDC_POWER,
 	PR_HVDC_PWRR,
@@ -850,7 +854,10 @@ enum	_PREnum_Field_HVDC_	{
 	PR_HVDC_INIPWRI,
 	PR_HVDC_ACBUSRPTR,
 	PR_HVDC_ACBUSIPTR,
+	PR_HVDC_ISLANDR,
+	PR_HVDC_ISLANDI,
 	PR_HVDC_SERIALNO,
+	PR_HVDC_RPARAMTYPE,
 	PR_HVDC_OUTAGE,
 };
 struct	_PR_HVDC_	{
@@ -867,6 +874,7 @@ struct	_PR_HVDC_	{
 	float	fRatedC;
 	float	fRectV;
 	float	fRatedP;
+	float	fLength;
 
 	float	fDCPower;
 	float	fPr;
@@ -896,7 +904,10 @@ struct	_PR_HVDC_	{
 	float	fIniPi;
 	int		nRBus;
 	int		nIBus;
+	short	nIslandR;
+	short	nIslandI;
 	int		nIndex;
+	unsigned char	nRParamType;
 	unsigned char	bOutage;
 }	DISALIGN;
 typedef	struct	_PR_HVDC_	tagPRHVDC;
@@ -1379,6 +1390,7 @@ typedef	struct	_PR_LoadCurve_	tagPRLoadCurve;
 enum	_PREnum_Field_ACIsland_	{
 	PR_ACISLAND_GENP=0,
 	PR_ACISLAND_LOADP,
+	PR_ACISLAND_HVDCP,
 	PR_ACISLAND_BUSNUM,
 	PR_ACISLAND_SWINGBUS,
 	PR_ACISLAND_DEAD,
@@ -1386,6 +1398,7 @@ enum	_PREnum_Field_ACIsland_	{
 struct	_PR_ACIsland_	{
 	double	fGenP;
 	double	fLoadP;
+	double	fHVDCP;
 	int		nBusNum;
 	int		nSwingBus;
 	unsigned char	bDead;
@@ -1505,7 +1518,7 @@ enum	_PREnum_Field_CommParam_	{
 	PR_COMMPARAM_TREP,
 };
 struct	_PR_CommParam_	{
-	unsigned char	nDevType;						//	PR_ACLINE, PR_WIND, PR_GENERATOR...
+	unsigned char	nDevType;						//	PR_ACLINE, PR_WIND, PR_GENERATOR, PR_HVDC...
 	char	szKeyWord[MDB_CHARLEN_SHORTER];			//	Type=0,KeyWord=Null Area[Zone]
 	double	fUpCapLmt;
 	double	fDnCapLmt;
@@ -2078,11 +2091,11 @@ const int	PR_MaxR2StateComp	=(PR_MaxGenerator+PR_MaxACLine+PR_MaxWind+PR_MaxConv
 const int	PR_MaxRMStateComp	=(PR_MaxHVDC+PR_MaxGenerator/20+PR_MaxPowerLoad/100);
 
 const int	PR_MaxFState		=800000;
-const int	PR_MaxFStateFDev	=5*PR_MaxFState;
-const int	PR_MaxFStateMState	=10*PR_MaxRMStateComp;
-const int	PR_MaxFStateMIsland	=PR_MaxFState/50;
-const int	PR_MaxFStateOvlDev	=PR_MaxFState/2;
-const int	PR_MaxFStateOvlAd	=PR_MaxFState;
+const int	PR_MaxFStateFDev	=5*PR_MaxFState/2;
+const int	PR_MaxFStateMState	=8*PR_MaxRMStateComp;
+const int	PR_MaxFStateMIsland	=PR_MaxFState/10;
+const int	PR_MaxFStateOvlDev	=PR_MaxFState/4;
+const int	PR_MaxFStateOvlAd	=PR_MaxFState*4;
 
 const int	PR_MaxAdsNode		=200;
 const int	PR_MaxCalcJobType	=20;

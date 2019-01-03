@@ -2,10 +2,12 @@ package com.znd.reliability.server.impl;
 
 import java.util.Date;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import com.znd.ads.model.dto.PRAdequacySetting;
 import com.znd.apl.ReliabilityApl.JobUpdater;
-import com.znd.bus.task.TaskQueue;
+import com.znd.bus.task.AQueue;
 import com.znd.ei.Utils;
 import com.znd.exception.AplException;
 import com.znd.reliability.config.ReliabilityProperties;
@@ -34,7 +36,7 @@ public class SimpleServer implements ReliabilityProxyServer {
 	private static final Logger logger = LoggerFactory
 			.getLogger(SimpleServer.class);
 
-	private TaskQueue<RequestEstimate> taskList;
+	private AQueue<RequestEstimate> taskList;
 	private ReliabilityProperties properties;
 	private PrBufferServer bufferServer;
 	private PRAdequacySetting setting;
@@ -53,23 +55,21 @@ public class SimpleServer implements ReliabilityProxyServer {
 	private Semaphore availableWorkers;
 	
 	private AtomicBoolean sendQuit = new AtomicBoolean(false);
+	private CountDownLatch quit = new CountDownLatch(1);
 	
-	private Integer taskSize;
+//	private Integer taskSize;
 	
-	private ExecutorService threadPool = Executors.newCachedThreadPool();
+	private ExecutorService threadPool = Utils.threadPool();
 	
 	//private BlockingQueue<String> sendTasks = new ArrayBlockingQueue<>(8); 
 	private BlockingQueue<String> sendTasks = new LinkedBlockingQueue<>();
-	private BlockingQueue<ResponseEstimate> resultList = new LinkedBlockingQueue<>();
-	
-	private  JobUpdater updater;
-	
+	//private BlockingQueue<ResponseEstimate> resultList = new LinkedBlockingQueue<>();
 
 
 	public SimpleServer(ReliabilityProperties properties,
-			TaskQueue<RequestEstimate> taskList, PrBufferServer bufferServer,
-			PRAdequacySetting setting, RedissonClient localClient, JobUpdater updater) {
-		this.taskSize = taskList.size();
+			AQueue<RequestEstimate> taskList, PrBufferServer bufferServer,
+			PRAdequacySetting setting, RedissonClient localClient) {
+//		this.taskSize = taskList.size();
 		this.availableWorkers = new Semaphore(properties.getServerThread(), true);
 		logger.info("server thread: "+properties.getServerThread());
 		this.taskList = taskList;
@@ -129,19 +129,18 @@ public class SimpleServer implements ReliabilityProxyServer {
 		if (msg.contains(Commands.STATE_ESTIMATE)) {
 			threadPool.execute(()->{
 					availableWorkers.release();
-					taskList.decreaseLeft();
+//					taskList.decreaseLeft();
 					ResponseEstimate result = Utils.toObject(msg, ResponseEstimate.class);
 		    		if (result == null) {
 		    			System.err.println("Fail to parse result");
 		    			return;
 		    		} else {
-		    			try {
-							resultList.put(result);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		    			System.out.println("Received result : currentTaskIndex "+receiveCount.getAndIncrement()+", sum = "+ taskSize);
+		    			
+		    			//System.out.println("Received result : "+msg);
+						bufferServer.saveResult(result);
+						receiveCount.incrementAndGet();
+
+//		    			System.out.println("Received result : currentTaskIndex "+receiveCount.getAndIncrement()+", sum = "+ taskSize+", result : "+bufferServer.getResultSize());
 		    		}						
 			});			
 		} else if (msg.contains(Commands.DATA_READY)){
@@ -179,6 +178,7 @@ public class SimpleServer implements ReliabilityProxyServer {
 						}
 					} else {
 						sendQuit.set(true);
+						
 						break;
 					}
 					
@@ -193,13 +193,15 @@ public class SimpleServer implements ReliabilityProxyServer {
 				//while(availableWorkers.tryAcquire(3, TimeUnit.MINUTES)) {
 				while(true) {
 					//availableWorkers.acquire();
-					String task = sendTasks.take();
+					String task = sendTasks.poll();
 					if (task != null) {
-						//System.out.println("Send task : "+ index.incrementAndGet());
+//						System.out.println("Send task : "+ task);
 						requestTopic.publish(task);
 						sendCount.incrementAndGet();
 					} else if (sendQuit.get()){
-							break;
+						System.out.println("Task send thread quit.");
+						quit.countDown();
+						break;
 					}
 					
 				}
@@ -213,28 +215,28 @@ public class SimpleServer implements ReliabilityProxyServer {
 		
 
 		
-		//save result 
-		threadPool.execute(()->{
-				
-				while(true) {
-					ResponseEstimate result = resultList.poll();	
-					if (result != null) {
-						bufferServer.saveResult(result);
-						updater.decrease();
-						
-					} else {
-						if (sendQuit.get() && (sendCount.get() == receiveCount.get())) {
-							break;
-						}
-						try {
-							Thread.sleep(0);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-		
-		});
+//		//save result 
+//		threadPool.execute(()->{
+//				
+//				while(true) {
+//					ResponseEstimate result = resultList.poll();	
+//					if (result != null) {
+//						bufferServer.saveResult(result);
+//						updater.decrease();
+//						
+//					} else {
+//						if (sendQuit.get() && (sendCount.get() == receiveCount.get())) {
+//							break;
+//						}
+//						try {
+//							Thread.sleep(0);
+//						} catch (InterruptedException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				}
+//		
+//		});
 	}
 
 	
@@ -254,24 +256,42 @@ public class SimpleServer implements ReliabilityProxyServer {
 		try {
 
 			Date start = new Date();
-			long max_time_out = 1000 * 60 * 10;
+			long max_time_out = 15;
+			TimeUnit unit = TimeUnit.MINUTES;
 			
 			start();
 
 			
-			while (!taskList.isEmpty()) {
-				try {
-											
-					long elapsed = new Date().getTime() - start.getTime();
-					if (elapsed > max_time_out) {
-						throw new AplException("Task timeout : elapsed = "+elapsed);
-						
+//			while (!taskList.isEmpty()) {
+//				try {
+//											
+//					long elapsed = new Date().getTime() - start.getTime();
+//					if (elapsed > max_time_out) {
+//						throw new AplException("Task timeout : elapsed = "+elapsed);
+//						
+//					}
+//					Thread.sleep(1000);					
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+			
+			logger.info("Wait for task finished : timeout {}, unit {}", max_time_out, unit);
+			quit.await(max_time_out, unit);
+			while (sendCount.get() != receiveCount.get()) {
+					try {									
+						long elapsed = new Date().getTime() - start.getTime();
+						if (elapsed > unit.toMillis(max_time_out)) {
+						    throw new AplException("Task timeout : elapsed = "+elapsed);				
+						}
+					    Thread.sleep(1000);					
+					} catch (InterruptedException e) {
+					   e.printStackTrace();
 					}
-					Thread.sleep(0);					
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			RequestJobFinished request = new RequestJobFinished();
 			String requesMsg = Utils.toJSon(request);

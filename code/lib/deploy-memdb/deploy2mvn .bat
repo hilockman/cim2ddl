@@ -1,0 +1,2 @@
+call mvn deploy:deploy-file -DgroupId=com.ZhongND -DartifactId=ZhongNDMemDB -Dversion=4.0 -Dpackaging=jar -Dfile=ZhongNDMemDB.jar  -Durl=http://192.168.1.27:8081/repository/maven-releases  -DrepositoryId=nexus-releases
+pause

@@ -2,6 +2,7 @@ package com.znd.ads.service;
 
 import java.util.List;
 
+import com.znd.ads.exception.FactoryException;
 import com.znd.bus.common.model.CalcJob;
 
 public interface JobService {
@@ -21,4 +22,8 @@ public interface JobService {
 	void create(CalcJob job);
 
 	void cancel(String jobId);
+
+	Object getResult(String id) throws FactoryException;
+
+	String getFile(String folder, String file);
 }

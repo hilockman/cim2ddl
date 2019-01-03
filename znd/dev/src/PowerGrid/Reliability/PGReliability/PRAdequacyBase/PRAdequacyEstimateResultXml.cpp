@@ -56,39 +56,39 @@ namespace	PRAdequacyBase
 
 		pSysElement = new TiXmlElement(g_PRMemDBInterface.PRGetTableName(PR_SYSTEM));
 
-		pSysElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_MAXFLTDEV),								pPRBlock->m_System.nMaxFltDev);
-		pSysElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_CUTLOADSTATENUM),							pPRBlock->m_System.nCutLoadState);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_PLC),								pPRBlock->m_System.fPLC);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_EFLC),								pPRBlock->m_System.fEFLC);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_EDLC),								pPRBlock->m_System.fEDLC);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_ADLC),								pPRBlock->m_System.fADLC);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_ELC),								pPRBlock->m_System.fELC);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_EENS),								pPRBlock->m_System.fEENS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_BPII),								pPRBlock->m_System.fBPII);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_BPECI),								pPRBlock->m_System.fBPECI);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_SI),									pPRBlock->m_System.fSI);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_LOLE),								pPRBlock->m_System.fLOLE);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_PLOS),								pPRBlock->m_System.fPLOS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLOS),								pPRBlock->m_System.fFLOS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_MTTIS),								pPRBlock->m_System.fMTTIS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_MIEENS),								pPRBlock->m_System.fMIslandEENS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_AGCEENS),							pPRBlock->m_System.fLossGenEENS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_ELEENS),								pPRBlock->m_System.fERLimitEENS);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE0PROB),						pPRBlock->m_System.fFltGrade0Prob);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE1PROB),						pPRBlock->m_System.fFltGrade1Prob);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE2PROB),						pPRBlock->m_System.fFltGrade2Prob);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE3PROB),						pPRBlock->m_System.fFltGrade3Prob);
-		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE4PROB),						pPRBlock->m_System.fFltGrade4Prob);
+		pSysElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_MAXFLTDEV),				pPRBlock->m_System.nMaxFltDev);
+		pSysElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_CUTLOADSTATENUM),			pPRBlock->m_System.nCutLoadState);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_PLC),				pPRBlock->m_System.fPLC);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_EFLC),				pPRBlock->m_System.fEFLC);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_EDLC),				pPRBlock->m_System.fEDLC);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_ADLC),				pPRBlock->m_System.fADLC);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_ELC),				pPRBlock->m_System.fELC);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_EENS),				pPRBlock->m_System.fEENS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_BPII),				pPRBlock->m_System.fBPII);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_BPECI),				pPRBlock->m_System.fBPECI);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_SI),					pPRBlock->m_System.fSI);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_LOLE),				pPRBlock->m_System.fLOLE);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_PLOS),				pPRBlock->m_System.fPLOS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLOS),				pPRBlock->m_System.fFLOS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_MTTIS),				pPRBlock->m_System.fMTTIS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_MIEENS),				pPRBlock->m_System.fMIslandEENS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_AGCEENS),			pPRBlock->m_System.fLossGenEENS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_ELEENS),				pPRBlock->m_System.fERLimitEENS);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE0PROB),		pPRBlock->m_System.fFltGrade0Prob);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE1PROB),		pPRBlock->m_System.fFltGrade1Prob);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE2PROB),		pPRBlock->m_System.fFltGrade2Prob);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE3PROB),		pPRBlock->m_System.fFltGrade3Prob);
+		pSysElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_SYSTEM, PR_SYSTEM_FLTGRADE4PROB),		pPRBlock->m_System.fFltGrade4Prob);
 
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_ZONE]; i++)
 		{
 			pSubElement = new TiXmlElement(g_PRMemDBInterface.PRGetTableName(PR_ZONE));
 			pSysElement->LinkEndChild(pSubElement);
 
-			pSubElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_NAME),										pPRBlock->m_ZoneArray[i].szName);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_TOTGENP),								pPRBlock->m_ZoneArray[i].fTotGenP);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_TOTLOADP),								pPRBlock->m_ZoneArray[i].fTotLoadP);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_CUTLOADP),								pPRBlock->m_ZoneArray[i].fCutLoadP);
+			pSubElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_NAME),						pPRBlock->m_ZoneArray[i].szName);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_TOTGENP),			pPRBlock->m_ZoneArray[i].fTotGenP);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_TOTLOADP),			pPRBlock->m_ZoneArray[i].fTotLoadP);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ZONE, PR_ZONE_CUTLOADP),			pPRBlock->m_ZoneArray[i].fCutLoadP);
 		}
 
 		for (i=1; i<pPRBlock->m_nRecordNum[PR_ACBUS]; i++)
@@ -96,25 +96,25 @@ namespace	PRAdequacyBase
 			pSubElement = new TiXmlElement(g_PRMemDBInterface.PRGetTableName(PR_ACBUS));
 			pSysElement->LinkEndChild(pSubElement);
 
-			pSubElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_NAME),										pPRBlock->m_ACBusArray[i].szName);
-			pSubElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_ZONE),										pPRBlock->m_ACBusArray[i].szZone);
+			pSubElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_NAME),					pPRBlock->m_ACBusArray[i].szName);
+			pSubElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_ZONE),					pPRBlock->m_ACBusArray[i].szZone);
 
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_GENP),								pPRBlock->m_ACBusArray[i].fGenP);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_GENQ),								pPRBlock->m_ACBusArray[i].fGenQ);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_LOADP),								pPRBlock->m_ACBusArray[i].fLoadP);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_LOADQ),								pPRBlock->m_ACBusArray[i].fLoadQ);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_RADP),								pPRBlock->m_ACBusArray[i].fRadP);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_SHUNTQ),								pPRBlock->m_ACBusArray[i].fShuntQ);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_GENP),				pPRBlock->m_ACBusArray[i].fGenP);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_GENQ),				pPRBlock->m_ACBusArray[i].fGenQ);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_LOADP),			pPRBlock->m_ACBusArray[i].fLoadP);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_LOADQ),			pPRBlock->m_ACBusArray[i].fLoadQ);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_RADP),				pPRBlock->m_ACBusArray[i].fRadP);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_SHUNTQ),			pPRBlock->m_ACBusArray[i].fShuntQ);
 
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_PLC),									pPRBlock->m_ACBusArray[i].fPLC);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_EFLC),								pPRBlock->m_ACBusArray[i].fEFLC);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_EDLC),								pPRBlock->m_ACBusArray[i].fEDLC);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_ADLC),								pPRBlock->m_ACBusArray[i].fADLC);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_ELC),									pPRBlock->m_ACBusArray[i].fELC);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_EENS),								pPRBlock->m_ACBusArray[i].fEENS);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_BPII),								pPRBlock->m_ACBusArray[i].fBPECI);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_BPECI),								pPRBlock->m_ACBusArray[i].fBPII);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_SI),									pPRBlock->m_ACBusArray[i].fSI);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_PLC),				pPRBlock->m_ACBusArray[i].fPLC);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_EFLC),				pPRBlock->m_ACBusArray[i].fEFLC);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_EDLC),				pPRBlock->m_ACBusArray[i].fEDLC);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_ADLC),				pPRBlock->m_ACBusArray[i].fADLC);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_ELC),				pPRBlock->m_ACBusArray[i].fELC);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_EENS),				pPRBlock->m_ACBusArray[i].fEENS);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_BPII),				pPRBlock->m_ACBusArray[i].fBPECI);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_BPECI),			pPRBlock->m_ACBusArray[i].fBPII);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_ACBUS, PR_ACBUS_SI),				pPRBlock->m_ACBusArray[i].fSI);
 		}
 
 		if (access(lpszResultFileName, 0) == 0)

@@ -2,9 +2,13 @@
 #include "../../../../MemDB/PRMemDB/PRMemDB.h"
 using namespace PRMemDB;
 #include "PRAdequacyBase.h"
+#include "../../../../MemDB/BpaMemDB/BpaMemDB.h"
+using namespace BpaMemDB;
+
 namespace	PRAdequacyBase
 {
-	CPRMemDBInterface				g_PRMemDBInterface;
+	CPRMemDBInterface	g_PRMemDBInterface;
+	CBpaMemDBInterface	g_BpaMemDBInterface;
 	std::vector<tagPRMCSampleState>	g_PRMCSSampleStateArray;
 
 	int AppendMStateParam(tagPRBlock* pPRBlock, tagPRDevMState* pMState)
@@ -133,6 +137,4 @@ namespace	PRAdequacyBase
 
 		return 1;
 	}
-
-
 }

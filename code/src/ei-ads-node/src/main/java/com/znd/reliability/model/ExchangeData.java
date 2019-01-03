@@ -43,6 +43,11 @@ public  class ExchangeData <T extends ExchangeContent> {
 		if (Content != null) 
 			Content.setValue(value);
 	}
+
+	@Override
+	public String toString() {
+		return "ExchangeData [Command=" + Command + ", Content=" + Content + "]";
+	}
 	
 	
 }

@@ -1,0 +1,7 @@
+序号,名称,描述,类型,长度
+0,Id,任务ID,INTEGER,4
+1,JobId,所属工作ID,INTEGER,4
+2,Content,任务内容,STRING,64
+3,IniTime,开始时间,INTEGER,4
+4,EndTime,结束时间,INTEGER,4
+5,ElapseTime,耗时,DOUBLE,4

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.znd.bus.exception.AdsException;
 import com.znd.bus.server.AdapterService;
 import com.znd.bus.server.BusService;
 import com.znd.bus.server.Topic;
@@ -63,7 +64,7 @@ public class BusEventTest {
 	
 	
 	@Test
-	public void sendEvent() {
+	public void sendEvent() throws AdsException {
 		
 		busSerice.registAdapter(new TestEventAdapter(), "adapter1", Topic.out(VerbEnum.created, "PublishEvent"));
 		busSerice.registAdapter(new TestEventAdapter(), "adapter2", Topic.out(VerbEnum.created, "PublishEvent"));

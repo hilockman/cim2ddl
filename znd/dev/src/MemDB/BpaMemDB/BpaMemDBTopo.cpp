@@ -4,7 +4,7 @@
 
 namespace	BpaMemDB
 {
-	void BpaTraverseNet(tagBpaBlock* pBpaBlock, const int nStartBus, const float fMinimalVolt, int& nBusNum, int nBusArray[])
+	void CBpaMemDBInterface::BpaTraverseNet(tagBpaBlock* pBpaBlock, const int nStartBus, const float fMinimalVolt, int& nACBusNum, int nACBusArray[])
 	{
 		register int	i, j;
 		int		nDev, nBus;
@@ -12,7 +12,7 @@ namespace	BpaMemDB
 		std::vector<int> nMidBusArray;
 		std::vector<unsigned char>	bBusUnProcArray;
 
-		nBusNum=0;
+		nACBusNum=0;
 		if (fMinimalVolt > 0.0001)
 		{
 			if (pBpaBlock->m_BpaDat_ACBusArray[nStartBus].fkV <= fMinimalVolt)
@@ -23,35 +23,37 @@ namespace	BpaMemDB
 		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
 			bBusUnProcArray[i]=1;
 
-		nBusArray[nBusNum++]=nStartBus;
+		nACBusArray[nACBusNum++]=nStartBus;
 		bBusUnProcArray[nStartBus]=0;
 		nBusNumOfLayer=0;
 		while (1)
 		{
 			nMidBusArray.clear();
-			for (i=nBusNumOfLayer; i<nBusNum; i++)
+			for (i=nBusNumOfLayer; i<nACBusNum; i++)
 			{
-				if (nBusArray[i] != nStartBus && pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nStatus != 0)
+				if (nACBusArray[i] != nStartBus && pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nStatus != 0)
 					continue;
 
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]+1].nACLineRange; j++)
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nEdgeACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]+1].nEdgeACLineRange; j++)
 				{
-					nDev=pBpaBlock->m_BpaDat_EdgeLineArray[j].iRLine;;
+					nDev=pBpaBlock->m_BpaDat_EdgeACLineArray[j].nACLinePtr;
 					if (pBpaBlock->m_BpaDat_ACLineArray[nDev].nStatus != 0)
 						continue;
-					nBus=(nBusArray[i] == pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_ACLineArray[nDev].nZBus : pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus;
+					nBus=(nACBusArray[i] == pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_ACLineArray[nDev].nZBus : pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus;
 					if (bBusUnProcArray[nBus])
 					{
 						nMidBusArray.push_back(nBus);
 						bBusUnProcArray[nBus]=0;
 					}
 				}
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]+1].nWindRange; j++)
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]+1].nEdgeWindRange; j++)
 				{
-					nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].iRWind;;
+					nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr;
 					if (pBpaBlock->m_BpaDat_WindArray[nDev].nStatus != 0)
 						continue;
-					nBus=(nBusArray[i] == pBpaBlock->m_BpaDat_WindArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_WindArray[nDev].nZBus : pBpaBlock->m_BpaDat_WindArray[nDev].nIBus;
+					if (pBpaBlock->m_BpaDat_WindArray[nDev].bRCard != 0)
+						continue;
+					nBus=(nACBusArray[i] == pBpaBlock->m_BpaDat_WindArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_WindArray[nDev].nZBus : pBpaBlock->m_BpaDat_WindArray[nDev].nIBus;
 					if (bBusUnProcArray[nBus])
 					{
 						nMidBusArray.push_back(nBus);
@@ -61,16 +63,16 @@ namespace	BpaMemDB
 			}
 			if (nMidBusArray.empty())
 				break;
-			nBusNumOfLayer=nBusNum;
+			nBusNumOfLayer=nACBusNum;
 			for (i=0; i<(int)nMidBusArray.size(); i++)
-				nBusArray[nBusNum++]=nMidBusArray[i];
+				nACBusArray[nACBusNum++]=nMidBusArray[i];
 		}
 
 		nMidBusArray.clear();
 		bBusUnProcArray.clear();
 	}
 
-	void BpaTraverseSub(tagBpaBlock* pBpaBlock, const int nStartBus, const double fZIL, int& nBusNum, int nBusArray[])
+	void CBpaMemDBInterface::BpaTraverseSub(tagBpaBlock* pBpaBlock, const int nStartBus, const double fZIL, int& nACBusNum, int nACBusArray[])
 	{
 		register int	i, j;
 		int		nDev, nBus;
@@ -79,33 +81,33 @@ namespace	BpaMemDB
 		double	fRX;
 		std::vector<unsigned char>	bBusUnProcArray;
 
-		nBusNum=0;
+		nACBusNum=0;
 
 		bBusUnProcArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
 		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
 			bBusUnProcArray[i]=1;
 
-		nBusArray[nBusNum++]=nStartBus;
+		nACBusArray[nACBusNum++]=nStartBus;
 		bBusUnProcArray[nStartBus]=0;
 		nBusNumOfLayer=0;
 		while (1)
 		{
 			nMidBusArray.clear();
-			for (i=nBusNumOfLayer; i<nBusNum; i++)
+			for (i=nBusNumOfLayer; i<nACBusNum; i++)
 			{
-				if (nBusArray[i] != nStartBus && pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nStatus != 0)
+				if (nACBusArray[i] != nStartBus && pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nStatus != 0)
 					continue;
 
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]+1].nACLineRange; j++)
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nEdgeACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]+1].nEdgeACLineRange; j++)
 				{
-					nDev=pBpaBlock->m_BpaDat_EdgeLineArray[j].iRLine;;
+					nDev=pBpaBlock->m_BpaDat_EdgeACLineArray[j].nACLinePtr;
 					fRX=sqrt(pBpaBlock->m_BpaDat_ACLineArray[nDev].fR*pBpaBlock->m_BpaDat_ACLineArray[nDev].fR+pBpaBlock->m_BpaDat_ACLineArray[nDev].fX*pBpaBlock->m_BpaDat_ACLineArray[nDev].fX);
 					if (fRX > fZIL)
 						continue;
 					if (pBpaBlock->m_BpaDat_ACLineArray[nDev].nStatus != 0)
 						continue;
 
-					nBus=(nBusArray[i] == pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_ACLineArray[nDev].nZBus : pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus;
+					nBus=(nACBusArray[i] == pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_ACLineArray[nDev].nZBus : pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus;
 					if (nBus < 0)	continue;
 					if (bBusUnProcArray[nBus])
 					{
@@ -113,12 +115,14 @@ namespace	BpaMemDB
 						bBusUnProcArray[nBus]=0;
 					}
 				}
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]+1].nWindRange; j++)
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]+1].nEdgeWindRange; j++)
 				{
-					nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].iRWind;;
+					nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr;
 					if (pBpaBlock->m_BpaDat_WindArray[nDev].nStatus != 0)
 						continue;
-					nBus=(nBusArray[i] == pBpaBlock->m_BpaDat_WindArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_WindArray[nDev].nZBus:pBpaBlock->m_BpaDat_WindArray[nDev].nIBus;
+					if (pBpaBlock->m_BpaDat_WindArray[nDev].bRCard != 0)
+						continue;
+					nBus=(nACBusArray[i] == pBpaBlock->m_BpaDat_WindArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_WindArray[nDev].nZBus:pBpaBlock->m_BpaDat_WindArray[nDev].nIBus;
 					if (nBus < 0)	continue;
 					if (bBusUnProcArray[nBus])
 					{
@@ -129,16 +133,125 @@ namespace	BpaMemDB
 			}
 			if (nMidBusArray.empty())
 				break;
-			nBusNumOfLayer=nBusNum;
+			nBusNumOfLayer=nACBusNum;
 			for (i=0; i<(int)nMidBusArray.size(); i++)
-				nBusArray[nBusNum++]=nMidBusArray[i];
+				nACBusArray[nACBusNum++]=nMidBusArray[i];
 		}
 
 		nMidBusArray.clear();
 		bBusUnProcArray.clear();
 	}
 
-	void	BpaIsland(tagBpaBlock* pBpaBlock)
+	void CBpaMemDBInterface::BpaTraverseVolt(tagBpaBlock* pBpaBlock, const int nStartBus, const float fMinVolt, int& nACBusNum, int nACBusArray[])
+	{
+		register int	i, j;
+		int		nDev, nTran, nBus;
+		int		nBusNumOfLayer;
+		std::vector<int> nMidBusArray;
+		std::vector<unsigned char>	bBusUnProcArray;
+
+		nACBusNum=0;
+		if (fMinVolt > 0.01)
+		{
+			if (pBpaBlock->m_BpaDat_ACBusArray[nStartBus].fkV < fMinVolt)
+				return;
+		}
+
+		bBusUnProcArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+			bBusUnProcArray[i]=1;
+
+		nACBusArray[nACBusNum++]=nStartBus;
+		bBusUnProcArray[nStartBus]=0;
+		nBusNumOfLayer=0;
+		while (1)
+		{
+			nMidBusArray.clear();
+			for (i=nBusNumOfLayer; i<nACBusNum; i++)
+			{
+				if (nACBusArray[i] != nStartBus && pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nStatus != 0)
+					continue;
+
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nEdgeACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]+1].nEdgeACLineRange; j++)
+				{
+					nDev=pBpaBlock->m_BpaDat_EdgeACLineArray[j].nACLinePtr;
+					if (pBpaBlock->m_BpaDat_ACLineArray[nDev].nStatus != 0)
+						continue;
+					nBus=(nACBusArray[i] == pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_ACLineArray[nDev].nZBus : pBpaBlock->m_BpaDat_ACLineArray[nDev].nIBus;
+					if (pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV >= fMinVolt && bBusUnProcArray[nBus])
+					{
+						nMidBusArray.push_back(nBus);
+						bBusUnProcArray[nBus]=0;
+					}
+				}
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[nACBusArray[i]+1].nEdgeWindRange; j++)
+				{
+					nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr;
+					if (pBpaBlock->m_BpaDat_WindArray[nDev].nStatus != 0)
+						continue;
+					if (pBpaBlock->m_BpaDat_WindArray[nDev].bRCard != 0)
+						continue;
+
+					nTran = pBpaBlock->m_BpaDat_WindArray[nDev].nTran;
+					if (pBpaBlock->m_BpaDat_TranArray[nTran].nWindNum > 1)
+					{
+						if (pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH >= 0)
+						{
+							nBus=pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus;
+							if (pBpaBlock->m_BpaDat_ACBusArray[nBus].bTMid)
+								nBus=pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+							if (pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV >= fMinVolt && bBusUnProcArray[nBus])
+							{
+								nMidBusArray.push_back(nBus);
+								bBusUnProcArray[nBus]=0;
+							}
+						}
+						if (pBpaBlock->m_BpaDat_TranArray[nTran].iRWindM >= 0)
+						{
+							nBus=pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindM].nIBus;
+							if (pBpaBlock->m_BpaDat_ACBusArray[nBus].bTMid)
+								nBus=pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindM].nZBus;
+							if (pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV >= fMinVolt && bBusUnProcArray[nBus])
+							{
+								nMidBusArray.push_back(nBus);
+								bBusUnProcArray[nBus]=0;
+							}
+						}
+						if (pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL >= 0)
+						{
+							nBus=pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nIBus;
+							if (pBpaBlock->m_BpaDat_ACBusArray[nBus].bTMid)
+								nBus=pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nZBus;
+							if (pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV >= fMinVolt && bBusUnProcArray[nBus])
+							{
+								nMidBusArray.push_back(nBus);
+								bBusUnProcArray[nBus]=0;
+							}
+						}
+					}
+					else
+					{
+						nBus=(nACBusArray[i] == pBpaBlock->m_BpaDat_WindArray[nDev].nIBus) ? pBpaBlock->m_BpaDat_WindArray[nDev].nZBus : pBpaBlock->m_BpaDat_WindArray[nDev].nIBus;
+						if (pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV >= fMinVolt && bBusUnProcArray[nBus])
+						{
+							nMidBusArray.push_back(nBus);
+							bBusUnProcArray[nBus]=0;
+						}
+					}
+				}
+			}
+			if (nMidBusArray.empty())
+				break;
+			nBusNumOfLayer=nACBusNum;
+			for (i=0; i<(int)nMidBusArray.size(); i++)
+				nACBusArray[nACBusNum++]=nMidBusArray[i];
+		}
+
+		nMidBusArray.clear();
+		bBusUnProcArray.clear();
+	}
+
+	void CBpaMemDBInterface::BpaIsland(tagBpaBlock* pBpaBlock)
 	{
 		register int	i;
 		int		nBus, nBusNum, *pnBusArray;

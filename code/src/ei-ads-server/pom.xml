@@ -81,11 +81,11 @@
 		    </exclusions>			
 		</dependency>
 		
-		<dependency>
+		<!--  dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ei-memdb-core</artifactId>
 			<version>${project.version}</version>
-		</dependency>		        
+		</dependency-->		        
                           		
   </dependencies>
  	<build>

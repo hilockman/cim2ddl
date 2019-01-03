@@ -14,6 +14,7 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.client.Client;
 import com.znd.client.impl.DefaultClient;
+import com.znd.ei.Utils;
 import com.znd.ei.memdb.DbEntryCollection;
 import com.znd.ei.memdb.DbEntryOperations;
 import com.znd.ei.memdb.DbException;
@@ -32,7 +33,7 @@ public class Config {
 	
 		ExecutorService pool;
 		if (property.getThread() < 0) {
-			pool =  Executors.newCachedThreadPool();
+			pool =  Utils.threadPool();
 		} else {
 			pool =  Executors.newFixedThreadPool(property.getThread());
 		}

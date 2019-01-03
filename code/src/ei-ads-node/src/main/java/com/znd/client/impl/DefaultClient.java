@@ -29,6 +29,7 @@ import com.znd.bus.log.BufferLogger;
 import com.znd.bus.log.BufferLoggerFactory;
 import com.znd.client.Client;
 import com.znd.config.ClientConfig;
+import com.znd.ei.Utils;
 import com.znd.event.AplBean;
 import com.znd.event.AplContext;
 import com.znd.event.EvenInvoker;
@@ -67,7 +68,7 @@ public class DefaultClient implements Client {
 	private CalcJobBuffer calcJobBuffer;
 	
 	
-	private ExecutorService pool =  Executors.newCachedThreadPool();
+	private ExecutorService pool =  Utils.threadPool();
 	
 	@Autowired
     private ApplicationContext context;

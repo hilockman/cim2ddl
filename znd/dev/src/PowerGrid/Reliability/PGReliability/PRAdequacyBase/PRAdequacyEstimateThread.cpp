@@ -207,10 +207,9 @@ namespace	PRAdequacyBase
 
 		SYSTEM_INFO sysInfo;
 		::GetSystemInfo(&sysInfo);
-
-		int		nThreadNum = 1;
-		if (pParentThreadInfo->bMultiThread)
-			nThreadNum=(int)sysInfo.dwNumberOfProcessors;
+		int	nThreadNum = (pParentThreadInfo->nMultiThread <= 0) ? 1 : pParentThreadInfo->nMultiThread;
+		if (nThreadNum > sysInfo.dwNumberOfProcessors)
+			nThreadNum = sysInfo.dwNumberOfProcessors;
 
 		hThreadArray.resize(nThreadNum);
 		for (i=0; i<nThreadNum; i++)
@@ -360,9 +359,9 @@ namespace	PRAdequacyBase
 
 		SYSTEM_INFO sysInfo;
 		::GetSystemInfo(&sysInfo);
-		int	nThreadNum = 1;
-		if (pParentThreadInfo->bMultiThread)
-			nThreadNum=(int)sysInfo.dwNumberOfProcessors;
+		int	nThreadNum = (pParentThreadInfo->nMultiThread <= 0) ? 1 : pParentThreadInfo->nMultiThread;
+		if (nThreadNum > sysInfo.dwNumberOfProcessors)
+			nThreadNum = sysInfo.dwNumberOfProcessors;
 
 		hThreadArray.resize(nThreadNum);
 		for (i=0; i<nThreadNum; i++)
@@ -396,8 +395,9 @@ namespace	PRAdequacyBase
 		}
 		hThreadArray.clear();
 
-		m_PRAdeEstimate.ExitAdequacyEstimate(pPRBlock, pParentThreadInfo->fAC2DCFactor, pParentThreadInfo->szResultXmlFile);
-		m_PRAdeEstimate.ExitAdequacyXmlFile(pParentThreadInfo->szResultXmlFile, "GenAdequacyResult");
+		Log(g_lpszLogFile, "        发电系统可靠性评估计算进程全部完成\n");
+		m_PRAdeEstimate.ExitAdequacyEstimate(pPRBlock, pParentThreadInfo->fAC2DCFactor, pParentThreadInfo->szResultXmlFile);	Log(g_lpszLogFile, "        ExitAdequacyEstimate\n");
+		m_PRAdeEstimate.ExitAdequacyXmlFile(pParentThreadInfo->szResultXmlFile, "GenAdequacyResult");							Log(g_lpszLogFile, "        ExitAdequacyXmlFile\n");
 
 		CloseHandle(hEstResultSem);
 		CloseHandle(hEstStateSem);

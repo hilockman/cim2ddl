@@ -8,12 +8,7 @@
 #include <float.h>
 namespace	BpaMemDB
 {
-	extern	int	BpaMemDB2Files_Swi(tagBpaBlock* pBpaBlock, FILE* fp);
-	extern	int	BpaMemDB2Files_Dat(tagBpaBlock* pBpaBlock, FILE* fp);
-	extern	int	BpaFiles2MemDB_Dat(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const double fZeroImpendance);
-	extern	int	BpaFiles2MemDB_Swi(tagBpaBlock* pBpaBlock, const char* lpszBpaSwiFile);
-
-	int	BpaFiles2MemDB(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile, const double fZeroImpendance)
+	int CBpaMemDBInterface::BpaFiles2MemDB(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile, const double fZeroImpendance)
 	{
 		register int	i;
 		for (i=0; i<BpaGetTableNum(); i++)
@@ -33,7 +28,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	int		BpaMemDB2Files(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile)
+	int CBpaMemDBInterface::BpaMemDB2Files(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile)
 	{
 		FILE*	fp=NULL;
 		if (lpszBpaDatFile)
@@ -75,7 +70,7 @@ _ErrorOut:	;
 	}
 
 	//	设置小数点
-	void CheckDecimal(char szFloat[], const int nFloat)
+	void CBpaMemDBInterface::CheckDecimal(char szFloat[], const int nFloat)
 	{
 		register int	i;
 		int		nChar;
@@ -105,7 +100,7 @@ _ErrorOut:	;
 	}
 
 	//	从字符串中提取数据
-	void ExtractBpaField(const int nColIni, const int nColEnd, const char* lpszInChar, char* lpszChar)
+	void CBpaMemDBInterface::ExtractBpaField(const int nColIni, const int nColEnd, const char* lpszInChar, char* lpszChar)
 	{
 		register int	i;
 		int		nChar;
@@ -136,7 +131,7 @@ _ErrorOut:	;
 	}
 
 	//	提取BPA关键字
-	void BpaResolveLineKey(const char* lpszLine, char* lpszRetKey)
+	void CBpaMemDBInterface::BpaResolveLineKey(const char* lpszLine, char* lpszRetKey)
 	{
 		register int	i, j;
 
@@ -165,7 +160,7 @@ _ErrorOut:	;
 		TrimRight(lpszRetKey);
 	}
 
-	void	BpaString2FieldArray(const int nBpaTable, const int nDictIni, const char* lpszBpaLine, char szField[][MDB_CHARLEN_LONG])
+	void CBpaMemDBInterface::BpaString2FieldArray(const int nBpaTable, const int nDictIni, const char* lpszBpaLine, char szField[][MDB_CHARLEN_LONG])
 	{
 		register int	i;
 		int		nDict, nField;
@@ -191,7 +186,7 @@ _ErrorOut:	;
 		BpaFormTableKeyField(nBpaTable, szField);
 	}
 
-	int		BpaParseOutFile(tagBpaBlock* pBpaBlock, const char* lpszBpaOutFile)
+	int CBpaMemDBInterface::BpaParseOutFile(tagBpaBlock* pBpaBlock, const char* lpszBpaOutFile)
 	{
 		return 1;
 	}

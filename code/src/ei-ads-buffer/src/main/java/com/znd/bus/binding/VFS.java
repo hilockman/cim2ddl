@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ import java.util.jar.JarInputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.znd.ei.JarStreamFactory;
+import com.znd.ei.Utils;
 
 public class VFS {
 	
@@ -40,7 +44,10 @@ public class VFS {
 	   */
 	  public List<String> list(String path) throws IOException {
 	    List<String> names = new ArrayList<String>();
+	    log.debug("List resouces in path :"+path);
+	    int i = 0;
 	    for (URL url : getResources(path)) {
+	       log.debug("souce "+ i++ +":"+url.toString());
 	      names.addAll(list(url, path));
 	    }
 	    return names;
@@ -56,7 +63,9 @@ public class VFS {
 	   * @throws IOException If I/O errors occur
 	   */
 	  protected static List<URL> getResources(String path) throws IOException {
-	    return Collections.list(Thread.currentThread().getContextClassLoader().getResources(path));
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//		log.info("VFS class loader : "+classLoader);
+	    return Collections.list(classLoader.getResources(path));
 	  }
 	  
 	  
@@ -102,48 +111,73 @@ public class VFS {
 	      }
 	      return null;
 	    }
-
+	    
 	    // Try to open and test it
-	    try {
+
 	      URL testUrl = new URL(jarUrl.toString());
 	      if (isJar(testUrl)) {
 	        return testUrl;
 	      }
 	      else {
-	        // WebLogic fix: check if the URL's file exists in the filesystem.
-	        if (log.isDebugEnabled()) {
-	          log.debug("Not a JAR: " + jarUrl);
-	        }
-	        jarUrl.replace(0, jarUrl.length(), testUrl.getFile());
-	        File file = new File(jarUrl.toString());
-
-	        // File name might be URL-encoded
-	        if (!file.exists()) {
-	          try {
-	            file = new File(URLEncoder.encode(jarUrl.toString(), "UTF-8"));
-	          } catch (UnsupportedEncodingException e) {
-	            throw new RuntimeException("Unsupported encoding?  UTF-8?  That's unpossible.");
-	          }
-	        }
-
-	        if (file.exists()) {
-	          if (log.isDebugEnabled()) {
-	            log.debug("Trying real file: " + file.getAbsolutePath());
-	          }
-	          testUrl = file.toURI().toURL();
-	          if (isJar(testUrl)) {
-	            return testUrl;
-	          }
-	        }
+	       ///spring boot fix:
+	    	  jarUrl.insert(0, "jar:");
+	    	  System.out.println("Sprint boot jar :"+jarUrl.toString());
+	    	  return new URL(jarUrl.toString());
 	      }
-	    } catch (MalformedURLException e) {
-	      log.warn("Invalid JAR URL: " + jarUrl);
-	    }
+    
 
-	    if (log.isDebugEnabled()) {
-	      log.debug("Not a JAR: " + jarUrl);
-	    }
-	    return null;
+//	    // Try to open and test it
+//	    try {
+//	      URL testUrl = new URL(jarUrl.toString());
+//	      if (isJar(testUrl)) {
+//	        return testUrl;
+//	      }
+//	      else {
+//	       ///spring boot fix:
+//	    	  try {
+//				if (new File(url.toURI()).exists()) {
+//					log.debug("Find spring boot jar : "+url.toString());
+//					return url;
+//				}
+//			} catch (URISyntaxException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//	    	 
+//	    	  // WebLogic fix: check if the URL's file exists in the filesystem.
+//	        if (log.isDebugEnabled()) {
+//	          log.debug("Not a JAR: " + jarUrl);
+//	        }
+//	        jarUrl.replace(0, jarUrl.length(), testUrl.getFile());
+//	        File file = new File(jarUrl.toString());
+//
+//	        // File name might be URL-encoded
+//	        if (!file.exists()) {
+//	          try {
+//	            file = new File(URLEncoder.encode(jarUrl.toString(), "UTF-8"));
+//	          } catch (UnsupportedEncodingException e) {
+//	            throw new RuntimeException("Unsupported encoding?  UTF-8?  That's unpossible.");
+//	          }
+//	        }
+//
+//	        if (file.exists()) {
+//	          if (log.isDebugEnabled()) {
+//	            log.debug("Trying real file: " + file.getAbsolutePath());
+//	          }
+//	          testUrl = file.toURI().toURL();
+//	          if (isJar(testUrl)) {
+//	            return testUrl;
+//	          }
+//	        }
+//	      }
+//	    } catch (MalformedURLException e) {
+//	      log.warn("Invalid JAR URL: " + jarUrl);
+//	    }
+
+//	    if (log.isDebugEnabled()) {
+//	      log.debug("Not a JAR: " + jarUrl);
+//	    }
+//	    return null;
 	  }
 
 	  public List<String> list(URL url, String path) throws IOException {
@@ -155,11 +189,13 @@ public class VFS {
 	      // file is found, then we'll list child resources by reading the JAR.
 	      URL jarUrl = findJarForResource(url);
 	      if (jarUrl != null) {
-	        is = jarUrl.openStream();
+	        //is = jarUrl.openStream();
+	        JarStreamFactory f = Utils.getDefaultJarStreamFactory();
+	        JarInputStream jis = f.createStream(jarUrl);
 	        if (log.isDebugEnabled()) {
 	          log.debug("Listing " + url);
 	        }
-	        resources = listResources(new JarInputStream(is), path);
+	        resources = listResources(jis, path);
 	      }
 	      else {
 	        List<String> children = new ArrayList<String>();

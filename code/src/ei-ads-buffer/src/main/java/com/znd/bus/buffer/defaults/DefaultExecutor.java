@@ -12,7 +12,10 @@ import com.ZhongND.RedisDataBus.Api.RTableOperation;
 import com.ZhongND.RedisDataBus.Exception.RedissonDBException;
 import com.znd.bus.buffer.BufferContext;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.exception.AdsException;
+import com.znd.bus.exception.BindingException;
 import com.znd.bus.exception.ExecutionException;
+import com.znd.bus.exception.StatementException;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.mapping.MappedStatement;
 import com.znd.bus.mapping.ResultSet;
@@ -34,7 +37,7 @@ public class DefaultExecutor implements Executor {
 	private final Logger logger = LoggerFactory.getLogger(DefaultExecutor.class);
 
 	@Override
-	public <E> List<E> query(MappedStatement ms, Statement st) {
+	public <E> List<E> query(MappedStatement ms, Statement st) throws ExecutionException {
 		SelectStatement ss = (SelectStatement)st;
 		TableMeta tableMeta = ms.getTableMeta();		
 		RTableOperation tableOps = getTableOperation(tableMeta);		
@@ -43,7 +46,7 @@ public class DefaultExecutor implements Executor {
 		try {
 			return ms.handler(new ResultSet(ms.getColumnIndexMap(), tableOps.getRecord(conditionMap)));
 			
-		} catch (RedissonDBException e) {
+		} catch (RedissonDBException | BindingException e) {
 			throw new ExecutionException(e);
 		}
 	
@@ -59,7 +62,7 @@ public class DefaultExecutor implements Executor {
 	}
 
 	@Override
-	public int update(MappedStatement ms, Statement st) {
+	public int update(MappedStatement ms, Statement st) throws ExecutionException {
 		InsertStatement us = (InsertStatement) st;
 		
 		
@@ -72,27 +75,31 @@ public class DefaultExecutor implements Executor {
 		
 		if (us.count() > 0) {
 			for (int i = 0; i < us.count(); i++) {
-				us.update(i, new RowUpdateHandler() {
-					
-					@Override
-					public void update(Map<Short, String> columns,
-							Map<String, String> conditions) {
-						try {
+				try {
+					us.update(i, new RowUpdateHandler() {
+						
+						@Override
+						public void update(Map<Short, String> columns,
+								Map<String, String> conditions) throws ExecutionException {
+							try {
 //							synchronized (wite_locker) {
 //								System.out.println("columns=");
 //								print(columns);
 //								System.out.println("conditions=");
 //								print(conditions);
-								tableOps.setCells(columns, conditions);
+									tableOps.setCells(columns, conditions);
 //							}
+									
 								
-							
-							
-						} catch (RedissonDBException e) {
-							throw new ExecutionException(e.getMessage(), e);
+								
+							} catch (RedissonDBException e) {
+								throw new ExecutionException(e.getMessage(), e);
+							}
 						}
-					}
-				});		
+					});
+				} catch (StatementException e) {
+					throw new ExecutionException(e);
+				}		
 			}
 		}
 		
@@ -100,54 +107,8 @@ public class DefaultExecutor implements Executor {
  	
 	}
 	
-//	@Override
-//	public int update(MappedStatement ms, Statement st) {
-//		UpdateStatement us = (UpdateStatement) st;
-//		
-//		List<String[]> records = us.getRecords();
-//		
-//		final ParameterMapping[] keyProperties = ms.getNormalProperties();
-//		final ParameterMapping[] conditionProperties = ms.getConditionProperties();
-//		
-//			
-//		TableMeta tableMeta = ms.getTableMeta();
-//		RTableOperation tableOps = getTableOperation(tableMeta);
-//		
-// 	
-//		for (Object object : parameters) {
-//			MetaObject metaParam = config.newMetaObject(object);
-//			Map<Short, String> valueMap = new HashMap<>();
-//			Map<String, String> conditionMap = new HashMap<>();
-//			
-//			Statement ps = new UpdateStatement(valueMap, conditionMap);
-//			for (ParameterMapping paramMapping : keyProperties) {
-//			    Object value = metaParam.getValue(paramMapping.getProperty());
-//			    TypeHandler handler = paramMapping.getTypeHandler();
-//			    if (handler != null) {
-//			    	handler.setParameter(ps, paramMapping.getDbColumnIndex(), value);
-//
-//			    }
-//			}
-//			
-//			for (ParameterMapping paramMapping : conditionProperties) {
-//			    Object value = metaParam.getValue(paramMapping.getProperty());
-//			    TypeHandler handler = paramMapping.getTypeHandler();
-//			    if (handler != null) {
-//			    	handler.setParameter(ps, paramMapping.getProperty(), value);
-//			    }
-//			}
-//			
-//			try {
-//				tableOps.setCells(valueMap, conditionMap);
-//			} catch (RedissonDBException e) {
-//				throw new BindingException(e.getMessage(), e);
-//			}
-//		}
-//		return 0;
-//	}
-
 	@Override
-	public int delete(MappedStatement ms, Statement st) {
+	public int delete(MappedStatement ms, Statement st) throws ExecutionException {
 		DeleteStatement ds = (DeleteStatement) st;
 		Map<String, String> conditionMap  = ds.getConditionMap();
 		TableMeta tableMeta = ms.getTableMeta();
@@ -164,7 +125,7 @@ public class DefaultExecutor implements Executor {
 		return 0;
 	}
 	
-	private RTableOperation getTableOperation(TableMeta tableMeta){
+	private RTableOperation getTableOperation(TableMeta tableMeta) throws ExecutionException{
 
 		try {
 			RMemDBBuilder memDBBuilder = context.getMemDBBuilder();
@@ -176,7 +137,7 @@ public class DefaultExecutor implements Executor {
 	}
 
 	@Override
-	public void insert(MappedStatement ms, Statement st) {
+	public void insert(MappedStatement ms, Statement st) throws ExecutionException {
 		TableMeta tableMeta = ms.getTableMeta();
 		RTableOperation tableOps = getTableOperation(tableMeta);
 		InsertStatement is = (InsertStatement)st;

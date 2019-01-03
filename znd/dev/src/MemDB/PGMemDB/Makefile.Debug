@@ -17,7 +17,7 @@ CXXFLAGS      = -nologo -Zm200 /GR /EHsc /MDd /Zi -Zi -MDd -GR -W3 -w44996 -EHsc
 INCPATH       = -I. -ID:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /DEBUG /DLL /SUBSYSTEM:WINDOWS
-LIBS          = /LIBPATH:D:\GitHub\cim2ddl\znd\dev\lib_debug 
+LIBS          = /LIBPATH:D:\GitHub\cim2ddl\znd\dev\lib_debug D:\GitHub\cim2ddl\znd\dev\lib_debug\base.lib 
 QMAKE         = D:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -91,14 +91,14 @@ DIST          =  D:\GitHub\cim2ddl\znd/dev/src/MemDB/MemDBBase/MemDBBase.h \
 		D:\GitHub\cim2ddl\znd/dev/src/MemDB/MemDBBase/MemDBBase_Record.hpp \
 		D:\GitHub\cim2ddl\znd/dev/src/MemDB/MemDBBase/MemDBBase_Sort.hpp \
 		D:\GitHub\cim2ddl\znd/dev/src/MemDB/MemDBBase/MemDBHash.h \
+		D:\GitHub\cim2ddl\znd/dev/src/Common/StringCommon.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
 		PGMemDBEnum.h \
 		PGMemDBExtern.h \
 		PGMemDBField.h \
-		PGMemDBTable.h \
-		D:\GitHub\cim2ddl\znd/dev/src/Common/StringCommon.h ..\MemDBBase\MemDBBase.cpp \
+		PGMemDBTable.h ..\MemDBBase\MemDBBase.cpp \
 		PGMemDB.cpp \
 		PGMemDBAbnorm.cpp \
 		PGMemDBBreakerType.cpp \
@@ -236,8 +236,7 @@ compiler_clean:
 
 ####### Compile
 
-debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
-		stdafx.h \
+debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
 		..\include\MDBDefine.h \
 		..\MemDBBase\MemDBBase_Check.hpp \
@@ -245,7 +244,11 @@ debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
 		..\MemDBBase\MemDBBase_Record.hpp \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
-		..\..\Common\String2Double.hpp
+		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
+		..\MemDBBase\MemDBHash.h
 
 debug\PGMemDB.obj: PGMemDB.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -256,12 +259,26 @@ debug\PGMemDB.obj: PGMemDB.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBTable.h \
 		PGMemDBField.h \
 		PGMemDBEnum.h \
+		PGMemDBField_Distribution.h \
+		PGMemDBField_DCGrid.h \
+		PGMemDBField_Graph.h \
+		PGMemDBField_Relay.h \
+		PGMemDBField_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBAbnorm.obj: PGMemDBAbnorm.cpp stdafx.h \
@@ -273,9 +290,18 @@ debug\PGMemDBAbnorm.obj: PGMemDBAbnorm.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBBreakerType.obj: PGMemDBBreakerType.cpp stdafx.h \
@@ -287,9 +313,18 @@ debug\PGMemDBBreakerType.obj: PGMemDBBreakerType.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBBusType.obj: PGMemDBBusType.cpp stdafx.h \
@@ -301,9 +336,18 @@ debug\PGMemDBBusType.obj: PGMemDBBusType.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBDecompose.obj: PGMemDBDecompose.cpp stdafx.h \
@@ -315,9 +359,18 @@ debug\PGMemDBDecompose.obj: PGMemDBDecompose.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBDerived.obj: PGMemDBDerived.cpp stdafx.h \
@@ -329,9 +382,18 @@ debug\PGMemDBDerived.obj: PGMemDBDerived.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBIsland.obj: PGMemDBIsland.cpp stdafx.h \
@@ -343,9 +405,19 @@ debug\PGMemDBIsland.obj: PGMemDBIsland.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
-		PGMemDBDefine.h
+		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
+		PGMemDBExtern.h
 
 debug\PGMemDBMaint.obj: PGMemDBMaint.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -356,9 +428,18 @@ debug\PGMemDBMaint.obj: PGMemDBMaint.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBMisc.obj: PGMemDBMisc.cpp stdafx.h \
@@ -370,9 +451,18 @@ debug\PGMemDBMisc.obj: PGMemDBMisc.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
-		PGMemDBDefine.h
+		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h
 
 debug\PGMemDBPFAmend.obj: PGMemDBPFAmend.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -383,9 +473,18 @@ debug\PGMemDBPFAmend.obj: PGMemDBPFAmend.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBPointer.obj: PGMemDBPointer.cpp stdafx.h \
@@ -397,9 +496,18 @@ debug\PGMemDBPointer.obj: PGMemDBPointer.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBRecord.obj: PGMemDBRecord.cpp stdafx.h \
@@ -411,9 +519,18 @@ debug\PGMemDBRecord.obj: PGMemDBRecord.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
-		PGMemDBDefine.h
+		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h
 
 debug\PGMemDBRegular.obj: PGMemDBRegular.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -424,9 +541,18 @@ debug\PGMemDBRegular.obj: PGMemDBRegular.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
-		PGMemDBDefine.h
+		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h
 
 debug\PGMemDBStat.obj: PGMemDBStat.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -437,9 +563,18 @@ debug\PGMemDBStat.obj: PGMemDBStat.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBStatus.obj: PGMemDBStatus.cpp stdafx.h \
@@ -451,9 +586,18 @@ debug\PGMemDBStatus.obj: PGMemDBStatus.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBTopo.obj: PGMemDBTopo.cpp stdafx.h \
@@ -465,9 +609,18 @@ debug\PGMemDBTopo.obj: PGMemDBTopo.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
 		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h \
 		PGMemDBExtern.h
 
 debug\PGMemDBTrav.obj: PGMemDBTrav.cpp stdafx.h \
@@ -479,9 +632,18 @@ debug\PGMemDBTrav.obj: PGMemDBTrav.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
-		PGMemDBDefine.h
+		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h
 
 debug\PGMemDBVolt32.obj: PGMemDBVolt32.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -492,9 +654,18 @@ debug\PGMemDBVolt32.obj: PGMemDBVolt32.cpp stdafx.h \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
 		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h \
 		PGMemDB.h \
 		PGMemDBBlock.h \
-		PGMemDBDefine.h
+		PGMemDBDefine.h \
+		PGMemDBDefine_Enum.h \
+		PGMemDBDefine_Distribution.h \
+		PGMemDBDefine_DCGrid.h \
+		PGMemDBDefine_Graph.h \
+		PGMemDBDefine_Relay.h \
+		PGMemDBDefine_Misc.h
 
 debug\StringCommon.obj: ..\..\Common\StringCommon.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -504,7 +675,10 @@ debug\StringCommon.obj: ..\..\Common\StringCommon.cpp stdafx.h \
 		..\MemDBBase\MemDBBase_Record.hpp \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
-		..\..\Common\String2Double.hpp
+		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h
 
 debug\Log.obj: ..\..\Common\Log.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -514,7 +688,10 @@ debug\Log.obj: ..\..\Common\Log.cpp stdafx.h \
 		..\MemDBBase\MemDBBase_Record.hpp \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
-		..\..\Common\String2Double.hpp
+		..\..\Common\String2Double.hpp \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h
 
 ####### Install
 

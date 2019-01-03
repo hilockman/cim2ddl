@@ -11,6 +11,7 @@ logging:
      interfaceLogger: OFF
      org.redisson: OFF
      com.znd.bus.buffer.BufferContext: DEBUG
+     com.znd.bus.binding.VFS : DEBUG
         
 server:
   session-timeout : 3600
@@ -38,8 +39,8 @@ mybatis:
   
 #buffer配置  
 buffer:
-   #redisConfig: ClusterServersConfig.cfg
    redisConfig: SingleServerConfig.cfg
+   localConfig: SingleServerConfig.cfg
    channels:
        -
          name : jobChannel

@@ -17,7 +17,7 @@ CXXFLAGS      = -nologo -Zm200 /GR /EHsc /MD /Zi -O2 -MD -Zc:strictStrings -GR -
 INCPATH       = -I. -ID:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /RELEASE /INCREMENTAL:NO /DLL /SUBSYSTEM:WINDOWS
-LIBS          = /LIBPATH:D:\GitHub\cim2ddl\znd\dev\lib_release D:\GitHub\cim2ddl\znd\dev\lib_release\tinyxml.lib D:\GitHub\cim2ddl\znd\dev\lib_release\PRMemDB.lib D:\GitHub\cim2ddl\znd\dev\lib_release\PGMemDB.lib 
+LIBS          = /LIBPATH:D:\GitHub\cim2ddl\znd\dev\lib_release D:\GitHub\cim2ddl\znd\dev\lib_release\tinyxml.lib D:\GitHub\cim2ddl\znd\dev\lib_release\base.lib D:\GitHub\cim2ddl\znd\dev\lib_release\PRMemDB.lib D:\GitHub\cim2ddl\znd\dev\lib_release\PGMemDB.lib 
 QMAKE         = D:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -122,6 +122,7 @@ $(OBJECTS) $(LIBS)
 <<
 	cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_release
 	 if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb D:\GitHub\cim2ddl\znd/binary/win64/release/pdb
+	 cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll copy /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll D:\GitHub\cim2ddl\znd\bin
 	
 
 qmake: FORCE
@@ -164,6 +165,12 @@ release\DCNetwork.obj: DCNetwork.cpp DCNetwork.h \
 		..\..\MemDB\PGMemDB\PGMemDBBlock.h \
 		..\..\MemDB\PGMemDB\PGMemDBDefine.h \
 		..\..\MemDB\include\MDBDefine.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Enum.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Distribution.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_DCGrid.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Graph.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Relay.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Misc.h \
 		..\..\MemDB\PRMemDB\PRMemDB.h \
 		..\..\MemDB\PRMemDB\PRMemDBBlock.h \
 		..\..\MemDB\PRMemDB\PRMemDBDefine.h \
@@ -174,6 +181,12 @@ release\DCNetwork_MatZ.obj: DCNetwork_MatZ.cpp DCNetwork.h \
 		..\..\MemDB\PGMemDB\PGMemDBBlock.h \
 		..\..\MemDB\PGMemDB\PGMemDBDefine.h \
 		..\..\MemDB\include\MDBDefine.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Enum.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Distribution.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_DCGrid.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Graph.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Relay.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Misc.h \
 		..\..\MemDB\PRMemDB\PRMemDB.h \
 		..\..\MemDB\PRMemDB\PRMemDBBlock.h \
 		..\..\MemDB\PRMemDB\PRMemDBDefine.h \
@@ -184,6 +197,12 @@ release\DCNetwork_PGFlow.obj: DCNetwork_PGFlow.cpp DCNetwork.h \
 		..\..\MemDB\PGMemDB\PGMemDBBlock.h \
 		..\..\MemDB\PGMemDB\PGMemDBDefine.h \
 		..\..\MemDB\include\MDBDefine.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Enum.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Distribution.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_DCGrid.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Graph.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Relay.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Misc.h \
 		..\..\MemDB\PRMemDB\PRMemDB.h \
 		..\..\MemDB\PRMemDB\PRMemDBBlock.h \
 		..\..\MemDB\PRMemDB\PRMemDBDefine.h \
@@ -194,16 +213,31 @@ release\DCNetwork_PRFlow.obj: DCNetwork_PRFlow.cpp DCNetwork.h \
 		..\..\MemDB\PGMemDB\PGMemDBBlock.h \
 		..\..\MemDB\PGMemDB\PGMemDBDefine.h \
 		..\..\MemDB\include\MDBDefine.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Enum.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Distribution.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_DCGrid.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Graph.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Relay.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Misc.h \
 		..\..\MemDB\PRMemDB\PRMemDB.h \
 		..\..\MemDB\PRMemDB\PRMemDBBlock.h \
 		..\..\MemDB\PRMemDB\PRMemDBDefine.h \
-		dcnetworkexp.h
+		dcnetworkexp.h \
+		..\..\..\include\ilog.h \
+		..\..\..\include\zndexp.h \
+		..\..\..\include\log.h
 
 release\DCNetwork_PRMisc.obj: DCNetwork_PRMisc.cpp DCNetwork.h \
 		..\..\MemDB\PGMemDB\PGMemDB.h \
 		..\..\MemDB\PGMemDB\PGMemDBBlock.h \
 		..\..\MemDB\PGMemDB\PGMemDBDefine.h \
 		..\..\MemDB\include\MDBDefine.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Enum.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Distribution.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_DCGrid.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Graph.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Relay.h \
+		..\..\MemDB\PGMemDB\PGMemDBDefine_Misc.h \
 		..\..\MemDB\PRMemDB\PRMemDB.h \
 		..\..\MemDB\PRMemDB\PRMemDBBlock.h \
 		..\..\MemDB\PRMemDB\PRMemDBDefine.h \

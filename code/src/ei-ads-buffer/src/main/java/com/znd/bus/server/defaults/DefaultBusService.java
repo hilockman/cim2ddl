@@ -17,6 +17,8 @@ import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.ChannelRegistry;
 import com.znd.bus.channel.ChannelType;
 import com.znd.bus.channel.Listener;
+import com.znd.bus.exception.MessageException;
+import com.znd.bus.exception.RegistException;
 import com.znd.bus.log.BufferLogger;
 import com.znd.bus.log.BufferLoggerFactory;
 import com.znd.bus.server.AdapterService;
@@ -69,24 +71,10 @@ public class DefaultBusService extends BusService {
 	public DefaultBusService(ChannelRegistry channelRegistry) {
 		
 		this.channelRegistry = channelRegistry;
-		
-		verbTypeMap.put(VerbEnum.get, VerbTypeEnum.Request);
-		
-		verbTypeMap.put(VerbEnum.reply, VerbTypeEnum.Response);
-		
-		verbTypeMap.put(VerbEnum.create, VerbTypeEnum.Tansaction);
-		verbTypeMap.put(VerbEnum.change, VerbTypeEnum.Tansaction);
-		verbTypeMap.put(VerbEnum.delete, VerbTypeEnum.Tansaction);
-		verbTypeMap.put(VerbEnum.close, VerbTypeEnum.Tansaction);
-		verbTypeMap.put(VerbEnum.cancel, VerbTypeEnum.Tansaction);
-		verbTypeMap.put(VerbEnum.execute, VerbTypeEnum.Tansaction);
-		
-		verbTypeMap.put(VerbEnum.created, VerbTypeEnum.Event);
-		verbTypeMap.put(VerbEnum.changed, VerbTypeEnum.Event);
-		verbTypeMap.put(VerbEnum.deleted, VerbTypeEnum.Event);
-		verbTypeMap.put(VerbEnum.closed, VerbTypeEnum.Event);
-		verbTypeMap.put(VerbEnum.canceled, VerbTypeEnum.Event);
-		verbTypeMap.put(VerbEnum.executed, VerbTypeEnum.Event);
+		for (VerbEnum v  : VerbEnum.values()) {
+			verbTypeMap.put(v, Topic.type(v));
+		}
+
 	}
 	
 
@@ -98,7 +86,13 @@ public class DefaultBusService extends BusService {
 		Channel c = channelRegistry.getChannel(channelName);
 		if (c == null) {
 			ChannelConfig config = new ChannelConfig(channelName, ChannelType.SendOnly);
-			c  = channelRegistry.addChannel(config);
+			try {
+				c  = channelRegistry.addChannel(config);
+			} catch (MessageException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 		}
 			
 		ChannelMessage msg = new ChannelMessage(channelName, Utils.toJSon(msgBase));
@@ -264,7 +258,7 @@ public class DefaultBusService extends BusService {
 
 	@Override
 	public AdapterService registAdapter(AdapterService adapter, String name,
-			Topic.TopicEnd... topics) {
+			Topic.TopicEnd... topics) throws RegistException, MessageException {
 		
 		adapter.setToken(Utils.randomKey());
 		adapter.setName(name);
@@ -282,8 +276,10 @@ public class DefaultBusService extends BusService {
 			case Tansaction: //对发送请求和事务的适配器，增加reply上传权限。
 				if (end.isIn()) //
 					allTopics.add(Topic.out(VerbEnum.reply, end.getTopic().getNoun()));
-				else {//对响应请求和事务的适配器，增加reply上传的权限
+				else if (end.isOut()){//对响应请求和事务的适配器，增加reply上传的权限
 					allTopics.add(Topic.in(VerbEnum.reply, end.getTopic().getNoun()));
+				} else {
+					throw new RegistException("Invalid direction :"+end.getDirection()+" for verb : "+end.getVerb()+", verbType :"+verbType);
 				}
 				break;
 			default:
@@ -340,6 +336,7 @@ public class DefaultBusService extends BusService {
 					switch (verbType) {
 						case Event:
 						{
+							bufferLogger.info("Bus send event: {} .", message.getContent());
 							EventMessageType event = Utils.toObject(message.getContent(), EventMessageType.class);
 							adapter.publish(event);
 						} break;

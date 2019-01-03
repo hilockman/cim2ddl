@@ -4,9 +4,9 @@
 2,Factory,厂家,STRING,64
 3,Model,型号,STRING,64
 4,Type,机组类型,STRING,64
-5,RefrigerationCapacity,制冷量(kW),DOUBLE,4
+5,CoolingCapacity,制冷量(kW),DOUBLE,4
 6,HeatingCapacity,制热量(kW),DOUBLE,4
-7,RefrigerationCop,制冷效率,DOUBLE,4
+7,CoolingCop,制冷效率,DOUBLE,4
 8,HeatingCop,制热效率,DOUBLE,4
 9,WaterProductionRate,产水率(L/h),DOUBLE,4
 10,InPower,输入功率(kW),DOUBLE,4

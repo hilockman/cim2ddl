@@ -8,7 +8,7 @@
 #include <float.h>
 namespace	BpaMemDB
 {
-	void bpaDictLineString2FieldArray(const int nBpaTable, const int nDictFieldNum, tagBpa_Dict dictArray[], const char* lpszBpaLine, char szField[][MDB_CHARLEN_LONG])
+	void CBpaMemDBInterface::BpaDictLineString2FieldArray(const int nBpaTable, const int nDictFieldNum, tagBpa_Dict dictArray[], const char* lpszBpaLine, char szField[][MDB_CHARLEN_LONG])
 	{
 		int		nField;
 		for (nField=0; nField<nDictFieldNum; nField++)
@@ -22,8 +22,7 @@ namespace	BpaMemDB
 		BpaFormTableKeyField(nBpaTable, szField);
 	}
 
-
-	int	bpaDictFieldArray2LineString(const int nBpaTable, const int nDictFieldNum, tagBpa_Dict dictFieldArray[], const char szField[][MDB_CHARLEN_LONG], char* lpszRetLine)
+	int	CBpaMemDBInterface::BpaDictFieldArray2LineString(const int nBpaTable, const int nDictFieldNum, tagBpa_Dict dictFieldArray[], const char szField[][MDB_CHARLEN_LONG], char* lpszRetLine)
 	{
 		register int	i;
 		int		nField, nIni, nEnd, nDecimal, nDataLen;
@@ -63,14 +62,14 @@ namespace	BpaMemDB
 						else
 						{
 							strcat(szValue, ".");
-							FormularBpaDecimalChar(szValue, nDataLen);
+							BpaFormatDecimalChar(nBpaTable, nField, szValue, nDataLen, nDecimal);
 							for (i=0; i<strlen(szValue); i++)
 								lpszRetLine[nEnd-1-i]=szValue[strlen(szValue)-1-i];
 						}
 					}
 					else
 					{
-						FormularBpaDecimalChar(szValue, nDataLen);
+						BpaFormatDecimalChar(nBpaTable, nField, szValue, nDataLen, nDecimal);
 						for (i=0; i<strlen(szValue); i++)
 							lpszRetLine[nEnd-1-i]=szValue[strlen(szValue)-1-i];
 						//for (i=0; i<nDataLen; i++)
@@ -115,7 +114,7 @@ namespace	BpaMemDB
 		return (int)strlen(lpszRetLine);
 	}
 
-	int parseSwiControl(tagBpaBlock* pBpaBlock, const char* lpszKey, const char* lpszLineString)
+	int CBpaMemDBInterface::ParseSwiControl(tagBpaBlock* pBpaBlock, const char* lpszKey, const char* lpszLineString)
 	{
 		int		nTable, nField;
 		char	szField[MAXMDBFIELDNUM][MDB_CHARLEN_LONG];
@@ -126,35 +125,35 @@ namespace	BpaMemDB
 		{
 			nTable=BPA_SWI_CASE;
 			pBpaBlock->m_nRecordNum[nTable]=0;
-			bpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiCaseDictArray)/sizeof(tagBpa_Dict), m_BpaSwiCaseDictArray, lpszLineString, szField);
+			BpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiCaseDictArray)/sizeof(tagBpa_Dict), m_BpaSwiCaseDictArray, lpszLineString, szField);
 			BpaAppendRecord(pBpaBlock, MDB_NoNeedCheckData, nTable, szField);
 		}
 		else if (stricmp(lpszKey, "F0") == 0)	//	计算控制卡
 		{
 			nTable=BPA_SWI_F0;
 			pBpaBlock->m_nRecordNum[nTable]=0;
-			bpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiF0DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF0DictArray, lpszLineString, szField);
+			BpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiF0DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF0DictArray, lpszLineString, szField);
 			BpaAppendRecord(pBpaBlock, MDB_NoNeedCheckData, nTable, szField);
 		}
 		else if (stricmp(lpszKey, "F1") == 0)	//	计算控制卡
 		{
 			nTable=BPA_SWI_F1;
 			pBpaBlock->m_nRecordNum[nTable]=0;
-			bpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiF1DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF1DictArray, lpszLineString, szField);
+			BpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiF1DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF1DictArray, lpszLineString, szField);
 			BpaAppendRecord(pBpaBlock, MDB_NoNeedCheckData, nTable, szField);
 		}
 		else if (stricmp(lpszKey, "FF") == 0)	//	计算控制卡
 		{
 			nTable=BPA_SWI_FF;
 			pBpaBlock->m_nRecordNum[nTable]=0;
-			bpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiFFDictArray)/sizeof(tagBpa_Dict), m_BpaSwiFFDictArray, lpszLineString, szField);
+			BpaDictLineString2FieldArray(nTable, sizeof(m_BpaSwiFFDictArray)/sizeof(tagBpa_Dict), m_BpaSwiFFDictArray, lpszLineString, szField);
 			BpaAppendRecord(pBpaBlock, MDB_NoNeedCheckData, nTable, szField);
 		}
 
 		return 1;
 	}
 
-	void parseSwiLn(tagBpaBlock* pBpaBlock, std::vector<std::string> strSwiLineArray)
+	void CBpaMemDBInterface::ParseSwiLn(tagBpaBlock* pBpaBlock, std::vector<std::string> strSwiLineArray)
 	{
 		int		nLine;
 		char	szBuffer[MDB_CHARLEN];
@@ -260,7 +259,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void parseSwiLOZ(tagBpaBlock* pBpaBlock, std::vector<std::string> strSwiLineArray)
+	void CBpaMemDBInterface::ParseSwiLOZ(tagBpaBlock* pBpaBlock, std::vector<std::string> strSwiLineArray)
 	{
 		register int	i;
 		int		nLine, nZone;
@@ -342,20 +341,20 @@ namespace	BpaMemDB
 		}
 	}
 
-	int	BpaFiles2MemDB_Swi(tagBpaBlock* pBpaBlock, const char* lpszBpaSwiFile)
+	int	CBpaMemDBInterface::BpaFiles2MemDB_Swi(tagBpaBlock* pBpaBlock, const char* lpszBpaSwiFile)
 	{
 		register int	i;
 		int		nLine, nDictIni, nBpaTable, nRecord, nField;
 		unsigned char	bCategory, bDataEndFlag, bConFlag;
 		std::vector<std::string>	strSwiLineArray;
-		std::vector<std::string>	strSWPrevCardArray;
-		strSWPrevCardArray.clear();
+		std::string					strPrevKey;
 
 		FILE*	fp;
 		char	szFileName[260], szLine[1024], szKey[10];
 		char	szField[MAXMDBFIELDNUM][MDB_CHARLEN_LONG];
-		char	szRestValue[g_nConstMaxPrimaryKey][MDB_CHARLEN_LONG];
+		//char	szRestValue[g_nConstMaxPrimaryKey][MDB_CHARLEN_LONG];
 
+		strPrevKey.clear();
 		strSwiLineArray.clear();
 		//	1.读入BPA的SWI文件的行信息
 		if (lpszBpaSwiFile)
@@ -388,7 +387,6 @@ namespace	BpaMemDB
 			return 0;
 
 		//	2.填入BPA的稳定数据信息表
-		strSWPrevCardArray.clear();
 		bDataEndFlag=0;
 		bConFlag=0;
 		for (nLine=0; nLine<(int)strSwiLineArray.size(); nLine++)
@@ -415,14 +413,14 @@ namespace	BpaMemDB
 			nDictIni=nBpaTable=-1;
 			if (stricmp(szKey, "CASE") == 0 || stricmp(szKey, "F0") == 0 || stricmp(szKey, "F1") == 0)	//	计算控制卡
 			{
-				parseSwiControl(pBpaBlock, szKey, strSwiLineArray[nLine].c_str());
+				ParseSwiControl(pBpaBlock, szKey, strSwiLineArray[nLine].c_str());
 				bConFlag=1;
 				bCategory=BpaSwiCategory_Con;
 				continue;
 			}
 			if (stricmp(szKey, "FF") == 0 && strSwiLineArray[nLine][3] == ' ')	//	计算控制卡
 			{
-				parseSwiControl(pBpaBlock, szKey, strSwiLineArray[nLine].c_str());
+				ParseSwiControl(pBpaBlock, szKey, strSwiLineArray[nLine].c_str());
 				bConFlag=1;
 				bCategory=BpaSwiCategory_Con;
 				continue;
@@ -435,100 +433,42 @@ namespace	BpaMemDB
 			if (stricmp(szKey, "LN") == 0)
 				continue;
 
-			if (stricmp(szKey, "U+") == 0)
-				BpaBpaCardKey2DictKey(szKey, strSWPrevCardArray);
-			else
-				BpaBpaCardKey2DictKey(szKey, strSwiLineArray[nLine].c_str());
-			strSWPrevCardArray.push_back(szKey);
-
-			nDictIni=BpaGetTableDictIndex(szKey, bCategory);
-			if (nDictIni >= 0)
-				nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
-			if (nDictIni < 0 || nBpaTable < 0)
-			{
-				Log(g_lpszLogFile, "BPA稳定数据行无法解析: %s\n", strSwiLineArray[nLine].c_str());
-				continue;
-			}
-
 			if (BpaIsCardKeyAppend(bCategory, szKey))
 			{
+				nDictIni=BpaGetTableDictIndex(szKey, bCategory);
+				if (nDictIni >= 0)
+					nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
+				if (nDictIni < 0 || nBpaTable < 0)
+				{
+					Log(g_lpszLogFile, "BPA稳定数据行无法解析: %s\n", strSwiLineArray[nLine].c_str());
+					continue;
+				}
+
+				strPrevKey = szKey;
 				BpaString2FieldArray(nBpaTable, nDictIni, strSwiLineArray[nLine].c_str(), szField);
 				BpaAppendRecord(pBpaBlock, MDB_NoNeedCheckData, nBpaTable, szField);
 			}
-		}
-
-		parseSwiLn(pBpaBlock, strSwiLineArray);
-		parseSwiLOZ(pBpaBlock, strSwiLineArray);
-
-		BpaMaint(pBpaBlock);
-
-		//	3.追加BPA的稳定数据信息表（BPA中两个或以上卡合成的一个表）
-		strSWPrevCardArray.clear();
-		bDataEndFlag=0;
-		bConFlag=0;
-		for (nLine=0; nLine<(int)strSwiLineArray.size(); nLine++)
-		{
-			if (strSwiLineArray[nLine].length() <= 0)
-				continue;
-
-			if (bDataEndFlag)
-				continue;
-
-			if (strSwiLineArray[nLine][0] == '.' || strSwiLineArray[nLine][0] == '/' || strSwiLineArray[nLine][0] == 'C' || strSwiLineArray[nLine][0] == 'c')
-			{
-				memset(szKey, 0, 10);
-				strncpy(szKey, strSwiLineArray[nLine].c_str(), 4);
-				if (stricmp(strupr(szKey), "CASE") != 0)
-					continue;
-				else if (strSwiLineArray[nLine][1] == ' ' || strSwiLineArray[nLine][1] == '/')
-					continue;
-			}
-
-			memset(szKey, 0, 10);
-			BpaResolveLineKey(strSwiLineArray[nLine].c_str(), szKey);
-
-			bCategory=BpaSwiCategory_Dat;
-			nDictIni=nBpaTable=-1;
-			if (stricmp(szKey, "CASE") == 0 || stricmp(szKey, "F0") == 0 || stricmp(szKey, "F1") == 0)	//	计算控制卡
-			{
-				bCategory=BpaSwiCategory_Con;
-				bConFlag=1;
-				continue;
-			}
-			if (stricmp(szKey, "FF") == 0 && strSwiLineArray[nLine][3] == ' ')	//	计算控制卡
-			{
-				bCategory=BpaSwiCategory_Con;
-				bConFlag=1;
-				continue;
-			}
-			if (stricmp(szKey, "90") == 0)	//	输出开始卡
-			{
-				bDataEndFlag=1;
-				continue;
-			}
-
-			if (stricmp(szKey, "U+") == 0)
-				BpaBpaCardKey2DictKey(szKey, strSWPrevCardArray);
 			else
-				BpaBpaCardKey2DictKey(szKey, strSwiLineArray[nLine].c_str());
-			strSWPrevCardArray.push_back(szKey);
-
-			nDictIni=BpaGetTableDictIndex(szKey, bCategory);
-			if (nDictIni >= 0)
-				nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
-			if (nDictIni < 0 || nBpaTable < 0)
-				continue;
-
-			if (!BpaIsCardKeyAppend(bCategory, szKey))
 			{
+				if (stricmp(szKey, "F+") == 0)
+					BpaBpaCardKey2DictKeyFx(szKey, strSwiLineArray[nLine].c_str());
+				else
+					BpaBpaCardKey2DictKey(szKey, strPrevKey.c_str());
+
+				nDictIni=BpaGetTableDictIndex(szKey, bCategory);
+				if (nDictIni >= 0)
+					nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
+				if (nDictIni < 0 || nBpaTable < 0)
+				{
+					Log(g_lpszLogFile, "BPA稳定数据行（延续卡）无法解析: %s\n", strSwiLineArray[nLine].c_str());
+					continue;
+				}
 				BpaString2FieldArray(nBpaTable, nDictIni, strSwiLineArray[nLine].c_str(), szField);
 
-				for (i=0; i<g_nConstMaxPrimaryKey; i++)
-					memset(szRestValue[i], 0, MDB_CHARLEN_LONG);
-				for (i=0; i<BpaGetTablePrimaryKeyNum(nBpaTable); i++)
-					strcpy(szRestValue[i], szField[BpaGetTablePrimaryKey(nBpaTable, i)]);
-
-				nRecord=BpaFindRecordbyKey(pBpaBlock, nBpaTable, szRestValue);
+				//for (i=0; i<BpaGetTablePrimaryKeyNum(nBpaTable); i++)
+				//	strcpy(szRestValue[i], szField[BpaGetTablePrimaryKey(nBpaTable, i)]);
+				//nRecord=BpaFindRecordbyKey(pBpaBlock, nBpaTable, szRestValue);
+				nRecord = pBpaBlock->m_nRecordNum[nBpaTable]-1;
 				if (nRecord >= 0)
 				{
 					for (i=nDictIni; i<BpaGetDictNum(); i++)
@@ -547,6 +487,9 @@ namespace	BpaMemDB
 				}
 			}
 		}
+
+		ParseSwiLn(pBpaBlock, strSwiLineArray);
+		ParseSwiLOZ(pBpaBlock, strSwiLineArray);
 		strSwiLineArray.clear();
 
 		BpaMaint(pBpaBlock);
@@ -554,7 +497,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	int		BpaMemDB2Files_Swi(tagBpaBlock* pBpaBlock, FILE* fp)
+	int CBpaMemDBInterface::BpaMemDB2Files_Swi(tagBpaBlock* pBpaBlock, FILE* fp)
 	{
 		register int	i;
 		int		nDev, nTable, nDictIni, nRecord;
@@ -573,14 +516,18 @@ namespace	BpaMemDB
 
 		memset(szLine1, 0, 256);
 
+		//////////////////////////////////////////////////////////////////////////
+		//	计算控制卡
 		nTable=BPA_SWI_CASE;
 		if (BpaSwi2LineString(nTable, (char*)&pBpaBlock->m_BpaSwi_Case, szLine1) <= 0)
 			return 0;
 		fprintf(fp, "%s\n", szLine1);
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".风机模型\n");
+		//////////////////////////////////////////////////////////////////////////
+		//	新能源模型
 		nTable=BPA_SWI_WGEGEN;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".GE风机模型\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
 			if (pBpaBlock->m_BpaSwi_WGEGenArray[nDev].nGenBus < 0)
@@ -616,6 +563,65 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
+		nTable=BPA_SWI_WGWGEN;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".金风风机模型\n");
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
+		{
+			if (pBpaBlock->m_BpaSwi_WGWGenArray[nDev].nGenBus < 0)
+				continue;
+			bBusLNOutArray[pBpaBlock->m_BpaSwi_WGWGenArray[nDev].nGenBus]=1;
+
+			for (i=0; i<255; i++)
+				szLine1[i]=' ';
+			szLine1[255]='\0';
+
+			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_WGWGenArray[nDev].szCardKey, -1);
+			if (BpaDataPtr2LineString(nTable, nDictIni, (char*)&pBpaBlock->m_BpaSwi_WGWGenArray[nDev], szLine1) <= 0)
+				continue;
+			fprintf(fp, "%s\n", szLine1);
+
+			strcpy(szBusName, pBpaBlock->m_BpaSwi_WGWGenArray[nDev].szBus_Name);
+			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_WGWGenArray[nDev].fBus_kV);
+			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_SWI_RE, szBusName, szBusVolt);
+			if (nRecord >= 0)
+			{
+				memset(szLine1, 0, 256);
+				memset(szLine2, 0, 256);
+				memset(szLine3, 0, 256);
+				for (i=0; i<MAXMDBFIELDNUM; i++)
+					memset(szField[i], 0, MDB_CHARLEN_LONG);
+				BpaDataPtr2FieldArray(BPA_SWI_RE, (char*)&pBpaBlock->m_BpaSwi_REArray[nRecord], szField);
+				BpaFieldArray2LineString(BPA_SWI_RE, szField, szLine1, szLine2, szLine3);
+				if (strlen(szLine1) > 0)	fprintf(fp, "%s\n", szLine1);
+				if (strlen(szLine2) > 0)	fprintf(fp, "%s\n", szLine2);
+				if (strlen(szLine3) > 0)	fprintf(fp, "%s\n", szLine3);
+				fprintf(fp, "\n");
+			}
+		}
+		fprintf(fp, "\n\n");
+
+		nTable=BPA_SWI_PV;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".光伏模型\n");
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
+		{
+			if (pBpaBlock->m_BpaSwi_PVArray[nDev].nGenBus < 0)
+				continue;
+			bBusLNOutArray[pBpaBlock->m_BpaSwi_PVArray[nDev].nGenBus]=1;
+
+			for (i=0; i<255; i++)
+				szLine1[i]=' ';
+			szLine1[255]='\0';
+
+			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_PVArray[nDev].szCardKey, -1);
+			if (BpaDataPtr2LineString(nTable, nDictIni, (char*)&pBpaBlock->m_BpaSwi_PVArray[nDev], szLine1) <= 0)
+				continue;
+			fprintf(fp, "%s\n", szLine1);
+		}
+		fprintf(fp, "\n\n");
+
+		//////////////////////////////////////////////////////////////////////////
+		//	发电机及其控制系统模型
 		fprintf(fp, ".发电机及其控制系统模型\n");
 		nTable=BPA_SWI_GEN;
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_GEN]; nDev++)
@@ -849,6 +855,8 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
+		//////////////////////////////////////////////////////////////////////////
+		//	电力电子装置模型
 		// 		fprintf(fp, ".SVC模型\n");
 		// 		nTable=BPA_SWI_V;
 		// 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_V]; nDev++)
@@ -867,8 +875,10 @@ namespace	BpaMemDB
 		// 		}
 		// 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".负荷模型\n");
+		//////////////////////////////////////////////////////////////////////////
+		//	负荷模型
 		nTable=BPA_SWI_MI;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".负荷模型\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_MI]; nDev++)
 		{
 			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_MIArray[nDev].szCardKey, BpaSwiCategory_Dat);
@@ -888,8 +898,10 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".变压器零序参数\n");
+		//////////////////////////////////////////////////////////////////////////
+		//	序参数模型
 		nTable=BPA_SWI_XO;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".变压器零序参数\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
 			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_XOArray[nDev].szCardKey, -1);
@@ -901,8 +913,8 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".线路零序参数\n");
 		nTable=BPA_SWI_LO;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".线路零序参数\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
 			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_LOArray[nDev].szCardKey, -1);
@@ -914,8 +926,8 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".线路串联电抗零序参数\n");
 		nTable=BPA_SWI_LOHG;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".线路串联电抗零序参数\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
 			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_LOHGArray[nDev].szCardKey, -1);
@@ -927,8 +939,8 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".对地支路零序模型\n");
 		nTable=BPA_SWI_XR;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".对地支路零序模型\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
 			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_XRArray[nDev].szCardKey, -1);
@@ -940,15 +952,20 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".直流控制系统\n");
+		//////////////////////////////////////////////////////////////////////////
+		//	直流系统模型
 		nTable=BPA_SWI_D;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".直流控制系统D\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_D]; nDev++)
 		{
 			strcpy(szBusName, pBpaBlock->m_BpaSwi_DArray[nDev].szBus_Name);
 			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_DArray[nDev].fBus_kV);
 			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
 			if (nRecord < 0)
+			{
+				Log(g_lpszLogFile, "输出D 直流母线: %s %g 不存在\n", pBpaBlock->m_BpaSwi_DArray[nDev].szBus_Name, pBpaBlock->m_BpaSwi_DArray[nDev].fBus_kV);
 				continue;
+			}
 
 			for (i=0; i<255; i++)
 				szLine1[i]=' ';
@@ -961,8 +978,139 @@ namespace	BpaMemDB
 		}
 		fprintf(fp, "\n\n");
 
-		fprintf(fp, ".等值发电机参数\n");
+		nTable=BPA_SWI_DT;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".简化直流控制系统DT\n");
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_DT]; nDev++)
+		{
+			strcpy(szBusName, pBpaBlock->m_BpaSwi_DTArray[nDev].szBus_Name);
+			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_DTArray[nDev].fBus_kV);
+			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
+			if (nRecord < 0)
+			{
+				Log(g_lpszLogFile, "输出DT 直流母线: %s %g 不存在\n", pBpaBlock->m_BpaSwi_DTArray[nDev].szBus_Name, pBpaBlock->m_BpaSwi_DTArray[nDev].fBus_kV);
+				continue;
+			}
+
+			for (i=0; i<255; i++)
+				szLine1[i]=' ';
+			szLine1[255]='\0';
+
+			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_DTArray[nDev].szCardKey, -1);
+			if (BpaDataPtr2LineString(nTable, nDictIni, (char*)&pBpaBlock->m_BpaSwi_DTArray[nDev], szLine1) <= 0)
+				continue;
+			fprintf(fp, "%s\n", szLine1);
+		}
+		fprintf(fp, "\n\n");
+
+		nTable=BPA_SWI_DF;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".两端直流换相失败模型DF\n");
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_DF]; nDev++)
+		{
+			strcpy(szBusName, pBpaBlock->m_BpaSwi_DFArray[nDev].szBus_Name);
+			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_DFArray[nDev].fBus_kV);
+			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
+			if (nRecord < 0)
+			{
+				Log(g_lpszLogFile, "输出DF 直流母线: %s %g 不存在\n", pBpaBlock->m_BpaSwi_DMArray[nDev].szBus_Name, pBpaBlock->m_BpaSwi_DMArray[nDev].fBus_kV);
+				continue;
+			}
+
+			for (i=0; i<255; i++)
+				szLine1[i]=' ';
+			szLine1[255]='\0';
+
+			nDictIni=BpaGetTableDictIndex(pBpaBlock->m_BpaSwi_DFArray[nDev].szCardKey, -1);
+			if (BpaDataPtr2LineString(nTable, nDictIni, (char*)&pBpaBlock->m_BpaSwi_DFArray[nDev], szLine1) <= 0)
+				continue;
+			fprintf(fp, "%s\n", szLine1);
+		}
+		fprintf(fp, "\n\n");
+
+		nTable=BPA_SWI_DM;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".新直流控制系统DM\n");
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_DM]; nDev++)
+		{
+			strcpy(szBusName, pBpaBlock->m_BpaSwi_DMArray[nDev].szBus_Name);
+			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_DMArray[nDev].fBus_kV);
+			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
+			if (nRecord < 0)
+			{
+				Log(g_lpszLogFile, "输出DM 直流母线: %s %g 不存在\n", pBpaBlock->m_BpaSwi_DMArray[nDev].szBus_Name, pBpaBlock->m_BpaSwi_DMArray[nDev].fBus_kV);
+				continue;
+			}
+
+			memset(szLine1, 0, 256);
+			memset(szLine2, 0, 256);
+			memset(szLine3, 0, 256);
+			for (i=0; i<MAXMDBFIELDNUM; i++)
+				memset(szField[i], 0, MDB_CHARLEN_LONG);
+
+			BpaDataPtr2FieldArray(nTable, (char*)&pBpaBlock->m_BpaSwi_DMArray[nDev], szField);
+			BpaFieldArray2LineString(nTable, szField, szLine1, szLine2, szLine3);
+			if (strlen(szLine1) > 0)	fprintf(fp, "%s\n", szLine1);
+			if (strlen(szLine2) > 0)	fprintf(fp, "%s\n", szLine2);
+			if (strlen(szLine3) > 0)	fprintf(fp, "%s\n", szLine3);
+		}
+		fprintf(fp, "\n\n");
+
+		nTable=BPA_SWI_DN;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".新直流控制系统DN\n");
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_DN]; nDev++)
+		{
+			strcpy(szBusName, pBpaBlock->m_BpaSwi_DNArray[nDev].szBus_Name);
+			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_DNArray[nDev].fBus_kV);
+			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
+			if (nRecord < 0)
+			{
+				Log(g_lpszLogFile, "输出DN 直流母线: %s %g 不存在\n", pBpaBlock->m_BpaSwi_DNArray[nDev].szBus_Name, pBpaBlock->m_BpaSwi_DNArray[nDev].fBus_kV);
+				continue;
+			}
+
+			memset(szLine1, 0, 256);
+			memset(szLine2, 0, 256);
+			memset(szLine3, 0, 256);
+			for (i=0; i<MAXMDBFIELDNUM; i++)
+				memset(szField[i], 0, MDB_CHARLEN_LONG);
+
+			BpaDataPtr2FieldArray(nTable, (char*)&pBpaBlock->m_BpaSwi_DNArray[nDev], szField);
+			BpaFieldArray2LineString(nTable, szField, szLine1, szLine2, szLine3);
+			if (strlen(szLine1) > 0)	fprintf(fp, "%s\n", szLine1);
+			if (strlen(szLine2) > 0)	fprintf(fp, "%s\n", szLine2);
+			if (strlen(szLine3) > 0)	fprintf(fp, "%s\n", szLine3);
+		}
+		fprintf(fp, "\n\n");
+
+		nTable=BPA_SWI_DA;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".新直流控制系统DA\n");
+		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_DA]; nDev++)
+		{
+			strcpy(szBusName, pBpaBlock->m_BpaSwi_DAArray[nDev].szBus_Name);
+			sprintf(szBusVolt, "%f", pBpaBlock->m_BpaSwi_DAArray[nDev].fBus_kV);
+			nRecord=BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, szBusName, szBusVolt);
+			if (nRecord < 0)
+			{
+				Log(g_lpszLogFile, "输出DA 直流母线: %s %g 不存在\n", pBpaBlock->m_BpaSwi_DAArray[nDev].szBus_Name, pBpaBlock->m_BpaSwi_DAArray[nDev].fBus_kV);
+				continue;
+			}
+
+			memset(szLine1, 0, 256);
+			memset(szLine2, 0, 256);
+			memset(szLine3, 0, 256);
+			for (i=0; i<MAXMDBFIELDNUM; i++)
+				memset(szField[i], 0, MDB_CHARLEN_LONG);
+
+			BpaDataPtr2FieldArray(nTable, (char*)&pBpaBlock->m_BpaSwi_DAArray[nDev], szField);
+			BpaFieldArray2LineString(nTable, szField, szLine1, szLine2, szLine3);
+			if (strlen(szLine1) > 0)	fprintf(fp, "%s\n", szLine1);
+			if (strlen(szLine2) > 0)	fprintf(fp, "%s\n", szLine2);
+			if (strlen(szLine3) > 0)	fprintf(fp, "%s\n", szLine3);
+		}
+		fprintf(fp, "\n\n");
+
+		//////////////////////////////////////////////////////////////////////////
+		//	
 		nTable=BPA_SWI_GENLN;
+		if (pBpaBlock->m_nRecordNum[nTable] > 0)	fprintf(fp, ".等值发电机参数\n");
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[BPA_SWI_GENLN]; nDev++)
 		{
 			strcpy(szBusName, pBpaBlock->m_BpaSwi_GenLnArray[nDev].szBus_Name);
@@ -1023,7 +1171,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	int BpaSwi2LineString(const int nBpaTable, const char* lpszDataPtr, char* lpszRetLine)
+	int CBpaMemDBInterface::BpaSwi2LineString(const int nBpaTable, const char* lpszDataPtr, char* lpszRetLine)
 	{
 		register int	i;
 		char	szField[MAXMDBFIELDNUM][MDB_CHARLEN_LONG];
@@ -1034,19 +1182,19 @@ namespace	BpaMemDB
 		switch (nBpaTable)
 		{
 		case	BPA_SWI_CASE:
-			bpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiCaseDictArray)/sizeof(tagBpa_Dict), m_BpaSwiCaseDictArray, szField, lpszRetLine);
+			BpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiCaseDictArray)/sizeof(tagBpa_Dict), m_BpaSwiCaseDictArray, szField, lpszRetLine);
 			break;
 		case	BPA_SWI_F0:
-			bpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiF0DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF0DictArray, szField, lpszRetLine);
+			BpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiF0DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF0DictArray, szField, lpszRetLine);
 			break;
 		case	BPA_SWI_F1:
-			bpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiF1DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF1DictArray, szField, lpszRetLine);
+			BpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiF1DictArray)/sizeof(tagBpa_Dict), m_BpaSwiF1DictArray, szField, lpszRetLine);
 			break;
 		case	BPA_SWI_FF:
-			bpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiFFDictArray)/sizeof(tagBpa_Dict), m_BpaSwiFFDictArray, szField, lpszRetLine);
+			BpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiFFDictArray)/sizeof(tagBpa_Dict), m_BpaSwiFFDictArray, szField, lpszRetLine);
 			break;
 		case	BPA_SWI_GENLN:
-			bpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiLNDictArray)/sizeof(tagBpa_Dict), m_BpaSwiLNDictArray, szField, lpszRetLine);
+			BpaDictFieldArray2LineString(nBpaTable, sizeof(m_BpaSwiLNDictArray)/sizeof(tagBpa_Dict), m_BpaSwiLNDictArray, szField, lpszRetLine);
 			break;
 		default:
 			break;

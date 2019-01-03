@@ -8,13 +8,8 @@
 #include <float.h>
 namespace	BpaMemDB
 {
-	typedef	struct  _BpaZone2Area_
-	{
-		std::string			strAreaName;
-		std::vector<std::string>	strZoneArray;
-	}	tagBpaZone2Area;
 
-	void parseDatAI(tagBpaBlock* pBpaBlock, std::vector<std::string> strLineArray, std::vector<tagBpaZone2Area>& z2aArray)
+	void CBpaMemDBInterface::ParseDatAI(tagBpaBlock* pBpaBlock, std::vector<std::string> strLineArray, std::vector<tagBpaZone2Area>& z2aArray)
 	{
 		register int	i;
 		int		nLine;
@@ -150,7 +145,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void parseDatControl(tagBpaBlock* pBpaBlock, std::vector<std::string> strLineArray)
+	void CBpaMemDBInterface::ParseDatControl(tagBpaBlock* pBpaBlock, std::vector<std::string> strLineArray)
 	{
 		register int	i;
 		int		nLine;
@@ -163,8 +158,8 @@ namespace	BpaMemDB
 		pBpaBlock->m_nRecordNum[BPA_DAT_CASE]=1;
 
 		pBpaBlock->m_BpaDat_Case.fMVABase=100;
-		pBpaBlock->m_BpaDat_Case.nDecoupledNum=2;
-		pBpaBlock->m_BpaDat_Case.nNewtonNum=30;
+		pBpaBlock->m_BpaDat_Case.nDecoupledNum=20;
+		pBpaBlock->m_BpaDat_Case.nNewtonNum=20;
 		pBpaBlock->m_BpaDat_Case.fToleranceBusV=(float)0.005;
 		pBpaBlock->m_BpaDat_Case.fToleranceAIPower=(float)0.005;
 		pBpaBlock->m_BpaDat_Case.fToleranceTX=(float)0.005;
@@ -386,93 +381,21 @@ namespace	BpaMemDB
 		}
 	}
 
-// 	void parseDatBPlus(tagBpaBlock* pBpaBlock, const char* lpszDatLine, char szField[][MDB_CHARLEN_LONG])
-// 	{
-// 		char	szBuffer[MDB_CHARLEN];
-// 		double	fBuffer;
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(15, 18, lpszDatLine, szBuffer);
-// 		fBuffer=StringToFloat(szBuffer);
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(7, 14, lpszDatLine, szBuffer);
-// 		TrimLeft(szBuffer);
-// 		TrimRight(szBuffer);
-// 
-// 		if (stricmp(szBuffer, szField[BPA_DAT_ACBUS_NAME]) != 0 || fabs(fBuffer - StringToFloat(szField[BPA_DAT_ACBUS_KV])) > 0.1)
-// 			return;
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(21,	25, lpszDatLine, szBuffer);
-// 		fBuffer=StringToFloat(szBuffer);
-// 		if (fabs(fBuffer) > FLT_MIN)
-// 		{
-// 			fBuffer += StringToFloat(szField[BPA_DAT_ACBUS_PLOAD]);
-// 			sprintf(szField[BPA_DAT_ACBUS_PLOAD], "%f", fBuffer);
-// 		}
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(26,	30, lpszDatLine, szBuffer);
-// 		fBuffer=StringToFloat(szBuffer);
-// 		if (fabs(fBuffer) > FLT_MIN)
-// 		{
-// 			fBuffer += StringToFloat(szField[BPA_DAT_ACBUS_QLOAD]);
-// 			sprintf(szField[BPA_DAT_ACBUS_QLOAD], "%f", fBuffer);
-// 		}
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(31,	34, lpszDatLine, szBuffer);
-// 		fBuffer=StringToFloat(szBuffer);
-// 		if (fabs(fBuffer) > FLT_MIN)
-// 		{
-// 			fBuffer += StringToFloat(szField[BPA_DAT_ACBUS_PSHUNT]);
-// 			sprintf(szField[BPA_DAT_ACBUS_PSHUNT], "%f", fBuffer);
-// 		}
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(35,	38, lpszDatLine, szBuffer);
-// 		fBuffer=StringToFloat(szBuffer);
-// 		if (fabs(fBuffer) > FLT_MIN)
-// 		{
-// 			fBuffer += StringToFloat(szField[BPA_DAT_ACBUS_QSHUNT]);
-// 			sprintf(szField[BPA_DAT_ACBUS_QSHUNT], "%f", fBuffer);
-// 		}
-// 
-// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		ExtractBpaField(43,	47, lpszDatLine, szBuffer);
-// 		fBuffer=StringToFloat(szBuffer);
-// 		if (fabs(fBuffer) > FLT_MIN)
-// 		{
-// 			fBuffer += StringToFloat(szField[BPA_DAT_ACBUS_PGEN]);
-// 			sprintf(szField[BPA_DAT_ACBUS_PGEN], "%f", fBuffer);
-// 		}
-// 
-// 		// 		memset(szBuffer, 0, MDB_CHARLEN);
-// 		// 		ExtractBpaField(48,	52, lpszDatLine, szBuffer);
-// 		// 		fBuffer=StringToFloat(szBuffer);
-// 		// 		if (fabs(fBuffer) > FLT_MIN)
-// 		// 		{
-// 		// 			fBuffer += StringToFloat(szField[BPA_DAT_ACBUS_QSCHED_QMAX]);
-// 		// 			sprintf(szField[BPA_DAT_ACBUS_QSCHED_QMAX], "%f", fBuffer);
-// 		// 		}
-// 	}
-
-	int	BpaFiles2MemDB_Dat(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const double fZeroImpendance)
+	int CBpaMemDBInterface::BpaFiles2MemDB_Dat(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const double fZeroImpendance)
 	{
 		register int	i;
 		int		nLine, nDictIni, nBpaTable, nRecord, nField;
 		unsigned char	bFlag, bDataEndFlag;
-		float	fTPBuffer;
+		//float	fTPBuffer;
+		std::string		strPrevKey;
 		std::vector<std::string>	strDatLineArray;
-
 		std::vector<tagBpaZone2Area>	z2aArray;
 		z2aArray.clear();
 
 		FILE*	fp;
 		char	szFileName[260], szLine[1024], szKey[10];
 		char	szField[MAXMDBFIELDNUM][MDB_CHARLEN_LONG];
-		char	szRestValue[g_nConstMaxPrimaryKey][MDB_CHARLEN_LONG];
+		//char	szRestValue[g_nConstMaxPrimaryKey][MDB_CHARLEN_LONG];
 		for (i=0; i<MAXMDBFIELDNUM; i++)
 			memset(szField[i], 0, MDB_CHARLEN_LONG);
 
@@ -480,6 +403,7 @@ namespace	BpaMemDB
 			pBpaBlock->m_nRecordNum[i]=0;
 
 		strDatLineArray.clear();
+		strPrevKey.clear();
 
 		//	1.读入BPA的DAT文件的行信息
 		if (lpszBpaDatFile)
@@ -531,8 +455,8 @@ namespace	BpaMemDB
 			return 0;
 
 		//	2.填入BPA的潮流控制信息表
-		parseDatControl(pBpaBlock, strDatLineArray);
-		parseDatAI(pBpaBlock, strDatLineArray, z2aArray);
+		ParseDatControl(pBpaBlock, strDatLineArray);
+		ParseDatAI(pBpaBlock, strDatLineArray, z2aArray);
 
 		//	3.填入BPA的潮流数据信息表
 		bDataEndFlag=0;
@@ -553,92 +477,50 @@ namespace	BpaMemDB
 			}
 			if (strDatLineArray[nLine][0] == '(' || strDatLineArray[nLine][0] == '/' || strDatLineArray[nLine][0] == '>')
 				continue;
-			if (strDatLineArray[nLine][0] == '+')
-				continue;
 
 			memset(szKey, 0, 10);
 			BpaResolveLineKey(strDatLineArray[nLine].c_str(), szKey);
-
-			nDictIni=nBpaTable=-1;
-			nDictIni=BpaGetTableDictIndex(szKey, BpaDatCategory_Dat);
-			if (nDictIni >= 0)
-				nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
-
-			if (nDictIni < 0 || nBpaTable < 0)
-			{
-				Log(g_lpszLogFile, "BPA潮流数据行无法解析: %s\n", strDatLineArray[nLine].c_str());
-				continue;
-			}
-
-			BpaBpaCardKey2DictKey(szKey, strDatLineArray[nLine].c_str());
-			if (stricmp(szKey, "+") == 0)
-				Log(g_lpszLogFile, "解析延续节点卡: %s\n", strDatLineArray[nLine].c_str());
 
 			if (BpaIsCardKeyAppend(BpaDatCategory_Dat, szKey))
 			{
-				if (stricmp(szKey, "+") == 0)
-					Log(g_lpszLogFile, "延续节点卡为增量卡: %s\n", strDatLineArray[nLine].c_str());
+				strPrevKey = szKey;
+
+				nDictIni=nBpaTable=-1;
+				nDictIni=BpaGetTableDictIndex(szKey, BpaDatCategory_Dat);
+				if (nDictIni >= 0)
+					nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
+
+				if (nDictIni < 0 || nBpaTable < 0)
+				{
+					Log(g_lpszLogFile, "BPA潮流数据行无法解析: %s\n", strDatLineArray[nLine].c_str());
+					continue;
+				}
 
 				BpaString2FieldArray(nBpaTable, nDictIni, strDatLineArray[nLine].c_str(), szField);
-// 				if (strDatLineArray[nLine][0] == 'B' && nLine < (int)strDatLineArray.size())
-// 				{
-// 					if (strDatLineArray[nLine+1][0] == '+')
-// 						parseDatBPlus(pBpaBlock, strDatLineArray[nLine+1].c_str(), szField);
-// 				}
 				BpaAppendRecord(pBpaBlock, MDB_NoNeedCheckData, nBpaTable, szField);
 			}
-		}
-
-		BpaMaint(pBpaBlock);
-
-		//	4.追加BPA的潮流数据信息表（BPA中两个或以上卡合成的一个表）
-		bDataEndFlag=0;
-		for (nLine=0; nLine<(int)strDatLineArray.size(); nLine++)
-		{
-			if (strDatLineArray[nLine].length() <= 0)
-				continue;
-
-			if (bDataEndFlag != 0)
-				continue;
-
-			strcpy(szLine, strDatLineArray[nLine].c_str());
-			if (strDatLineArray[nLine][0] == '.' || strDatLineArray[nLine][0] == 'C'  || strDatLineArray[nLine][0] == 'c' || strstr(strupr(szLine), "(END)") != NULL)
+			else
 			{
-				if (strstr(strupr(szLine), "(END)") != NULL)
-					bDataEndFlag=1;
-				continue;
-			}
-			if (strDatLineArray[nLine][0] == '(' || strDatLineArray[nLine][0] == '/' || strDatLineArray[nLine][0] == '>')
-				continue;
-
-			memset(szKey, 0, 10);
-			BpaResolveLineKey(strDatLineArray[nLine].c_str(), szKey);
-
-			nDictIni=nBpaTable=-1;
-			nDictIni=BpaGetTableDictIndex(szKey, BpaDatCategory_Dat);
-			if (nDictIni >= 0)
-				nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
-
-			if (nDictIni < 0 || nBpaTable < 0)
-				continue;
-
-			BpaBpaCardKey2DictKey(szKey, strDatLineArray[nLine].c_str());
-			if (stricmp(szKey, "+") == 0)
-				Log(g_lpszLogFile, "解析延续节点卡: %s\n", strDatLineArray[nLine].c_str());
-
-			if (!BpaIsCardKeyAppend(BpaDatCategory_Dat, szKey))
-			{
+#ifdef _DEBUG
 				if (stricmp(szKey, "+") == 0)
 					Log(g_lpszLogFile, "延续节点卡为非增量卡: %s\n", strDatLineArray[nLine].c_str());
+#endif
+
+				nDictIni=BpaGetTableDictIndex(szKey, BpaDatCategory_Dat);
+				if (nDictIni >= 0)
+					nBpaTable=BpaGetTableIndex(BpaGetDictTable(nDictIni));
+				if (nDictIni < 0 || nBpaTable < 0)
+				{
+					Log(g_lpszLogFile, "BPA潮流数据行（延续卡）无法解析: %s\n", strDatLineArray[nLine].c_str());
+					continue;
+				}
 
 				BpaString2FieldArray(nBpaTable, nDictIni, strDatLineArray[nLine].c_str(), szField);
 
-				for (i=0; i<g_nConstMaxPrimaryKey; i++)
-					memset(szRestValue[i], 0, MDB_CHARLEN_LONG);
-				for (i=0; i<BpaGetTablePrimaryKeyNum(nBpaTable); i++)
-					strcpy(szRestValue[i], szField[BpaGetTablePrimaryKey(nBpaTable, i)]);
-				nRecord=BpaFindRecordbyKey(pBpaBlock, nBpaTable, szRestValue);
-
+				//for (i=0; i<BpaGetTablePrimaryKeyNum(nBpaTable); i++)
+				//	strcpy(szRestValue[i], szField[BpaGetTablePrimaryKey(nBpaTable, i)]);
+				//nRecord=BpaFindRecordbyKey(pBpaBlock, nBpaTable, szRestValue);
+				nRecord = pBpaBlock->m_nRecordNum[nBpaTable]-1;
 				if (nRecord >= 0)
 				{
 					for (i=nDictIni; i<BpaGetDictNum(); i++)
@@ -711,49 +593,6 @@ namespace	BpaMemDB
 			}
 		}
 
-		////	变压器中性点分区处理
-		//std::vector<std::string>	strZoneArray;
-		//for (nRecord=0; nRecord<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; nRecord++)
-		//{
-		//	if (!pBpaBlock->m_BpaDat_ACBusArray[nRecord].bTMid)
-		//		continue;
-		//
-		//	strZoneArray.clear();
-		//	for (nLine=pBpaBlock->m_BpaDat_EdgeWindArray[nRecord].iRTran; nLine<pBpaBlock->m_BpaDat_EdgeWindArray[nRecord+1].iRTran; nLine++)
-		//	{
-		//		if (pBpaBlock->m_BpaDat_WindArray[nLine].nIBus == nRecord)
-		//		{
-		//			bFlag=0;
-		//			for (i=0; i<strZoneArray.size(); i++)
-		//			{
-		//				if (stricmp(strZoneArray[i].c_str(), pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nLine].nZBus].szZone) == 0)
-		//				{
-		//					bFlag=1;
-		//					break;
-		//				}
-		//			}
-		//			if (!bFlag)
-		//				strZoneArray.push_back(pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nLine].nZBus].szZone);
-		//		}
-		//		else
-		//		{
-		//			bFlag=0;
-		//			for (i=0; i<strZoneArray.size(); i++)
-		//			{
-		//				if (stricmp(strZoneArray[i].c_str(), pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nLine].nIBus].szZone) == 0)
-		//				{
-		//					bFlag=1;
-		//					break;
-		//				}
-		//			}
-		//			if (!bFlag)
-		//				strZoneArray.push_back(pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nLine].nIBus].szZone);
-		//		}
-		//	}
-		//	if (strZoneArray.size() == 1)
-		//		strcpy(pBpaBlock->m_BpaDat_ACBusArray[nRecord].szZone, strZoneArray[0].c_str());
-		//}
-
 		//	7.由分区定区域
 		for (nRecord=0; nRecord<pBpaBlock->m_nRecordNum[BPA_DAT_ZONE]; nRecord++)
 		{
@@ -790,13 +629,17 @@ namespace	BpaMemDB
 			pBpaBlock->m_BpaDat_WindArray[nRecord].fInikVJ=pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ;
 			pBpaBlock->m_BpaDat_WindArray[nRecord].cIniLoop=pBpaBlock->m_BpaDat_WindArray[nRecord].cLoop;
 
-			if (fabs(pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI - pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI) > pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI/5 &&
-				fabs(pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ - pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ) > pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ/5)
-			{
-				fTPBuffer = pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI;
-				pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI = pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ;
-				pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ = fTPBuffer;
-			}
+// 			if (fabs(pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI - pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI) > pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI/5 &&
+// 				fabs(pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ - pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ) > pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ/5)
+// 			{
+// 				fTPBuffer = pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI;
+// 				pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI = pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ;
+// 				pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ = fTPBuffer;
+// 			}
+			if (fabs(pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI - pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI) > pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI/2.5)
+				pBpaBlock->m_BpaDat_WindArray[nRecord].fTPI = pBpaBlock->m_BpaDat_WindArray[nRecord].fkVI;
+			if (fabs(pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ - pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ) > pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ/2.5)
+				pBpaBlock->m_BpaDat_WindArray[nRecord].fTPJ = pBpaBlock->m_BpaDat_WindArray[nRecord].fkVJ;
 		}
 
 		for (nRecord=0; nRecord<pBpaBlock->m_nRecordNum[BPA_DAT_LINEHG]; nRecord++)
@@ -816,12 +659,27 @@ namespace	BpaMemDB
 			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniLoadQ = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fLoadQ;
 			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniShuntP = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fShuntP;
 			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniShuntQ = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fShuntQ;
+
+			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniAddPGen = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fAddPGen;
+			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniAddQGen = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fAddQGen;
+			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniAddLoadP = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fAddLoadP;
+			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniAddLoadQ = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fAddLoadQ;
+			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniAddShuntP = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fAddShuntP;
+			pBpaBlock->m_BpaDat_ACBusArray[nRecord].fIniAddShuntQ = pBpaBlock->m_BpaDat_ACBusArray[nRecord].fAddShuntQ;
+		}
+
+		for (nRecord=0; nRecord<pBpaBlock->m_nRecordNum[BPA_DAT_P]; nRecord++)
+		{
+			pBpaBlock->m_BpaDat_PArray[nRecord].fIniLoadPFactor = pBpaBlock->m_BpaDat_PArray[nRecord].fLoadPFactor;
+			pBpaBlock->m_BpaDat_PArray[nRecord].fIniLoadQFactor = pBpaBlock->m_BpaDat_PArray[nRecord].fLoadQFactor;
+			pBpaBlock->m_BpaDat_PArray[nRecord].fIniGenPFactor = pBpaBlock->m_BpaDat_PArray[nRecord].fGenPFactor;
+			pBpaBlock->m_BpaDat_PArray[nRecord].fIniGenQFactor = pBpaBlock->m_BpaDat_PArray[nRecord].fGenQFactor;
 		}
 
 		return 1;
 	}
 
-	int		BpaMemDB2Files_Dat(tagBpaBlock* pBpaBlock, FILE* fp)
+	int CBpaMemDBInterface::BpaMemDB2Files_Dat(tagBpaBlock* pBpaBlock, FILE* fp)
 	{
 		fprintf(fp, "(POWERFLOW, CASEID=%s, PROJECT=%s)\n", pBpaBlock->m_BpaDat_Case.szCaseID, pBpaBlock->m_BpaDat_Case.szProject);
 		fprintf(fp, "/NEW_BASE, FILE=%s\\\n", pBpaBlock->m_BpaDat_Case.szNewBase);
@@ -874,7 +732,7 @@ namespace	BpaMemDB
 		nTable=BPA_DAT_ACBUS;
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
-			if (!pBpaBlock->m_BpaDat_ACBusArray[nDev].bRedcution)
+			if (!pBpaBlock->m_BpaDat_ACBusArray[nDev].bReduction)
 				continue;
 
 			if (strlen(pBpaBlock->m_BpaDat_ACBusArray[nDev].szAddCode) > 0)
@@ -906,7 +764,7 @@ namespace	BpaMemDB
 
 		for (nDev=0; nDev<pBpaBlock->m_nRecordNum[nTable]; nDev++)
 		{
-			if (pBpaBlock->m_BpaDat_ACBusArray[nDev].bRedcution)
+			if (pBpaBlock->m_BpaDat_ACBusArray[nDev].bReduction)
 				continue;
 
 			if (strlen(pBpaBlock->m_BpaDat_ACBusArray[nDev].szAddCode) > 0)

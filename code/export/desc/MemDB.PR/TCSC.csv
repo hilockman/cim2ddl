@@ -1,7 +1,7 @@
 序号,名称,描述,类型,长度
 0,Name,交流线路名称,STRING,32
 1,InstallBus,安装母线名,STRING,32
-2,X,串联电抗值(pu),DOUBLE,4
+2,X,串联电抗值(标幺),DOUBLE,4
 3,Rerr,故障率(次/年),DOUBLE,8
 4,Rrep,修复率(次/年),DOUBLE,8
 5,Trep,修复时间(小时/次),DOUBLE,8

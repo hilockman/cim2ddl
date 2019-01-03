@@ -9,7 +9,7 @@
 7,Type,热源类型,INTEGER,1
 8,Model,热源模型,STRING,64
 9,HeatingCapacity,制热容量(kW),DOUBLE,4
-10,RefrigerationCapacity,制冷容量(kW),DOUBLE,4
+10,CoolingCapacity,制冷容量(kW),DOUBLE,4
 11,SupplyTemperature,供水温度(℃),DOUBLE,4
 12,ReturnTemperature,回水温度(℃),DOUBLE,4
 13,MediumFlow,热媒流量(t/h),DOUBLE,4

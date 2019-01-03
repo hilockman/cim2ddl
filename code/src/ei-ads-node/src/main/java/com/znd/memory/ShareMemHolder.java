@@ -110,7 +110,7 @@ public class ShareMemHolder {
 		
 		LoaderInfo[] infos = {
 				new LoaderInfo(DatabaseType.BPA, MDBDefine.g_strBpaDBEntry, AppUtil.GC_BPA_LOADER, new String[]{"dat", "swi"}),
-				new LoaderInfo(DatabaseType.PR, MDBDefine.g_strPRDBEntry, AppUtil.GC_BPA_2_PR, new String[]{"dat", "swi", "xml"}),
+				new LoaderInfo(DatabaseType.PR, MDBDefine.g_strPRDBEntry, AppUtil.GC_BPA_2_PR, new String[]{"dat", "swi", "rpar"}),
 		};
 		
 
@@ -252,7 +252,7 @@ public class ShareMemHolder {
 		}
 		
 		try {
-			AppExecuteBuilder eb = AppUtil.execBuilder(appDir+"/"+info.appName).addParam(appDir);
+			AppExecuteBuilder eb = AppUtil.execBuilder(appDir+"/bin_x64/"+info.appName).addParam(appDir);
 			for (File file: sortedFiles) {
 				eb.addParam(file.getCanonicalPath());
 			}

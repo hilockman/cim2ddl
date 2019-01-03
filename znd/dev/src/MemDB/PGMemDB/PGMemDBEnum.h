@@ -18,6 +18,12 @@ static	tagMemDBEnumPair	g_PGEnumYesNo[]=
 	{	1,		"否",	},
 };
 
+static	tagMemDBEnumPair	g_PGDCPolar[]=
+{
+	{	0,		"正极",	},
+	{	1,		"负极",	},
+};
+
 // static	tagMemDBEnumPair	g_PGEnumFaultType[]=
 // {
 // 	{	0,		"单永故障",	},
@@ -80,11 +86,16 @@ static	tagMemDBEnumPair	g_PGEnumPlateStatus[]=
 	{	PGEnumPlateStatus_Open,			"退",	},
 };
 
-static	tagMemDBEnumPair	g_PGEnumMCRDevType[]=
+static	tagMemDBEnumPair	g_PGEnumInjectionMCRDevType[]=
 {
-	{	PGEnumLineTran_MCType_Load,		"负荷",	},
-	{	PGEnumLineTran_MCType_Gen,		"电源",	},
-	{	PGEnumLineTran_MCType_Edge,		"联络",	},
+	{	PGEnumInjection_MCRType_Line,		"线路",		},
+	{	PGEnumInjection_MCRType_Wind,		"变压器",	},
+};
+
+static	tagMemDBEnumPair	g_PGEnumBranchMCRDevType[]=
+{
+	{	PGEnumBranch_MCRType_Load,		"负荷",	},
+	{	PGEnumBranch_MCRType_Gen,		"电源",	},
 };
 static	tagMemDBEnumPair	g_PGMCEnumBreakerCTLoc[]=
 {
@@ -199,6 +210,13 @@ static	tagMemDBEnumPair	g_PGEnumLine_Connectmode[]=
 	{	10,		"其他",				},
 };
 
+static	tagMemDBEnumPair	g_PGEnumACLineSegment_Vacant[]=
+{
+	{	PGEnumLine_Vacant_None,		"不悬空",	},
+	{	PGEnumLine_Vacant_I,		"I悬空",	},
+	{	PGEnumLine_Vacant_J,		"J悬空",	},
+};
+
 static	tagMemDBEnumPair	g_PGEnumACLineSegment_LineType[]=
 {
 	{	PGEnumLine_LineType_Overhead,	"架空",	},
@@ -284,6 +302,13 @@ static	tagMemDBEnumPair	g_PGEnumLine_BreakingType[]=
 	{	PGEnumLine_LineBreakingType_Breaker,		"断路器连接",	},
 	{	PGEnumLine_LineBreakingType_Disconnector,	"隔离开关连接",	},
 	{	PGEnumLine_LineBreakingType_Direct,			"直接连接",		},
+};
+
+static	tagMemDBEnumPair	g_PGEnumTransformer_TSide[]=
+{
+	{	PGEnum_TransformerTSide_Unknow,	"未知",	},
+	{	PGEnum_TransformerTSide_I,		"I侧",	},
+	{	PGEnum_TransformerTSide_J,		"J侧",	},
 };
 
 static	tagMemDBEnumPair	g_PGEnumBranchFlow_Direction[]=
@@ -576,4 +601,30 @@ static	tagMemDBEnumPair	g_PGThermalEnumEnergyConsumer_Type[]=
 	{	PGEnumThermalEnergyConsumer_Type_Ventilation		,	"通风热负荷",		},
 	{	PGEnumThermalEnergyConsumer_Type_AirCondition		,	"空调热负荷",		},
 	{	PGEnumThermalEnergyConsumer_Type_DomesticHotWater	,	"生活热水热负荷",	},
+};
+
+static	tagMemDBEnumPair	g_PGEnumConverterDCControlMode[]=
+{
+	{	PGEnumConverterDCControlMode_None,		"无控制",	},
+	{	PGEnumConverterDCControlMode_PConst,	"定功率",	},
+	{	PGEnumConverterDCControlMode_VConst,	"定电压",	},
+};
+
+static	tagMemDBEnumPair	g_PGEnumConverterType[]=
+{
+	{	PGEnumConverterType_None,		"未知",			},
+	{	PGEnumConverterType_Connect,	"并网变换器",	},
+	{	PGEnumConverterType_Isolate,	"孤岛变换器",	},
+	{	PGEnumConverterType_Liaison,	"联络变换器",	},
+};
+
+static	tagMemDBEnumPair	g_PGEnumIslandType[]=
+{
+	{	PGEnumIslandType_Unknown,	"未知",	},
+	{	PGEnumIslandType_ACConnect,	"交流并网",	},
+	{	PGEnumIslandType_DCConnect,	"直流并网",	},
+	{	PGEnumIslandType_ACIsolate,	"交流孤网",	},
+	{	PGEnumIslandType_DCIsolate,	"直流孤网",	},
+	{	PGEnumIslandType_ACGrid,	"交流电网",	},
+	{	PGEnumIslandType_DCGrid,	"直流电网",	},
 };

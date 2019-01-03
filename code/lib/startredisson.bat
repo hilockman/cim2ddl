@@ -1,1 +1,0 @@
-java -cp redisson-all-2.10.3.jar org.redisson.RedissonNode redissonnode.json

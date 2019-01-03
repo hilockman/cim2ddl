@@ -1,5 +1,6 @@
 package com.znd.bus.statement;
 
+import com.znd.bus.exception.StatementException;
 
 /**
  * 实现对象到字符串数组的转换
@@ -39,7 +40,7 @@ public interface StatementHandler {
 
 	Statement newStatement();
 
-	void parepared(Statement ps);
+	void parepared(Statement ps) throws StatementException;
 
 //	public default void parepared(Statement ps) {
 //		throw new StatementException("no prepare function!");

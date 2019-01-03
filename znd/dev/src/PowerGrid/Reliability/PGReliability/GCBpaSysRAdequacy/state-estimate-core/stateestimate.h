@@ -18,6 +18,11 @@ public:
 
 	void runSample(const char *sample);
 
+	/**
+	
+	run reliability calculation for config file.
+	*/
+	void run(const char *configFile);
 private:
 	class  StateEstimatePrivate;
 	StateEstimatePrivate *d;

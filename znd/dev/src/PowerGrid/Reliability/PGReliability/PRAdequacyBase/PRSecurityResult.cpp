@@ -2,6 +2,8 @@
 #include "../../../../Common/TinyXML/tinyxmlglobal.h"
 #include "../../../../Common/StringCommon.h"
 
+extern	const	char*	g_lpszLogFile;
+extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
@@ -177,25 +179,36 @@ namespace	PRAdequacyBase
 					dMxVBuf.fX=(float)atof(strEleArray[nItem].c_str());
 					dMnFBuf.fX=(float)atof(strEleArray[nItem].c_str());
 					dMxFBuf.fX=(float)atof(strEleArray[nItem].c_str());
+
+					//Log(g_lpszLogFile, "X=%.2f ", dMxDBuf.fX);
+
 					nItem++;
 				}
+
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
+
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	dMxDBuf.fY=atof(strEleArray[nItem++].c_str());	else	continue;
+
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	dMnVBuf.fY=atof(strEleArray[nItem++].c_str());	else	continue;
+
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	dMxVBuf.fY=atof(strEleArray[nItem++].c_str());	else	continue;
+
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	dMnFBuf.fY=atof(strEleArray[nItem++].c_str());	else	continue;
+
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	nItem++;	else	continue;
 				if ((int)strEleArray.size() > nItem)	dMxFBuf.fY=atof(strEleArray[nItem++].c_str());	else	continue;
+
+				//Log(g_lpszLogFile, "MxD=%.2f MnV=%.2f MxV=%.2f MnF=%.2f MxF=%.2f\n", dMxDBuf.fY, dMnVBuf.fY, dMxVBuf.fY, dMnFBuf.fY, dMxFBuf.fY);
 
 				g_BpaOutCurveMaxAng. sDataArray.push_back(dMxDBuf);
 				g_BpaOutCurveMinVolt.sDataArray.push_back(dMnVBuf);
@@ -220,11 +233,11 @@ namespace	PRAdequacyBase
 				if ((int)strEleArray.size() > nItem)	curveBuf.strCurveName.append("-").append(strEleArray[nItem++]);	else	{	bOutSection=0;	continue;	}
 				if ((int)strEleArray.size() > nItem)	curveBuf.strYAxiasName=strEleArray[nItem++];					else	{	bOutSection=0;	continue;	}
 				if ((int)strEleArray.size() > nItem)	nItem++;														else	{	bOutSection=0;	continue;	}
-				if ((int)strEleArray.size() > nItem)	curveBuf.fMaxY=atof(strEleArray[nItem++].c_str());	else	{	bOutSection=0;	continue;	}
-				if ((int)strEleArray.size() > nItem)	curveBuf.fMaxX=atof(strEleArray[nItem++].c_str());	else	{	bOutSection=0;	continue;	}
-				if ((int)strEleArray.size() > nItem)	nItem++;													else	{	bOutSection=0;	continue;	}
-				if ((int)strEleArray.size() > nItem)	curveBuf.fMinY=atof(strEleArray[nItem++].c_str());	else	{	bOutSection=0;	continue;	}
-				if ((int)strEleArray.size() > nItem)	curveBuf.fMinX=atof(strEleArray[nItem++].c_str());	else	{	bOutSection=0;	continue;	}
+				if ((int)strEleArray.size() > nItem)	curveBuf.fMaxY=atof(strEleArray[nItem++].c_str());				else	{	bOutSection=0;	continue;	}
+				if ((int)strEleArray.size() > nItem)	curveBuf.fMaxX=atof(strEleArray[nItem++].c_str());				else	{	bOutSection=0;	continue;	}
+				if ((int)strEleArray.size() > nItem)	nItem++;														else	{	bOutSection=0;	continue;	}
+				if ((int)strEleArray.size() > nItem)	curveBuf.fMinY=atof(strEleArray[nItem++].c_str());				else	{	bOutSection=0;	continue;	}
+				if ((int)strEleArray.size() > nItem)	curveBuf.fMinX=atof(strEleArray[nItem++].c_str());				else	{	bOutSection=0;	continue;	}
 
 				bOutSection=3;
 			}
@@ -263,6 +276,8 @@ namespace	PRAdequacyBase
 		getSimpleCurveMinMax(g_BpaOutCurveMaxVolt);
 		getSimpleCurveMinMax(g_BpaOutCurveMinFreq);
 		getSimpleCurveMinMax(g_BpaOutCurveMaxFreq);
+
+		strOutLineArray.clear();
 
 		return bSwiSmartFinished;
 	}
@@ -481,11 +496,11 @@ namespace	PRAdequacyBase
 						else if (stricmp(pElement->Value(), "StateNum") == 0)		{	ssaBuf.nStateNum=atoi(pNode->Value());	}
 						else if (stricmp(pElement->Value(), "SaResult") == 0)		{	ssaBuf.strSsaResult=pNode->Value();		}
 						else if (stricmp(pElement->Value(), "LossGenP") == 0)		{	ssaBuf.fLossGenP=(float)atof(pNode->Value());	}
-						else if (stricmp(pElement->Value(), "MIsland") == 0)			{	ssaBuf.bMIsland=atoi(pNode->Value());	}
-						else if (stricmp(pElement->Value(), "LTFault") == 0)			{	ssaBuf.bLTFault=atoi(pNode->Value());	}
-						else if (stricmp(pElement->Value(), "BseFile") == 0)			{	ssaBuf.strBseFile=pNode->Value();		}
-						else if (stricmp(pElement->Value(), "SwiFile") == 0)			{	ssaBuf.strSwiFile=pNode->Value();		}
-						else if (stricmp(pElement->Value(), "OutFile") == 0)			{	ssaBuf.strOutFile=pNode->Value();		}
+						else if (stricmp(pElement->Value(), "MIsland") == 0)		{	ssaBuf.bMIsland=atoi(pNode->Value());	}
+						else if (stricmp(pElement->Value(), "LTFault") == 0)		{	ssaBuf.bLTFault=atoi(pNode->Value());	}
+						else if (stricmp(pElement->Value(), "BseFile") == 0)		{	ssaBuf.strBseFile=pNode->Value();		}
+						else if (stricmp(pElement->Value(), "SwiFile") == 0)		{	ssaBuf.strSwiFile=pNode->Value();		}
+						else if (stricmp(pElement->Value(), "OutFile") == 0)		{	ssaBuf.strOutFile=pNode->Value();		}
 					}
 					else if (pNode)
 					{

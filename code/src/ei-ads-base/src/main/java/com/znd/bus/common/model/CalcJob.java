@@ -30,8 +30,6 @@ public class CalcJob {
 	@Comment(alias="参数")
 	private String parameter;
 	
-	@Comment(alias="进度")
-	private Double progress;
 	
 	@Comment(alias="当前步骤")
 	private Integer step;
@@ -124,13 +122,6 @@ public class CalcJob {
 		this.state = state;
 	}
 
-	public Double getProgress() {
-		return progress;
-	}
-
-	public void setProgress(Double progress) {
-		this.progress = progress;
-	}
 
 	public Integer getStep() {
 		return step;
@@ -168,7 +159,7 @@ public class CalcJob {
 	public String toString() {
 		return "CalcJob [id=" + id + ", modelId=" + modelId + ", typeId="
 				+ typeId + ", name=" + name + ", desc=" + desc + ", parameter="
-				+ parameter + ", progress=" + progress + ", step=" + step
+				+ parameter + ", step=" + step
 				+ ", maxStep=" + maxStep + ", state=" + state + ", start="
 				+ start + ", end=" + end + ", elapse=" + elapse + "]";
 	}

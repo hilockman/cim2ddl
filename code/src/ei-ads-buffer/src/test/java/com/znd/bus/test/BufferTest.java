@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.config.BufferConfig;
+import com.znd.bus.exception.BindingException;
 import com.znd.bus.mapping.RawArrayBufferMapper;
 
 
@@ -27,7 +28,7 @@ public class BufferTest {
 	private BufferConfig defaultBufferConfig;
 	
 	@Test
-	public void getRecords() {
+	public void getRecords() throws BindingException {
 		
 		RawArrayBufferMapper m = defaultBufferConfig.getMapper(RawArrayBufferMapper.class,"User", defaultBuffer);
 		

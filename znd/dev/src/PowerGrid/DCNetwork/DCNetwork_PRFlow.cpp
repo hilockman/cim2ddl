@@ -1,6 +1,6 @@
 #include "DCNetwork.h"
-
-extern	const	char*	g_lpszLogFile;
+#include "../../../include/ilog.h"
+//extern	const	char*	g_lpszLogFile;
 extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
 namespace	DCNetwork
 {
@@ -9,13 +9,36 @@ namespace	DCNetwork
 	int	CDCNetwork::PRDCNetwork_ReadData(tagPRBlock* pPRBlock, const unsigned char nUPFCControlMode, const int nIsland)
 	{
 		int		nCol, nDev;
-		double	fX;
+		double	fX, fTotalLoad, fTotalGen, fTotalDCP;
 		std::vector<float>	fBusLossArray;
 
 		fBusLossArray.resize(pPRBlock->m_nRecordNum[PR_ACBUS]);
 		for (nDev=0; nDev<(int)fBusLossArray.size(); nDev++)
 			fBusLossArray[nDev]=0;
+		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
+		{
+			if (pPRBlock->m_ACLineArray[nDev].nIRadial != 0 || pPRBlock->m_ACLineArray[nDev].nZRadial != 0)
+				continue;
+			if (pPRBlock->m_ACLineArray[nDev].bOutage || pPRBlock->m_ACLineArray[nDev].nIsland != nIsland)
+				continue;
+			//if (pPRBlock->m_ACLineArray[nDev].fLossP < fabs(pPRBlock->m_ACLineArray[nDev].fRtPi)/20 && pPRBlock->m_ACLineArray[nDev].fLossP < fabs(pPRBlock->m_ACLineArray[nDev].fRtPz)/20)
+			{
+				fBusLossArray[pPRBlock->m_ACLineArray[nDev].nIBus] += pPRBlock->m_ACLineArray[nDev].fLossP/2;
+				fBusLossArray[pPRBlock->m_ACLineArray[nDev].nZBus] += pPRBlock->m_ACLineArray[nDev].fLossP/2;
+			}
+		}
+		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_WIND]; nDev++)
+		{
+			if (pPRBlock->m_WindArray[nDev].nIsland != nIsland || pPRBlock->m_WindArray[nDev].bOutage)
+				continue;
+			//if (pPRBlock->m_WindArray[nDev].fLossP < fabs(pPRBlock->m_WindArray[nDev].fRtPi)/20 && pPRBlock->m_WindArray[nDev].fLossP < fabs(pPRBlock->m_WindArray[nDev].fRtPz)/20)
+			{
+				fBusLossArray[pPRBlock->m_WindArray[nDev].nIBus] += pPRBlock->m_WindArray[nDev].fLossP/2;
+				fBusLossArray[pPRBlock->m_WindArray[nDev].nZBus] += pPRBlock->m_WindArray[nDev].fLossP/2;
+			}
+		}
 
+		fTotalLoad = fTotalGen = fTotalDCP = 0;
 		//	输入数据
 		m_nMaxBusNumber=0;
 		m_nNumBus=0;
@@ -45,9 +68,6 @@ namespace	DCNetwork
 
 					if (m_nMaxBusNumber < pPRBlock->m_ACLineArray[nDev].nIBus)	m_nMaxBusNumber=pPRBlock->m_ACLineArray[nDev].nIBus;
 					if (m_nMaxBusNumber < pPRBlock->m_ACLineArray[nDev].nZBus)	m_nMaxBusNumber=pPRBlock->m_ACLineArray[nDev].nZBus;
-
-					fBusLossArray[pPRBlock->m_ACLineArray[nDev].nIBus] += pPRBlock->m_ACLineArray[nDev].fLossP/2;
-					fBusLossArray[pPRBlock->m_ACLineArray[nDev].nZBus] += pPRBlock->m_ACLineArray[nDev].fLossP/2;
 				}
 			}
 		}
@@ -59,13 +79,14 @@ namespace	DCNetwork
 				continue;
 			m_nNumBra++;
 
-			fBusLossArray[pPRBlock->m_WindArray[nDev].nIBus] += pPRBlock->m_WindArray[nDev].fLossP/2;
-			fBusLossArray[pPRBlock->m_WindArray[nDev].nZBus] += pPRBlock->m_WindArray[nDev].fLossP/2;
 			if (m_nMaxBusNumber < pPRBlock->m_WindArray[nDev].nIBus)	m_nMaxBusNumber=pPRBlock->m_WindArray[nDev].nIBus;
 			if (m_nMaxBusNumber < pPRBlock->m_WindArray[nDev].nZBus)	m_nMaxBusNumber=pPRBlock->m_WindArray[nDev].nZBus;
 		}
+
 		for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACBUS]; nDev++)
 		{
+			if (pPRBlock->m_ACBusArray[nDev].bOutage)
+				continue;
 			if (pPRBlock->m_ACBusArray[nDev].nRadial != 0)
 				continue;
 			if (pPRBlock->m_ACBusArray[nDev].nIsland != nIsland)
@@ -137,6 +158,8 @@ namespace	DCNetwork
 					else
 						m_fGenArray[3*m_nNumGen+1]=-(pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fPControl+pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fLinePse)/pPRBlock->m_System.fMvaBase;
 					m_fGenArray[3*m_nNumGen+2]=(double)pPRBlock->m_ACLineArray[nDev].nUPFCIndex;
+
+					fTotalGen += m_fGenArray[3*m_nNumGen+1];
 					m_nNumGen++;
 				}
 				if (pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nZBus].nIsland == nIsland)
@@ -147,6 +170,8 @@ namespace	DCNetwork
 					else
 						m_fGenArray[3*m_nNumGen+1]= (pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fPControl+pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fLinePse)/pPRBlock->m_System.fMvaBase;
 					m_fGenArray[3*m_nNumGen+2]=(double)pPRBlock->m_ACLineArray[nDev].nUPFCIndex;
+
+					fTotalGen += m_fGenArray[3*m_nNumGen+1];
 					m_nNumGen++;
 				}
 			}
@@ -181,6 +206,8 @@ namespace	DCNetwork
 		m_nSlackBus=0;
 		for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACBUS]; nDev++)
 		{
+			if (pPRBlock->m_ACBusArray[nDev].bOutage)
+				continue;
 			if (pPRBlock->m_ACBusArray[nDev].nRadial != 0)
 				continue;
 			if (pPRBlock->m_ACBusArray[nDev].nIsland != nIsland)
@@ -193,6 +220,8 @@ namespace	DCNetwork
 		int nMax=0;
 		for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACBUS]; nDev++)
 		{
+			if (pPRBlock->m_ACBusArray[nDev].bOutage)
+				continue;
 			if (pPRBlock->m_ACBusArray[nDev].nRadial != 0)
 				continue;
 			if (pPRBlock->m_ACBusArray[nDev].nIsland != nIsland)
@@ -203,6 +232,10 @@ namespace	DCNetwork
 				m_fGenArray[3*m_nNumGen+0]=(double)nDev;
 				m_fGenArray[3*m_nNumGen+1]=(pPRBlock->m_ACBusArray[nDev].fGenP+pPRBlock->m_ACBusArray[nDev].fAdjGenP)/pPRBlock->m_System.fMvaBase;
 				m_fGenArray[3*m_nNumGen+2]=(double)nDev;
+				fTotalGen += m_fGenArray[3*m_nNumGen+1];
+
+				//if (nIsland == 2)
+				//	Log(g_lpszLogFile, "            电岛[%d] 增加发电 %g [%f %f]\n", nIsland, m_fGenArray[3*m_nNumGen+1]*pPRBlock->m_System.fMvaBase, pPRBlock->m_ACBusArray[nDev].fGenP, pPRBlock->m_ACBusArray[nDev].fAdjGenP);
 				m_nNumGen++;
 			}
 			if (fabs(pPRBlock->m_ACBusArray[nDev].fLoadP+pPRBlock->m_ACBusArray[nDev].fAdjLoadP+pPRBlock->m_ACBusArray[nDev].fRadP+pPRBlock->m_ACBusArray[nDev].fAdjRadP+fBusLossArray[nDev]) > FLT_MIN)
@@ -210,6 +243,9 @@ namespace	DCNetwork
 				m_fLoadArray[3*m_nNumLoad+0]=(double)nDev;
 				m_fLoadArray[3*m_nNumLoad+1]=(pPRBlock->m_ACBusArray[nDev].fLoadP+pPRBlock->m_ACBusArray[nDev].fAdjLoadP+pPRBlock->m_ACBusArray[nDev].fRadP+pPRBlock->m_ACBusArray[nDev].fAdjRadP+fBusLossArray[nDev])/pPRBlock->m_System.fMvaBase;
 				m_fLoadArray[3*m_nNumLoad+2]=(double)nDev;
+				fTotalLoad += m_fLoadArray[3*m_nNumLoad+1];
+				//if (nIsland == 2)
+				//	Log(g_lpszLogFile, "            电岛[%d] 增加负荷 %g [Loss = %f]\n", nIsland, m_fLoadArray[3*m_nNumLoad+1]*pPRBlock->m_System.fMvaBase, fBusLossArray[nDev]);
 				m_nNumLoad++;
 			}
 
@@ -233,6 +269,8 @@ namespace	DCNetwork
 					m_fLoadArray[3*m_nNumLoad+0]=(double)pPRBlock->m_HVDCArray[nDev].nRBus;
 					m_fLoadArray[3*m_nNumLoad+1]=fabs(pPRBlock->m_HVDCArray[nDev].fPr)/pPRBlock->m_System.fMvaBase;
 					m_fLoadArray[3*m_nNumLoad+2]=(double)nDev;
+					fTotalDCP += m_fLoadArray[3*m_nNumLoad+1];
+					//Log(g_lpszLogFile, "        直流[%s] 整流侧 [%d] 增加负荷 %g\n", pPRBlock->m_HVDCArray[nDev].szName, pPRBlock->m_HVDCArray[nDev].nRBus, pPRBlock->m_HVDCArray[nDev].fPr);
 					m_nNumLoad++;
 				}
 			}
@@ -243,38 +281,51 @@ namespace	DCNetwork
 					m_fGenArray[3*m_nNumGen+0]=(double)pPRBlock->m_HVDCArray[nDev].nIBus;
 					m_fGenArray[3*m_nNumGen+1]=fabs(pPRBlock->m_HVDCArray[nDev].fPi)/pPRBlock->m_System.fMvaBase;
 					m_fGenArray[3*m_nNumGen+2]=(double)nDev;
+					fTotalDCP += m_fGenArray[3*m_nNumGen+1];
+					//Log(g_lpszLogFile, "        直流[%s] 逆变侧 [%d] 增加发电 %g\n", pPRBlock->m_HVDCArray[nDev].szName, pPRBlock->m_HVDCArray[nDev].nIBus, pPRBlock->m_HVDCArray[nDev].fPi);
 					m_nNumGen++;
 				}
 			}
 		}
-// 		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_CONVERTER]; nDev++)
-// 		{
-// 			if (pPRBlock->m_ConverterArray[nDev].bOutage)
-// 				continue;
-// 			if (pPRBlock->m_ConverterArray[nDev].nACBus <= 0)
-// 				continue;
-// 			if (fabs(pPRBlock->m_ConverterArray[nDev].fConverterPower) < FLT_MIN)
-// 				continue;
-// 			if (pPRBlock->m_ACBusArray[pPRBlock->m_ConverterArray[nDev].nACBus].nIsland == nIsland && pPRBlock->m_ACBusArray[pPRBlock->m_ConverterArray[nDev].nACBus].nRadial == 0)
-// 			{
-// 				if (pPRBlock->m_ConverterArray[nDev].nType == PRConverter_Type_Rectifier)	//	整流
-// 				{
-// 					m_fLoadArray[3*m_nNumLoad+0]=(double)pPRBlock->m_ConverterArray[nDev].nACBus;
-// 					m_fLoadArray[3*m_nNumLoad+1]=fabs(pPRBlock->m_ConverterArray[nDev].fConverterPower)/pPRBlock->m_System.fMvaBase;
-// 					m_fLoadArray[3*m_nNumLoad+2]=(double)nDev;
-// 				}
-// 				else
-// 				{
-// 					m_fGenArray[3*m_nNumGen+0]=(double)pPRBlock->m_ConverterArray[nDev].nACBus;
-// 					m_fGenArray[3*m_nNumGen+1]=fabs(pPRBlock->m_ConverterArray[nDev].fConverterPower)/pPRBlock->m_System.fMvaBase;
-// 					m_fGenArray[3*m_nNumGen+2]=(double)nDev;
-// 					m_nNumGen++;
-// 				}
-// 			}
-// 		}
-		//Log(g_lpszDCNetworkLogFile, "Island=%d BranNum=%d 平衡节点=%d [%s] GenP=%.3f\n", nIsland, m_nNumBra, m_nSlackBus, pPRBlock->m_ACBusArray[m_nSlackBus].szName, pPRBlock->m_ACBusArray[m_nSlackBus].fGenP+pPRBlock->m_ACBusArray[m_nSlackBus].fAdjGenP);
+#ifdef	_DEBUG
+		log_debug("        Island=%d BranNum=%d 平衡节点=%d [%s] GenP=%.3f\n",
+			nIsland, m_nNumBra, m_nSlackBus,
+			pPRBlock->m_ACBusArray[m_nSlackBus].szName,
+			pPRBlock->m_ACBusArray[m_nSlackBus].fGenP+pPRBlock->m_ACBusArray[m_nSlackBus].fAdjGenP);
+#endif
 
 		fBusLossArray.clear();
+
+		//Log(g_lpszLogFile, "    电岛【%d】 系统发电=%g 系统负荷=%g 直流外送=%g\n", nIsland, fTotalGen*pPRBlock->m_System.fMvaBase, fTotalLoad*pPRBlock->m_System.fMvaBase, fTotalDCP*pPRBlock->m_System.fMvaBase);
+
+#ifdef	_DEBUG
+// 		time_t		now;
+// 		struct tm	when;
+// 		time(&now);
+// 		when = *localtime( &now );
+// 
+// 		char	szFileName[260];
+// 		sprintf(szFileName, "Data%.2d%.2d.txt", when.tm_min, when.tm_sec);
+// 		FILE*	fp=fopen(szFileName, "w");
+// 		if (fp != NULL)
+// 		{
+// 			fprintf(fp, "G=%d L=%d B=%d\n\n", m_nNumGen, m_nNumLoad, m_nNumBra);
+// 			for (nDev=0; nDev<m_nNumGen; nDev++)
+// 				fprintf(fp, "G %.0f %.2f %.0f\n", m_fGenArray[3*nDev+0], m_fGenArray[3*nDev+1], m_fGenArray[3*nDev+2]);
+// 			fprintf(fp, "\n\n");
+// 
+// 			for (nDev=0; nDev<m_nNumLoad; nDev++)
+// 				fprintf(fp, "L %.0f %.2f %.0f\n", m_fLoadArray[3*nDev+0], m_fLoadArray[3*nDev+1], m_fLoadArray[3*nDev+2]);
+// 			fprintf(fp, "\n\n");
+// 
+// 			for (nDev=0; nDev<m_nNumBra; nDev++)
+// 				fprintf(fp, "B %.0f %.0f %.2f %.0f\n", m_fZArray[4*nDev+0], m_fZArray[4*nDev+1], m_fZArray[4*nDev+2], m_fZArray[4*nDev+3]);
+// 			fprintf(fp, "\n\n");
+// 
+// 			fflush(fp);
+// 			fclose(fp);
+// 		}
+#endif
 
 		return 1;
 	}
@@ -408,6 +459,8 @@ namespace	DCNetwork
 			m_fBusD[i]=0;
 		for (i=1; i<pPRBlock->m_nRecordNum[PR_ACBUS]; i++)
 		{
+			if (pPRBlock->m_ACBusArray[i].bOutage)
+				continue;
 			if (pPRBlock->m_ACBusArray[i].nRadial != 0)
 				continue;
 
@@ -427,6 +480,9 @@ namespace	DCNetwork
 		register int	i;
 		int		nDev, nIsland;
 
+#ifdef	_DEBUG
+		log_debug("PRDCFlow UPFControl=%d Radial=%d\n", nUPFCControlMode, nRadial);
+#endif
 		if (nRadial == 0)
 		{
 			std::vector<int>	nUpfcLineArray;
@@ -557,6 +613,10 @@ namespace	DCNetwork
 							pPRBlock->m_ACLineArray[nDev].fPfPz=(float)( (pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fPControl+pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fLinePse));
 						}
 
+#ifdef	_DEBUG
+						if (nDev == 1401 || nDev == 1402)
+							log_debug("        1 Line[%s] = [Pi=%.2f Pz=%.2f]\n", pPRBlock->m_ACLineArray[nDev].szName, pPRBlock->m_ACLineArray[nDev].fPfPi, pPRBlock->m_ACLineArray[nDev].fPfPz);
+#endif
 						if (pPRBlock->m_ACLineArray[nDev].nIBus == m_nSlackBus)
 							pPRBlock->m_ACBusArray[m_nSlackBus].fGenP += pPRBlock->m_ACLineArray[nDev].fPfPi;
 						else if (pPRBlock->m_ACLineArray[nDev].nZBus == m_nSlackBus)
@@ -605,6 +665,16 @@ namespace	DCNetwork
 						else if (pPRBlock->m_ACLineArray[nDev].nZBus == m_nSlackBus)
 							pPRBlock->m_ACBusArray[m_nSlackBus].fGenP += pPRBlock->m_ACLineArray[nDev].fPfPz;
 					}
+#ifdef	_DEBUG
+					if (nDev == 1401 || nDev == 1402)
+					{
+						log_debug("        2 Line[%s Bus=%d %d D=%.3f %.3f] = [Pi=%.2f Pz=%.2f]\n", pPRBlock->m_ACLineArray[nDev].szName,
+							pPRBlock->m_ACLineArray[nDev].nIBus, pPRBlock->m_ACLineArray[nDev].nZBus,
+							pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nIBus].fPfD,
+							pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nZBus].fPfD,
+							pPRBlock->m_ACLineArray[nDev].fPfPi, pPRBlock->m_ACLineArray[nDev].fPfPz);
+					}
+#endif
 				}
 				else
 				{
@@ -674,6 +744,8 @@ namespace	DCNetwork
 		//for (nBus=pPRBlock->m_RadialArray[nRadial].nACBusRange; nBus<pPRBlock->m_RadialArray[nRadial+1].nACBusRange; nBus++)
 		for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 		{
+			if (pPRBlock->m_ACBusArray[nBus].bOutage)
+				continue;
 			if (pPRBlock->m_ACBusArray[nBus].nRadial != nRadial)
 				continue;
 

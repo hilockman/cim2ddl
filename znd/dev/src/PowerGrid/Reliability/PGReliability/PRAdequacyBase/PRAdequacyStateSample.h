@@ -6,9 +6,11 @@
 #include "PRSampleState.h"
 #include "PRSampleAnalytic.h"
 
+#include "PRAdequacyBaseExp.h"
+
 namespace	PRAdequacyBase
 {
-	class CPRAdequacyStateSample
+	class PRADEQUACYBASE_EXP CPRAdequacyStateSample
 	{
 	public:
 		CPRAdequacyStateSample(void);

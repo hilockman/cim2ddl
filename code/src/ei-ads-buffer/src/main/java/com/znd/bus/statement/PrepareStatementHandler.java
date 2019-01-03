@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.znd.bus.config.BufferConfig;
+import com.znd.bus.exception.StatementException;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.mapping.MappedStatement;
 import com.znd.bus.mapping.ParameterMapping;
@@ -18,7 +19,7 @@ public abstract class PrepareStatementHandler   extends BaseStatementHandler  {
 	
 
 	@Override
-	public void parepared(Statement ps) {
+	public void parepared(Statement ps) throws StatementException {
 		PrepareStatement ss = (PrepareStatement) ps;
 		
 

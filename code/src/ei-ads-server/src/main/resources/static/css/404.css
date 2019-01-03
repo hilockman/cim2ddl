@@ -1,0 +1,18 @@
+.error-info {
+	width: 60%;
+	margin: 50px auto;
+	
+}
+
+
+.error-info h1 {
+	font-size: 5em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.error-detail {
+	line-height: 1.5em;
+	background: red;
+	padding: 15px;
+}

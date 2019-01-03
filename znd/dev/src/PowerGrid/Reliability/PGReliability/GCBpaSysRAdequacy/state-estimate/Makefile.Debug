@@ -180,6 +180,7 @@ debug\tinyxmladapter.obj: tinyxmladapter.cpp tinyxmladapter.h \
 
 debug\wrapper.obj: wrapper.cpp ..\state-estimate-core\stateestimate.h \
 		..\state-estimate-core\stateestimateexp.h \
+		..\state-estimate-core\stateestimatedef.h \
 		D:\GitHub\cim2ddl\znd\dev\include\ilog.h \
 		D:\GitHub\cim2ddl\znd\dev\include\zndexp.h \
 		D:\GitHub\cim2ddl\znd\dev\include\log.h

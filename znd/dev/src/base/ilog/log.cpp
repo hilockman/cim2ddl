@@ -88,15 +88,15 @@ void eco::log_out_t(const int32_t  out_interval_time, const int32_t log_level, c
 	}
 	const int MAX_LOG_CONTENT_LENGTH = 2048;
 	char content[MAX_LOG_CONTENT_LENGTH];
+	memset(content, '\0', MAX_LOG_CONTENT_LENGTH);
 
 
 #ifdef WIN32
 	//_vsnprintf(content, MAX_LOG_CONTENT_LENGTH, format, va_para_list);
-	vsnprintf(content, MAX_LOG_CONTENT_LENGTH, format, va_para_list);
+	_vsnprintf(content, MAX_LOG_CONTENT_LENGTH, format, va_para_list);
 #else
 	vsnprintf(content, MAX_LOG_CONTENT_LENGTH, format, va_para_list);
 #endif	
-	
 	for (int i = strlen(content) - 1; i >= 0 && (content[i] == '\n' || content[i] == ' '); --i){ content[i] = 0; }
 	time_t time_now = time(NULL);
 	struct tm *ptm = localtime(&time_now);

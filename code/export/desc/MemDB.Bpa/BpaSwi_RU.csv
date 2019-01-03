@@ -9,3 +9,4 @@
 7,RU_TRelay,继电器动作所需时延(周),DOUBLE,4
 8,RU_TTrip,通讯和开关动作时间(周),DOUBLE,4
 9,RU_TDelay,传送操作时延(周),DOUBLE,4
+10,KeyName,线路名称,STRING,32

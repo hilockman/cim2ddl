@@ -8,13 +8,14 @@
 using	namespace	DCNetwork;
 
 #include "BpaPRDataDefine.h"
+#include "PRAdequacyBaseExp.h"
 
 namespace	PRAdequacyBase
 {
 	static const char*	g_lpszGenRResultFileName ="GenRAdequacyResult.xml";
 	static const char*	g_lpszSysRResultFileName ="SysRAdequacyResult.xml";
 
-	class CPRAdequacyEstimate
+	class PRADEQUACYBASE_EXP CPRAdequacyEstimate
 	{
 	public:
 		CPRAdequacyEstimate(void);
@@ -39,10 +40,10 @@ namespace	PRAdequacyBase
 		void ExitAdequacyEstimate(tagPRBlock* pPRBlock, const double fAc2DcFactor, const char* lpszResultXmlFile);
 
 		HANDLE GenAdequacyEstimate(tagPRBlock* pPRBlock,
-			const unsigned char bMultiThread,
+			const unsigned char nMultiThread,
 			const char* lpszResultFileName = NULL);	//	基于MCS的发电系统可靠性
 		HANDLE SysAdequacyEstimate(tagPRBlock* pPRBlock,
-			const unsigned char bMultiThread,
+			const unsigned char nMultiThread,
 			const double fDC2ACRatio,
 			const double fMinGLRatio,
 			const unsigned char bLineEOvl,
@@ -67,3 +68,5 @@ namespace	PRAdequacyBase
 		void WriteAdequacyResult(tagPRBlock* pPRBlock, const char* lpszFileName, const char* lpszCaseName, const char* lpszRaiFile, const char* lpszDatFile, const char* lpszSwiFile, const char* lpszRmlFile, const int nDur);
 	};
 }
+extern	const	char*	g_lpszLogFile;
+extern	void	Log(const char* lpszLogFile, char* pformat, ...);

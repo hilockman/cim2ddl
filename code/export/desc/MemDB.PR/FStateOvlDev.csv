@@ -3,6 +3,6 @@
 1,FStateNo,状态序号,INTEGER,4
 2,DevTyp,越限设备类型,INTEGER,1
 3,DevIdx,越限设备索引,INTEGER,4
-4,OvLmtP,越限值(MW),DOUBLE,4
-5,Rated,额定值(MW),DOUBLE,4
-6,AdLmtP,消限值(MW),DOUBLE,4
+4,OvLmtP,越限值(兆瓦),DOUBLE,4
+5,Rated,额定值(兆瓦),DOUBLE,4
+6,AdLmtP,消限值(兆瓦),DOUBLE,4

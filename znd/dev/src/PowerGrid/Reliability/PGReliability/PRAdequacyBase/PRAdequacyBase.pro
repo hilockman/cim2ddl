@@ -3,7 +3,9 @@ TEMPLATE = lib
 COMMON_DIR = $$(ZND_HOME)/dev/src/Common
 HEADERS += $$COMMON_DIR/StringCommon.h 
 SOURCES += $$COMMON_DIR/StringCommon.cpp \
-           $$COMMON_DIR/SemaphoreCommon.cpp
+           $$COMMON_DIR/SemaphoreCommon.cpp \
+		   $$(ZND_HOME)/dev/src/MemDB/MemDBMisc/BpaMemDB2PRMemDB.cpp
+		   
 		   
 SOURCES += BpaPRAdequacySetting.cpp \             
 			BpaPRParam.cpp \                      
@@ -59,6 +61,6 @@ HEADERS += BpaPRDataDefine.h \
 CONFIG -= qt
 
 win32: LIBS += -lkernel32 -luser32
-LIBS += -lBpaMemDb -lPRMemDB -lTinyXML -lDCNetwork
+LIBS += -lbase -lBpaMemDb -lPRMemDB -lTinyXML -lDCNetwork
 DEFINES += PRADEQUACYBASE_EXPORTS
 

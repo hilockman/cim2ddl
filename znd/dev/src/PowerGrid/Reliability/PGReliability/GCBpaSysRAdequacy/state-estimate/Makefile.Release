@@ -122,6 +122,7 @@ $(OBJECTS) $(LIBS)
 <<
 	cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_release
 	 if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb D:\GitHub\cim2ddl\znd/binary/win64/release/pdb
+	 cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll copy /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll D:\GitHub\cim2ddl\znd\bin
 	
 
 qmake: FORCE
@@ -180,6 +181,7 @@ release\tinyxmladapter.obj: tinyxmladapter.cpp tinyxmladapter.h \
 
 release\wrapper.obj: wrapper.cpp ..\state-estimate-core\stateestimate.h \
 		..\state-estimate-core\stateestimateexp.h \
+		..\state-estimate-core\stateestimatedef.h \
 		D:\GitHub\cim2ddl\znd\dev\include\ilog.h \
 		D:\GitHub\cim2ddl\znd\dev\include\zndexp.h \
 		D:\GitHub\cim2ddl\znd\dev\include\log.h

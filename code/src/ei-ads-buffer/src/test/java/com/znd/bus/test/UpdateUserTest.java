@@ -18,6 +18,7 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.test.mapper.UserMapper;
 import com.znd.bus.test.model.User;
+import com.znd.ei.Utils;
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
 @SpringBootTest 
@@ -26,7 +27,7 @@ public class UpdateUserTest {
 	private BufferFactory factory;
 	
 	static int index = 0;
-	static ExecutorService pool = Executors.newCachedThreadPool();
+	static ExecutorService pool = Utils.threadPool();
 	static Timer timer = new Timer(true);
     @Test
    // @Repeat(10000)

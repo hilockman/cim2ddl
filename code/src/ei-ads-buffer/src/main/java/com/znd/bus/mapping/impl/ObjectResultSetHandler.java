@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.znd.bus.exception.BindingException;
 import com.znd.bus.mapping.ParameterMapping;
 import com.znd.bus.mapping.ResultSet;
 import com.znd.bus.mapping.ResultSetHandler;
@@ -32,7 +33,7 @@ public class ObjectResultSetHandler<Object> implements ResultSetHandler<Object> 
 		
 	}
 	@Override
-	public List<Object> handle(ResultSet rs) {
+	public List<Object> handle(ResultSet rs) throws BindingException {
 		
 		
 		

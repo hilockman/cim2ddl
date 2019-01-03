@@ -5,7 +5,7 @@
 namespace	BpaMemDB
 {
 	std::vector<tagBpaRadiate>	m_RadiateArray;
-	void	FormRadiate(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva, const int nBoundBus, tagBpaRadiate& bndBuffer)
+	void CBpaMemDBInterface::FormRadiate(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva, const int nBoundBus, tagBpaRadiate& bndBuffer)
 	{
 		register int	i;
 		int		nBus;
@@ -81,7 +81,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	int InRadiate(tagBpaBlock* pBpaBlock, const int nCheckBus)
+	int CBpaMemDBInterface::InRadiate(tagBpaBlock* pBpaBlock, const int nCheckBus)
 	{
 		register int	i;
 		int	nRadiate;
@@ -97,7 +97,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	void BpaRingRadDecompose(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva)
+	void CBpaMemDBInterface::BpaRingRadDecompose(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva)
 	{
 		register int	i, j;
 		int				nBus;
@@ -137,7 +137,7 @@ namespace	BpaMemDB
 
 			if (bProcArray[nBus])
 				continue;
-			if (pBpaBlock->m_BpaDat_ACBusArray[nBus+1].nACLineRange-pBpaBlock->m_BpaDat_ACBusArray[nBus].nACLineRange+pBpaBlock->m_BpaDat_ACBusArray[nBus+1].nWindRange-pBpaBlock->m_BpaDat_ACBusArray[nBus].nWindRange <= 1)
+			if (pBpaBlock->m_BpaDat_ACBusArray[nBus+1].nEdgeACLineRange-pBpaBlock->m_BpaDat_ACBusArray[nBus].nEdgeACLineRange+pBpaBlock->m_BpaDat_ACBusArray[nBus+1].nEdgeWindRange-pBpaBlock->m_BpaDat_ACBusArray[nBus].nEdgeWindRange <= 1)
 				continue;
 			if (InRadiate(pBpaBlock, nBus))
 				continue;
@@ -199,10 +199,10 @@ namespace	BpaMemDB
 				if (m_RadiateArray[nBus].nBusArray[i] == m_RadiateArray[nBus].nBoundBus)
 					continue;
 
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]+1].nACLineRange; j++)
-					m_RadiateArray[nBus].nLineArray.push_back(pBpaBlock->m_BpaDat_EdgeLineArray[j].iRLine);
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]+1].nWindRange; j++)
-					m_RadiateArray[nBus].nWindArray.push_back(pBpaBlock->m_BpaDat_EdgeWindArray[j].iRWind);
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nEdgeACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]+1].nEdgeACLineRange; j++)
+					m_RadiateArray[nBus].nLineArray.push_back(pBpaBlock->m_BpaDat_EdgeACLineArray[j].nACLinePtr);
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]+1].nEdgeWindRange; j++)
+					m_RadiateArray[nBus].nWindArray.push_back(pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr);
 				pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].bInRing=0;
 			}
 			pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBoundBus].bInRing=2;
@@ -299,7 +299,7 @@ namespace	BpaMemDB
 			for (i=0; i<(int)m_RadiateArray[nBus].nBusArray.size(); i++)
 			{
 				pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nRadiate=nRadiate;
-				for (j=pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nLineHGRange; j<pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]+1].nLineHGRange; j++)
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]].nEdgeLineHGRange; j<pBpaBlock->m_BpaDat_ACBusArray[m_RadiateArray[nBus].nBusArray[i]+1].nEdgeLineHGRange; j++)
 					pBpaBlock->m_BpaDat_LineHGArray[pBpaBlock->m_BpaDat_EdgeLineHGArray[j].nLineHG].nRadiate=nRadiate;
 			}
 			for (i=0; i<(int)m_RadiateArray[nBus].nLineArray.size(); i++)

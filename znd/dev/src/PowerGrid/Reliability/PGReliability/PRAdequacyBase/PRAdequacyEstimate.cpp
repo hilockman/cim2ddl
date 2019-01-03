@@ -1,8 +1,8 @@
 #include <process.h>
 #include "PRAdequacyEstimate.h"
-
-extern	const	char*	g_lpszLogFile;
-extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
+#include "../../../../../include/ilog.h"
+//extern	const	char*	g_lpszLogFile;
+//extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface				g_PRMemDBInterface;
@@ -195,12 +195,12 @@ namespace	PRAdequacyBase
 			//		pPRBlock->m_System.nCutLoadState++;
 			//	}
 			//}
-			//for (i=1; i<pPRBlock->m_nRecordNum[PR_MCSAMPLESTATE]; i++)
+			//for (i=0; i<pPRBlock->m_nRecordNum[PR_MCSAMPLESTATE]; i++)
 			//{
 			//	if (pPRBlock->m_MCSampleStateArray[i].bCutLoad != 0 && pPRBlock->m_MCSampleStateArray[i-1].bCutLoad == 0)
 			//		pPRBlock->m_System.fEFLC++;
 			//}
-			for (i=0; i<g_PRMCSSampleStateArray.size(); i++)
+			for (i=0; i<(int)g_PRMCSSampleStateArray.size(); i++)
 			{
 				g_PRMCSSampleStateArray[i].bCutLoad=0;
 				fLoadCut=pPRBlock->m_FStateArray[g_PRMCSSampleStateArray[i].nFStateNo].fELCutLoad + pPRBlock->m_FStateArray[g_PRMCSSampleStateArray[i].nFStateNo].fEnsCutLoad + pPRBlock->m_FStateArray[g_PRMCSSampleStateArray[i].nFStateNo].fMIOutLoad;
@@ -211,7 +211,7 @@ namespace	PRAdequacyBase
 				}
 			}
 
-			for (i=1; i<g_PRMCSSampleStateArray.size(); i++)
+			for (i=1; i<(int)g_PRMCSSampleStateArray.size(); i++)
 			{
 				if (g_PRMCSSampleStateArray[i].bCutLoad != 0 && g_PRMCSSampleStateArray[i-1].bCutLoad == 0)
 					pPRBlock->m_System.fEFLC++;
@@ -286,12 +286,13 @@ namespace	PRAdequacyBase
 		m_bEstimating = 0;
 	}
 
-	HANDLE CPRAdequacyEstimate::GenAdequacyEstimate(tagPRBlock* pPRBlock, const unsigned char bMultiThread, const char* lpszResultFileName)	//	基于MCS的发电系统可靠性
+	HANDLE CPRAdequacyEstimate::GenAdequacyEstimate(tagPRBlock* pPRBlock, const unsigned char nMultiThread, const char* lpszResultFileName)	//	基于MCS的发电系统可靠性
 	{
+	
 		if (m_bEstimating)
 			return INVALID_HANDLE_VALUE;
 
-		Log(g_lpszLogFile, "发电系统充裕度评估: %d\n", bMultiThread);
+		log_info("发电系统充裕度评估: %d\n", nMultiThread);
 
 		char	szRResultFile[260];
 		memset(szRResultFile, 0, 260);
@@ -308,13 +309,13 @@ namespace	PRAdequacyBase
 		tagAdequacyThreadInfo*	pInfo=(tagAdequacyThreadInfo*)malloc(sizeof(tagAdequacyThreadInfo));
 		pInfo->pPRBlock = pPRBlock;
 		pInfo->nParentThreadID = GetCurrentThreadId();
-		pInfo->bMultiThread = bMultiThread;
+		pInfo->nMultiThread = nMultiThread;
 		strcpy(pInfo->szResultXmlFile, szRResultFile);
 		return (HANDLE)_beginthreadex(NULL, 0, GenAdequacyEstimateConThreaad, (void*)pInfo, 0, &nChildThreadID);
 	}
 
 	HANDLE CPRAdequacyEstimate::SysAdequacyEstimate(tagPRBlock* pPRBlock,
-		const unsigned char bMultiThread,
+		const unsigned char nMultiThread,
 		const double fDC2ACRatio,
 		const double fMinGLRatio,
 		const unsigned char bLineEOvl,
@@ -341,7 +342,7 @@ namespace	PRAdequacyBase
 		else
 			strcpy(szRResultFile, lpszRResultFileName);
 
-		Log(g_lpszLogFile, "发输电系统充裕度评估: %d %f %d %d\n", bMultiThread, fDC2ACRatio, bLineEOvl, bTranEOvl);
+		log_info("发输电系统充裕度评估: %d %f %d %d\n", nMultiThread, fDC2ACRatio, bLineEOvl, bTranEOvl);
 
 		g_PRMemDBInterface.PRMemDBIsland(pPRBlock, 1);
 
@@ -354,7 +355,7 @@ namespace	PRAdequacyBase
 		memset(pInfo, 0, sizeof(tagAdequacyThreadInfo));
 		pInfo->pPRBlock = pPRBlock;
 		pInfo->nParentThreadID = GetCurrentThreadId();
-		pInfo->bMultiThread = bMultiThread;
+		pInfo->nMultiThread = nMultiThread;
 		pInfo->fAC2DCFactor = fDC2ACRatio;
 		pInfo->fMinGLRatio = fMinGLRatio;
 		pInfo->bLineEOvl = bLineEOvl;

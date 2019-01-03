@@ -382,6 +382,7 @@ Makefile: src.pro D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013\qmake.con
 		D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds.prf \
 		D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_pre.prf \
 		D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\default_pre.prf \
+		src.pri \
 		D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\resolve_config.prf \
 		D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds_post.prf \
 		D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_post.prf \
@@ -519,6 +520,7 @@ D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\spec_post.prf:
 D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds.prf:
 D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_pre.prf:
 D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\default_pre.prf:
+src.pri:
 D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\resolve_config.prf:
 D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds_post.prf:
 D:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_post.prf:

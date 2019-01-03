@@ -6,7 +6,7 @@
 
 namespace	BpaMemDB
 {
-	void	BpaDataPtr2FieldArray(const int nTable, const char* lpszDataPtr, char szField[][MDB_CHARLEN_LONG])
+	void CBpaMemDBInterface::BpaDataPtr2FieldArray(const int nTable, const char* lpszDataPtr, char szField[][MDB_CHARLEN_LONG])
 	{
 		register int	i;
 		double	dBuf;
@@ -77,7 +77,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void	BpaFieldArray2DataPtr(const int nTable, const char szField[][MDB_CHARLEN_LONG], char* lpszDataPtr)
+	void CBpaMemDBInterface::BpaFieldArray2DataPtr(const int nTable, const char szField[][MDB_CHARLEN_LONG], char* lpszDataPtr)
 	{
 		register int	i;
 		int		nField;
@@ -131,7 +131,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void	BpaGetDataPtrFieldValue(const int nTable, const int nField, const char* lpszDataPtr, char* lpszRetValue)
+	void CBpaMemDBInterface::BpaGetDataPtrFieldValue(const int nTable, const int nField, const char* lpszDataPtr, char* lpszRetValue)
 	{
 		register int	i;
 		double	dBuf;
@@ -207,7 +207,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void	BpaSetDataPtrFieldValue(const int nTable, const int nField, const char* lpszFieldValue, char* lpszDataPtr)
+	void CBpaMemDBInterface::BpaSetDataPtrFieldValue(const int nTable, const int nField, const char* lpszFieldValue, char* lpszDataPtr)
 	{
 		register int	i;
 		double	dBuf;
@@ -260,7 +260,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	int	BpaFieldArray2LineString(const int nBpaTable, const int nDictIni, const char szField[][MDB_CHARLEN_LONG], char* lpszRetLine)
+	int	CBpaMemDBInterface::BpaFieldArray2LineString(const int nBpaTable, const int nDictIni, const char szField[][MDB_CHARLEN_LONG], char* lpszRetLine)
 	{
 		register int	i;
 		int		nBpaField, nIni, nEnd, nDecimal, nDataLen;
@@ -309,22 +309,22 @@ namespace	BpaMemDB
 						else
 						{
 							strcat(szValue, ".");
-							FormularBpaDecimalChar(szValue, nDataLen);
+							BpaFormatDecimalChar(nBpaTable, nBpaField, szValue, nDataLen, nDecimal);
 							for (i=0; i<strlen(szValue); i++)
 								lpszRetLine[nEnd-1-i]=szValue[strlen(szValue)-1-i];
 						}
 					}
 					else
 					{
-						FormularBpaDecimalChar(szValue, nDataLen);
+						BpaFormatDecimalChar(nBpaTable, nBpaField, szValue, nDataLen, nDecimal);
 						for (i=0; i<strlen(szValue); i++)
 							lpszRetLine[nEnd-1-i]=szValue[strlen(szValue)-1-i];
-// 						for (i=0; i<nDataLen; i++)
-// 						{
-// 							if (szValue[i] == ' ' || szValue[i] == '\t' || szValue[i] == '\n' || szValue[i] == '\r' || szValue[i] == '\0')
-// 								break;
-// 							lpszRetLine[i+nIni-1]=szValue[i];
-// 						}
+						// 						for (i=0; i<nDataLen; i++)
+						// 						{
+						// 							if (szValue[i] == ' ' || szValue[i] == '\t' || szValue[i] == '\n' || szValue[i] == '\r' || szValue[i] == '\0')
+						// 								break;
+						// 							lpszRetLine[i+nIni-1]=szValue[i];
+						// 						}
 					}
 				}
 				break;
@@ -361,7 +361,7 @@ namespace	BpaMemDB
 		return (int)strlen(lpszRetLine);
 	}
 
-	int	BpaDataPtr2LineString(const int nBpaTable, const int nDictIni, const char* lpszDataPtr, char* lpszRetLine)
+	int	CBpaMemDBInterface::BpaDataPtr2LineString(const int nBpaTable, const int nDictIni, const char* lpszDataPtr, char* lpszRetLine)
 	{
 		register int	i;
 		char	szField[MAXMDBFIELDNUM][MDB_CHARLEN_LONG];
@@ -372,7 +372,7 @@ namespace	BpaMemDB
 		return BpaFieldArray2LineString(nBpaTable, nDictIni, szField, lpszRetLine);
 	}
 
-	int	BpaFieldArray2LineString(const int nBpaTable, const char szField[][MDB_CHARLEN_LONG], char* lpszRetMString, char* lpszRetEString, char* lpszRetAString)
+	int	CBpaMemDBInterface::BpaFieldArray2LineString(const int nBpaTable, const char szField[][MDB_CHARLEN_LONG], char* lpszRetMString, char* lpszRetEString, char* lpszRetAString)
 	{
 		register int	i;
 		int		nComb, nDictIni, nKeyField;
@@ -422,7 +422,7 @@ namespace	BpaMemDB
 		return 1;
 	}
 
-	void BpaFormTableKeyField(const int nTable, char szField[][MDB_CHARLEN_LONG])
+	void CBpaMemDBInterface::BpaFormTableKeyField(const int nTable, char szField[][MDB_CHARLEN_LONG])
 	{
 		if (nTable == BPA_DAT_ACLINE)
 		{
@@ -564,6 +564,20 @@ namespace	BpaMemDB
 				sprintf(szField[BPA_SWI_WGEGEN_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_WGEGEN_BUS_NAME], StringToFloat(szField[BPA_SWI_WGEGEN_BUS_KV]), szField[BPA_SWI_WGEGEN_ID][0]);
 			else
 				sprintf(szField[BPA_SWI_WGEGEN_KEYNAME], "%s%.0f", szField[BPA_SWI_WGEGEN_BUS_NAME], StringToFloat(szField[BPA_SWI_WGEGEN_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_WGWGEN)
+		{
+			if (szField[BPA_SWI_WGWGEN_ID][0] != ' ' && szField[BPA_SWI_WGWGEN_ID][0] != '\0')
+				sprintf(szField[BPA_SWI_WGWGEN_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_WGWGEN_BUS_NAME], StringToFloat(szField[BPA_SWI_WGWGEN_BUS_KV]), szField[BPA_SWI_WGWGEN_ID][0]);
+			else
+				sprintf(szField[BPA_SWI_WGWGEN_KEYNAME], "%s%.0f", szField[BPA_SWI_WGWGEN_BUS_NAME], StringToFloat(szField[BPA_SWI_WGWGEN_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_PV)
+		{
+			if (szField[BPA_SWI_PV_ID][0] != ' ' && szField[BPA_SWI_PV_ID][0] != '\0')
+				sprintf(szField[BPA_SWI_PV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PV_BUS_NAME], StringToFloat(szField[BPA_SWI_PV_BUS_KV]), szField[BPA_SWI_PV_ID][0]);
+			else
+				sprintf(szField[BPA_SWI_PV_KEYNAME], "%s%.0f", szField[BPA_SWI_PV_BUS_NAME], StringToFloat(szField[BPA_SWI_PV_BUS_KV]));
 		}
 		else if (nTable == BPA_SWI_EXCIT68)
 		{
@@ -821,6 +835,26 @@ namespace	BpaMemDB
 		{
 			sprintf(szField[BPA_SWI_D_KEYNAME], "%s%.0f", szField[BPA_SWI_D_BUS_NAME], StringToFloat(szField[BPA_SWI_D_BUS_KV]));
 		}
+		else if (nTable == BPA_SWI_DT)
+		{
+			sprintf(szField[BPA_SWI_DT_KEYNAME], "%s%.0f", szField[BPA_SWI_DT_BUS_NAME], StringToFloat(szField[BPA_SWI_DT_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_DF)
+		{
+			sprintf(szField[BPA_SWI_DF_KEYNAME], "%s%.0f", szField[BPA_SWI_DF_BUS_NAME], StringToFloat(szField[BPA_SWI_DF_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_DM)
+		{
+			sprintf(szField[BPA_SWI_DM_KEYNAME], "%s%.0f", szField[BPA_SWI_DM_BUS_NAME], StringToFloat(szField[BPA_SWI_DM_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_DN)
+		{
+			sprintf(szField[BPA_SWI_DN_KEYNAME], "%s%.0f", szField[BPA_SWI_DN_BUS_NAME], StringToFloat(szField[BPA_SWI_DN_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_DA)
+		{
+			sprintf(szField[BPA_SWI_DA_KEYNAME], "%s%.0f", szField[BPA_SWI_DA_BUS_NAME], StringToFloat(szField[BPA_SWI_DA_BUS_KV]));
+		}
 		else if (nTable == BPA_SWI_V)
 		{
 			if (atoi(szField[BPA_SWI_V_ID]) != 0)
@@ -832,17 +866,55 @@ namespace	BpaMemDB
 		{
 			sprintf(szField[BPA_SWI_VG_KEYNAME], "%s%.0f", szField[BPA_SWI_VG_BUS_NAME], StringToFloat(szField[BPA_SWI_VG_BUS_KV]));
 		}
-// 		else if (nTable == BPA_SWI_LM)
-// 		{
-// 			sprintf(szField[BPA_SWI_LM_KEYNAME], "%s%.0f-%s%.0f",
-// 				szField[BPA_SWI_LM_BUS1_I],
-// 				StringToFloat(szField[BPA_SWI_LM_KV1_I]),
-// 				szField[BPA_SWI_LM_BUS1_J],
-// 				StringToFloat(szField[BPA_SWI_LM_KV1_J]));
-// 		}
+		else if (nTable == BPA_SWI_RE)
+		{
+			if (szField[BPA_SWI_RE_GEN_ID][0] != ' ' && szField[BPA_SWI_RE_GEN_ID][0] != '\0')
+				sprintf(szField[BPA_SWI_RE_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_RE_BUS_NAME], StringToFloat(szField[BPA_SWI_RE_BUS_KV]), szField[BPA_SWI_RE_GEN_ID][0]);
+			else
+				sprintf(szField[BPA_SWI_RE_KEYNAME], "%s%.0f", szField[BPA_SWI_RE_BUS_NAME], StringToFloat(szField[BPA_SWI_RE_BUS_KV]));
+		}
+		else if (nTable == BPA_SWI_RW)
+		{
+			if (szField[BPA_SWI_RW_GEN_ID][0] != ' ' && szField[BPA_SWI_RW_GEN_ID][0] != '\0')
+				sprintf(szField[BPA_SWI_RW_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_RW_BUS_NAME], StringToFloat(szField[BPA_SWI_RW_BUS_KV]), szField[BPA_SWI_RW_GEN_ID][0]);
+			else
+				sprintf(szField[BPA_SWI_RW_KEYNAME], "%s%.0f", szField[BPA_SWI_RW_BUS_NAME], StringToFloat(szField[BPA_SWI_RW_BUS_KV]));
+		}
+		if (nTable == BPA_SWI_RA)
+		{
+			if (szField[BPA_SWI_RA_LOOP][0] != ' ' && szField[BPA_SWI_RA_LOOP][0] != '\0')
+			{
+				sprintf(szField[BPA_SWI_RA_KEYNAME], "%s%.0f-%s%.0f@%c",
+					szField[BPA_SWI_RA_BUSI], StringToFloat(szField[BPA_SWI_RA_KVI]),
+					szField[BPA_SWI_RA_BUSJ], StringToFloat(szField[BPA_SWI_RA_KVJ]),
+					szField[BPA_SWI_RA_LOOP][0]);
+			}
+			else
+			{
+				sprintf(szField[BPA_SWI_RA_KEYNAME], "%s%.0f-%s%.0f",
+					szField[BPA_SWI_RA_BUSI], StringToFloat(szField[BPA_SWI_RA_KVI]),
+					szField[BPA_SWI_RA_BUSJ], StringToFloat(szField[BPA_SWI_RA_KVJ]));
+			}
+		}
+		if (nTable == BPA_SWI_RU)
+		{
+			if (szField[BPA_SWI_RU_LOOP][0] != ' ' && szField[BPA_SWI_RU_LOOP][0] != '\0')
+			{
+				sprintf(szField[BPA_SWI_RU_KEYNAME], "%s%.0f-%s%.0f@%c",
+					szField[BPA_SWI_RU_BUSI], StringToFloat(szField[BPA_SWI_RU_KVI]),
+					szField[BPA_SWI_RU_BUSJ], StringToFloat(szField[BPA_SWI_RU_KVJ]),
+					szField[BPA_SWI_RU_LOOP][0]);
+			}
+			else
+			{
+				sprintf(szField[BPA_SWI_RU_KEYNAME], "%s%.0f-%s%.0f",
+					szField[BPA_SWI_RU_BUSI], StringToFloat(szField[BPA_SWI_RU_KVI]),
+					szField[BPA_SWI_RU_BUSJ], StringToFloat(szField[BPA_SWI_RU_KVJ]));
+			}
+		}
 	}
 
-	void BpaFormTableKeyField(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord)
+	void CBpaMemDBInterface::BpaFormTableKeyField(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord)
 	{
 		if (nTable == BPA_DAT_ACLINE)
 		{
@@ -1001,6 +1073,22 @@ namespace	BpaMemDB
 			else
 				sprintf(pBpaBlock->m_BpaSwi_WGEGenArray[nRecord].szKeyName, "%s%.0f", pBpaBlock->m_BpaSwi_WGEGenArray[nRecord].szBus_Name, pBpaBlock->m_BpaSwi_WGEGenArray[nRecord].fBus_kV);
 		}
+		else if (nTable == BPA_SWI_WGWGEN)
+		{
+			memset(pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].szKeyName, 0, BpaGetFieldLen(nTable, BPA_SWI_WGWGEN_KEYNAME));
+			if (pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].cID != ' ' && pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].cID != '\0')
+				sprintf(pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].szKeyName, "%s%.0f@%c", pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].szBus_Name, pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].fBus_kV, pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].cID);
+			else
+				sprintf(pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].szKeyName, "%s%.0f", pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].szBus_Name, pBpaBlock->m_BpaSwi_WGWGenArray[nRecord].fBus_kV);
+		}
+		else if (nTable == BPA_SWI_PV)
+		{
+			memset(pBpaBlock->m_BpaSwi_PVArray[nRecord].szKeyName, 0, BpaGetFieldLen(nTable, BPA_SWI_PV_KEYNAME));
+			if (pBpaBlock->m_BpaSwi_PVArray[nRecord].cID != ' ' && pBpaBlock->m_BpaSwi_PVArray[nRecord].cID != '\0')
+				sprintf(pBpaBlock->m_BpaSwi_PVArray[nRecord].szKeyName, "%s%.0f@%c", pBpaBlock->m_BpaSwi_PVArray[nRecord].szBus_Name, pBpaBlock->m_BpaSwi_PVArray[nRecord].fBus_kV, pBpaBlock->m_BpaSwi_PVArray[nRecord].cID);
+			else
+				sprintf(pBpaBlock->m_BpaSwi_PVArray[nRecord].szKeyName, "%s%.0f", pBpaBlock->m_BpaSwi_PVArray[nRecord].szBus_Name, pBpaBlock->m_BpaSwi_PVArray[nRecord].fBus_kV);
+		}
 		else if (nTable == BPA_SWI_EXCIT68)
 		{
 			memset(pBpaBlock->m_BpaSwi_Exc68Array[nRecord].szKeyName, 0, BpaGetFieldLen(nTable, BPA_SWI_EXCIT68_KEYNAME));
@@ -1009,263 +1097,263 @@ namespace	BpaMemDB
 			else
 				sprintf(pBpaBlock->m_BpaSwi_Exc68Array[nRecord].szKeyName, "%s%.0f", pBpaBlock->m_BpaSwi_Exc68Array[nRecord].szBus_Name, pBpaBlock->m_BpaSwi_Exc68Array[nRecord].fBus_kV);
 		}
-// 		else if (nTable == BPA_SWI_EXCIT81)
-// 		{
-// 			if (szField[BPA_SWI_EXCIT81_GEN_ID][0] != ' ' && szField[BPA_SWI_EXCIT81_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_EXCIT81_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_EXCIT81_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCIT81_BUS_KV]), szField[BPA_SWI_EXCIT81_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_EXCIT81_KEYNAME], "%s%.0f", szField[BPA_SWI_EXCIT81_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCIT81_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_EXCITMV)
-// 		{
-// 			if (szField[BPA_SWI_EXCITMV_GEN_ID][0] != ' ' && szField[BPA_SWI_EXCITMV_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_EXCITMV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_EXCITMV_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITMV_BUS_KV]), szField[BPA_SWI_EXCITMV_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_EXCITMV_KEYNAME], "%s%.0f", szField[BPA_SWI_EXCITMV_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITMV_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_EXCITX)
-// 		{
-// 			if (szField[BPA_SWI_EXCITX_GEN_ID][0] != ' ' && szField[BPA_SWI_EXCITX_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_EXCITX_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_EXCITX_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITX_BUS_KV]), szField[BPA_SWI_EXCITX_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_EXCITX_KEYNAME], "%s%.0f", szField[BPA_SWI_EXCITX_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITX_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSS)
-// 		{
-// 			if (szField[BPA_SWI_PSSS_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSS_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSS_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSS_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSS_BUS_KV]), szField[BPA_SWI_PSSS_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSS_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSS_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSS_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSSH1)
-// 		{
-// 			if (szField[BPA_SWI_PSSSH1_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSH1_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSSH1_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSH1_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH1_BUS_KV]), szField[BPA_SWI_PSSSH1_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSSH1_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSH1_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH1_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSSH2)
-// 		{
-// 			if (szField[BPA_SWI_PSSSH2_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSH2_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSSH2_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSH2_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH2_BUS_KV]), szField[BPA_SWI_PSSSH2_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSSH2_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSH2_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH2_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSSI)
-// 		{
-// 			if (szField[BPA_SWI_PSSSI_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSI_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSSI_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSI_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSI_BUS_KV]), szField[BPA_SWI_PSSSI_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSSI_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSI_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSI_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSSA)
-// 		{
-// 			if (szField[BPA_SWI_PSSSA_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSA_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSSA_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSA_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSA_BUS_KV]), szField[BPA_SWI_PSSSA_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSSA_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSA_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSA_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSSB)
-// 		{
-// 			if (szField[BPA_SWI_PSSSB_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSB_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSSB_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSB_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSB_BUS_KV]), szField[BPA_SWI_PSSSB_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSSB_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSB_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSB_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_PSSST)
-// 		{
-// 			if (szField[BPA_SWI_PSSST_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSST_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_PSSST_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSST_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSST_BUS_KV]), szField[BPA_SWI_PSSST_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_PSSST_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSST_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSST_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GG)
-// 		{
-// 			if (szField[BPA_SWI_GG_GEN_ID][0] != ' ' && szField[BPA_SWI_GG_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GG_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GG_BUS_NAME], StringToFloat(szField[BPA_SWI_GG_BUS_KV]), szField[BPA_SWI_GG_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GG_KEYNAME], "%s%.0f", szField[BPA_SWI_GG_BUS_NAME], StringToFloat(szField[BPA_SWI_GG_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GH)
-// 		{
-// 			if (szField[BPA_SWI_GH_GEN_ID][0] != ' ' && szField[BPA_SWI_GH_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GH_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GH_BUS_NAME], StringToFloat(szField[BPA_SWI_GH_BUS_KV]), szField[BPA_SWI_GH_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GH_KEYNAME], "%s%.0f", szField[BPA_SWI_GH_BUS_NAME], StringToFloat(szField[BPA_SWI_GH_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GC)
-// 		{
-// 			if (szField[BPA_SWI_GC_GEN_ID][0] != ' ' && szField[BPA_SWI_GC_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GC_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GC_BUS_NAME], StringToFloat(szField[BPA_SWI_GC_BUS_KV]), szField[BPA_SWI_GC_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GC_KEYNAME], "%s%.0f", szField[BPA_SWI_GC_BUS_NAME], StringToFloat(szField[BPA_SWI_GC_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GS)
-// 		{
-// 			if (szField[BPA_SWI_GS_GEN_ID][0] != ' ' && szField[BPA_SWI_GS_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GS_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GS_BUS_NAME], StringToFloat(szField[BPA_SWI_GS_BUS_KV]), szField[BPA_SWI_GS_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GS_KEYNAME], "%s%.0f", szField[BPA_SWI_GS_BUS_NAME], StringToFloat(szField[BPA_SWI_GS_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GL)
-// 		{
-// 			if (szField[BPA_SWI_GL_GEN_ID][0] != ' ' && szField[BPA_SWI_GL_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GL_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GL_BUS_NAME], StringToFloat(szField[BPA_SWI_GL_BUS_KV]), szField[BPA_SWI_GL_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GL_KEYNAME], "%s%.0f", szField[BPA_SWI_GL_BUS_NAME], StringToFloat(szField[BPA_SWI_GL_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GW)
-// 		{
-// 			if (szField[BPA_SWI_GW_GEN_ID][0] != ' ' && szField[BPA_SWI_GW_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GW_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GW_BUS_NAME], StringToFloat(szField[BPA_SWI_GW_BUS_KV]), szField[BPA_SWI_GW_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GW_KEYNAME], "%s%.0f", szField[BPA_SWI_GW_BUS_NAME], StringToFloat(szField[BPA_SWI_GW_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GA)
-// 		{
-// 			if (szField[BPA_SWI_GA_GEN_ID][0] != ' ' && szField[BPA_SWI_GA_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GA_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GA_BUS_NAME], StringToFloat(szField[BPA_SWI_GA_BUS_KV]), szField[BPA_SWI_GA_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GA_KEYNAME], "%s%.0f", szField[BPA_SWI_GA_BUS_NAME], StringToFloat(szField[BPA_SWI_GA_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GI)
-// 		{
-// 			if (szField[BPA_SWI_GI_GEN_ID][0] != ' ' && szField[BPA_SWI_GI_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GI_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GI_BUS_NAME], StringToFloat(szField[BPA_SWI_GI_BUS_KV]), szField[BPA_SWI_GI_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GI_KEYNAME], "%s%.0f", szField[BPA_SWI_GI_BUS_NAME], StringToFloat(szField[BPA_SWI_GI_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GJ)
-// 		{
-// 			if (szField[BPA_SWI_GJ_GEN_ID][0] != ' ' && szField[BPA_SWI_GJ_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GJ_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GJ_BUS_NAME], StringToFloat(szField[BPA_SWI_GJ_BUS_KV]), szField[BPA_SWI_GJ_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GJ_KEYNAME], "%s%.0f", szField[BPA_SWI_GJ_BUS_NAME], StringToFloat(szField[BPA_SWI_GJ_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GK)
-// 		{
-// 			if (szField[BPA_SWI_GK_GEN_ID][0] != ' ' && szField[BPA_SWI_GK_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GK_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GK_BUS_NAME], StringToFloat(szField[BPA_SWI_GK_BUS_KV]), szField[BPA_SWI_GK_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GK_KEYNAME], "%s%.0f", szField[BPA_SWI_GK_BUS_NAME], StringToFloat(szField[BPA_SWI_GK_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GM)
-// 		{
-// 			if (szField[BPA_SWI_GM_GEN_ID][0] != ' ' && szField[BPA_SWI_GM_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GM_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GM_BUS_NAME], StringToFloat(szField[BPA_SWI_GM_BUS_KV]), szField[BPA_SWI_GM_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GM_KEYNAME], "%s%.0f", szField[BPA_SWI_GM_BUS_NAME], StringToFloat(szField[BPA_SWI_GM_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GD)
-// 		{
-// 			if (szField[BPA_SWI_GD_GEN_ID][0] != ' ' && szField[BPA_SWI_GD_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GD_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GD_BUS_NAME], StringToFloat(szField[BPA_SWI_GD_BUS_KV]), szField[BPA_SWI_GD_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GD_KEYNAME], "%s%.0f", szField[BPA_SWI_GD_BUS_NAME], StringToFloat(szField[BPA_SWI_GD_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GZ)
-// 		{
-// 			if (szField[BPA_SWI_GZ_GEN_ID][0] != ' ' && szField[BPA_SWI_GZ_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GZ_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GZ_BUS_NAME], StringToFloat(szField[BPA_SWI_GZ_BUS_KV]), szField[BPA_SWI_GZ_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GZ_KEYNAME], "%s%.0f", szField[BPA_SWI_GZ_BUS_NAME], StringToFloat(szField[BPA_SWI_GZ_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TA)
-// 		{
-// 			if (szField[BPA_SWI_TA_GEN_ID][0] != ' ' && szField[BPA_SWI_TA_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TA_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TA_BUS_NAME], StringToFloat(szField[BPA_SWI_TA_BUS_KV]), szField[BPA_SWI_TA_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TA_KEYNAME], "%s%.0f", szField[BPA_SWI_TA_BUS_NAME], StringToFloat(szField[BPA_SWI_TA_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TB)
-// 		{
-// 			if (szField[BPA_SWI_TB_GEN_ID][0] != ' ' && szField[BPA_SWI_TB_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TB_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TB_BUS_NAME], StringToFloat(szField[BPA_SWI_TB_BUS_KV]), szField[BPA_SWI_TB_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TB_KEYNAME], "%s%.0f", szField[BPA_SWI_TB_BUS_NAME], StringToFloat(szField[BPA_SWI_TB_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TC)
-// 		{
-// 			if (szField[BPA_SWI_TC_GEN_ID][0] != ' ' && szField[BPA_SWI_TC_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TC_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TC_BUS_NAME], StringToFloat(szField[BPA_SWI_TC_BUS_KV]), szField[BPA_SWI_TC_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TC_KEYNAME], "%s%.0f", szField[BPA_SWI_TC_BUS_NAME], StringToFloat(szField[BPA_SWI_TC_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TD)
-// 		{
-// 			if (szField[BPA_SWI_TD_GEN_ID][0] != ' ' && szField[BPA_SWI_TD_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TD_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TD_BUS_NAME], StringToFloat(szField[BPA_SWI_TD_BUS_KV]), szField[BPA_SWI_TD_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TD_KEYNAME], "%s%.0f", szField[BPA_SWI_TD_BUS_NAME], StringToFloat(szField[BPA_SWI_TD_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TE)
-// 		{
-// 			if (szField[BPA_SWI_TE_GEN_ID][0] != ' ' && szField[BPA_SWI_TE_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TE_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TE_BUS_NAME], StringToFloat(szField[BPA_SWI_TE_BUS_KV]), szField[BPA_SWI_TE_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TE_KEYNAME], "%s%.0f", szField[BPA_SWI_TE_BUS_NAME], StringToFloat(szField[BPA_SWI_TE_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TF)
-// 		{
-// 			if (szField[BPA_SWI_TF_GEN_ID][0] != ' ' && szField[BPA_SWI_TF_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TF_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TF_BUS_NAME], StringToFloat(szField[BPA_SWI_TF_BUS_KV]), szField[BPA_SWI_TF_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TF_KEYNAME], "%s%.0f", szField[BPA_SWI_TF_BUS_NAME], StringToFloat(szField[BPA_SWI_TF_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_TW)
-// 		{
-// 			if (szField[BPA_SWI_TW_GEN_ID][0] != ' ' && szField[BPA_SWI_TW_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_TW_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TW_BUS_NAME], StringToFloat(szField[BPA_SWI_TW_BUS_KV]), szField[BPA_SWI_TW_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_TW_KEYNAME], "%s%.0f", szField[BPA_SWI_TW_BUS_NAME], StringToFloat(szField[BPA_SWI_TW_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_GX)
-// 		{
-// 			if (szField[BPA_SWI_GX_GEN_ID][0] != ' ' && szField[BPA_SWI_GX_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_GX_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GX_BUS_NAME], StringToFloat(szField[BPA_SWI_GX_BUS_KV]), szField[BPA_SWI_GX_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_GX_KEYNAME], "%s%.0f", szField[BPA_SWI_GX_BUS_NAME], StringToFloat(szField[BPA_SWI_GX_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_IGV)
-// 		{
-// 			if (szField[BPA_SWI_IGV_GEN_ID][0] != ' ' && szField[BPA_SWI_IGV_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_IGV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_IGV_BUS_NAME], StringToFloat(szField[BPA_SWI_IGV_BUS_KV]), szField[BPA_SWI_IGV_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_IGV_KEYNAME], "%s%.0f", szField[BPA_SWI_IGV_BUS_NAME], StringToFloat(szField[BPA_SWI_IGV_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_FGV)
-// 		{
-// 			if (szField[BPA_SWI_FGV_GEN_ID][0] != ' ' && szField[BPA_SWI_FGV_GEN_ID][0] != '\0')
-// 				sprintf(szField[BPA_SWI_FGV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_FGV_BUS_NAME], StringToFloat(szField[BPA_SWI_FGV_BUS_KV]), szField[BPA_SWI_FGV_GEN_ID][0]);
-// 			else
-// 				sprintf(szField[BPA_SWI_FGV_KEYNAME], "%s%.0f", szField[BPA_SWI_FGV_BUS_NAME], StringToFloat(szField[BPA_SWI_FGV_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_D)
-// 		{
-// 			sprintf(szField[BPA_SWI_D_KEYNAME], "%s%.0f", szField[BPA_SWI_D_BUS_NAME], StringToFloat(szField[BPA_SWI_D_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_V)
-// 		{
-// 			if (atoi(szField[BPA_SWI_V_ID]) != 0)
-// 				sprintf(szField[BPA_SWI_V_KEYNAME], "%s%.0f@%d", szField[BPA_SWI_V_BUS_NAME], StringToFloat(szField[BPA_SWI_V_BUS_KV]), atoi(szField[BPA_SWI_V_ID]));
-// 			else
-// 				sprintf(szField[BPA_SWI_V_KEYNAME], "%s%.0f", szField[BPA_SWI_V_BUS_NAME], StringToFloat(szField[BPA_SWI_V_BUS_KV]));
-// 		}
-// 		else if (nTable == BPA_SWI_VG)
-// 		{
-// 			sprintf(szField[BPA_SWI_VG_KEYNAME], "%s%.0f", szField[BPA_SWI_VG_BUS_NAME], StringToFloat(szField[BPA_SWI_VG_BUS_KV]));
-// 		}
-// 		// 		else if (nTable == BPA_SWI_LM)
-// 		// 		{
-// 		// 			sprintf(szField[BPA_SWI_LM_KEYNAME], "%s%.0f-%s%.0f",
-// 		// 				szField[BPA_SWI_LM_BUS1_I],
-// 		// 				StringToFloat(szField[BPA_SWI_LM_KV1_I]),
-// 		// 				szField[BPA_SWI_LM_BUS1_J],
-// 		// 				StringToFloat(szField[BPA_SWI_LM_KV1_J]));
-// 		// 		}
+		// 		else if (nTable == BPA_SWI_EXCIT81)
+		// 		{
+		// 			if (szField[BPA_SWI_EXCIT81_GEN_ID][0] != ' ' && szField[BPA_SWI_EXCIT81_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_EXCIT81_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_EXCIT81_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCIT81_BUS_KV]), szField[BPA_SWI_EXCIT81_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_EXCIT81_KEYNAME], "%s%.0f", szField[BPA_SWI_EXCIT81_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCIT81_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_EXCITMV)
+		// 		{
+		// 			if (szField[BPA_SWI_EXCITMV_GEN_ID][0] != ' ' && szField[BPA_SWI_EXCITMV_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_EXCITMV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_EXCITMV_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITMV_BUS_KV]), szField[BPA_SWI_EXCITMV_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_EXCITMV_KEYNAME], "%s%.0f", szField[BPA_SWI_EXCITMV_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITMV_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_EXCITX)
+		// 		{
+		// 			if (szField[BPA_SWI_EXCITX_GEN_ID][0] != ' ' && szField[BPA_SWI_EXCITX_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_EXCITX_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_EXCITX_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITX_BUS_KV]), szField[BPA_SWI_EXCITX_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_EXCITX_KEYNAME], "%s%.0f", szField[BPA_SWI_EXCITX_BUS_NAME], StringToFloat(szField[BPA_SWI_EXCITX_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSS)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSS_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSS_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSS_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSS_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSS_BUS_KV]), szField[BPA_SWI_PSSS_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSS_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSS_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSS_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSSH1)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSSH1_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSH1_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSSH1_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSH1_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH1_BUS_KV]), szField[BPA_SWI_PSSSH1_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSSH1_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSH1_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH1_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSSH2)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSSH2_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSH2_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSSH2_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSH2_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH2_BUS_KV]), szField[BPA_SWI_PSSSH2_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSSH2_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSH2_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSH2_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSSI)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSSI_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSI_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSSI_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSI_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSI_BUS_KV]), szField[BPA_SWI_PSSSI_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSSI_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSI_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSI_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSSA)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSSA_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSA_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSSA_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSA_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSA_BUS_KV]), szField[BPA_SWI_PSSSA_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSSA_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSA_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSA_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSSB)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSSB_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSSB_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSSB_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSSB_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSB_BUS_KV]), szField[BPA_SWI_PSSSB_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSSB_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSSB_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSSB_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_PSSST)
+		// 		{
+		// 			if (szField[BPA_SWI_PSSST_GEN_ID][0] != ' ' && szField[BPA_SWI_PSSST_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_PSSST_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_PSSST_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSST_BUS_KV]), szField[BPA_SWI_PSSST_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_PSSST_KEYNAME], "%s%.0f", szField[BPA_SWI_PSSST_BUS_NAME], StringToFloat(szField[BPA_SWI_PSSST_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GG)
+		// 		{
+		// 			if (szField[BPA_SWI_GG_GEN_ID][0] != ' ' && szField[BPA_SWI_GG_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GG_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GG_BUS_NAME], StringToFloat(szField[BPA_SWI_GG_BUS_KV]), szField[BPA_SWI_GG_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GG_KEYNAME], "%s%.0f", szField[BPA_SWI_GG_BUS_NAME], StringToFloat(szField[BPA_SWI_GG_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GH)
+		// 		{
+		// 			if (szField[BPA_SWI_GH_GEN_ID][0] != ' ' && szField[BPA_SWI_GH_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GH_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GH_BUS_NAME], StringToFloat(szField[BPA_SWI_GH_BUS_KV]), szField[BPA_SWI_GH_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GH_KEYNAME], "%s%.0f", szField[BPA_SWI_GH_BUS_NAME], StringToFloat(szField[BPA_SWI_GH_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GC)
+		// 		{
+		// 			if (szField[BPA_SWI_GC_GEN_ID][0] != ' ' && szField[BPA_SWI_GC_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GC_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GC_BUS_NAME], StringToFloat(szField[BPA_SWI_GC_BUS_KV]), szField[BPA_SWI_GC_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GC_KEYNAME], "%s%.0f", szField[BPA_SWI_GC_BUS_NAME], StringToFloat(szField[BPA_SWI_GC_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GS)
+		// 		{
+		// 			if (szField[BPA_SWI_GS_GEN_ID][0] != ' ' && szField[BPA_SWI_GS_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GS_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GS_BUS_NAME], StringToFloat(szField[BPA_SWI_GS_BUS_KV]), szField[BPA_SWI_GS_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GS_KEYNAME], "%s%.0f", szField[BPA_SWI_GS_BUS_NAME], StringToFloat(szField[BPA_SWI_GS_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GL)
+		// 		{
+		// 			if (szField[BPA_SWI_GL_GEN_ID][0] != ' ' && szField[BPA_SWI_GL_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GL_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GL_BUS_NAME], StringToFloat(szField[BPA_SWI_GL_BUS_KV]), szField[BPA_SWI_GL_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GL_KEYNAME], "%s%.0f", szField[BPA_SWI_GL_BUS_NAME], StringToFloat(szField[BPA_SWI_GL_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GW)
+		// 		{
+		// 			if (szField[BPA_SWI_GW_GEN_ID][0] != ' ' && szField[BPA_SWI_GW_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GW_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GW_BUS_NAME], StringToFloat(szField[BPA_SWI_GW_BUS_KV]), szField[BPA_SWI_GW_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GW_KEYNAME], "%s%.0f", szField[BPA_SWI_GW_BUS_NAME], StringToFloat(szField[BPA_SWI_GW_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GA)
+		// 		{
+		// 			if (szField[BPA_SWI_GA_GEN_ID][0] != ' ' && szField[BPA_SWI_GA_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GA_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GA_BUS_NAME], StringToFloat(szField[BPA_SWI_GA_BUS_KV]), szField[BPA_SWI_GA_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GA_KEYNAME], "%s%.0f", szField[BPA_SWI_GA_BUS_NAME], StringToFloat(szField[BPA_SWI_GA_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GI)
+		// 		{
+		// 			if (szField[BPA_SWI_GI_GEN_ID][0] != ' ' && szField[BPA_SWI_GI_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GI_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GI_BUS_NAME], StringToFloat(szField[BPA_SWI_GI_BUS_KV]), szField[BPA_SWI_GI_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GI_KEYNAME], "%s%.0f", szField[BPA_SWI_GI_BUS_NAME], StringToFloat(szField[BPA_SWI_GI_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GJ)
+		// 		{
+		// 			if (szField[BPA_SWI_GJ_GEN_ID][0] != ' ' && szField[BPA_SWI_GJ_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GJ_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GJ_BUS_NAME], StringToFloat(szField[BPA_SWI_GJ_BUS_KV]), szField[BPA_SWI_GJ_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GJ_KEYNAME], "%s%.0f", szField[BPA_SWI_GJ_BUS_NAME], StringToFloat(szField[BPA_SWI_GJ_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GK)
+		// 		{
+		// 			if (szField[BPA_SWI_GK_GEN_ID][0] != ' ' && szField[BPA_SWI_GK_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GK_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GK_BUS_NAME], StringToFloat(szField[BPA_SWI_GK_BUS_KV]), szField[BPA_SWI_GK_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GK_KEYNAME], "%s%.0f", szField[BPA_SWI_GK_BUS_NAME], StringToFloat(szField[BPA_SWI_GK_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GM)
+		// 		{
+		// 			if (szField[BPA_SWI_GM_GEN_ID][0] != ' ' && szField[BPA_SWI_GM_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GM_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GM_BUS_NAME], StringToFloat(szField[BPA_SWI_GM_BUS_KV]), szField[BPA_SWI_GM_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GM_KEYNAME], "%s%.0f", szField[BPA_SWI_GM_BUS_NAME], StringToFloat(szField[BPA_SWI_GM_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GD)
+		// 		{
+		// 			if (szField[BPA_SWI_GD_GEN_ID][0] != ' ' && szField[BPA_SWI_GD_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GD_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GD_BUS_NAME], StringToFloat(szField[BPA_SWI_GD_BUS_KV]), szField[BPA_SWI_GD_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GD_KEYNAME], "%s%.0f", szField[BPA_SWI_GD_BUS_NAME], StringToFloat(szField[BPA_SWI_GD_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GZ)
+		// 		{
+		// 			if (szField[BPA_SWI_GZ_GEN_ID][0] != ' ' && szField[BPA_SWI_GZ_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GZ_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GZ_BUS_NAME], StringToFloat(szField[BPA_SWI_GZ_BUS_KV]), szField[BPA_SWI_GZ_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GZ_KEYNAME], "%s%.0f", szField[BPA_SWI_GZ_BUS_NAME], StringToFloat(szField[BPA_SWI_GZ_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TA)
+		// 		{
+		// 			if (szField[BPA_SWI_TA_GEN_ID][0] != ' ' && szField[BPA_SWI_TA_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TA_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TA_BUS_NAME], StringToFloat(szField[BPA_SWI_TA_BUS_KV]), szField[BPA_SWI_TA_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TA_KEYNAME], "%s%.0f", szField[BPA_SWI_TA_BUS_NAME], StringToFloat(szField[BPA_SWI_TA_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TB)
+		// 		{
+		// 			if (szField[BPA_SWI_TB_GEN_ID][0] != ' ' && szField[BPA_SWI_TB_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TB_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TB_BUS_NAME], StringToFloat(szField[BPA_SWI_TB_BUS_KV]), szField[BPA_SWI_TB_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TB_KEYNAME], "%s%.0f", szField[BPA_SWI_TB_BUS_NAME], StringToFloat(szField[BPA_SWI_TB_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TC)
+		// 		{
+		// 			if (szField[BPA_SWI_TC_GEN_ID][0] != ' ' && szField[BPA_SWI_TC_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TC_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TC_BUS_NAME], StringToFloat(szField[BPA_SWI_TC_BUS_KV]), szField[BPA_SWI_TC_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TC_KEYNAME], "%s%.0f", szField[BPA_SWI_TC_BUS_NAME], StringToFloat(szField[BPA_SWI_TC_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TD)
+		// 		{
+		// 			if (szField[BPA_SWI_TD_GEN_ID][0] != ' ' && szField[BPA_SWI_TD_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TD_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TD_BUS_NAME], StringToFloat(szField[BPA_SWI_TD_BUS_KV]), szField[BPA_SWI_TD_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TD_KEYNAME], "%s%.0f", szField[BPA_SWI_TD_BUS_NAME], StringToFloat(szField[BPA_SWI_TD_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TE)
+		// 		{
+		// 			if (szField[BPA_SWI_TE_GEN_ID][0] != ' ' && szField[BPA_SWI_TE_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TE_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TE_BUS_NAME], StringToFloat(szField[BPA_SWI_TE_BUS_KV]), szField[BPA_SWI_TE_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TE_KEYNAME], "%s%.0f", szField[BPA_SWI_TE_BUS_NAME], StringToFloat(szField[BPA_SWI_TE_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TF)
+		// 		{
+		// 			if (szField[BPA_SWI_TF_GEN_ID][0] != ' ' && szField[BPA_SWI_TF_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TF_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TF_BUS_NAME], StringToFloat(szField[BPA_SWI_TF_BUS_KV]), szField[BPA_SWI_TF_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TF_KEYNAME], "%s%.0f", szField[BPA_SWI_TF_BUS_NAME], StringToFloat(szField[BPA_SWI_TF_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_TW)
+		// 		{
+		// 			if (szField[BPA_SWI_TW_GEN_ID][0] != ' ' && szField[BPA_SWI_TW_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_TW_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_TW_BUS_NAME], StringToFloat(szField[BPA_SWI_TW_BUS_KV]), szField[BPA_SWI_TW_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_TW_KEYNAME], "%s%.0f", szField[BPA_SWI_TW_BUS_NAME], StringToFloat(szField[BPA_SWI_TW_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_GX)
+		// 		{
+		// 			if (szField[BPA_SWI_GX_GEN_ID][0] != ' ' && szField[BPA_SWI_GX_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_GX_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_GX_BUS_NAME], StringToFloat(szField[BPA_SWI_GX_BUS_KV]), szField[BPA_SWI_GX_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_GX_KEYNAME], "%s%.0f", szField[BPA_SWI_GX_BUS_NAME], StringToFloat(szField[BPA_SWI_GX_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_IGV)
+		// 		{
+		// 			if (szField[BPA_SWI_IGV_GEN_ID][0] != ' ' && szField[BPA_SWI_IGV_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_IGV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_IGV_BUS_NAME], StringToFloat(szField[BPA_SWI_IGV_BUS_KV]), szField[BPA_SWI_IGV_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_IGV_KEYNAME], "%s%.0f", szField[BPA_SWI_IGV_BUS_NAME], StringToFloat(szField[BPA_SWI_IGV_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_FGV)
+		// 		{
+		// 			if (szField[BPA_SWI_FGV_GEN_ID][0] != ' ' && szField[BPA_SWI_FGV_GEN_ID][0] != '\0')
+		// 				sprintf(szField[BPA_SWI_FGV_KEYNAME], "%s%.0f@%c", szField[BPA_SWI_FGV_BUS_NAME], StringToFloat(szField[BPA_SWI_FGV_BUS_KV]), szField[BPA_SWI_FGV_GEN_ID][0]);
+		// 			else
+		// 				sprintf(szField[BPA_SWI_FGV_KEYNAME], "%s%.0f", szField[BPA_SWI_FGV_BUS_NAME], StringToFloat(szField[BPA_SWI_FGV_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_D)
+		// 		{
+		// 			sprintf(szField[BPA_SWI_D_KEYNAME], "%s%.0f", szField[BPA_SWI_D_BUS_NAME], StringToFloat(szField[BPA_SWI_D_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_V)
+		// 		{
+		// 			if (atoi(szField[BPA_SWI_V_ID]) != 0)
+		// 				sprintf(szField[BPA_SWI_V_KEYNAME], "%s%.0f@%d", szField[BPA_SWI_V_BUS_NAME], StringToFloat(szField[BPA_SWI_V_BUS_KV]), atoi(szField[BPA_SWI_V_ID]));
+		// 			else
+		// 				sprintf(szField[BPA_SWI_V_KEYNAME], "%s%.0f", szField[BPA_SWI_V_BUS_NAME], StringToFloat(szField[BPA_SWI_V_BUS_KV]));
+		// 		}
+		// 		else if (nTable == BPA_SWI_VG)
+		// 		{
+		// 			sprintf(szField[BPA_SWI_VG_KEYNAME], "%s%.0f", szField[BPA_SWI_VG_BUS_NAME], StringToFloat(szField[BPA_SWI_VG_BUS_KV]));
+		// 		}
+		// 		// 		else if (nTable == BPA_SWI_LM)
+		// 		// 		{
+		// 		// 			sprintf(szField[BPA_SWI_LM_KEYNAME], "%s%.0f-%s%.0f",
+		// 		// 				szField[BPA_SWI_LM_BUS1_I],
+		// 		// 				StringToFloat(szField[BPA_SWI_LM_KV1_I]),
+		// 		// 				szField[BPA_SWI_LM_BUS1_J],
+		// 		// 				StringToFloat(szField[BPA_SWI_LM_KV1_J]));
+		// 		// 		}
 	}
 
-	void BpaResolveGenModel(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV, const char cGenID, int& nGenIndex, int& nDampIndex,
+	void CBpaMemDBInterface::BpaResolveGenModel(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV, const char cGenID, int& nGenIndex, int& nDampIndex,
 		int& nExcModel, int& nExcIndex, int& nPssModel, int& nPssIndex,
 		int& nGovModel, int& nGovIndex, int& nSvoIndex, int& nMovModel, int& nMovIndex)
 	{

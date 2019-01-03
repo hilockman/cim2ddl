@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,Id,节点ID,INTEGER,4
+1,Name,节点名称,STRING,64
+2,Status,节点状态(0退出，1运行),INTEGER,1
+3,TaskCount,累积执行任务次数,INTEGER,4

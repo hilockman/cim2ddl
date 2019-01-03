@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<EnergyPriceModel>
+    <Base />
+    <EnergyPriceModelData>
+        <ElePricePowerType Name="居民生活用电" />
+        <ElePricePowerType Name="一般工商业用电" />
+        <ElePricePowerType Name="大工业用电" />
+        <ElePricePowerType Name="中小化肥生产" />
+        <ElePricePowerType Name="农业生产用电" />
+        <ElePricePowerType Name="趸售" />
+        <ElePricePowerType Name="大工业用电-电石、电解烧碱、合成氨、铁合金生产、离子膜氯碱生产、电解铝、多晶硅单晶硅" />
+        <ElePricePowerType Name="大工业用电-中小化肥生产" />
+        <ElePricePowerType Name="农业生产用电-贫困县农业" />
+        <ElePricePowerType Name="农业生产用电-排灌" />
+        <ElePriceMeterType Name="一户一表" />
+        <ElePriceMeterType Name="合表" />
+        <ThePricePowerType Name="市政热力" />
+        <ThePricePowerType Name="燃煤直供" />
+        <ThePricePowerType Name="燃煤间供" />
+        <ThePricePowerType Name="燃气锅炉" />
+        <ThePricePowerType Name="热计量" />
+        <ThePriceUserType Name="居民" />
+        <ThePriceUserType Name="非居民" />
+        <GasPriceUserLType Name="居民" />
+        <GasPriceUserLType Name="工商业" />
+        <GasPriceUserLType Name="发电（含供冷供热）" />
+        <GasPriceUserLType Name="车用" />
+        <GasPriceUserSType Name="一般生活用气（炊事、生活热水等）" />
+        <GasPriceUserSType Name="壁挂炉采暖" />
+        <ElePriceModel Name="北京-一户一表-不满1kV-居民生活用电-1" Region="北京" PowerType="居民生活用电" MeterType="一户一表" Month="1月" VoltageLevel="不满1kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="170" LadderPrice1="0.5" LadderPower2="260" LadderPrice2="0.55" LadderPower3="0" LadderPrice3="0.8" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.5" HPrice2="0.5" HPrice3="0.5" HPrice4="0.5" HPrice5="0.5" HPrice6="0.5" HPrice7="0.5" HPrice8="0.5" HPrice9="0.5" HPrice10="0.5" HPrice11="0.5" HPrice12="0.5" HPrice13="0.5" HPrice14="0.5" HPrice15="0.5" HPrice16="0.5" HPrice17="0.5" HPrice18="0.5" HPrice19="0.5" HPrice20="0.5" HPrice21="0.5" HPrice22="0.5" HPrice23="0.5" HPrice24="0.5" />
+        </ElePriceModel>
+        <ElePriceModel Name="北京-一户一表-不满1kV-居民生活用电-100" Region="北京" PowerType="居民生活用电" MeterType="一户一表" Month="1月" VoltageLevel="不满1kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="170" LadderPrice1="0.48" LadderPower2="260" LadderPrice2="0.53" LadderPower3="0" LadderPrice3="0.78" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.5" HPrice2="0.5" HPrice3="0.5" HPrice4="0.5" HPrice5="0.5" HPrice6="0.5" HPrice7="0.5" HPrice8="0.5" HPrice9="0.5" HPrice10="0.5" HPrice11="0.5" HPrice12="0.5" HPrice13="0.5" HPrice14="0.5" HPrice15="0.5" HPrice16="0.5" HPrice17="0.5" HPrice18="0.5" HPrice19="0.5" HPrice20="0.5" HPrice21="0.5" HPrice22="0.5" HPrice23="0.5" HPrice24="0.5" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/不满1kV/居民生活用电" Region="黑龙江" PowerType="居民生活用电" MeterType="" Month="1月" VoltageLevel="不满1kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.51" HPrice2="0.51" HPrice3="0.51" HPrice4="0.51" HPrice5="0.51" HPrice6="0.51" HPrice7="0.51" HPrice8="0.51" HPrice9="0.51" HPrice10="0.51" HPrice11="0.51" HPrice12="0.51" HPrice13="0.51" HPrice14="0.51" HPrice15="0.51" HPrice16="0.51" HPrice17="0.51" HPrice18="0.51" HPrice19="0.51" HPrice20="0.51" HPrice21="0.51" HPrice22="0.51" HPrice23="0.51" HPrice24="0.51" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/1-10kV/居民生活用电" Region="黑龙江" PowerType="居民生活用电" MeterType="" Month="1月" VoltageLevel="1-10kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.5" HPrice2="0.5" HPrice3="0.5" HPrice4="0.5" HPrice5="0.5" HPrice6="0.5" HPrice7="0.5" HPrice8="0.5" HPrice9="0.5" HPrice10="0.5" HPrice11="0.5" HPrice12="0.5" HPrice13="0.5" HPrice14="0.5" HPrice15="0.5" HPrice16="0.5" HPrice17="0.5" HPrice18="0.5" HPrice19="0.5" HPrice20="0.5" HPrice21="0.5" HPrice22="0.5" HPrice23="0.5" HPrice24="0.5" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/20kV/居民生活用电" Region="黑龙江" PowerType="居民生活用电" MeterType="" Month="1月" VoltageLevel="20kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.5" HPrice2="0.5" HPrice3="0.5" HPrice4="0.5" HPrice5="0.5" HPrice6="0.5" HPrice7="0.5" HPrice8="0.5" HPrice9="0.5" HPrice10="0.5" HPrice11="0.5" HPrice12="0.5" HPrice13="0.5" HPrice14="0.5" HPrice15="0.5" HPrice16="0.5" HPrice17="0.5" HPrice18="0.5" HPrice19="0.5" HPrice20="0.5" HPrice21="0.5" HPrice22="0.5" HPrice23="0.5" HPrice24="0.5" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/35kV-110kV以下/居民生活用电" Region="黑龙江" PowerType="居民生活用电" MeterType="" Month="1月" VoltageLevel="35kV-110kV以下" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.49" HPrice2="0.49" HPrice3="0.49" HPrice4="0.49" HPrice5="0.49" HPrice6="0.49" HPrice7="0.49" HPrice8="0.49" HPrice9="0.49" HPrice10="0.49" HPrice11="0.49" HPrice12="0.49" HPrice13="0.49" HPrice14="0.49" HPrice15="0.49" HPrice16="0.49" HPrice17="0.49" HPrice18="0.49" HPrice19="0.49" HPrice20="0.49" HPrice21="0.49" HPrice22="0.49" HPrice23="0.49" HPrice24="0.49" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/35kV-110kV以下/居民生活用电" Region="黑龙江" PowerType="居民生活用电" MeterType="" Month="1月" VoltageLevel="35kV-110kV以下" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.49" HPrice2="0.49" HPrice3="0.49" HPrice4="0.49" HPrice5="0.49" HPrice6="0.49" HPrice7="0.49" HPrice8="0.49" HPrice9="0.49" HPrice10="0.49" HPrice11="0.49" HPrice12="0.49" HPrice13="0.49" HPrice14="0.49" HPrice15="0.49" HPrice16="0.49" HPrice17="0.49" HPrice18="0.49" HPrice19="0.49" HPrice20="0.49" HPrice21="0.49" HPrice22="0.5" HPrice23="0.5" HPrice24="0.5" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/不满1kV/一般工商业用电" Region="黑龙江" PowerType="一般工商业用电" MeterType="" Month="1月" VoltageLevel="不满1kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.873" HPrice2="0.873" HPrice3="0.873" HPrice4="0.873" HPrice5="0.873" HPrice6="0.873" HPrice7="0.873" HPrice8="0.873" HPrice9="0.873" HPrice10="0.873" HPrice11="0.873" HPrice12="0.873" HPrice13="0.873" HPrice14="0.873" HPrice15="0.873" HPrice16="0.873" HPrice17="0.873" HPrice18="0.873" HPrice19="0.873" HPrice20="0.873" HPrice21="0.873" HPrice22="0.873" HPrice23="0.873" HPrice24="0.873" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/1-10kV/一般工商业用电" Region="黑龙江" PowerType="一般工商业用电" MeterType="" Month="1月" VoltageLevel="1-10kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.863" HPrice2="0.863" HPrice3="0.863" HPrice4="0.863" HPrice5="0.863" HPrice6="0.863" HPrice7="0.863" HPrice8="0.863" HPrice9="0.863" HPrice10="0.863" HPrice11="0.863" HPrice12="0.863" HPrice13="0.863" HPrice14="0.863" HPrice15="0.863" HPrice16="0.863" HPrice17="0.863" HPrice18="0.863" HPrice19="0.863" HPrice20="0.863" HPrice21="0.863" HPrice22="0.863" HPrice23="0.863" HPrice24="0.863" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/20kV/一般工商业用电" Region="黑龙江" PowerType="一般工商业用电" MeterType="" Month="1月" VoltageLevel="20kV" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.861" HPrice2="0.861" HPrice3="0.861" HPrice4="0.861" HPrice5="0.861" HPrice6="0.861" HPrice7="0.861" HPrice8="0.861" HPrice9="0.861" HPrice10="0.861" HPrice11="0.861" HPrice12="0.861" HPrice13="0.861" HPrice14="0.861" HPrice15="0.861" HPrice16="0.861" HPrice17="0.861" HPrice18="0.861" HPrice19="0.861" HPrice20="0.861" HPrice21="0.861" HPrice22="0.861" HPrice23="0.861" HPrice24="0.861" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/35kV-110kV以下/一般工商业用电" Region="黑龙江" PowerType="一般工商业用电" MeterType="" Month="1月" VoltageLevel="35kV-110kV以下" CapacityPrice="0" DemandPrice="0">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.853" HPrice2="0.853" HPrice3="0.853" HPrice4="0.853" HPrice5="0.853" HPrice6="0.853" HPrice7="0.853" HPrice8="0.853" HPrice9="0.853" HPrice10="0.853" HPrice11="0.853" HPrice12="0.853" HPrice13="0.853" HPrice14="0.853" HPrice15="0.853" HPrice16="0.853" HPrice17="0.853" HPrice18="0.853" HPrice19="0.853" HPrice20="0.853" HPrice21="0.853" HPrice22="0.853" HPrice23="0.853" HPrice24="0.853" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/1-10kV/大工业用电" Region="黑龙江" PowerType="大工业用电" MeterType="" Month="1月" VoltageLevel="1-10kV" CapacityPrice="33" DemandPrice="22">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.593" HPrice2="0.593" HPrice3="0.593" HPrice4="0.593" HPrice5="0.593" HPrice6="0.593" HPrice7="0.593" HPrice8="0.593" HPrice9="0.593" HPrice10="0.593" HPrice11="0.593" HPrice12="0.593" HPrice13="0.593" HPrice14="0.593" HPrice15="0.593" HPrice16="0.593" HPrice17="0.593" HPrice18="0.593" HPrice19="0.593" HPrice20="0.593" HPrice21="0.593" HPrice22="0.593" HPrice23="0.593" HPrice24="0.593" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/35kV-110kV以下/大工业用电" Region="黑龙江" PowerType="大工业用电" MeterType="" Month="1月" VoltageLevel="35kV-110kV以下" CapacityPrice="35" DemandPrice="22">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.578" HPrice2="0.578" HPrice3="0.578" HPrice4="0.578" HPrice5="0.578" HPrice6="0.578" HPrice7="0.578" HPrice8="0.578" HPrice9="0.578" HPrice10="0.578" HPrice11="0.578" HPrice12="0.578" HPrice13="0.578" HPrice14="0.578" HPrice15="0.578" HPrice16="0.578" HPrice17="0.578" HPrice18="0.578" HPrice19="0.578" HPrice20="0.578" HPrice21="0.578" HPrice22="0.578" HPrice23="0.578" HPrice24="0.578" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/20kV/大工业用电" Region="黑龙江" PowerType="大工业用电" MeterType="" Month="1月" VoltageLevel="20kV" CapacityPrice="35" DemandPrice="22">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.59" HPrice2="0.59" HPrice3="0.59" HPrice4="0.59" HPrice5="0.59" HPrice6="0.59" HPrice7="0.59" HPrice8="0.59" HPrice9="0.59" HPrice10="0.59" HPrice11="0.59" HPrice12="0.59" HPrice13="0.59" HPrice14="0.59" HPrice15="0.59" HPrice16="0.59" HPrice17="0.59" HPrice18="0.59" HPrice19="0.59" HPrice20="0.59" HPrice21="0.59" HPrice22="0.59" HPrice23="0.59" HPrice24="0.59" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/110kV-220kV以下/大工业用电" Region="黑龙江" PowerType="大工业用电" MeterType="" Month="1月" VoltageLevel="110kV-220kV以下" CapacityPrice="35" DemandPrice="22">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.568" HPrice2="0.568" HPrice3="0.568" HPrice4="0.568" HPrice5="0.568" HPrice6="0.568" HPrice7="0.568" HPrice8="0.568" HPrice9="0.568" HPrice10="0.568" HPrice11="0.568" HPrice12="0.568" HPrice13="0.568" HPrice14="0.568" HPrice15="0.568" HPrice16="0.568" HPrice17="0.568" HPrice18="0.568" HPrice19="0.568" HPrice20="0.568" HPrice21="0.568" HPrice22="0.568" HPrice23="0.568" HPrice24="0.568" />
+        </ElePriceModel>
+        <ElePriceModel Name="黑龙江/220kV及以上/大工业用电" Region="黑龙江" PowerType="大工业用电" MeterType="" Month="1月" VoltageLevel="220kV及以上" CapacityPrice="35" DemandPrice="22">
+            <ElePLadder LadderPower1="0" LadderPrice1="0" LadderPower2="0" LadderPrice2="0" LadderPower3="0" LadderPrice3="0" LadderPower4="0" LadderPrice4="0" LadderPower5="0" LadderPrice5="0" />
+            <HourPrice HPrice1="0.558" HPrice2="0.558" HPrice3="0.558" HPrice4="0.558" HPrice5="0.558" HPrice6="0.558" HPrice7="0.558" HPrice8="0.558" HPrice9="0.558" HPrice10="0.558" HPrice11="0.558" HPrice12="0.558" HPrice13="0.558" HPrice14="0.558" HPrice15="0.558" HPrice16="0.558" HPrice17="0.558" HPrice18="0.558" HPrice19="0.558" HPrice20="0.558" HPrice21="0.558" HPrice22="0.558" HPrice23="0.558" HPrice24="0.558" />
+        </ElePriceModel>
+        <ThePriceModel Name="北京-居民-市政热力" Region="北京" PowerType="市政热力" UserType="居民" BasePrice="24" MeterPrice="0" />
+        <GasPriceModel Name="北京-居民-一般生活" Region="北京" UserLType="居民" UserSType="一般生活用气（炊事、生活热水等）" Price="2.28">
+            <GasPLadder LadderGas1="350" LadderPrice1="2.28" LadderGas2="500" LadderPrice2="2.5" LadderGas3="0" LadderPrice3="3.9" LadderGas4="0" LadderPrice4="0" LadderGas5="0" LadderPrice5="0" />
+        </GasPriceModel>
+        <GasPriceModel Name="北京-居民-壁挂炉采暖" Region="北京" UserLType="居民" UserSType="壁挂炉采暖" Price="2.28">
+            <GasPLadder LadderGas1="1500" LadderPrice1="2.28" LadderGas2="2500" LadderPrice2="2.5" LadderGas3="0" LadderPrice3="3.9" LadderGas4="0" LadderPrice4="0" LadderGas5="0" LadderPrice5="0" />
+        </GasPriceModel>
+    </EnergyPriceModelData>
+</EnergyPriceModel>

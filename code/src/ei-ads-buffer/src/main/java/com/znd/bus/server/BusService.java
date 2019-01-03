@@ -1,6 +1,9 @@
 package com.znd.bus.server;
 
 
+import com.znd.bus.exception.AdsException;
+import com.znd.bus.exception.MessageException;
+import com.znd.bus.exception.RegistException;
 import com.znd.bus.server.message.ErrorLevelEnum;
 import com.znd.bus.server.message.ErrorType;
 import com.znd.bus.server.message.EventMessageType;
@@ -66,11 +69,11 @@ public abstract class BusService implements ServiceInterface {
 		return fatal("412", "Find no header in message : %s", Utils.toJSon(msgBase));
 	}
 	
-	public void registAdapter(AdapterService adapter, AdapterInfo info) {
+	public void registAdapter(AdapterService adapter, AdapterInfo info) throws AdsException {
 		registAdapter(adapter, info.getName(), info.getTopics().toArray(new Topic.TopicEnd[0]));
 	}
 	
-	public abstract  AdapterService registAdapter(AdapterService adapter, String name, Topic.TopicEnd...topics );
+	public abstract  AdapterService registAdapter(AdapterService adapter, String name, Topic.TopicEnd...topics ) throws AdsException;
 	
 	public ResponseMessageType publish(VerbEnum verb, String noun, String content) {
 		return publish(verb, noun, false, content);

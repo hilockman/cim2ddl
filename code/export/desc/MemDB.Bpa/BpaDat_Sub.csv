@@ -1,5 +1,5 @@
 序号,名称,描述,类型,长度
-0,Sub_Name,厂站名称,STRING,10
+0,Sub_Name,厂站名称,STRING,16
 1,Sub_Alias,厂站别名,STRING,32
 2,Sub_Type,厂站类型,INTEGER,1
 3,Sub_GenP,厂站发电有功,DOUBLE,4

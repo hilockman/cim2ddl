@@ -11,7 +11,7 @@ namespace	BpaMemDB
 		std::vector<int>	nBusArray;
 	}	tagBpaZILConnBus;
 
-	void BpaMergeZILLine(tagBpaBlock* pBpaBlock, const double fZIL)
+	void CBpaMemDBInterface::BpaMergeZILLine(tagBpaBlock* pBpaBlock, const double fZIL)
 	{
 		register int	i, j;
 		int		nDev, nBus, nLine;
@@ -59,9 +59,9 @@ namespace	BpaMemDB
 				nMidBusArray.clear();
 				for (i=nBusNumOfLayer; i<(int)ZILConnBuf.nBusArray.size(); i++)
 				{
-					for (j=pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].nACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]+1].nACLineRange; j++)
+					for (j=pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].nEdgeACLineRange; j<pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]+1].nEdgeACLineRange; j++)
 					{
-						nDev=pBpaBlock->m_BpaDat_EdgeLineArray[j].iRLine;
+						nDev=pBpaBlock->m_BpaDat_EdgeACLineArray[j].nACLinePtr;
 						if (fabs(pBpaBlock->m_BpaDat_ACLineArray[nDev].fX) > fZIL)
 							continue;
 
@@ -72,9 +72,9 @@ namespace	BpaMemDB
 							bBusUnProcArray[nBus]=0;
 						}
 					}
-					for (j=pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].nWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]+1].nWindRange; j++)
+					for (j=pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]+1].nEdgeWindRange; j++)
 					{
-						nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].iRWind;
+						nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr;
 						if (fabs(pBpaBlock->m_BpaDat_WindArray[nDev].fkVI - pBpaBlock->m_BpaDat_WindArray[nDev].fkVJ) > 0.15)
 							continue;
 						if (sqrt(pBpaBlock->m_BpaDat_WindArray[nDev].fR*pBpaBlock->m_BpaDat_WindArray[nDev].fR + pBpaBlock->m_BpaDat_WindArray[nDev].fX*pBpaBlock->m_BpaDat_WindArray[nDev].fX) > fZIL)
@@ -89,9 +89,9 @@ namespace	BpaMemDB
 					}
 					if (!pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].bTMid)
 					{
-						for (j=pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].nWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]+1].nWindRange; j++)
+						for (j=pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[ZILConnBuf.nBusArray[i]+1].nEdgeWindRange; j++)
 						{
-							nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].iRWind;
+							nDev=pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr;
 							if (sqrt(pBpaBlock->m_BpaDat_WindArray[nDev].fR*pBpaBlock->m_BpaDat_WindArray[nDev].fR + pBpaBlock->m_BpaDat_WindArray[nDev].fX*pBpaBlock->m_BpaDat_WindArray[nDev].fX) > fZIL)
 								continue;
 							if (fabs(pBpaBlock->m_BpaDat_WindArray[nDev].fkVI-pBpaBlock->m_BpaDat_WindArray[nDev].fkVJ) >= 0.15)	//	防止出现0.69和0.7的电压误差

@@ -11,6 +11,9 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.config.CreateFlag;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
 import com.znd.bus.test.mapper.UserInfoMapper;
 import com.znd.bus.test.model.UserInfo;
 
@@ -19,7 +22,7 @@ import com.znd.bus.test.model.UserInfo;
 @SpringBootTest
 public class ReliabilityBufferBuilderTest {
 	@Test
-	public void createBufferBuilder() throws InterruptedException {
+	public void createBufferBuilder() throws InterruptedException, BindingException, BufferException, MessageException {
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
 		BufferFactory factory = builder.build("ReliabilityBuffer_test", CreateFlag.UPDATE,
 				"com.znd.ei.memdb.reliabilty.domain;com.znd.bus.test.model", "com.znd.bus.test.mapper", null);

@@ -2,4 +2,4 @@
 0,FStateId,×´Ì¬ID,INTEGER,4
 1,FStateNo,×´Ì¬ÐòºÅ,INTEGER,4
 2,OutageBus,¹ÂµºÄ¸Ïß,INTEGER,4
-3,OutageLoadP,¹Âµº¸ººÉ¹¦ÂÊ(MW),DOUBLE,4
+3,OutageLoadP,¹Âµº¸ººÉ¹¦ÂÊ(Õ×Íß),DOUBLE,4

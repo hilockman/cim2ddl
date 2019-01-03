@@ -195,7 +195,7 @@ WindEdge:			pPRBlock->m_ACBusArray[i+1].nTranRange = la_2;
 
 		//////////////////////////////////////////////////////////////////////////
 		dBeg=clock();
-		for (i=1; i<pPRBlock->m_nRecordNum[PR_DEVMSTATE]; i++)
+		for (i=0; i<pPRBlock->m_nRecordNum[PR_DEVMSTATE]; i++)
 		{
 			pPRBlock->m_DevMStateArray[i].nIndex=-1;
 			switch (pPRBlock->m_DevMStateArray[i].nType)
@@ -206,7 +206,7 @@ WindEdge:			pPRBlock->m_ACBusArray[i+1].nTranRange = la_2;
 				pPRBlock->m_DevMStateArray[i].nIndex=PRFindRecordbyKey(pPRBlock, pPRBlock->m_DevMStateArray[i].nType, pPRBlock->m_DevMStateArray[i].szName);
 				break;
 			}
-			if (pPRBlock->m_DevMStateArray[i].nIndex <= 0)
+			if (pPRBlock->m_DevMStateArray[i].nIndex < 0)
 				PRMemDBLog("多状态模型设备索引错误，[%d/%d] = Type=%d Name=%s\n", i, pPRBlock->m_nRecordNum[PR_DEVMSTATE], pPRBlock->m_DevMStateArray[i].nType, pPRBlock->m_DevMStateArray[i].szName);
 		}
 		dEnd=clock();

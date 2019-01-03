@@ -7,6 +7,7 @@ extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
+	extern	CBpaMemDBInterface	g_BpaMemDBInterface;
 	extern	unsigned __stdcall  SecurityEstimateConThreaad(void* lParam);
 
 	CRITICAL_SECTION CPRSecurity::m_csLock;
@@ -26,7 +27,7 @@ namespace	PRAdequacyBase
 
 	void CPRSecurity::InitBpaPRSecuritySetting(tagBpaPRSecuritySetting* pSetting)
 	{
-		pSetting->strBpaWorkDir.clear();	//	软件工作目录，用于存放BPA等之间计算文件和最终计算结果文件，目前应用于安全性评价
+		memset(pSetting->szBpaWorkDir, 0, 260);	//	软件工作目录，用于存放BPA等之间计算文件和最终计算结果文件，目前应用于安全性评价
 
 		pSetting->clrBackGround=RGB(0, 0, 0);
 		pSetting->clrForeGround=RGB(128, 128, 128);
@@ -66,9 +67,10 @@ namespace	PRAdequacyBase
 		pSetting->bMutliThread=0;
 	}
 
-	int	CPRSecurity::ReadBpaPRSecuritySetting(const char* lpszSettingFile)
+	int	CPRSecurity::ReadBpaPRSecuritySetting(const char* lpszSettingFile, tagBpaPRSecuritySetting* pSsaSetting)
 	{
-		InitBpaPRSecuritySetting(&m_PRSecuritySetting);
+		InitBpaPRSecuritySetting(pSsaSetting);
+		strcpy(m_szDefaultSettingFile, lpszSettingFile);
 
 		TiXmlElement	*pLine, *pElement;
 		TiXmlNode*		pNode;
@@ -84,8 +86,6 @@ namespace	PRAdequacyBase
 			return 0;
 		}
 
-		strcpy(m_szDefaultSettingFile, lpszSettingFile);
-
 		pLine = pRoot->FirstChildElement();
 		while (pLine != NULL)
 		{
@@ -97,44 +97,44 @@ namespace	PRAdequacyBase
 					pNode = pElement->FirstChild();
 					if (pNode && pNode->Type() == TiXmlNode::TINYXML_TEXT)
 					{
-						if (stricmp(pElement->Value(), "BpaWorkDir") == 0)					{	m_PRSecuritySetting.strBpaWorkDir	=pNode->Value();				}
+						if (stricmp(pElement->Value(), "BpaWorkDir") == 0)					{	strcpy(pSsaSetting->szBpaWorkDir, pNode->Value());			}
 
-						else if (stricmp(pElement->Value(), "BackGroundColor") == 0)		{	m_PRSecuritySetting.clrBackGround=atoi(pNode->Value());				}
-						else if (stricmp(pElement->Value(), "ForeGroundColor") == 0)		{	m_PRSecuritySetting.clrForeGround=atoi(pNode->Value());				}
-						else if (stricmp(pElement->Value(), "CurveColor") == 0)				{	m_PRSecuritySetting.clrCurve=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "AxiasColor") == 0)				{	m_PRSecuritySetting.clrAxias=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "XPace") == 0)					{	m_PRSecuritySetting.nXPace=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "YPace") == 0)					{	m_PRSecuritySetting.nYPace=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "BackGroundColor") == 0)		{	pSsaSetting->clrBackGround=atoi(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "ForeGroundColor") == 0)		{	pSsaSetting->clrForeGround=atoi(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CurveColor") == 0)				{	pSsaSetting->clrCurve=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "AxiasColor") == 0)				{	pSsaSetting->clrAxias=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "XPace") == 0)					{	pSsaSetting->nXPace=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "YPace") == 0)					{	pSsaSetting->nYPace=atoi(pNode->Value());					}
 
-						else if (stricmp(pElement->Value(), "MinSsaLTFault") == 0)			{	m_PRSecuritySetting.nMinSsaLTFault=atoi(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "MaxSsaLTFault") == 0)			{	m_PRSecuritySetting.nMaxSsaLTFault=atoi(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "MaxSsaState") == 0)			{	m_PRSecuritySetting.nMaxSsaState=atoi(pNode->Value());				}
-						else if (stricmp(pElement->Value(), "LTFaultOnly") == 0)			{	m_PRSecuritySetting.bLTFaultOnly=atoi(pNode->Value());				}
-						else if (stricmp(pElement->Value(), "EndDT") == 0)					{	m_PRSecuritySetting.fEndDT=(float)atof(pNode->Value());				}
+						else if (stricmp(pElement->Value(), "MinSsaLTFault") == 0)			{	pSsaSetting->nMinSsaLTFault=atoi(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "MaxSsaLTFault") == 0)			{	pSsaSetting->nMaxSsaLTFault=atoi(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "MaxSsaState") == 0)			{	pSsaSetting->nMaxSsaState=atoi(pNode->Value());				}
+						else if (stricmp(pElement->Value(), "LTFaultOnly") == 0)			{	pSsaSetting->bLTFaultOnly=atoi(pNode->Value());				}
+						else if (stricmp(pElement->Value(), "EndDT") == 0)					{	pSsaSetting->fEndDT=(float)atof(pNode->Value());			}
 
-						else if (stricmp(pElement->Value(), "CriteriaMaxAngle") == 0)		{	m_PRSecuritySetting.fCriteriaMaxAngle=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMaxVolt") == 0)		{	m_PRSecuritySetting.fCriteriaMaxVolt=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMaxVDur") == 0)		{	m_PRSecuritySetting.fCriteriaMaxVDur=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMinVolt") == 0)		{	m_PRSecuritySetting.fCriteriaMinVolt=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMinVDur") == 0)		{	m_PRSecuritySetting.fCriteriaMinVDur=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMaxFreq") == 0)		{	m_PRSecuritySetting.fCriteriaMaxFreq=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMaxFDur") == 0)		{	m_PRSecuritySetting.fCriteriaMaxFDur=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMinFreq") == 0)		{	m_PRSecuritySetting.fCriteriaMinFreq=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "CriteriaMinFDur") == 0)		{	m_PRSecuritySetting.fCriteriaMinFDur=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMaxAngle") == 0)		{	pSsaSetting->fCriteriaMaxAngle=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "CriteriaMaxVolt") == 0)		{	pSsaSetting->fCriteriaMaxVolt=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMaxVDur") == 0)		{	pSsaSetting->fCriteriaMaxVDur=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMinVolt") == 0)		{	pSsaSetting->fCriteriaMinVolt=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMinVDur") == 0)		{	pSsaSetting->fCriteriaMinVDur=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMaxFreq") == 0)		{	pSsaSetting->fCriteriaMaxFreq=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMaxFDur") == 0)		{	pSsaSetting->fCriteriaMaxFDur=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMinFreq") == 0)		{	pSsaSetting->fCriteriaMinFreq=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "CriteriaMinFDur") == 0)		{	pSsaSetting->fCriteriaMinFDur=atof(pNode->Value());			}
 
-						else if (stricmp(pElement->Value(), "RealCriteriaMaxAngle") == 0)	{	m_PRSecuritySetting.fRealCriteriaMaxAngle=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMaxVolt") == 0)	{	m_PRSecuritySetting.fRealCriteriaMaxVolt=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMaxVDur") == 0)	{	m_PRSecuritySetting.fRealCriteriaMaxVDur=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMinVolt") == 0)	{	m_PRSecuritySetting.fRealCriteriaMinVolt=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMinVDur") == 0)	{	m_PRSecuritySetting.fRealCriteriaMinVDur=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMaxFreq") == 0)	{	m_PRSecuritySetting.fRealCriteriaMaxFreq=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMaxFDur") == 0)	{	m_PRSecuritySetting.fRealCriteriaMaxFDur=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMinFreq") == 0)	{	m_PRSecuritySetting.fRealCriteriaMinFreq=atof(pNode->Value());		}
-						else if (stricmp(pElement->Value(), "RealCriteriaMinFDur") == 0)	{	m_PRSecuritySetting.fRealCriteriaMinFDur=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMaxAngle") == 0)	{	pSsaSetting->fRealCriteriaMaxAngle=atof(pNode->Value());	}
+						else if (stricmp(pElement->Value(), "RealCriteriaMaxVolt") == 0)	{	pSsaSetting->fRealCriteriaMaxVolt=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMaxVDur") == 0)	{	pSsaSetting->fRealCriteriaMaxVDur=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMinVolt") == 0)	{	pSsaSetting->fRealCriteriaMinVolt=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMinVDur") == 0)	{	pSsaSetting->fRealCriteriaMinVDur=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMaxFreq") == 0)	{	pSsaSetting->fRealCriteriaMaxFreq=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMaxFDur") == 0)	{	pSsaSetting->fRealCriteriaMaxFDur=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMinFreq") == 0)	{	pSsaSetting->fRealCriteriaMinFreq=atof(pNode->Value());		}
+						else if (stricmp(pElement->Value(), "RealCriteriaMinFDur") == 0)	{	pSsaSetting->fRealCriteriaMinFDur=atof(pNode->Value());		}
 
-						else if (stricmp(pElement->Value(), "MultiThread") == 0)			{	m_PRSecuritySetting.bMutliThread	=atoi(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "Dc2AcFactor") == 0)			{	m_PRSecuritySetting.fDc2AcFactor	=atof(pNode->Value());			}
-						else if (stricmp(pElement->Value(), "GenBusLoadAsAux") == 0)		{	m_PRSecuritySetting.bGenBusLoadAsAux=atoi(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "MultiThread") == 0)			{	pSsaSetting->bMutliThread	=atoi(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "Dc2AcFactor") == 0)			{	pSsaSetting->fDc2AcFactor	=atof(pNode->Value());			}
+						else if (stricmp(pElement->Value(), "GenBusLoadAsAux") == 0)		{	pSsaSetting->bGenBusLoadAsAux=atoi(pNode->Value());			}
 					}
 					pElement = pElement->NextSiblingElement();
 				}
@@ -144,20 +144,20 @@ namespace	PRAdequacyBase
 
 		doc.Clear();
 
-		if (m_PRSecuritySetting.fRealCriteriaMaxAngle < 0)	m_PRSecuritySetting.fRealCriteriaMaxAngle=m_PRSecuritySetting.fCriteriaMaxAngle;
-		if (m_PRSecuritySetting.fRealCriteriaMaxVolt  < 0)	m_PRSecuritySetting.fRealCriteriaMaxVolt =m_PRSecuritySetting.fCriteriaMaxVolt ;
-		if (m_PRSecuritySetting.fRealCriteriaMaxVDur  < 0)	m_PRSecuritySetting.fRealCriteriaMaxVDur =m_PRSecuritySetting.fCriteriaMaxVDur ;
-		if (m_PRSecuritySetting.fRealCriteriaMinVolt  < 0)	m_PRSecuritySetting.fRealCriteriaMinVolt =m_PRSecuritySetting.fCriteriaMinVolt ;
-		if (m_PRSecuritySetting.fRealCriteriaMinVDur  < 0)	m_PRSecuritySetting.fRealCriteriaMinVDur =m_PRSecuritySetting.fCriteriaMinVDur ;
-		if (m_PRSecuritySetting.fRealCriteriaMaxFreq  < 0)	m_PRSecuritySetting.fRealCriteriaMaxFreq =m_PRSecuritySetting.fCriteriaMaxFreq ;
-		if (m_PRSecuritySetting.fRealCriteriaMaxFDur  < 0)	m_PRSecuritySetting.fRealCriteriaMaxFDur =m_PRSecuritySetting.fCriteriaMaxFDur ;
-		if (m_PRSecuritySetting.fRealCriteriaMinFreq  < 0)	m_PRSecuritySetting.fRealCriteriaMinFreq =m_PRSecuritySetting.fCriteriaMinFreq ;
-		if (m_PRSecuritySetting.fRealCriteriaMinFDur  < 0)	m_PRSecuritySetting.fRealCriteriaMinFDur =m_PRSecuritySetting.fCriteriaMinFDur ;
+		if (pSsaSetting->fRealCriteriaMaxAngle < 0)	pSsaSetting->fRealCriteriaMaxAngle=pSsaSetting->fCriteriaMaxAngle;
+		if (pSsaSetting->fRealCriteriaMaxVolt  < 0)	pSsaSetting->fRealCriteriaMaxVolt =pSsaSetting->fCriteriaMaxVolt ;
+		if (pSsaSetting->fRealCriteriaMaxVDur  < 0)	pSsaSetting->fRealCriteriaMaxVDur =pSsaSetting->fCriteriaMaxVDur ;
+		if (pSsaSetting->fRealCriteriaMinVolt  < 0)	pSsaSetting->fRealCriteriaMinVolt =pSsaSetting->fCriteriaMinVolt ;
+		if (pSsaSetting->fRealCriteriaMinVDur  < 0)	pSsaSetting->fRealCriteriaMinVDur =pSsaSetting->fCriteriaMinVDur ;
+		if (pSsaSetting->fRealCriteriaMaxFreq  < 0)	pSsaSetting->fRealCriteriaMaxFreq =pSsaSetting->fCriteriaMaxFreq ;
+		if (pSsaSetting->fRealCriteriaMaxFDur  < 0)	pSsaSetting->fRealCriteriaMaxFDur =pSsaSetting->fCriteriaMaxFDur ;
+		if (pSsaSetting->fRealCriteriaMinFreq  < 0)	pSsaSetting->fRealCriteriaMinFreq =pSsaSetting->fCriteriaMinFreq ;
+		if (pSsaSetting->fRealCriteriaMinFDur  < 0)	pSsaSetting->fRealCriteriaMinFDur =pSsaSetting->fCriteriaMinFDur ;
 
 		return 1;
 	}
 
-	void CPRSecurity::SaveBpaPRSecuritySetting()
+	void CPRSecurity::SaveBpaPRSecuritySetting(tagBpaPRSecuritySetting* pSsaSetting)
 	{
 		TiXmlDocument*		pDocument = new TiXmlDocument();								//创建一个XML的文档对象。
 		TiXmlDeclaration*	pDeclare = new TiXmlDeclaration("1.0", "gb2312", "no");	pDocument->LinkEndChild(pDeclare);
@@ -168,44 +168,44 @@ namespace	PRAdequacyBase
 		pElement = new TiXmlElement("Base");
 		pRootElement->LinkEndChild(pElement);
 
-		addXmlElement(pElement, "BpaWorkDir",			m_PRSecuritySetting.strBpaWorkDir.c_str()	); //->SetAttribute("Desp", "软件工作目录，用于存放BPA等之间计算文件和最终计算结果文件，目前应用于安全性评价");
+		addXmlElement(pElement, "BpaWorkDir",			pSsaSetting->szBpaWorkDir			); //->SetAttribute("Desp", "软件工作目录，用于存放BPA等之间计算文件和最终计算结果文件，目前应用于安全性评价");
 
-		addXmlElement(pElement, "BackGroundColor",		m_PRSecuritySetting.clrBackGround			); //->SetAttribute("Desp", "曲线背景颜色");
-		addXmlElement(pElement, "ForeGroundColor",		m_PRSecuritySetting.clrForeGround			); //->SetAttribute("Desp", "曲线网格颜色");
-		addXmlElement(pElement, "CurveColor",			m_PRSecuritySetting.clrCurve				); //->SetAttribute("Desp", "曲线颜色");
-		addXmlElement(pElement, "AxiasColor",			m_PRSecuritySetting.clrAxias				); //->SetAttribute("Desp", "坐标颜色");
-		addXmlElement(pElement, "XPace",				m_PRSecuritySetting.nXPace					); //->SetAttribute("Desp", "曲线X坐标步距");
-		addXmlElement(pElement, "YPace",				m_PRSecuritySetting.nYPace					); //->SetAttribute("Desp", "曲线Y坐标步距");
+		addXmlElement(pElement, "BackGroundColor",		pSsaSetting->clrBackGround			); //->SetAttribute("Desp", "曲线背景颜色");
+		addXmlElement(pElement, "ForeGroundColor",		pSsaSetting->clrForeGround			); //->SetAttribute("Desp", "曲线网格颜色");
+		addXmlElement(pElement, "CurveColor",			pSsaSetting->clrCurve				); //->SetAttribute("Desp", "曲线颜色");
+		addXmlElement(pElement, "AxiasColor",			pSsaSetting->clrAxias				); //->SetAttribute("Desp", "坐标颜色");
+		addXmlElement(pElement, "XPace",				pSsaSetting->nXPace					); //->SetAttribute("Desp", "曲线X坐标步距");
+		addXmlElement(pElement, "YPace",				pSsaSetting->nYPace					); //->SetAttribute("Desp", "曲线Y坐标步距");
 
-		addXmlElement(pElement, "MinSsaLTFault",		m_PRSecuritySetting.nMinSsaLTFault			); //->SetAttribute("Desp", "安全性评价最小支路故障数");
-		addXmlElement(pElement, "MaxSsaLTFault",		m_PRSecuritySetting.nMaxSsaLTFault			); //->SetAttribute("Desp", "安全性评价最大支路故障数");
-		addXmlElement(pElement, "MaxSsaState",			m_PRSecuritySetting.nMaxSsaState			); //->SetAttribute("Desp", "安全性评价最大评价状态数");
-		addXmlElement(pElement, "LTFaultOnly",			m_PRSecuritySetting.bLTFaultOnly			); //->SetAttribute("Desp", "安全性评价支路故障评价开关(=0，评价发电机+支路故障；=1，仅评价支路故障)");
-		addXmlElement(pElement, "EndDT",				m_PRSecuritySetting.fEndDT					); //->SetAttribute("Desp", "稳定计算时间");
+		addXmlElement(pElement, "MinSsaLTFault",		pSsaSetting->nMinSsaLTFault			); //->SetAttribute("Desp", "安全性评价最小支路故障数");
+		addXmlElement(pElement, "MaxSsaLTFault",		pSsaSetting->nMaxSsaLTFault			); //->SetAttribute("Desp", "安全性评价最大支路故障数");
+		addXmlElement(pElement, "MaxSsaState",			pSsaSetting->nMaxSsaState			); //->SetAttribute("Desp", "安全性评价最大评价状态数");
+		addXmlElement(pElement, "LTFaultOnly",			pSsaSetting->bLTFaultOnly			); //->SetAttribute("Desp", "安全性评价支路故障评价开关(=0，评价发电机+支路故障；=1，仅评价支路故障)");
+		addXmlElement(pElement, "EndDT",				pSsaSetting->fEndDT					); //->SetAttribute("Desp", "稳定计算时间");
 
-		addXmlElement(pElement, "CriteriaMaxAngle",		m_PRSecuritySetting.fCriteriaMaxAngle		); //->SetAttribute("Desp", "最大功角差");
-		addXmlElement(pElement, "CriteriaMaxVolt",		m_PRSecuritySetting.fCriteriaMaxVolt		); //->SetAttribute("Desp", "最高电压");
-		addXmlElement(pElement, "CriteriaMaxVDur",		m_PRSecuritySetting.fCriteriaMaxVDur		); //->SetAttribute("Desp", "最高电压持续时间");
-		addXmlElement(pElement, "CriteriaMinVolt",		m_PRSecuritySetting.fCriteriaMinVolt		); //->SetAttribute("Desp", "最低电压");
-		addXmlElement(pElement, "CriteriaMinVDur",		m_PRSecuritySetting.fCriteriaMinVDur		); //->SetAttribute("Desp", "最低电压持续时间");
-		addXmlElement(pElement, "CriteriaMaxFreq",		m_PRSecuritySetting.fCriteriaMaxFreq		); //->SetAttribute("Desp", "最高频率");
-		addXmlElement(pElement, "CriteriaMaxFDur",		m_PRSecuritySetting.fCriteriaMaxFDur		); //->SetAttribute("Desp", "最高频率持续时间");
-		addXmlElement(pElement, "CriteriaMinFreq",		m_PRSecuritySetting.fCriteriaMinFreq		); //->SetAttribute("Desp", "最低频率");
-		addXmlElement(pElement, "CriteriaMinFDur",		m_PRSecuritySetting.fCriteriaMinFDur		); //->SetAttribute("Desp", "最低频率持续时间");
+		addXmlElement(pElement, "CriteriaMaxAngle",		pSsaSetting->fCriteriaMaxAngle		); //->SetAttribute("Desp", "最大功角差");
+		addXmlElement(pElement, "CriteriaMaxVolt",		pSsaSetting->fCriteriaMaxVolt		); //->SetAttribute("Desp", "最高电压");
+		addXmlElement(pElement, "CriteriaMaxVDur",		pSsaSetting->fCriteriaMaxVDur		); //->SetAttribute("Desp", "最高电压持续时间");
+		addXmlElement(pElement, "CriteriaMinVolt",		pSsaSetting->fCriteriaMinVolt		); //->SetAttribute("Desp", "最低电压");
+		addXmlElement(pElement, "CriteriaMinVDur",		pSsaSetting->fCriteriaMinVDur		); //->SetAttribute("Desp", "最低电压持续时间");
+		addXmlElement(pElement, "CriteriaMaxFreq",		pSsaSetting->fCriteriaMaxFreq		); //->SetAttribute("Desp", "最高频率");
+		addXmlElement(pElement, "CriteriaMaxFDur",		pSsaSetting->fCriteriaMaxFDur		); //->SetAttribute("Desp", "最高频率持续时间");
+		addXmlElement(pElement, "CriteriaMinFreq",		pSsaSetting->fCriteriaMinFreq		); //->SetAttribute("Desp", "最低频率");
+		addXmlElement(pElement, "CriteriaMinFDur",		pSsaSetting->fCriteriaMinFDur		); //->SetAttribute("Desp", "最低频率持续时间");
 
-		addXmlElement(pElement, "RealCriteriaMaxAngle",	m_PRSecuritySetting.fRealCriteriaMaxAngle	); //->SetAttribute("Desp", "最大功角差");
-		addXmlElement(pElement, "RealCriteriaMaxVolt",	m_PRSecuritySetting.fRealCriteriaMaxVolt	); //->SetAttribute("Desp", "最高电压");
-		addXmlElement(pElement, "RealCriteriaMaxVDur",	m_PRSecuritySetting.fRealCriteriaMaxVDur	); //->SetAttribute("Desp", "最高电压持续时间");
-		addXmlElement(pElement, "RealCriteriaMinVolt",	m_PRSecuritySetting.fRealCriteriaMinVolt	); //->SetAttribute("Desp", "最低电压");
-		addXmlElement(pElement, "RealCriteriaMinVDur",	m_PRSecuritySetting.fRealCriteriaMinVDur	); //->SetAttribute("Desp", "最低电压持续时间");
-		addXmlElement(pElement, "RealCriteriaMaxFreq",	m_PRSecuritySetting.fRealCriteriaMaxFreq	); //->SetAttribute("Desp", "最高频率");
-		addXmlElement(pElement, "RealCriteriaMaxFDur",	m_PRSecuritySetting.fRealCriteriaMaxFDur	); //->SetAttribute("Desp", "最高频率持续时间");
-		addXmlElement(pElement, "RealCriteriaMinFreq",	m_PRSecuritySetting.fRealCriteriaMinFreq	); //->SetAttribute("Desp", "最低频率");
-		addXmlElement(pElement, "RealCriteriaMinFDur",	m_PRSecuritySetting.fRealCriteriaMinFDur	); //->SetAttribute("Desp", "最低频率持续时间");
+		addXmlElement(pElement, "RealCriteriaMaxAngle",	pSsaSetting->fRealCriteriaMaxAngle	); //->SetAttribute("Desp", "最大功角差");
+		addXmlElement(pElement, "RealCriteriaMaxVolt",	pSsaSetting->fRealCriteriaMaxVolt	); //->SetAttribute("Desp", "最高电压");
+		addXmlElement(pElement, "RealCriteriaMaxVDur",	pSsaSetting->fRealCriteriaMaxVDur	); //->SetAttribute("Desp", "最高电压持续时间");
+		addXmlElement(pElement, "RealCriteriaMinVolt",	pSsaSetting->fRealCriteriaMinVolt	); //->SetAttribute("Desp", "最低电压");
+		addXmlElement(pElement, "RealCriteriaMinVDur",	pSsaSetting->fRealCriteriaMinVDur	); //->SetAttribute("Desp", "最低电压持续时间");
+		addXmlElement(pElement, "RealCriteriaMaxFreq",	pSsaSetting->fRealCriteriaMaxFreq	); //->SetAttribute("Desp", "最高频率");
+		addXmlElement(pElement, "RealCriteriaMaxFDur",	pSsaSetting->fRealCriteriaMaxFDur	); //->SetAttribute("Desp", "最高频率持续时间");
+		addXmlElement(pElement, "RealCriteriaMinFreq",	pSsaSetting->fRealCriteriaMinFreq	); //->SetAttribute("Desp", "最低频率");
+		addXmlElement(pElement, "RealCriteriaMinFDur",	pSsaSetting->fRealCriteriaMinFDur	); //->SetAttribute("Desp", "最低频率持续时间");
 
-		addXmlElement(pElement, "MultiThread",			m_PRSecuritySetting.bMutliThread			); //->SetAttribute("Desp", "进程数");
-		addXmlElement(pElement, "Dc2AcFactor",			m_PRSecuritySetting.fDc2AcFactor			); //->SetAttribute("Desp", "直流潮流 2 交流潮流系数");
-		addXmlElement(pElement, "GenBusLoadAsAux",		m_PRSecuritySetting.bGenBusLoadAsAux		); //->SetAttribute("Desp", "发电机母线负荷按厂用电");
+		addXmlElement(pElement, "MultiThread",			pSsaSetting->bMutliThread			); //->SetAttribute("Desp", "进程数");
+		addXmlElement(pElement, "Dc2AcFactor",			pSsaSetting->fDc2AcFactor			); //->SetAttribute("Desp", "直流潮流 2 交流潮流系数");
+		addXmlElement(pElement, "GenBusLoadAsAux",		pSsaSetting->bGenBusLoadAsAux		); //->SetAttribute("Desp", "发电机母线负荷按厂用电");
 
 		pDocument->SaveFile(m_szDefaultSettingFile);		//保存到文件
 		pDocument->Clear();
@@ -385,7 +385,7 @@ namespace	PRAdequacyBase
 		SetCurrentDirectory(pPRBlock->m_System.szSaRunPath);
 
 		_makepath(szFileName, drive, dir, fname, ".pfo");
-		nReturn=BpaParsePfoFile(pBpaBlock, szFileName);
+		nReturn=g_BpaMemDBInterface.BpaParsePfoFile(pBpaBlock, szFileName);
 		if (nReturn <= 0)
 		{
 			Log(g_lpszLogFile, "解析PFO文件错误或潮流不收敛 (%s) %d\n", szFileName, nReturn);

@@ -5,11 +5,15 @@
 
 #include "log.h"
 
-
+#ifdef DEBUG 
 #define  log_trace(__LOG_FORMAT__,...) eco::log_out_t(0,LOG_TRACE,__FILE__,__FUNCTION__,__LINE__,__LOG_FORMAT__,##__VA_ARGS__)  
 
 /*Informational events most useful for developers to debug application.  By default information will be print to terminal(display).*/
 #define  log_debug(__LOG_FORMAT__,...)  eco::log_out_t(0,LOG_DEBUG,__FILE__,__FUNCTION__,__LINE__,__LOG_FORMAT__,##__VA_ARGS__)  
+#else
+#define  log_trace(__LOG_FORMAT__,...) 
+#define  log_debug(__LOG_FORMAT__,...)
+#endif
 
 /*Mainly useful to represent current progress of application.*/
 #define  log_info(__LOG_FORMAT__,...)  eco::log_out_t(0,LOG_INFO,__FILE__,__FUNCTION__,__LINE__,__LOG_FORMAT__,##__VA_ARGS__)  

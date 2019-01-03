@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,ResourceID,资源Id,STRING,64
+1,Name,名称,STRING,64
+2,Factory,厂家,STRING,64
+3,Model,型号,STRING,64
+4,Type,机组类型,STRING,64
+5,CoolingCapacity,制冷量(kW),DOUBLE,4
+6,CoolingCop,制冷效率,DOUBLE,4
+7,ColdWaterFlow,冷水流量(m3/h),DOUBLE,4
+8,ColdWaterSupplyTemperature,冷水额定出口温度(℃),DOUBLE,4
+9,ColdWaterReturnTemperature,冷水额定入口温度(℃),DOUBLE,4
+10,CoolingPower,制冷输入功率(kW),DOUBLE,4
+11,Size,机组尺寸(mm),DOUBLE,4
+12,Lifetime,产品设计寿命(年),DOUBLE,4
+13,PowerSupply,电源(V/Hz),DOUBLE,4

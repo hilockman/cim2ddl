@@ -3,6 +3,9 @@ package com.znd.bus.buffer;
 import com.znd.bus.buffer.defaults.DefaultBufferFactory;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
 
 public class BufferFactoryBuilder {
 
@@ -62,13 +65,13 @@ public class BufferFactoryBuilder {
 //		return inverseTypeMap.get(type);
 //	}
 	
-	public BufferFactory build(BufferConfig config){	
+	public BufferFactory build(BufferConfig config) throws BindingException, BufferException, MessageException{	
 		return new DefaultBufferFactory(config);		
 	}
 
 	
 
-	public BufferFactory build(String name, CreateFlag createFlag, String typePackage, String mapperPackage, BufferConfig defaultConfig){
+	public BufferFactory build(String name, CreateFlag createFlag, String typePackage, String mapperPackage, BufferConfig defaultConfig) throws BindingException, BufferException, MessageException{
 		BufferConfig config = new BufferConfig();
 		config.setAppName(DEFAULT_APPNAME);
 		config.setName(name);

@@ -1,7 +1,7 @@
 TEMPLATE = lib
 #CONFIG += staticlib
-SOURCES +=  stateestimate.cpp stateestimatetask.cpp
-HEADERS += stateestimate.h ThreadPool.h stateestimatetask.h
+SOURCES +=  stateestimate.cpp stateestimatetask.cpp json_tr.cpp StartProcess.cpp
+HEADERS += stateestimate.h ThreadPool.h stateestimatetask.h json_tr.h
 
 !include($$(ZND_HOME)/dev/mkspecs/qmake.conf){
          error(the file $$(ZND_HOME)/dev/mkspecs/qmake.conf is not exist!!)
@@ -38,18 +38,18 @@ INCLUDEPATH += $$ZND_HOME/dev/src \
                $$ZND_HOME/dev/src/PowerGrid/Reliability/PGReliability/PRAdequacyBase \
 			   $$ZND_HOME/dev/include
 
-LIBS += -lbase -llibJson -lPRAdequacyBase -lTinyXml -lPRMemDB -lDCNetwork
+LIBS += -lbase -llibJson -lPRAdequacyBase -lTinyXml -lPRMemDB -lDCNetwork  -lBpaMemDB
  
 CONFIG(debug, debug|release) { 
     message("debug mode")    
        #QMAKE_CFLAGS_DEBUG += /MTd  
        #QMAKE_CXXFLAGS_DEBUG += /MTd	
-	#LIBS += -L$$ZND_HOME/lib_x64 -llibJsonMDd -llibPRAdequacyBaseMDd -llibTinyXmlMDd -lPRMemDB -llibDCNetworkMDd
+	#LIBS += -L$$ZND_HOME/lib_x64 -llibJsonMDd -llibPRAdequacyBaseMDd -llibTinyXmlMDd -lPRMemDB -llibDCNetworkMDd  -lBpaMemDB
 } else {
    QMAKE_CXXFLAGS_WARN_ON-= -w34100 -w34189 -w34251 -w4217 -w4049
     message("release mode")
 	   QMAKE_CFLAGS_RELEASE += /MT 
        QMAKE_CXXFLAGS_RELEASE += /MT
 	   QMAKE_LFLAGS += /NODEFAULTLIB:MSVCRT
-	#LIBS += -L$$ZND_HOME/lib_x64 -llibJsonMD -llibPRAdequacyBaseMD -llibTinyXmlMD -lPRMemDB	-llibDCNetworkMD
+	#LIBS += -L$$ZND_HOME/lib_x64 -llibJsonMD -llibPRAdequacyBaseMD -llibTinyXmlMD -lPRMemDB	-llibDCNetworkMD -lBpaMemDB
 }

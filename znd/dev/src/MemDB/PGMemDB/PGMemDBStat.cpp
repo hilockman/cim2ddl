@@ -7,7 +7,7 @@ namespace	PGMemDB
 	void	PGMemDBStatistic(tagPGBlock* pPGBlock, const int nLossFlag)
 	{
 		register int	i, j;
-		int		nSub, nVolt, nDev;
+		int		nSub, nVolt, nDev, nNode;
 		float	fAuxP, fAuxQ, fAuxPCon, fAuxPVar, fAuxCoef;
 		int		nLine, nSubI, nSubJ, nCorpI, nCorpJ;
 		float	fSum, fPBuffer, fQBuffer;
@@ -161,12 +161,153 @@ namespace	PGMemDB
 			pPGBlock->m_System.fTotalCap	+=pPGBlock->m_SubstationArray[nSub].fTotalCap;
 			pPGBlock->m_System.fTotalReac	+=pPGBlock->m_SubstationArray[nSub].fTotalReac;
 		}
+
+		//////////////////////////////////////////////////////////////////////////
+		//	统计(配电网为主)投资
+		pPGBlock->m_System.ei_Invest=0;
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_SUBSTATION]; i++)
+			pPGBlock->m_SubstationArray[i].ei_Invest=0;
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_SUBCONTROLAREA]; i++)
+			pPGBlock->m_SubcontrolAreaArray[i].ei_Invest=0;
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_COMPANY]; i++)
+			pPGBlock->m_CompanyArray[i].ei_Invest=0;
+
+		for (nSub=0; nSub<pPGBlock->m_nRecordNum[PG_SUBSTATION]; nSub++)
+		{
+			for (i=pPGBlock->m_SubstationArray[nSub].nTransformerWindingRange; i<pPGBlock->m_SubstationArray[nSub+1].nTransformerWindingRange; i++)
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_TransformerWindingArray[i].ei_Invest;
+
+			for (nVolt=pPGBlock->m_SubstationArray[nSub].nVoltageLevelRange; nVolt<pPGBlock->m_SubstationArray[nSub+1].nVoltageLevelRange; nVolt++)
+			{
+				for (nNode=pPGBlock->m_VoltageLevelArray[nVolt].nConnecivityNodeRange; nNode<pPGBlock->m_VoltageLevelArray[nVolt+1].nConnecivityNodeRange; nNode++)
+				{
+					for (i=pPGBlock->m_ConnectivityNodeArray[nNode].nACLineSegmentRange; i<pPGBlock->m_ConnectivityNodeArray[nNode+1].nACLineSegmentRange; i++)
+					{
+						pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_ACLineSegmentArray[pPGBlock->m_EdgeACLineSegmentArray[i].nACLineSegment].ei_Invest/2;
+					}
+				}
+				for (i=pPGBlock->m_VoltageLevelArray[nVolt].nBusbarSectionRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nBusbarSectionRange; i++)
+				{
+					if (pPGBlock->m_BusbarSectionArray[i].nNode < 0)
+						continue;
+
+					pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_BusbarSectionArray[i].ei_Invest;
+				}
+				for (i=pPGBlock->m_VoltageLevelArray[nVolt].nSynchronousMachineRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nSynchronousMachineRange; i++)
+				{
+					if (pPGBlock->m_SynchronousMachineArray[i].nNode < 0)
+						continue;
+
+					pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_SynchronousMachineArray[i].ei_Invest;
+				}
+				for (i=pPGBlock->m_VoltageLevelArray[nVolt].nEnergyConsumerRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nEnergyConsumerRange; i++)
+				{
+					if (pPGBlock->m_EnergyConsumerArray[i].nNode < 0)
+						continue;
+
+					pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_EnergyConsumerArray[i].ei_Invest;
+				}
+				for (i=pPGBlock->m_VoltageLevelArray[nVolt].nShuntCompensatorRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nShuntCompensatorRange; i++)
+				{
+					if (pPGBlock->m_ShuntCompensatorArray[i].nNode < 0)
+						continue;
+
+					pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_ShuntCompensatorArray[i].ei_Invest;
+				}
+			}
+
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_SUBSTATIONENTITY]; i++)
+			{
+				if (stricmp(pPGBlock->m_SubstationEntityArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_SubstationEntityArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_DISTRIBUTIONSWITCH]; i++)
+			{
+				if (stricmp(pPGBlock->m_DistributionSwitchArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_DistributionSwitchArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_DISTRIBUTIONDOT]; i++)
+			{
+				if (stricmp(pPGBlock->m_DistributionDotArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_DistributionDotArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_DISTRIBUTIONLOAD]; i++)
+			{
+				if (stricmp(pPGBlock->m_DistributionLoadArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_DistributionLoadArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_DISTRIBUTIONBREAKER]; i++)
+			{
+				if (stricmp(pPGBlock->m_DistributionBreakerArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_DistributionBreakerArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_WINDTURBINE]; i++)
+			{
+				if (stricmp(pPGBlock->m_WindTurbineArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_WindTurbineArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_PHOTOVOLTAIC]; i++)
+			{
+				if (stricmp(pPGBlock->m_PhotoVoltaicArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_PhotoVoltaicArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_EVSTATION]; i++)
+			{
+				if (stricmp(pPGBlock->m_EVStationArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_EVStationArray[i].ei_Invest;
+			}
+
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_ELECTROCHEMICALENERGYSTORAGE]; i++)
+			{
+				if (stricmp(pPGBlock->m_ElectroChemicalEnergyStorageArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_ElectroChemicalEnergyStorageArray[i].ei_Invest;
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_SOLARTHERMALMACHINE]; i++)
+			{
+				if (stricmp(pPGBlock->m_SolarThermalMachineArray[i].szSub, pPGBlock->m_SubstationArray[nSub].szName) != 0)
+					continue;
+				pPGBlock->m_SubstationArray[nSub].ei_Invest += pPGBlock->m_SolarThermalMachineArray[i].ei_Invest;
+			}
+		}
+
+		for (nSub=0; nSub<pPGBlock->m_nRecordNum[PG_SUBSTATION]; nSub++)
+		{
+			pPGBlock->m_System.ei_Invest +=pPGBlock->m_SubstationArray[nSub].ei_Invest;
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_COMPANY]; i++)
+			{
+				if (strcmp(pPGBlock->m_CompanyArray[i].szName, pPGBlock->m_SubstationArray[nSub].szCompany) == 0)
+				{
+					pPGBlock->m_CompanyArray[i].ei_Invest += pPGBlock->m_SubstationArray[nSub].ei_Invest;
+					break;
+				}
+			}
+			for (i=0; i<pPGBlock->m_nRecordNum[PG_SUBCONTROLAREA]; i++)
+			{
+				if (strcmp(pPGBlock->m_SubcontrolAreaArray[i].szName, pPGBlock->m_SubstationArray[nSub].szCompany) == 0)
+				{
+					pPGBlock->m_SubcontrolAreaArray[i].ei_Invest += pPGBlock->m_SubstationArray[nSub].ei_Invest;
+					break;
+				}
+			}
+		}
+
 		//////////////////////////////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////////////////////////////
 		//	统计运行量
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
@@ -320,8 +461,8 @@ namespace	PGMemDB
 				}
 				else
 				{
-					pPGBlock->m_CompanyArray[nCorpJ].fTieP += pPGBlock->m_ACLineSegmentArray[nLine].fPz;
-					pPGBlock->m_CompanyArray[nCorpI].fTieP += pPGBlock->m_ACLineSegmentArray[nLine].fPz;
+					pPGBlock->m_CompanyArray[nCorpJ].fTieP += pPGBlock->m_ACLineSegmentArray[nLine].fPj;
+					pPGBlock->m_CompanyArray[nCorpI].fTieP += pPGBlock->m_ACLineSegmentArray[nLine].fPj;
 				}
 			}
 		}
@@ -350,8 +491,8 @@ namespace	PGMemDB
 				if (pPGBlock->m_ACLineSegmentArray[nDev].bOutage != 0)
 					continue;
 
-				fPBuffer=pPGBlock->m_ACLineSegmentArray[nDev].fPi+pPGBlock->m_ACLineSegmentArray[nDev].fPz;
-				fQBuffer=pPGBlock->m_ACLineSegmentArray[nDev].fQi+pPGBlock->m_ACLineSegmentArray[nDev].fQz;
+				fPBuffer=pPGBlock->m_ACLineSegmentArray[nDev].fPi+pPGBlock->m_ACLineSegmentArray[nDev].fPj;
+				fQBuffer=pPGBlock->m_ACLineSegmentArray[nDev].fQi+pPGBlock->m_ACLineSegmentArray[nDev].fQj;
 				if (fabs(fPBuffer) > 100 || fabs(fQBuffer) > 1000)
 					fPBuffer=fQBuffer=0;
 
@@ -402,8 +543,8 @@ namespace	PGMemDB
 				if (pPGBlock->m_TransformerWindingArray[nDev].bOutage != 0)
 					continue;
 
-				fPBuffer=pPGBlock->m_TransformerWindingArray[nDev].fPi+pPGBlock->m_TransformerWindingArray[nDev].fPz;
-				fQBuffer=pPGBlock->m_TransformerWindingArray[nDev].fQi+pPGBlock->m_TransformerWindingArray[nDev].fQz;
+				fPBuffer=pPGBlock->m_TransformerWindingArray[nDev].fPi+pPGBlock->m_TransformerWindingArray[nDev].fPj;
+				fQBuffer=pPGBlock->m_TransformerWindingArray[nDev].fQi+pPGBlock->m_TransformerWindingArray[nDev].fQj;
 				if (fabs(fPBuffer) > 100 || fabs(fQBuffer) > 1000)
 					fPBuffer=fQBuffer=0;
 
@@ -446,6 +587,8 @@ namespace	PGMemDB
 		fPBuffer = fQBuffer = 0;
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
@@ -463,11 +606,13 @@ namespace	PGMemDB
 		fPBuffer = fQBuffer = 0;
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
-			fPBuffer += pPGBlock->m_IslandArray[nIsland].fUnitP;
-			fQBuffer += pPGBlock->m_IslandArray[nIsland].fUnitQ;
+			fPBuffer += pPGBlock->m_IslandArray[nIsland].fGenP;
+			fQBuffer += pPGBlock->m_IslandArray[nIsland].fGenQ;
 		}
 		if (fPBuffer > FLT_MIN)
 		{
@@ -479,6 +624,8 @@ namespace	PGMemDB
 		fPBuffer = fQBuffer = 0;
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
@@ -495,6 +642,8 @@ namespace	PGMemDB
 		fPBuffer = fQBuffer = 0;
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
@@ -549,6 +698,8 @@ namespace	PGMemDB
 		pPGBlock->m_System.fDeadIslandLoadP=pPGBlock->m_System.fDeadIslandLoadQ=0;
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (!pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
@@ -653,5 +804,7 @@ namespace	PGMemDB
 				pPGBlock->m_System.nTranRate0++;
 			}
 		}
+
+		PGMemDBIslandStatistic(pPGBlock);
 	}
 }

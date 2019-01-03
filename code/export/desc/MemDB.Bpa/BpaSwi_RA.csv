@@ -13,3 +13,4 @@
 11,RA_CkV2,控制母线基准电压2(kV),DOUBLE,4
 12,RA_V2,母线2低电压限制值(pu),DOUBLE,4
 13,RA_T2,母线2低电压时间延迟(周),DOUBLE,4
+14,KeyName,线路名称,STRING,32

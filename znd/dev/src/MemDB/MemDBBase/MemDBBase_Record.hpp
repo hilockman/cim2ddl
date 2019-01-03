@@ -35,17 +35,17 @@ namespace	MemDBBase
 			memcpy(&fValue,	lpszFieldAddr,	sizeof(double));
 			//strcpy(lpszRet, DoubleToString(fValue).c_str());
 
-			//modify by wangheng 2018/1/10
 			std::stringstream os;
 			os << fValue;
 			std::string sf = os.str();
-			strcpy(lpszRet, sf.c_str());
 
-			//if (sf.find("e") == string::npos && sf.find("E") == string::npos) {
-			//	strcpy(lpszRet, sf.c_str());
-			//} else {
-			//	sprintf(lpszRet, "%lf", fValue);
-			//}
+			//modify by wangheng 2018/1/10
+			//strcpy(lpszRet, sf.c_str());
+			if (sf.find("e") == string::npos && sf.find("E") == string::npos) {
+				strcpy(lpszRet, sf.c_str());
+			} else {
+				sprintf(lpszRet, "%lf", fValue);
+			}
 		}
 		else if (pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nField].nDataType == MDB_FLOAT)
 		{
@@ -53,16 +53,17 @@ namespace	MemDBBase
 			memcpy(&fValue,	lpszFieldAddr,	sizeof(float));
 			//strcpy(lpszRet, DoubleToString(fValue).c_str());
 
-            //modify by wangheng 2018/1/10
 			std::stringstream os;
 			os << fValue;
 			std::string sf = os.str();
-			strcpy(lpszRet, sf.c_str());
-			//if (sf.find("e") == string::npos && sf.find("E") == string::npos) {
-			//	strcpy(lpszRet, sf.c_str());
-			//} else {
-			//	sprintf(lpszRet, "%f\n", fValue);
-			//}
+
+            //modify by wangheng 2018/1/10
+			//strcpy(lpszRet, sf.c_str());
+			if (sf.find("e") == string::npos && sf.find("E") == string::npos) {
+				strcpy(lpszRet, sf.c_str());
+			} else {
+				sprintf(lpszRet, "%f", fValue);
+			}
 		}
 		else if (pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nField].nDataType == MDB_INT)
 		{
@@ -198,12 +199,11 @@ namespace	MemDBBase
 				std::string sf = os.str();
 
 //modify by wangheng 2018/1/10
-				strcpy(lpszRetArray[nField], sf.c_str());
-
-				//if (sf.find("e") == string::npos)
-				//	strcpy(lpszRetArray[nField], sf.c_str());
-				//else
-				//	sprintf(lpszRetArray[nField], "%lf", fValue);
+				//strcpy(lpszRetArray[nField], sf.c_str());
+				if (sf.find("e") == string::npos)
+					strcpy(lpszRetArray[nField], sf.c_str());
+				else
+					sprintf(lpszRetArray[nField], "%lf", fValue);
 
 				//if (fValue < 1e-6 && fValue > FLT_MIN)
 				//	sprintf(lpszRetArray[nField], "%.14f", fValue);
@@ -220,12 +220,11 @@ namespace	MemDBBase
 				std::string sf = os.str();
 
 //modify by wangheng 2018/1/10
-				strcpy(lpszRetArray[nField], sf.c_str());
-
-				//if (sf.find("e") == string::npos)
-				//	strcpy(lpszRetArray[nField], sf.c_str());
-				//else
-				//	sprintf(lpszRetArray[nField], "%f", fValue);
+				//strcpy(lpszRetArray[nField], sf.c_str());
+				if (sf.find("e") == string::npos)
+					strcpy(lpszRetArray[nField], sf.c_str());
+				else
+					sprintf(lpszRetArray[nField], "%f", fValue);
 
 				//sprintf(lpszRetArray[nField], "%f", fValue);
 			}
@@ -670,7 +669,7 @@ namespace	MemDBBase
 	template<typename T>	int	MDBUpdateRecord(T* pBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
 	{
 		register int	i;
-		int		nCol;
+		int		nField;
 		char*	lpAddr;
 		double	dBuf;
 		float	fBuf;
@@ -679,20 +678,27 @@ namespace	MemDBBase
 		unsigned char	uBuf;
 		unsigned char	bRestrict;
 
-		if (nTable < 0 || nTable >= pBlock->m_MDBSummary.nTableNum)
-			return 0;
 
-		int		nRecord=MDBFindRecordQuick(pBlock, nTable, 0, pBlock->m_nRecordNum[nTable]-1, lpszRecArray);
-		if (nRecord < 0)
+		if (nTable < 0 || nTable >= pBlock->m_MDBSummary.nTableNum)
+		{
+			MDBLog("MDBUpdateRecord(1) Table=%d 错误", nTable);
 			return 0;
+		}
+
+		int		nRecord=MDBFindRecord(pBlock, nTable, lpszRecArray);
+		if (nRecord < 0)
+		{
+			MDBLog("MDBUpdateRecord(2) Table=%d 错误", nTable);
+			return 0;
+		}
 
 		lpAddr=(char*)pBlock+pBlock->m_MDBSummary.sMDBTableArray[nTable].nOffSet+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen*nRecord;
-		for (nCol=0; nCol<pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldNum; nCol++)
+		for (nField=0; nField<pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldNum; nField++)
 		{
 			bRestrict=0;
 			for (i=0; i<pBlock->m_MDBSummary.sMDBTableArray[nTable].sPrimaryKey.nPrimaryKeyNum; i++)
 			{
-				if (nCol == pBlock->m_MDBSummary.sMDBTableArray[nTable].sPrimaryKey.nPrimaryKeyId[i])
+				if (nField == pBlock->m_MDBSummary.sMDBTableArray[nTable].sPrimaryKey.nPrimaryKeyId[i])
 				{
 					bRestrict=1;
 					break;
@@ -700,44 +706,44 @@ namespace	MemDBBase
 			}
 			if (!bRestrict)
 			{
-				switch (pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nCol].nDataType)
+				switch (pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nField].nDataType)
 				{
 				case	MDB_STRING:
-					for (i=0; i<(int)strlen(lpszRecArray[nCol]); i++)
+					for (i=0; i<(int)strlen(lpszRecArray[nField]); i++)
 					{
-						if (i >= pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nCol].nDataLen-1)
+						if (i >= pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nField].nDataLen-1)
 							break;
-						lpAddr[i]=(char)lpszRecArray[nCol][i];
+						lpAddr[i]=(char)lpszRecArray[nField][i];
 					}
 					lpAddr[i]='\0';
 					break;
 				case	MDB_DOUBLE:
 					//String2Double(dBuf, lpszRecArray[nCol]);	//dBuf=atof(lpszRecArray[nCol]);
-					dBuf=atof(lpszRecArray[nCol]);
+					dBuf=atof(lpszRecArray[nField]);
 					memcpy(lpAddr, &dBuf, sizeof(double));
 					break;
 				case	MDB_FLOAT:
-					fBuf=StringToFloat(lpszRecArray[nCol]);
+					fBuf=StringToFloat(lpszRecArray[nField]);
 					memcpy(lpAddr, &fBuf, sizeof(float));
 					break;
 				case	MDB_INT:
-					nBuf=atoi(lpszRecArray[nCol]);
+					nBuf=atoi(lpszRecArray[nField]);
 					memcpy(lpAddr, &nBuf, sizeof(int));
 					break;
 				case	MDB_SHORT:
-					sBuf=(short)atoi(lpszRecArray[nCol]);
+					sBuf=(short)atoi(lpszRecArray[nField]);
 					memcpy(lpAddr, &sBuf, sizeof(short));
 					break;
 				case	MDB_BIT:
-					uBuf=(unsigned char)atoi(lpszRecArray[nCol]);
+					uBuf=(unsigned char)atoi(lpszRecArray[nField]);
 					memcpy(lpAddr, &uBuf, sizeof(unsigned char));
 					break;
 				case	MDB_CHAR:
-					lpAddr[0]=lpszRecArray[nCol][0];
+					lpAddr[0]=lpszRecArray[nField][0];
 					break;
 				}
 			}
-			lpAddr += pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nCol].nDataLen;
+			lpAddr += pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[nField].nDataLen;
 		}
 
 		return 1;
@@ -746,22 +752,32 @@ namespace	MemDBBase
 	template<typename T>	int	MDBRemoveRecord(T* pBlock, const int nTable, const int nRecord)
 	{
 		if (nTable < 0 || nTable >= pBlock->m_MDBSummary.nTableNum)
+		{
+			MDBLog("        MDBRemoveRecord Table=%d Record=%d 表错误(TableNum=%d)\n", nTable, nRecord, pBlock->m_MDBSummary.nTableNum);
 			return 0;
+		}
 
 		if (nRecord < 0 || nRecord >= pBlock->m_nRecordNum[nTable])
+		{
+			MDBLog("        MDBRemoveRecord Table=%d Record=%d 记录错误(RecordNum=%d)\n", nTable, nRecord, pBlock->m_nRecordNum[nTable]);
 			return 0;
+		}
 
-		char*	lpAddr;
-		// for (int i=nRecord; i<pBlock->m_nRecordNum[nTable]-1; i++)
-		// {
-		// 	lpAddr=(char*)pBlock+pBlock->m_MDBSummary.sMDBTableArray[nTable].nOffSet+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen*i;		//	记录i的首地址
-		// 	memcpy(lpAddr, lpAddr+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen, pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen);
-		// }
+		MDBLog("        MDBRemoveRecord Table=%d Record=%d\n", nTable, nRecord);
+		register int	i;
+		char	*lpDst, *lpSrc;
+		for (i=nRecord; i<pBlock->m_nRecordNum[nTable]-1; i++)
+		{
+			lpDst=(char*)pBlock+pBlock->m_MDBSummary.sMDBTableArray[nTable].nOffSet+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen*i;		//	记录i的首地址
+			lpSrc=lpDst+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen;																//	记录i的首地址
+			memcpy(lpDst, lpSrc, pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen);
+		}
 
-		lpAddr=(char*)pBlock+pBlock->m_MDBSummary.sMDBTableArray[nTable].nOffSet+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen*nRecord;		//	记录i的首地址
-		memcpy(lpAddr, 
-			lpAddr+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen, 
-			(pBlock->m_nRecordNum[nTable]-nRecord-1)*pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen);
+		// lpAddr1=(char*)pBlock+pBlock->m_MDBSummary.sMDBTableArray[nTable].nOffSet+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen*nRecord;		//	记录i的首地址
+		// memcpy(lpAddr1, 
+		// 	lpAddr1+pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen, 
+		// 	(pBlock->m_nRecordNum[nTable]-nRecord-1)*pBlock->m_MDBSummary.sMDBTableArray[nTable].nFieldLen);
+
 		if (pBlock->m_nRecordNum[nTable] > 0)
 			pBlock->m_nRecordNum[nTable]--;
 

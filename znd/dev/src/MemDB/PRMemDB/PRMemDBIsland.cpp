@@ -11,11 +11,10 @@ namespace PRMemDB
 		register int	i, j;
 		int	nBus, nBran, nLayerBusNum;
 		std::vector<int>	nMidBusArray;
+		std::vector<unsigned char>	bBusProcArray;
 
 		nJointBusArray.clear();
 		nJointBusArray.push_back(nStartBus);
-
-		std::vector<unsigned char>	bBusProcArray;
 
 		bBusProcArray.resize(pPRBlock->m_nRecordNum[PR_ACBUS]);
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_ACBUS]; i++)
@@ -71,6 +70,9 @@ namespace PRMemDB
 			for (i=0; i<(int)nMidBusArray.size(); i++)
 				nJointBusArray.push_back(nMidBusArray[i]);
 		}
+
+		bBusProcArray.clear();
+		nMidBusArray.clear();
 	}
 
 	void CPRMemDBInterface::PRMemDBIsland(tagPRBlock* pPRBlock, const unsigned char bRingIslandOnly)
@@ -86,6 +88,11 @@ namespace PRMemDB
 			pPRBlock->m_ACLineArray[i].nIsland=0;
 		for (i=0; i<(int)pPRBlock->m_nRecordNum[PR_WIND]; i++)
 			pPRBlock->m_WindArray[i].nIsland=0;
+		for (i=0; i<(int)pPRBlock->m_nRecordNum[PR_HVDC]; i++)
+		{
+			pPRBlock->m_HVDCArray[i].nIslandR=0;
+			pPRBlock->m_HVDCArray[i].nIslandI=0;
+		}
 
 		pPRBlock->m_nRecordNum[PR_ACISLAND]=0;
 		memset(&pPRBlock->m_ACIslandArray[pPRBlock->m_nRecordNum[PR_ACISLAND]], 0, sizeof(tagPRACIsland));
@@ -117,7 +124,8 @@ namespace PRMemDB
 				if (pPRBlock->m_ACBusArray[nJointBusArray[i]].bSlack)
 				{
 					pPRBlock->m_ACIslandArray[pPRBlock->m_nRecordNum[PR_ACISLAND]].nSwingBus = nJointBusArray[i];
-					pPRBlock->m_ACIslandArray[pPRBlock->m_nRecordNum[PR_ACISLAND]].fGenP += 1000;
+					if (pPRBlock->m_ACIslandArray[pPRBlock->m_nRecordNum[PR_ACISLAND]].fGenP < FLT_MIN)
+						pPRBlock->m_ACIslandArray[pPRBlock->m_nRecordNum[PR_ACISLAND]].fGenP += 1000;
 				}
 			}
 			if (fabs(pPRBlock->m_ACIslandArray[pPRBlock->m_nRecordNum[PR_ACISLAND]].fGenP) < FLT_MIN)
@@ -160,6 +168,18 @@ namespace PRMemDB
 			}
 			pPRBlock->m_nRecordNum[PR_ACISLAND]++;
 		}
+
+		for (i=0; i<(int)pPRBlock->m_nRecordNum[PR_HVDC]; i++)
+		{
+			pPRBlock->m_HVDCArray[i].nIslandR=pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[i].nRBus].nIsland;
+			pPRBlock->m_HVDCArray[i].nIslandI=pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[i].nIBus].nIsland;
+
+			pPRBlock->m_ACIslandArray[pPRBlock->m_HVDCArray[i].nIslandR].fHVDCP += pPRBlock->m_HVDCArray[i].fPr;
+			pPRBlock->m_ACIslandArray[pPRBlock->m_HVDCArray[i].nIslandI].fHVDCP += pPRBlock->m_HVDCArray[i].fPi;
+		}
+
+		nJointBusArray.clear();
+		bBusProcArray.clear();
 	}
 
 	void	CPRMemDBInterface::PRTraverseRadial(tagPRBlock* pPRBlock, const int nRadial, int& nBusNum, int* pnBusArray)
@@ -232,5 +252,8 @@ namespace PRMemDB
 			for (i=0; i<(int)nMidBusArray.size(); i++)
 				pnBusArray[nBusNum++]=nMidBusArray[i];
 		}
+
+		nMidBusArray.clear();
+		bBusProcArray.clear();
 	}
 }

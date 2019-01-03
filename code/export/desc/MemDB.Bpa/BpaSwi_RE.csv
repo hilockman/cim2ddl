@@ -26,4 +26,5 @@
 24,RE_TBRK,继电器动作时间(周),DOUBLE,4
 25,RE_NAME_CON,控制母线名称,STRING,10
 26,RE_KV_CON,控制母线基准电压,DOUBLE,4
-27,BusPtr,发电机母线索引,INTEGER,4
+27,KeyName,数据库主键,STRING,16
+28,BusPtr,发电机母线索引,INTEGER,4

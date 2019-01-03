@@ -1,0 +1,17 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,10
+1,ACBus_Name,电机母线名,STRING,10
+2,ACBus_kV,电机母线电压(kV),DOUBLE,4
+3,Gen_ID,电机识别码,INTEGER,1
+4,GW_TYPE,风电机组类型代码,STRING,32
+5,NG,风电机组台数,INTEGER,2
+6,PPER,有功占潮流总出力比例,DOUBLE,4
+7,QPER,无功占潮流总出力比例,DOUBLE,4
+8,IP_CUR,"低电压穿越,有功电流设定值(A,缺省200)",DOUBLE,4
+9,IP_RETURN,"低电压穿越恢复,有功电流设定值(A,缺省400)",DOUBLE,4
+10,IP_RET_TIME,"低电压穿越恢复,维持上述电流时间(周,缺省0)",DOUBLE,4
+11,IP_RATE,"低电压穿越恢复,有功电流上升速率(A/s,缺省1500)",DOUBLE,4
+12,Q_RATE,"无功调整变化率(pu,电压降低倍数,额定电流基准,缺省0)",DOUBLE,4
+13,IMAX,最大电流限制(A),DOUBLE,4
+14,KeyName,数据库主键,STRING,16
+15,BusPtr,发电机母线索引,INTEGER,4

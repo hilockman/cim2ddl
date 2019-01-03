@@ -12,6 +12,7 @@
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <deploy.dir>../../lib/${project.name}</deploy.dir>
   </properties>
   <dependencies>
     <dependency>
@@ -77,4 +78,51 @@
 		</dependency>
 				         
   </dependencies>
+  
+  	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.6.RELEASE</version>
+					</dependency>
+				</dependencies>				
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir dir="${deplory.dir}" />
+								<copy todir="${deplory.dir}" overwrite="true">
+									<fileset dir="${project.build.directory}"
+										erroronmissingdir="false">
+										<include name="*.jar" />
+									</fileset>
+								</copy>
+								<copy todir="${deploy.dir}" overwrite="true">
+									<fileset dir="${basedir}/src/main/resources"
+										erroronmissingdir="false">
+										<include name="*.properties" />
+										<include name="*.yaml" />
+										<include name="*.json" />
+									</fileset>
+								</copy>								
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>   
 </project>

@@ -232,8 +232,7 @@ compiler_clean:
 
 ####### Compile
 
-debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
-		stdafx.h \
+debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
 		..\include\MDBDefine.h \
 		..\MemDBBase\MemDBBase_Check.hpp \
@@ -241,7 +240,8 @@ debug\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
 		..\MemDBBase\MemDBBase_Record.hpp \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
-		..\..\Common\String2Double.hpp
+		..\..\Common\String2Double.hpp \
+		..\MemDBBase\MemDBHash.h
 
 debug\StringCommon.obj: ..\..\Common\StringCommon.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -275,6 +275,7 @@ debug\BpaMemDB.obj: BpaMemDB.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBTable.h \
 		BpaMemDBField.h \
 		BpaMemDBExtern.h
@@ -291,6 +292,7 @@ debug\BpaMemDBData.obj: BpaMemDBData.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBDecompose.obj: BpaMemDBDecompose.cpp stdafx.h \
@@ -305,6 +307,7 @@ debug\BpaMemDBDecompose.obj: BpaMemDBDecompose.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBDerived.obj: BpaMemDBDerived.cpp stdafx.h \
@@ -319,6 +322,7 @@ debug\BpaMemDBDerived.obj: BpaMemDBDerived.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBDict.obj: BpaMemDBDict.cpp stdafx.h \
@@ -333,8 +337,8 @@ debug\BpaMemDBDict.obj: BpaMemDBDict.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
-		BpaDictData.h \
 		BpaDict.h \
+		BpaDictData.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBFile.obj: BpaMemDBFile.cpp stdafx.h \
@@ -349,9 +353,9 @@ debug\BpaMemDBFile.obj: BpaMemDBFile.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h \
-		BpaDictSwiData.h \
-		BpaDict.h
+		BpaDictSwiData.h
 
 debug\BpaMemDBFileDat.obj: BpaMemDBFileDat.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -365,9 +369,9 @@ debug\BpaMemDBFileDat.obj: BpaMemDBFileDat.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h \
-		BpaDictSwiData.h \
-		BpaDict.h
+		BpaDictSwiData.h
 
 debug\BpaMemDBFileIn.obj: BpaMemDBFileIn.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -381,9 +385,9 @@ debug\BpaMemDBFileIn.obj: BpaMemDBFileIn.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h \
-		BpaDictSwiData.h \
-		BpaDict.h
+		BpaDictSwiData.h
 
 debug\BpaMemDBFilePfo.obj: BpaMemDBFilePfo.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -397,9 +401,9 @@ debug\BpaMemDBFilePfo.obj: BpaMemDBFilePfo.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h \
-		BpaDictSwiData.h \
-		BpaDict.h
+		BpaDictSwiData.h
 
 debug\BpaMemDBFileSwi.obj: BpaMemDBFileSwi.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -413,9 +417,9 @@ debug\BpaMemDBFileSwi.obj: BpaMemDBFileSwi.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h \
-		BpaDictSwiData.h \
-		BpaDict.h
+		BpaDictSwiData.h
 
 debug\BpaMemDBMaint.obj: BpaMemDBMaint.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
@@ -429,6 +433,7 @@ debug\BpaMemDBMaint.obj: BpaMemDBMaint.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBMisc.obj: BpaMemDBMisc.cpp stdafx.h \
@@ -443,6 +448,7 @@ debug\BpaMemDBMisc.obj: BpaMemDBMisc.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBRecord.obj: BpaMemDBRecord.cpp stdafx.h \
@@ -457,6 +463,7 @@ debug\BpaMemDBRecord.obj: BpaMemDBRecord.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBReduct.obj: BpaMemDBReduct.cpp stdafx.h \
@@ -471,6 +478,7 @@ debug\BpaMemDBReduct.obj: BpaMemDBReduct.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBTopo.obj: BpaMemDBTopo.cpp stdafx.h \
@@ -485,6 +493,7 @@ debug\BpaMemDBTopo.obj: BpaMemDBTopo.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 debug\BpaMemDBZil.obj: BpaMemDBZil.cpp stdafx.h \
@@ -499,6 +508,7 @@ debug\BpaMemDBZil.obj: BpaMemDBZil.cpp stdafx.h \
 		BpaMemDB.h \
 		BpaMemDBBlock.h \
 		BpaMemDBDefine.h \
+		BpaDict.h \
 		BpaMemDBExtern.h
 
 ####### Install

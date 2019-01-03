@@ -1,4 +1,4 @@
 序号,名称,描述,类型,长度
 0,Trip,开断故障索引,INTEGER,4
 1,OutageBus,孤岛母线,INTEGER,4
-2,OutageLoadP,孤岛负荷功率(MW),DOUBLE,4
+2,OutageLoadP,孤岛负荷功率(兆瓦),DOUBLE,4

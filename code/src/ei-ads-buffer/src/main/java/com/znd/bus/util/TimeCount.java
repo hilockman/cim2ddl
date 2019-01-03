@@ -6,6 +6,8 @@ import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
 
+import com.znd.ei.Utils;
+
 
 
 public class TimeCount {
@@ -54,7 +56,7 @@ public class TimeCount {
 		
 	}
 
-	private static ExecutorService pool = Executors.newCachedThreadPool();
+	private static ExecutorService pool = Utils.threadPool();
 	
 	public static void exec(String name, Runnable r, Logger logger)
 	{

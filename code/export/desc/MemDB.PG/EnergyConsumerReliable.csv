@@ -10,9 +10,6 @@
 8,ro_ar,年均预安排停电次数(次/年),DOUBLE,4
 9,ro_at,预安排停电平均持续时间(小时/次),DOUBLE,4
 10,ro_au,年均预安排停电时间,DOUBLE,4
-11,ro_swr,年均切换停电次数(次/年),DOUBLE,4
-12,ro_swt,切换停电平均持续时间(小时/次),DOUBLE,4
-13,ro_swu,年均切换停电时间,DOUBLE,4
-14,ro_cmr,年均共模停电次数(次/年),DOUBLE,4
-15,ro_cmt,共模停电平均持续时间(小时/次),DOUBLE,4
-16,ro_cmu,年均共模停电时间,DOUBLE,4
+11,ro_cmr,年均共模停电次数(次/年),DOUBLE,4
+12,ro_cmt,共模停电平均持续时间(小时/次),DOUBLE,4
+13,ro_cmu,年均共模停电时间,DOUBLE,4

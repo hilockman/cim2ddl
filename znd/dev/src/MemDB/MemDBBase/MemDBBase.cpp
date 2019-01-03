@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(_WIN64) || defined(__WIN64__) || defined(WIN64))
 #	include <Windows.h>
 #endif
@@ -28,6 +29,7 @@ namespace	MemDBBase
 		va_list args;
 		va_start( args, pformat );
 
+#ifdef _DEBUG
 		char	szTempPath[260], szFileName[260];
 		FILE*	fp;
 
@@ -46,6 +48,7 @@ namespace	MemDBBase
 			fflush(fp);
 			fclose(fp);
 		}
+#endif
 
 		va_end(args);
 	}
@@ -54,7 +57,7 @@ namespace	MemDBBase
 	{
 		char*	lpBlockMap=NULL;
 
-		//ClearLog();
+		MDBClearLog();
 
 #if (!defined(_WIN32) && !defined(__WIN32__) && !defined(WIN32) && !defined(_WIN64) && !defined(__WIN64__) && !defined(WIN64))
 		int		nSemID;
@@ -182,16 +185,12 @@ namespace	MemDBBase
 		register int	i;
 
 		if (nTable < 0)
-		{
 			return -1;
-		}
 
 		for (i=0; i<pBlock->m_MDBSummary.nTableNum; i++)
 		{
 			if (STRICMP(pBlock->m_MDBSummary.sMDBTableArray[nTable].sFieldArray[i].szName, lpszField) == 0)
-			{
 				return i;
-			}
 		}
 		return -1;
 	}

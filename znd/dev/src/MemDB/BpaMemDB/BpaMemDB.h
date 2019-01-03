@@ -43,6 +43,7 @@
 #endif
 
 #include "BpaMemDBBlock.h"
+#include "BpaDict.h"
 
 namespace	BpaMemDB
 {
@@ -65,152 +66,238 @@ namespace	BpaMemDB
 		float				fLoadQ;
 	}	tagBpaRadiate;
 
-	//	数据库功能
-	BPAMEMDB_EXPORTS	char*	Init_BpaBlock(const int nBpaBlockKey=0, const int bCreateMem=0, const int bClearBaseLog=0);
-	BPAMEMDB_EXPORTS	void	Exit_BpaBlock(char* lpszBlockMap, const int nBpaBlockKey=0);
+	typedef	struct  _BpaZone2Area_
+	{
+		std::string			strAreaName;
+		std::vector<std::string>	strZoneArray;
+	}	tagBpaZone2Area;
 
-	//	数据库表功能
-	BPAMEMDB_EXPORTS	int		BpaGetTableIndex(const char* lpszTableName);
-	BPAMEMDB_EXPORTS	int		BpaGetTableName(const int nTable, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaGetTableDesp(const int nTable, char* lpszRetString);
-	BPAMEMDB_EXPORTS	const char*	BpaGetTableName(const int nTable);
-	BPAMEMDB_EXPORTS	const char*	BpaGetTableDesp(const int nTable);
-	BPAMEMDB_EXPORTS	int		BpaGetTableCategory(const int nTable);
-	BPAMEMDB_EXPORTS	int		BpaGetTableNum();
-	BPAMEMDB_EXPORTS	int		BpaGetTableMax(const int nTable);
-	BPAMEMDB_EXPORTS	int		BpaGetTableFieldNum(const int nTable);
+	class BPAMEMDB_EXPORTS CBpaMemDBInterface
+	{
+	public:
+		//	数据库功能
+		char*	Init_BpaBlock(const int nBpaBlockKey=0, const int bCreateMem=0, const int bClearBaseLog=0);
+		void Exit_BpaBlock(char* lpszBlockMap, const int nBpaBlockKey=0);
 
-	BPAMEMDB_EXPORTS	int		BpaGetTablePrimaryKeyNum(const int nTable);
-	BPAMEMDB_EXPORTS	int		BpaGetTablePrimaryKey(const int nTable, const int nRest);
+		//	数据库表功能
+		const int	BpaGetTableIndex(const char* lpszTableName) const;
+		const char*	BpaGetTableName(const int nTable) const;
+		const char*	BpaGetTableDesp(const int nTable) const;
+		const int	BpaGetTableCategory(const int nTable) const;
+		const int	BpaGetTableNum() const;
+		const int	BpaGetTableMax(const int nTable) const;
+		const int	BpaGetTableFieldNum(const int nTable) const;
 
-	//	数据库字段功能
-	BPAMEMDB_EXPORTS	int		BpaGetFieldIndex(const int nTable, const char* lpszFieldName);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldName(const int nTable, const int nField, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldDesp(const int nTable, const int nField, char* lpszRetString);
-	BPAMEMDB_EXPORTS	const char*	BpaGetFieldName(const int nTable, const int nField);
-	BPAMEMDB_EXPORTS	const char*	BpaGetFieldDesp(const int nTable, const int nField);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldLen(const int nTable, const int nField);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldType(const int nTable, const int nField);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldCategory(const int nTable, const int nField);
+		const int	BpaGetTablePrimaryKeyNum(const int nTable) const;
+		const int	BpaGetTablePrimaryKey(const int nTable, const int nRest) const;
+		const int	BpaIsFieldPrimaryKey(const int nTable, const int nField) const;
 
-	BPAMEMDB_EXPORTS	int		BpaGetFieldNameArray(const int nTable, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldDespArray(const int nTable, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldCategoryArray(const int nTable, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldTypeArray(const int nTable, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldLenArray(const int nTable, char* lpszRetString);
+		//	数据库字段功能
+		const int	BpaGetFieldIndex(const int nTable, const char* lpszFieldName) const;
+		const char*	BpaGetFieldName(const int nTable, const int nField) const;
+		const char*	BpaGetFieldDesp(const int nTable, const int nField) const;
+		const int	BpaGetFieldLen(const int nTable, const int nField) const;
+		const int	BpaGetFieldType(const int nTable, const int nField) const;
+		const int	BpaGetFieldCategory(const int nTable, const int nField) const;
 
-	BPAMEMDB_EXPORTS	int		BpaGetFieldEnumNum(const int nTable, const int nField);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldEnumValue(const int nTable, const int nField, const char* lpszEnumName);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldEnumString(const int nTable, const int nField, const int nEnumValue, char* lpszRetString);
-	BPAMEMDB_EXPORTS	const char*	BpaGetFieldEnumString(const int nTable, const int nField, const int nEnumValue);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldEnumStringArray(const int nTable, const int nField, int& nEnumNum, char lpszEnumArray[][MDB_CHARLEN]);
+		const int	BpaGetFieldNameArray(const int nTable, char* lpszRetString) const;
+		const int	BpaGetFieldDespArray(const int nTable, char* lpszRetString) const;
+		const int	BpaGetFieldCategoryArray(const int nTable, char* lpszRetString) const;
+		const int	BpaGetFieldTypeArray(const int nTable, char* lpszRetString) const;
+		const int	BpaGetFieldLenArray(const int nTable, char* lpszRetString) const;
 
-	//	数据库记录检索功能
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyField(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const char* lpszValue);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyRow(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char lpszKeyValue[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3, const char* lpszKeyValue4);
-	BPAMEMDB_EXPORTS	int		BpaFindRecordFuzzy(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaGetFilteredIndexArray(tagBpaBlock* pBpaBlock, const int bAndOr, const int nTable,
-									const int nFilterField1, const char* lpszFilterKey1Array,
-									const int nFilterField2, const char* lpszFilterKey2Array,
-									const int nFilterField3, const char* lpszFilterKey3Array,
-									const int nFilterField4, const char* lpszFilterKey4Array,
-									const int nIndexCapacity, int nIndexArray[]);
-	BPAMEMDB_EXPORTS	int		BpaGetZoneFilteredIndexArray(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszFilterZoneArray, const int nIndexCapacity, int nIndexArray[]);
+		const int	BpaGetFieldEnumNum(const int nTable, const int nField) const;
+		const int	BpaGetFieldEnumValue(const int nTable, const int nField, const char* lpszEnumName) const;
+		const char*	BpaGetFieldEnumString(const int nTable, const int nField, const int nEnumValue) const;
+		const int	BpaGetFieldEnumStringArray(const int nTable, const int nField, int& nEnumNum, char lpszEnumArray[][MDB_CHARLEN]) const;
 
-	//	数据库记录值功能
-	BPAMEMDB_EXPORTS	int		BpaGetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, char* lpszRetValue);
-	BPAMEMDB_EXPORTS	int		BpaSetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, const char* lpszValue);
-	BPAMEMDB_EXPORTS	int		BpaGetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char lpszRetValue[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaSetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, const char lpszValue[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaGetRecordRow(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char* lpszRetValue);
-	BPAMEMDB_EXPORTS	int		BpaGetRecordColValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const int nMaxCount, char lpszRetValue[][MDB_CHARLEN_LONG]);
+		//	数据库记录检索功能
+		int		BpaFindRecordbyField(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const char* lpszValue);
+		int		BpaFindRecordbyRow(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG]);
+		int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char lpszKeyValue[][MDB_CHARLEN_LONG]);
+		int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1);
+		int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2);
+		int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3);
+		int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3, const char* lpszKeyValue4);
+		int		BpaFindRecordFuzzy(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG]);
+		int		BpaGetFilteredIndexArray(tagBpaBlock* pBpaBlock, const int bAndOr, const int nTable,
+			const int nFilterField1, const char* lpszFilterKey1Array,
+			const int nFilterField2, const char* lpszFilterKey2Array,
+			const int nFilterField3, const char* lpszFilterKey3Array,
+			const int nFilterField4, const char* lpszFilterKey4Array,
+			const int nIndexCapacity, int nIndexArray[]);
+		int		BpaGetZoneFilteredIndexArray(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszFilterZoneArray, const int nIndexCapacity, int nIndexArray[]);
 
-	BPAMEMDB_EXPORTS	int		BpaInsertRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaAppendRecord(tagBpaBlock* pBpaBlock, const int bCheckData, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	int		BpaRemoveRecord(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord);
-	BPAMEMDB_EXPORTS	int		BpaUpdateRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG]);
+		//	数据库记录值功能
+		int		BpaGetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, char* lpszRetValue);
+		int		BpaSetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, const char* lpszValue);
+		int		BpaGetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char lpszRetValue[][MDB_CHARLEN_LONG]);
+		int		BpaSetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, const char lpszValue[][MDB_CHARLEN_LONG]);
+		int		BpaGetRecordRow(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char* lpszRetValue);
+		int		BpaGetRecordColValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const int nMaxCount, char lpszRetValue[][MDB_CHARLEN_LONG]);
 
-	BPAMEMDB_EXPORTS	int		BpaAppendRecordByRow(tagBpaBlock* pBpaBlock, const int bNeedCheck, const int nTable, const int nFieldIndex[], const char* lpszParser);
+		int		BpaInsertRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG]);
+		int		BpaAppendRecord(tagBpaBlock* pBpaBlock, const int bCheckData, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG]);
+		int		BpaRemoveRecord(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord);
+		int		BpaUpdateRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG]);
 
-	//	数据库维护功能
-	BPAMEMDB_EXPORTS	void	BpaMaint(tagBpaBlock* pBpaBlock, const double fZIL=0);		//	形成表中辅助信息，包括指针和派生表
-	BPAMEMDB_EXPORTS	void	BpaIsland(tagBpaBlock* pBpaBlock);							//	BPA电岛分析
+		int		BpaAppendRecordByRow(tagBpaBlock* pBpaBlock, const int bNeedCheck, const int nTable, const int nFieldIndex[], const char* lpszParser);
 
-	//	Bpa数据结构和数据字段的操作
-	BPAMEMDB_EXPORTS	void	BpaDataPtr2FieldArray(const int nTable, const char* lpszDataPtr, char szField[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	void	BpaFieldArray2DataPtr(const int nTable, const char szField[][MDB_CHARLEN_LONG], char* lpszDataPtr);
+		//	数据库维护功能
+		void BpaMaint(tagBpaBlock* pBpaBlock, const double fZIL=0);		//	形成表中辅助信息，包括指针和派生表
+		void BpaIsland(tagBpaBlock* pBpaBlock);							//	BPA电岛分析
 
-	BPAMEMDB_EXPORTS	void	BpaGetDataPtrFieldValue(const int nTable, const int nField, const char* lpszDataPtr, char* lpszRetValue);
-	BPAMEMDB_EXPORTS	void	BpaSetDataPtrFieldValue(const int nTable, const int nField, const char* lpszSetValue, char* lpszDataPtr);
+		//	Bpa数据结构和数据字段的操作
+		void BpaDataPtr2FieldArray(const int nTable, const char* lpszDataPtr, char szField[][MDB_CHARLEN_LONG]);
+		void BpaFieldArray2DataPtr(const int nTable, const char szField[][MDB_CHARLEN_LONG], char* lpszDataPtr);
 
-	//	以下三个函数比较混乱，主要原因在于BPA与实时数据接口部分暂时不动造成。目前先搁置
-	BPAMEMDB_EXPORTS	int		BpaDataPtr2LineString(const int nBpaTable, const int nDictIni, const char* lpszDataPtr, char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaFieldArray2LineString(const int nBpaTable, const int nDictIni, const char szField[][MDB_CHARLEN_LONG], char* lpszRetString);
-	BPAMEMDB_EXPORTS	int		BpaFieldArray2LineString(const int nBpaTable, const char szField[][MDB_CHARLEN_LONG], char* lpszRetMString, char* lpszRetEString, char* lpszRetAString);
+		void BpaGetDataPtrFieldValue(const int nTable, const int nField, const char* lpszDataPtr, char* lpszRetValue);
+		void BpaSetDataPtrFieldValue(const int nTable, const int nField, const char* lpszSetValue, char* lpszDataPtr);
 
-	//	将数据行文本转换为数据库的字段值
-	BPAMEMDB_EXPORTS	void	BpaString2FieldArray(const int nBpaTable, const int nDictIni, const char* lpszBpaString, char szField[][MDB_CHARLEN_LONG]);
+		//	以下三个函数比较混乱，主要原因在于BPA与实时数据接口部分暂时不动造成。目前先搁置
+		int BpaDataPtr2LineString(const int nBpaTable, const int nDictIni, const char* lpszDataPtr, char* lpszRetString);
+		int BpaFieldArray2LineString(const int nBpaTable, const int nDictIni, const char szField[][MDB_CHARLEN_LONG], char* lpszRetString);
+		int BpaFieldArray2LineString(const int nBpaTable, const char szField[][MDB_CHARLEN_LONG], char* lpszRetMString, char* lpszRetEString, char* lpszRetAString);
 
-	//	形成BPA的各个表的主键
-	BPAMEMDB_EXPORTS	void	BpaFormTableKeyField(const int nTable, char szField[][MDB_CHARLEN_LONG]);
-	BPAMEMDB_EXPORTS	void	BpaFormTableKeyField(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord);
-	BPAMEMDB_EXPORTS	void	BpaDictKey2BpaCardKey(char* lpszKey);
-	BPAMEMDB_EXPORTS	void	BpaBpaCardKey2DictKey(char* lpszKey, const char* lpszDataLine);
-	BPAMEMDB_EXPORTS	void	BpaResolveLineKey(const char* lpszLine, char* lpszRetKey);
+		//	将数据行文本转换为数据库的字段值
+		void BpaString2FieldArray(const int nBpaTable, const int nDictIni, const char* lpszBpaString, char szField[][MDB_CHARLEN_LONG]);
 
-	//	BPA字典表操作
-	BPAMEMDB_EXPORTS	int		BpaGetTableDictIndex(const char* lpszKey, const int nCategory);
-	BPAMEMDB_EXPORTS	int		BpaGetFieldDictIndex(const int nDict, const char* lpszField);
+		//	形成BPA的各个表的主键
+		void BpaFormTableKeyField(const int nTable, char szField[][MDB_CHARLEN_LONG]);
+		void BpaFormTableKeyField(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord);
+		void BpaDictKey2BpaCardKey(char* lpszKey);
+		void BpaBpaCardKey2DictKeyFx(char* lpszKey, const char* lpszDataLine);
+		void BpaResolveLineKey(const char* lpszLine, char* lpszRetKey);
 
-	BPAMEMDB_EXPORTS	const int	BpaGetDictNum();
-	BPAMEMDB_EXPORTS	const char*	BpaGetDictTable(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const char*	BpaGetDictCardKey(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const char*	BpaGetDictFieldName(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const unsigned char	BpaGetDictModified(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const int	BpaGetDictFieldType(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const int	BpaGetDictFieldStart(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const int	BpaGetDictFieldEnd(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const int	BpaGetDictFieldLen(const int nDictIndex);
-	BPAMEMDB_EXPORTS	const int	BpaGetDictFieldDecimal(const int nDictIndex);
+		//	BPA文件操作
+		int BpaFiles2MemDB(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile, const double fZeroImpendance);
+		int BpaMemDB2Files(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile);
+		int BpaParsePfoFile(tagBpaBlock* pBpaBlock, const char* lpszBpaPfoFile);
+		int BpaParseOutFile(tagBpaBlock* pBpaBlock, const char* lpszBpaOutFile);
 
-	//	BPA文件操作
-	BPAMEMDB_EXPORTS	int		BpaFiles2MemDB(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile, const double fZeroImpendance);
-	BPAMEMDB_EXPORTS	int		BpaMemDB2Files(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const char* lpszBpaSwiFile);
-	BPAMEMDB_EXPORTS	int		BpaParsePfoFile(tagBpaBlock* pBpaBlock, const char* lpszBpaPfoFile);
-	BPAMEMDB_EXPORTS	int		BpaParseOutFile(tagBpaBlock* pBpaBlock, const char* lpszBpaOutFile);
+		int BpaSwi2LineString(const int nBpaTable, const char* lpszDataPtr, char* lpszRetLine);
 
-	BPAMEMDB_EXPORTS	int		BpaSwi2LineString(const int nBpaTable, const char* lpszDataPtr, char* lpszRetLine);
+		//	其他一些信息操作
+		int BpaGetGeneratorTableByCardKey(const char* lpszKey);
 
-	//	其他一些信息操作
-	BPAMEMDB_EXPORTS	int		BpaGetGeneratorTableByCardKey(const char* lpszKey);
+		//	由BPA母线搜索BPA发电机模型
+		void BpaResolveGenModel(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV, const char cGenID, int& nGenIndex, int& nDampIndex,
+			int& nExcModel, int& nExcIndex, int& nPssModel, int& nPssIndex,
+			int& nGovModel, int& nGovIndex, int& nSvoIndex, int& nMovModel, int& nMovIndex);
 
-	//	由BPA母线搜索BPA发电机模型
-	BPAMEMDB_EXPORTS	void	BpaResolveGenModel(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV, const char cGenID, int& nGenIndex, int& nDampIndex,
-		int& nExcModel, int& nExcIndex, int& nPssModel, int& nPssIndex,
-		int& nGovModel, int& nGovIndex, int& nSvoIndex, int& nMovModel, int& nMovIndex);
+		void BpaFormatDecimalChar(const int nBpaTable, const int nBpaField, char* lpszValue, const int nDataLen, const int nDecimal);
 
-	//	拓扑遍历
-	BPAMEMDB_EXPORTS	void	BpaMergeZILLine(tagBpaBlock* pBpaBlock, const double fZIL);
-	BPAMEMDB_EXPORTS	void	BpaTraverseNet(tagBpaBlock* pBpaBlock, const int nStartBus, const float fMinimalVolt, int& nBusNum, int nBusArray[]);
-	BPAMEMDB_EXPORTS	void	BpaTraverseSub(tagBpaBlock* pBpaBlock, const int nStartBus, const double fZIL, int& nBusNum, int nBusArray[]);
+		//	拓扑遍历
+		void BpaTraverseNet(tagBpaBlock* pBpaBlock, const int nStartBus, const float fMinimalVolt, int& nACBusNum, int nACBusArray[]);
+		void BpaTraverseSub(tagBpaBlock* pBpaBlock, const int nStartBus, const double fZIL, int& nACBusNum, int nACBusArray[]);
+		void BpaTraverseVolt(tagBpaBlock* pBpaBlock, const int nStartBus, const float fMinVolt, int& nACBusNum, int nACBusArray[]);
 
-	BPAMEMDB_EXPORTS	const int	BpaGetFieldCategoryNum();
-	BPAMEMDB_EXPORTS	const char*	BpaGetFieldCategoryName(const int nCatrgory);
-	BPAMEMDB_EXPORTS	const int	BpaGetFieldCategoryValue(const char* lpszCatrgory);
+		const int	BpaGetFieldCategoryNum() const;
+		const char*	BpaGetFieldCategoryName(const int nCatrgory) const;
+		const int	BpaGetFieldCategoryValue(const char* lpszCatrgory) const;
 
-	//	环网辐射网分解
-	//	fOpenRingVolt:	电压等级小于等于该值的电网判断为辐射网
-	//	fTinyGenMva:	机容量小于等于该值的发电机不作发电机处理
-	BPAMEMDB_EXPORTS	void	BpaRingRadDecompose(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva);
+		//	环网辐射网分解
+		//	fOpenRingVolt:	电压等级小于等于该值的电网判断为辐射网
+		//	fTinyGenMva:	机容量小于等于该值的发电机不作发电机处理
+		void BpaRingRadDecompose(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva);
 
-	BPAMEMDB_EXPORTS	void	BpaGetTieACLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieACLineArray[]);
-	BPAMEMDB_EXPORTS	void	BpaGetTieLineHGByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieACLineArray[]);
-	BPAMEMDB_EXPORTS	void	BpaGetTieTranByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieTranArray[]);
-	BPAMEMDB_EXPORTS	void	BpaGetTieDCLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieDCLineArray[]);
-	BPAMEMDB_EXPORTS	int		BpaTailorNetByZone(tagBpaBlock* pBpaBlock, const unsigned char bRetainHG, const unsigned char bDCBoundPV, const char* lpszSlack, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray);
+	public:	//	按母线和分区进行网络裁剪
+		void BpaGetTieACLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieACLineArray[]);
+		void BpaGetTieLineHGByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieACLineArray[]);
+		void BpaGetTieTranByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieTranArray[]);
+		void BpaGetTieDCLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieDCLineArray[]);
+		int BpaTailorNetByZone(tagBpaBlock* pBpaBlock, const unsigned char bRetainHG, const unsigned char bDCBoundPV, const char* lpszSlack, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray);
+
+	public:	//	按电压等级进行网络裁剪
+		void BpaSearchVoltTailorNet(tagBpaBlock* pBpaBlock, const double fMinVoltage, int& nRangeACBusNum, int& nRangeDCBusNum, int nRangeACBusArray[], int nRangeDCBusArray[]);
+		void BpaTailorNetByVolt(tagBpaBlock* pBpaBlock, const double fMinVoltage);
+
+	public:
+		void BpaSearchLoadTran(tagBpaBlock* pBpaBlock, int& nLoadTranNum, int nLoadTranArray[]);
+		void BpaRemoveLoadTran(tagBpaBlock* pBpaBlock, const int bUsePFlowResult);
+
+	public:
+		void BpaMergeZILLine(tagBpaBlock* pBpaBlock, const double fZIL);
+
+	public:
+		//	BPA字典表操作
+		const int BpaGetTableDictIndex(const char* lpszKey, const int nCategory) const;
+
+	private:
+		const int BpaGetFieldDictIndex(const int nDict, const char* lpszField) const;
+		const int	BpaGetDictNum() const;
+		const char*	BpaGetDictTable(const int nDictIndex) const;
+		const char*	BpaGetDictCardKey(const int nDictIndex) const;
+		const char*	BpaGetDictFieldName(const int nDictIndex) const;
+		const unsigned char	BpaGetDictModified(const int nDictIndex) const;
+		const int	BpaGetDictFieldType(const int nDictIndex) const;
+		const int	BpaGetDictFieldStart(const int nDictIndex) const;
+		const int	BpaGetDictFieldEnd(const int nDictIndex) const;
+		const int	BpaGetDictFieldLen(const int nDictIndex) const;
+		const int	BpaGetDictFieldDecimal(const int nDictIndex) const;
+
+	private:
+		void BpaMaintDict();
+		int BpaIsCardKeyAppend(const int nCategory, const char* lpszKey);
+		void ExtractBpaField(IN const int nColIni, IN const int nColEnd, IN const char* lpszInChar, OUT char* lpszChar);
+		void BpaBpaCardKey2DictKey(char* lpszKey, const char* lpszPrevKey);
+
+	private:
+		unsigned char IsExcludeBus(std::vector<std::string>& strExcludeBusArray, const char* lpszBusName, const float fBuskV);
+		unsigned char IsACBusInRetainZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, const char* lpszBusName, const float fBuskV);
+		unsigned char IsDCBusInRetainZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, const char* lpszBusName, const float fBuskV);
+		int BpaTailorNetByZone_FormBoundGenLoadByACTieTran(tagBpaBlock* pBpaBlock, const int nTieTranNum, int nTieTranArray[]);
+		int BpaTailorNetByZone_FormBoundGenLoadByDCTieLine(tagBpaBlock* pBpaBlock, const unsigned char bDCBoundPV, const int nTieDCLineNum, int nTieDCLineArray[]);
+		int BpaTailorNetByZone_FormBoundGenLoadByACTieLine(tagBpaBlock* pBpaBlock, const int nTieACLineNum, int nTieACLineArray[]);
+
+	private:
+		int InRadiate(tagBpaBlock* pBpaBlock, const int nCheckBus);
+		void FormRadiate(tagBpaBlock* pBpaBlock, const double fOpenRingVolt, const double fTinyGenMva, const int nBoundBus, tagBpaRadiate& bndBuffer);
+
+	private:
+		void BpaFormEdge(tagBpaBlock* pBpaBlock);
+		void BpaFormSubstation(tagBpaBlock* pBpaBlock, const double fZIL);
+		void BpaFormTransformer(tagBpaBlock* pBpaBlock);
+		void BpaFormGenerator(tagBpaBlock* pBpaBlock);
+		void BpaFormLoad(tagBpaBlock* pBpaBlock);
+		std::string	GetSubString(tagBpaBlock* pBpaBlock, const int nJointBusNum, const int nJointBussArray[]);
+
+		unsigned char IsBpaBusGenerator(tagBpaBlock* pBpaBlock, const int nBus);
+		unsigned char IsBpaBusWTGen(tagBpaBlock* pBpaBlock, const int nBus);
+		unsigned char IsBpaBusPVGen(tagBpaBlock* pBpaBlock, const int nBus);
+		unsigned char IsBpaBusGenLn(tagBpaBlock* pBpaBlock, const int nBus);
+
+	private:
+		void BpaDictLineString2FieldArray(const int nBpaTable, const int nDictFieldNum, tagBpa_Dict dictArray[], const char* lpszBpaLine, char szField[][MDB_CHARLEN_LONG]);
+		int	BpaDictFieldArray2LineString(const int nBpaTable, const int nDictFieldNum, tagBpa_Dict dictFieldArray[], const char szField[][MDB_CHARLEN_LONG], char* lpszRetLine);
+		int ParseSwiControl(tagBpaBlock* pBpaBlock, const char* lpszKey, const char* lpszLineString);
+		void ParseSwiLn(tagBpaBlock* pBpaBlock, std::vector<std::string> strSwiLineArray);
+		void ParseSwiLOZ(tagBpaBlock* pBpaBlock, std::vector<std::string> strSwiLineArray);
+
+	private:
+		void SplitStringBySpace(const char* lpszString, std::vector<std::string>& strEleArray);
+		void ResolveNumericString(const char* lpszString, char* lpszRetString);
+		int	PfoFindACBusIndex(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV);
+		int	PfoFindDCBusIndex(tagBpaBlock* pBpaBlock, const char* lpszBusName, const float fBuskV);
+		int	IsPfoShuntLine(const char* lpszLine);
+		int	IsPfoNetLine(const char* lpszLine);
+		int	ParseBpaPfoBusLine(tagBpaBlock* pBpaBlock, const char* lpszLine, const char* lpszLineExt, int& nBusIndex, unsigned char& bDCBus);
+		int	ParseBpaPfoShunt(tagBpaBlock* pBpaBlock, const int nBus, const char* lpszLine);
+		int ParseBpaPfoNet(tagBpaBlock* pBpaBlock, const int nBus, const char* lpszLine);
+		void ParseBpaPfoACLine(tagBpaBlock* pBpaBlock, const int nFrBus, const char* lpszLine);
+		void ParseBpaPfoDCLine(tagBpaBlock* pBpaBlock, const int nFrDCBus, const char* lpszLine);
+
+	private:
+		void ParseDatAI(tagBpaBlock* pBpaBlock, std::vector<std::string> strLineArray, std::vector<tagBpaZone2Area>& z2aArray);
+		void ParseDatControl(tagBpaBlock* pBpaBlock, std::vector<std::string> strLineArray);
+
+		int BpaFiles2MemDB_Dat(tagBpaBlock* pBpaBlock, const char* lpszBpaDatFile, const double fZeroImpendance);
+		int	BpaFiles2MemDB_Swi(tagBpaBlock* pBpaBlock, const char* lpszBpaSwiFile);
+		int BpaMemDB2Files_Dat(tagBpaBlock* pBpaBlock, FILE* fp);
+		int BpaMemDB2Files_Swi(tagBpaBlock* pBpaBlock, FILE* fp);
+
+	private:
+		void SplitString(const char* lpszString, const char* lpszTokenizer, std::vector<std::string>& strEleArray);
+		void CheckDecimal(char szFloat[], const int nFloat);
+	};
 }

@@ -1,0 +1,13 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,DCBus_Name,直流母线名称,STRING,10
+2,DCBus_KV,直流母线基准电压(kV),DOUBLE,4
+3,DT_DV,过载截断电压值(标么值),DOUBLE,4
+4,DT_IMAX,过电流能力(标么值),DOUBLE,4
+5,DT_IMARG,电流余裕值(标么值),DOUBLE,4
+6,DT_Tc,电流测量回路时间常数(秒),DOUBLE,4
+7,DT_Tv,电压测量回路时间常数(秒),DOUBLE,4
+8,DT_AlphaStop,逆变器最小点燃角,DOUBLE,4
+9,DT_MSU,余裕开关单元关键码,INTEGER,1
+10,KeyName,数据库主键,STRING,16
+11,BusPtr,直流母线索引,INTEGER,4

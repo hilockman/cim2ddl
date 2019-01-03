@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.znd.bus.buffer.BufferContext;
+import com.znd.bus.exception.MessageException;
 
 public class ChannelRegistry implements Closeable {
 
@@ -29,14 +30,14 @@ public class ChannelRegistry implements Closeable {
 		return Collections.unmodifiableCollection(knownChannels.keySet());
 	}
 
-	public Channel addChannel(ChannelConfig config)
+	public Channel addChannel(ChannelConfig config) throws MessageException
 	{
 		Channel  c = context.registChannel(config);
 		knownChannels.put(config.getName(), c);
 		return c;
 	}
 	
-	public void addChannels(List<ChannelConfig> channels)
+	public void addChannels(List<ChannelConfig> channels) throws MessageException
 	{
 		if (channels == null || channels.isEmpty())
 			return;

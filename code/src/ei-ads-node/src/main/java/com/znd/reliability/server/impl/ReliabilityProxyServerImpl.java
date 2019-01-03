@@ -40,7 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.znd.ads.model.dto.PRAdequacySetting;
-import com.znd.bus.task.TaskQueue;
+import com.znd.bus.task.AQueue;
 import com.znd.ei.Utils;
 import com.znd.reliability.config.ReliabilityProperties;
 import com.znd.reliability.model.Commands;
@@ -65,7 +65,7 @@ public class ReliabilityProxyServerImpl implements ReliabilityProxyServer {
 	
 	private String jobId;
 	
-	private TaskQueue<RequestEstimate> taskList;
+	private AQueue<RequestEstimate> taskList;
 	
 	private long taskSize;
 	
@@ -138,7 +138,7 @@ public class ReliabilityProxyServerImpl implements ReliabilityProxyServer {
 	    		//cachedResult(result);
 	    		bufferServer.saveResult(result);
 	    		
-	    		taskList.decreaseLeft();
+	    		//taskList.decreaseLeft();
 	    			 		
 	    	} else if (content.contains(Commands.JOB_FINISHED)) {
 	    		System.out.println("Received message : "+content);
@@ -204,7 +204,7 @@ public class ReliabilityProxyServerImpl implements ReliabilityProxyServer {
 	
 	public ReliabilityProxyServerImpl(ReliabilityProperties properties,
 			String jobId, 
-			TaskQueue<RequestEstimate> taskList,
+			AQueue<RequestEstimate> taskList,
 			PrBufferServer bufferServer,
 			PRAdequacySetting setting) {
 		this.jobId = jobId;

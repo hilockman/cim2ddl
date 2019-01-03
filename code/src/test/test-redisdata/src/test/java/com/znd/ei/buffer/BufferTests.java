@@ -12,6 +12,9 @@ import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
 
 
 @RunWith(SpringRunner.class)
@@ -19,7 +22,7 @@ import com.znd.bus.config.CreateFlag;
 @SpringBootTest
 public class BufferTests {
 	@Test
-	public void createOneBuffer() throws RedissonDBException {
+	public void createOneBuffer() throws RedissonDBException, BindingException, BufferException, MessageException {
 		System.out.println("------------------------start TestBus.createOneBuffer()----------------------------");
 		BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
@@ -32,7 +35,7 @@ public class BufferTests {
 	}
 	
 	@Test
-	public void destoryOneBuffer() throws RedissonDBException {
+	public void destoryOneBuffer() throws RedissonDBException, BindingException, BufferException, MessageException {
 		System.out.println("------------------------start TestBus.destoryOneBuffer()----------------------------");
 		BufferConfig config = new BufferConfig();
 		config.setName("myBuffer");
@@ -46,7 +49,7 @@ public class BufferTests {
 	}
 	
 	@Test
-	public void create10Buffers() throws RedissonDBException {
+	public void create10Buffers() throws RedissonDBException, BindingException, BufferException, MessageException {
 		System.out.println("------------------------start TestBus.create10Buffers()----------------------------");
 		int count = 10;
 		
@@ -66,7 +69,7 @@ public class BufferTests {
 	}
 	
 	@Test
-	public void destory10Buffer() throws RedissonDBException {
+	public void destory10Buffer() throws RedissonDBException, BindingException, BufferException, MessageException {
 		System.out.println("------------------------start TestBus.destory10Buffer()----------------------------");
 		int count = 10;
 		

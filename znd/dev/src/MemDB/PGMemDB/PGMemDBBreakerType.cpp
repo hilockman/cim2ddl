@@ -975,4 +975,158 @@ namespace	PGMemDB
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_DISCONNECTOR]; i++)
 			pPGBlock->m_DisconnectorArray[i].nStatus=nSStatusArray[i];
 	}
+
+	void	PGFormDCBreakerJointDeviceType(tagPGBlock* pPGBlock)
+	{
+		register int	i;//, j;
+		int		nSub, nVolt, nDev, nNode;
+		int		nTypeI, nIndexI, nTypeZ, nIndexZ;
+		int		nINodeNum, nINodeArray[1000];
+		int		nZNodeNum, nZNodeArray[1000];
+		std::vector<unsigned char>	nBStatusArray;
+		std::vector<unsigned char>	nSStatusArray;
+
+		nBStatusArray.resize(pPGBlock->m_nRecordNum[PG_DCBREAKER]);
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCBREAKER]; i++)
+		{
+			pPGBlock->m_DCBreakerArray[i].nJointDevType=0;
+			pPGBlock->m_DCBreakerArray[i].nJointDevIndex=-1;
+			nBStatusArray[i]=pPGBlock->m_DCBreakerArray[i].nStatus ;
+			pPGBlock->m_DCBreakerArray[i].nStatus=1;
+		}
+
+		for (nSub=0; nSub<pPGBlock->m_nRecordNum[PG_SUBSTATION]; nSub++)
+		{
+			for (nVolt=pPGBlock->m_SubstationArray[nSub].nVoltageLevelRange; nVolt<pPGBlock->m_SubstationArray[nSub+1].nVoltageLevelRange; nVolt++)
+			{
+				for (nDev=pPGBlock->m_VoltageLevelArray[nVolt].nDCBreakerRange; nDev<pPGBlock->m_VoltageLevelArray[nVolt+1].nDCBreakerRange; nDev++)
+				{
+					nTypeI=nTypeZ=0;
+					nIndexI=nIndexZ=-1;
+					nINodeNum=nZNodeNum=0;
+
+					PGTraverseVolt(pPGBlock, pPGBlock->m_DCBreakerArray[nDev].nNodeI, Y_CheckStatus, N_CheckStatus, N_BusBound, Y_BreakerBound, nINodeNum, nINodeArray);
+					if (nTypeI <= 0)
+					{
+						for (nNode=0; nNode<nINodeNum; nNode++)
+						{
+							for (i=pPGBlock->m_VoltageLevelArray[nVolt].nSynchronousMachineRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nSynchronousMachineRange; i++)
+							{
+								if (nINodeArray[nNode] == pPGBlock->m_SynchronousMachineArray[i].nNode)
+								{
+									nTypeI=PG_SYNCHRONOUSMACHINE;
+									nIndexI=i;
+									break;
+								}
+							}
+							if (nTypeI > 0)	break;
+							for (i=pPGBlock->m_VoltageLevelArray[nVolt].nEnergyConsumerRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nEnergyConsumerRange; i++)
+							{
+								if (nINodeArray[nNode] == pPGBlock->m_EnergyConsumerArray[i].nNode)
+								{
+									nTypeI=PG_ENERGYCONSUMER;
+									nIndexI=i;
+									break;
+								}
+							}
+							if (nTypeI > 0)	break;
+						}
+					}
+					if (nTypeI <= 0)
+					{
+						for (nNode=0; nNode<nINodeNum; nNode++)
+						{
+							if (pPGBlock->m_ConnectivityNodeArray[nINodeArray[nNode]+1].nDCLineSegmentRange > pPGBlock->m_ConnectivityNodeArray[nINodeArray[nNode]].nDCLineSegmentRange)
+							{
+								nTypeI=PG_DCLINESEGMENT;
+								nIndexI=pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_ConnectivityNodeArray[nINodeArray[nNode]].nDCLineSegmentRange].nDCLineSegment;
+								break;
+							}
+						}
+					}
+					if (nTypeI <= 0)
+					{
+						for (nNode=0; nNode<nINodeNum; nNode++)
+						{
+							if (pPGBlock->m_ConnectivityNodeArray[nINodeArray[nNode]+1].nDCShortCircuitLimitRange > pPGBlock->m_ConnectivityNodeArray[nINodeArray[nNode]].nDCShortCircuitLimitRange)
+							{
+								nTypeI=PG_DCSHORTCIRCUITLIMIT;
+								nIndexI=pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_ConnectivityNodeArray[nINodeArray[nNode]].nDCShortCircuitLimitRange].nDCShortCircuitLimit;
+								break;
+							}
+						}
+					}
+
+					if (pPGBlock->m_ConnectivityNodeArray[pPGBlock->m_DCBreakerArray[nDev].nNodeJ].nBusbarSectionPtr < 0)
+					{
+						PGTraverseVolt(pPGBlock, pPGBlock->m_DCBreakerArray[nDev].nNodeJ, Y_CheckStatus, N_CheckStatus, Y_BusBound, Y_BreakerBound, nZNodeNum, nZNodeArray);
+						if (nTypeZ <= 0)
+						{
+							for (nNode=0; nNode<nZNodeNum; nNode++)
+							{
+								for (i=pPGBlock->m_VoltageLevelArray[nVolt].nSynchronousMachineRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nSynchronousMachineRange; i++)
+								{
+									if (nZNodeArray[nNode] == pPGBlock->m_SynchronousMachineArray[i].nNode)
+									{
+										nTypeZ=PG_SYNCHRONOUSMACHINE;
+										nIndexZ=i;
+										break;
+									}
+								}
+								if (nTypeZ > 0)	break;
+								for (i=pPGBlock->m_VoltageLevelArray[nVolt].nEnergyConsumerRange; i<pPGBlock->m_VoltageLevelArray[nVolt+1].nEnergyConsumerRange; i++)
+								{
+									if (nZNodeArray[nNode] == pPGBlock->m_EnergyConsumerArray[i].nNode)
+									{
+										nTypeZ=PG_ENERGYCONSUMER;
+										nIndexZ=i;
+										break;
+									}
+								}
+								if (nTypeZ > 0)	break;
+							}
+						}
+						if (nTypeZ <= 0)
+						{
+							for (nNode=0; nNode<nZNodeNum; nNode++)
+							{
+								if (pPGBlock->m_ConnectivityNodeArray[nZNodeArray[nNode]+1].nDCLineSegmentRange > pPGBlock->m_ConnectivityNodeArray[nZNodeArray[nNode]].nDCLineSegmentRange)
+								{
+									nTypeZ=PG_DCLINESEGMENT;
+									nIndexZ=pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_ConnectivityNodeArray[nZNodeArray[nNode]].nDCLineSegmentRange].nDCLineSegment;
+									break;
+								}
+							}
+						}
+						if (nTypeZ <= 0)
+						{
+							for (nNode=0; nNode<nZNodeNum; nNode++)
+							{
+								if (pPGBlock->m_ConnectivityNodeArray[nZNodeArray[nNode]+1].nDCShortCircuitLimitRange > pPGBlock->m_ConnectivityNodeArray[nZNodeArray[nNode]].nDCShortCircuitLimitRange)
+								{
+									nTypeZ=PG_DCSHORTCIRCUITLIMIT;
+									nIndexZ=pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_ConnectivityNodeArray[nZNodeArray[nNode]].nDCShortCircuitLimitRange].nDCShortCircuitLimit;
+									break;
+								}
+							}
+						}
+					}
+
+					if (nTypeI > 0 && nTypeZ == 0)
+					{
+						pPGBlock->m_DCBreakerArray[nDev].nJointDevType=(unsigned char)nTypeI;
+						pPGBlock->m_DCBreakerArray[nDev].nJointDevIndex=nIndexI;
+					}
+					else if (nTypeI == 0 && nTypeZ > 0)
+					{
+						pPGBlock->m_DCBreakerArray[nDev].nJointDevType=(unsigned char)nTypeZ;
+						pPGBlock->m_DCBreakerArray[nDev].nJointDevIndex=nIndexZ;
+					}
+				}
+			}
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCBREAKER]; i++)
+			pPGBlock->m_DCBreakerArray[i].nStatus=nBStatusArray[i];
+	}
+
 }

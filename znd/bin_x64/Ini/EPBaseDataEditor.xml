@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="gb2312" standalone="no" ?>
+<EPBaseDataEditor>
+    <Base LoadNormDistAverValue="0" LoadNormDistSTDeviation="1" PVNormDistAverValue="0" PVNormDistSTDeviation="1" WTWeibullK="0" WTWeibullC="0" AttachRandom="0" clrBackGround="0" clrForeGround="8421504" clrCurve="65280" clrAxias="16777215" YPace="10" YMin="0" YMinAuto="1" />
+</EPBaseDataEditor>

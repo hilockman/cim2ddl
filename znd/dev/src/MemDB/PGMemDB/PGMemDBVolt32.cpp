@@ -78,7 +78,7 @@ namespace	PGMemDB
 	//	判断3/2接线原则：
 	//		绝大部分设备都是不通过母线不由2个或两个以上开关控制
 	//		所有设备都是通过2个开关控制，同时开关每一侧只能控制一个设备
-	int	PGIsVolt32(tagPGBlock* pPGBlock, const int nVolt)
+	PGMEMDB_EXPORTS	int	PGIsVolt32(tagPGBlock* pPGBlock, const int nVolt)
 	{
 		register int	i, j, k;
 		int		nNode, nDev;
@@ -484,7 +484,7 @@ namespace	PGMemDB
 
 		for (nNode=pPGBlock->m_VoltageLevelArray[nVolt].nConnecivityNodeRange; nNode<pPGBlock->m_VoltageLevelArray[nVolt+1].nConnecivityNodeRange; nNode++)
 		{
-			if (PGIsTranMidNode(pPGBlock, nNode))
+			if (pPGBlock->m_ConnectivityNodeArray[nNode].bTNode)
 				continue;
 			for (nDev=pPGBlock->m_ConnectivityNodeArray[nNode].nACLineSegmentRange; nDev<pPGBlock->m_ConnectivityNodeArray[nNode+1].nACLineSegmentRange; nDev++)
 			{

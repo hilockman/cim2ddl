@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<meta charset="utf-8" />
+		<title>分布式计算-算例分析</title>
+		
+		<div th:replace="fragments/header :: header-css">
+		</div>		
+		
+		<link rel="stylesheet" type="text/css" href="../static/css/job.css"  th:href="@{/css/job.css}" />
+
+    <script type="text/javascript" th:src="@{/echarts/4.0.4/echarts.min.js}"  src="../static/echarts/4.0.4/echarts.min.js" ></script>
+     	
+
+	</head>
+	<body>
+		<div th:replace="fragments/header :: header">
+		</div>
+		
+		<div class="container-fluid container-flex">
+			<div class="half-box">
+				<!-- job-info-box -->
+				<div class="job-box" id="job-info-box">			  
+					<h2 class="h2 border-blue bg-light-blue">工作属性</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>属性</th>
+								<th>值</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>id</td>
+								<td data-id="id"></td>
+							</tr>
+							<tr>
+								<td>名称</td>
+								<td data-id="name"></td>
+							</tr>
+							<tr>
+								<td>模型</td>
+								<td data-id="modelId"></td>
+							</tr>
+						</tbody>
+					</table>			    
+					
+				</div>
+			
+			<!-- /job-info-box -->
+			</div>
+			
+
+
+			<div class="half-box">
+				    <!-- job-config-box -->
+					<div class="job-box" id="job-config-box">		  
+						<h2  class="h2 border-blue bg-light-blue">工作配置</h2>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>属性</th>
+									<th>值</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>抽样方法</td>
+									<td data-id="PRSampleMethod"></td>
+								</tr>
+								<tr>
+								<td>抽样类型</td>
+									<td data-id="PRSampleObject"></td>
+								</tr>				      
+								<tr>
+									<td>最大发电故障</td>
+									<td data-id="MaxGenFault"></td>
+								</tr>
+								<tr>
+									<td>最大支路故障</td>
+									<td data-id="MaxBranFault"></td>
+								</tr>
+								<tr>
+									<td>模拟时间</td>
+									<td data-id="MCSSimulateTime"></td>
+								</tr>				      
+							</tbody>
+						</table>				    
+						
+					</div>
+					
+					<!-- /job-config-box -->
+			</div>
+
+
+
+					
+				<!-- job-result-box -->
+			   <div class="job-box" id="job-result-box">
+			       <h2 class="h2 border-blue bg-light-blue">结果</h2>
+			   				<!-- Tab links -->
+						<div class="tab">
+							<button class="tablinks active" onclick="openTab(event, 'result-tab')">可靠性</button>
+							<button class="tablinks" onclick="openTab(event, 'bus-tab')">母线</button>
+							<button class="tablinks" onclick="openTab(event, 'state-set-tab')">抽样状态集</button>
+						</div>
+						
+						
+					   <div class="tabcontent active" id="result-tab">
+					     	 <div class="container">
+					     	 	<div class="col-xs-12 col-lg-6">
+									 <div class="chart-box " id="result-chart" style="height:300px;">
+								     </div>
+					     	 	</div>
+					     	 	
+								<div class="col-xs-12 col-lg-6 table-box" >
+								     
+								     	<table class="table">
+										    <thead>
+										      <tr>
+										        <th>指标</th>
+										        <th>结果</th>
+										      </tr>
+										    </thead>
+										    <tbody>
+										      <tr>
+										        <td>最大故障设备重数</td>
+										        <td data-id="MaxFltDev"></td>
+										      </tr>
+										      <tr>
+										      <td>切负荷状态数</td>
+										        <td data-id="CutLoadStateNum"></td>
+										      </tr>				      
+										      <tr>
+										        <td>切负荷概率</td>
+										        <td data-id="PLC"></td>
+										      </tr>
+										      <tr>
+										        <td>切负荷频率(次/年)</td>
+										        <td data-id="EFLC"></td>
+										      </tr>
+										      <tr>
+										        <td>切负荷持续时间(小时/年)</td>
+										        <td data-id="EDLC"></td>
+										      </tr>	
+										      
+										      <tr>
+										        <td>每次切负荷持续时间(小时/次)</td>
+										        <td data-id="ADLC"></td>
+										      </tr>
+										      <tr>
+										      <td>负荷切除期望值(兆瓦/年)</td>
+										        <td data-id="ELC"></td>
+										      </tr>				      
+										      <tr>
+										        <td>电量不足期望值(兆瓦时/年)</td>
+										        <td data-id="EENS"></td>
+										      </tr>
+										      <tr>
+										        <td>系统停电指标(兆瓦/兆瓦.年)</td>
+										        <td data-id="BPII"></td>
+										      </tr>
+										      <tr>
+										        <td>系统削减电量指标(兆瓦时/兆瓦.年)</td>
+										        <td data-id="BPECI"></td>
+										      </tr>		
+										      
+										      <tr>
+										        <td>严重程度指标(系统分/年 )</td>
+										        <td data-id="SI"></td>
+										      </tr>
+										      <tr>
+										      <td>平均稳定运行时间(小时)</td>
+										        <td data-id="MTTIS"></td>
+										      </tr>				      
+										      <tr>
+										        <td>孤岛电量不足期望值(兆瓦时/年)</td>
+										        <td data-id="MIslandEENS"></td>
+										      </tr>
+										      <tr>
+										        <td>失电电量不足期望值(兆瓦时/年)</td>
+										        <td data-id="LossGenEENS"></td>
+										      </tr>
+										      <tr>
+										        <td>非事故状态概率</td>
+										        <td data-id="FltGrade0Prob"></td>
+										      </tr>		
+										      
+										      <tr>						      							      			      								      <tr>
+										        <td>一般事故状态概率</td>
+										        <td data-id="FltGrade1Prob"></td>
+										      </tr>
+										      <tr>
+										        <td>较大事故状态概率</td>
+										        <td data-id="FltGrade2Prob"></td>
+										      </tr>
+										      <tr>
+										        <td>重大事故状态概率</td>
+										        <td data-id="FltGrade3Prob"></td>
+										      </tr>	
+										    </tbody>
+										  </table>
+													     	 	
+					     	 	</div>
+					     	 
+					     	 </div>
+					     	 
+
+
+					   </div>
+						 
+						 
+						 
+						 <div class="tabcontent" id="bus-tab">
+					 		<div class="chart-box" id="bus-chart" style="width:100%;height:300px;">
+					 		</div>
+						 </div>
+				   
+						 <div class="tabcontent" id="state-set-tab">
+
+							<div class="chart-box" id="state-set-chart" style="width:100%;height:300px;">
+							</div>
+							
+							
+						 </div>
+			   </div>
+				 
+				 <!-- job-result-box -->
+
+			   <div th:replace="fragments/footer :: footer">		
+		     </div>
+			 
+		   </div>
+
+	</body>
+	<script type="text/javascript">
+		
+		
+
+		var job;
+		var tab2ChartMap = {
+			'result-tab':{
+				chart:  echarts.init(document.getElementById('result-chart')),
+				table:  $(".table-box table"),
+				refresh: function() {
+					if(!job)
+						return;
+
+					let chart = this.chart;
+					let table = this.table;
+			        jobApi.getJobResult(job.id, 
+			        		function (result) {
+			        	       console.log(result);
+			        	       showIndexChart(result, chart);
+			        	       showIndexTable(result, table);
+			        	    }
+			        );			
+			        
+			        
+				}
+			},
+			
+			'bus-tab':{
+				chart:  echarts.init(document.getElementById('bus-tab')),
+				refresh: function() {
+			   
+				}
+			},
+			
+			'state-set-tab':{
+				chart:  echarts.init(document.getElementById('state-set-tab')),
+				refresh: function() {
+		   
+				}
+			},
+		}
+		
+		
+		$(window).resize(function() {
+			//resultChart.resize();
+			for (tab in tab2ChartMap) {
+				tab2ChartMap[tab].chart.resize();
+			}
+		});
+		
+		
+		  
+		$(function() {
+		   var url = new URL(window.location.href);
+		   console.log(url);
+		   var jobId = url.searchParams.get("id");
+			 console.log("id = "+jobId);
+			 job = jobApi.getJob(jobId);
+			 console.log(job);
+			 showJobInfo(job);
+			 showJobConfig(JSON.parse(job.parameter));
+			 openTab(null, 'result-tab');
+		});
+	
+		function showIndexTable(index, table) {
+			showTable(index, table);
+		}
+		function showIndexChart(index, chart) {
+
+			let option = {
+				    title : {
+				        text: '事故概率',
+				        subtext: '事故概率分析',
+				        x:'center'
+				    },
+				    tooltip : {
+				        trigger: 'item',
+				        formatter: "{a} <br/>{b} : {c} ({d}%)"
+				    },
+				    legend: {
+				        orient: 'vertical',
+				        left: 'left',
+				        data: ['特大事故','重大事故','较大事故','一般事故','非事故']
+				    },
+				    series : [
+				        {
+				            name: '蒙特卡洛法',
+				            type: 'pie',
+				            radius : '55%',
+				            center: ['50%', '60%'],
+				            data:[
+				                {value:index.FltGrade4Prob, name:'特大事故'},
+				                {value:index.FltGrade3Prob, name:'重大事故'},
+				                {value:index.FltGrade2Prob, name:'较大事故'},
+				                {value:index.FltGrade1Prob, name:'一般事故'},
+				                {value:index.FltGrade0Prob, name:'非事故'}
+				                ],
+				            itemStyle: {
+				                emphasis: {
+				                    shadowBlur: 10,
+				                    shadowOffsetX: 0,
+				                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+				                }
+				            }
+				        }
+				    ]
+				};
+			
+			chart.setOption(option);	
+			
+		}
+
+
+		function openTab(evt, name) {
+				// Declare all variables
+				var i, tabcontent, tablinks;
+
+				// Get all elements with class="tabcontent" and hide them
+				
+				tabcontent = $(".tabcontent");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent.css('display','none');
+						// tabcontent[i].style.display = "none";
+				}
+				tabcontent.resize();
+				
+				if (evt)
+					$(".tablinks").removeClass('active');
+
+				// Show the current tab, and add an "active" class to the button that opened the tab
+				var tab = $('#'+name);
+				tab.css('display', 'block');
+				//tab.style.display = "block";
+				if (evt)
+					evt.currentTarget.className += " active";	
+							
+				console.log(name);
+				let chart = tab2ChartMap[name];
+				console.log(chart);
+				chart.refresh();
+				chart.chart.resize();
+				
+		}
+		
+		
+		function showJobInfo(job) {
+			
+			showTable(job, $('#job-info-box table'));
+		}
+		
+		function showJobConfig(jobConfig) {
+			console.log(jobConfig);
+			showTable(jobConfig, $('#job-config-box table'));
+		}
+
+		
+		function showTable(obj, table) {
+
+			for (p in obj) {
+				let td = table.find("td[data-id='"+p+"']");
+				td.html(obj[p]);
+			} 
+		}
+
+	</script>
+</html>

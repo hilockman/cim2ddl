@@ -2,6 +2,13 @@ package com.znd.bus.channel;
 
 public class ChannelMessage {
 
+
+	private String code;
+	private String content;
+	
+	public ChannelMessage() {
+		
+	}
 	public ChannelMessage(MessageCodeEnum code, String content) {
 
 		this.code = code.name();
@@ -11,9 +18,6 @@ public class ChannelMessage {
 		this.code = code;
 		this.content = content;
 	}
-	private String code;
-	private String content;
-	
 	public String getCode() {
 		return code;
 	}

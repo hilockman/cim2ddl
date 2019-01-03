@@ -26,7 +26,7 @@ namespace	PRAdequacyBase
 	extern	PRADEQUACYBASE_EXP int	 ReadBpaPRAdequacySetting(const char* lpszSettingFile, tagBpaPRAdequacySetting* pSetting);
 	extern	PRADEQUACYBASE_EXP void	 SaveBpaPRAdequacySetting(tagBpaPRAdequacySetting* pSetting);
 
-	extern	unsigned int	__stdcall   GenAdequacyEstimateConThreaad(void* lParam);
+	extern	unsigned int	__stdcall  GenAdequacyEstimateConThreaad(void* lParam);
 	extern	unsigned int	__stdcall  SysAdequacyEstimateConThreaad(void* lParam);
 }
 

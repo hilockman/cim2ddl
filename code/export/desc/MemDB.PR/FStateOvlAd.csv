@@ -5,4 +5,4 @@
 3,OvlDevice,越限设备索引,INTEGER,4
 4,AdjDevTyp,调整设备类型,INTEGER,1
 5,AdjDevice,调整设备索引,INTEGER,4
-6,AdjValue,功率调整量(MW),DOUBLE,4
+6,AdjValue,功率调整量(兆瓦),DOUBLE,4

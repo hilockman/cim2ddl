@@ -32,7 +32,7 @@ public class ResultSet {
 		return results;
 	}
 
-	public String get(String column) {
+	public String get(String column) throws BindingException {
 		if (!columIndexMap.containsKey(column)) {
 			throw new  BindingException("Find no column in resultset : "+column);
 		}
@@ -40,7 +40,7 @@ public class ResultSet {
 		return get(columIndexMap.get(column));
 	}
 	
-	public String get(Integer column) {
+	public String get(Integer column) throws BindingException {
 		if (index < 0 || index >= results.size())
 			throw new  BindingException("Out of row limit :" + index);
 		

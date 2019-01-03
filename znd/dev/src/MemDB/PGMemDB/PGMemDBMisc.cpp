@@ -268,9 +268,7 @@ namespace	PGMemDB
 			nLineNum += (pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nACLineSegmentRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nACLineSegmentRange);
 			nTranNum += (pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nTransformerWindingRange - pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nTransformerWindingRange);
 			for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nBreakerRange; j++)
-			{
 				nBreakNum++;
-			}
 		}
 
 		if (nLineNum > 1 && nTranNum <= 0 && nBreakNum == 0)
@@ -280,56 +278,35 @@ namespace	PGMemDB
 	}
 
 
-	//	判断线路侧是否是T接线路侧
-	int	PGIsTranMidNode(tagPGBlock* pPGBlock, const int nJudgeNode)
-	{
-		register int	i;
-		int		nNodeNum, nNodeArray[1000];
-
-		if (pPGBlock->m_ConnectivityNodeArray[nJudgeNode+1].nTransformerWindingRange-pPGBlock->m_ConnectivityNodeArray[nJudgeNode].nTransformerWindingRange != 3)
-			return 0;
-
-		PGTraverseVolt(pPGBlock, nJudgeNode, N_CheckStatus, N_CheckStatus, N_BusBound, N_BreakerBound, nNodeNum, nNodeArray);
-		if (nNodeNum > 1)
-			return 0;
-		for (i=0; i<nNodeNum; i++)
-		{
-			if (pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nACLineSegmentRange > pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nACLineSegmentRange)
-				return 0;
-		}
-
-		return 1;
-	}
-
-	int	PGGetTranRatio(tagPGBlock* pPGBlock, const int nTran, float& fTapRatio)
+	int	PGGetTranRatio(tagPGBlock* pPGBlock, const int nWind, float& fTapRatio)
 	{
 		int		nVolt, nTranMid, nTapChanger;
 		double	fTapDeviate;
 
 		fTapRatio=1.0;
 
-		if (pPGBlock->m_PowerTransformerArray[pPGBlock->m_TransformerWindingArray[nTran].nTran].nWindNum == 3)
+		if (pPGBlock->m_PowerTransformerArray[pPGBlock->m_TransformerWindingArray[nWind].nTran].nWindNum == 3)
 		{
-			int	nWindH=pPGBlock->m_PowerTransformerArray[pPGBlock->m_TransformerWindingArray[nTran].nTran].nWindH;
-			int	nWindM=pPGBlock->m_PowerTransformerArray[pPGBlock->m_TransformerWindingArray[nTran].nTran].nWindM;
+			int	nWindH=pPGBlock->m_PowerTransformerArray[pPGBlock->m_TransformerWindingArray[nWind].nTran].nWindH;
+			int	nWindM=pPGBlock->m_PowerTransformerArray[pPGBlock->m_TransformerWindingArray[nWind].nTran].nWindM;
 
 			nTranMid=(pPGBlock->m_TransformerWindingArray[nWindH].nNodeI == pPGBlock->m_TransformerWindingArray[nWindM].nNodeI || pPGBlock->m_TransformerWindingArray[nWindH].nNodeI == pPGBlock->m_TransformerWindingArray[nWindM].nNodeJ) ?
 				pPGBlock->m_TransformerWindingArray[nWindH].nNodeI : pPGBlock->m_TransformerWindingArray[nWindH].nNodeJ;
 
-			if (nTranMid == pPGBlock->m_TransformerWindingArray[nTran].nNodeJ)
+			if (nTranMid == pPGBlock->m_TransformerWindingArray[nWind].nNodeJ)
 			{
-				nVolt=pPGBlock->m_TransformerWindingArray[nTran].nVoltI;
-				nTapChanger=pPGBlock->m_TransformerWindingArray[nTran].nTapChangerI;
+				nVolt=pPGBlock->m_TransformerWindingArray[nWind].nVoltI;
+				nTapChanger=pPGBlock->m_TransformerWindingArray[nWind].nTapChangerI;
 				if (nVolt < 0 || nTapChanger < 0)
 					return 0;
 
 				if (pPGBlock->m_TapChangerArray[nTapChanger].nTapMax < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin ||
-					pPGBlock->m_TransformerWindingArray[nTran].nTapI < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin ||
-					pPGBlock->m_TransformerWindingArray[nTran].nTapI > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
+					pPGBlock->m_TransformerWindingArray[nWind].nTapI < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin ||
+					pPGBlock->m_TransformerWindingArray[nWind].nTapI > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
 					return 0;
 
-				fTapDeviate= 1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nTran].nTapI-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
-				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nTran].fRatedkVI/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
+				fTapDeviate= 1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nWind].nTapI-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
+				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nWind].fRatedkVI/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
 				if (fTapRatio < 0.8 || fTapRatio > 1.2)
 				{
 					//fTapRatio=1.0;
@@ -338,18 +315,18 @@ namespace	PGMemDB
 			}
 			else
 			{
-				nVolt=pPGBlock->m_TransformerWindingArray[nTran].nVoltJ;
-				nTapChanger=pPGBlock->m_TransformerWindingArray[nTran].nTapChangerJ;
+				nVolt=pPGBlock->m_TransformerWindingArray[nWind].nVoltJ;
+				nTapChanger=pPGBlock->m_TransformerWindingArray[nWind].nTapChangerJ;
 				if (nVolt < 0 || nTapChanger < 0)
 					return 0;
 
 				if (pPGBlock->m_TapChangerArray[nTapChanger].nTapMax <= pPGBlock->m_TapChangerArray[nTapChanger].nTapMin &&
-					pPGBlock->m_TransformerWindingArray[nTran].nTapJ < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin &&
-					pPGBlock->m_TransformerWindingArray[nTran].nTapJ > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
+					pPGBlock->m_TransformerWindingArray[nWind].nTapJ < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin &&
+					pPGBlock->m_TransformerWindingArray[nWind].nTapJ > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
 					return 0;
 
-				fTapDeviate=1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nTran].nTapJ-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
-				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nTran].fRatedkVJ/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
+				fTapDeviate=1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nWind].nTapJ-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
+				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nWind].fRatedkVJ/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
 				if (fTapRatio < 0.8 || fTapRatio > 1.2)
 				{
 					//fTapRatio=1.0;
@@ -359,20 +336,20 @@ namespace	PGMemDB
 		}
 		else
 		{
-			if (pPGBlock->m_TransformerWindingArray[nTran].fRatedkVI > pPGBlock->m_TransformerWindingArray[nTran].fRatedkVJ)
+			if (pPGBlock->m_TransformerWindingArray[nWind].fRatedkVI > pPGBlock->m_TransformerWindingArray[nWind].fRatedkVJ)
 			{
-				nVolt=pPGBlock->m_TransformerWindingArray[nTran].nVoltI;
-				nTapChanger=pPGBlock->m_TransformerWindingArray[nTran].nTapChangerI;
+				nVolt=pPGBlock->m_TransformerWindingArray[nWind].nVoltI;
+				nTapChanger=pPGBlock->m_TransformerWindingArray[nWind].nTapChangerI;
 				if (nVolt < 0 || nTapChanger < 0)
 					return 0;
 
 				if (pPGBlock->m_TapChangerArray[nTapChanger].nTapMax < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin ||
-					pPGBlock->m_TransformerWindingArray[nTran].nTapI < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin ||
-					pPGBlock->m_TransformerWindingArray[nTran].nTapI > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
+					pPGBlock->m_TransformerWindingArray[nWind].nTapI < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin ||
+					pPGBlock->m_TransformerWindingArray[nWind].nTapI > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
 					return 0;
 
-				fTapDeviate= 1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nTran].nTapI-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
-				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nTran].fRatedkVI/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
+				fTapDeviate= 1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nWind].nTapI-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
+				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nWind].fRatedkVI/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
 				if (fTapRatio < 0.8 || fTapRatio > 1.2)
 				{
 					//fTapRatio=1.0;
@@ -381,18 +358,18 @@ namespace	PGMemDB
 			}
 			else
 			{
-				nVolt=pPGBlock->m_TransformerWindingArray[nTran].nVoltJ;
-				nTapChanger=pPGBlock->m_TransformerWindingArray[nTran].nTapChangerJ;
+				nVolt=pPGBlock->m_TransformerWindingArray[nWind].nVoltJ;
+				nTapChanger=pPGBlock->m_TransformerWindingArray[nWind].nTapChangerJ;
 				if (nVolt < 0 || nTapChanger < 0)
 					return 0;
 
 				if (pPGBlock->m_TapChangerArray[nTapChanger].nTapMax <= pPGBlock->m_TapChangerArray[nTapChanger].nTapMin &&
-					pPGBlock->m_TransformerWindingArray[nTran].nTapJ < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin &&
-					pPGBlock->m_TransformerWindingArray[nTran].nTapJ > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
+					pPGBlock->m_TransformerWindingArray[nWind].nTapJ < pPGBlock->m_TapChangerArray[nTapChanger].nTapMin &&
+					pPGBlock->m_TransformerWindingArray[nWind].nTapJ > pPGBlock->m_TapChangerArray[nTapChanger].nTapMax)
 					return 0;
 
-				fTapDeviate=1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nTran].nTapJ-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
-				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nTran].fRatedkVJ/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
+				fTapDeviate=1+(pPGBlock->m_TapChangerArray[nTapChanger].fTapStep/100.0f)*(pPGBlock->m_TransformerWindingArray[nWind].nTapJ-pPGBlock->m_TapChangerArray[nTapChanger].nTapNom);
+				fTapRatio=(float)(fTapDeviate*pPGBlock->m_TransformerWindingArray[nWind].fRatedkVJ/pPGBlock->m_VoltageLevelArray[nVolt].nominalVoltage);
 				if (fTapRatio < 0.8 || fTapRatio > 1.2)
 				{
 					//fTapRatio=1.0;
@@ -404,7 +381,7 @@ namespace	PGMemDB
 		return	1;
 	}
 
-	void PGGetParallelLine(tagPGBlock* pPGBlock, const int nLine, const unsigned char bCheckStatus, int& nParaLineNum, int nParaLineArray[])
+	void PGGetParallelACLine(tagPGBlock* pPGBlock, const int nLine, const unsigned char bCheckStatus, int& nParaLineNum, int nParaLineArray[])
 	{
 		register int	i;
 		int		nINode, nZNode;
@@ -436,7 +413,7 @@ namespace	PGMemDB
 		}
 	}
 
-	void PGGetParallelTran(tagPGBlock* pPGBlock, const int nTran, const unsigned char bCheckStatus, int& nParaWindNum, int nParaWindArray[])
+	void PGGetParallelDCLine(tagPGBlock* pPGBlock, const int nLine, const unsigned char bCheckStatus, int& nParaLineNum, int nParaLineArray[])
 	{
 		register int	i;
 		int		nINode, nZNode;
@@ -444,29 +421,92 @@ namespace	PGMemDB
 		int	nINodeNum, nINodeArray[1000];
 		int	nZNodeNum, nZNodeArray[1000];
 
-		nParaWindNum=0;
-		PGTraverseSub(pPGBlock, pPGBlock->m_TransformerWindingArray[nTran].nNodeI, bCheckStatus, nINodeNum, nINodeArray);
-		PGTraverseSub(pPGBlock, pPGBlock->m_TransformerWindingArray[nTran].nNodeJ, bCheckStatus, nZNodeNum, nZNodeArray);
+		nParaLineNum=0;
+		PGTraverseVolt(pPGBlock, pPGBlock->m_DCLineSegmentArray[nLine].nNodeI, bCheckStatus, bCheckStatus, N_BusBound, N_BreakerBound, nINodeNum, nINodeArray);
+		PGTraverseVolt(pPGBlock, pPGBlock->m_DCLineSegmentArray[nLine].nNodeJ, bCheckStatus, bCheckStatus, N_BusBound, N_BreakerBound, nZNodeNum, nZNodeArray);
 
 		for (nINode=0; nINode<nINodeNum; nINode++)
 		{
-			for (i=pPGBlock->m_ConnectivityNodeArray[nINodeArray[nINode]].nTransformerWindingRange; i<pPGBlock->m_ConnectivityNodeArray[nINodeArray[nINode]+1].nTransformerWindingRange; i++)
+			for (i=pPGBlock->m_ConnectivityNodeArray[nINodeArray[nINode]].nDCLineSegmentRange; i<pPGBlock->m_ConnectivityNodeArray[nINodeArray[nINode]+1].nDCLineSegmentRange; i++)
 			{
 				bInNode=0;
 				for (nZNode=0; nZNode<nZNodeNum; nZNode++)
 				{
-					if (pPGBlock->m_TransformerWindingArray[pPGBlock->m_EdgeTransformerWindingArray[i].nTransformerWinding].nNodeI == nZNodeArray[nZNode] ||
-						pPGBlock->m_TransformerWindingArray[pPGBlock->m_EdgeTransformerWindingArray[i].nTransformerWinding].nNodeJ == nZNodeArray[nZNode])
+					if (pPGBlock->m_DCLineSegmentArray[pPGBlock->m_EdgeDCLineSegmentArray[i].nDCLineSegment].nNodeI == nZNodeArray[nZNode] ||
+						pPGBlock->m_DCLineSegmentArray[pPGBlock->m_EdgeDCLineSegmentArray[i].nDCLineSegment].nNodeJ == nZNodeArray[nZNode])
 					{
 						bInNode=1;
 						break;
 					}
 				}
 				if (bInNode)
-					nParaWindArray[nParaWindNum++] = pPGBlock->m_EdgeTransformerWindingArray[i].nTransformerWinding;
+					nParaLineArray[nParaLineNum++] = pPGBlock->m_EdgeDCLineSegmentArray[i].nDCLineSegment;
 			}
 		}
 	}
+
+	int IntegerInIntArray(const int nInteger, int nLen, int nArray[])
+	{
+		register int	i;
+		for (i=0; i<nLen; i++)
+		{
+			if (nInteger == nArray[i])
+				return 1;
+		}
+		return 0;
+	}
+
+	void PGGetParallelTran(tagPGBlock* pPGBlock, const int nTran, const unsigned char bCheckStatus, int& nParaTranNum, int nParaTranArray[])
+	{
+		int		nSub, nDev;
+		unsigned char	bHIn, bMIn, bLIn;
+		int	nHNodeNum, nHNodeArray[1000];
+		int	nMNodeNum, nMNodeArray[1000];
+		int	nLNodeNum, nLNodeArray[1000];
+
+		nParaTranNum=0;
+		nParaTranArray[nParaTranNum++] = nTran;
+
+		nSub = PGFindRecordbyKey(pPGBlock, PG_SUBSTATION, pPGBlock->m_PowerTransformerArray[nTran].szSub);
+		if (nSub < 0)
+			return;
+
+		if (pPGBlock->m_PowerTransformerArray[nTran].nWindNum == 2)
+		{
+			PGTraverseSub(pPGBlock, pPGBlock->m_PowerTransformerArray[nTran].nNodeH, bCheckStatus, nHNodeNum, nHNodeArray);
+			PGTraverseSub(pPGBlock, pPGBlock->m_PowerTransformerArray[nTran].nNodeL, bCheckStatus, nLNodeNum, nLNodeArray);
+
+			for (nDev=pPGBlock->m_SubstationArray[nSub].nPowerTransformerRange; nDev<pPGBlock->m_SubstationArray[nSub+1].nPowerTransformerRange; nDev++)
+			{
+				if (nDev == nTran)
+					continue;
+
+				bHIn = IntegerInIntArray(pPGBlock->m_PowerTransformerArray[nDev].nNodeH, nHNodeNum, nHNodeArray);
+				bLIn = IntegerInIntArray(pPGBlock->m_PowerTransformerArray[nDev].nNodeL, nLNodeNum, nLNodeArray);
+				if (bHIn && bLIn)
+					nParaTranArray[nParaTranNum++] = nDev;
+			}
+		}
+		else
+		{
+			PGTraverseSub(pPGBlock, pPGBlock->m_PowerTransformerArray[nTran].nNodeH, bCheckStatus, nHNodeNum, nHNodeArray);
+			PGTraverseSub(pPGBlock, pPGBlock->m_PowerTransformerArray[nTran].nNodeM, bCheckStatus, nMNodeNum, nMNodeArray);
+			PGTraverseSub(pPGBlock, pPGBlock->m_PowerTransformerArray[nTran].nNodeL, bCheckStatus, nLNodeNum, nLNodeArray);
+
+			for (nDev=pPGBlock->m_SubstationArray[nSub].nPowerTransformerRange; nDev<pPGBlock->m_SubstationArray[nSub+1].nPowerTransformerRange; nDev++)
+			{
+				if (nDev == nTran)
+					continue;
+
+				bHIn = IntegerInIntArray(pPGBlock->m_PowerTransformerArray[nDev].nNodeH, nHNodeNum, nHNodeArray);
+				bMIn = IntegerInIntArray(pPGBlock->m_PowerTransformerArray[nDev].nNodeM, nMNodeNum, nMNodeArray);
+				bLIn = IntegerInIntArray(pPGBlock->m_PowerTransformerArray[nDev].nNodeL, nLNodeNum, nLNodeArray);
+				if (bHIn && bMIn && bLIn)
+					nParaTranArray[nParaTranNum++] = nDev;
+			}
+		}
+	}
+
 	void	PGDataPtr2FieldArray(IN const int nTable, IN const char* lpszDataPtr, OUT char szField[][MDB_CHARLEN_LONG])
 	{
 		register int	i;

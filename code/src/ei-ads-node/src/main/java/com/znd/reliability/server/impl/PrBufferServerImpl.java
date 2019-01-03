@@ -3,7 +3,11 @@ package com.znd.reliability.server.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
+import org.redisson.api.RSemaphore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +17,11 @@ import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.common.model.CalcJob;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.CreateFlag;
-import com.znd.bus.task.TaskQueue;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
+import com.znd.bus.task.AQueue;
+import com.znd.bus.util.TimeCount;
 import com.znd.ei.memdb.reliabilty.domain.FState;
 import com.znd.ei.memdb.reliabilty.domain.FStateFDev;
 import com.znd.ei.memdb.reliabilty.domain.FStateMIsland;
@@ -37,7 +45,13 @@ public class PrBufferServerImpl implements PrBufferServer {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(PrBufferServerImpl.class);
 	
-	private final TaskQueue<RequestEstimate> taskList;
+	//任务
+	private final AQueue<RequestEstimate> taskList;
+	//结果本地缓存
+	private BlockingQueue<ResponseEstimate> localResultList = new LinkedBlockingQueue<ResponseEstimate>();
+	private final RSemaphore resultSemaphore;
+	
+	
 	private final FStateBuffer fstateMapper;
 	private final FStateFDevBuffer devMapper;
 	private final FStateOvlAdBuffer ovlAdMapper;
@@ -48,21 +62,41 @@ public class PrBufferServerImpl implements PrBufferServer {
 	public static final String TYPE_PACKAGE = "com.znd.ei.memdb.reliabilty.domain";
 	public static final String MAPPER_PACKAGE = "com.znd.reliability.buffer";
 	
+	private final CalcJob job;
+
+	private BufferFactory factory;
+	
 	public PrBufferServerImpl(Buffer parentBuffer, CalcJob job) {
 //		
 //		if (job == null || job.getModelId() == null || job.getModelId().isEmpty()) {
 //			throw new AplException("job is null or job name is empty :"+job);
 //		}
+		this.job = job;
 		String dbId = job.getId();
 		BufferConfig config = parentBuffer.getConfig();
-		TaskQueue<RequestEstimate> taskList = config.getTaskList(job.getId()+":task");
+		AQueue<RequestEstimate> taskList = config.getList(job.getId()+":task");
 		if (taskList == null)
 			throw new AplException("Cann't create task list : "+job.getId());
 		
 		this.taskList = taskList;
+		this.resultSemaphore = config.getSemaphore(job.getId()+":result:semaphore");
+				
 		BufferFactoryBuilder builder  = new BufferFactoryBuilder();
+		 factory = null;
+		new TimeCount.Builder().name("build buffer").runnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					factory = builder.build(dbId, CreateFlag.UPDATE, TYPE_PACKAGE, MAPPER_PACKAGE, config);
+				} catch (BindingException | BufferException | MessageException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return;
+				}
+			}
+		}).build().exec();
 		
-		BufferFactory factory = builder.build(dbId, CreateFlag.UPDATE, TYPE_PACKAGE, MAPPER_PACKAGE, config);
 		Buffer buffer = factory.openSession();
 			
 		fstateMapper = factory.config().getMapper(FStateBuffer.class, buffer);
@@ -85,9 +119,10 @@ public class PrBufferServerImpl implements PrBufferServer {
 		ovlAdMapper.deleteAll();
 		ovlDevMapper.deleteAll();
 		islandMapper.deleteAll();
+		systemBuffer.deleteAll();
 	}
 
-	public TaskQueue<RequestEstimate> getTaskList() {
+	public AQueue<RequestEstimate> getTaskList() {
 		return taskList;
 	}
 
@@ -157,7 +192,7 @@ public class PrBufferServerImpl implements PrBufferServer {
 		t.start();
 		try {
 			t.join();
-			taskList.syncLeftCount();
+//			taskList.syncLeftCount();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,12 +208,17 @@ public class PrBufferServerImpl implements PrBufferServer {
 		List<FStateMIsland> islands = new ArrayList<>();
 		List<FStateOvlAd> ovlAds  = new ArrayList<>();
 		List<FStateOvlDev> ovlDevs = new ArrayList<>();
-		for (ResponseEstimate result : resultList)  {
+		int size = localResultList.size();
+		LOGGER.info("resultList size : "+size);
+		
+		for (ResponseEstimate result : localResultList)  {
  			Content c = result.getContent();	
  			
  	 		
  	 		if (c.getFState() != null && !c.getFState().isEmpty()) {
  	 			fstates.addAll(c.getFState());
+ 	 		} else {
+ 	 			LOGGER.error("find no fstate in result : "+result);
  	 		}
  	 		
  	 		if (c.getFStateMIsland() != null && !c.getFStateMIsland().isEmpty()) {
@@ -194,28 +234,34 @@ public class PrBufferServerImpl implements PrBufferServer {
  	 		} 			
  		}
  		
-
  		fstateMapper.insertList(fstates);
- 		
+ 		LOGGER.info("flush fstates size : "+fstates.size());
  		
 
  		islandMapper.insertList(islands);
- 		
+ 		LOGGER.info("flush islands size : "+islands.size());
  		
 
  		ovlAdMapper.insertList(ovlAds);
-
+ 		LOGGER.info("flush ovlAds size : "+ovlAds.size());
  		
 
  		ovlDevMapper.insertList(ovlDevs);
-
+ 		LOGGER.info("flush ovlDevs size : "+ovlDevs.size());
+ 		
+ 		
+ 		resultSemaphore.release(size);
+ 		LOGGER.info("result semaphore release : "+size);
 	}
 	
-	private List<ResponseEstimate> resultList = new ArrayList<>();
+	@Override
+	public void waitForFinished(long waitTime, TimeUnit unit) throws InterruptedException {
+		resultSemaphore.tryAcquire(job.getMaxStep(), waitTime, unit);
+	}
 	
 	@Override
 	public void saveResult(ResponseEstimate result) {
-		resultList.add(result);		
+		localResultList.offer(result);	
 	}
 
 	@Override
@@ -242,6 +288,19 @@ public class PrBufferServerImpl implements PrBufferServer {
 	public void saveSystems(List<System> systems) {
 		systemBuffer.insertList(systems);
 	}
+
+	@Override
+	public int getResultSize() {
+		return localResultList.size();
+	}
+
+
+
+//	public RSemaphore getResultSemaphore() {
+//		return resultSemaphore;
+//	}
+//
+
 
 
 }

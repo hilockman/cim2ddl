@@ -1,5 +1,5 @@
 序号,名称,描述,类型,长度
-0,BusName,母线名称,STRING,10
-1,BuskV,母线电压(kV),DOUBLE,4
-2,WindName,绕组名称,STRING,32
-3,WindPtr,绕组索引,INTEGER,4
+0,ACBusName,交流母线名称,STRING,10
+1,ACBuskV,交流母线电压(kV),DOUBLE,4
+2,WindName,变压器绕组名称,STRING,32
+3,WindPtr,变压器绕组索引,INTEGER,4

@@ -21,6 +21,9 @@ import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.ColumnMeta;
 import com.znd.bus.config.CreateFlag;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
 
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.JVM)//指定测试方法按定义的顺序执行
@@ -127,7 +130,7 @@ public class BufferIOTests {
 //	
 
     @Test
-	public  void createOneTable() throws RedissonDBException {
+	public  void createOneTable() throws RedissonDBException, BindingException, BufferException, MessageException {
     	System.out.println("------------------------start TestBus.createOneTable()----------------------------");	
 
 		BufferConfig config = new BufferConfig();
@@ -191,7 +194,7 @@ public class BufferIOTests {
 //    }
 //    
     @Test
-    public void dropOneTable() throws RedissonDBException {
+    public void dropOneTable() throws RedissonDBException, BindingException, BufferException, MessageException {
     	System.out.println("------------------------start TestBus.dropOneTable()----------------------------");
   
     	BufferConfig config = new BufferConfig();
@@ -305,7 +308,7 @@ public class BufferIOTests {
     static public int count = 0;
     @Test
    // @Repeat(100)
-    public void insertOneRecord() throws RedissonDBException  {
+    public void insertOneRecord() throws RedissonDBException, BindingException, BufferException, MessageException  {
 
     	System.out.println("------------------------start TestBus.insertOneRecord()----------------------------"+count++);    	
     	BufferConfig config = new BufferConfig();

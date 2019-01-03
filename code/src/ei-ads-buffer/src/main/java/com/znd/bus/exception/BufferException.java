@@ -1,7 +1,7 @@
 package com.znd.bus.exception;
 
 
-public class BufferException extends RuntimeException {
+public class BufferException extends AdsException {
 
 	public BufferException(Throwable cause) {
 		super(cause);

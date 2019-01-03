@@ -55,3 +55,10 @@ extern "C" void runSample(StateEstimate *se, const char *sampleStr)
 		log_error("StateEstimate instance is NULL, Cann't process message '%s':%s", sampleStr);
 	}
 }
+
+
+extern "C" int calcReliability(const char *configFile){
+	StateEstimate se(0);
+	se.run(configFile);
+	return 0;
+}

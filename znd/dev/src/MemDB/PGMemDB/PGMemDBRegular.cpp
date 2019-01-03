@@ -40,9 +40,7 @@ namespace	PGMemDB
 		for (nRec=0; nRec<pPGBlock->m_nRecordNum[PG_SUBCONTROLAREA]; nRec++)
 		{
 			if (strlen(pPGBlock->m_SubcontrolAreaArray[nRec].szResID) <= 0)
-			{
 				continue;
-			}
 			for (i=0; i<pPGBlock->m_nRecordNum[PG_SUBSTATION]; i++)
 			{
 				bParsed=0;

@@ -1,0 +1,15 @@
+0*** WARNING    Missing voltage data, global values used : VMAX, VMIN( 1.052 0.950)                                      *** WARNING 
+ *** WARNING                                                                                                             *** WARNING 
+ *** WARNING               (BQ    浙温州G320.0QC29.347.184         960960.0450.0                            )            *** WARNING 
+ *** WARNING    Missing voltage data, global values used : VMAX, VMIN( 1.052 0.950)                                      *** WARNING 
+ *** WARNING                                                                                                             *** WARNING 
+ *** WARNING               (BQ    浙温州G320.0QC29.347.184         960960.0450.0                            )            *** WARNING 
+0*** WARNING    Missing voltage data, global values used : VMAX, VMIN( 1.052 0.950)                                      *** WARNING 
+ *** WARNING                                                                                                             *** WARNING 
+ *** WARNING               (BQ    浙温州G320.0QC29.347.184         960960.0450.0                            )            *** WARNING 
+0*** WARNING    数据文件中没有区域功率控制数据卡AC卡，指定的区域间功率控制方式无效。                                     *** WARNING 
+ *** WARNING  Major errors have aborted area interchange control.                                                        *** WARNING 
+ *** WARNING   节点"SNQ220   230.0"的有功出力  791.6大于最大出力  791.0。                                                *** WARNING 
+ *** WARNING   节点"国绍换51 525.0"的无功出力-4582.1较小。                                                               *** WARNING 
+ *** WARNING   节点"国浙西51 525.0"的无功出力-4803.3较小。                                                               *** WARNING 
+ *** WARNING   节点"国郢换51 525.0"的无功出力-3224.7较小。                                                               *** WARNING 

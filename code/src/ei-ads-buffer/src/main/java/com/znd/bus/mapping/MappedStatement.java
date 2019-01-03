@@ -13,6 +13,8 @@ import com.znd.bus.binding.MethodType;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.ColumnMeta;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.MappingError;
 import com.znd.bus.mapping.impl.ObjectResultSetHandler;
 import com.znd.bus.mapping.impl.RawArrayResultHandler;
 import com.znd.bus.reflection.Reflector;
@@ -60,7 +62,7 @@ public class MappedStatement {
 			  
 		  }
 		  
-		  private void addParameter(String argName, Class<?> argType) {
+		  private void addParameter(String argName, Class<?> argType) throws MappingError {
 			  TypeHandler<?> typeHandler = mappedStatement.config.getTypeHandler(argType);
 			  if (typeHandler != null) {
 				  ColumnMeta column = mappedStatement.tableMeta.findColumn(argName);
@@ -73,7 +75,7 @@ public class MappedStatement {
 			  }
 		  }
 		  
-		  private void initParameterMapping(Class<?> clazz) {
+		  private void initParameterMapping(Class<?> clazz) throws MappingError {
 			  Reflector reflector = mappedStatement.config.getReflector(clazz);
 			  String[] properties = reflector.getGetablePropertyNames();					  
 			  for (int i = 0; i < properties.length; i++) {
@@ -83,7 +85,7 @@ public class MappedStatement {
 			  } 
 		  }
 		  
-		  public MappedStatement build() {	
+		  public MappedStatement build() throws MappingError, BindingException {	
 			  
 			  if (mappedStatement.tableName != null) {
 				  mappedStatement.tableMeta = mappedStatement.config.getTableMeta(mappedStatement.tableName);
@@ -170,7 +172,7 @@ public class MappedStatement {
 	  
 	  
 	  @SuppressWarnings("unchecked")
-	  public <T> List<T> handler(ResultSet resultSet) {
+	  public <T> List<T> handler(ResultSet resultSet) throws BindingException {
 		  return (List<T>) resultSetHandler.handle(resultSet);
 	  }
 	  

@@ -5,21 +5,23 @@
 
 namespace	BpaMemDB
 {
-	void	BpaDictKey2BpaCardKey(char* lpszKey)
+	void CBpaMemDBInterface::BpaDictKey2BpaCardKey(char* lpszKey)
 	{
 		if (stricmp(lpszKey, "FX+") == 0)
 			strcpy(lpszKey, "F+");
-// 		else if (stricmp(lpszKey, "SH1") == 0 || stricmp(lpszKey, "SH2") == 0)
-// 			strcpy(lpszKey, "SH");
-// 		else if (stricmp(lpszKey, "SH1+") == 0 || stricmp(lpszKey, "SH2+") == 0)
-// 			strcpy(lpszKey, "SH+");
 		else if (stricmp(lpszKey, "UV+") == 0)
 			strcpy(lpszKey, "U+");
 		else if (stricmp(lpszKey, "UF+") == 0)
 			strcpy(lpszKey, "U+");
+		else if (stricmp(lpszKey, "DNZ") == 0)
+			strcpy(lpszKey, "DZ");
+		else if (stricmp(lpszKey, "DMZ") == 0)
+			strcpy(lpszKey, "DZ");
+		else if (stricmp(lpszKey, "DAZ") == 0)
+			strcpy(lpszKey, "DZ");
 	}
 
-	void	BpaBpaCardKey2DictKey(char* lpszKey, const char* lpszDataLine)
+	void CBpaMemDBInterface::BpaBpaCardKey2DictKeyFx(char* lpszKey, const char* lpszDataLine)
 	{
 		register int	i;
 		unsigned char	bBlank=1;
@@ -36,56 +38,40 @@ namespace	BpaMemDB
 			if (bBlank)
 				strcpy(lpszKey, "FX+");
 		}
-// 		else if (stricmp(lpszKey, "SH") == 0)
-// 		{
-// 			for (i=16; i<20; i++)
-// 			{
-// 				if (lpszDataLine[i] != ' ')
-// 				{
-// 					bBlank=0;
-// 					break;
-// 				}
-// 			}
-// 			if (bBlank)
-// 				strcpy(lpszKey, "SH2");
-// 			else
-// 				strcpy(lpszKey, "SH1");
-// 		}
-// 		else if (stricmp(lpszKey, "SH+") == 0)
-// 		{
-// 			for (i=16; i<60; i++)
-// 			{
-// 				if (lpszDataLine[i] != ' ')
-// 				{
-// 					bBlank=0;
-// 					break;
-// 				}
-// 			}
-// 			if (bBlank)
-// 				strcpy(lpszKey, "SH1+");
-// 			else
-// 				strcpy(lpszKey, "SH2+");
-// 		}
 	}
 
-	void	BpaBpaCardKey2DictKey(char* lpszKey, const std::vector<std::string> strPrevCardArray)
+	void CBpaMemDBInterface::BpaBpaCardKey2DictKey(char* lpszKey, const char* lpszPrevKey)
 	{
-		register int	i;
 		unsigned char	bBlank=1;
 		if (stricmp(lpszKey, "U+") == 0)
 		{
-			for (i=(int)strPrevCardArray.size()-1; i>=0; i--)
+			if (stricmp(lpszPrevKey, "UF") == 0)
 			{
-				if (stricmp(strPrevCardArray[i].c_str(), "UF") == 0)
-				{
-					strcpy(lpszKey, "UF+");
-					return;
-				}
-				else if (stricmp(strPrevCardArray[i].c_str(), "UV") == 0)
-				{
-					strcpy(lpszKey, "UV+");
-					return;
-				}
+				strcpy(lpszKey, "UF+");
+				return;
+			}
+			else if (stricmp(lpszPrevKey, "UV") == 0)
+			{
+				strcpy(lpszKey, "UV+");
+				return;
+			}
+		}
+		else if (stricmp(lpszKey, "DZ") == 0)
+		{
+			if (stricmp(lpszPrevKey, "DM") == 0)
+			{
+				strcpy(lpszKey, "DMZ");
+				return;
+			}
+			else if (stricmp(lpszPrevKey, "DN") == 0)
+			{
+				strcpy(lpszKey, "DNZ");
+				return;
+			}
+			else if (stricmp(lpszPrevKey, "DA") == 0)
+			{
+				strcpy(lpszKey, "DAZ");
+				return;
 			}
 		}
 	}

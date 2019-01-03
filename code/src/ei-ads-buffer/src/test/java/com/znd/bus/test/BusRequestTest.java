@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.znd.bus.exception.AdsException;
 import com.znd.bus.server.AdapterService;
 import com.znd.bus.server.BusService;
 import com.znd.bus.server.Topic;
@@ -126,7 +127,7 @@ public class BusRequestTest {
 	
 	public static final String TETS_REQUEST =  "EMS";
 	@Test
-	public void requestTest() {
+	public void requestTest() throws AdsException {
 		
 		adapter1 = busSerice.registAdapter(new TestRequestAdapter(), "request-adapter", Topic.in(VerbEnum.create, TETS_REQUEST));
 		busSerice.registAdapter(new TestResponseAdapter(), "response-adapter", Topic.out(VerbEnum.create, TETS_REQUEST));

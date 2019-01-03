@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,Id,工作类型ID,INTEGER,4
+1,Name,工作类型名称,STRING,64
+2,Desp,工作类型描述,STRING,64
+3,NodeId,发起节点,INTEGER,4

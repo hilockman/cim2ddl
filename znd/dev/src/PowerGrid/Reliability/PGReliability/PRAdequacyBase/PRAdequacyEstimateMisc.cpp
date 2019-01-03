@@ -1,7 +1,7 @@
 #include <process.h>
 #include "PRAdequacyEstimate.h"
 #include "../../../../Common/TinyXML/tinyxmlglobal.h"
-
+#include "../../../../../include/ilog.h"
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
@@ -197,6 +197,7 @@ namespace	PRAdequacyBase
 	void CPRAdequacyEstimate::AdjustDeviceRated(tagPRBlock* pPRBlock, const double fDC2ACRatio, const unsigned char bUPFCAdjustRC)
 	{
 		int		nDev;
+		double	fRatio;
 
 		CDCNetwork*	pDCNetwork=new CDCNetwork();
 		pDCNetwork->PRDCFlow(pPRBlock, UPFC_MODE_NO);
@@ -206,25 +207,39 @@ namespace	PRAdequacyBase
 		{
 			if (pPRBlock->m_ACLineArray[nDev].fRated <= FLT_MIN)
 				continue;
+			fRatio = fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi)/pPRBlock->m_ACLineArray[nDev].fRated;
+			if (fRatio > 1.25)
+			{
+				log_error("线路[%s] 超限严重 = %.2f\n", pPRBlock->m_ACLineArray[nDev].szName, fRatio);
+				pPRBlock->m_ACLineArray[nDev].fRated=0;
+				continue;
+			}
 
 			if (bUPFCAdjustRC && pPRBlock->m_ACLineArray[nDev].nUPFCIndex >= 0)
 			{
-				if (1.01*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi) > (pPRBlock->m_ACLineArray[nDev].fRated+pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fCapacity))
-					pPRBlock->m_ACLineArray[nDev].fRated=(float)(1.01*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi))-pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fCapacity;
+				if (1.02*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi) > (pPRBlock->m_ACLineArray[nDev].fRated+pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fCapacity))
+					pPRBlock->m_ACLineArray[nDev].fRated=(float)(1.02*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi))-pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[nDev].nUPFCIndex].fCapacity;
 			}
 			else
 			{
-				if (1.01*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi) > pPRBlock->m_ACLineArray[nDev].fRated)
-					pPRBlock->m_ACLineArray[nDev].fRated=(float)(1.01*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi));
+				if (1.02*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi) > pPRBlock->m_ACLineArray[nDev].fRated)
+					pPRBlock->m_ACLineArray[nDev].fRated=(float)(1.02*fDC2ACRatio*fabs(pPRBlock->m_ACLineArray[nDev].fPfPi));
 			}
 		}
 		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_WIND]; nDev++)
 		{
 			if (pPRBlock->m_WindArray[nDev].fRated <= FLT_MIN)
 				continue;
+			fRatio = fDC2ACRatio*fabs(pPRBlock->m_WindArray[nDev].fPfPi)/pPRBlock->m_WindArray[nDev].fRated;
+			if (fDC2ACRatio*fabs(pPRBlock->m_WindArray[nDev].fPfPi)/pPRBlock->m_WindArray[nDev].fRated > 1.25)
+			{
+				log_error("变压器[%s] 超限严重 = %.2f\n", pPRBlock->m_WindArray[nDev].szName, fRatio);
+				pPRBlock->m_WindArray[nDev].fRated=0;
+				continue;
+			}
 
-			if (1.01*fDC2ACRatio*fabs(pPRBlock->m_WindArray[nDev].fPfPi) > pPRBlock->m_WindArray[nDev].fRated)
-				pPRBlock->m_WindArray[nDev].fRated=(float)(1.01*fDC2ACRatio*fabs(pPRBlock->m_WindArray[nDev].fPfPi));
+			if (1.02*fDC2ACRatio*fabs(pPRBlock->m_WindArray[nDev].fPfPi) > pPRBlock->m_WindArray[nDev].fRated)
+				pPRBlock->m_WindArray[nDev].fRated=(float)(1.02*fDC2ACRatio*fabs(pPRBlock->m_WindArray[nDev].fPfPi));
 		}
 	}
 }

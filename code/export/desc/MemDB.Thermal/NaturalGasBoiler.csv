@@ -10,13 +10,13 @@
 8,SupplySteamTemperature,出口蒸汽温度(℃),DOUBLE,4
 9,HeatingEfficiency,制热效率,DOUBLE,4
 10,ExhaustTemperature,额定排烟温度(℃),DOUBLE,4
-11,BathWaterCapacity,卫生热水热量(kW),DOUBLE,4
+11,SanitaryHotWaterCapacity,卫生热水热量(kW),DOUBLE,4
 12,WarmWaterFlow,温水流量(m3/h),DOUBLE,4
 13,WarmWaterSupplyTemperature,温水额定出口温度(℃),DOUBLE,4
 14,WarmWaterReturnTemperature,温水额定入口温度(℃),DOUBLE,4
-15,BathWaterFlow,卫生热水流量(m3/h),DOUBLE,4
-16,BathWaterSupplyTemperature,卫生热水额定出口温度(℃),DOUBLE,4
-17,BathWaterReturnTemperature,卫生热水额定入口温度(℃),DOUBLE,4
+15,SanitaryHotWaterFlow,卫生热水流量(m3/h),DOUBLE,4
+16,SanitaryHotWaterSupplyTemperature,卫生热水额定出口温度(℃),DOUBLE,4
+17,SanitaryHotWaterReturnTemperature,卫生热水额定入口温度(℃),DOUBLE,4
 18,NaturalGasConsumption,天然气耗量(m3/h),DOUBLE,4
 19,Size,机组尺寸(mm),DOUBLE,4
 20,Lifetime,产品设计寿命(年),DOUBLE,4

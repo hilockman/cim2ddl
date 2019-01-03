@@ -4,11 +4,12 @@
 #include <float.h>
 #include <math.h>
 #include <algorithm>
+
 using namespace std;
 #include "PROverLimitAd.h"
-
-extern	const	char*	g_lpszLogFile;
-extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
+#include "../../../../../include/ilog.h"
+//extern	const	char*	g_lpszLogFile;
+//extern	void	Log(const char* lpszLogFile, char* pformat, ...);
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
@@ -110,7 +111,7 @@ namespace	PRAdequacyBase
 		std::vector<tagOLmtAdjust>	sGenAdArray, sLoadAdArray, sUPFCAdArray;
 
 #ifdef	_DEBUG
-		Log(g_lpszLogFile, "  调节线路 %s 越限值 = %f\n", pPRBlock->m_ACLineArray[nLine].szName, fOlmP);
+		log_debug("  调节线路 %s 越限值 = %f\n", pPRBlock->m_ACLineArray[nLine].szName, fOlmP);
 #endif
 		FormBranDFactor(pPRBlock, pPRBlock->m_ACLineArray[nLine].nIBus, pPRBlock->m_ACLineArray[nLine].nZBus, pPRBlock->m_ACLineArray[nLine].fX, pPRBlock->m_ACLineArray[nLine].nIsland, fMatZArray);
 
@@ -141,7 +142,7 @@ namespace	PRAdequacyBase
 		std::vector<tagOLmtAdjust>	sGenAdArray, sLoadAdArray, sUPFCAdArray;
 
 #ifdef	_DEBUG
-		Log(g_lpszLogFile, "  调节变压器 %s 越限值 = %f\n", pPRBlock->m_WindArray[nTran].szName, fOlmP);
+		log_debug("  调节变压器 %s 越限值 = %f\n", pPRBlock->m_WindArray[nTran].szName, fOlmP);
 #endif
 		FormBranDFactor(pPRBlock, pPRBlock->m_WindArray[nTran].nIBus, pPRBlock->m_WindArray[nTran].nZBus, pPRBlock->m_WindArray[nTran].fX, pPRBlock->m_WindArray[nTran].nIsland, fMatZArray);
 
@@ -166,6 +167,7 @@ namespace	PRAdequacyBase
 		{
 			if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland || pPRBlock->m_ACBusArray[nBus].bSlack)
 				continue;
+			if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 
 			//dBuf.fDFactor=-(fMatZArray[pPRBlock->m_nRecordNum[PR_ACBUS]*nBusI+nBus]-fMatZArray[pPRBlock->m_nRecordNum[PR_ACBUS]*nBusJ+nBus])/fX;
 			dBuf.fDFactor=(fMatZArray[pPRBlock->m_nRecordNum[PR_ACBUS]*nBusI+nBus]-fMatZArray[pPRBlock->m_nRecordNum[PR_ACBUS]*nBusJ+nBus])/fX;
@@ -271,12 +273,12 @@ namespace	PRAdequacyBase
 				if (fabs(adjBuffer.fAdjFactor) > 0.1)
 				{
 					//#ifdef _DEBUG
-					Log(g_lpszLogFile, "    UPFC【%s 串联位置母线=%s】调整灵敏度=%f\n", pPRBlock->m_UPFCArray[nUpfc].szName, pPRBlock->m_UPFCArray[nUpfc].szSeriesBus, adjBuffer.fAdjFactor);
+					log_debug("    UPFC【%s 串联位置母线=%s】调整灵敏度=%f\n", pPRBlock->m_UPFCArray[nUpfc].szName, pPRBlock->m_UPFCArray[nUpfc].szSeriesBus, adjBuffer.fAdjFactor);
 					for (i=0; i<(int)m_BranDFactorArray.size(); i++)
 					{
 						if (pPRBlock->m_UPFCArray[nUpfc].nSeriesBus == m_BranDFactorArray[i].nBus)
 						{
-							Log(g_lpszLogFile, "        串联母线调节灵敏度 = %f Asc = %f Desc = %f \n", m_BranDFactorArray[i].fDFactor, adjBuffer.fAvailAscP, adjBuffer.fAvailDescP);
+							log_debug("        串联母线调节灵敏度 = %f Asc = %f Desc = %f \n", m_BranDFactorArray[i].fDFactor, adjBuffer.fAvailAscP, adjBuffer.fAvailDescP);
 							break;
 						}
 					}
@@ -309,18 +311,18 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 		if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 		{
-			Log(g_lpszLogFile, "    DecreaseFlow-------------------------------------------------------------------------------- OlmP = %.2f\n", fOlmP);
+			log_debug("    DecreaseFlow-------------------------------------------------------------------------------- OlmP = %.2f\n", fOlmP);
 			register int	i;
 			for (i=0; i<(int)sGenAdArray.size(); i++)
-				Log(g_lpszLogFile, "    发电机 %s 分布因子=%f 调节容量=(Dir=%d D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sGenAdArray[i].nBus].szName, sGenAdArray[i].fAdjFactor,
+				log_debug("    发电机 %s 分布因子=%f 调节容量=(Dir=%d D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sGenAdArray[i].nBus].szName, sGenAdArray[i].fAdjFactor,
 				sGenAdArray[i].nAdDirect, sGenAdArray[i].fAvailDescP, sGenAdArray[i].fAvailAscP);
 			for (i=0; i<(int)sLoadAdArray.size(); i++)
 			{
 				if (fabs(sLoadAdArray[i].fAdjFactor) > FLT_MIN && fabs(sLoadAdArray[i].fAvailDescP) > FLT_MIN)
-					Log(g_lpszLogFile, "    负荷 %s 分布因子=%f 调节容量=%f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fAdjFactor, sLoadAdArray[i].fAvailDescP);
+					log_debug("    负荷 %s 分布因子=%f 调节容量=%f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fAdjFactor, sLoadAdArray[i].fAvailDescP);
 			}
 			for (i=0; i<(int)sUPFCAdArray.size(); i++)
-				Log(g_lpszLogFile, "    UPFC %s 分布因子=%f 调节容量=(D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sUPFCAdArray[i].nBus].szName, sUPFCAdArray[i].fAdjFactor, sUPFCAdArray[i].fAvailDescP, sUPFCAdArray[i].fAvailAscP);
+				log_debug("    UPFC %s 分布因子=%f 调节容量=(D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sUPFCAdArray[i].nBus].szName, sUPFCAdArray[i].fAdjFactor, sUPFCAdArray[i].fAvailDescP, sUPFCAdArray[i].fAvailAscP);
 		}
 #endif
 
@@ -361,7 +363,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP -= fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=-1;			//	减少
@@ -388,7 +390,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP -= fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=-1;	//	减少
@@ -432,7 +434,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP += fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=1;	//	增加
@@ -459,7 +461,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP += fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=1;	//	增加
@@ -493,7 +495,7 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 					{
-						Log(g_lpszLogFile, "        DecreaseFlow 调整方向相反 发电机降出力复限 降出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
+						log_debug("        DecreaseFlow 调整方向相反 发电机降出力复限 降出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
 							pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, sGenAdArray[nDesGen].fAdjFactor, sGenAdArray[nDesGen].fAvailAscP, sGenAdArray[nDesGen].fAvailDescP, pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].fAdjGenP);
 					}
 #endif
@@ -505,7 +507,7 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 					{
-						Log(g_lpszLogFile, "        DecreaseFlow 调整方向相反 发电机升出力复限 升出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
+						log_debug("        DecreaseFlow 调整方向相反 发电机升出力复限 升出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
 							pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].szName, sGenAdArray[nInsGen].fAdjFactor, sGenAdArray[nInsGen].fAvailAscP, sGenAdArray[nInsGen].fAvailDescP, pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].fAdjGenP);
 					}
 #endif
@@ -557,7 +559,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -579,7 +581,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nInsGen].fOprAdjP += fAdjP;
 					sGenAdArray[nInsGen].nAdDirect=1;	//	增加
@@ -594,7 +596,7 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 					{
-						Log(g_lpszLogFile, "            >Decrease 全调整----GD[%s] 调节容量=(%.3f, %.3f) GI[%s] 调节容量=(%.3f, %.3f)\n", 
+						log_debug("            >Decrease 全调整----GD[%s] 调节容量=(%.3f, %.3f) GI[%s] 调节容量=(%.3f, %.3f)\n",
 							pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, sGenAdArray[nDesGen].fAvailAscP, sGenAdArray[nDesGen].fAvailDescP, 
 							pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].szName, sGenAdArray[nInsGen].fAvailAscP, sGenAdArray[nInsGen].fAvailDescP);
 					}
@@ -620,7 +622,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -642,7 +644,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nInsGen].fOprAdjP += fAdjP;
 					sGenAdArray[nInsGen].nAdDirect=1;	//	增加
@@ -657,7 +659,7 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 					{
-						Log(g_lpszLogFile, "            >Decrease 部分调整----GD[%s, %.3f] GI[%s, %.3f] 发电机调节量=%.3f 潮流调限量=%.3f 总调限量=%.3f\n",
+						log_debug("            >Decrease 部分调整----GD[%s, %.3f] GI[%s, %.3f] 发电机调节量=%.3f 潮流调限量=%.3f 总调限量=%.3f\n",
 							pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, sGenAdArray[nDesGen].fAvailDescP,
 							pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].szName, sGenAdArray[nInsGen].fAvailAscP,
 							fAdjP, fAdjP*fSens, fConP);
@@ -698,7 +700,7 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 					{
-						Log(g_lpszLogFile, "        DecreaseFlow 调整方向相反 发电机降出力同时切负荷复限 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
+						log_debug("        DecreaseFlow 调整方向相反 发电机降出力同时切负荷复限 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
 							pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, sGenAdArray[nDesGen].fAdjFactor, sGenAdArray[nDesGen].fAvailAscP, sGenAdArray[nDesGen].fAvailDescP, pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].fAdjGenP);
 					}
 #endif
@@ -738,7 +740,7 @@ namespace	PRAdequacyBase
 					fConP += fAdjP*fSens;
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        ---->Decrease 全调整----GD[%s]-LD[%s] 调节=%f 总调限量=%f\n", pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sLoadAdArray[nDesLoad].nBus].szName, fAdjP, fConP);
+						log_debug("        ---->Decrease 全调整----GD[%s]-LD[%s] 调节=%f 总调限量=%f\n", pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sLoadAdArray[nDesLoad].nBus].szName, fAdjP, fConP);
 #endif
 
 					if (pPRBlock->m_nRecordNum[PR_FSTATEOVLAD] < g_PRMemDBInterface.PRGetTableMax(PR_FSTATEOVLAD)-1)
@@ -754,7 +756,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_debug("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -776,7 +778,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sLoadAdArray[nDesLoad].fOprAdjP -= fAdjP;
 					sLoadAdArray[nDesLoad].fAvailDescP -= fAdjP;
@@ -799,7 +801,7 @@ namespace	PRAdequacyBase
 					fConP += fAdjP*fSens;
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        ---->Decrease 部分调整----GD[%s]-LD[%s] 调节=%f 总调限量=%f\n", pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sLoadAdArray[nDesLoad].nBus].szName, fAdjP, fConP);
+						log_debug("        ---->Decrease 部分调整----GD[%s]-LD[%s] 调节=%f 总调限量=%f\n", pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sLoadAdArray[nDesLoad].nBus].szName, fAdjP, fConP);
 #endif
 
 					if (pPRBlock->m_nRecordNum[PR_FSTATEOVLAD] < g_PRMemDBInterface.PRGetTableMax(PR_FSTATEOVLAD)-1)
@@ -815,7 +817,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -837,7 +839,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sLoadAdArray[nDesLoad].fOprAdjP -= fAdjP;
 					sLoadAdArray[nDesLoad].fAvailDescP -= fAdjP;
@@ -894,17 +896,17 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 		if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 		{
-			Log(g_lpszLogFile, "    IncreaseFlow 升潮流消限---------------------------------------------------------------------- OlmP = %.2f\n", fOlmP);
+			log_debug("    IncreaseFlow 升潮流消限---------------------------------------------------------------------- OlmP = %.2f\n", fOlmP);
 			register int	i;
 			for (i=0; i<(int)sGenAdArray.size(); i++)
-				Log(g_lpszLogFile, "    发电机 %s 分布因子=%f 调节容量=(D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sGenAdArray[i].nBus].szName, sGenAdArray[i].fAdjFactor, sGenAdArray[i].fAvailDescP, sGenAdArray[i].fAvailAscP);
+				log_debug("    发电机 %s 分布因子=%f 调节容量=(D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sGenAdArray[i].nBus].szName, sGenAdArray[i].fAdjFactor, sGenAdArray[i].fAvailDescP, sGenAdArray[i].fAvailAscP);
 			for (i=0; i<(int)sLoadAdArray.size(); i++)
 			{
 				if (fabs(sLoadAdArray[i].fAdjFactor) > FLT_MIN && fabs(sLoadAdArray[i].fAvailDescP) > FLT_MIN)
-					Log(g_lpszLogFile, "    负荷 %s 分布因子=%f 调节容量=%f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fAdjFactor, sLoadAdArray[i].fAvailDescP);
+					log_debug("    负荷 %s 分布因子=%f 调节容量=%f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fAdjFactor, sLoadAdArray[i].fAvailDescP);
 			}
 			for (i=0; i<(int)sUPFCAdArray.size(); i++)
-				Log(g_lpszLogFile, "    UPFC %s 分布因子=%f 调节容量=(D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sUPFCAdArray[i].nBus].szName, sUPFCAdArray[i].fAdjFactor, sUPFCAdArray[i].fAvailDescP, sUPFCAdArray[i].fAvailAscP);
+				log_debug("    UPFC %s 分布因子=%f 调节容量=(D=%f, I=%f)\n", pPRBlock->m_ACBusArray[sUPFCAdArray[i].nBus].szName, sUPFCAdArray[i].fAdjFactor, sUPFCAdArray[i].fAvailDescP, sUPFCAdArray[i].fAvailAscP);
 		}
 #endif
 
@@ -944,7 +946,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP += fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=1;
@@ -971,7 +973,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP += fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=1;
@@ -1015,7 +1017,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP -= fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=-1;
@@ -1042,7 +1044,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sUPFCAdArray[nUPFC].fOprAdjP -= fAdjP;
 					sUPFCAdArray[nUPFC].nAdDirect=-1;
@@ -1075,7 +1077,7 @@ namespace	PRAdequacyBase
 				{
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        IncreaseFlow 调整方向相反 发电机降出力复限 降出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
+						log_debug("        IncreaseFlow 调整方向相反 发电机降出力复限 降出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, sGenAdArray[nDesGen].fAdjFactor, sGenAdArray[nDesGen].fAvailAscP, sGenAdArray[nDesGen].fAvailDescP, pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].fAdjGenP);
 #endif
 					nDesGen++;
@@ -1085,7 +1087,7 @@ namespace	PRAdequacyBase
 				{
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        IncreaseFlow 调整方向相反 发电机升出力复限 升出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
+						log_debug("        IncreaseFlow 调整方向相反 发电机升出力复限 升出力 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].szName, sGenAdArray[nInsGen].fAdjFactor, sGenAdArray[nInsGen].fAvailAscP, sGenAdArray[nInsGen].fAvailDescP, pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].fAdjGenP);
 #endif
 					nInsGen--;
@@ -1124,7 +1126,7 @@ namespace	PRAdequacyBase
 					fConP += fAdjP*fSens;
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        ----<Increase 全调整----GD[%s]-GI[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
+						log_debug("        ----<Increase 全调整----GD[%s]-GI[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].szName, fAdjP, fConP, fOlmP);
 #endif
 
@@ -1141,7 +1143,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -1163,7 +1165,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nInsGen].fOprAdjP += fAdjP;
 					sGenAdArray[nInsGen].nAdDirect=1;	//	增加
@@ -1183,7 +1185,7 @@ namespace	PRAdequacyBase
 					fConP += fAdjP*fSens;	//	fConP 需要消限的量 fAdjP 需要调整的量
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        ----<Increase 部分调整----GD[%s]-GI[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
+						log_debug("        ----<Increase 部分调整----GD[%s]-GI[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sGenAdArray[nInsGen].nBus].szName, fAdjP, fConP, fOlmP);
 #endif
 
@@ -1200,7 +1202,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -1222,7 +1224,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nInsGen].fOprAdjP += fAdjP;
 					sGenAdArray[nInsGen].nAdDirect=1;	//	增加
@@ -1267,7 +1269,7 @@ namespace	PRAdequacyBase
 				{
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        IncreaseFlow 调整方向相反 发电机降出力同时切负荷复限 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
+						log_debug("        IncreaseFlow 调整方向相反 发电机降出力同时切负荷复限 %s 分布因子=%f  调节容量=(%f, %f) AdjGen=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, sGenAdArray[nDesGen].fAdjFactor, sGenAdArray[nDesGen].fAvailAscP, sGenAdArray[nDesGen].fAvailDescP, pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].fAdjGenP);
 #endif
 					nDesGen++;
@@ -1306,7 +1308,7 @@ namespace	PRAdequacyBase
 					fConP += fAdjP*fSens;
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        ----<Increase 全调整----GD[%s]-LD[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
+						log_debug("        ----<Increase 全调整----GD[%s]-LD[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sLoadAdArray[nDesLoad].nBus].szName, fAdjP, fConP, fOlmP);
 #endif
 
@@ -1323,7 +1325,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -1345,7 +1347,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sLoadAdArray[nDesLoad].fOprAdjP -= fAdjP;
 					sLoadAdArray[nDesLoad].fAvailDescP -= fAdjP;
@@ -1368,7 +1370,7 @@ namespace	PRAdequacyBase
 					fConP += fAdjP*fSens;
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "        ----<Increase 部分调整----GD[%s]-LD[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
+						log_debug("        ----<Increase 部分调整----GD[%s]-LD[%s] 调整量=%f 已经消限量=%f 越限值=%f\n",
 						pPRBlock->m_ACBusArray[sGenAdArray[nDesGen].nBus].szName, pPRBlock->m_ACBusArray[sLoadAdArray[nDesLoad].nBus].szName, fAdjP, fConP, fOlmP);
 #endif
 
@@ -1385,7 +1387,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sGenAdArray[nDesGen].fOprAdjP -= fAdjP;
 					sGenAdArray[nDesGen].nAdDirect=-1;	//	减少
@@ -1407,7 +1409,7 @@ namespace	PRAdequacyBase
 						pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]++;
 					}
 					else
-						Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
+						log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLAD));
 
 					sLoadAdArray[nDesLoad].fOprAdjP -= fAdjP;
 					sLoadAdArray[nDesLoad].fAvailDescP -= fAdjP;
@@ -1455,26 +1457,26 @@ namespace	PRAdequacyBase
 #ifdef	_DEBUG
 		if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
 		{
-			Log(g_lpszLogFile, "            |最终调整情况------------------------------------------------------------------------------|\n");
+			log_debug("            |最终调整情况------------------------------------------------------------------------------|\n");
 			for (i=0; i<(int)sGenAdArray.size(); i++)
 			{
 				if (fabs(sGenAdArray[i].fOprAdjP) < FLT_MIN)
 					continue;
-				Log(g_lpszLogFile, "                发电机 %s 分布因子=%f 出力变化量=%f\n", pPRBlock->m_ACBusArray[sGenAdArray[i].nBus].szName, sGenAdArray[i].fAdjFactor, sGenAdArray[i].fOprAdjP);
+				log_debug("                发电机 %s 分布因子=%f 出力变化量=%f\n", pPRBlock->m_ACBusArray[sGenAdArray[i].nBus].szName, sGenAdArray[i].fAdjFactor, sGenAdArray[i].fOprAdjP);
 			}
 			for (i=0; i<(int)sLoadAdArray.size(); i++)
 			{
 				if (fabs(sLoadAdArray[i].fOprAdjP) < FLT_MIN)
 					continue;
-				Log(g_lpszLogFile, "                负荷 %s 分布因子=%f 功率变化量=%f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fAdjFactor, sLoadAdArray[i].fOprAdjP);
+				log_debug("                负荷 %s 分布因子=%f 功率变化量=%f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fAdjFactor, sLoadAdArray[i].fOprAdjP);
 			}
 			for (i=0; i<(int)sUPFCAdArray.size(); i++)
 			{
 				if (fabs(sUPFCAdArray[i].fOprAdjP) < FLT_MIN)
 					continue;
-				Log(g_lpszLogFile, "                UPFC %s 分布因子=%f 出力变化量=%f\n", pPRBlock->m_ACBusArray[sUPFCAdArray[i].nBus].szName, sUPFCAdArray[i].fAdjFactor, sUPFCAdArray[i].fOprAdjP);
+				log_debug("                UPFC %s 分布因子=%f 出力变化量=%f\n", pPRBlock->m_ACBusArray[sUPFCAdArray[i].nBus].szName, sUPFCAdArray[i].fAdjFactor, sUPFCAdArray[i].fOprAdjP);
 			}
-			Log(g_lpszLogFile, "            |------------------------------------------------------------------------------------------|\n");
+			log_debug("            |------------------------------------------------------------------------------------------|\n");
 		}
 #endif
 
@@ -1496,7 +1498,7 @@ namespace	PRAdequacyBase
 				{
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "                负荷 %s 辐射网调节量=%.3f 环网调整量=0\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fOprAdjP);
+						log_debug("                负荷 %s 辐射网调节量=%.3f 环网调整量=0\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fOprAdjP);
 #endif
 					pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjRadP += sLoadAdArray[i].fOprAdjP;
 				}
@@ -1504,7 +1506,7 @@ namespace	PRAdequacyBase
 				{
 #ifdef	_DEBUG
 					if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-						Log(g_lpszLogFile, "                负荷 %s 辐射网调节量=%.3f 环网调整量=%.3f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, -pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fRadP, sLoadAdArray[i].fOprAdjP+pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fRadP+pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjRadP);
+						log_debug("                负荷 %s 辐射网调节量=%.3f 环网调整量=%.3f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, -pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fRadP, sLoadAdArray[i].fOprAdjP + pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fRadP + pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjRadP);
 #endif
 					pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjLoadP += (sLoadAdArray[i].fOprAdjP+pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fRadP+pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjRadP);
 					pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjRadP=-pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fRadP;
@@ -1514,7 +1516,7 @@ namespace	PRAdequacyBase
 			{
 #ifdef	_DEBUG
 				if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-					Log(g_lpszLogFile, "                负荷 %s 调节量=%.3f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fOprAdjP);
+					log_debug("                负荷 %s 调节量=%.3f\n", pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].szName, sLoadAdArray[i].fOprAdjP);
 #endif
 				pPRBlock->m_ACBusArray[sLoadAdArray[i].nBus].fAdjLoadP += sLoadAdArray[i].fOprAdjP;
 			}
@@ -1530,12 +1532,12 @@ namespace	PRAdequacyBase
 			pPRBlock->m_UPFCArray[sUPFCAdArray[i].nDevice].fPControl += sUPFCAdArray[i].fOprAdjP;
 #ifdef	_DEBUG
 			if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-				Log(g_lpszLogFile, "                UPFC %s 调节量=%.3f\n", pPRBlock->m_UPFCArray[sUPFCAdArray[i].nDevice].szName, sUPFCAdArray[i].fOprAdjP);
+				log_debug("                UPFC %s 调节量=%.3f\n", pPRBlock->m_UPFCArray[sUPFCAdArray[i].nDevice].szName, sUPFCAdArray[i].fOprAdjP);
 #endif
 		}
 #ifdef	_DEBUG
 		if (nOvlDevTyp == PR_ACLINE && _stricmp(pPRBlock->m_ACLineArray[nOvlDevIdx].szName, "苏下关__230-苏晓庄__230@1") == 0)
-			Log(g_lpszLogFile, "            |------------------------------------------------------------------------------------------|\n");
+			log_debug("            |------------------------------------------------------------------------------------------|\n");
 #endif
 
 		return nELResult;

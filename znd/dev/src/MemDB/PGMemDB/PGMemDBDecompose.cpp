@@ -170,7 +170,7 @@ namespace PGMemDB
 			{
 				dEnd=clock();
 				nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-				Log(m_lpszPGMemDBLogFile, "辐射网判断[%d/%d]完成，耗时%d毫秒\n", nNode, pPGBlock->m_nRecordNum[PG_CONNECTIVITYNODE], nDur);
+				log_info("辐射网判断[%d/%d]完成，耗时%d毫秒\n", nNode, pPGBlock->m_nRecordNum[PG_CONNECTIVITYNODE], nDur);
 			}
 
 			if (bProcArray[nNode])
@@ -196,7 +196,7 @@ namespace PGMemDB
 
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "辐射网判断完成，耗时%d毫秒\n", nDur);
+		log_info("辐射网判断完成，耗时%d毫秒\n", nDur);
 
 		//////////////////////////////////////////////////////////////////////////
 		//	辐射网合并流程
@@ -228,7 +228,7 @@ namespace PGMemDB
 
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "Decompose分析耗时%d毫秒\n", nDur);
+		log_info("Decompose分析耗时%d毫秒\n", nDur);
 
 		//////////////////////////////////////////////////////////////////////////
 		//	形成辐射网设备
@@ -303,7 +303,7 @@ namespace PGMemDB
 
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "合并辐射网完成，耗时%d毫秒\n", nDur);
+		log_info("合并辐射网完成，耗时%d毫秒\n", nDur);
 
 		//////////////////////////////////////////////////////////////////////////
 		//	形成环网信息
@@ -348,7 +348,7 @@ namespace PGMemDB
 
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "数据库操作完成，耗时%d毫秒\n", nDur);
+		log_info("数据库操作完成，耗时%d毫秒\n", nDur);
 
 		//////////////////////////////////////////////////////////////////////////
 		//以下用于查错

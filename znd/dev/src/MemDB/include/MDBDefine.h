@@ -46,7 +46,7 @@ enum	_MDBEnum_FieldCategory_
 	MDBFieldCategoryOutput,	
 	MDBFieldCategoryAid,	
 };
-static	const char*		MDBFeldCategoryStringArray[] =
+static	const	char*	MDBFeldCategoryStringArray[]=
 {
 	"基本信息",
 	"参数信息",
@@ -109,7 +109,7 @@ const	unsigned char	RELI_ANS	=4;	//	选定区域无电源（或者所有负荷点都没有连接电源
 
 struct	_MemDB_EnumPair_	{
 	int			nEnumValue;
-	const char*		lpszEnumString;
+	const char*	lpszEnumString;
 }	DISALIGN;
 typedef	struct	_MemDB_EnumPair_	tagMemDBEnumPair;
 

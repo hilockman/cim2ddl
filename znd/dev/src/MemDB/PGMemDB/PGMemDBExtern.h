@@ -2,8 +2,8 @@
 
 namespace	PGMemDB
 {
-	static const	char*	m_lpszPGMemDBLogFile="PGMemDB.log";
-	static const	char*	m_lpszAbnormalLogFile = "PGMemDBAbnorm.log";
+	static	const char*	m_lpszPGMemDBLogFile="PGMemDB.log";
+	static	const char*	m_lpszAbnormalLogFile = "PGMemDBAbnorm.log";
 }
 extern	void	ClearLog(const char* m_lpszPGMemDBLogFile);
-extern	void	Log(const char* m_lpszPGMemDBLogFile, const char* pformat, ...);
+extern	void	Log(const char* m_lpszPGMemDBLogFile, char* pformat, ...);

@@ -7,6 +7,8 @@ namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
 
+	//////////////////////////////////////////////////////////////////////////
+	//	计算母线功率时不考虑母线状态，但是调整过程中和事故统计中考虑母线状态
 	void CPRAdequacyStateEstimate::CalculateBusPQ(tagPRBlock* pPRBlock, const unsigned char bAuxLoadAdjust, const unsigned char bEQGenAdjust, const unsigned char bEQLoadAdjust)
 	{
 		register int	i;
@@ -39,6 +41,8 @@ namespace	PRAdequacyBase
 			nBus=pPRBlock->m_GeneratorArray[nDev].nBusIndex;
 			if (nBus < 0 || pPRBlock->m_GeneratorArray[nDev].bOutage)
 				continue;
+			//if (pPRBlock->m_ACBusArray[nBus].bOutage)
+			//	continue;
 
 			if (!pPRBlock->m_GeneratorArray[nDev].bMSModel)
 			{
@@ -80,6 +84,8 @@ namespace	PRAdequacyBase
 			nBus=pPRBlock->m_PowerLoadArray[nDev].nBusIndex;
 			if (nBus < 0 || pPRBlock->m_PowerLoadArray[nDev].bOutage)
 				continue;
+			//if (pPRBlock->m_ACBusArray[nBus].bOutage)
+			//	continue;
 
 			if (!pPRBlock->m_PowerLoadArray[nDev].bMSModel)
 			{
@@ -101,6 +107,8 @@ namespace	PRAdequacyBase
 			nBus=pPRBlock->m_ConverterArray[nDev].nACBus;
 			if (nBus < 0 || pPRBlock->m_ConverterArray[nDev].bOutage)
 				continue;
+			//if (pPRBlock->m_ACBusArray[nBus].bOutage)
+			//	continue;
 
 			if (pPRBlock->m_ConverterArray[nDev].nType == PRConverter_Type_Rectifier)
 			{
@@ -141,10 +149,9 @@ namespace	PRAdequacyBase
 			fTotGenAvailP=fTotGenMaxCapP=0;
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 			{
-				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
-					continue;
-				if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)
-					continue;
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
+				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
+				if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)	continue;
 				if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)
 					continue;
 
@@ -165,10 +172,9 @@ namespace	PRAdequacyBase
 				fTotalAdP=0;
 				for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)	//	分区内内按可调容量比例升发电机出力
 				{
-					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
-						continue;
-					if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)
-						continue;
+					if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
+					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
+					if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)	continue;
 					if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)
 						continue;
 
@@ -200,10 +206,9 @@ namespace	PRAdequacyBase
 				//	分区内内发电机出力升满
 				for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 				{
-					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
-						continue;
-					if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)
-						continue;
+					if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
+					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
+					if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)	continue;
 					if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)
 						continue;
 
@@ -231,6 +236,7 @@ namespace	PRAdequacyBase
 		fTotGenAvailP=fTotGenMaxCapP=0;
 		for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 		{
+			if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
 			if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
 			if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)	continue;
 			if (strlen(lpszZone) > 0)
@@ -249,6 +255,7 @@ namespace	PRAdequacyBase
 		{
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)	//	分区内内按可调容量比例升发电机出力
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
 				if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)	continue;
 				if (strlen(lpszZone) > 0)
@@ -279,6 +286,7 @@ namespace	PRAdequacyBase
 			//	分区内内发电机出力升满
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
 				if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)	continue;
 				if (strlen(lpszZone) > 0)
@@ -313,6 +321,7 @@ namespace	PRAdequacyBase
 			fTotLoadP=0;
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)							continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)				continue;
 				if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)	continue;
 
@@ -330,6 +339,7 @@ namespace	PRAdequacyBase
 				//	分区内内按比例切除
 				for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 				{
+					if (pPRBlock->m_ACBusArray[nBus].bOutage)							continue;
 					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)				continue;
 					if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)	continue;
 
@@ -360,6 +370,7 @@ namespace	PRAdequacyBase
 				//	先将分区内的负荷全部切光
 				for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 				{
+					if (pPRBlock->m_ACBusArray[nBus].bOutage)							continue;
 					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)				continue;
 					if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)	continue;
 					if (pPRBlock->m_ACBusArray[nBus].fLoadP+pPRBlock->m_ACBusArray[nBus].fAdjLoadP+pPRBlock->m_ACBusArray[nBus].fRadP+pPRBlock->m_ACBusArray[nBus].fAdjRadP-pPRBlock->m_ACBusArray[nBus].fMinLoadP < FLT_MIN || pPRBlock->m_ACBusArray[nBus].nRadial != 0)
@@ -389,6 +400,7 @@ namespace	PRAdequacyBase
 		fTotLoadP=0;
 		for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 		{
+			if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
 			if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
 			if (pPRBlock->m_ACBusArray[nBus].nRadial != 0)			continue;
 
@@ -398,6 +410,7 @@ namespace	PRAdequacyBase
 		{
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)				continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)	continue;
 				if (pPRBlock->m_ACBusArray[nBus].nRadial != 0)			continue;
 				fAdP=(fTotLossP+fUnBalanceP)*(pPRBlock->m_ACBusArray[nBus].fLoadP+pPRBlock->m_ACBusArray[nBus].fAdjLoadP+pPRBlock->m_ACBusArray[nBus].fRadP-pPRBlock->m_ACBusArray[nBus].fMinLoadP)/fTotLoadP;
@@ -443,6 +456,7 @@ namespace	PRAdequacyBase
 			fTotGenAvailP=fTotGenMinCapP=0;
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
 					continue;
 				if (strlen(lpszZone) > 0)
@@ -468,6 +482,7 @@ namespace	PRAdequacyBase
 				fTotalAdP=0;
 				for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)	//	分区内内按可调容量比例升发电机出力
 				{
+					if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
 						continue;
 					if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)
@@ -501,6 +516,7 @@ namespace	PRAdequacyBase
 				//	分区内内发电机出力升满
 				for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 				{
+					if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 					if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
 						continue;
 					if (_stricmp(pPRBlock->m_ACBusArray[nBus].szZone, lpszZone) != 0)
@@ -530,6 +546,7 @@ namespace	PRAdequacyBase
 		fTotGenAvailP=fTotGenMinCapP=0;
 		for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 		{
+			if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 			if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
 				continue;
 			if (strlen(lpszZone) > 0)
@@ -549,6 +566,7 @@ namespace	PRAdequacyBase
 		{
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)	//	按可调容量比例降发电机出力
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
 					continue;
 				if (strlen(lpszZone) > 0)
@@ -579,6 +597,7 @@ namespace	PRAdequacyBase
 			//	分区内内发电机出力降到最小
 			for (nBus=1; nBus<pPRBlock->m_nRecordNum[PR_ACBUS]; nBus++)
 			{
+				if (pPRBlock->m_ACBusArray[nBus].bOutage)	continue;
 				if (pPRBlock->m_ACBusArray[nBus].nIsland != nIsland)
 					continue;
 				if (pPRBlock->m_ACBusArray[nBus].fMaxGenP < FLT_MIN)
@@ -613,7 +632,7 @@ namespace	PRAdequacyBase
 	{
 		register int	i;
 		int		nIsland, nDev;
-		double	fTotIslandGen, fTotIslandLoad;
+		double	fTotIslandGen, fTotIslandLoad, fTotIslandDCLoad, fTotIslandDCGen;
 		std::vector<float>	fBusLossArray;
 
 		fBusLossArray.resize(pPRBlock->m_nRecordNum[PR_ACBUS]);
@@ -642,7 +661,7 @@ namespace	PRAdequacyBase
 			if (pPRBlock->m_ACIslandArray[nIsland].bDead)
 				continue;
 
-			fTotIslandGen=fTotIslandLoad=0;
+			fTotIslandGen = fTotIslandLoad = fTotIslandDCLoad = fTotIslandDCGen = 0;
 
 			for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACBUS]; nDev++)
 			{
@@ -652,21 +671,41 @@ namespace	PRAdequacyBase
 				fTotIslandGen  += (pPRBlock->m_ACBusArray[nDev].fGenP +pPRBlock->m_ACBusArray[nDev].fAdjGenP);
 				fTotIslandLoad += (pPRBlock->m_ACBusArray[nDev].fLoadP+pPRBlock->m_ACBusArray[nDev].fAdjLoadP+pPRBlock->m_ACBusArray[nDev].fRadP+pPRBlock->m_ACBusArray[nDev].fAdjRadP+fBusLossArray[nDev]);
 			}
+			for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_HVDC]; nDev++)
+			{
+				if (pPRBlock->m_HVDCArray[nDev].bOutage)
+					continue;
+				if (pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDev].nRBus].nIsland == nIsland)
+				{
+					if (fabs(pPRBlock->m_HVDCArray[nDev].fPr) > FLT_MIN)
+						fTotIslandDCLoad += fabs(pPRBlock->m_HVDCArray[nDev].fPr);
+				}
+				if (pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDev].nIBus].nIsland == nIsland)
+				{
+					if (fabs(pPRBlock->m_HVDCArray[nDev].fPi) > FLT_MIN)
+						fTotIslandDCGen += fabs(pPRBlock->m_HVDCArray[nDev].fPi);
+				}
+			}
 			if (fabs(fTotIslandLoad) < FLT_MIN)
 				continue;
 
-			//Log(g_lpszLogFile, "岛功率平衡[%d]: Gen=%f Load=%f\n", nIsland, fTotIslandGen, fTotIslandLoad);
-			if (fTotIslandGen - fTotIslandLoad > 0 && fTotIslandGen > 1.025*fTotIslandLoad)	//	考虑2.5%的线损率
+#ifdef _MISLANDDEBUG
+			Log(g_lpszLogFile, "    FState=%d 岛功率平衡[%d]: Gen=%f Load=%f\n", nFState, nIsland, fTotIslandGen+fTotIslandDCGen, fTotIslandLoad+fTotIslandDCLoad);
+#endif
+			if (fTotIslandGen+fTotIslandDCGen - (fTotIslandLoad+fTotIslandDCLoad) > 0 && fTotIslandGen+fTotIslandDCGen > 1.01*(fTotIslandLoad+fTotIslandDCLoad))	//	考虑1.%的线损率
 			{
 #ifdef _MISLANDDEBUG
-				Log(g_lpszLogFile, "    岛功率平衡      BalanceLossLoad = %f\n", fTotIslandGen - fTotIslandLoad);
+				Log(g_lpszLogFile, "        岛功率平衡[1]      BalanceLossLoad = %f\n", fTotIslandGen - fTotIslandLoad);
 #endif
-				BalanceLossLoad(pPRBlock, 1, nFState, fTotIslandGen - fTotIslandLoad, nIsland, "");
+				BalanceLossLoad(pPRBlock, 1, nFState, fTotIslandGen+fTotIslandDCGen - (fTotIslandLoad+fTotIslandDCLoad), nIsland, "");
 			}
-			else if (fTotIslandLoad - fTotIslandGen > 0)
+			else if ((fTotIslandLoad+fTotIslandDCLoad) - (fTotIslandGen+fTotIslandDCGen) > 1)
 			{
-				if (fTotIslandGen/fTotIslandLoad < fMinGLRatio)
+				if ((fTotIslandGen+fTotIslandDCGen)/(fTotIslandLoad+fTotIslandDCLoad) < fMinGLRatio || (fTotIslandGen+fTotIslandDCGen) < FLT_MIN)
 				{
+#ifdef _MISLANDDEBUG
+					Log(g_lpszLogFile, "        岛无电源      Black = %f\n", fTotIslandLoad);
+#endif
 					pPRBlock->m_FStateArray[nFState].fMIOutLoad += (float)fTotIslandLoad;
 					for (i=1; i<pPRBlock->m_nRecordNum[PR_ACBUS]; i++)
 					{
@@ -691,9 +730,9 @@ namespace	PRAdequacyBase
 				else
 				{
 #ifdef _MISLANDDEBUG
-					Log(g_lpszLogFile, "    岛功率平衡      BalanceLossGen = %f\n", fTotIslandLoad - fTotIslandGen);
+					Log(g_lpszLogFile, "        岛功率平衡[2]      BalanceLossGen = %f\n", fTotIslandLoad - fTotIslandGen);
 #endif
-					BalanceLossGen (pPRBlock, 1, nFState, fTotIslandLoad - fTotIslandGen, nIsland, "");
+					BalanceLossGen (pPRBlock, 1, nFState, fTotIslandLoad+fTotIslandDCLoad - (fTotIslandGen+fTotIslandDCGen), nIsland, "");
 				}
 			}
 		}
@@ -709,6 +748,7 @@ namespace	PRAdequacyBase
 		double	fUnBalanceP = 0;
 		for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACBUS]; nDev++)
 		{
+			if (pPRBlock->m_ACBusArray[nDev].bOutage)	continue;
 			if (fabs(pPRBlock->m_ACBusArray[nDev].fMaxGenP) <= FLT_MIN)
 				continue;
 
@@ -1135,5 +1175,7 @@ namespace	PRAdequacyBase
 			}
 			break;
 		}
+
+		nAdDevArray.clear();
 	}
 }

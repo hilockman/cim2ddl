@@ -74,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
+      <AdditionalDependencies>D:\GitHub\cim2ddl\znd\dev\lib_release\base.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\GitHub\cim2ddl\znd\dev\lib_release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -117,6 +118,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
+      <AdditionalDependencies>D:\GitHub\cim2ddl\znd\dev\lib_debug\base.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\GitHub\cim2ddl\znd\dev\lib_debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -2,7 +2,7 @@
 0,Name,名称,STRING,32
 1,DCBusI,I侧直流节点名称,STRING,32
 2,DCBusJ,J侧直流节点名称,STRING,32
-3,Length,长度(KM),DOUBLE,4
+3,Length,长度(千米),DOUBLE,4
 4,Rerr,故障率(次/年),DOUBLE,8
 5,Rrep,修复率(次/年),DOUBLE,8
 6,Trep,修复时间(小时/次),DOUBLE,8

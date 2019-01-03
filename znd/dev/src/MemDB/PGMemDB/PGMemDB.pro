@@ -7,14 +7,26 @@ HEADERS +=  $$MEMDB_DIR/MemDBBase.h \
 			$$MEMDB_DIR/MemDBBase_Record.hpp \
 			$$MEMDB_DIR/MemDBBase_Sort.hpp \
 			$$MEMDB_DIR/MemDBHash.h \
+			$$COMMON_DIR/StringCommon.h \
 			PGMemDB.h \
 			PGMemDBBlock.h \
 			PGMemDBDefine.h \
 			PGMemDBEnum.h \
 			PGMemDBExtern.h \
 			PGMemDBField.h \
-			PGMemDBTable.h \
-			$$COMMON_DIR/StringCommon.h 
+			PGMemDBTable.h 
+#			PGMemDBDefine_DCGrid.h \
+#			PGMemDBDefine_Distribution.h \
+#			PGMemDBDefine_Enum.h \
+#			PGMemDBDefine_Graph.h \
+#			PGMemDBDefine_Misc.h \
+#			PGMemDBDefine_Relay.h \
+#			PGMemDBField_DCGrid.h \
+#			PGMemDBField_Distribution.h \
+#			PGMemDBField_Graph.h \
+#			PGMemDBField_Misc.h \
+#			PGMemDBField_Relay.h
+			
 SOURCES += $$MEMDB_DIR/MemDBBase.cpp	 \
            PGMemDB.cpp \
 		   PGMemDBAbnorm.cpp \
@@ -47,5 +59,6 @@ CONFIG -= qt
 
 DEFINES += _PGMEMDB_EXPORTS_
 
+LIBS += -lbase
 
 

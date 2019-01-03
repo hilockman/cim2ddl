@@ -16,9 +16,7 @@ namespace	PGMemDB
 		//nSize = MAXMDBTABLENUM*sizeof(int);
 		nSize = MAXMDBTABLENUM*sizeof(int)+sizeof(tagMDBBlockSummy);
 		for (i=0; i<sizeof(g_PGTableDictArray)/sizeof(tagMemDBTable); i++)
-		{
 			nSize += g_PGTableDictArray[i].nRecordMax*g_PGTableDictArray[i].nFieldLen;
-		}
 
 		return nSize;
 	}
@@ -77,23 +75,23 @@ namespace	PGMemDB
 				{
 					if (stricmp(g_PGTableDictArray[nTable].sFieldArray[nField].lpszName, g_PGTableDictArray[nTable].sFieldArray[i].lpszName) == 0)
 					{
-						Log(m_lpszPGMemDBLogFile, "          表【%s】定义错误，字段定义相同 %d, %d\n", g_PGTableDictArray[nTable].lpszDesp, nField, i);
+						log_info("          表【%s】定义错误，字段定义相同 %d, %d\n", g_PGTableDictArray[nTable].lpszDesp, nField, i);
 					}
 					if (stricmp(g_PGTableDictArray[nTable].sFieldArray[nField].lpszDesp, g_PGTableDictArray[nTable].sFieldArray[i].lpszDesp) == 0)
 					{
-						Log(m_lpszPGMemDBLogFile, "          表【%s】定义错误，字段描述相同 %d, %d\n", g_PGTableDictArray[nTable].lpszDesp, nField, i);
+						log_info("          表【%s】定义错误，字段描述相同 %d, %d\n", g_PGTableDictArray[nTable].lpszDesp, nField, i);
 					}
 				}
 			}
 			if (nTable != g_PGTableDictArray[nTable].nTable)
 			{
-				Log(m_lpszPGMemDBLogFile, "          表【%s】定义错误，表实际序号＝%d 表定义序号＝%d\n", g_PGTableDictArray[nTable].lpszDesp, nTable, g_PGTableDictArray[nTable].nTable);
+				log_info("          表【%s】定义错误，表实际序号＝%d 表定义序号＝%d\n", g_PGTableDictArray[nTable].lpszDesp, nTable, g_PGTableDictArray[nTable].nTable);
 			}
 			for (nField=0; nField<g_PGTableDictArray[nTable].nFieldNum; nField++)
 			{
 				if (nField != g_PGTableDictArray[nTable].sFieldArray[nField].nField)
 				{
-					Log(m_lpszPGMemDBLogFile, "          表【%s】字段定义错误，字段实际序号＝%d 字段定义序号＝%d\n", g_PGTableDictArray[nTable].lpszDesp, nField, g_PGTableDictArray[nTable].sFieldArray[nField].nField);
+					log_info("          表【%s】字段定义错误，字段实际序号＝%d 字段定义序号＝%d\n", g_PGTableDictArray[nTable].lpszDesp, nField, g_PGTableDictArray[nTable].sFieldArray[nField].nField);
 				}
 			}
 		}
@@ -103,7 +101,7 @@ namespace	PGMemDB
 		{
 			if (g_PGTableDictArray[nTable].nOffSet != nTotalLen)
 			{
-				Log(m_lpszPGMemDBLogFile, "          表【%s】偏移错误，表实际偏移=%d 表定义偏移=%d\n", g_PGTableDictArray[nTable].lpszDesp, nTotalLen, g_PGTableDictArray[nTable].nOffSet);
+				log_info("          表【%s】偏移错误，表实际偏移=%d 表定义偏移=%d\n", g_PGTableDictArray[nTable].lpszDesp, nTotalLen, g_PGTableDictArray[nTable].nOffSet);
 			}
 			nTableLen=0;
 			for (i=0; i<g_PGTableDictArray[nTable].nFieldNum; i++)
@@ -113,11 +111,11 @@ namespace	PGMemDB
 
 			if (nTableLen != g_PGTableDictArray[nTable].nFieldLen)
 			{
-				Log(m_lpszPGMemDBLogFile, "          表【%s】长度错误，定义长度=%d 实际长度=%d\n", g_PGTableDictArray[nTable].lpszDesp, g_PGTableDictArray[nTable].nFieldLen, nTableLen);
+				log_info("          表【%s】长度错误，定义长度=%d 实际长度=%d\n", g_PGTableDictArray[nTable].lpszDesp, g_PGTableDictArray[nTable].nFieldLen, nTableLen);
 			}
 			else
 			{
-				Log(m_lpszPGMemDBLogFile, "表【%s】长度正确，定义长度=%d 实际长度=%d 容量=%d 表占用空间=%.3f M(%.3f %% )\n", 
+				log_info("表【%s】长度正确，定义长度=%d 实际长度=%d 容量=%d 表占用空间=%.3f M(%.3f %% )\n", 
 						g_PGTableDictArray[nTable].lpszDesp, g_PGTableDictArray[nTable].nFieldLen, nTableLen, g_PGTableDictArray[nTable].nRecordMax, g_PGTableDictArray[nTable].nFieldLen*g_PGTableDictArray[nTable].nRecordMax/1024.0/1024.0, 
 						100.0*g_PGTableDictArray[nTable].nFieldLen*g_PGTableDictArray[nTable].nRecordMax/sizeof(tagPGBlock));
 			}
@@ -127,20 +125,20 @@ namespace	PGMemDB
 		//nTotalLen += MAXMDBTABLENUM*sizeof(int);
 		if (nTotalLen != sizeof(tagPGBlock))
 		{
-			Log(m_lpszPGMemDBLogFile, "          内存空间计算长度不正确，实际长度＝%d 计算长度＝%d\n", sizeof(tagPGBlock), nTotalLen);
+			log_info("          内存空间计算长度不正确，实际长度＝%d 计算长度＝%d\n", sizeof(tagPGBlock), nTotalLen);
 		}
 		else
 		{
-			Log(m_lpszPGMemDBLogFile, "内存计算空间长度正确，实际长度＝%d (%d)M 计算长度＝%d\n", sizeof(tagPGBlock), sizeof(tagPGBlock)/1024/1024, nTotalLen);
+			log_info("内存计算空间长度正确，实际长度＝%d (%d)M 计算长度＝%d\n", sizeof(tagPGBlock), sizeof(tagPGBlock)/1024/1024, nTotalLen);
 		}
 
 		if (nMemSize != sizeof(tagPGBlock))
 		{
-			Log(m_lpszPGMemDBLogFile, "          内存空间定义长度不正确，实际长度＝%d 定义长度＝%d\n", sizeof(tagPGBlock), nMemSize);
+			log_info("          内存空间定义长度不正确，实际长度＝%d 定义长度＝%d\n", sizeof(tagPGBlock), nMemSize);
 		}
 		else
 		{
-			Log(m_lpszPGMemDBLogFile, "内存空间定义长度正确，实际长度＝%d (%d)M 定义长度＝%d\n", sizeof(tagPGBlock), sizeof(tagPGBlock)/1024/1024, nMemSize);
+			log_info("内存空间定义长度正确，实际长度＝%d (%d)M 定义长度＝%d\n", sizeof(tagPGBlock), sizeof(tagPGBlock)/1024/1024, nMemSize);
 		}
 
 	}
@@ -257,7 +255,7 @@ namespace	PGMemDB
 		return -1;
 	}
 
-	const int PGIsFieldPrimaryKey(const int nTable, const int nField)
+	int PGIsFieldPrimaryKey(const int nTable, const int nField)
 	{
 		if (nTable >= 0 && nTable < PGGetTableNum())
 		{
@@ -557,12 +555,12 @@ namespace	PGMemDB
 		MemDBBase::CalculateResourceId(strBuffer.c_str(), lpszRetResID);
 	}
 
-	void	PGCalcResourceId(const char* lpszInString, char* lpszRetResID)
+	void PGCalcResourceId(const char* lpszInString, char* lpszRetResID)
 	{
 		MemDBBase::CalculateResourceId(lpszInString, lpszRetResID);
 	}
 
-	const int	PGGetFieldCategoryNum()
+	int	PGGetFieldCategoryNum()
 	{
 		return sizeof(MDBFeldCategoryStringArray)/sizeof(char*);
 	}
@@ -572,7 +570,7 @@ namespace	PGMemDB
 		return MDBFeldCategoryStringArray[nCatrgory];
 	}
 
-	const int	PGGetFieldCategoryValue(const char* lpszCatrgory)
+	int	PGGetFieldCategoryValue(const char* lpszCatrgory)
 	{
 		register int	i;
 		for (i=0; i<sizeof(MDBFeldCategoryStringArray)/sizeof(char*); i++)
@@ -583,7 +581,7 @@ namespace	PGMemDB
 		return -1;
 	}
 
-	const int	PGGetTableFieldContainerNum()
+	int	PGGetTableFieldContainerNum()
 	{
 		return sizeof(g_PGTableFieldContainerArray)/sizeof(tagMDBTableFieldContainer);
 	}

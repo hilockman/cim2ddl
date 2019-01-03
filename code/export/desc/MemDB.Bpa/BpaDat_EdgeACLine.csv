@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,ACBusName,交流母线名称,STRING,10
+1,ACBuskV,交流母线电压(kV),DOUBLE,4
+2,ACLineName,交流线路名称,STRING,32
+3,ACLinePtr,交流线路索引,INTEGER,4

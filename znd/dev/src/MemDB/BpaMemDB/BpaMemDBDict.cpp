@@ -5,7 +5,7 @@
 
 namespace	BpaMemDB
 {
-	int BpaGetTableDictIndex(const char* lpszKey, const int nCategory)
+	const int CBpaMemDBInterface::BpaGetTableDictIndex(const char* lpszKey, const int nCategory) const
 	{
 		register int	i;
 		for (i=0; i<sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict); i++)
@@ -24,57 +24,57 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	const int	BpaGetDictNum()
+	const int CBpaMemDBInterface::BpaGetDictNum() const
 	{
 		return sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict);
 	}
 
-	const char*	BpaGetDictTable(const int nDictIndex)
+	const char* CBpaMemDBInterface::BpaGetDictTable(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].szTable;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].szTable : "";
 	}
 
-	const char*	BpaGetDictCardKey(const int nDictIndex)
+	const char*	CBpaMemDBInterface::BpaGetDictCardKey(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].szCardKey;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].szCardKey : "";
 	}
 
-	const char*	BpaGetDictFieldName(const int nDictIndex)
+	const char*	CBpaMemDBInterface::BpaGetDictFieldName(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].szFieldName;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].szFieldName : 0;
 	}
 
-	const unsigned char	BpaGetDictModified(const int nDictIndex)
+	const unsigned char	CBpaMemDBInterface::BpaGetDictModified(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].bFieldModabled;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].bFieldModabled : 0;
 	}
 
-	const int	BpaGetDictFieldType(const int nDictIndex)
+	const int CBpaMemDBInterface::BpaGetDictFieldType(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].nFieldType;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].nFieldType : 0;
 	}
 
-	const int	BpaGetDictFieldStart(const int nDictIndex)
+	const int CBpaMemDBInterface::BpaGetDictFieldStart(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].nFieldStart;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].nFieldStart : 0;
 	}
 
-	const int	BpaGetDictFieldEnd(const int nDictIndex)
+	const int CBpaMemDBInterface::BpaGetDictFieldEnd(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].nFieldEnd;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].nFieldEnd : 0;
 	}
 
-	const int	BpaGetDictFieldLen(const int nDictIndex)
+	const int CBpaMemDBInterface::BpaGetDictFieldLen(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].nFieldLen;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].nFieldLen : 0;
 	}
 
-	const int	BpaGetDictFieldDecimal(const int nDictIndex)
+	const int CBpaMemDBInterface::BpaGetDictFieldDecimal(const int nDictIndex) const
 	{
-		return g_BpaDictArray[nDictIndex].nFieldDecimal;
+		return (nDictIndex >= 0 && nDictIndex < sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict)) ? g_BpaDictArray[nDictIndex].nFieldDecimal : 0;
 	}
 
-	int BpaGetFieldDictIndex(const int nDict, const char* lpszField)
+	const int CBpaMemDBInterface::BpaGetFieldDictIndex(const int nDict, const char* lpszField) const
 	{
 		register int	i;
 		for (i=nDict; i<sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict); i++)
@@ -88,7 +88,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	void	BpaMaintDict()
+	void CBpaMemDBInterface::BpaMaintDict()
 	{
 		register int	i, j;
 		tagBpa_Dict	dBuf;
@@ -142,7 +142,7 @@ namespace	BpaMemDB
 		//	Log(g_lpszLogFile, "BPADict[%d/%d]=%s %s %s %d\n", i, sizeof(g_BpaDictArray)/sizeof(tagBpa_Dict), g_BpaDictArray[i].szTable, g_BpaDictArray[i].szCardKey, g_BpaDictArray[i].szFieldName, g_BpaDictArray[i].nFieldStart);
 	}
 
-	int BpaIsCardKeyAppend(const int nCategory, const char* lpszKey)
+	int CBpaMemDBInterface::BpaIsCardKeyAppend(const int nCategory, const char* lpszKey)
 	{
 		register int	i;
 		for (i=0; i<sizeof(g_BpaModifyKeyArray)/sizeof(tagBpaKey2I); i++)
@@ -154,7 +154,7 @@ namespace	BpaMemDB
 	}
 
 
-	int	BpaGetGeneratorTableByCardKey(const char* lpszKey)
+	int	CBpaMemDBInterface::BpaGetGeneratorTableByCardKey(const char* lpszKey)
 	{
 		register int	i;
 		for (i=0; i<sizeof(g_GeneratorCardArray)/sizeof(tagBpaKey2I); i++)

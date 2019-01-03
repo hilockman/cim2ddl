@@ -21,7 +21,7 @@ namespace	PRAdequacyBase
 
 	typedef	struct	_BpaPRSecuritySetting_
 	{
-		std::string		strBpaWorkDir;			//	软件工作目录，用于存放BPA等之间计算文件和最终计算结果文件，目前应用于安全性评价
+		char			szBpaWorkDir[260];			//	软件工作目录，用于存放BPA等之间计算文件和最终计算结果文件，目前应用于安全性评价
 
 		//////////////////////////////////////////////////////////////////////////
 		//	曲线显示参数设置
@@ -114,9 +114,8 @@ namespace	PRAdequacyBase
 		~CPRSecurity(void);
 
 	public:
-		tagBpaPRSecuritySetting	m_PRSecuritySetting;
-		int		ReadBpaPRSecuritySetting(const char* lpszSettingFile);
-		void	SaveBpaPRSecuritySetting();
+		int		ReadBpaPRSecuritySetting(const char* lpszSettingFile, tagBpaPRSecuritySetting* pSsaSetting);
+		void	SaveBpaPRSecuritySetting(tagBpaPRSecuritySetting* pSsaSetting);
 
 	private:
 		char	m_szDefaultSettingFile[260];

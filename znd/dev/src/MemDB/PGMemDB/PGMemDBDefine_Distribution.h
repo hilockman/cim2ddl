@@ -1,0 +1,957 @@
+#pragma once
+
+
+//////////////////////////////////////////////////////////////////////////
+enum	_PGEnum_Field_SubRegion_	{
+	PG_SUBREGION_RESOURCEID=0,
+	PG_SUBREGION_NAME,
+	PG_SUBREGION_DESC,
+	PG_SUBREGION_REGIONTYPE,
+	PG_SUBREGION_TOTALGENP,
+	PG_SUBREGION_TOTALGENQ,
+	PG_SUBREGION_TOTALLOADP,
+	PG_SUBREGION_TOTALLOADQ,
+	PG_SUBREGION_TOTALCAP,
+	PG_SUBREGION_TOTALREAC,
+	PG_SUBREGION_TOTALLOSSP,
+	PG_SUBREGION_TOTALLOSSQ,
+	PG_SUBREGION_GENFATCTOR,
+	PG_SUBREGION_LOADFATCTOR,
+	PG_SUBREGION_RO_CUSTOMERNUM,
+	PG_SUBREGION_RO_ACI,
+	PG_SUBREGION_RO_CID,
+	PG_SUBREGION_RO_SAIFI,
+	PG_SUBREGION_RO_SAIDI,
+	PG_SUBREGION_RO_ASAI,
+	PG_SUBREGION_RO_ENS,
+	PG_SUBREGION_RO_AENS,
+	PG_SUBREGION_RO_MIC,
+	PG_SUBREGION_RO_MID,
+	PG_SUBREGION_RO_F_ACI,
+	PG_SUBREGION_RO_F_CID,
+	PG_SUBREGION_RO_F_SAIFI,
+	PG_SUBREGION_RO_F_SAIDI,
+	PG_SUBREGION_RO_F_ASAI,
+	PG_SUBREGION_RO_F_ENS,
+	PG_SUBREGION_RO_F_AENS,
+	PG_SUBREGION_RO_F_MIC,
+	PG_SUBREGION_RO_F_MID,
+	PG_SUBREGION_RO_C_ACI,
+	PG_SUBREGION_RO_C_CID,
+	PG_SUBREGION_RO_C_SAIFI,
+	PG_SUBREGION_RO_C_SAIDI,
+	PG_SUBREGION_RO_C_ASAI,
+	PG_SUBREGION_RO_C_ENS,
+	PG_SUBREGION_RO_C_AENS,
+	PG_SUBREGION_RO_C_MIC,
+	PG_SUBREGION_RO_C_MID,
+	PG_SUBREGION_RO_A_ACI,
+	PG_SUBREGION_RO_A_CID,
+	PG_SUBREGION_RO_A_SAIFI,
+	PG_SUBREGION_RO_A_SAIDI,
+	PG_SUBREGION_RO_A_ASAI,
+	PG_SUBREGION_RO_A_ENS,
+	PG_SUBREGION_RO_A_AENS,
+	PG_SUBREGION_RO_A_MIC,
+	PG_SUBREGION_RO_A_MID,
+	PG_SUBREGION_EO_RCOEF,
+	PG_SUBREGION_EO_LOSSCOST,
+	PG_SUBREGION_EO_RELICOST,
+	PG_SUBREGION_EO_FUNDCOST,
+	PG_SUBREGION_EO_INCOME,
+};
+
+struct	_PG_SubRegion_	{
+	char	szResID[MDB_CHARLEN];
+	char	szName[MDB_CHARLEN_SHORT];
+	char	szDesp[MDB_CHARLEN];
+	unsigned char	nRegionType;
+	float	fTotalGenP;
+	float	fTotalGenQ;
+	float	fTotalLoadP;
+	float	fTotalLoadQ;
+	float	fTotalCap;
+	float	fTotalReac;
+	float	fTotalLossP;
+	float	fTotalLossQ;
+	float	fGenFactor;
+	float	fLoadFatctor;
+	double	ro_customernum;
+	double	ro_aci;
+	double	ro_cid;
+	double	ro_saifi;
+	double	ro_saidi;
+	double	ro_asai;
+	double	ro_ens;
+	double	ro_aens;
+	double	ro_mic;
+	double	ro_mid;
+	double	ro_f_aci;
+	double	ro_f_cid;
+	double	ro_f_saifi;
+	double	ro_f_saidi;
+	double	ro_f_asai;
+	double	ro_f_ens;
+	double	ro_f_aens;
+	double	ro_f_mic;
+	double	ro_f_mid;
+	double	ro_c_aci;
+	double	ro_c_cid;
+	double	ro_c_saifi;
+	double	ro_c_saidi;
+	double	ro_c_asai;
+	double	ro_c_ens;
+	double	ro_c_aens;
+	double	ro_c_mic;
+	double	ro_c_mid;
+	double	ro_a_aci;
+	double	ro_a_cid;
+	double	ro_a_saifi;
+	double	ro_a_saidi;
+	double	ro_a_asai;
+	double	ro_a_ens;
+	double	ro_a_aens;
+	double	ro_a_mic;
+	double	ro_a_mid;
+	float	eo_rcoef;
+	float	eo_losscost;
+	float	eo_relicost;
+	float	eo_fundcost;
+	float	eo_income;
+}	DISALIGN;
+typedef	struct	_PG_SubRegion_	tagPGSubRegion;
+
+enum	_PGEnum_Field_SubstationEntity_	{
+	PG_SUBSTATIONENTITY_RESOURCEID=0,
+	PG_SUBSTATIONENTITY_SUBSTATION,
+	PG_SUBSTATIONENTITY_VOLTAGELEVEL,
+	PG_SUBSTATIONENTITY_NAME,
+	PG_SUBSTATIONENTITY_HIGHVOLTAGELEVEL,
+	PG_SUBSTATIONENTITY_CONNECTIVITYNODE,
+	PG_SUBSTATIONENTITY_SUBSTATIONTYPE,
+	PG_SUBSTATIONENTITY_COMPONENT,
+	PG_SUBSTATIONENTITY_MVACAPACITY,
+	PG_SUBSTATIONENTITY_GENP,
+	PG_SUBSTATIONENTITY_GENQ,
+	PG_SUBSTATIONENTITY_PLANVAMP,
+	PG_SUBSTATIONENTITY_LOADP,
+	PG_SUBSTATIONENTITY_LOADFACTOR,
+	PG_SUBSTATIONENTITY_SHUNTCAP,
+	PG_SUBSTATIONENTITY_HEATINGLOAD,
+	PG_SUBSTATIONENTITY_REFRIGERATIONLOAD,
+	PG_SUBSTATIONENTITY_AUTOFORMTRAN,
+	PG_SUBSTATIONENTITY_EQX1,
+	PG_SUBSTATIONENTITY_EQX0,
+	PG_SUBSTATIONENTITY_BPA_GENBUS,
+	PG_SUBSTATIONENTITY_BPA_GENVOLT,
+	PG_SUBSTATIONENTITY_TOTALBAY,
+	PG_SUBSTATIONENTITY_FREEBAY,
+	PG_SUBSTATIONENTITY_TOTALOUTLINE,
+	PG_SUBSTATIONENTITY_INUSEOUTLINE,
+	PG_SUBSTATIONENTITY_RI_RERR,
+	PG_SUBSTATIONENTITY_RI_TREP,
+	PG_SUBSTATIONENTITY_RI_RCHK,
+	PG_SUBSTATIONENTITY_RI_TCHK,
+	PG_SUBSTATIONENTITY_RI_TFLOC,
+	PG_SUBSTATIONENTITY_RI_CUSTOMER,
+	PG_SUBSTATIONENTITY_RI_LOAD_RERR,
+	PG_SUBSTATIONENTITY_RI_LOAD_TREP,
+	PG_SUBSTATIONENTITY_RI_LOAD_RCHK,
+	PG_SUBSTATIONENTITY_RI_LOAD_TCHK,
+	PG_SUBSTATIONENTITY_RI_IDEALFLOCTIME,
+	PG_SUBSTATIONENTITY_EI_INVEST,
+	PG_SUBSTATIONENTITY_EI_CONSTLOSS,
+	PG_SUBSTATIONENTITY_EI_EVALRATIO,
+
+	PG_SUBSTATIONENTITY_RW_TUNING1,
+	PG_SUBSTATIONENTITY_RW_TUNING2,
+	PG_SUBSTATIONENTITY_RW_DELAY1,
+	PG_SUBSTATIONENTITY_RW_DELAY2,
+	PG_SUBSTATIONENTITY_RW_PLATE,
+
+	PG_SUBSTATIONENTITY_RE_TUNING1,
+	PG_SUBSTATIONENTITY_RE_TUNING2,
+	PG_SUBSTATIONENTITY_RE_DELAY1,
+	PG_SUBSTATIONENTITY_RE_DELAY2,
+	PG_SUBSTATIONENTITY_RE_PLATE,
+
+	PG_SUBSTATIONENTITY_ISLAND,
+	PG_SUBSTATIONENTITY_NODEPTR,
+	PG_SUBSTATIONENTITY_P,
+	PG_SUBSTATIONENTITY_Q,
+	PG_SUBSTATIONENTITY_V,
+	PG_SUBSTATIONENTITY_D,
+	PG_SUBSTATIONENTITY_EO_LOSS,
+	PG_SUBSTATIONENTITY_SCC,
+	PG_SUBSTATIONENTITY_SA_RESULT,
+	PG_SUBSTATIONENTITY_SA_ISLAND,
+	PG_SUBSTATIONENTITY_SA_FAILURE,
+	PG_SUBSTATIONENTITY_SA_OUTAGES,
+};
+
+struct	_PG_SubstationEntity_	{
+	char	szResID			[MDB_CHARLEN];
+	char	szSub			[MDB_CHARLEN];
+	char	szVolt			[MDB_CHARLEN_SHORTER];
+	char	szName			[MDB_CHARLEN];
+	char	szHighVolt		[MDB_CHARLEN_SHORTER];
+	char	szNode			[PGND_CHARLEN];
+	unsigned char	nSubstationType;
+	char	szComp			[MDB_CHARLEN_SHORT];
+	float	fMvaCapacity;
+	float	fGenP;
+	float	fGenQ;
+	float	fPlanV;
+	float	fLoadP;
+	float	fLoadFactor;
+	float	fShuntCap;
+	float	fHeatingLoad;
+	float	fRefrigerationLoad;
+	unsigned char	nAutoFormTran;
+	float	fEqX1;
+	float	fEqX0;
+	char	szBpaGenBus[MDB_CHARLEN_SHORTER];
+	float	fBpaGenVolt;
+	unsigned char	nTotalBay;
+	unsigned char	nFreeBay;
+	unsigned char	nTotalOutline;
+	unsigned char	nInuseOutline;
+	float	ri_Rerr;
+	float	ri_Trep;
+	float	ri_Rchk;
+	float	ri_Tchk;
+	float	ri_Tfloc;
+	float	ri_Customer;
+	float	ri_load_rerr;
+	float	ri_load_trep;
+	float	ri_load_rchk;
+	float	ri_load_tchk;
+	float	ri_IdealFLocTime;
+	float	ei_Invest;
+	float	ei_constloss;
+	float	ei_evalratio;
+
+	float	fRWTuning1;
+	float	fRWTuning2;
+	float	fRWDelay1;
+	float	fRWDelay2;
+	unsigned char	bRWPlate;
+
+	float	fRETuning1;
+	float	fRETuning2;
+	float	fREDelay1;
+	float	fREDelay2;
+	unsigned char	bREPlate;
+
+	short	nIsland;
+	int		nNode;
+	float	fP;
+	float	fQ;
+	float	fV;
+	float	fD;
+	float	eo_loss;
+	float	fSccA;
+	unsigned char	sa_Result;
+	unsigned char	sa_Island;
+	float	sa_Failure;
+	float	sa_Outages;
+}	DISALIGN;
+typedef	struct	_PG_SubstationEntity_	tagPGSubstationEntity;
+
+enum	_PGEnum_Field_BranchSegment_	{
+	PG_BRANCHSEGMENT_RESOURCEID=0,
+	PG_BRANCHSEGMENT_NAME,
+	PG_BRANCHSEGMENT_ACLINESEGMENT,
+	PG_BRANCHSEGMENT_SUBSTATIONSIDE,
+	PG_BRANCHSEGMENT_TOWERID,
+	PG_BRANCHSEGMENT_VOLTAGELEVEL,
+	PG_BRANCHSEGMENT_LINETYPE,
+	PG_BRANCHSEGMENT_LINEMODEL,
+	PG_BRANCHSEGMENT_LENGTH,
+	PG_BRANCHSEGMENT_STATUS,
+	PG_BRANCHSEGMENT_LOADP,
+	PG_BRANCHSEGMENT_LOADFACTOR,
+	PG_BRANCHSEGMENT_LOADCAP,
+	PG_BRANCHSEGMENT_HEATINGLOAD,
+	PG_BRANCHSEGMENT_REFRIGERATIONLOAD,
+	PG_BRANCHSEGMENT_RATECUR,
+	PG_BRANCHSEGMENT_RATEMVA,
+	PG_BRANCHSEGMENT_UNITR,
+	PG_BRANCHSEGMENT_UNITX,
+	PG_BRANCHSEGMENT_UNITG,
+	PG_BRANCHSEGMENT_UNITB,
+	PG_BRANCHSEGMENT_RI_UNITRERR,
+	PG_BRANCHSEGMENT_RI_UNITTREP,
+	PG_BRANCHSEGMENT_RI_UNITRCHK,
+	PG_BRANCHSEGMENT_RI_UNITTCHK,
+	PG_BRANCHSEGMENT_EI_UNITINVEST,
+	PG_BRANCHSEGMENT_R,
+	PG_BRANCHSEGMENT_X,
+	PG_BRANCHSEGMENT_G,
+	PG_BRANCHSEGMENT_B,
+	PG_BRANCHSEGMENT_R0,
+	PG_BRANCHSEGMENT_X0,
+	PG_BRANCHSEGMENT_B0,
+	PG_BRANCHSEGMENT_RI_RERR,
+	PG_BRANCHSEGMENT_RI_TREP,
+	PG_BRANCHSEGMENT_RI_RCHK,
+	PG_BRANCHSEGMENT_RI_TCHK,
+	PG_BRANCHSEGMENT_RI_TFLOC,
+	PG_BRANCHSEGMENT_RI_CUSTOMER,
+	PG_BRANCHSEGMENT_RI_LOAD_RERR,
+	PG_BRANCHSEGMENT_RI_LOAD_TREP,
+	PG_BRANCHSEGMENT_RI_LOAD_RCHK,
+	PG_BRANCHSEGMENT_RI_LOAD_TCHK,
+	PG_BRANCHSEGMENT_EI_INVEST,
+	PG_BRANCHSEGMENT_EI_CONSTLOSS,
+	PG_BRANCHSEGMENT_EI_EVALRATIO,
+	PG_BRANCHSEGMENT_VD_RSCC1,
+	PG_BRANCHSEGMENT_VD_RSCC2,
+	PG_BRANCHSEGMENT_VD_RSCC3,
+	PG_BRANCHSEGMENT_VD_RSCC4,
+
+	PG_BRANCHSEGMENT_BRANCHBREAKING,
+	PG_BRANCHSEGMENT_BREAKINGTYPE,
+	PG_BRANCHSEGMENT_RI_SW_RERR,
+	PG_BRANCHSEGMENT_RI_SW_TREP,
+	PG_BRANCHSEGMENT_RI_SW_RCHK,
+	PG_BRANCHSEGMENT_RI_SW_TCHK,
+	PG_BRANCHSEGMENT_RI_SW_TFLOC,
+	PG_BRANCHSEGMENT_P,
+	PG_BRANCHSEGMENT_Q,
+	PG_BRANCHSEGMENT_A,
+	PG_BRANCHSEGMENT_LOSSP,
+	PG_BRANCHSEGMENT_LOSSQ,
+	PG_BRANCHSEGMENT_RO_ENS,
+	PG_BRANCHSEGMENT_EO_LOSS,
+	PG_BRANCHSEGMENT_SA_RESULT,
+	PG_BRANCHSEGMENT_SA_ISLAND,
+	PG_BRANCHSEGMENT_SA_FAILURE,
+	PG_BRANCHSEGMENT_SA_SHIFTNODE,
+};
+
+struct	_PG_BranchSegment_	{
+	char	szResID[MDB_CHARLEN];
+	char	szName[MDB_CHARLEN];
+	char	szACLineSegment[MDB_CHARLEN];
+	char	szSubstationSide[MDB_CHARLEN];
+	short	nTowerID;
+	char	szVolt[MDB_CHARLEN_SHORTER];
+	unsigned char	nLineType;
+	char	szLineModel[MDB_CHARLEN];
+	float	fLength;
+	unsigned char	nStatus;
+	float	fLoadP;
+	float	fLoadFactor;
+	float	fLineCap;
+	float	fHeatingLoad;
+	float	fRefrigerationLoad;
+	float	fRatedCur;
+	float	fRatedMva;
+	float	fUnitR;
+	float	fUnitX;
+	float	fUnitG;
+	float	fUnitB;
+	float	ri_UnitRerr;
+	float	ri_UnitTrep;
+	float	ri_UnitRchk;
+	float	ri_UnitTchk;
+	float	ei_UnitInvest;
+	float	fR;
+	float	fX;
+	float	fG;
+	float	fB;
+	float	fR0;
+	float	fX0;
+	float	fB0;
+
+	//	可靠性输入数据
+	float	ri_Rerr;
+	float	ri_Trep;
+	float	ri_Rchk;
+	float	ri_Tchk;
+	float	ri_Tfloc;
+	float	ri_Customer;
+
+	float	ri_load_rerr;
+	float	ri_load_trep;
+	float	ri_load_rchk;
+	float	ri_load_tchk;
+
+	//	经济性输入数据
+	float	ei_Invest;
+	float	ei_constloss;
+	float	ei_evalratio;
+
+	//	电压暂降评估输入数据
+	float	vd_RScc1;
+	float	vd_RScc2;
+	float	vd_RScc3;
+	float	vd_RScc4;
+
+	unsigned char	bBranchBreaking;
+	unsigned char	nBreakingType;
+	float	ri_sw_rerr;
+	float	ri_sw_trep;
+	float	ri_sw_rchk;
+	float	ri_sw_tchk;
+	float	ri_sw_tfloc;
+
+	//	输出数据
+	float	fP;
+	float	fQ;
+	float	fA;
+	float	fLossP;
+	float	fLossQ;
+	float	ro_ens;
+	float	eo_loss;
+
+	unsigned char	sa_Result;
+	unsigned char	sa_Island;
+	float	sa_Failure;
+	int		sa_ShiftNode;
+}	DISALIGN;
+typedef	struct	_PG_BranchSegment_	tagPGBranchSegment;
+
+enum	_PGEnum_Field_DistributionSwitch_	{
+	PG_DISTRIBUTIONSWITCH_RESOURCEID=0,
+	PG_DISTRIBUTIONSWITCH_SUBSTATION,
+	PG_DISTRIBUTIONSWITCH_VOLTAGELEVEL,
+	PG_DISTRIBUTIONSWITCH_NAME,
+	PG_DISTRIBUTIONSWITCH_CONNECTIVITYNODE,
+	PG_DISTRIBUTIONSWITCH_TYPE,
+	PG_DISTRIBUTIONSWITCH_MODEL,
+	PG_DISTRIBUTIONSWITCH_LOADP,
+	PG_DISTRIBUTIONSWITCH_LOADFACTOR,
+	PG_DISTRIBUTIONSWITCH_SHUNTCAP,
+	PG_DISTRIBUTIONSWITCH_HEATINGLOAD,
+	PG_DISTRIBUTIONSWITCH_REFRIGERATIONLOAD,
+	PG_DISTRIBUTIONSWITCH_RI_RERR,
+	PG_DISTRIBUTIONSWITCH_RI_TREP,
+	PG_DISTRIBUTIONSWITCH_RI_RCHK,
+	PG_DISTRIBUTIONSWITCH_RI_TCHK,
+	PG_DISTRIBUTIONSWITCH_RI_TFLOC,
+	PG_DISTRIBUTIONSWITCH_RI_CUSTOMER,
+	PG_DISTRIBUTIONSWITCH_RI_LOAD_RERR,
+	PG_DISTRIBUTIONSWITCH_RI_LOAD_TREP,
+	PG_DISTRIBUTIONSWITCH_RI_LOAD_RCHK,
+	PG_DISTRIBUTIONSWITCH_RI_LOAD_TCHK,
+	PG_DISTRIBUTIONSWITCH_EI_INVEST,
+	PG_DISTRIBUTIONSWITCH_EI_CONSTLOSS,
+	PG_DISTRIBUTIONSWITCH_EI_EVALRATIO,
+	PG_DISTRIBUTIONSWITCH_VD_RSCC1,
+	PG_DISTRIBUTIONSWITCH_VD_RSCC2,
+	PG_DISTRIBUTIONSWITCH_VD_RSCC3,
+	PG_DISTRIBUTIONSWITCH_VD_RSCC4,
+
+	PG_DISTRIBUTIONSWITCH_ISLAND,
+	PG_DISTRIBUTIONSWITCH_NODEPTR,
+	PG_DISTRIBUTIONSWITCH_V,
+	PG_DISTRIBUTIONSWITCH_D,
+	PG_DISTRIBUTIONSWITCH_SCC,
+	PG_DISTRIBUTIONSWITCH_SA_RESULT,
+	PG_DISTRIBUTIONSWITCH_SA_ISLAND,
+	PG_DISTRIBUTIONSWITCH_SA_FAILURE,
+	PG_DISTRIBUTIONSWITCH_SA_OUTAGES,
+	PG_DISTRIBUTIONSWITCH_EO_LOSS,
+	PG_DISTRIBUTIONSWITCH_OUTLINENUM,
+	PG_DISTRIBUTIONSWITCH_INUSEOUTLINE,
+};
+
+struct	_PG_DistributionSwitch_	{
+	char	szResID			[MDB_CHARLEN];
+	char	szSub			[MDB_CHARLEN];
+	char	szVolt			[MDB_CHARLEN_SHORTER];
+	char	szName			[MDB_CHARLEN];
+	char	szNode			[PGND_CHARLEN];
+	unsigned char	nType;
+	char	szModel			[MDB_CHARLEN];
+	float	fLoadP;
+	float	fLoadFactor;
+	float	fShuntCap;
+	float	fHeatingLoad;
+	float	fRefrigerationLoad;
+	float	ri_Rerr;
+	float	ri_Trep;
+	float	ri_Rchk;
+	float	ri_Tchk;
+	float	ri_Tfloc;
+	float	ri_Customer;
+	float	ri_load_rerr;
+	float	ri_load_trep;
+	float	ri_load_rchk;
+	float	ri_load_tchk;
+	float	ei_Invest;
+	float	ei_constloss;
+	float	ei_evalratio;
+
+	//	电压暂降评估输入数据
+	float	vd_RScc1;
+	float	vd_RScc2;
+	float	vd_RScc3;
+	float	vd_RScc4;
+
+	short	nIsland;
+	int		nNode;
+	float	fV;
+	float	fD;
+	float	fSccA;
+	unsigned char	sa_Result;
+	unsigned char	sa_Island;
+	float	sa_Failure;
+	float	sa_Outages;
+	float	eo_loss;
+	unsigned char	nOutLineNum;
+	unsigned char	nInuseOutline;
+}	DISALIGN;
+typedef	struct	_PG_DistributionSwitch_	tagPGDistributionSwitch;
+
+enum	_PGEnum_Field_DistributionLoad_	{
+	PG_DISTRIBUTIONLOAD_RESOURCEID=0,
+	PG_DISTRIBUTIONLOAD_SUBSTATION,
+	PG_DISTRIBUTIONLOAD_VOLTAGELEVEL,
+	PG_DISTRIBUTIONLOAD_NAME,
+	PG_DISTRIBUTIONLOAD_USERID,
+	PG_DISTRIBUTIONLOAD_SUBSTATIONENTITY,
+	PG_DISTRIBUTIONLOAD_CONNECTIVITYNODE,
+	PG_DISTRIBUTIONLOAD_TYPE,
+	PG_DISTRIBUTIONLOAD_MODEL,
+	PG_DISTRIBUTIONLOAD_RATECAPACITY,
+	PG_DISTRIBUTIONLOAD_LOADRATIO,
+	PG_DISTRIBUTIONLOAD_LOADP,
+	PG_DISTRIBUTIONLOAD_LOADFACTOR,
+	PG_DISTRIBUTIONLOAD_SHUNTCAP,
+	PG_DISTRIBUTIONLOAD_HEATINGLOAD,
+	PG_DISTRIBUTIONLOAD_REFRIGERATIONLOAD,
+	PG_DISTRIBUTIONLOAD_RI_RERR,
+	PG_DISTRIBUTIONLOAD_RI_TREP,
+	PG_DISTRIBUTIONLOAD_RI_RCHK,
+	PG_DISTRIBUTIONLOAD_RI_TCHK,
+	PG_DISTRIBUTIONLOAD_RI_TFLOC,
+	PG_DISTRIBUTIONLOAD_RI_CUSTOMER,
+	PG_DISTRIBUTIONLOAD_RI_LOAD_RERR,
+	PG_DISTRIBUTIONLOAD_RI_LOAD_TREP,
+	PG_DISTRIBUTIONLOAD_RI_LOAD_RCHK,
+	PG_DISTRIBUTIONLOAD_RI_LOAD_TCHK,
+	PG_DISTRIBUTIONLOAD_EI_INVEST,
+	PG_DISTRIBUTIONLOAD_EI_CONSTLOSS,
+	PG_DISTRIBUTIONLOAD_EI_EVALRATIO,
+	PG_DISTRIBUTIONLOAD_VD_RSCC1,
+	PG_DISTRIBUTIONLOAD_VD_RSCC2,
+	PG_DISTRIBUTIONLOAD_VD_RSCC3,
+	PG_DISTRIBUTIONLOAD_VD_RSCC4,
+
+	PG_DISTRIBUTIONLOAD_ISLAND,
+	PG_DISTRIBUTIONLOAD_NODEPTR,
+	PG_DISTRIBUTIONLOAD_V,
+	PG_DISTRIBUTIONLOAD_D,
+	PG_DISTRIBUTIONLOAD_EO_LOSS,
+	PG_DISTRIBUTIONLOAD_SCC,
+	PG_DISTRIBUTIONLOAD_SA_RESULT,
+	PG_DISTRIBUTIONLOAD_SA_ISLAND,
+	PG_DISTRIBUTIONLOAD_SA_FAILURE,
+	PG_DISTRIBUTIONLOAD_SA_OUTAGES,
+};
+
+struct	_PG_DistributionLoad_	{
+	char	szResID				[MDB_CHARLEN];
+	char	szSub				[MDB_CHARLEN];
+	char	szVolt				[MDB_CHARLEN_SHORTER];
+	char	szName				[MDB_CHARLEN];
+	char	szUserId			[MDB_CHARLEN];
+	char	szSubstationEntity	[MDB_CHARLEN];
+	char	szNode				[PGND_CHARLEN];
+	unsigned char	nType;
+	char	szModel				[MDB_CHARLEN];
+	float	fRateCapacity;
+	float	fLoadRatio;
+	float	fLoadP;
+	float	fLoadFactor;
+	float	fShuntCap;
+	float	fHeatingLoad;
+	float	fRefrigerationLoad;
+
+	float	ri_Rerr;
+	float	ri_Trep;
+	float	ri_Rchk;
+	float	ri_Tchk;
+	float	ri_Tfloc;
+	float	ri_Customer;
+	float	ri_load_rerr;
+	float	ri_load_trep;
+	float	ri_load_rchk;
+	float	ri_load_tchk;
+	float	ei_Invest;
+	float	ei_constloss;
+	float	ei_evalratio;
+
+	//	电压暂降评估输入数据
+	float	vd_RScc1;
+	float	vd_RScc2;
+	float	vd_RScc3;
+	float	vd_RScc4;
+
+	short	nIsland;
+	int		nNode;
+	float	fV;
+	float	fD;
+	float	eo_loss;
+	float	fSccA;
+	unsigned char	sa_Result;
+	unsigned char	sa_Island;
+	float	sa_Failure;
+	float	sa_Outages;
+}	DISALIGN;
+typedef	struct	_PG_DistributionLoad_	tagPGDistributionLoad;
+
+enum	_PGEnum_Field_DistributionBreaker_	{
+	PG_DISTRIBUTIONBREAKER_RESOURCEID=0,
+	PG_DISTRIBUTIONBREAKER_SUBSTATION,
+	PG_DISTRIBUTIONBREAKER_VOLTAGELEVEL,
+	PG_DISTRIBUTIONBREAKER_NAME,
+	PG_DISTRIBUTIONBREAKER_SUBSTATIONENTITY,
+	PG_DISTRIBUTIONBREAKER_CONNECTIVITYNODEI,
+	PG_DISTRIBUTIONBREAKER_CONNECTIVITYNODEJ,
+	PG_DISTRIBUTIONBREAKER_MODEL,
+	PG_DISTRIBUTIONBREAKER_BREAKERTYPE,
+	PG_DISTRIBUTIONBREAKER_CONSTOPEN,
+	PG_DISTRIBUTIONBREAKER_STATUS,
+	PG_DISTRIBUTIONBREAKER_RI_RERR,
+	PG_DISTRIBUTIONBREAKER_RI_TREP,
+	PG_DISTRIBUTIONBREAKER_RI_RCHK,
+	PG_DISTRIBUTIONBREAKER_RI_TCHK,
+	PG_DISTRIBUTIONBREAKER_RI_TFLOC,
+	PG_DISTRIBUTIONBREAKER_RI_RSWITCH,
+	PG_DISTRIBUTIONBREAKER_RI_TSWITCH,
+	PG_DISTRIBUTIONBREAKER_RI_TDELAY,
+	PG_DISTRIBUTIONBREAKER_RI_CUSTOMER,
+	PG_DISTRIBUTIONBREAKER_RI_LOAD_RERR,
+	PG_DISTRIBUTIONBREAKER_RI_LOAD_TREP,
+	PG_DISTRIBUTIONBREAKER_RI_LOAD_RCHK,
+	PG_DISTRIBUTIONBREAKER_RI_LOAD_TCHK,
+	PG_DISTRIBUTIONBREAKER_EI_INVEST,
+	PG_DISTRIBUTIONBREAKER_VD_RSCC1,
+	PG_DISTRIBUTIONBREAKER_VD_RSCC2,
+	PG_DISTRIBUTIONBREAKER_VD_RSCC3,
+	PG_DISTRIBUTIONBREAKER_VD_RSCC4,
+
+	PG_DISTRIBUTIONBREAKER_ISLAND,
+	PG_DISTRIBUTIONBREAKER_SCC,
+	PG_DISTRIBUTIONBREAKER_SA_RESULT,
+	PG_DISTRIBUTIONBREAKER_SA_ISLAND,
+	PG_DISTRIBUTIONBREAKER_SA_FAILURE,
+	PG_DISTRIBUTIONBREAKER_SA_OUTAGES,
+	PG_DISTRIBUTIONBREAKER_NODEIPTR,
+	PG_DISTRIBUTIONBREAKER_NODEJPTR,
+};
+
+struct	_PD_DistributionBreaker_	{
+	char	szResID				[MDB_CHARLEN];
+	char	szSub				[MDB_CHARLEN];
+	char	szVolt				[MDB_CHARLEN_SHORTER];
+	char	szName				[MDB_CHARLEN];
+	char	szSubstationEntity	[MDB_CHARLEN];
+	char	szNodeI				[PGND_CHARLEN];
+	char	szNodeJ				[PGND_CHARLEN];
+	char	szModel				[MDB_CHARLEN];
+	unsigned char	nBreakerType;
+	unsigned char	bNonReliBreaker;
+	unsigned char	nStatus;
+	float	ri_Rerr;
+	float	ri_Trep;
+	float	ri_Rchk;
+	float	ri_Tchk;
+	float	ri_Tfloc;
+	float	ri_RSwitch;
+	float	ri_TSwitch;
+	float	ri_TDelay;
+	float	ri_Customer;
+	float	ri_load_rerr;
+	float	ri_load_trep;
+	float	ri_load_rchk;
+	float	ri_load_tchk;
+	float	ei_Invest;
+
+	//	电压暂降评估输入数据
+	float	vd_RScc1;
+	float	vd_RScc2;
+	float	vd_RScc3;
+	float	vd_RScc4;
+
+	short	nIsland;
+	float	fSccA;
+	unsigned char	sa_Result;
+	unsigned char	sa_Island;
+	float	sa_Failure;
+	float	sa_Outages;
+	int		nNodeI;
+	int		nNodeJ;
+}	DISALIGN;
+typedef	struct	_PD_DistributionBreaker_	tagPGDistributionBreaker;
+
+enum	_PGEnum_Field_DistributionJuncPole_	{
+	PG_DISTRIBUTIONDOT_RESOURCEID=0,
+	PG_DISTRIBUTIONDOT_SUBSTATION,
+	PG_DISTRIBUTIONDOT_VOLTAGELEVEL,
+	PG_DISTRIBUTIONDOT_NAME,
+	PG_DISTRIBUTIONDOT_SUBSTATIONENTITY,
+	PG_DISTRIBUTIONDOT_CONNECTIVITYNODE,
+	PG_DISTRIBUTIONDOT_TYPE,
+	PG_DISTRIBUTIONDOT_LOADP,
+	PG_DISTRIBUTIONDOT_LOADFACTOR,
+	PG_DISTRIBUTIONDOT_SHUNTCAP,
+	PG_DISTRIBUTIONDOT_HEATINGLOAD,
+	PG_DISTRIBUTIONDOT_REFRIGERATIONLOAD,
+	PG_DISTRIBUTIONDOT_RI_RERR,
+	PG_DISTRIBUTIONDOT_RI_TREP,
+	PG_DISTRIBUTIONDOT_RI_RCHK,
+	PG_DISTRIBUTIONDOT_RI_TCHK,
+	PG_DISTRIBUTIONDOT_RI_TFLOC,
+	PG_DISTRIBUTIONDOT_RI_CUSTOMER,
+	PG_DISTRIBUTIONDOT_RI_LOAD_RERR,
+	PG_DISTRIBUTIONDOT_RI_LOAD_TREP,
+	PG_DISTRIBUTIONDOT_RI_LOAD_RCHK,
+	PG_DISTRIBUTIONDOT_RI_LOAD_TCHK,
+	PG_DISTRIBUTIONDOT_EI_INVEST,
+	PG_DISTRIBUTIONDOT_EI_CONSTLOSS,
+	PG_DISTRIBUTIONDOT_EI_EVALRATIO,
+	PG_DISTRIBUTIONDOT_VD_RSCC1,
+	PG_DISTRIBUTIONDOT_VD_RSCC2,
+	PG_DISTRIBUTIONDOT_VD_RSCC3,
+	PG_DISTRIBUTIONDOT_VD_RSCC4,
+
+	PG_DISTRIBUTIONDOT_ISLAND,
+	PG_DISTRIBUTIONDOT_NODEPTR,
+	PG_DISTRIBUTIONDOT_V,
+	PG_DISTRIBUTIONDOT_D,
+	PG_DISTRIBUTIONDOT_EO_LOSS,
+	PG_DISTRIBUTIONDOT_SCC,
+	PG_DISTRIBUTIONDOT_SA_RESULT,
+	PG_DISTRIBUTIONDOT_SA_ISLAND,
+	PG_DISTRIBUTIONDOT_SA_FAILURE,
+	PG_DISTRIBUTIONDOT_SA_OUTAGES,
+};
+
+struct	_PG_DistributionNode_	{
+	char	szResID[MDB_CHARLEN];
+	char	szSub[MDB_CHARLEN];
+	char	szVolt[MDB_CHARLEN_SHORTER];
+	char	szName[MDB_CHARLEN];
+	char	szSubstationEntity[MDB_CHARLEN];
+	char	szNode[PGND_CHARLEN];
+	unsigned char	nType;
+	float	fLoadP;
+	float	fLoadFactor;
+	float	fShuntCap;
+	float	fHeatingLoad;
+	float	fRefrigerationLoad;
+	float	ri_Rerr;
+	float	ri_Trep;
+	float	ri_Rchk;
+	float	ri_Tchk;
+	float	ri_Tfloc;
+	float	ri_Customer;
+	float	ri_load_rerr;
+	float	ri_load_trep;
+	float	ri_load_rchk;
+	float	ri_load_tchk;
+	float	ei_Invest;
+	float	ei_constloss;
+	float	ei_evalratio;
+
+	//	电压暂降评估输入数据
+	float	vd_RScc1;
+	float	vd_RScc2;
+	float	vd_RScc3;
+	float	vd_RScc4;
+
+	short	nIsland;
+	int		nNode;
+	float	fV;
+	float	fD;
+	float	eo_loss;
+	float	fSccA;
+	unsigned char	sa_Result;
+	unsigned char	sa_Island;
+	float	sa_Failure;
+	float	sa_Outages;
+}	DISALIGN;
+typedef	struct	_PG_DistributionNode_	tagPGDistributionDot;
+
+//////////////////////////////////////////////////////////////////////////
+enum	_PGEnum_Field_LandPlot_	{
+	PG_LANDPLOT_RESOURCEID=0,
+	PG_LANDPLOT_NAME,
+	PG_LANDPLOT_LOCATEX,
+	PG_LANDPLOT_LOCATEY,
+	PG_LANDPLOT_LANDAREA,
+	PG_LANDPLOT_BUILDINGAREA,
+	PG_LANDPLOT_LANDINDEX,
+	PG_LANDPLOT_LANDTYPE,
+	PG_LANDPLOT_SAMERATE,
+	PG_LANDPLOT_DENSITY,
+	PG_LANDPLOT_DEMAND,
+	PG_LANDPLOT_VOLUME,
+	PG_LANDPLOT_METATYPE,
+	PG_LANDPLOT_LAYER,
+	PG_LANDPLOT_COLOR,
+	PG_LANDPLOT_DENSITYLOAD,
+	PG_LANDPLOT_DISTRIBLOAD,
+	PG_LANDPLOT_INCALCULATE,
+};
+struct	_PG_LandPlot_	{
+	char			szResID[MDB_CHARLEN];
+	char			szName[MDB_CHARLEN];
+	double			fLocX;
+	double			fLocY;
+	double			fLandArea;
+	double			fBuildingArea;
+	char			szLandIndex	[MDB_CHARLEN_SHORT];
+	char			szLandType	[MDB_CHARLEN_SHORT];
+	double			fSamerate;
+	double			fDensity;
+	double			fDemand;
+	double			fVolume;
+	int				nMetaType;				//	地块的图元类型
+	char			szLayer		[MDB_CHARLEN_SHORT];
+	int				nColor;				//	地块的图元颜色，这是为了记录图元原有颜色，防止因刷新造成错误
+	double			fDensityLoad;
+	double			fDistribLoad;
+	unsigned char	bInCalculate;
+}	DISALIGN;
+typedef	struct	_PG_LandPlot_	tagPGLandPlot;
+
+//////////////////////////////////////////////////////////////////////////
+enum	_PGEnum_Field_Pipe_	{
+	PG_PIPE_RESOURCEID=0,
+	PG_PIPE_NAME,
+	PG_PIPE_MODEL,
+	PG_PIPE_LENGTH,
+	PG_PIPE_EI_UNITINVEST,
+	PG_PIPE_BUILDDATE,
+	PG_PIPE_REBUILDDATE,
+	PG_PIPE_OUTAGEDATE,
+	PG_PIPE_RUNTIMESPAN,
+	PG_PIPE_PLANCHARACTER,
+	PG_PIPE_PROJCHARACTER,
+	PG_PIPE_VOLTAGELEVELH,
+	PG_PIPE_VOLTAGELEVELM,
+	PG_PIPE_VOLTAGELEVELL,
+	PG_PIPE_HV2MV,
+	PG_PIPE_HV2LV,
+	PG_PIPE_MV2LV,
+	PG_PIPE_MAXHVCABLENUM,
+	PG_PIPE_MAXMVCABLENUM,
+	PG_PIPE_MAXLVCABLENUM,
+	PG_PIPE_HVCABLE1,
+	PG_PIPE_HVCABLE2,
+	PG_PIPE_HVCABLE3,
+	PG_PIPE_HVCABLE4,
+	PG_PIPE_MVCABLE1,
+	PG_PIPE_MVCABLE2,
+	PG_PIPE_MVCABLE3,
+	PG_PIPE_MVCABLE4,
+	PG_PIPE_MVCABLE5,
+	PG_PIPE_MVCABLE6,
+	PG_PIPE_MVCABLE7,
+	PG_PIPE_MVCABLE8,
+	PG_PIPE_LVCABLE1,
+	PG_PIPE_LVCABLE2,
+	PG_PIPE_LVCABLE3,
+	PG_PIPE_LVCABLE4,
+	PG_PIPE_LVCABLE5,
+	PG_PIPE_LVCABLE6,
+	PG_PIPE_LVCABLE7,
+	PG_PIPE_LVCABLE8,
+	PG_PIPE_LVCABLE9,
+	PG_PIPE_LVCABLE10,
+	PG_PIPE_LVCABLE11,
+	PG_PIPE_LVCABLE12,
+	PG_PIPE_LVCABLE13,
+	PG_PIPE_LVCABLE14,
+	PG_PIPE_LVCABLE15,
+	PG_PIPE_LVCABLE16,
+	PG_PIPE_LVCABLE17,
+	PG_PIPE_LVCABLE18,
+	PG_PIPE_LVCABLE19,
+	PG_PIPE_LVCABLE20,
+	PG_PIPE_LVCABLE21,
+	PG_PIPE_LVCABLE22,
+	PG_PIPE_LVCABLE23,
+	PG_PIPE_LVCABLE24,
+	PG_PIPE_LVCABLE25,
+	PG_PIPE_LVCABLE26,
+	PG_PIPE_LVCABLE27,
+	PG_PIPE_LVCABLE28,
+	PG_PIPE_LVCABLE29,
+	PG_PIPE_LVCABLE30,
+	PG_PIPE_LVCABLE31,
+	PG_PIPE_LVCABLE32,
+};
+struct	_PG_Pipe_	{
+	char	szResID				[MDB_CHARLEN];
+	char	szName				[MDB_CHARLEN];
+	char	szModel				[MDB_CHARLEN];
+	float	fLength;
+	float	ei_UnitInvest;
+	int		nBuildDate;
+	int		nRebuildDate;
+	int		nOutageDate;
+	short	nRunTimeSpan;
+	unsigned char	nPlanCharacter;
+	unsigned char	nProjCharacter;
+	char	szVoltH				[MDB_CHARLEN_SHORTER];
+	char	szVoltM				[MDB_CHARLEN_SHORTER];
+	char	szVoltL				[MDB_CHARLEN_SHORTER];
+	unsigned char	nHV2MV;
+	unsigned char	nHV2LV;
+	unsigned char	nMV2LV;
+	short	nMaxHVCableNum;
+	short	nMaxMVCableNum;
+	short	nMaxLVCableNum;
+	char	szHVCable1			[MDB_CHARLEN];
+	char	szHVCable2			[MDB_CHARLEN];
+	char	szHVCable3			[MDB_CHARLEN];
+	char	szHVCable4			[MDB_CHARLEN];
+	char	szMVCable1			[MDB_CHARLEN];
+	char	szMVCable2			[MDB_CHARLEN];
+	char	szMVCable3			[MDB_CHARLEN];
+	char	szMVCable4			[MDB_CHARLEN];
+	char	szMVCable5			[MDB_CHARLEN];
+	char	szMVCable6			[MDB_CHARLEN];
+	char	szMVCable7			[MDB_CHARLEN];
+	char	szMVCable8			[MDB_CHARLEN];
+	char	szLVCable1			[MDB_CHARLEN];
+	char	szLVCable2			[MDB_CHARLEN];
+	char	szLVCable3			[MDB_CHARLEN];
+	char	szLVCable4			[MDB_CHARLEN];
+	char	szLVCable5			[MDB_CHARLEN];
+	char	szLVCable6			[MDB_CHARLEN];
+	char	szLVCable7			[MDB_CHARLEN];
+	char	szLVCable8			[MDB_CHARLEN];
+	char	szLVCable9			[MDB_CHARLEN];
+	char	szLVCable10			[MDB_CHARLEN];
+	char	szLVCable11			[MDB_CHARLEN];
+	char	szLVCable12			[MDB_CHARLEN];
+	char	szLVCable13			[MDB_CHARLEN];
+	char	szLVCable14			[MDB_CHARLEN];
+	char	szLVCable15			[MDB_CHARLEN];
+	char	szLVCable16			[MDB_CHARLEN];
+	char	szLVCable17			[MDB_CHARLEN];
+	char	szLVCable18			[MDB_CHARLEN];
+	char	szLVCable19			[MDB_CHARLEN];
+	char	szLVCable20			[MDB_CHARLEN];
+	char	szLVCable21			[MDB_CHARLEN];
+	char	szLVCable22			[MDB_CHARLEN];
+	char	szLVCable23			[MDB_CHARLEN];
+	char	szLVCable24			[MDB_CHARLEN];
+	char	szLVCable25			[MDB_CHARLEN];
+	char	szLVCable26			[MDB_CHARLEN];
+	char	szLVCable27			[MDB_CHARLEN];
+	char	szLVCable28			[MDB_CHARLEN];
+	char	szLVCable29			[MDB_CHARLEN];
+	char	szLVCable30			[MDB_CHARLEN];
+	char	szLVCable31			[MDB_CHARLEN];
+	char	szLVCable32			[MDB_CHARLEN];
+}	DISALIGN;
+typedef	struct	_PG_Pipe_	tagPGPipe;

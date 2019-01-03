@@ -10,30 +10,14 @@
 		
 
      <link rel="stylesheet" type="text/css" th:href="@{/css/log.css}"  href="../static/css/log.css"/>		
-     <style>
-     	.table-panel {
-     		
-     	  position:relative;
-     	  overflow:auto;
-     	}
-     	
-     	table {
 
-     	}
-     	
-     	.table-panel thead {
-     		position: sticky;
-     		top: 0;
-     	}
-     	
-     </style>
 	</head>
 	<body>
 		<div th:replace="fragments/header :: header">
 		</div>
 		
 		<div class="container-fluid">
-		   <div class="table-panel">
+		   <div class="row content-row table-panel">
 				<table class="table table-bordered table-condensed" id="log-table">
 					<thead>
 						<tr>
@@ -51,10 +35,13 @@
 				</div>		   
 		   </div>
 
-			<div th:replace="fragments/footer :: footer">
+		<div th:replace="fragments/footer :: footer">
 		
-			</div>
 		</div>
+		</div>
+		
+
+		<!-- /container  -->
 	</body>
 	<script type="text/javascript">
 	

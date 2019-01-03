@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>服务器内部错误</title>
+
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />			
+		<link rel="stylesheet" type="text/css" href="css/404.css"/>
+		
+	  <script src="scripts/jquery-3.2.1.js"></script>
+		<script>
+			
+			$(function() {
+				var url = new URL(window.location.href);
+				console.log(url);
+				var error = url.searchParams.get("error");
+					$("#error-detail").html(error);
+			})
+		</script>
+	</head>
+	 
+	<body>
+		 <div class="error-info">
+		 	  <h1>500</h1>
+			<p class="error-detail" id="error-detail">
+		    </p>
+		 </div>
+	</body>
+</html>

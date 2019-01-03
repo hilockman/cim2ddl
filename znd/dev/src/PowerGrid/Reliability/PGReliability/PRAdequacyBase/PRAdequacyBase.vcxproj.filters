@@ -19,6 +19,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\MemDB\MemDBMisc\BpaMemDB2PRMemDB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BpaPRAdequacySetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

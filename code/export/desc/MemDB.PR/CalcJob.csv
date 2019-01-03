@@ -1,0 +1,9 @@
+序号,名称,描述,类型,长度
+0,Id,工作ID,INTEGER,4
+1,TypeId,工作类型ID,INTEGER,4
+2,Name,工作名称,STRING,64
+3,Desp,工作描述,STRING,64
+4,Config,配置信息,STRING,64
+5,IniTime,开始时间,INTEGER,4
+6,EndTime,结束时间,INTEGER,4
+7,ElapseTime,耗时,DOUBLE,4

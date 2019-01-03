@@ -5,7 +5,6 @@
 //	电压控制预留，暂时不用
 namespace	BpaMemDB
 {
-	const	static	char*	lpszBusNameFormat="%-8s %.2f";
 	const	static	int		nSwiModTables[]=
 	{
 		BPA_SWI_GEN,
@@ -63,15 +62,32 @@ namespace	BpaMemDB
 		float		fHGShunt;
 	}	tagBpaHGBus;
 
-	unsigned char IsExcludeBus(std::vector<std::string>& strExcludeBusArray, const char* lpszBusName, const float fBuskV)
+	void CBpaMemDBInterface::SplitString(const char* lpszString, const char* lpszTokenizer, std::vector<std::string>& strEleArray)
+	{
+		char	szBuf[260];
+		char*	lpszToken;
+
+		strEleArray.clear();
+		strcpy(szBuf, lpszString);
+		lpszToken = strtok(szBuf, lpszTokenizer);
+		while (lpszToken != NULL)
+		{
+			strEleArray.push_back(lpszToken);
+			lpszToken = strtok(NULL, lpszTokenizer);
+		}
+	}
+
+	unsigned char CBpaMemDBInterface::IsExcludeBus(std::vector<std::string>& strExcludeBusArray, const char* lpszBusName, const float fBuskV)
 	{
 		register int	i;
-		char	szBuf[260];
+		std::vector<std::string> strEleArray;
 
-		sprintf(szBuf, lpszBusNameFormat, lpszBusName, fBuskV);
 		for (i=0; i<(int)strExcludeBusArray.size(); i++)
 		{
-			if (stricmp(strExcludeBusArray[i].c_str(), szBuf) == 0)
+			SplitString(strExcludeBusArray[i].c_str(), " \t\n", strEleArray);
+			if (strEleArray.size() < 2)
+				continue;
+			if (stricmp(strEleArray[0].c_str(), lpszBusName) == 0 && fabs(atof(strEleArray[1].c_str())-fBuskV) < 0.1)
 			{
 				return 1;
 				break;
@@ -80,22 +96,16 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	unsigned char IsACBusInRetainZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, const char* lpszBusName, const float fBuskV)
+	unsigned char CBpaMemDBInterface::IsACBusInRetainZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, const char* lpszBusName, const float fBuskV)
 	{
 		register int	i;
 		int		nBus;
 		unsigned char	bInArea;
 		char	szBuf[260];
+		std::vector<std::string> strEleArray;
 
-		nBus=-1;
-		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
-		{
-			if (strcmp(lpszBusName, pBpaBlock->m_BpaDat_ACBusArray[i].szName) == 0 && fabs(fBuskV-pBpaBlock->m_BpaDat_ACBusArray[i].fkV) < 0.1)
-			{
-				nBus=i;
-				break;
-			}
-		}
+		sprintf(szBuf, "%g", fBuskV);
+		nBus = BpaFindRecordbyKey(pBpaBlock, BPA_DAT_ACBUS, lpszBusName, szBuf);
 		if (nBus < 0)
 			return 0;
 
@@ -111,32 +121,29 @@ namespace	BpaMemDB
 		if (!bInArea)
 			return 0;
 
-		sprintf(szBuf, lpszBusNameFormat, pBpaBlock->m_BpaDat_ACBusArray[nBus].szName, pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV);
 		for (i=0; i<(int)strExcludeACBusArray.size(); i++)
 		{
-			if (stricmp(strExcludeACBusArray[i].c_str(), szBuf) == 0)
+			SplitString(strExcludeACBusArray[i].c_str(), " \t\n", strEleArray);
+			if (strEleArray.size() < 2)
+				continue;
+
+			if (stricmp(strEleArray[0].c_str(), lpszBusName) == 0 && fabs(atof(strEleArray[1].c_str())-fBuskV) < 0.1)
 				return 0;
 		}
 
 		return 1;
 	}
 
-	unsigned char IsDCBusInRetainZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, const char* lpszBusName, const float fBuskV)
+	unsigned char CBpaMemDBInterface::IsDCBusInRetainZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, const char* lpszBusName, const float fBuskV)
 	{
 		register int	i;
 		int		nBus;
 		unsigned char	bInArea;
 		char	szBuf[260];
+		std::vector<std::string> strEleArray;
 
-		nBus=-1;
-		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS]; i++)
-		{
-			if (strcmp(lpszBusName, pBpaBlock->m_BpaDat_DCBusArray[i].szName) == 0 && fabs(fBuskV-pBpaBlock->m_BpaDat_DCBusArray[i].fkV) < 0.1)
-			{
-				nBus=i;
-				break;
-			}
-		}
+		sprintf(szBuf, "%g", fBuskV);
+		nBus = BpaFindRecordbyKey(pBpaBlock, BPA_DAT_DCBUS, lpszBusName, szBuf);
 		if (nBus < 0)
 			return 0;
 
@@ -152,17 +159,20 @@ namespace	BpaMemDB
 		if (!bInArea)
 			return 0;
 
-		sprintf(szBuf, lpszBusNameFormat, pBpaBlock->m_BpaDat_DCBusArray[nBus].szName, pBpaBlock->m_BpaDat_DCBusArray[nBus].fkV);
 		for (i=0; i<(int)strExcludeDCBusArray.size(); i++)
 		{
-			if (stricmp(strExcludeDCBusArray[i].c_str(), szBuf) == 0)
+			SplitString(strExcludeDCBusArray[i].c_str(), " \t\n", strEleArray);
+			if (strEleArray.size() < 2)
+				continue;
+
+			if (stricmp(strEleArray[0].c_str(), lpszBusName) == 0 && fabs(atof(strEleArray[1].c_str())-fBuskV) < 0.1)
 				return 0;
 		}
 
 		return 1;
 	}
 
-	void BpaGetTieACLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieACLineArray[])
+	void CBpaMemDBInterface::BpaGetTieACLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieACLineArray[])
 	{
 		int		nDev, nInAreaI, nInAreaJ;
 
@@ -181,7 +191,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void BpaGetTieLineHGByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieLineHGArray[])
+	void CBpaMemDBInterface::BpaGetTieLineHGByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, int& nTieNum, int nTieLineHGArray[])
 	{
 		int		nDev, nInAreaI, nInAreaJ;
 
@@ -200,7 +210,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void BpaGetTieDCLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieDCLineArray[])
+	void CBpaMemDBInterface::BpaGetTieDCLineByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieDCLineArray[])
 	{
 		int		nDev, nInAreaI, nInAreaJ;
 
@@ -219,7 +229,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	void BpaGetTieTranByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieTranArray[])
+	void CBpaMemDBInterface::BpaGetTieTranByZone(tagBpaBlock* pBpaBlock, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray, int& nTieNum, int nTieTranArray[])
 	{
 		int		nDev, nInAreaI, nInAreaJ;
 
@@ -265,35 +275,12 @@ namespace	BpaMemDB
 		}
 	}
 
-	int BpaTailorNetByZone(tagBpaBlock* pBpaBlock, const unsigned char bRetainTieHG, const unsigned char bDCBoundPV, const char* lpszSlack, std::vector<std::string>& strRetainZoneArray, std::vector<std::string>& strExcludeACBusArray, std::vector<std::string>& strExcludeDCBusArray)
+	int CBpaMemDBInterface::BpaTailorNetByZone_FormBoundGenLoadByACTieLine(tagBpaBlock* pBpaBlock, const int nTieACLineNum, int nTieACLineArray[])
 	{
-		register int	i, j;
-		int		nDev, nGen, nBusI, nBusJ, nBoundBus, nDCBus, nRCard, nTieLine;
-		int		nTable, nField;
-		float	fDCLoad;
+		register int	i;
+		int		nDev, nGen, nBoundBus, nTieLine;
 		double	fGenPFactor, fGenQFactor, fLoadPFactor, fLoadQFactor;
-		unsigned char	bFindGen, bDCRSide;
-		int	nTieACLineNum, nTieACLineArray[1000];
-		int	nTieLineHGNum, nTieLineHGArray[1000];
-		int	nTieDCLineNum, nTieDCLineArray[100];
-		int	nTieTranNum, nTieTranArray[500];
-		std::vector<tagBpaHGBus>	sBpaHGBusArray;
-		tagBpaHGBus	sHGBus;
-
-		char	szBuf[260];
-		std::vector<std::string>	strDCBoundBusArray;	//	直流等效交流母线，即交直流边界母线
-
-		strDCBoundBusArray.clear();
-
-		Log(g_lpszLogFile, "BpaTailorNetByZone Slack=%s RetainHG=%d DCPV=%d\n", lpszSlack, bRetainTieHG, bDCBoundPV);
-
-		BpaGetTieACLineByZone(pBpaBlock, strRetainZoneArray, strExcludeACBusArray, nTieACLineNum, nTieACLineArray);
-		BpaGetTieLineHGByZone(pBpaBlock, strRetainZoneArray, strExcludeACBusArray, nTieLineHGNum, nTieLineHGArray);
-		BpaGetTieDCLineByZone(pBpaBlock, strRetainZoneArray, strExcludeDCBusArray, nTieDCLineNum, nTieDCLineArray);
-		BpaGetTieTranByZone(pBpaBlock, strRetainZoneArray, strExcludeACBusArray, strExcludeDCBusArray, nTieTranNum, nTieTranArray);
-
-		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
-			pBpaBlock->m_BpaDat_ACBusArray[i].bRedcution = 0;
+		unsigned char	bFindGen;
 
 		//////////////////////////////////////////////////////////////////////////
 		//	通过联络线形成交流边界的发电和负荷
@@ -310,7 +297,7 @@ namespace	BpaMemDB
 				Log(g_lpszLogFile, "    交流联络线【%s】边界母线错误\n", pBpaBlock->m_BpaDat_ACLineArray[nTieLine].szKeyName);
 				continue;
 			}
-			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].bRedcution = 1;
+			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].bReduction = 1;
 
 			strcpy(pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szCardKey, "BQ");
 			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fVHold_max=pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fV/pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV;
@@ -328,9 +315,16 @@ namespace	BpaMemDB
 				if (stricmp(pBpaBlock->m_BpaDat_PArray[i].szZone, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szZone) == 0)
 				{
 					fGenPFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
-					fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenQFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fGenQFactor < FLT_MIN)
+						fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					else
+						fGenQFactor=pBpaBlock->m_BpaDat_PArray[i].fGenQFactor;
+
 					fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
-					fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor < FLT_MIN)
+						fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					else
+						fLoadQFactor=pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor;
 					break;
 				}
 			}
@@ -389,6 +383,30 @@ namespace	BpaMemDB
 				}
 				if (!bFindGen)
 				{
+					for (nGen=0; nGen<pBpaBlock->m_nRecordNum[BPA_SWI_WGWGEN]; nGen++)
+					{
+						if (stricmp(pBpaBlock->m_BpaSwi_WGWGenArray[nGen].szBus_Name, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName) == 0 &&
+							fabs(pBpaBlock->m_BpaSwi_WGWGenArray[nGen].fBus_kV-pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV) < 0.1)
+						{
+							bFindGen=1;
+							break;
+						}
+					}
+				}
+				if (!bFindGen)
+				{
+					for (nGen=0; nGen<pBpaBlock->m_nRecordNum[BPA_SWI_PV]; nGen++)
+					{
+						if (stricmp(pBpaBlock->m_BpaSwi_PVArray[nGen].szBus_Name, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName) == 0 &&
+							fabs(pBpaBlock->m_BpaSwi_PVArray[nGen].fBus_kV-pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV) < 0.1)
+						{
+							bFindGen=1;
+							break;
+						}
+					}
+				}
+				if (!bFindGen)
+				{
 					for (nGen=0; nGen<pBpaBlock->m_nRecordNum[BPA_SWI_GENLN]; nGen++)
 					{
 						if (stricmp(pBpaBlock->m_BpaSwi_GenLnArray[nGen].szBus_Name, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName) == 0 &&
@@ -431,44 +449,16 @@ namespace	BpaMemDB
 			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fQsched_Qmax = 2000;
 		}
 
-		//////////////////////////////////////////////////////////////////////////
-		//	通过联络线形成交流边界的补偿
-		sBpaHGBusArray.clear();
-		for (nDev=0; nDev<nTieLineHGNum; nDev++)
-		{
-			nTieLine=abs(nTieLineHGArray[nDev])-1;
-			if (nTieLineHGArray[nDev] > 0)
-				nBoundBus=pBpaBlock->m_BpaDat_LineHGArray[nTieLine].nIBus;
-			else
-				nBoundBus=pBpaBlock->m_BpaDat_LineHGArray[nTieLine].nZBus;
+		return 1;
+	}
 
-			if (nBoundBus < 0)
-			{
-				Log(g_lpszLogFile, "    交流联络线【%s】边界母线错误\n", pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName);
-				continue;
-			}
+	int CBpaMemDBInterface::BpaTailorNetByZone_FormBoundGenLoadByACTieTran(tagBpaBlock* pBpaBlock, const int nTieTranNum, int nTieTranArray[])
+	{
+		register int	i;
+		int		nDev, nGen, nBoundBus, nTieLine;
+		double	fGenPFactor, fGenQFactor, fLoadPFactor, fLoadQFactor;
+		unsigned char	bFindGen;
 
-			sHGBus.strBoundHGBus = pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName;
-			sHGBus.fBoundHGBuskV = pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV;
-			sHGBus.strBoundACLine = pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName;
-			sHGBus.fHGShunt = 0;
-			if ((pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntI) > FLT_MIN && nTieLineHGArray[nDev] > 0)
-			{
-				sHGBus.fHGShunt += pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntI;
-				Log(g_lpszLogFile, "    联络线-补偿I Bus=%s Shunt=%.1f Line=%s\n", pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntI, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName);
-			}
-			if ((pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntJ) > FLT_MIN && nTieLineHGArray[nDev] < 0)
-			{
-				sHGBus.fHGShunt += pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntJ;
-				Log(g_lpszLogFile, "    联络线-补偿J Bus=%s Shunt=%.1f Line=%s\n", pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntJ, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName);
-			}
-
-			if ((sHGBus.fHGShunt) > FLT_MIN)
-				sBpaHGBusArray.push_back(sHGBus);
-		}
-
-		//////////////////////////////////////////////////////////////////////////
-		//	通过联络变形成交流边界的发电和负荷
 		for (nDev=0; nDev<nTieTranNum; nDev++)
 		{
 			nTieLine=abs(nTieTranArray[nDev])-1;
@@ -482,7 +472,7 @@ namespace	BpaMemDB
 				Log(g_lpszLogFile, "    联络变压器【%s】边界母线错误\n", pBpaBlock->m_BpaDat_WindArray[nTieLine].szKeyName);
 				continue;
 			}
-			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].bRedcution = 1;
+			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].bReduction = 1;
 
 			strcpy(pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szCardKey, "BQ");
 			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fVHold_max=pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fV/pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV;
@@ -500,9 +490,16 @@ namespace	BpaMemDB
 				if (stricmp(pBpaBlock->m_BpaDat_PArray[i].szZone, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szZone) == 0)
 				{
 					fGenPFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
-					fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenQFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fGenQFactor < FLT_MIN)
+						fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					else
+						fGenQFactor=pBpaBlock->m_BpaDat_PArray[i].fGenQFactor;
+
 					fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
-					fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor < FLT_MIN)
+						fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					else
+						fLoadQFactor=pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor;
 					break;
 				}
 			}
@@ -561,6 +558,30 @@ namespace	BpaMemDB
 				}
 				if (!bFindGen)
 				{
+					for (nGen=0; nGen<pBpaBlock->m_nRecordNum[BPA_SWI_WGWGEN]; nGen++)
+					{
+						if (stricmp(pBpaBlock->m_BpaSwi_WGWGenArray[nGen].szBus_Name, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName) == 0 &&
+							fabs(pBpaBlock->m_BpaSwi_WGWGenArray[nGen].fBus_kV-pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV) < 0.1)
+						{
+							bFindGen=1;
+							break;
+						}
+					}
+				}
+				if (!bFindGen)
+				{
+					for (nGen=0; nGen<pBpaBlock->m_nRecordNum[BPA_SWI_PV]; nGen++)
+					{
+						if (stricmp(pBpaBlock->m_BpaSwi_PVArray[nGen].szBus_Name, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName) == 0 &&
+							fabs(pBpaBlock->m_BpaSwi_PVArray[nGen].fBus_kV-pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV) < 0.1)
+						{
+							bFindGen=1;
+							break;
+						}
+					}
+				}
+				if (!bFindGen)
+				{
 					for (nGen=0; nGen<pBpaBlock->m_nRecordNum[BPA_SWI_GENLN]; nGen++)
 					{
 						if (stricmp(pBpaBlock->m_BpaSwi_GenLnArray[nGen].szBus_Name, pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName) == 0 &&
@@ -585,7 +606,6 @@ namespace	BpaMemDB
 				}
 			}
 		}
-
 		for (nDev=0; nDev<nTieTranNum; nDev++)
 		{
 			nTieLine=abs(nTieTranArray[nDev])-1;
@@ -604,8 +624,20 @@ namespace	BpaMemDB
 			pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fQsched_Qmax = 2000;
 		}
 
-		//////////////////////////////////////////////////////////////////////////
-		//	生成直流等值系统
+		return 1;
+	}
+
+	int CBpaMemDBInterface::BpaTailorNetByZone_FormBoundGenLoadByDCTieLine(tagBpaBlock* pBpaBlock, const unsigned char bDCBoundPV, const int nTieDCLineNum, int nTieDCLineArray[])
+	{
+		register int	i, j;
+		int		nDev, nDCBus, nRCard, nTieLine;
+		float	fDCLoad;
+		double	fGenPFactor, fGenQFactor, fLoadPFactor, fLoadQFactor;
+		unsigned char	bDCRSide;
+		char	szBuf[260];
+		std::vector<std::string>	strDCBoundBusArray;	//	直流等效交流母线，即交直流边界母线
+
+		strDCBoundBusArray.clear();
 		for (nDev=0; nDev<nTieDCLineNum; nDev++)
 		{
 			nTieLine=abs(nTieDCLineArray[nDev])-1;
@@ -662,9 +694,16 @@ namespace	BpaMemDB
 						if (stricmp(pBpaBlock->m_BpaDat_PArray[j].szZone, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].szZone) == 0)
 						{
 							fGenPFactor=(pBpaBlock->m_BpaDat_PArray[j].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fGenPFactor : 1;
-							fGenQFactor=(pBpaBlock->m_BpaDat_PArray[j].fGenQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fGenQFactor : 1;
+							if (pBpaBlock->m_BpaDat_PArray[j].fGenQFactor < FLT_MIN)
+								fGenQFactor=(pBpaBlock->m_BpaDat_PArray[j].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fGenPFactor : 1;
+							else
+								fGenQFactor=pBpaBlock->m_BpaDat_PArray[j].fGenQFactor;
+
 							fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor : 1;
-							fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor : 1;
+							if (pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor < FLT_MIN)
+								fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor : 1;
+							else
+								fLoadQFactor=pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor;
 							break;
 						}
 					}
@@ -712,7 +751,7 @@ namespace	BpaMemDB
 						}
 					}
 
-					sprintf(szBuf, lpszBusNameFormat, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].szName, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].fkV);
+					sprintf(szBuf, "%s %g", pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].szName, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].fkV);
 					strDCBoundBusArray.push_back(szBuf);
 					break;
 				}
@@ -724,9 +763,16 @@ namespace	BpaMemDB
 						if (stricmp(pBpaBlock->m_BpaDat_PArray[j].szZone, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].szZone) == 0)
 						{
 							fGenPFactor=(pBpaBlock->m_BpaDat_PArray[j].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fGenPFactor : 1;
-							fGenQFactor=(pBpaBlock->m_BpaDat_PArray[j].fGenQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fGenQFactor : 1;
+							if (pBpaBlock->m_BpaDat_PArray[j].fGenQFactor < FLT_MIN)
+								fGenQFactor=(pBpaBlock->m_BpaDat_PArray[j].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fGenPFactor : 1;
+							else
+								fGenQFactor=pBpaBlock->m_BpaDat_PArray[j].fGenQFactor;
+
 							fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor : 1;
-							fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor : 1;
+							if (pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor < FLT_MIN)
+								fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[j].fLoadPFactor : 1;
+							else
+								fLoadQFactor=pBpaBlock->m_BpaDat_PArray[j].fLoadQFactor;
 							break;
 						}
 					}
@@ -774,7 +820,7 @@ namespace	BpaMemDB
 						}
 					}
 
-					sprintf(szBuf, lpszBusNameFormat, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].szName, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].fkV);
+					sprintf(szBuf, "%s %g", pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].szName, pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].fkV);
 					strDCBoundBusArray.push_back(szBuf);
 					break;
 				}
@@ -786,6 +832,80 @@ namespace	BpaMemDB
 			for (i=0; i<(int)strDCBoundBusArray.size(); i++)
 				Log(g_lpszLogFile, "        直流边界母线[%d/%d]=%s\n", i+1, strDCBoundBusArray.size(), strDCBoundBusArray[i].c_str());
 		}
+
+		return 1;
+	}
+
+	int CBpaMemDBInterface::BpaTailorNetByZone(tagBpaBlock* pBpaBlock,
+		const unsigned char bRetainTieHG,
+		const unsigned char bDCBoundPV,
+		const char* lpszSlack,
+		std::vector<std::string>& strRetainZoneArray,
+		std::vector<std::string>& strExcludeACBusArray,
+		std::vector<std::string>& strExcludeDCBusArray)
+	{
+		register int	i;
+		int		nDev, nBusI, nBusJ, nBoundBus, nTieLine;
+		int		nTable, nField;
+		int	nTieACLineNum, nTieACLineArray[1600];
+		int	nTieLineHGNum, nTieLineHGArray[1000];
+		int	nTieDCLineNum, nTieDCLineArray[100];
+		int	nTieTranNum, nTieTranArray[800];
+		std::vector<tagBpaHGBus>	sBpaHGBusArray;
+		tagBpaHGBus	sHGBus;
+
+		char	szBuf[260];
+
+		Log(g_lpszLogFile, "BpaTailorNetByZone Slack=%s RetainHG=%d DCPV=%d\n", lpszSlack, bRetainTieHG, bDCBoundPV);
+
+		BpaGetTieACLineByZone(pBpaBlock, strRetainZoneArray, strExcludeACBusArray, nTieACLineNum, nTieACLineArray);
+		BpaGetTieLineHGByZone(pBpaBlock, strRetainZoneArray, strExcludeACBusArray, nTieLineHGNum, nTieLineHGArray);
+		BpaGetTieDCLineByZone(pBpaBlock, strRetainZoneArray, strExcludeDCBusArray, nTieDCLineNum, nTieDCLineArray);
+		BpaGetTieTranByZone(pBpaBlock, strRetainZoneArray, strExcludeACBusArray, strExcludeDCBusArray, nTieTranNum, nTieTranArray);
+
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+			pBpaBlock->m_BpaDat_ACBusArray[i].bReduction = 0;
+
+		BpaTailorNetByZone_FormBoundGenLoadByACTieLine(pBpaBlock, nTieACLineNum, nTieACLineArray);
+
+		//////////////////////////////////////////////////////////////////////////
+		//	通过联络线形成交流边界的补偿
+		sBpaHGBusArray.clear();
+		for (nDev=0; nDev<nTieLineHGNum; nDev++)
+		{
+			nTieLine=abs(nTieLineHGArray[nDev])-1;
+			if (nTieLineHGArray[nDev] > 0)
+				nBoundBus=pBpaBlock->m_BpaDat_LineHGArray[nTieLine].nIBus;
+			else
+				nBoundBus=pBpaBlock->m_BpaDat_LineHGArray[nTieLine].nZBus;
+
+			if (nBoundBus < 0)
+			{
+				Log(g_lpszLogFile, "    交流联络线【%s】边界母线错误\n", pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName);
+				continue;
+			}
+
+			sHGBus.strBoundHGBus = pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName;
+			sHGBus.fBoundHGBuskV = pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].fkV;
+			sHGBus.strBoundACLine = pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName;
+			sHGBus.fHGShunt = 0;
+			if ((pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntI) > FLT_MIN && nTieLineHGArray[nDev] > 0)
+			{
+				sHGBus.fHGShunt += pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntI;
+				Log(g_lpszLogFile, "    联络线-补偿I Bus=%s Shunt=%.1f Line=%s\n", pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntI, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName);
+			}
+			if ((pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntJ) > FLT_MIN && nTieLineHGArray[nDev] < 0)
+			{
+				sHGBus.fHGShunt += pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntJ;
+				Log(g_lpszLogFile, "    联络线-补偿J Bus=%s Shunt=%.1f Line=%s\n", pBpaBlock->m_BpaDat_ACBusArray[nBoundBus].szName, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].fShuntJ, pBpaBlock->m_BpaDat_LineHGArray[nTieLine].szKeyName);
+			}
+
+			if ((sHGBus.fHGShunt) > FLT_MIN)
+				sBpaHGBusArray.push_back(sHGBus);
+		}
+
+		BpaTailorNetByZone_FormBoundGenLoadByACTieTran(pBpaBlock, nTieTranNum, nTieTranArray);					//	通过联络变形成交流边界的发电和负荷
+		BpaTailorNetByZone_FormBoundGenLoadByDCTieLine(pBpaBlock, bDCBoundPV, nTieDCLineNum, nTieDCLineArray);	//	生成直流等值系统
 
 		//////////////////////////////////////////////////////////////////////////
 		//	将所有相关设备设置删除标记
@@ -1133,14 +1253,15 @@ namespace	BpaMemDB
 		unsigned char	bHasSlack=0;
 		if (strlen(lpszSlack) > 0)
 		{
-			for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+			std::vector<std::string> strEleArray;
+			SplitString(lpszSlack, " \t\n", strEleArray);
+			if (strEleArray.size() >= 2)
 			{
-				sprintf(szBuf, lpszBusNameFormat, pBpaBlock->m_BpaDat_ACBusArray[i].szName, pBpaBlock->m_BpaDat_ACBusArray[i].fkV);
-				if (stricmp(szBuf, lpszSlack) == 0)
+				nDev = BpaFindRecordbyKey(pBpaBlock, BPA_DAT_ACBUS, strEleArray[0].c_str(), strEleArray[1].c_str());
+				if (nDev >= 0)
 				{
 					strcpy(pBpaBlock->m_BpaDat_ACBusArray[i].szCardKey, "BS");
 					bHasSlack=1;
-					break;
 				}
 			}
 		}
@@ -1256,5 +1377,866 @@ namespace	BpaMemDB
 		}
 
 		return 1;
+	}
+
+	void CBpaMemDBInterface::BpaSearchVoltTailorNet(tagBpaBlock* pBpaBlock, const double fMinVoltage, int& nRangeACBusNum, int& nRangeDCBusNum, int nRangeACBusArray[], int nRangeDCBusArray[])
+	{
+		register int	i;
+		clock_t	dBeg, dEnd;
+		int		nDur;
+
+		dBeg=clock();
+
+		nRangeACBusNum = nRangeDCBusNum = 0;
+
+		int		nJointBusNum;
+		int*	pnJointBusArray;
+		pnJointBusArray = (int*)malloc(sizeof(int)*pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		if (!pnJointBusArray)
+			return;
+
+		int		nBus, nDev, nTran, nBusT, nBusH, nBusM, nBusL, nDCBus;
+		int		nBusNum, nBusArray[200];
+		unsigned char	bGenSub;
+		std::vector<unsigned char>	bACBusFlagArray, bDCBusFlagArray, bProcArray;
+		std::vector<int>			nRetainACBusArray, nBoundACWindArray;
+
+		bACBusFlagArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		bDCBusFlagArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS]);
+		for (i=0; i<(int)bACBusFlagArray.size(); i++)
+			bACBusFlagArray[i] = 0;
+		for (i=0; i<(int)bDCBusFlagArray.size(); i++)
+			bDCBusFlagArray[i] = 0;
+
+		//////////////////////////////////////////////////////////////////////////
+		//	按电压等级搜索母线，搜索结果为nRetainACBusArray
+		nRetainACBusArray.clear();
+		for (nBus=0; nBus<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; nBus++)
+		{
+			if (bACBusFlagArray[nBus])
+				continue;
+			if (pBpaBlock->m_BpaDat_ACBusArray[nBus].bTMid)
+				continue;
+			if (pBpaBlock->m_BpaDat_ACBusArray[nBus].fkV < fMinVoltage)
+				continue;
+
+			BpaTraverseVolt(pBpaBlock, nBus, fMinVoltage, nJointBusNum, pnJointBusArray);
+			for (i=0; i<nJointBusNum; i++)
+			{
+				nRetainACBusArray.push_back(pnJointBusArray[i]);
+				bACBusFlagArray[pnJointBusArray[i]] = 1;
+			}
+		}
+		free(pnJointBusArray);
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "搜索区域内交流母线完毕，耗时 %d 毫秒\n", nDur);
+
+		bProcArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_TRAN]);
+		for (i=0; i<(int)bProcArray.size(); i++)
+			bProcArray[i] = 0;
+		for (i=0; i<(int)bACBusFlagArray.size(); i++)
+			bACBusFlagArray[i] = 0;
+		for (i=0; i<(int)bDCBusFlagArray.size(); i++)
+			bDCBusFlagArray[i] = 0;
+		for (i=0; i<nRetainACBusArray.size(); i++)
+			bACBusFlagArray[nRetainACBusArray[i]] = 1;
+
+		//////////////////////////////////////////////////////////////////////////
+		//	直流系统
+		for (nBus=0; nBus<nRetainACBusArray.size(); nBus++)
+		{
+			for (nDev=pBpaBlock->m_BpaDat_ACBusArray[nRetainACBusArray[nBus]].nEdgeWindRange; nDev<pBpaBlock->m_BpaDat_ACBusArray[nRetainACBusArray[nBus]+1].nEdgeWindRange; nDev++)
+			{
+				if (pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr < 0)
+					continue;
+				if (pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr].bRCard == 0)	//	直流调压器
+					continue;
+
+				nDCBus = (pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr].bRCard == 1) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr].nIBus :
+				pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr].nZBus;
+				bDCBusFlagArray[nDCBus] = 1;
+			}
+		}
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCLINE]; i++)
+		{
+			if (!bDCBusFlagArray[pBpaBlock->m_BpaDat_DCLineArray[i].nRBus] || !bDCBusFlagArray[pBpaBlock->m_BpaDat_DCLineArray[i].nIBus])
+			{
+				bDCBusFlagArray[pBpaBlock->m_BpaDat_DCLineArray[i].nRBus] = 0;
+				bDCBusFlagArray[pBpaBlock->m_BpaDat_DCLineArray[i].nIBus] = 0;
+			}
+		}
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS]; i++)
+		{
+			if (bDCBusFlagArray[i])
+				nRangeDCBusArray[nRangeDCBusNum++] = i;
+		}
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "直流系统分析完毕，耗时 %d 毫秒\n", nDur);
+
+		//////////////////////////////////////////////////////////////////////////
+		//	将电厂、变压器低压侧和中性点加入
+		for (nBus=0; nBus<nRetainACBusArray.size(); nBus++)
+		{
+			for (nDev=pBpaBlock->m_BpaDat_ACBusArray[nRetainACBusArray[nBus]].nEdgeWindRange; nDev<pBpaBlock->m_BpaDat_ACBusArray[nRetainACBusArray[nBus]+1].nEdgeWindRange; nDev++)
+			{
+				if (pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr < 0)
+					continue;
+				if (pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr].bRCard != 0)	//	直流调压器
+					continue;
+
+				nTran = pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[nDev].nWindPtr].nTran;
+				if (nTran < 0)
+					continue;
+				if (bProcArray[nTran])
+					continue;
+				bProcArray[nTran]=1;
+
+				if (pBpaBlock->m_BpaDat_TranArray[nTran].nWindNum > 1)
+				{
+					nBusT=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nIBus ||
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nZBus) ?
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+
+					nBusH=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == nBusT) ?
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus;
+					nBusM=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindM].nIBus == nBusT) ?
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindM].nZBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindM].nIBus;
+					nBusL=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nIBus == nBusT) ?
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nZBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nIBus;
+
+					bGenSub=0;
+					BpaTraverseSub(pBpaBlock, nBusH, 0, nBusNum, nBusArray);
+					for (i=0; i<nBusNum; i++)
+					{
+						if (pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].bGenerator != 0 ||
+							pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].bDCBound != 0)
+						{
+							bGenSub=1;
+							break;
+						}
+					}
+
+					if (!bACBusFlagArray[nBusM] && !bACBusFlagArray[nBusL] && !bGenSub)
+					{
+					}
+					else
+					{
+						bACBusFlagArray[nBusH] = 1;
+						bACBusFlagArray[nBusM] = 1;
+						bACBusFlagArray[nBusL] = 1;
+						bACBusFlagArray[nBusT] = 1;
+						if (bGenSub)
+						{
+							for (i=0; i<nBusNum; i++)
+								bACBusFlagArray[nBusArray[i]] = 1;
+						}
+					}
+				}
+				else
+				{
+					nBusH=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVI > pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVJ) ?
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+					nBusL=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVI > pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVJ) ?
+						pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus;
+
+					bGenSub=0;
+					BpaTraverseSub(pBpaBlock, nBusH, 0, nBusNum, nBusArray);
+					for (i=0; i<nBusNum; i++)
+					{
+						if (pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].bGenerator != 0 ||
+							pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].bDCBound != 0)
+						{
+							bGenSub=1;
+							break;
+						}
+					}
+
+					if (!bACBusFlagArray[nBusL] && !bGenSub)
+					{
+					}
+					else
+					{
+						bACBusFlagArray[nBusH] = 1;
+						bACBusFlagArray[nBusL] = 1;
+						if (bGenSub)
+						{
+							for (i=0; i<nBusNum; i++)
+								bACBusFlagArray[nBusArray[i]] = 1;
+						}
+					}
+				}
+			}
+		}
+
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+		{
+			if (bACBusFlagArray[i])
+				nRangeACBusArray[nRangeACBusNum++] = i;
+		}
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "发电机、变压器低压侧和中性点完毕，耗时 %d 毫秒\n", nDur);
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	//	按电压等级裁剪边界母线一定是变压器母线。
+	void CBpaMemDBInterface::BpaTailorNetByVolt(tagBpaBlock* pBpaBlock, const double fMinVoltage)
+	{
+		register int	i;
+		int		nEdge, nBusH;
+
+		clock_t	dBeg, dEnd;
+		int		nDur;
+
+		dBeg=clock();
+
+		int		nRangeACBusNum, nRangeDCBusNum;
+		int*	nRangeACBusArray = (int*)malloc(sizeof(int)*pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		int*	nRangeDCBusArray = (int*)malloc(sizeof(int)*pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS]);
+		if (!nRangeACBusArray || !nRangeDCBusArray)
+			return;
+		BpaSearchVoltTailorNet(pBpaBlock, fMinVoltage, nRangeACBusNum, nRangeDCBusNum, nRangeACBusArray, nRangeDCBusArray);
+		if (nRangeACBusNum <= 0 && nRangeDCBusNum <= 0)
+			return;
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "SearchVoltTailorNet完毕，耗时 %d 毫秒\n", nDur);
+
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+			pBpaBlock->m_BpaDat_ACBusArray[i].bReduction = 0;
+
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+			pBpaBlock->m_BpaDat_ACBusArray[i].nStatus = 1;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS]; i++)
+			pBpaBlock->m_BpaDat_DCBusArray[i].nStatus = 1;
+
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACLINE]; i++)
+			pBpaBlock->m_BpaDat_ACLineArray[i].nStatus = 0;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_WIND]; i++)
+			pBpaBlock->m_BpaDat_WindArray[i].nStatus = 0;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_LINEHG]; i++)
+			pBpaBlock->m_BpaDat_LineHGArray[i].nStatus = 0;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCLINE]; i++)
+			pBpaBlock->m_BpaDat_DCLineArray[i].nStatus = 0;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_R]; i++)
+			pBpaBlock->m_BpaDat_RArray[i].nStatus = 0;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_TRAN]; i++)
+			pBpaBlock->m_BpaDat_TranArray[i].nStatus = 0;
+
+		for (i=0; i<nRangeACBusNum; i++)
+			pBpaBlock->m_BpaDat_ACBusArray[nRangeACBusArray[i]].nStatus = 0;
+		for (i=0; i<nRangeDCBusNum; i++)
+			pBpaBlock->m_BpaDat_DCBusArray[nRangeDCBusArray[i]].nStatus = 0;
+
+		free(nRangeACBusArray);
+		free(nRangeDCBusArray);
+
+		//////////////////////////////////////////////////////////////////////////
+		//	设置边界变压器负荷
+		int		nWind, nOppBus;
+		double	fPFLoadP, fPFLoadQ;
+		double	fGenPFactor, fGenQFactor, fLoadPFactor, fLoadQFactor;
+		std::vector<unsigned char>	bProcArray;
+
+		bProcArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		for (i=0; i<(int)bProcArray.size(); i++)
+			bProcArray[i] = 0;
+		for (nEdge=0; nEdge<pBpaBlock->m_nRecordNum[BPA_DAT_WIND]; nEdge++)
+		{
+			nBusH = -1;
+			if (pBpaBlock->m_BpaDat_WindArray[nEdge].bRCard == 0)
+			{
+				if (pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nIBus].nStatus == pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nZBus].nStatus)
+					continue;
+				nBusH=(pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nIBus].nStatus == 0) ? pBpaBlock->m_BpaDat_WindArray[nEdge].nIBus : pBpaBlock->m_BpaDat_WindArray[nEdge].nZBus;
+			}
+			else if (pBpaBlock->m_BpaDat_WindArray[nEdge].bRCard == 1)
+			{
+				if (pBpaBlock->m_BpaDat_DCBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nIBus].nStatus == pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nZBus].nStatus)
+					continue;
+				nBusH=pBpaBlock->m_BpaDat_WindArray[nEdge].nZBus;
+			}
+			else if (pBpaBlock->m_BpaDat_WindArray[nEdge].bRCard == 2)
+			{
+				if (pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nIBus].nStatus == pBpaBlock->m_BpaDat_DCBusArray[pBpaBlock->m_BpaDat_WindArray[nEdge].nZBus].nStatus)
+					continue;
+				nBusH=pBpaBlock->m_BpaDat_WindArray[nEdge].nIBus;
+			}
+			if (nBusH < 0)
+				continue;
+			if (bProcArray[nBusH])
+				continue;
+			bProcArray[nBusH] = 1;
+
+			fPFLoadP = 0;
+			fPFLoadQ = 0;
+			for (i=pBpaBlock->m_BpaDat_ACBusArray[nBusH].nEdgeWindRange; i<pBpaBlock->m_BpaDat_ACBusArray[nBusH+1].nEdgeWindRange; i++)
+			{
+				nWind = pBpaBlock->m_BpaDat_EdgeWindArray[i].nWindPtr;
+				nOppBus = (pBpaBlock->m_BpaDat_WindArray[nWind].nIBus == nBusH) ? pBpaBlock->m_BpaDat_WindArray[nWind].nZBus : pBpaBlock->m_BpaDat_WindArray[nWind].nIBus;
+				if (pBpaBlock->m_BpaDat_WindArray[nWind].bRCard == 0 && pBpaBlock->m_BpaDat_ACBusArray[nOppBus].nStatus == 0)
+				{
+					Log(g_lpszLogFile, "         母线[%s %g] 边界变压器[%s]非边界\n", pBpaBlock->m_BpaDat_ACBusArray[nBusH].szName, pBpaBlock->m_BpaDat_ACBusArray[nBusH].fkV, pBpaBlock->m_BpaDat_WindArray[nWind].szKeyName);
+					continue;
+				}
+				if (pBpaBlock->m_BpaDat_WindArray[nWind].bRCard != 0 && pBpaBlock->m_BpaDat_DCBusArray[nOppBus].nStatus == 0)
+				{
+					Log(g_lpszLogFile, "         母线[%s %g] 边界变压器[%s]非边界\n", pBpaBlock->m_BpaDat_ACBusArray[nBusH].szName, pBpaBlock->m_BpaDat_ACBusArray[nBusH].fkV, pBpaBlock->m_BpaDat_WindArray[nWind].szKeyName);
+					continue;
+				}
+				if (pBpaBlock->m_BpaDat_WindArray[nWind].nIBus == nBusH)
+				{
+					fPFLoadP += pBpaBlock->m_BpaDat_WindArray[nWind].fPi;
+					fPFLoadQ += pBpaBlock->m_BpaDat_WindArray[nWind].fQi;
+				}
+				else
+				{
+					fPFLoadP += pBpaBlock->m_BpaDat_WindArray[nWind].fPz;
+					fPFLoadQ += pBpaBlock->m_BpaDat_WindArray[nWind].fQz;
+				}
+			}
+			fGenPFactor=fGenQFactor=fLoadPFactor=fLoadQFactor=1;
+			for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_P]; i++)
+			{
+				if (stricmp(pBpaBlock->m_BpaDat_PArray[i].szZone, pBpaBlock->m_BpaDat_ACBusArray[nBusH].szZone) == 0)
+				{
+					fGenPFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fGenQFactor < FLT_MIN)
+						fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					else
+						fGenQFactor=pBpaBlock->m_BpaDat_PArray[i].fGenQFactor;
+
+					fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor < FLT_MIN)
+						fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					else
+						fLoadQFactor=pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor;
+					break;
+				}
+			}
+
+			pBpaBlock->m_BpaDat_ACBusArray[nBusH].bReduction = 1;
+			if (fPFLoadP < 0)
+			{
+				if (stricmp(pBpaBlock->m_BpaDat_ACBusArray[nBusH].szCardKey, "B") == 0)
+				{
+					strcpy(pBpaBlock->m_BpaDat_ACBusArray[nBusH].szCardKey, "BQ");
+					pBpaBlock->m_BpaDat_ACBusArray[nBusH].fQsched_Qmax = 1500;
+					pBpaBlock->m_BpaDat_ACBusArray[nBusH].fVHold_max = pBpaBlock->m_BpaDat_ACBusArray[nBusH].fV/pBpaBlock->m_BpaDat_ACBusArray[nBusH].fkV;
+				}
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fPGen += -fPFLoadP/fGenPFactor;
+			}
+			else
+			{
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadP += fPFLoadP/fLoadPFactor;
+			}
+			pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadQ += fPFLoadQ/fLoadQFactor;
+		}
+
+		//////////////////////////////////////////////////////////////////////////
+		//	设置边界线路负荷
+		for (i=0; i<(int)bProcArray.size(); i++)
+			bProcArray[i] = 0;
+		for (nEdge=0; nEdge<pBpaBlock->m_nRecordNum[BPA_DAT_ACLINE]; nEdge++)
+		{
+			if (pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_ACLineArray[nEdge].nIBus].nStatus == pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_ACLineArray[nEdge].nZBus].nStatus)
+				continue;
+			nBusH=(pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_ACLineArray[nEdge].nIBus].nStatus == 0) ? pBpaBlock->m_BpaDat_ACLineArray[nEdge].nIBus : pBpaBlock->m_BpaDat_ACLineArray[nEdge].nZBus;
+			if (nBusH < 0)
+				continue;
+			if (bProcArray[nBusH])
+				continue;
+			bProcArray[nBusH] = 1;
+
+			fPFLoadP = 0;
+			fPFLoadQ = 0;
+			for (i=pBpaBlock->m_BpaDat_ACBusArray[nBusH].nEdgeACLineRange; i<pBpaBlock->m_BpaDat_ACBusArray[nBusH+1].nEdgeACLineRange; i++)
+			{
+				if (pBpaBlock->m_BpaDat_ACLineArray[pBpaBlock->m_BpaDat_EdgeACLineArray[i].nACLinePtr].nIBus == nBusH)
+				{
+					fPFLoadP += pBpaBlock->m_BpaDat_ACLineArray[pBpaBlock->m_BpaDat_EdgeACLineArray[i].nACLinePtr].fPi;
+					fPFLoadQ += pBpaBlock->m_BpaDat_ACLineArray[pBpaBlock->m_BpaDat_EdgeACLineArray[i].nACLinePtr].fQi;
+				}
+				else
+				{
+					fPFLoadP += pBpaBlock->m_BpaDat_ACLineArray[pBpaBlock->m_BpaDat_EdgeACLineArray[i].nACLinePtr].fPz;
+					fPFLoadQ += pBpaBlock->m_BpaDat_ACLineArray[pBpaBlock->m_BpaDat_EdgeACLineArray[i].nACLinePtr].fQz;
+				}
+			}
+			fGenPFactor=fGenQFactor=fLoadPFactor=fLoadQFactor=1;
+			for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_P]; i++)
+			{
+				if (stricmp(pBpaBlock->m_BpaDat_PArray[i].szZone, pBpaBlock->m_BpaDat_ACBusArray[nBusH].szZone) == 0)
+				{
+					fGenPFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fGenQFactor < FLT_MIN)
+						fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					else
+						fGenQFactor=pBpaBlock->m_BpaDat_PArray[i].fGenQFactor;
+
+					fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor < FLT_MIN)
+						fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					else
+						fLoadQFactor=pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor;
+					break;
+				}
+			}
+
+			pBpaBlock->m_BpaDat_ACBusArray[nBusH].bReduction = 1;
+			if (fPFLoadP < 0)
+			{
+				if (stricmp(pBpaBlock->m_BpaDat_ACBusArray[nBusH].szCardKey, "B") == 0)
+				{
+					strcpy(pBpaBlock->m_BpaDat_ACBusArray[nBusH].szCardKey, "BQ");
+					pBpaBlock->m_BpaDat_ACBusArray[nBusH].fQsched_Qmax = 1500;
+					pBpaBlock->m_BpaDat_ACBusArray[nBusH].fVHold_max = pBpaBlock->m_BpaDat_ACBusArray[nBusH].fV/pBpaBlock->m_BpaDat_ACBusArray[nBusH].fkV-0.01;
+				}
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fPGen += -fPFLoadP/fGenPFactor;
+			}
+			else
+			{
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadP += fPFLoadP/fLoadPFactor;
+			}
+			pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadQ += fPFLoadQ/fLoadQFactor;
+		}
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "设置边界主变和线路负荷完毕，耗时 %d 毫秒\n", nDur);
+
+		//////////////////////////////////////////////////////////////////////////
+		//	孤岛分析
+		int		nBus, nBusNum, *pnBusArray;
+		double			fIslandGen;
+		unsigned char	bHasSlack=0;
+		pnBusArray=(int*)malloc(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]*sizeof(int));
+		if (pnBusArray == NULL)
+			return;
+
+		bProcArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		for (i=0; i<(int)bProcArray.size(); i++)
+			bProcArray[i]=0;
+		for (nBus=0; nBus<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; nBus++)
+		{
+			if (pBpaBlock->m_BpaDat_ACBusArray[nBus].nStatus != 0)
+				continue;
+			if (bProcArray[nBus])
+				continue;
+			if (pBpaBlock->m_BpaDat_ACBusArray[nBus].bTMid)
+				continue;
+
+			BpaTraverseNet(pBpaBlock, nBus, 0, nBusNum, pnBusArray);
+			fIslandGen=0;
+			for (i=0; i<nBusNum; i++)
+			{
+				bProcArray[pnBusArray[i]]=1;
+				fIslandGen += pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].fPGen;
+			}
+
+			if (fabs(fIslandGen) < FLT_MIN)
+			{
+				for (i=0; i<nBusNum; i++)
+				{
+					Log(g_lpszLogFile, "    孤岛母线:(%s %g)\n", pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].szName, pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].fkV);
+					pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].nStatus = 1;
+				}
+			}
+			else
+			{
+				for (i=0; i<nBusNum; i++)
+				{
+					if (stricmp(pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].szCardKey, "BS") == 0)
+					{
+						bHasSlack=1;
+						break;
+					}
+				}
+				if (!bHasSlack)
+				{
+					float	fMaxPMax=-9999;
+					int		nMaxPMax=-1;
+					for (i=0; i<nBusNum; i++)
+					{
+						if (stricmp(pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].szCardKey, "BQ") == 0)
+						{
+							if (fMaxPMax < pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].fPmax)
+							{
+								nMaxPMax=pnBusArray[i];
+								fMaxPMax=pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].fPmax;
+							}
+						}
+					}
+					if (nMaxPMax >= 0)
+						strcpy(pBpaBlock->m_BpaDat_ACBusArray[nMaxPMax].szCardKey, "BS");
+					else
+					{
+						for (i=0; i<nBusNum; i++)
+						{
+							Log(g_lpszLogFile, "    孤岛母线:(%s %g)\n", pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].szName, pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].fkV);
+							pBpaBlock->m_BpaDat_ACBusArray[pnBusArray[i]].nStatus = 1;
+						}
+					}
+				}
+			}
+		}
+		free(pnBusArray);
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "孤岛分析完成，耗时%d毫秒\n", nDur);
+
+		//////////////////////////////////////////////////////////////////////////
+		//	设置设备状态
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACLINE]; i++)
+			pBpaBlock->m_BpaDat_ACLineArray[i].nStatus= (!pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_ACLineArray[i].nIBus].nStatus && !pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_ACLineArray[i].nZBus].nStatus) ? 0 : 1;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_DCLINE]; i++)
+			pBpaBlock->m_BpaDat_DCLineArray[i].nStatus= (!pBpaBlock->m_BpaDat_DCBusArray[pBpaBlock->m_BpaDat_DCLineArray[i].nRBus].nStatus && !pBpaBlock->m_BpaDat_DCBusArray[pBpaBlock->m_BpaDat_DCLineArray[i].nIBus].nStatus) ? 0 : 1;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_WIND]; i++)
+		{
+			if (pBpaBlock->m_BpaDat_WindArray[i].bRCard == 0)
+				pBpaBlock->m_BpaDat_WindArray[i].nStatus= (!pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].nStatus && !pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].nStatus) ? 0 : 1;
+			else if (pBpaBlock->m_BpaDat_WindArray[i].bRCard == 1)
+				pBpaBlock->m_BpaDat_WindArray[i].nStatus= (!pBpaBlock->m_BpaDat_DCBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].nStatus && !pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].nStatus) ? 0 : 1;
+			else if (pBpaBlock->m_BpaDat_WindArray[i].bRCard == 2)
+				pBpaBlock->m_BpaDat_WindArray[i].nStatus= (!pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_WindArray[i].nIBus].nStatus && !pBpaBlock->m_BpaDat_DCBusArray[pBpaBlock->m_BpaDat_WindArray[i].nZBus].nStatus) ? 0 : 1;
+		}
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_LINEHG]; i++)
+			pBpaBlock->m_BpaDat_LineHGArray[i].nStatus= (!pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_LineHGArray[i].nIBus].nStatus && !pBpaBlock->m_BpaDat_ACBusArray[pBpaBlock->m_BpaDat_LineHGArray[i].nZBus].nStatus) ? 0 : 1;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_R]; i++)
+		{
+			nEdge = BpaFindRecordbyKey(pBpaBlock, BPA_DAT_WIND, pBpaBlock->m_BpaDat_RArray[i].szKeyName);
+			if (nEdge < 0)
+				pBpaBlock->m_BpaDat_RArray[i].nStatus= 1;
+			else
+				pBpaBlock->m_BpaDat_RArray[i].nStatus= pBpaBlock->m_BpaDat_WindArray[nEdge].nStatus;
+		}
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "设置设备状态完毕，耗时 %d 毫秒\n", nDur);
+
+		//////////////////////////////////////////////////////////////////////////
+		//	删除网络
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_ACLINE])
+		{
+			if (pBpaBlock->m_BpaDat_ACLineArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除交流线路:(%s)\n", pBpaBlock->m_BpaDat_ACLineArray[i].szKeyName);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_ACLINE, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_WIND])
+		{
+			if (pBpaBlock->m_BpaDat_WindArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除变压器:(%s)\n", pBpaBlock->m_BpaDat_WindArray[i].szKeyName);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_WIND, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_LINEHG])
+		{
+			if (pBpaBlock->m_BpaDat_LineHGArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除线路高抗:(%s)\n", pBpaBlock->m_BpaDat_LineHGArray[i].szKeyName);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_LINEHG, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_DCLINE])
+		{
+			if (pBpaBlock->m_BpaDat_DCLineArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除直流线路:(%s)\n", pBpaBlock->m_BpaDat_DCLineArray[i].szKeyName);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_DCLINE, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_R])
+		{
+			if (pBpaBlock->m_BpaDat_RArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除直流调压装置:(%s)\n", pBpaBlock->m_BpaDat_RArray[i].szKeyName);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_R, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS])
+		{
+			if (pBpaBlock->m_BpaDat_ACBusArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除交流母线:(%s.%.2f)\n", pBpaBlock->m_BpaDat_ACBusArray[i].szName, pBpaBlock->m_BpaDat_ACBusArray[i].fkV);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_ACBUS, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_DCBUS])
+		{
+			if (pBpaBlock->m_BpaDat_DCBusArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除直流母线:(%s.%.2f)\n", pBpaBlock->m_BpaDat_DCBusArray[i].szName, pBpaBlock->m_BpaDat_DCBusArray[i].fkV);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_DCBUS, i);
+			}
+			else
+				i++;
+		}
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "删除区域网设备完毕，耗时 %d 毫秒\n", nDur);
+
+		BpaMaint(pBpaBlock);
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		Log(g_lpszLogFile, "按电压等级裁剪完毕，耗时 %d 毫秒\n", nDur);
+	}
+
+	void CBpaMemDBInterface::BpaSearchLoadTran(tagBpaBlock* pBpaBlock, int& nLoadTranNum, int nLoadTranArray[])
+	{
+		register int	i;
+		int		nTran, nBusT, nBusH;
+		int		nLineNum, nBusNum, nBusArray[200];
+		unsigned char	bGenSub;
+
+		nLoadTranNum = 0;
+		for (nTran=0; nTran<pBpaBlock->m_nRecordNum[BPA_DAT_TRAN]; nTran++)
+		{
+			//Log(g_lpszLogFile, "判断主变[%d卷变]:(%s.%s)\n", pBpaBlock->m_BpaDat_TransformArray[nTran].nWindNum, pBpaBlock->m_BpaDat_TransformArray[nTran].szWindH);
+			if (pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH < 0 || pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL < 0)
+				continue;
+
+			nBusH=-1;
+			if (pBpaBlock->m_BpaDat_TranArray[nTran].nWindNum > 1)
+			{
+				nBusT=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nIBus ||
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nZBus) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+				nBusH=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == nBusT) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus;
+			}
+			else
+			{
+				nBusH=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVI > pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVJ) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+			}
+			if (nBusH < 0)
+				continue;
+
+			bGenSub=0;
+			BpaTraverseSub(pBpaBlock, nBusH, 0, nBusNum, nBusArray);
+			for (i=0; i<nBusNum; i++)
+			{
+				if (pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].bGenerator != 0 || pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].bDCBound != 0)
+				{
+					bGenSub=1;
+					break;
+				}
+			}
+			if (bGenSub)
+				continue;
+
+			nLineNum=0;
+			for (i=0; i<nBusNum; i++)
+			{
+				if (nBusArray[i] == nBusH)
+					continue;
+				nLineNum += pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]+1].nEdgeACLineRange - pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nEdgeACLineRange;
+			}
+			if (nLineNum > 0)
+				continue;
+
+			nLoadTranArray[nLoadTranNum++] = nTran;
+		}
+	}
+
+	void CBpaMemDBInterface::BpaRemoveLoadTran(tagBpaBlock* pBpaBlock, const int bUsePFlowResult)
+	{
+		register int	i, j;
+		int		nDev, nTran, nWind, nBusT, nBusH;
+		int		nBusNum, nBusArray[200];
+		std::vector<unsigned char>	bBusProcArray;
+		double	fPFLoadP, fPFLoadQ;
+		double	fLoadP, fLoadQ;
+		double	fGenPFactor, fGenQFactor, fLoadPFactor, fLoadQFactor;
+
+		int		nLoadTranNum;
+		int*	nLoadTranArray = (int*)malloc(sizeof(int)*pBpaBlock->m_nRecordNum[BPA_DAT_TRAN]);
+		if (!nLoadTranArray)
+			return;
+		BpaSearchLoadTran(pBpaBlock, nLoadTranNum, nLoadTranArray);
+
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]; i++)
+			pBpaBlock->m_BpaDat_ACBusArray[i].nStatus=0;
+		for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_WIND]; i++)
+			pBpaBlock->m_BpaDat_WindArray[i].nStatus=0;
+
+		bBusProcArray.resize(pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS]);
+		for (i=0; i<(int)bBusProcArray.size(); i++)
+			bBusProcArray[i] = 0;
+
+		for (nDev=0; nDev<nLoadTranNum; nDev++)
+		{
+			nTran = nLoadTranArray[nDev];
+			nBusH=-1;
+			if (pBpaBlock->m_BpaDat_TranArray[nTran].nWindNum > 1)
+			{
+				nBusT=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nIBus ||
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindL].nZBus) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+				nBusH=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus == nBusT) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus;
+			}
+			else
+			{
+				nBusH=(pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVI > pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].fkVJ) ?
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nIBus : pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_TranArray[nTran].iRWindH].nZBus;
+			}
+			if (nBusH < 0)
+				continue;
+			if (bBusProcArray[nBusH])
+				continue;
+			bBusProcArray[nBusH] = 1;
+
+			BpaTraverseSub(pBpaBlock, nBusH, 0, nBusNum, nBusArray);
+
+			fGenPFactor=fGenQFactor=fLoadPFactor=fLoadQFactor=1;
+			for (i=0; i<pBpaBlock->m_nRecordNum[BPA_DAT_P]; i++)
+			{
+				if (stricmp(pBpaBlock->m_BpaDat_PArray[i].szZone, pBpaBlock->m_BpaDat_ACBusArray[nBusH].szZone) == 0)
+				{
+					fGenPFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fGenQFactor < FLT_MIN)
+						fGenQFactor=(pBpaBlock->m_BpaDat_PArray[i].fGenPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fGenPFactor : 1;
+					else
+						fGenQFactor=pBpaBlock->m_BpaDat_PArray[i].fGenQFactor;
+
+					fLoadPFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					if (pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor < FLT_MIN)
+						fLoadQFactor=(pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor > FLT_MIN) ? pBpaBlock->m_BpaDat_PArray[i].fLoadPFactor : 1;
+					else
+						fLoadQFactor=pBpaBlock->m_BpaDat_PArray[i].fLoadQFactor;
+					break;
+				}
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			//	统计厂站负荷，置厂站变压器和母线标识
+			fLoadP = 0;
+			fLoadQ = 0;
+			for (i=0; i<nBusNum; i++)
+			{
+				if (nBusArray[i] == nBusH)
+					continue;
+				pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nStatus=1;
+
+				fLoadP += pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].fLoadP;
+				fLoadQ += pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].fLoadQ;
+
+				pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].fLoadP=0;
+				pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].fLoadQ=0;
+
+				for (j=pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]].nEdgeWindRange; j<pBpaBlock->m_BpaDat_ACBusArray[nBusArray[i]+1].nEdgeWindRange; j++)
+					pBpaBlock->m_BpaDat_WindArray[pBpaBlock->m_BpaDat_EdgeWindArray[j].nWindPtr].nStatus=1;
+			}
+			if (fLoadQ > 0)
+			{
+				double	fBuffer = sqrt(fLoadP*fLoadP+fLoadQ*fLoadQ);
+				fLoadP += 0.01*fBuffer;
+				fLoadQ += 0.08*fBuffer;
+			}
+			else
+			{
+				fLoadQ += 0.1*fLoadP;
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			//	统计高压侧母线所连接变压器绕组的功率
+			fPFLoadP = 0;
+			fPFLoadQ = 0;
+			for (i=pBpaBlock->m_BpaDat_ACBusArray[nBusH].nEdgeWindRange; i<pBpaBlock->m_BpaDat_ACBusArray[nBusH+1].nEdgeWindRange; i++)
+			{
+				nWind = pBpaBlock->m_BpaDat_EdgeWindArray[i].nWindPtr;
+				if (pBpaBlock->m_BpaDat_WindArray[nWind].nIBus == nBusH)
+				{
+					fPFLoadP += pBpaBlock->m_BpaDat_WindArray[nWind].fPi;
+					fPFLoadQ += pBpaBlock->m_BpaDat_WindArray[nWind].fQi;
+				}
+				else
+				{
+					fPFLoadP += pBpaBlock->m_BpaDat_WindArray[nWind].fPz;
+					fPFLoadQ += pBpaBlock->m_BpaDat_WindArray[nWind].fQz;
+				}
+			}
+
+			//Log(g_lpszLogFile, "删除变压器:(%s) 有功[%.2f %.2f], 无功[%.2f %.2f]\n", pBpaBlock->m_BpaDat_TranArray[nTran].szWindH, fPFLoadP, fLoadP, fPFLoadQ, fLoadQ);
+
+			if (bUsePFlowResult)
+			{
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadP += fPFLoadP/fLoadPFactor;
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadQ += fPFLoadQ/fLoadQFactor;
+			}
+			else
+			{
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadP += fLoadP/fLoadPFactor;
+				pBpaBlock->m_BpaDat_ACBusArray[nBusH].fLoadQ += fLoadQ/fLoadQFactor;
+			}
+		}
+		bBusProcArray.clear();
+		free(nLoadTranArray);
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_WIND])
+		{
+			if (pBpaBlock->m_BpaDat_WindArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除变压器:(%s)\n", pBpaBlock->m_BpaDat_WindArray[i].szKeyName);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_WIND, i);
+			}
+			else
+				i++;
+		}
+
+		i=0;
+		while (i < pBpaBlock->m_nRecordNum[BPA_DAT_ACBUS])
+		{
+			if (pBpaBlock->m_BpaDat_ACBusArray[i].nStatus)
+			{
+				//Log(g_lpszLogFile, "删除母线:(%s.%.2f)\n", pBpaBlock->m_BpaDat_ACBusArray[i].szName, pBpaBlock->m_BpaDat_ACBusArray[i].fkV);
+				BpaRemoveRecord(pBpaBlock, BPA_DAT_ACBUS, i);
+			}
+			else
+				i++;
+		}
+
+		BpaMaint(pBpaBlock);
 	}
 }

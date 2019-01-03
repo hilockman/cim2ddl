@@ -7,8 +7,8 @@
 5,Description,描述,STRING,64
 6,ConnectivityNode,节点,STRING,64
 7,Type,负荷类型,INTEGER,1
-8,HeatingLoad,热负荷(kW),DOUBLE,4
-9,RefrigerationLoad,冷负荷(kW),DOUBLE,4
+8,HeatingLoad,热负荷(千瓦),DOUBLE,4
+9,RefrigerationLoad,冷负荷(千瓦),DOUBLE,4
 10,NodePtr,节点索引,INTEGER,4
 11,TopoBus,拓扑节点,INTEGER,4
 12,Island,岛,INTEGER,2

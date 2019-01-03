@@ -93,19 +93,19 @@ namespace	PRAdequacyBase
 				Log(g_lpszLogFile, "        UPFCInitial[%d]    含UPFC线路越限 = %s UPFC PFlow=%f Rated=%f Capacity=%f 调整功率=%f\n", nFState, pPRBlock->m_UPFCArray[nUpfc].szName,
 					fDc2AcFactor*pPRBlock->m_ACLineArray[pPRBlock->m_UPFCArray[nUpfc].nACLine].fPfPi, pPRBlock->m_ACLineArray[pPRBlock->m_UPFCArray[nUpfc].nACLine].fRated, pPRBlock->m_UPFCArray[nUpfc].fCapacity, fOLmtP);
 
-				// 			if (pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV] < g_PRMemDBInterface.PRGetTableMax(PR_FSTATEOVLDEV)-1)
-				// 			{
-				// 				memset(&pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]], 0, sizeof(tagPRFStateOvlDev));
-				// 				pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nFStateId=pPRBlock->m_FStateArray[nFState].nFStateId;
-				// 				pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nFStateNo=nFState;
-				// 				pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nDevTyp=PR_ACLINE;
-				// 				pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nDevIdx=pPRBlock->m_UPFCArray[nUpfc].nACLine;
-				// 				pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].fOvLmtP=(float)pPRBlock->m_ACLineArray[pPRBlock->m_UPFCArray[nUpfc].nACLine].fPfPi;
-				// 				pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].fRated=pPRBlock->m_ACLineArray[pPRBlock->m_UPFCArray[nUpfc].nACLine].fRated;
-				// 				pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]++;
-				// 			}
-				// 			else
-				// 				Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLDEV));
+				//if (pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV] < g_PRMemDBInterface.PRGetTableMax(PR_FSTATEOVLDEV)-1)
+				//{
+				//	memset(&pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]], 0, sizeof(tagPRFStateOvlDev));
+				//	pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nFStateId=pPRBlock->m_FStateArray[nFState].nFStateId;
+				//	pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nFStateNo=nFState;
+				//	pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nDevTyp=PR_ACLINE;
+				//	pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].nDevIdx=pPRBlock->m_UPFCArray[nUpfc].nACLine;
+				//	pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].fOvLmtP=(float)pPRBlock->m_ACLineArray[pPRBlock->m_UPFCArray[nUpfc].nACLine].fPfPi;
+				//	pPRBlock->m_FStateOvlDevArray[pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]].fRated=pPRBlock->m_ACLineArray[pPRBlock->m_UPFCArray[nUpfc].nACLine].fRated;
+				//	pPRBlock->m_nRecordNum[PR_FSTATEOVLDEV]++;
+				//}
+				//else
+				//	Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_FSTATEOVLDEV));
 
 				pPRBlock->m_FStateArray[nFState].nELResult=m_PROvLmtAd.AdjustLineOverLimit(pPRBlock, bGenEOvl, 0, bAuxLoadAdjust, 0, 0, nFState, pPRBlock->m_UPFCArray[nUpfc].nACLine, 1.001*fOLmtP, fLoadCut, m_fMatZFltArray);
 			}
@@ -233,7 +233,9 @@ namespace	PRAdequacyBase
 					if (fabs(fDC2ACRatio*pPRBlock->m_ACLineArray[nDev].fPfPi) > pPRBlock->m_ACLineArray[nDev].fRated+0.1)
 					{
 						bHasOverLmt=1;
-						fOLmtP=(pPRBlock->m_ACLineArray[nDev].fPfPi > 0) ? (fDC2ACRatio*pPRBlock->m_ACLineArray[nDev].fPfPi-pPRBlock->m_ACLineArray[nDev].fRated) : (fDC2ACRatio*pPRBlock->m_ACLineArray[nDev].fPfPi+pPRBlock->m_ACLineArray[nDev].fRated);
+						fOLmtP=(pPRBlock->m_ACLineArray[nDev].fPfPi > 0) ?
+							(fDC2ACRatio*pPRBlock->m_ACLineArray[nDev].fPfPi-pPRBlock->m_ACLineArray[nDev].fRated) :
+							(fDC2ACRatio*pPRBlock->m_ACLineArray[nDev].fPfPi+pPRBlock->m_ACLineArray[nDev].fRated);
 						if (fabs(fOLmtP) > fabs(fMaxOvLmt) && m_bLineAdjustable[nDev] != PRFState_AdResult_Unadjustable)
 						{
 							fMaxOvLmt=fOLmtP;
@@ -723,6 +725,8 @@ namespace	PRAdequacyBase
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_ZONE]; i++)
 			pPRBlock->m_ZoneArray[i].fCutLoadP=0;
 
+		for (i=0; i<pPRBlock->m_nRecordNum[PR_ACBUS]; i++)
+			pPRBlock->m_ACBusArray[i].bOutage=0;
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_ACLINE]; i++)
 			pPRBlock->m_ACLineArray[i].bOutage=0;
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_WIND]; i++)
@@ -783,6 +787,8 @@ namespace	PRAdequacyBase
 			pPRBlock->m_PowerLoadArray[i].fQ=pPRBlock->m_PowerLoadArray[i].fReferenceQ;
 		}
 
+		//////////////////////////////////////////////////////////////////////////
+		//	按参考功率设置多状态设备的初始状态。
 		for (i=0; i<pPRBlock->m_System.nMStateDevNum; i++)
 		{
 			nDevice=pPRBlock->m_FStateMStateArray[pPRBlock->m_System.nMStateDevNum*pPRBlock->m_FStateArray[nFState].nMSoutIndex+i].nMSDevIdx;
@@ -860,7 +866,7 @@ namespace	PRAdequacyBase
 		const char* lpszRResultFileName)
 	{
 		register int	i;
-		int				nDevice, nFDev, nRadial, nIsland;
+		int				nDevice, nFDev, nRadial, nFBus, nIsland;
 		unsigned char	bLTFault, bRadialFault;
 		int				nCommF;
 		unsigned char	nDevStatus;
@@ -878,7 +884,6 @@ namespace	PRAdequacyBase
 				continue;
 			if (pPRBlock->m_FStateFDevArray[nFDev].nFStateNo > nEstimateState)
 				break;
-
 			nDevice=pPRBlock->m_FStateFDevArray[nFDev].nFDevIdx;
 
 			if (pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_GENERATOR)
@@ -907,14 +912,66 @@ namespace	PRAdequacyBase
 			else if (pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_DCLINE)
 				pPRBlock->m_DCLineArray[nDevice].bOutage=1;
 
-			if (pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_ACLINE || pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_WIND)
+			else if (pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_ACBUS)
+			{
+				nFBus = nDevice;
+				pPRBlock->m_ACBusArray[nFBus].bOutage=1;
+				for (i=0; i<pPRBlock->m_nRecordNum[PR_ACLINE]; i++)
+				{
+					if (pPRBlock->m_ACLineArray[i].nIBus == nFBus || pPRBlock->m_ACLineArray[i].nZBus == nFBus)
+					{
+#ifdef	_DEBUG
+						Log(g_lpszLogFile, "        ********** 线路 %s 停运\n", pPRBlock->m_ACLineArray[i].szName);
+#endif
+						pPRBlock->m_ACLineArray[i].bOutage = 1;
+						if (pPRBlock->m_ACLineArray[i].nTCSCIndex >= 0)
+							pPRBlock->m_TCSCArray[pPRBlock->m_ACLineArray[i].nTCSCIndex].bOutage=1;
+						if (pPRBlock->m_ACLineArray[i].nUPFCIndex >= 0)
+							pPRBlock->m_UPFCArray[pPRBlock->m_ACLineArray[i].nUPFCIndex].bOutage=1;
+					}
+				}
+				for (i=0; i<pPRBlock->m_nRecordNum[PR_WIND]; i++)
+				{
+					if (pPRBlock->m_WindArray[i].nIBus == nFBus || pPRBlock->m_WindArray[i].nZBus == nFBus)
+					{
+#ifdef	_DEBUG
+						Log(g_lpszLogFile, "        ********** 变压器 %s 停运\n", pPRBlock->m_WindArray[i].szName);
+#endif
+						pPRBlock->m_WindArray[i].bOutage = 1;
+					}
+				}
+				for (i=0; i<pPRBlock->m_nRecordNum[PR_GENERATOR]; i++)
+				{
+					if (pPRBlock->m_GeneratorArray[i].nBusIndex == nFBus)
+					{
+#ifdef	_DEBUG
+						Log(g_lpszLogFile, "        ********** 发电机 %s 停运\n", pPRBlock->m_GeneratorArray[i].szName);
+#endif
+						pPRBlock->m_GeneratorArray[i].bOutage = 1;
+					}
+				}
+				for (i=0; i<pPRBlock->m_nRecordNum[PR_POWERLOAD]; i++)
+				{
+					if (pPRBlock->m_PowerLoadArray[i].nBusIndex == nFBus)
+					{
+#ifdef	_DEBUG
+						Log(g_lpszLogFile, "        ********** 负荷 %s 停运\n", pPRBlock->m_GeneratorArray[i].szName);
+#endif
+						pPRBlock->m_PowerLoadArray[i].bOutage = 1;
+					}
+				}
+			}
+
+			if (pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_ACLINE ||
+				pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_WIND ||
+				pPRBlock->m_FStateFDevArray[nFDev].nFDevTyp == PR_ACBUS)
 				bLTFault=1;
 		}
 		for (nFDev=0; nFDev<pPRBlock->m_nRecordNum[PR_FSTATEMSTATE]; nFDev++)
 		{
 		}
 
-		CalculateBusPQ(pPRBlock, bAuxLoadAdjust, bEQGenAdjust, bEQLoadAdjust);									//	调整母线发电上下限，并切除发电机功率
+		CalculateBusPQ(pPRBlock, bAuxLoadAdjust, bEQGenAdjust, bEQLoadAdjust);	//	调整母线发电上下限，并切除发电机功率
 		//////////////////////////////////////////////////////////////////////////
 		//	岛计算
 		if (bLTFault)
@@ -1190,19 +1247,19 @@ namespace	PRAdequacyBase
 		TiXmlElement*	pSubElement;
 		TiXmlElement*	pStateElement= new TiXmlElement(g_PRMemDBInterface.PRGetTableName(PR_FSTATE));
 
-		pStateElement->SetAttribute("ID",														nEstimateState											);
+		pStateElement->SetAttribute("ID",																			nEstimateState											);
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FDEVNUM),				pPRBlock->m_FStateArray[nEstimateState].nFDevNum		);
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_PROBABILITY),		pPRBlock->m_FStateArray[nEstimateState].fStateProb		);
-		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_DURITION),		pPRBlock->m_FStateArray[nEstimateState].fStateDur		);
+		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_DURITION),			pPRBlock->m_FStateArray[nEstimateState].fStateDur		);
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_STATENUM),				pPRBlock->m_FStateArray[nEstimateState].nStateNum		);
 
-		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FLOSSGEN),		pPRBlock->m_FStateArray[nEstimateState].fFLossGen		);
+		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FLOSSGEN),			pPRBlock->m_FStateArray[nEstimateState].fFLossGen		);
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FLOSSLOAD),		pPRBlock->m_FStateArray[nEstimateState].fFLossLoad		);
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FLOSSGENCAP),		pPRBlock->m_FStateArray[nEstimateState].fFLossGenCap	);
 
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MISLAND),				pPRBlock->m_FStateArray[nEstimateState].bMIsland		);
-		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MIINSGEN),		pPRBlock->m_FStateArray[nEstimateState].fMIInsGen		);
-		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MICUTGEN),		pPRBlock->m_FStateArray[nEstimateState].fMICutGen		);
+		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MIINSGEN),			pPRBlock->m_FStateArray[nEstimateState].fMIInsGen		);
+		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MICUTGEN),			pPRBlock->m_FStateArray[nEstimateState].fMICutGen		);
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MICUTLOAD),		pPRBlock->m_FStateArray[nEstimateState].fMIOutLoad		);
 
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_AGCINSGEN),		pPRBlock->m_FStateArray[nEstimateState].fAgcInsGen		);
@@ -1211,14 +1268,14 @@ namespace	PRAdequacyBase
 
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_OVERLIMIT),				pPRBlock->m_FStateArray[nEstimateState].bOverLimit		);
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELCUTLOAD),				pPRBlock->m_FStateArray[nEstimateState].bELCutLoad		);
-		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELCUTGEN),		pPRBlock->m_FStateArray[nEstimateState].fELCutGen		);
-		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELINSGEN),		pPRBlock->m_FStateArray[nEstimateState].fELInsGen		);
+		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELCUTGEN),			pPRBlock->m_FStateArray[nEstimateState].fELCutGen		);
+		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELINSGEN),			pPRBlock->m_FStateArray[nEstimateState].fELInsGen		);
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELCUTLOAD),		pPRBlock->m_FStateArray[nEstimateState].fELCutLoad		);
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_ELRESULT),				pPRBlock->m_FStateArray[nEstimateState].nELResult		);
 
 		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MAXFAULTZONE),			pPRBlock->m_FStateArray[nEstimateState].nMaxFaultZone	);
 		pStateElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_MAXFAULTRATIO),	pPRBlock->m_FStateArray[nEstimateState].fMaxFaultRatio	);
-		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FAULTGRADE),			pPRBlock->m_FStateArray[nEstimateState].nFaultGrade		);
+		pStateElement->SetAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATE, PR_FSTATE_FAULTGRADE),				pPRBlock->m_FStateArray[nEstimateState].nFaultGrade		);
 
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_FSTATEFDEV]; i++)
 		{
@@ -1287,7 +1344,7 @@ namespace	PRAdequacyBase
 			}
 
 			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATEOVLDEV, PR_FSTATEOVLDEV_OVLMTP),	pPRBlock->m_FStateOvlDevArray[i].fOvLmtP	);
-			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATEOVLDEV, PR_FSTATEOVLDEV_RATED),		pPRBlock->m_FStateOvlDevArray[i].fRated		);
+			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATEOVLDEV, PR_FSTATEOVLDEV_RATED),	pPRBlock->m_FStateOvlDevArray[i].fRated		);
 			pSubElement->SetDoubleAttribute(g_PRMemDBInterface.PRGetFieldName(PR_FSTATEOVLDEV, PR_FSTATEOVLDEV_ADLMTP),	pPRBlock->m_FStateOvlDevArray[i].fAdLmtP	);
 		}
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_FSTATEOVLAD]; i++)

@@ -1,5 +1,5 @@
 序号,名称,描述,类型,长度
 0,RingBus,环网(环辐边界)母线名称,STRING,32
-1,RingkV,环网(环辐边界)母线电压(kV),DOUBLE,8
-2,LoadP,辐射网内负荷(MW),DOUBLE,8
+1,RingkV,环网(环辐边界)母线电压(千伏),DOUBLE,8
+2,LoadP,辐射网内负荷(兆瓦),DOUBLE,8
 3,RingBoundBusPtr,环网(环辐边界)母线索引,INTEGER,4

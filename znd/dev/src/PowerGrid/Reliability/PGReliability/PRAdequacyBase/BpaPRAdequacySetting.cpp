@@ -118,23 +118,23 @@ namespace	PRAdequacyBase
 						else if (stricmp(pElement->Value(), "LowVoltThreshold") == 0)		{	pSetting->fLowVoltThreshold	=atof(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "ZIL") == 0)					{	pSetting->fZIL				=atof(pNode->Value());					}
 
-						else if (stricmp(pElement->Value(), "SampleType") == 0)				{	pSetting->nPRSampleMethod		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "SampleType") == 0)				{	pSetting->nPRSampleMethod	=atoi(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "MaxGenFault") == 0)			{	pSetting->nMaxGenFault		=atoi(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "MaxBranFault") == 0)			{	pSetting->nMaxBranFault		=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "LineELimit") == 0)				{	pSetting->bLineELimit			=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "TranELimit") == 0)				{	pSetting->bTranELimit			=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "GenPELimit") == 0)				{	pSetting->bGenPELimit			=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "UPFCELimit") == 0)				{	pSetting->bUPFCELimit			=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "AuxLoadAdjust") == 0)			{	pSetting->bAuxLoadAdjust		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "LineELimit") == 0)				{	pSetting->bLineELimit		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "TranELimit") == 0)				{	pSetting->bTranELimit		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "GenPELimit") == 0)				{	pSetting->bGenPELimit		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "UPFCELimit") == 0)				{	pSetting->bUPFCELimit		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "AuxLoadAdjust") == 0)			{	pSetting->bAuxLoadAdjust	=atoi(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "EQGenAdjust") == 0)			{	pSetting->bEQGenAdjust		=atoi(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "EQLoadAdjust") == 0)			{	pSetting->bEQLoadAdjust		=atoi(pNode->Value());					}
 
 						else if (stricmp(pElement->Value(), "MCSSimulateTime") == 0)		{	pSetting->nMCSSimulateTime	=atoi(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "MCSMinStateProb") == 0)		{	pSetting->fMCSMinStateProb	=atof(pNode->Value())/g_fMinMagFactor;	}
-						else if (stricmp(pElement->Value(), "FSTMaxStateNum") == 0)			{	pSetting->nFSTMaxStateNum		=atoi(pNode->Value());					}
-						else if (stricmp(pElement->Value(), "FSTMaxCumuProb") == 0)			{	pSetting->fFSTMaxCumuProb		=atof(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "FSTMaxStateNum") == 0)			{	pSetting->nFSTMaxStateNum	=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "FSTMaxCumuProb") == 0)			{	pSetting->fFSTMaxCumuProb	=atof(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "FSTMinStateProb") == 0)		{	pSetting->fFSTMinStateProb	=atof(pNode->Value())/g_fMinMagFactor;	}
-						else if (stricmp(pElement->Value(), "STSMaxStateNum") == 0)			{	pSetting->nSTSMaxStateNum		=atoi(pNode->Value());					}
+						else if (stricmp(pElement->Value(), "STSMaxStateNum") == 0)			{	pSetting->nSTSMaxStateNum	=atoi(pNode->Value());					}
 						else if (stricmp(pElement->Value(), "ANAMinStateProb") == 0)		{	pSetting->fANAMinStateProb	=atof(pNode->Value())/g_fMinMagFactor;	}
 
 						else if (stricmp(pElement->Value(), "MultiThread") == 0)			{	pSetting->nMultiThread		=atoi(pNode->Value());					}

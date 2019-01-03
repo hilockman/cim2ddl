@@ -4,77 +4,77 @@
 
 namespace	BpaMemDB
 {
-	int BpaGetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, char* lpszRetValue)
+	int CBpaMemDBInterface::BpaGetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, char* lpszRetValue)
 	{
 		return MemDBBase::MDBGetRecordValue<tagBpaBlock>(pBpaBlock, nTable, nField, nRecord, lpszRetValue);
 	}
 
-	int BpaSetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, const char* lpszValue)
+	int CBpaMemDBInterface::BpaSetRecordValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nRecord, const char* lpszValue)
 	{
 		return MemDBBase::MDBSetRecordValue<tagBpaBlock>(pBpaBlock, nTable, nField, nRecord, lpszValue);
 	}
 
-	int BpaGetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char lpszRetValue[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaGetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char lpszRetValue[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBGetRecordValue<tagBpaBlock>(pBpaBlock, nTable, nRecord, lpszRetValue);
 	}
 
-	int BpaGetRecordColValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const int nMaxCount, char lpszRetValue[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaGetRecordColValue(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const int nMaxCount, char lpszRetValue[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBGetRecordColumnValue<tagBpaBlock>(pBpaBlock, nTable, nField, nIniRecord, nMaxCount, lpszRetValue);
 	}
 
-	int BpaSetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, const char lpszValue[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaSetRecordRowValue(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, const char lpszValue[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBSetRecordValue<tagBpaBlock>(pBpaBlock, nTable, nRecord, lpszValue);
 	}
 
-	int BpaGetRecordRow(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char* lpszRetValue)
+	int CBpaMemDBInterface::BpaGetRecordRow(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord, char* lpszRetValue)
 	{
 		return MemDBBase::MDBGetRecordRow<tagBpaBlock>(pBpaBlock, nTable , nRecord, lpszRetValue);
 	}
 
-	int	BpaInsertRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaInsertRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBInsertRecord<tagBpaBlock>(pBpaBlock, nTable, lpszRecArray);
 	}
 
-	int	BpaAppendRecord(tagBpaBlock* pBpaBlock, const int bCheckData, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaAppendRecord(tagBpaBlock* pBpaBlock, const int bCheckData, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBAppendRecord<tagBpaBlock>(pBpaBlock, bCheckData, nTable, lpszRecArray);
 	}
 
-	int	BpaAppendRecordByRow(tagBpaBlock* pBpaBlock, const int bNeedCheck, const int nTable, const int nFieldIndex[], const char* lpszParser)
+	int CBpaMemDBInterface::BpaAppendRecordByRow(tagBpaBlock* pBpaBlock, const int bNeedCheck, const int nTable, const int nFieldIndex[], const char* lpszParser)
 	{
 		return MemDBBase::MDBAppendRecordByRow<tagBpaBlock>(pBpaBlock, bNeedCheck, nTable, nFieldIndex, lpszParser);
 	}
 
-	int	BpaUpdateRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaUpdateRecord(tagBpaBlock* pBpaBlock, const int nTable, const char lpszRecArray[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBUpdateRecord<tagBpaBlock>(pBpaBlock, nTable, lpszRecArray);
 	}
 
-	int	BpaRemoveRecord(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord)
+	int CBpaMemDBInterface::BpaRemoveRecord(tagBpaBlock* pBpaBlock, const int nTable, const int nRecord)
 	{
 		return MemDBBase::MDBRemoveRecord<tagBpaBlock>(pBpaBlock, nTable, nRecord);
 	}
 
-	int	BpaFindRecordbyField(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const char* lpszValue)
+	int CBpaMemDBInterface::BpaFindRecordbyField(tagBpaBlock* pBpaBlock, const int nTable, const int nField, const int nIniRecord, const char* lpszValue)
 	{
 		return MemDBBase::MDBFindRecordBubble<tagBpaBlock>(pBpaBlock, nTable, nField, nIniRecord, lpszValue);
 	}
 
-	int	BpaFindRecordbyRow(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaFindRecordbyRow(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBFindRecord<tagBpaBlock>(pBpaBlock, nTable, lpszValue);
 	}
 
-	int	BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char lpszKeyValue[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char lpszKeyValue[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBFindRecordQuick<tagBpaBlock>(pBpaBlock, nTable, 0, pBpaBlock->m_nRecordNum[nTable]-1, lpszKeyValue);
 	}
 
-	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1)
+	int CBpaMemDBInterface::BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1)
 	{
 		if (BpaGetTablePrimaryKeyNum(nTable) != 1)
 			return -1;
@@ -88,7 +88,7 @@ namespace	BpaMemDB
 		return BpaFindRecordbyKey(pBpaBlock, nTable, szRest);
 	}
 
-	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2)
+	int CBpaMemDBInterface::BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2)
 	{
 		if (BpaGetTablePrimaryKeyNum(nTable) != 2)
 			return -1;
@@ -103,7 +103,7 @@ namespace	BpaMemDB
 		return BpaFindRecordbyKey(pBpaBlock, nTable, szRest);
 	}
 
-	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3)
+	int CBpaMemDBInterface::BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3)
 	{
 		if (BpaGetTablePrimaryKeyNum(nTable) != 3)
 			return -1;
@@ -119,7 +119,7 @@ namespace	BpaMemDB
 		return BpaFindRecordbyKey(pBpaBlock, nTable, szRest);
 	}
 
-	int		BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3, const char* lpszKeyValue4)
+	int CBpaMemDBInterface::BpaFindRecordbyKey(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszKeyValue1, const char* lpszKeyValue2, const char* lpszKeyValue3, const char* lpszKeyValue4)
 	{
 		if (BpaGetTablePrimaryKeyNum(nTable) != 4)
 			return -1;
@@ -136,12 +136,12 @@ namespace	BpaMemDB
 		return BpaFindRecordbyKey(pBpaBlock, nTable, szRest);
 	}
 
-	int	BpaFindRecordFuzzy(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG])
+	int CBpaMemDBInterface::BpaFindRecordFuzzy(tagBpaBlock* pBpaBlock, const int nTable, const char lpszValue[][MDB_CHARLEN_LONG])
 	{
 		return MemDBBase::MDBFindRecordFuzzy<tagBpaBlock>(pBpaBlock, nTable, lpszValue);
 	}
 
-	int	BpaGetFilteredIndexArray(tagBpaBlock* pBpaBlock, const int bAndOr, const int nTable,
+	int CBpaMemDBInterface::BpaGetFilteredIndexArray(tagBpaBlock* pBpaBlock, const int bAndOr, const int nTable,
 		const int nFilterField1, const char* lpszFilterKey1Array,
 		const int nFilterField2, const char* lpszFilterKey2Array,
 		const int nFilterField3, const char* lpszFilterKey3Array,
@@ -185,7 +185,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int		BpaGetZoneFilteredIndexArray(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszFilterZoneArray, const int nIndexCapacity, int nIndexArray[])
+	int CBpaMemDBInterface::BpaGetZoneFilteredIndexArray(tagBpaBlock* pBpaBlock, const int nTable, const char* lpszFilterZoneArray, const int nIndexCapacity, int nIndexArray[])
 	{
 		register int	i;
 		int		nField, nRecord;

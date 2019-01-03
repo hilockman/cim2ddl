@@ -16,9 +16,9 @@ $(function () {
         modelApi.getRoots(updateModels);
         //var jobs = jobApi.getJobs();
         //updateJobs(jobs);
-        //jobApi.getJobs(updateJobTable);
+        jobApi.getJobs(updateJobTable);
         //jobApi.getJobs(initJobTable);
-    }, 500);
+    }, 1000);
 
     // We can attach the `fileselect` event to all file inputs on the page
     $(document).on('change', ':file', function() {
@@ -450,7 +450,7 @@ function progressBar(value, fixed, length) {
 }
 
 function progressFormatter(value) {
-	return value != null? progressBar(job.progress) : progressBar(0);
+	return value != null? progressBar(value) : progressBar(0);
 }
 
 function dateFormatter(value) {
@@ -551,11 +551,29 @@ function extendJob(jobs) {
     		var modelName = modelMap[job.modelId];
     		if (modelName === undefined)
     			modelName = job.modelId;
-    		 
+    		
+    		let step = job.step;
+    		let maxStep = job.maxStep;
+    		if (maxStep == undefined || step == undefined || maxStep === 0) {
+    			job.step = '--/--';
+    		} else {
+    			job.step = ''+ step+'/'+maxStep;
+    			job.progress = step / maxStep * 100;
+    		}
+    		
+    		if (job.start != undefined) {
+    			if (job.end !== undefined && job.end !== null)
+    				job.elapse = new Date(job.end).getTime() - new Date(job.start).getTime();	
+    			else if (job.state === 'running')
+    			   job.elapse = new Date().getTime() - new Date(job.start).getTime();
+    		} else {
+    			job.elapse = undefined;
+    		}
+    		
     		$.extend(job,{
     			name : {
     				name:(job.name != null ? job.name : job.id),
-    				url: "job/browse/"+job.id
+    				url: "job/?id="+job.id
 				},
 			operation : {
 				state: job.state, 
@@ -578,7 +596,12 @@ function updateJobTable(jobs) {
 		return {
             id: job.id,
             row: {
-                state: job.state
+                state: job.state,
+                step: job.step,
+                progress: job.progress,
+                start: job.start,
+                end: job.end,
+                elapse:job.elapse,
             }
         }
 	});
@@ -588,6 +611,7 @@ function updateJobTable(jobs) {
 }
    
 function initJobTable(jobs) {
+	//console.log("jobs");
     jobs = extendJob(jobs);
     	
     	//console.log(modelMap);
@@ -607,6 +631,9 @@ function initJobTable(jobs) {
  	            	  title: '模型',
  	            	  formatter : modelFormatter
  	               }, {
+  	            	  field: 'step',
+ 	            	  title: '当前',
+ 	               }, { 	            	   
  	            	  field: 'progress',
  	            	  title: '进度',
  	            	  formatter : progressFormatter
@@ -624,6 +651,36 @@ function initJobTable(jobs) {
  	               }, {
  	            	  field: 'elapse',
  	            	  title: '耗时',
+ 	            	  formatter: function(value) {
+ 	            		  if (value === undefined || value === 0) {
+ 	            			  return '';
+ 	            		  } else {
+ 	            			  let str = '';
+ 	            			  let ms = value % 1000;
+ 	            			  value = Math.floor(value / 1000);
+ 	            			  let seconds = value % 60;
+ 	            			  value = Math.floor(value / 60);
+ 	            			  let minutes = value % 60;
+ 	            			  value = Math.floor(value / 60);
+ 	            			  let hours = Math.floor(value);
+ 	            			  if (hours !== 0) {
+ 	            				  str += hours+'小时';
+ 	            			  }
+ 	            			  
+ 	            			  if (minutes !== 0) {
+ 	            				 str += minutes+'分钟';
+ 	            			  }
+ 	            			  
+ 	            			  if (seconds !== 0) {
+ 	            				 str += seconds+'秒';
+ 	            			  }
+ 	            			  
+ 	            			  if (ms !== 0) {
+ 	            				 str += ms+'毫秒';
+ 	            			  }
+ 	            			  return str;
+ 	            		  }
+ 	            	  }
  	               }, {
  	            	  field: 'operation',
  	            	  title: '操作',
@@ -641,7 +698,7 @@ function initJobTable(jobs) {
 		pageList: [10, 25, 50, 100], 
 		//minimumCountColumns: 10,             //最少允许的列数
 		toggle: 'table',
-		showColumns : true,                  //是否显示所有的列
+		//showColumns : true,                  //是否显示所有的列
 		//dataToggle:table,                    //是否显示详细视图和列表视图的切换按钮
 		//detailView: true,
 		//detailFormatter : detailFormatter,

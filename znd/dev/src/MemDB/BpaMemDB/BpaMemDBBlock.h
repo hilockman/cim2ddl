@@ -40,9 +40,11 @@ struct	_BPAMemDBBlock_	{
 	tagBpaDat_Gen			m_BpaDat_GenArray				[MaxBpaDatGen		];
 	tagBpaDat_Load			m_BpaDat_LoadArray				[MaxBpaDatLoad		];
 	tagBpaDat_Tran			m_BpaDat_TranArray				[MaxBpaDatTran		];
-	tagBpaDat_EdgeLine		m_BpaDat_EdgeLineArray			[MaxBpaDatEdgeLine	];
+	tagBpaDat_EdgeACLine	m_BpaDat_EdgeACLineArray		[MaxBpaDatEdgeACLine];
 	tagBpaDat_EdgeWind		m_BpaDat_EdgeWindArray			[MaxBpaDatEdgeWind	];
 	tagBpaDat_EdgeLineHG	m_BpaDat_EdgeLineHGArray		[MaxBpaDatEdgeLineHG];
+	tagBpaDat_EdgeDCLine	m_BpaDat_EdgeDCLineArray		[MaxBpaDatEdgeDCLine];
+	tagBpaDat_EdgeR			m_BpaDat_EdgeRArray				[MaxBpaDatEdgeR		];
 	tagBpaDat_Radiate		m_BpaDat_RadiateArray			[MaxBpaDatRadiate	];
 	tagBpaScc_FMove			m_BpaScc_FMoveArray				[MaxBpaSccFMove		];
 
@@ -54,6 +56,8 @@ struct	_BPAMemDBBlock_	{
 	tagBpaSwi_Gen			m_BpaSwi_GenArray				[MaxBpaSwiGen		];
 	tagBpaSwi_Damp			m_BpaSwi_DampArray				[MaxBpaSwiDamp		];
 	tagBpaSwi_WGEGen		m_BpaSwi_WGEGenArray			[MaxBpaSwiWGEGen	];
+	tagBpaSwi_WGWGen		m_BpaSwi_WGWGenArray			[MaxBpaSwiWGWGen	];
+	tagBpaSwi_PV			m_BpaSwi_PVArray				[MaxBpaSwiPV		];
 	tagBpaSwi_GenLn			m_BpaSwi_GenLnArray				[MaxBpaSwiGENLN		];
 
 	tagBpaSwi_Exc68			m_BpaSwi_Exc68Array				[MaxBpaSwiEXC68		];
@@ -99,7 +103,14 @@ struct	_BPAMemDBBlock_	{
 	tagBpaSwi_XO			m_BpaSwi_XOArray				[MaxBpaSwiXO		];
 	tagBpaSwi_LOHG			m_BpaSwi_LOHGArray				[MaxBpaSwiLOHG		];
 	tagBpaSwi_XR			m_BpaSwi_XRArray				[MaxBpaSwiXR		];
+
 	tagBpaSwi_D				m_BpaSwi_DArray					[MaxBpaSwiD			];
+	tagBpaSwi_DT			m_BpaSwi_DTArray				[MaxBpaSwiDT		];
+	tagBpaSwi_DF			m_BpaSwi_DFArray				[MaxBpaSwiDF		];
+	tagBpaSwi_DM			m_BpaSwi_DMArray				[MaxBpaSwiDM		];
+	tagBpaSwi_DN			m_BpaSwi_DNArray				[MaxBpaSwiDN		];
+	tagBpaSwi_DA			m_BpaSwi_DAArray				[MaxBpaSwiDA		];
+
 	tagBpaSwi_V				m_BpaSwi_VArray					[MaxBpaSwiV			];
 	tagBpaSwi_VG			m_BpaSwi_VGArray				[MaxBpaSwiVG		];
 	tagBpaSwi_LAB			m_BpaSwi_LABArray				[MaxBpaSwiLAB		];

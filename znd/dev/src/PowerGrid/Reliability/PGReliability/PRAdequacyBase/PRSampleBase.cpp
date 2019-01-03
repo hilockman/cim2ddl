@@ -190,6 +190,9 @@ namespace	PRAdequacyBase
 	void CPRSampleBase::PrevSample(tagPRBlock* pPRBlock)
 	{
 		register int	i;
+		for (i=0; i<pPRBlock->m_nRecordNum[PR_ACBUS]; i++)
+			pPRBlock->m_ACBusArray[i].nFaultFreq=0;
+
 		for (i=0; i<pPRBlock->m_nRecordNum[PR_GENERATOR]; i++)
 			pPRBlock->m_GeneratorArray[i].nFaultFreq=0;
 
@@ -229,6 +232,9 @@ namespace	PRAdequacyBase
 		{
 			switch (pPRBlock->m_FStateFDevArray[i].nFDevTyp)
 			{
+			case	PR_ACBUS:
+				pPRBlock->m_ACBusArray[pPRBlock->m_FStateFDevArray[i].nFDevIdx].nFaultFreq++;
+				break;
 			case	PR_GENERATOR:
 				pPRBlock->m_GeneratorArray[pPRBlock->m_FStateFDevArray[i].nFDevIdx].nFaultFreq++;
 				break;

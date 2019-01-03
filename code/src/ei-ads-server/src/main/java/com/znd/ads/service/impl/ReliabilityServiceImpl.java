@@ -8,6 +8,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import com.znd.ads.service.ReliabilityService;
@@ -22,6 +23,7 @@ import com.znd.bus.common.model.ModelFile;
 import com.znd.ei.Utils;
 
 @Service
+@DependsOn("defaultBufferConfig")
 public class ReliabilityServiceImpl implements ReliabilityService {
 	private final Logger logger = LoggerFactory
 			.getLogger(ReliabilityService.class);

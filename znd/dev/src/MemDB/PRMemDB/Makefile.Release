@@ -156,6 +156,7 @@ $(OBJECTS) $(LIBS)
 <<
 	cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_release
 	 if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb D:\GitHub\cim2ddl\znd/binary/win64/release/pdb
+	 cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll copy /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll D:\GitHub\cim2ddl\znd\bin
 	
 
 qmake: FORCE
@@ -193,8 +194,7 @@ compiler_clean:
 
 ####### Compile
 
-release\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
-		stdafx.h \
+release\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \
 		..\include\MDBDefine.h \
 		..\MemDBBase\MemDBBase_Check.hpp \
@@ -202,7 +202,8 @@ release\MemDBBase.obj: ..\MemDBBase\MemDBBase.cpp ..\MemDBBase\MemDBHash.h \
 		..\MemDBBase\MemDBBase_Record.hpp \
 		..\..\Common\StringCommon.h \
 		..\MemDBBase\MemDBBase_Sort.hpp \
-		..\..\Common\String2Double.hpp
+		..\..\Common\String2Double.hpp \
+		..\MemDBBase\MemDBHash.h
 
 release\StringCommon.obj: ..\..\Common\StringCommon.cpp stdafx.h \
 		..\MemDBBase\MemDBBase.h \

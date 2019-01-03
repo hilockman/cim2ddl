@@ -3,6 +3,7 @@ package com.znd.ads.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import com.znd.ads.service.LogService;
@@ -10,6 +11,7 @@ import com.znd.bus.log.Log;
 import com.znd.bus.log.LogBuffer;
 
 @Service
+@DependsOn("defaultBufferConfig")
 public class LogServiceImpl implements LogService {
 	@Autowired
 	private LogBuffer logBuffer;

@@ -6,20 +6,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.znd.bus.binding.MapperProxyFactory.Parser;
 import com.znd.bus.buffer.Buffer;
+import com.znd.bus.config.BufferConfig;
 import com.znd.bus.exception.BindingException;
 import com.znd.bus.mapping.RawArrayBufferMapper;
 
 public class MapperRegistry {
-
+	private final Logger logger = LoggerFactory.getLogger(MapperRegistry.class);
 	  private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
 	  private final Map<String, MapperProxyFactory<RawArrayBufferMapper>> defaultMappers = new HashMap<>();
 	  public MapperRegistry() {
 	  }
 
 	  @SuppressWarnings("unchecked")
-	  public <T> T getMapper(Class<T> type, Buffer buffer) {
+	  public <T> T getMapper(Class<T> type, Buffer buffer) throws BindingException {
 	    final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
 	    if (mapperProxyFactory == null) {
 	      throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
@@ -31,7 +35,7 @@ public class MapperRegistry {
 	    }
 	  }
 	  
-	  public RawArrayBufferMapper getMapper(String tableName, Buffer buffer) {
+	  public RawArrayBufferMapper getMapper(String tableName, Buffer buffer) throws BindingException {
 		    final MapperProxyFactory<RawArrayBufferMapper> mapperProxyFactory = defaultMappers.get(tableName);
 		    if (mapperProxyFactory == null) {
 		      throw new BindingException("Table " + tableName + " is not known to the MapperRegistry.");
@@ -52,7 +56,7 @@ public class MapperRegistry {
 	  }
 	  
 	  
-	  public <T> void addMapper(Class<T> type) {
+	  public <T> void addMapper(Class<T> type) throws BindingException {
 	    if (type.isInterface()) {
 	      if (hasMapper(type)) {
 	        throw new BindingException("Type " + type + " is already known to the MapperRegistry.");
@@ -92,21 +96,25 @@ public class MapperRegistry {
 	  }
 
 	  /**
-	   * @since 3.2.2
+	   * @throws BindingException 
+	 * @since 3.2.2
 	   */
-	  public void addMappers(String packageName, Class<?> superType) {
+	  public void addMappers(String packageName, Class<?> superType) throws BindingException {
 	    ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<Class<?>>();
+	    logger.info("Begin parse buffer ***************.");
 	    resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
 	    Set<Class<? extends Class<?>>> mapperSet = resolverUtil.getClasses();
+	    logger.info("Find {} mappers in package : {}.", mapperSet.size(), packageName);
 	    for (Class<?> mapperClass : mapperSet) {
 	      addMapper(mapperClass);
 	    }
 	  }
 
 	  /**
-	   * @since 3.2.2
+	   * @throws BindingException 
+	 * @since 3.2.2
 	   */
-	  public void addMappers(String packageName) {
+	  public void addMappers(String packageName) throws BindingException {
 	    addMappers(packageName, Object.class);
 	  }
 

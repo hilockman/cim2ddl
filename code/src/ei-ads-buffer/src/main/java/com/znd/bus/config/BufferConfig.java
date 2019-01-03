@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.redisson.Redisson;
+import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.RedissonNodeConfig;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ import com.znd.bus.channel.ChannelConfig;
 import com.znd.bus.channel.ChannelRegistry;
 import com.znd.bus.exception.BindingException;
 import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MappingError;
+import com.znd.bus.exception.MessageException;
+import com.znd.bus.exception.StatementException;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.log.Log;
 import com.znd.bus.log.LogBuffer;
@@ -44,11 +48,10 @@ import com.znd.bus.server.BusService;
 import com.znd.bus.server.defaults.DefaultBusService;
 import com.znd.bus.statement.RoutingStatementHandler;
 import com.znd.bus.statement.StatementHandler;
+import com.znd.bus.task.AQueue;
 import com.znd.bus.task.BufferTask;
-import com.znd.bus.task.TaskQueue;
 import com.znd.bus.type.TypeHandler;
 import com.znd.bus.type.TypeHandlerRegistry;
-import com.znd.bus.util.TimeCount;
 
 public class BufferConfig {
 	
@@ -150,7 +153,7 @@ public class BufferConfig {
 		return tableMetas.toArray(new TableMeta[0]);
 	}
 	
-	public List<TableMeta> getAllTableMetas() {
+	public List<TableMeta> getAllTableMetas() throws BindingException {
 		List<String> tableNames =  bufferContext.getAllTableNames();
 		
 		List<TableMeta> tables = new ArrayList<>();
@@ -161,7 +164,7 @@ public class BufferConfig {
 		return tables;
 	}
 	
-	public List<String> getAllTableNames() {
+	public List<String> getAllTableNames() throws BindingException {
 		return bufferContext.getAllTableNames();
 	}
 	
@@ -185,7 +188,7 @@ public class BufferConfig {
 		}
 	}
 	
-	public TableMeta getTableMeta(String tableName) {
+	public TableMeta getTableMeta(String tableName) throws BindingException {
 		if (metaMap.containsKey(tableName))
 			return metaMap.get(tableName);
 		
@@ -199,7 +202,7 @@ public class BufferConfig {
 	}
 	
 	
-	private TableMeta loadTableMetaFromDb(String tableName) {	
+	private TableMeta loadTableMetaFromDb(String tableName) throws BindingException {	
 		
 		TableMeta tableMeta = new TableMeta();
 		tableMeta.setName(tableName);
@@ -262,10 +265,12 @@ public class BufferConfig {
 	  public void addTypes(String packageName, Class<?> superType) {
 	    ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<Class<?>>();
 	    resolverUtil.find(new ResolverUtil.IsA(superType), packageName.trim());
-	    Set<Class<? extends Class<?>>> mapperSet = resolverUtil.getClasses();
-	    for (Class<?> mapperClass : mapperSet) {
+	    logger.info("Begin parse types ***************.");
+	    Set<Class<? extends Class<?>>> typeSet = resolverUtil.getClasses();
+	    logger.info("Find {} types in package : {}.", typeSet.size(), packageName);
+	    for (Class<?> type : typeSet) {
 	     // System.out.println(mapperClass+"<-"+packageName);
-	      addType(mapperClass);
+	      addType(type);
 	    }
 	  }
 	
@@ -283,7 +288,7 @@ public class BufferConfig {
 		logger.info("{} types are added to buffer : {}", tableMetas.size(), getKey());
 	}
 	
-	private void addMappers() {	
+	private void addMappers() throws BufferException, BindingException {	
 		bufferContext.initOperation();
 		
 		List<String> tableNames =  bufferContext.getAllTableNames();		
@@ -301,13 +306,13 @@ public class BufferConfig {
 		//this.addMapper(CalcJobMapper.class);
 	}
 	
-	private void updateTables(BufferContext context) {
-		for (TableMeta tableMeta : tableMetas) {
-			context.updateTableMeta(tableMeta);
-		}
-	}
+//	private void updateTables(BufferContext context) throws BindingException {
+//		for (TableMeta tableMeta : tableMetas) {
+//			context.updateTableMeta(tableMeta);
+//		}
+//	}
 	
-	public void upateTables(TableMeta tableMeta) {
+	public void upateTables(TableMeta tableMeta) throws BindingException {
 		this.bufferContext.updateTableMeta(tableMeta);
 		tableMeta.setInitialized(true);
 	}
@@ -326,9 +331,10 @@ public class BufferConfig {
 			
 	}
 	
-	public void buildAll() {
+	public void buildAll() throws BufferException, BindingException, MessageException {
 		if (!simpleModel) {
 			addTypes();
+			buildClient();
 		}
 	
 		try {
@@ -341,7 +347,6 @@ public class BufferConfig {
 			final BufferContext context = bufferContext;
 			
 			
-			boolean changed = false;
 			if (getCreateFlag() == CreateFlag.UPDATE) { //更新buffer
 				boolean createFlag = false;
 				if (context.checkAvailable()) {
@@ -364,8 +369,6 @@ public class BufferConfig {
 					// make buffer
 					context.makeBuffer(tableMetas);
 				}
-				
-				changed = createFlag;
 				
 			} else if (getCreateFlag()  == CreateFlag.CREATE) {
 				// remove buffer
@@ -393,17 +396,13 @@ public class BufferConfig {
 				
 			addMappers();
 			if (!simpleModel) {
+				
 				addChannels();
-			    buildClient();
+			    
 			}
 		} catch (RedissonDBException e) { //低层redisdatabus出错
 			throw new BufferConfigException(e.getMessage(), e);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			System.exit(0);
-		} finally {
-			logger.info("Succeed to build buffer : "+getKey());
-		}
+		} 
 	}
 
 	
@@ -418,7 +417,7 @@ public class BufferConfig {
 
 
 
-	private void addChannels() {
+	private void addChannels() throws MessageException {
 		channelRegistry.addChannels(channels);
 	}
 
@@ -443,24 +442,31 @@ public class BufferConfig {
 	
 	
 	public <T> T getMapper(Class<T> type, Buffer buffer) {
-		return mapperRegistry.getMapper(type, buffer);
+		try {
+			return mapperRegistry.getMapper(type, buffer);
+		} catch (BindingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public RawArrayBufferMapper getMapper(Class<RawArrayBufferMapper> type,
-			String tableName, Buffer buffer) {
+			String tableName, Buffer buffer) throws BindingException {
 		return mapperRegistry.getMapper(tableName, buffer);
 	}
 	
 	
-	public void addMappers(String packageName, Class<?> superType) {
+	public void addMappers(String packageName, Class<?> superType) throws BindingException {
 		mapperRegistry.addMappers(packageName, superType);
 	}
 
-	public void addMappers(String packageName) {
+	public void addMappers(String packageName) throws BindingException {
+		logger.info("Add buffers in package : {} ",packageName);
 	    mapperRegistry.addMappers(packageName);
 	}
 	
-	public <T> void addMapper(Class<T> type) {
+	public <T> void addMapper(Class<T> type) throws BindingException {
 	    mapperRegistry.addMapper(type);
 	}
 
@@ -510,7 +516,7 @@ public class BufferConfig {
 		
 	}
 	
-	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType, Class<?> sourceType, String tableName) {
+	public MappedStatement initMappedStatement(MethodType type, String id, Method method, Class<?> returnType, Class<?> sourceType, String tableName) throws BindingException, MappingError {
 	
 		if (tableName == null)
 		    tableName = resolveTableName(sourceType);
@@ -574,7 +580,13 @@ public class BufferConfig {
 	}
 	
 	public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter) {
-		return new RoutingStatementHandler(executor, mappedStatement, parameter);
+		try {
+			return new RoutingStatementHandler(executor, mappedStatement, parameter);
+		} catch (StatementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public List<ChannelConfig> getChannels() {
@@ -589,11 +601,15 @@ public class BufferConfig {
 		return channelRegistry;
 	}
 
-	public <T> TaskQueue<T> getTaskList(String id) {
+	public <T> AQueue<T> getList(String id) {
 		if (redissonClient == null)
 			return null;
 		
-		return new TaskQueue<T>(redissonClient, id);
+		return new AQueue<T>(redissonClient, id);
+	}
+	
+	public RSemaphore getSemaphore(String id) {
+		return 	redissonClient.getSemaphore(id);
 	}
 	
 	public void setRedissonConfig(RedissonNodeConfig redissonConfig) {

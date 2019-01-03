@@ -8,7 +8,7 @@ namespace PGMemDB
 	//	bChkOpen=N_CheckStatus		表示不考虑OPEN状态
 	//	bInBus=N_BusBound			表示不以BUS为边界
 	//	bChkBreak=Y_BreakerBound	表示不以Breaker为边界
-	void PGTraverseTopo(tagPGBlock* pPGBlock, const int nStartNode, const int bChkBreakerOpen, const int bChkSwitchOpen, const int bInBus, const int bChkBreak,  int& nNodeNum, int nNodeArray[])
+	void PGTraverseTopo(tagPGBlock* pPGBlock, const int nStartNode, const int bChkBreakerOpen, const int bChkSwitchOpen, int& nNodeNum, int nNodeArray[])
 	{
 		register int	i, j;
 		int	nNode, nVolt, nDev;
@@ -46,40 +46,46 @@ namespace PGMemDB
 				if (pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].bOpen != 0 && nNodeArray[i] != nStartNode)
 					continue;
 
-				if (bChkBreak == N_BreakerBound)			//	检查开关
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nBreakerRange; j++)
 				{
-					for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nBreakerRange; j++)
+					nDev=pPGBlock->m_EdgeBreakerArray[j].nBreaker;
+					if (pPGBlock->m_BreakerArray[nDev].bOutage)
+						continue;
+					if (bChkBreakerOpen == Y_CheckStatus)		//	检查开合
 					{
-						if (bInBus == Y_BusBound)			//	母线范围内
-						{
-							if (nNodeArray[i] != nStartNode && pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBusbarSectionPtr >= 0)
-								continue;
-						}
-						nDev=pPGBlock->m_EdgeBreakerArray[j].nBreaker;
-						if (pPGBlock->m_BreakerArray[nDev].bOutage)
+						if (pPGBlock->m_BreakerArray[nDev].nStatus != 0)
 							continue;
-
-						if (bChkBreakerOpen == Y_CheckStatus)		//	检查开合
-						{
-							if (pPGBlock->m_BreakerArray[nDev].nStatus != 0)
-								continue;
-						}
-
-						nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
-						if (bUnProcArray[nNode])
-						{
-							nMidNodeArray.push_back(nNode);
-							bUnProcArray[nNode]=0;
-						}
+					}
+					nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCBreakerRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCBreakerArray[j].nDCBreaker;
+					if (pPGBlock->m_DCBreakerArray[nDev].bOutage)
+						continue;
+					if (bChkBreakerOpen == Y_CheckStatus)		//	检查开合
+					{
+						if (pPGBlock->m_DCBreakerArray[nDev].nStatus != 0)
+							continue;
+					}
+					nNode=(nNodeArray[i] == pPGBlock->m_DCBreakerArray[nDev].nNodeI) ? pPGBlock->m_DCBreakerArray[nDev].nNodeJ:pPGBlock->m_DCBreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
 					}
 				}
 				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDisconnectorRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDisconnectorRange; j++)
 				{
-					if (bInBus == Y_BusBound)			//	母线范围内
-					{
-						if (nNodeArray[i] != nStartNode && pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBusbarSectionPtr >= 0)
-							continue;
-					}
 					nDev=pPGBlock->m_EdgeDisconnectorArray[j].nDisconnector;
 					if (pPGBlock->m_DisconnectorArray[nDev].bOutage)
 						continue;
@@ -96,6 +102,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_DisconnectorArray[nDev].nNodeI) ? pPGBlock->m_DisconnectorArray[nDev].nNodeJ:pPGBlock->m_DisconnectorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -171,6 +179,34 @@ namespace PGMemDB
 						}
 
 						nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
+						if (nNode < 0)
+							continue;
+						if (bUnProcArray[nNode])
+						{
+							nMidNodeArray.push_back(nNode);
+							bUnProcArray[nNode]=0;
+						}
+					}
+					for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCBreakerRange; j++)
+					{
+						if (bInBus == Y_BusBound)			//	母线范围内
+						{
+							if (nNodeArray[i] != nStartNode && pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBusbarSectionPtr >= 0)
+								continue;
+						}
+						nDev=pPGBlock->m_EdgeDCBreakerArray[j].nDCBreaker;
+						if (pPGBlock->m_DCBreakerArray[nDev].bOutage)
+							continue;
+
+						if (bChkBreakerOpen == Y_CheckStatus)		//	检查开合
+						{
+							if (pPGBlock->m_DCBreakerArray[nDev].nStatus != 0)
+								continue;
+						}
+
+						nNode=(nNodeArray[i] == pPGBlock->m_DCBreakerArray[nDev].nNodeI) ? pPGBlock->m_DCBreakerArray[nDev].nNodeJ:pPGBlock->m_DCBreakerArray[nDev].nNodeI;
+						if (nNode < 0)
+							continue;
 						if (bUnProcArray[nNode])
 						{
 							nMidNodeArray.push_back(nNode);
@@ -201,6 +237,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_DisconnectorArray[nDev].nNodeI) ? pPGBlock->m_DisconnectorArray[nDev].nNodeJ:pPGBlock->m_DisconnectorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -213,6 +251,22 @@ namespace PGMemDB
 					if (pPGBlock->m_SeriesCompensatorArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI) ? pPGBlock->m_SeriesCompensatorArray[nDev].nNodeJ : pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCShortCircuitLimitRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCShortCircuitLimitRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCShortCircuitLimitArray[j].nDCShortCircuitLimit;
+					if (pPGBlock->m_DCShortCircuitLimitArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI) ? pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeJ : pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -267,6 +321,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -285,6 +341,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_DisconnectorArray[nDev].nNodeI) ? pPGBlock->m_DisconnectorArray[nDev].nNodeJ:pPGBlock->m_DisconnectorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -333,6 +391,72 @@ namespace PGMemDB
 					if (pPGBlock->m_SeriesCompensatorArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI) ? pPGBlock->m_SeriesCompensatorArray[nDev].nNodeJ : pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+
+				//////////////////////////////////////////////////////////////////////////
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCBreakerRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCBreakerArray[j].nDCBreaker;
+					if (pPGBlock->m_DCBreakerArray[nDev].bOutage)
+						continue;
+					if (bChkOpen == Y_CheckStatus)
+					{
+						if (pPGBlock->m_DCBreakerArray[nDev].nStatus  != 0)
+							continue;
+					}
+
+					nNode=(nNodeArray[i] == pPGBlock->m_DCBreakerArray[nDev].nNodeI) ? pPGBlock->m_DCBreakerArray[nDev].nNodeJ:pPGBlock->m_DCBreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nADConverterRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nADConverterRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeADConverterArray[j].nConverter;
+					if (pPGBlock->m_ACDCConverterArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_ACDCConverterArray[nDev].nNodeAC) ? pPGBlock->m_ACDCConverterArray[nDev].nNodeDC : pPGBlock->m_ACDCConverterArray[nDev].nNodeAC;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDDConverterRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDDConverterRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDDConverterArray[j].nConverter;
+					if (pPGBlock->m_DCDCConverterArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCDCConverterArray[nDev].nNodeI) ? pPGBlock->m_DCDCConverterArray[nDev].nNodeJ : pPGBlock->m_DCDCConverterArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCShortCircuitLimitRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCShortCircuitLimitRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCShortCircuitLimitArray[j].nDCShortCircuitLimit;
+					if (pPGBlock->m_DCShortCircuitLimitArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI) ? pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeJ : pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -386,6 +510,7 @@ namespace PGMemDB
 				if (pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].bOpen != 0 && nNodeArray[i] != nStartNode)
 					continue;
 
+				//////////////////////////////////////////////////////////////////////////
 				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nBreakerRange; j++)
 				{
 					nDev=pPGBlock->m_EdgeBreakerArray[j].nBreaker;
@@ -396,8 +521,9 @@ namespace PGMemDB
 						if (pPGBlock->m_BreakerArray[nDev].nStatus  != 0)
 							continue;
 					}
-
 					nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -414,8 +540,9 @@ namespace PGMemDB
 						if (pPGBlock->m_DisconnectorArray[nDev].nStatus  != 0)
 							continue;
 					}
-
 					nNode=(nNodeArray[i] == pPGBlock->m_DisconnectorArray[nDev].nNodeI) ? pPGBlock->m_DisconnectorArray[nDev].nNodeJ : pPGBlock->m_DisconnectorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -430,6 +557,8 @@ namespace PGMemDB
 					if (pPGBlock->m_ACLineSegmentArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_ACLineSegmentArray[nDev].nNodeI) ? pPGBlock->m_ACLineSegmentArray[nDev].nNodeJ : pPGBlock->m_ACLineSegmentArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -478,6 +607,59 @@ namespace PGMemDB
 					if (pPGBlock->m_SeriesCompensatorArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI) ? pPGBlock->m_SeriesCompensatorArray[nDev].nNodeJ : pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+
+				//////////////////////////////////////////////////////////////////////////
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCBreakerRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCBreakerArray[j].nDCBreaker;
+					if (pPGBlock->m_DCBreakerArray[nDev].bOutage)
+						continue;
+					if (bChkOpen == Y_CheckStatus)
+					{
+						if (pPGBlock->m_DCBreakerArray[nDev].nStatus  != 0)
+							continue;
+					}
+					nNode=(nNodeArray[i] == pPGBlock->m_DCBreakerArray[nDev].nNodeI) ? pPGBlock->m_DCBreakerArray[nDev].nNodeJ:pPGBlock->m_DCBreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCLineSegmentRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCLineSegmentRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCLineSegmentArray[j].nDCLineSegment;
+					if (pPGBlock->m_DCLineSegmentArray[nDev].bOpen != 0)
+						continue;
+					if (pPGBlock->m_DCLineSegmentArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCLineSegmentArray[nDev].nNodeI) ? pPGBlock->m_DCLineSegmentArray[nDev].nNodeJ : pPGBlock->m_DCLineSegmentArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCShortCircuitLimitRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCShortCircuitLimitRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCShortCircuitLimitArray[j].nDCShortCircuitLimit;
+					if (pPGBlock->m_DCShortCircuitLimitArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI) ? pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeJ : pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -520,6 +702,7 @@ namespace PGMemDB
 				if (pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].bOpen != 0 && nNodeArray[i] != nStartNode)
 					continue;
 
+				//////////////////////////////////////////////////////////////////////////
 				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nBreakerRange; j++)
 				{
 					nDev=pPGBlock->m_EdgeBreakerArray[j].nBreaker;
@@ -530,8 +713,9 @@ namespace PGMemDB
 						if (pPGBlock->m_BreakerArray[nDev].nStatus  != 0)
 							continue;
 					}
-
 					nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -550,6 +734,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_DisconnectorArray[nDev].nNodeI) ? pPGBlock->m_DisconnectorArray[nDev].nNodeJ : pPGBlock->m_DisconnectorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -564,6 +750,8 @@ namespace PGMemDB
 					if (pPGBlock->m_ACLineSegmentArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_ACLineSegmentArray[nDev].nNodeI) ? pPGBlock->m_ACLineSegmentArray[nDev].nNodeJ : pPGBlock->m_ACLineSegmentArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -576,6 +764,59 @@ namespace PGMemDB
 					if (pPGBlock->m_SeriesCompensatorArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI) ? pPGBlock->m_SeriesCompensatorArray[nDev].nNodeJ : pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+
+				//////////////////////////////////////////////////////////////////////////
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCBreakerRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCBreakerRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCBreakerArray[j].nDCBreaker;
+					if (pPGBlock->m_DCBreakerArray[nDev].bOutage)
+						continue;
+					if (bChkOpen == Y_CheckStatus)
+					{
+						if (pPGBlock->m_DCBreakerArray[nDev].nStatus  != 0)
+							continue;
+					}
+					nNode=(nNodeArray[i] == pPGBlock->m_DCBreakerArray[nDev].nNodeI) ? pPGBlock->m_DCBreakerArray[nDev].nNodeJ:pPGBlock->m_DCBreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCLineSegmentRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCLineSegmentRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCLineSegmentArray[j].nDCLineSegment;
+					if (pPGBlock->m_DCLineSegmentArray[nDev].bOpen != 0)
+						continue;
+					if (pPGBlock->m_DCLineSegmentArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCLineSegmentArray[nDev].nNodeI) ? pPGBlock->m_DCLineSegmentArray[nDev].nNodeJ : pPGBlock->m_DCLineSegmentArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
+					if (bUnProcArray[nNode])
+					{
+						nMidNodeArray.push_back(nNode);
+						bUnProcArray[nNode]=0;
+					}
+				}
+				for (j=pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]].nDCShortCircuitLimitRange; j<pPGBlock->m_ConnectivityNodeArray[nNodeArray[i]+1].nDCShortCircuitLimitRange; j++)
+				{
+					nDev=pPGBlock->m_EdgeDCShortCircuitLimitArray[j].nDCShortCircuitLimit;
+					if (pPGBlock->m_DCShortCircuitLimitArray[nDev].bOutage)
+						continue;
+					nNode=(nNodeArray[i] == pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI) ? pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeJ : pPGBlock->m_DCShortCircuitLimitArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -631,6 +872,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_BreakerArray[nDev].nNodeI) ? pPGBlock->m_BreakerArray[nDev].nNodeJ:pPGBlock->m_BreakerArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -649,6 +892,8 @@ namespace PGMemDB
 					}
 
 					nNode=(nNodeArray[i] == pPGBlock->m_DisconnectorArray[nDev].nNodeI) ? pPGBlock->m_DisconnectorArray[nDev].nNodeJ : pPGBlock->m_DisconnectorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -663,6 +908,8 @@ namespace PGMemDB
 					if (pPGBlock->m_ACLineSegmentArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_ACLineSegmentArray[nDev].nNodeI) ? pPGBlock->m_ACLineSegmentArray[nDev].nNodeJ : pPGBlock->m_ACLineSegmentArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);
@@ -761,6 +1008,8 @@ namespace PGMemDB
 					if (pPGBlock->m_SeriesCompensatorArray[nDev].bOutage)
 						continue;
 					nNode=(nNodeArray[i] == pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI) ? pPGBlock->m_SeriesCompensatorArray[nDev].nNodeJ : pPGBlock->m_SeriesCompensatorArray[nDev].nNodeI;
+					if (nNode < 0)
+						continue;
 					if (bUnProcArray[nNode])
 					{
 						nMidNodeArray.push_back(nNode);

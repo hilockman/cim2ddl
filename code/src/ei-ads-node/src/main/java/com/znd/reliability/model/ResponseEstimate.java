@@ -62,4 +62,5 @@ public class ResponseEstimate extends ExchangeData<ResponseEstimate.Content> {
 
 
 	}
+
 }

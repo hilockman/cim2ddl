@@ -24,6 +24,7 @@ extern  int logReg(int argc, char **argv);
 extern  void logInfo(const char *format, ...);
 extern  void logDebug(const char *format, ...);
 extern void logError(const char *format, ...);
+extern  int calcReliability(const char *configFile);
 
 /* Put event loop in the global scope, so it can be explicitly stopped */
 static aeEventLoop *loop;
@@ -237,6 +238,30 @@ void onClose(redisAsyncContext *c, void *reply, void *privdata) {
 
 int main (int argc, char **argv) {
 	logReg(argc, argv);
+
+	//pase arguments;
+	const char *address = "127.0.0.1";
+	int port = 10001;
+	const char *configFile = NULL;
+	for (int i = 0; i < argc; i++) {
+		if ((strcmp(argv[i], "-h") == 0) && (i + 1 < argc)) {
+			address = argv[i + 1];
+		}
+		else  if ((strcmp(argv[i], "-p") == 0) && (i + 1 < argc)) {
+			port = atoi(argv[i + 1]);
+		}
+		else if ((strcmp(argv[i], "-c") == 0) && (i + 1 < argc)) {
+			configFile = argv[i + 1];
+		}
+	}
+	// end pase arguments;
+
+	if (configFile != NULL) {
+		logDebug("config file is %s", configFile);
+		calcReliability(configFile);
+
+		return;
+	}
 #ifndef _WIN32
 	signal(SIGPIPE, SIG_IGN);
 #endif
@@ -249,13 +274,8 @@ int main (int argc, char **argv) {
 #endif
 
 
-	const char *address = "127.0.0.1";
-	if (argc > 1)
-		address = argv[1];
 
-	int port = 10001;
-	if (argc > 2)
-		port = atoi(argv[2]);
+
 
 	//const char address[] = "192.168.1.50";
 	//int port = 7000;

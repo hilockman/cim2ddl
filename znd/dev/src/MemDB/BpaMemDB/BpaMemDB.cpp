@@ -169,7 +169,7 @@ namespace	BpaMemDB
 		}
 	}
 
-	char* Init_BpaBlock(const int nBpaBlockKey, const int bCreateMem, const int bClearBaseLog)
+	char* CBpaMemDBInterface::Init_BpaBlock(const int nBpaBlockKey, const int bCreateMem, const int bClearBaseLog)
 	{
 		char*	lpBlockMap;
 		int		nMemSize=getBlockSize();
@@ -199,7 +199,7 @@ namespace	BpaMemDB
 		return lpBlockMap;
 	}
 
-	void Exit_BpaBlock(char* lpszBlockMap, const int nBpaBlockKey)
+	void CBpaMemDBInterface::Exit_BpaBlock(char* lpszBlockMap, const int nBpaBlockKey)
 	{
 		if (nBpaBlockKey > 0)
 			MemDBBase::Exit_MDBBlock(lpszBlockMap, nBpaBlockKey);
@@ -207,7 +207,7 @@ namespace	BpaMemDB
 			MemDBBase::Exit_MDBBlock(lpszBlockMap, g_nBpaBlockKey);
 	}
 
-	int		BpaGetFieldEnumNum(const int nTable, const int nField)
+	const int CBpaMemDBInterface::BpaGetFieldEnumNum(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -219,7 +219,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int BpaGetFieldEnumValue(const int nTable, const int nField, const char* lpszEnumName)
+	const int CBpaMemDBInterface::BpaGetFieldEnumValue(const int nTable, const int nField, const char* lpszEnumName) const
 	{
 		register int	i;
 		if (nTable >= 0 && nTable < BpaGetTableNum())
@@ -236,23 +236,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int	BpaGetFieldEnumString(const int nTable, const int nField, const int nEnumIndex, char* lpszRetString)
-	{
-		if (nTable >= 0 && nTable < BpaGetTableNum())
-		{
-			if (nField >= 0 && nField < BpaGetTableFieldNum(nTable))
-			{
-				if (nEnumIndex >= 0 && nEnumIndex < g_BpaTableDictArray[nTable].sFieldArray[nField].nEnumNum)
-				{
-					strcpy(lpszRetString, g_BpaTableDictArray[nTable].sFieldArray[nField].pEnumArray[nEnumIndex].lpszEnumString);
-					return 1;
-				}
-			}
-		}
-		return 0;
-	}
-
-	const char*	BpaGetFieldEnumString(const int nTable, const int nField, const int nEnumIndex)
+	const char* CBpaMemDBInterface::BpaGetFieldEnumString(const int nTable, const int nField, const int nEnumIndex) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -265,7 +249,7 @@ namespace	BpaMemDB
 		return "";
 	}
 
-	int		BpaGetFieldEnumStringArray(const int nTable, const int nField, int& nEnumNum, char szEnumArray[][MDB_CHARLEN])
+	const int CBpaMemDBInterface::BpaGetFieldEnumStringArray(const int nTable, const int nField, int& nEnumNum, char szEnumArray[][MDB_CHARLEN]) const
 	{
 		register int	i;
 
@@ -284,7 +268,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int		BpaGetTablePrimaryKeyNum(const int nTable)
+	const int CBpaMemDBInterface::BpaGetTablePrimaryKeyNum(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 			return g_BpaTableDictArray[nTable].sPrimaryKey.nPrimaryKeyNum;
@@ -292,7 +276,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int		BpaGetTablePrimaryKey(const int nTable, const int nRest)
+	const int CBpaMemDBInterface::BpaGetTablePrimaryKey(const int nTable, const int nRest) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -305,12 +289,26 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int		BpaGetTableNum()
+	const int CBpaMemDBInterface::BpaIsFieldPrimaryKey(const int nTable, const int nField) const
+	{
+		if (nTable >= 0 && nTable < BpaGetTableNum())
+		{
+			for (int nKey=0; nKey<BpaGetTablePrimaryKeyNum(nTable); nKey++)
+			{
+				if (nField == BpaGetTablePrimaryKey(nTable, nKey))
+					return 1;
+			}
+		}
+
+		return 0;
+	}
+
+	const int CBpaMemDBInterface::BpaGetTableNum() const
 	{
 		return sizeof(g_BpaTableDictArray)/sizeof(tagMemDBTable);
 	}
 
-	int		BpaGetTableMax(const int nTable)
+	const int CBpaMemDBInterface::BpaGetTableMax(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -319,7 +317,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int		BpaGetTableFieldNum(const int nTable)
+	const int CBpaMemDBInterface::BpaGetTableFieldNum(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 			return g_BpaTableDictArray[nTable].nFieldNum;
@@ -327,7 +325,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int		BpaGetTableIndex(const char* lpszTableName)
+	const int CBpaMemDBInterface::BpaGetTableIndex(const char* lpszTableName) const
 	{
 		register int	i;
 
@@ -353,7 +351,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int		BpaGetFieldIndex(const int nTable, const char* lpszFieldName)
+	const int CBpaMemDBInterface::BpaGetFieldIndex(const int nTable, const char* lpszFieldName) const
 	{
 		register int	i;
 
@@ -373,74 +371,28 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int	BpaGetTableName(const int nTable, char* lpszRetString)
-	{
-		if (nTable >= 0 && nTable < BpaGetTableNum())
-		{
-			strcpy(lpszRetString, g_BpaTableDictArray[nTable].lpszName);
-			return 1;
-		}
-		return 0;
-	}
-
-	int	BpaGetTableDesp(const int nTable, char* lpszRetString)
-	{
-		if (nTable >= 0 && nTable < BpaGetTableNum())
-		{
-			strcpy(lpszRetString, g_BpaTableDictArray[nTable].lpszDesp);
-			return 1;
-		}
-		return 0;
-	}
-
-	const char*	BpaGetTableName(const int nTable)
+	const char* CBpaMemDBInterface::BpaGetTableName(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 			return g_BpaTableDictArray[nTable].lpszName;
 		return "";
 	}
 
-	const char*	BpaGetTableDesp(const int nTable)
+	const char* CBpaMemDBInterface::BpaGetTableDesp(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 			return g_BpaTableDictArray[nTable].lpszDesp;
 		return "";
 	}
 
-	int	BpaGetTableCategory(const int nTable)
+	const int CBpaMemDBInterface::BpaGetTableCategory(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 			return g_BpaTableDictArray[nTable].nCategory;
 		return 0;
 	}
 
-	int	BpaGetFieldName(const int nTable, const int nField, char* lpszRetString)
-	{
-		if (nTable >= 0 && nTable < BpaGetTableNum())
-		{
-			if (nField >= 0 && nField < BpaGetTableFieldNum(nTable))
-			{
-				strcpy(lpszRetString, g_BpaTableDictArray[nTable].sFieldArray[nField].lpszName);
-				return 1;
-			}
-		}
-		return 0;
-	}
-
-	int	BpaGetFieldDesp(const int nTable, const int nField, char* lpszRetString)
-	{
-		if (nTable >= 0 && nTable < BpaGetTableNum())
-		{
-			if (nField >= 0 && nField < BpaGetTableFieldNum(nTable))
-			{
-				strcpy(lpszRetString, g_BpaTableDictArray[nTable].sFieldArray[nField].lpszDesp);
-				return 1;
-			}
-		}
-		return 0;
-	}
-
-	const char*	BpaGetFieldName(const int nTable, const int nField)
+	const char* CBpaMemDBInterface::BpaGetFieldName(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -452,7 +404,7 @@ namespace	BpaMemDB
 		return "";
 	}
 
-	const char*	BpaGetFieldDesp(const int nTable, const int nField)
+	const char* CBpaMemDBInterface::BpaGetFieldDesp(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -464,7 +416,7 @@ namespace	BpaMemDB
 		return "";
 	}
 
-	int	BpaGetFieldLen(const int nTable, const int nField)
+	const int CBpaMemDBInterface::BpaGetFieldLen(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -476,7 +428,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int	BpaGetFieldType(const int nTable, const int nField)
+	const int CBpaMemDBInterface::BpaGetFieldType(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -488,7 +440,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int	BpaGetFieldCategory(const int nTable, const int nField)
+	const int CBpaMemDBInterface::BpaGetFieldCategory(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -500,7 +452,7 @@ namespace	BpaMemDB
 		return -1;
 	}
 
-	int	BpaGetFieldNameArray(const int nTable, char* lpszRetString)
+	const int CBpaMemDBInterface::BpaGetFieldNameArray(const int nTable, char* lpszRetString) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -525,7 +477,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int	BpaGetFieldDespArray(const int nTable, char* lpszRetString)
+	const int CBpaMemDBInterface::BpaGetFieldDespArray(const int nTable, char* lpszRetString) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -550,7 +502,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int	BpaGetFieldCategoryArray(const int nTable, char* lpszRetString)
+	const int CBpaMemDBInterface::BpaGetFieldCategoryArray(const int nTable, char* lpszRetString) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -574,7 +526,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int	BpaGetFieldTypeArray(const int nTable, char* lpszRetString)
+	const int CBpaMemDBInterface::BpaGetFieldTypeArray(const int nTable, char* lpszRetString) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -598,7 +550,7 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	int	BpaGetFieldLenArray(const int nTable, char* lpszRetString)
+	const int CBpaMemDBInterface::BpaGetFieldLenArray(const int nTable, char* lpszRetString) const
 	{
 		if (nTable >= 0 && nTable < BpaGetTableNum())
 		{
@@ -622,17 +574,17 @@ namespace	BpaMemDB
 		return 0;
 	}
 
-	const int	BpaGetFieldCategoryNum()
+	const int CBpaMemDBInterface::BpaGetFieldCategoryNum() const
 	{
 		return sizeof(MDBFeldCategoryStringArray)/sizeof(char*);
 	}
 
-	const char*	BpaGetFieldCategoryName(const int nCatrgory)
+	const char* CBpaMemDBInterface::BpaGetFieldCategoryName(const int nCatrgory) const
 	{
 		return MDBFeldCategoryStringArray[nCatrgory];
 	}
 
-	const int	BpaGetFieldCategoryValue(const char* lpszCatrgory)
+	const int CBpaMemDBInterface::BpaGetFieldCategoryValue(const char* lpszCatrgory) const
 	{
 		register int	i;
 		for (i=0; i<sizeof(MDBFeldCategoryStringArray)/sizeof(char*); i++)
@@ -641,5 +593,97 @@ namespace	BpaMemDB
 				return i;
 		}
 		return -1;
+	}
+
+
+	void CBpaMemDBInterface::BpaFormatDecimalChar(const int nBpaTable, const int nBpaField, char* lpszValue, const int nDataLen, const int nDecimal)
+	{
+		register int	i;
+		unsigned char	bFlag;
+		int		nChar, nPointPos;
+
+		if (strlen(lpszValue) <= 0)
+			return;
+
+		char	szChar[64];
+		memset(szChar, 0, 64);
+
+		//	清除0和空格
+		bFlag=1;
+		nChar=0;
+		for (i=0; i<(int)strlen(lpszValue); i++)
+		{
+			if (lpszValue[i] == '-')
+			{
+				szChar[nChar++]=lpszValue[i];
+			}
+			else
+			{
+				if (!bFlag)
+				{
+					if (lpszValue[i] == ' ' || lpszValue[i] == '\t' || lpszValue[i] == '\n' || lpszValue[i] == '\r' || lpszValue[i] == '\0')	//	数字后为空格和0跳出
+						break;
+				}
+				if (bFlag)
+				{
+					if (lpszValue[i] == ' ' || lpszValue[i] == '0')			//	数字前为空格和0忽略
+						continue;
+					else
+						bFlag=0;
+				}
+				szChar[nChar++]=lpszValue[i];
+			}
+		}
+		szChar[nChar++]='\0';
+
+		if (strstr(szChar, ".") != NULL)
+		{
+			for (i=(int)strlen(szChar)-1; i>=0; i--)
+			{
+				if (szChar[i] == ' ' || szChar[i] == '0')	//	小数点后的空格和0忽略
+					szChar[i]='\0';
+				else
+					break;
+			}
+		}
+
+		if (nBpaTable == BPA_DAT_ACBUS && nBpaField == BPA_DAT_ACBUS_VHOLD_MAX ||
+			nBpaTable == BPA_DAT_ACLINE && nBpaField == BPA_DAT_ACLINE_R ||
+			nBpaTable == BPA_DAT_ACLINE && nBpaField == BPA_DAT_ACLINE_X ||
+			nBpaTable == BPA_DAT_ACLINE && nBpaField == BPA_DAT_ACLINE_B1 ||
+			nBpaTable == BPA_DAT_ACLINE && nBpaField == BPA_DAT_ACLINE_B2 ||
+			nBpaTable == BPA_DAT_WIND && nBpaField == BPA_DAT_WIND_R ||
+			nBpaTable == BPA_DAT_WIND && nBpaField == BPA_DAT_WIND_X ||
+			nBpaTable == BPA_DAT_WIND && nBpaField == BPA_DAT_WIND_TPI ||
+			nBpaTable == BPA_DAT_WIND && nBpaField == BPA_DAT_WIND_TPJ ||
+			nBpaTable == BPA_DAT_R && nBpaField == BPA_DAT_R_TMAX ||
+			nBpaTable == BPA_DAT_R && nBpaField == BPA_DAT_R_TMIN)
+		{
+			if (strlen(szChar) - nDataLen == 1 && strstr(szChar, ".") != NULL)
+			{
+				nPointPos = -1;
+				nChar = 0;
+				bFlag = 0;
+				for (i=0; i<strlen(szChar); i++)
+				{
+					if (bFlag)
+						nChar++;
+					if (szChar[i] == '.')
+					{
+						bFlag = 1;
+						nPointPos = i;
+					}
+				}
+				if (nPointPos >= 0 && nChar == nDecimal)
+				{
+					for (i=nPointPos; i<strlen(szChar); i++)
+						szChar[i] = szChar[i+1];
+				}
+			}
+		}
+
+		for (i=nDataLen; i<(int)strlen(szChar); i++)	//	按给定长度截断
+			szChar[i]='\0';
+		strcpy(lpszValue, szChar);
 	}
 }

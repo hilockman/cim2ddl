@@ -352,7 +352,7 @@ enum	_BpaMDBEnum_DatField_Sub_
 
 struct	_BpaMDBDat_Sub_
 {
-	char	szName[MDB_CHARLEN_BPABUS];		//	厂站名称
+	char	szName[MDB_CHARLEN_SHORTER];		//	厂站名称
 //	char	szDesp[MDB_CHARLEN];			//	厂站描述
 //	char	szZone[MDB_CHARLEN_SHORTER];	//	厂站名称
 	char	szAlias[MDB_CHARLEN_SHORT];		//	关联厂站
@@ -387,13 +387,13 @@ enum	_BpaMDBEnum_DatField_ACBus_
 	BPA_DAT_ACBUS_RBUSVOLT,
 	BPA_DAT_ACBUS_VARSPPLD,
 
-	BPA_DAT_ACBUS_ADDCODE,	
-	BPA_DAT_ACBUS_ADDPLOAD,	
-	BPA_DAT_ACBUS_ADDQLOAD,	
+	BPA_DAT_ACBUS_ADDCODE,
+	BPA_DAT_ACBUS_ADDPLOAD,
+	BPA_DAT_ACBUS_ADDQLOAD,
 	BPA_DAT_ACBUS_ADDPSHUNT,
 	BPA_DAT_ACBUS_ADDQSHUNT,
-	BPA_DAT_ACBUS_ADDPGEN,	
-	BPA_DAT_ACBUS_ADDQGEN,	
+	BPA_DAT_ACBUS_ADDPGEN,
+	BPA_DAT_ACBUS_ADDQGEN,
 
 	BPA_DAT_ACBUS_SUB,
 	BPA_DAT_ACBUS_ALIAS,
@@ -452,6 +452,12 @@ enum	_BpaMDBEnum_DatField_ACBus_
 	BPA_DAT_ACBUS_INIQSHUNT,
 	BPA_DAT_ACBUS_INIPGEN,
 	BPA_DAT_ACBUS_INIQGEN,
+	BPA_DAT_ACBUS_INIADDPLOAD,
+	BPA_DAT_ACBUS_INIADDQLOAD,
+	BPA_DAT_ACBUS_INIADDPSHUNT,
+	BPA_DAT_ACBUS_INIADDQSHUNT,
+	BPA_DAT_ACBUS_INIADDPGEN,
+	BPA_DAT_ACBUS_INIADDQGEN,
 
 	BPA_DAT_ACBUS_TMID,
 	BPA_DAT_ACBUS_GENERATOR,
@@ -460,7 +466,7 @@ enum	_BpaMDBEnum_DatField_ACBus_
 	BPA_DAT_ACBUS_DCBOUND,
 	BPA_DAT_ACBUS_GENLN,
 	BPA_DAT_ACBUS_STATUS,
-	BPA_DAT_ACBUS_REDCUTION,
+	BPA_DAT_ACBUS_REDUCTION,
 	BPA_DAT_ACBUS_INRING,
 	BPA_DAT_ACBUS_RADIATE,
 
@@ -492,16 +498,15 @@ struct	_BpaMDBDat_ACBus_	{
 	float	fRBusVolt;							//74	77	F4.0远方要控制的基准电压(kV)
 	float	fVarSppld;							//78	80	F3.0提供的无功功率百分数(%)
 
+	char	szAddCode[MDB_CHARLEN_SHORTEST/2];
+	float	fAddLoadP;
+	float	fAddLoadQ;
+	float	fAddShuntP;
+	float	fAddShuntQ;
+	float	fAddPGen;
+	float	fAddQGen;
 
-	char	szAddCode[MDB_CHARLEN_SHORTEST/2];	//19,	20	A2		负荷模型类型子代码
-	float	fzAddLoadP;							//21,	25	F5.0	恒定有功负荷(MW)
-	float	fzAddLoadQ;							//26,	30	F5.0	恒定无功负荷(MVAR)，+表示感性
-	float	fzAddShuntP;						//31,	34	F4.0	并联导纳有功负荷(MW)
-	float	fzAddShuntQ;						//35,	38	F4.0	并联导纳无功负荷(MVAR)，+表容性
-	float	fzAddPGen;							//43,	47	F5.0	实际有功出力PGen(MW)
-	float	fzAddQGen;							//48,	52	F5.0	实际无功出力QGen(MVAR)
-
-	char	szBpaSub[MDB_CHARLEN_BPABUS];
+	char	szBpaSub[MDB_CHARLEN_SHORTER];
 	char	szAlias[MDB_CHARLEN];
 	float	fV;
 	float	fD;
@@ -552,12 +557,18 @@ struct	_BpaMDBDat_ACBus_	{
 	int		nVDipBus3;
 	int		nVDipBus4;
 
-	float	fIniLoadP;		
-	float	fIniLoadQ;		
-	float	fIniShuntP;		
-	float	fIniShuntQ;		
-	float	fIniPGen;		
-	float	fIniQGen;		
+	float	fIniLoadP;
+	float	fIniLoadQ;
+	float	fIniShuntP;
+	float	fIniShuntQ;
+	float	fIniPGen;
+	float	fIniQGen;
+	float	fIniAddLoadP;
+	float	fIniAddLoadQ;
+	float	fIniAddShuntP;
+	float	fIniAddShuntQ;
+	float	fIniAddPGen;
+	float	fIniAddQGen;
 
 	unsigned char	bTMid;
 	unsigned char	bGenerator;
@@ -566,14 +577,14 @@ struct	_BpaMDBDat_ACBus_	{
 	unsigned char	bDCBound;
 	unsigned char	bGenLn;
 	unsigned char	nStatus;
-	unsigned char	bRedcution;
+	unsigned char	bReduction;
 	unsigned char	bInRing;
 	short			nRadiate;
 
 	short	nACIsland;
-	int		nACLineRange;
-	int		nWindRange;
-	short	nLineHGRange;
+	int		nEdgeACLineRange;
+	int		nEdgeWindRange;
+	short	nEdgeLineHGRange;
 	int		nSubPtr;
 }	DISALIGN;
 typedef	struct	_BpaMDBDat_ACBus_	tagBpaDat_ACBus;
@@ -787,6 +798,7 @@ enum _BpaMDBEnum_DatField_Wind_
 	BPA_DAT_WIND_RTTPI,
 	BPA_DAT_WIND_RTTPJ,
 	BPA_DAT_WIND_STATUS,
+	BPA_DAT_WIND_TRANPTR,
 	BPA_DAT_WIND_INRING,
 	BPA_DAT_WIND_RADIATE,
 };
@@ -840,6 +852,7 @@ struct	_BpaMDBDat_Wind_	{
 	float			fRtTPI;
 	float			fRtTPJ;
 	unsigned char	nStatus;
+	int				nTran;
 	unsigned char	bInRing;
 	short			nRadiate;
 }	DISALIGN;
@@ -928,6 +941,8 @@ enum _BpaMDBEnum_DatField_DCBus_
 	BPA_DAT_DCBUS_ANGLE,
 
 	BPA_DAT_DCBUS_ACBUS,
+	BPA_DAT_DCBUS_PRLINE,
+	BPA_DAT_DCBUS_PRTRAN,
 	BPA_DAT_DCBUS_ACISLAND,
 	BPA_DAT_DCBUS_SUB,
 	BPA_DAT_DCBUS_ALIAS,
@@ -960,6 +975,8 @@ struct	_BpaMDBDat_DCBus_	{
 	float			fAngle;
 
 	int				nACBus;
+	int				nEdgeDCLineRange;
+	int				nEdgeRRange;
 	short			nACIsland;
 	char			szSub[MDB_CHARLEN_SHORTER];
 	char			szAlias[MDB_CHARLEN];
@@ -986,6 +1003,7 @@ enum _BpaMDBEnum_DatField_DCLine_
 	BPA_DAT_DCLINE_RVOLT,
 	BPA_DAT_DCLINE_ROPER,
 	BPA_DAT_DCLINE_ISTOP,
+	BPA_DAT_DCLINE_MILES,
 
 	BPA_DAT_DCLINE_PR,
 	BPA_DAT_DCLINE_PI,
@@ -1016,6 +1034,8 @@ struct	_BpaMDBDat_DCLine_	{
 	float			fRVOLT;							//	62	66	F5.1	给定直流线路整流侧的直流电压(kV)
 	float			fROPER;							//	67	70	F4.1	整流侧的正常触发角(度)
 	float			fISTOP;							//	71	74	F4.1	逆变侧的正常关断角(度)
+	float			fLength;						//	75	78	F4.0	线路长度
+
 	float			fPr;
 	float			fPi;
 	float			fLossP;
@@ -1081,6 +1101,10 @@ enum _BpaMDBEnum_DatField_P_
 	BPA_DAT_P_LOADQFACTOR,
 	BPA_DAT_P_GENPFACTOR,
 	BPA_DAT_P_GENQFACTOR,
+	BPA_DAT_P_INILOADPFACTOR,
+	BPA_DAT_P_INILOADQFACTOR,
+	BPA_DAT_P_INIGENPFACTOR,
+	BPA_DAT_P_INIGENQFACTOR,
 	BPA_DAT_P_STATUS,
 };
 
@@ -1091,6 +1115,12 @@ struct	_BpaMDBDat_P_	{
 	float	fLoadQFactor;							//	16	20	F5.0	负荷无功修改因子
 	float	fGenPFactor;							//	22	26	F5.0	发电出力有功修改因子
 	float	fGenQFactor;							//	28	32	F5.0	发电出力无功修改因子
+
+	float	fIniLoadPFactor;
+	float	fIniLoadQFactor;
+	float	fIniGenPFactor;
+	float	fIniGenQFactor;
+
 	unsigned char	nStatus;
 }	DISALIGN;
 typedef	struct	_BpaMDBDat_P_	tagBpaDat_P;
@@ -1107,6 +1137,7 @@ enum _BpaMDBEnum_DatField_ZIL_
 	BPA_SWI_ZIL_X,
 	BPA_DAT_ZIL_MBUS,
 	BPA_DAT_ZIL_MKV,
+	BPA_DAT_ZIL_KEYNAME,
 };
 
 struct	_BpaMDBDat_ZIL_	{
@@ -1120,6 +1151,7 @@ struct	_BpaMDBDat_ZIL_	{
 	float	fX;
 	char	szMBus[MDB_CHARLEN_BPABUS];
 	float	fMkV;
+	char	szKeyName[MDB_CHARLEN_SHORT];
 }	DISALIGN;
 typedef	struct	_BpaMDBDat_ZIL_	tagBpaDat_ZIL;
 
@@ -1154,7 +1186,8 @@ enum _BpaMDBEnum_DatField_Gen_
 	BPA_DAT_GEN_QMIN,
 	BPA_DAT_GEN_VHOLD,
 	BPA_DAT_GEN_ACBUSPTR,
-	BPA_DAT_GEN_WGEN,
+	BPA_DAT_GEN_WTGEN,
+	BPA_DAT_GEN_PVGEN,
 	BPA_DAT_GEN_EQ,
 	BPA_DAT_GEN_STATUS,
 };
@@ -1171,7 +1204,8 @@ struct	_BpaMDBDat_Gen_	{
 	float	fQMin;
 	float	fVHold;
 	int		nACBusIndex;
-	unsigned char	bWGen;
+	unsigned char	bWTGen;
+	unsigned char	bPVGen;
 	unsigned char	bEQ;
 	unsigned char	nStatus;
 }	DISALIGN;
@@ -1211,13 +1245,7 @@ enum _BpaMDBEnum_DatField_Tran_
 	BPA_DAT_TRAN_IRWINDH,
 	BPA_DAT_TRAN_IRWINDM,
 	BPA_DAT_TRAN_IRWINDL,
-
-// 	BPA_DAT_TRAN_WINDLOADP,
-// 	BPA_DAT_TRAN_WINDLOADQ,
-// 	BPA_DAT_TRAN_MLINENUM,
-// 	BPA_DAT_TRAN_LLINENUM,
-// 	BPA_DAT_TRAN_PLANTSUB,
-// 	BPA_DAT_TRAN_TERMINAL,
+	BPA_DAT_TRAN_STATUS,
 };
 struct	_BpaMDBDat_Tran_	{
 	unsigned char	nWindNum;
@@ -1227,60 +1255,84 @@ struct	_BpaMDBDat_Tran_	{
 	int		iRWindH;
 	int		iRWindM;
 	int		iRWindL;
-
-// 	float	fWindLoadP;
-// 	float	fWindLoadQ;
-// 	unsigned char	nWindMLineNum;
-// 	unsigned char	nWindLLineNum;
-// 	unsigned char	bPlantSub;
-// 	unsigned char	bTerminal;
+	unsigned char	nStatus;
 }	DISALIGN;
 typedef	struct	_BpaMDBDat_Tran_	tagBpaDat_Tran;
 
 enum _BpaMDBEnum_DatField_ACBus2Line_
 {
-	BPA_DAT_EDGELINE_BUSNAME=0,
-	BPA_DAT_EDGELINE_BUSKV,
-	BPA_DAT_EDGELINE_LINENAME,
-	BPA_DAT_EDGELINE_IRLINE,
+	BPA_DAT_EDGEACLINE_ACBUSNAME=0,
+	BPA_DAT_EDGEACLINE_ACBUSKV,
+	BPA_DAT_EDGEACLINE_ACLINENAME,
+	BPA_DAT_EDGEACLINE_ACLINEPTR,
 };
 struct	_BpaMDBDat_ACBus2Line_	{
-	char	szBusName[MDB_CHARLEN_BPABUS];
-	float	fBuskV;
-	char	szLineName[MDB_CHARLEN_SHORT];
-	int		iRLine;
+	char	szACBusName[MDB_CHARLEN_BPABUS];
+	float	fACBuskV;
+	char	szACLineName[MDB_CHARLEN_SHORT];
+	int		nACLinePtr;
 }	DISALIGN;
-typedef	struct	_BpaMDBDat_ACBus2Line_	tagBpaDat_EdgeLine;
+typedef	struct	_BpaMDBDat_ACBus2Line_	tagBpaDat_EdgeACLine;
 
 enum _BpaMDBEnum_DatField_ACBus2Wind_
 {
-	BPA_DAT_EDGEWIND_BUSNAME=0,
-	BPA_DAT_EDGEWIND_BUSKV,
+	BPA_DAT_EDGEWIND_ACBUSNAME=0,
+	BPA_DAT_EDGEWIND_ACBUSKV,
 	BPA_DAT_EDGEWIND_WINDNAME,
-	BPA_DAT_EDGEWIND_IRWIND,
+	BPA_DAT_EDGEWIND_WINDPTR,
 };
 struct	_BpaMDBDat_ACBus2Wind_	{
-	char	szBusName[MDB_CHARLEN_BPABUS];
-	float	fBuskV;
+	char	szACBusName[MDB_CHARLEN_BPABUS];
+	float	fACBuskV;
 	char	szWindName[MDB_CHARLEN_SHORT];
-	int		iRWind;
+	int		nWindPtr;
 }	DISALIGN;
 typedef	struct	_BpaMDBDat_ACBus2Wind_	tagBpaDat_EdgeWind;
 
 enum _BpaMDBEnum_DatField_ACBus2HG_
 {
-	BPA_DAT_EDGELINEHG_BUSNAME=0,
-	BPA_DAT_EDGELINEHG_BUSKV,
+	BPA_DAT_EDGELINEHG_ACBUSNAME=0,
+	BPA_DAT_EDGELINEHG_ACBUSKV,
 	BPA_DAT_EDGELINEHG_HGNAME,
-	BPA_DAT_EDGELINEHG_IRHG,
+	BPA_DAT_EDGELINEHG_LINEHGPTR,
 };
 struct	_BpaMDBDat_ACBus2HG_	{
-	char	szBusName[MDB_CHARLEN_BPABUS];
-	float	fBuskV;
+	char	szACBusName[MDB_CHARLEN_BPABUS];
+	float	fACBuskV;
 	char	szLineHGName[MDB_CHARLEN_SHORT];
 	short	nLineHG;
 }	DISALIGN;
 typedef	struct	_BpaMDBDat_ACBus2HG_	tagBpaDat_EdgeLineHG;
+
+enum _BpaMDBEnum_DatField_DCBus2Line_
+{
+	BPA_DAT_EDGEDCLINE_DCBUSNAME=0,
+	BPA_DAT_EDGEDCLINE_DCBUSKV,
+	BPA_DAT_EDGEDCLINE_DCLINENAME,
+	BPA_DAT_EDGEDCLINE_DCLINEPTR,
+};
+struct	_BpaMDBDat_DCBus2Line_	{
+	char	szDCBusName[MDB_CHARLEN_BPABUS];
+	float	fDCBuskV;
+	char	szDCLineName[MDB_CHARLEN_SHORT];
+	int		nDCLinePtr;
+}	DISALIGN;
+typedef	struct	_BpaMDBDat_DCBus2Line_	tagBpaDat_EdgeDCLine;
+
+enum _BpaMDBEnum_DatField_DCBus2R_
+{
+	BPA_DAT_EDGER_DCBUSNAME=0,
+	BPA_DAT_EDGER_DCBUSKV,
+	BPA_DAT_EDGER_RNAME,
+	BPA_DAT_EDGER_RPTR,
+};
+struct	_BpaMDBDat_DCBus2R_	{
+	char	szDCBusName[MDB_CHARLEN_BPABUS];
+	float	fDCBuskV;
+	char	szRName[MDB_CHARLEN_SHORT];
+	int		nRPtr;
+}	DISALIGN;
+typedef	struct	_BpaMDBDat_DCBus2R_	tagBpaDat_EdgeR;
 
 enum _BpaMDBEnum_DatField_Radiate_
 {
@@ -1764,8 +1816,8 @@ enum	_BpaMDBEnum_SwiField_Damp_{
 	BPA_SWI_DAMP_BUS_NAME,
 	BPA_SWI_DAMP_BUS_KV,
 	BPA_SWI_DAMP_ID,
-	BPA_SWI_DAMP_MVA,	
-	BPA_SWI_DAMP_PF,	
+	BPA_SWI_DAMP_MVA,
+	BPA_SWI_DAMP_PF,
 	BPA_SWI_DAMP_XDPP,
 	BPA_SWI_DAMP_XQPP,
 	BPA_SWI_DAMP_TD0PP,
@@ -1841,6 +1893,80 @@ struct	_BpaMDBSwi_WGEGen_
 	int				nGenBus;
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_WGEGen_	tagBpaSwi_WGEGen;
+
+enum	_BpaMDBEnum_SwiField_WGWGen_{
+	BPA_SWI_WGWGEN_CARDKEY=0,
+	BPA_SWI_WGWGEN_BUS_NAME,
+	BPA_SWI_WGWGEN_BUS_KV,
+	BPA_SWI_WGWGEN_ID,
+	BPA_SWI_WGWGEN_GW_TYPE,
+	BPA_SWI_WGWGEN_NG,
+	BPA_SWI_WGWGEN_PPER,
+	BPA_SWI_WGWGEN_QPER,
+	BPA_SWI_WGWGEN_IP_CUR,
+	BPA_SWI_WGWGEN_IP_RETURN,
+	BPA_SWI_WGWGEN_IP_RET_TIME,
+	BPA_SWI_WGWGEN_IP_RATE,
+	BPA_SWI_WGWGEN_Q_RATE,
+	BPA_SWI_WGWGEN_IMAX,
+	BPA_SWI_WGWGEN_KEYNAME,
+	BPA_SWI_WGWGEN_BUSPTR,
+};
+struct	_BpaMDBSwi_WGWGen_
+{
+	char			szCardKey[MDB_CHARLEN_BPABUS];
+	char			szBus_Name[MDB_CHARLEN_BPABUS];
+	float			fBus_kV;
+	char			cID;
+	char			szGW_TYPE[MDB_CHARLEN_SHORT];
+	short			nNG;
+	float			fPPER;
+	float			fQPER;
+	float			fIP_CUR;
+	float			fIP_RETURN;
+	float			fIP_RET_TIME;
+	float			fIP_RATE;
+	float			fQ_RATE;
+	float			fIMAX;
+	char			szKeyName[MDB_CHARLEN_SHORTER];
+	int				nGenBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_WGWGen_	tagBpaSwi_WGWGen;
+
+enum	_BpaMDBEnum_SwiField_PV_{
+	BPA_SWI_PV_CARDKEY=0,
+	BPA_SWI_PV_BUS_NAME,
+	BPA_SWI_PV_BUS_KV,
+	BPA_SWI_PV_ID,
+	BPA_SWI_PV_T,
+	BPA_SWI_PV_S,
+	BPA_SWI_PV_UOC,
+	BPA_SWI_PV_ISC,
+	BPA_SWI_PV_UM,
+	BPA_SWI_PV_IM,
+	BPA_SWI_PV_N1,
+	BPA_SWI_PV_N2,
+	BPA_SWI_PV_KEYNAME,
+	BPA_SWI_PV_BUSPTR,
+};
+struct	_BpaMDBSwi_PV_
+{
+	char			szCardKey[MDB_CHARLEN_SHORTEST];
+	char			szBus_Name[MDB_CHARLEN_BPABUS];
+	float			fBus_kV;
+	char			cID;
+	float			fT;
+	float			fS;
+	float			fUoc;
+	float			fIsc;
+	float			fUm;
+	float			fIm;
+	short			nN1;
+	short			nN2;
+	char			szKeyName[MDB_CHARLEN_SHORTER];
+	int				nGenBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_PV_	tagBpaSwi_PV;
 
 enum	_BpaMDBEnum_SwiField_GenLn_
 {
@@ -2788,7 +2914,7 @@ struct	_BpaMDBSwi_GL_
 	float		fPmax    ;
 	float		fPmin;
 	char		szKeyName[MDB_CHARLEN_SHORTER];
-	int			nGenBus;;
+	int			nGenBus;
 	unsigned char	bAppendTag;
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_GL_	tagBpaSwi_GovGL;
@@ -3136,6 +3262,7 @@ struct	_BpaMDBSwi_GM_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_GM_	tagBpaSwi_GovGM;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_GD_
 {
 	BPA_SWI_GD_CARDKEY=0,
@@ -3157,8 +3284,6 @@ enum	_BpaMDBEnum_SwiField_GD_
 	BPA_SWI_GD_BUSPTR,
 	BPA_SWI_GD_APPENDTAG,
 };
-
-
 struct	_BpaMDBSwi_GD_
 {
 	char	szCardKey[MDB_CHARLEN_SHORTEST];		//	1	2	A2	卡类型
@@ -3182,6 +3307,7 @@ struct	_BpaMDBSwi_GD_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_GD_	tagBpaSwi_GovGD;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_GZ_
 {
 	BPA_SWI_GZ_CARDKEY=0,
@@ -3205,8 +3331,6 @@ enum	_BpaMDBEnum_SwiField_GZ_
 	BPA_SWI_GZ_BUSPTR,
 	BPA_SWI_GZ_APPENDTAG,
 };
-
-
 struct	_BpaMDBSwi_GZ_
 {
 	char			szCardKey[MDB_CHARLEN_SHORTEST] ;			//	1	2	A2	卡类型
@@ -3232,6 +3356,7 @@ struct	_BpaMDBSwi_GZ_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_GZ_	tagBpaSwi_GovGZ;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TA_
 {
 	BPA_SWI_TA_CARDKEY=0,
@@ -3244,7 +3369,6 @@ enum	_BpaMDBEnum_SwiField_TA_
 	BPA_SWI_TA_BUSPTR,
 	BPA_SWI_TA_APPENDTAG,
 };
-
 struct	_BpaMDBSwi_TA_
 {
 	char			szCardKey[MDB_CHARLEN_SHORTEST];		//	1	2	A2	卡类型
@@ -3259,6 +3383,7 @@ struct	_BpaMDBSwi_TA_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_TA_	tagBpaSwi_MovTA;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TB_
 {
 	BPA_SWI_TB_CARDKEY=0,
@@ -3276,7 +3401,6 @@ enum	_BpaMDBEnum_SwiField_TB_
 	BPA_SWI_TB_BUSPTR,
 	BPA_SWI_TB_APPENDTAG,
 };
-
 struct	_BpaMDBSwi_TB_
 {
 	char			szCardKey[MDB_CHARLEN_SHORTEST] ;			//	1	2	A2	卡类型
@@ -3296,6 +3420,7 @@ struct	_BpaMDBSwi_TB_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_TB_	tagBpaSwi_MovTB;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TC_
 {
 	BPA_SWI_TC_CARDKEY=0,
@@ -3314,8 +3439,6 @@ enum	_BpaMDBEnum_SwiField_TC_
 	BPA_SWI_TC_BUSPTR,
 	BPA_SWI_TC_APPENDTAG,
 };
-
-
 struct	_BpaMDBSwi_TC_
 {
 	char		szCardKey[MDB_CHARLEN_SHORTEST] ;			//	1	2	A2	卡类型
@@ -3336,6 +3459,7 @@ struct	_BpaMDBSwi_TC_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_TC_	tagBpaSwi_MovTC;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TD_
 {
 	BPA_SWI_TD_CARDKEY=0,
@@ -3353,11 +3477,10 @@ enum	_BpaMDBEnum_SwiField_TD_
 	BPA_SWI_TD_BUSPTR,
 	BPA_SWI_TD_APPENDTAG,
 };
-
 struct	_BpaMDBSwi_TD_
 {
-	char			szCardKey[MDB_CHARLEN_SHORTEST] ;			//	1	2	A2	卡类型
-	char			szBus_Name[MDB_CHARLEN_BPABUS] ;			//	4	11	A8	发电机名称
+	char			szCardKey[MDB_CHARLEN_SHORTEST] ;		//	1	2	A2	卡类型
+	char			szBus_Name[MDB_CHARLEN_BPABUS] ;		//	4	11	A8	发电机名称
 	float			fBus_kV;								//	12	15	F4.0	发电机基准电压(kV)
 	char			cGen_ID;								//	16	16	A1	BusID识别码ID
 	float			fTCH;									//	17	21	F5.3	"蒸汽容积时间常数(秒)",
@@ -3373,6 +3496,7 @@ struct	_BpaMDBSwi_TD_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_TD_	tagBpaSwi_MovTD;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TE_
 {
 	BPA_SWI_TE_CARDKEY=0,
@@ -3389,7 +3513,6 @@ enum	_BpaMDBEnum_SwiField_TE_
 	BPA_SWI_TE_BUSPTR,
 	BPA_SWI_TE_APPENDTAG,
 };
-
 struct	_BpaMDBSwi_TE_
 {
 	char			szCardKey[MDB_CHARLEN_SHORTEST] ;		//	1	2	A2	卡类型
@@ -3408,6 +3531,7 @@ struct	_BpaMDBSwi_TE_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_TE_	tagBpaSwi_MovTE;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TF_
 {
 	BPA_SWI_TF_CARDKEY=0,
@@ -3428,7 +3552,6 @@ enum	_BpaMDBEnum_SwiField_TF_
 	BPA_SWI_TF_BUSPTR,
 	BPA_SWI_TF_APPENDTAG,
 };
-
 struct	_BpaMDBSwi_TF_
 {
 	char		szCardKey[MDB_CHARLEN_SHORTEST] ;			//	1	2	A2	卡类型
@@ -3451,6 +3574,7 @@ struct	_BpaMDBSwi_TF_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_TF_	tagBpaSwi_MovTF;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_TW_
 {
 	BPA_SWI_TW_CARDKEY=0,
@@ -3464,7 +3588,6 @@ enum	_BpaMDBEnum_SwiField_TW_
 	BPA_SWI_TW_BUSPTR,
 	BPA_SWI_TW_APPENDTAG,
 };
-
 struct	_BpaMDBSwi_TW_
 {
 	char		szCardKey[MDB_CHARLEN_SHORTEST];		//	1	2	A2	卡类型
@@ -3584,6 +3707,7 @@ struct	_BpaMDBSwi_IGV_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_IGV_	tagBpaSwi_IGV;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_FGV_
 {
 	BPA_SWI_FGV_CARDKEY=0,
@@ -3604,7 +3728,6 @@ enum	_BpaMDBEnum_SwiField_FGV_
 	BPA_SWI_FGV_KEYNAME,
 	BPA_SWI_FGV_BUSPTR,
 };
-
 struct	_BpaMDBSwi_FGV_
 {
 	char		szCardKey[MDB_CHARLEN_SHORTEST];		//	1	3	A3	卡类型
@@ -3627,6 +3750,7 @@ struct	_BpaMDBSwi_FGV_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_FGV_	tagBpaSwi_FGV;
 
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_D_
 {
 	BPA_SWI_D_CARDKEY=0,
@@ -3649,7 +3773,6 @@ enum	_BpaMDBEnum_SwiField_D_
 	BPA_SWI_D_KEYNAME,
 	BPA_SWI_D_BUSPTR,
 };
-
 struct	_BpaMDBSwi_D_
 {
 	char		szCardKey[MDB_CHARLEN_SHORTEST];
@@ -3661,10 +3784,10 @@ struct	_BpaMDBSwi_D_
 	float		fT2;
 	float		fT3;
 	float		fKa;
-	char		cMOD;
-	float		fIMAX;
-	float		fIMARGIN;
-	float		fALPHASTOP;
+	char		cMod;
+	float		fIMax;
+	float		fIMargin;
+	float		fAlphaStop;
 	float		fTD;
 	float		fVLIM;
 	char		cDISA;
@@ -3674,6 +3797,341 @@ struct	_BpaMDBSwi_D_
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_D_	tagBpaSwi_D;
 
+//////////////////////////////////////////////////////////////////////////
+enum	_BpaMDBEnum_SwiField_DT_
+{
+	BPA_SWI_DT_CARDKEY = 0,
+	BPA_SWI_DT_BUS_NAME,
+	BPA_SWI_DT_BUS_KV,
+	BPA_SWI_DT_DV,
+	BPA_SWI_DT_IMAX,
+	BPA_SWI_DT_IMARGIN,
+	BPA_SWI_DT_TC,
+	BPA_SWI_DT_TV,
+	BPA_SWI_DT_ALPHASTOP,
+	BPA_SWI_DT_MSU,
+	BPA_SWI_DT_KEYNAME,
+	BPA_SWI_DT_BUSPTR,
+};
+struct	_BpaMDBSwi_DT_
+{
+	char		szCardKey[MDB_CHARLEN_SHORTEST];
+	char		szBus_Name[MDB_CHARLEN_BPABUS];
+	float		fBus_kV;
+	float		fDV;
+	float		fIMax;
+	float		fIMargin;
+	float		fTc;
+	float		fTv;
+	float		fAlphaStop;
+	char		cMSU;
+	char		szKeyName[MDB_CHARLEN_SHORTER];
+	int			nDCBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_DT_	tagBpaSwi_DT;
+
+//////////////////////////////////////////////////////////////////////////
+enum	_BpaMDBEnum_SwiField_DF_
+{
+	BPA_SWI_DF_CARDKEY = 0,
+	BPA_SWI_DF_BUS_NAME,
+	BPA_SWI_DF_BUS_KV,
+	BPA_SWI_DF_DVDT,
+	BPA_SWI_DF_VF1,
+	BPA_SWI_DF_VF2,
+	BPA_SWI_DF_DT,
+	BPA_SWI_DF_VRS,
+	BPA_SWI_DF_C1,
+	BPA_SWI_DF_T1,
+	BPA_SWI_DF_C2,
+	BPA_SWI_DF_T2,
+	BPA_SWI_DF_C3,
+	BPA_SWI_DF_T3,
+	BPA_SWI_DF_KEYNAME,
+	BPA_SWI_DF_BUSPTR,
+};
+struct	_BpaMDBSwi_DF_
+{
+	char		szCardKey[MDB_CHARLEN_SHORTEST];
+	char		szBus_Name[MDB_CHARLEN_BPABUS];
+	float		fBus_kV;
+	float		fDVDT;
+	float		fVf1;
+	float		fVf2;
+	float		fDT;
+	float		fVrs;
+	float		fC1;
+	float		fT1;
+	float		fC2;
+	float		fT2;
+	float		fC3;
+	float		fT3;
+	char		szKeyName[MDB_CHARLEN_SHORTER];
+	int			nDCBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_DF_	tagBpaSwi_DF;
+
+//////////////////////////////////////////////////////////////////////////
+enum	_BpaMDBEnum_SwiField_DM_
+{
+	BPA_SWI_DM_CARDKEY = 0,
+	BPA_SWI_DM_BUS_NAME,
+	BPA_SWI_DM_BUS_KV,
+	BPA_SWI_DM_MOD,
+	BPA_SWI_DM_TVP,
+	BPA_SWI_DM_IMAX,
+	BPA_SWI_DM_IMIN,
+	BPA_SWI_DM_TIDMES,
+	BPA_SWI_DM_KP_I,
+	BPA_SWI_DM_TI_I,
+	BPA_SWI_DM_MAX_I,
+	BPA_SWI_DM_MIN_I,
+	BPA_SWI_DM_TGAMMES,
+	BPA_SWI_DM_KP_GAM,
+	BPA_SWI_DM_TI_GAM,
+	BPA_SWI_DM_MAX_GAM,
+	BPA_SWI_DM_MIN_GAM,
+	BPA_SWI_DM_TVPSMPALL,
+	BPA_SWI_DM_DISA,
+
+	BPA_SWI_DM_TVDCOL,		
+	BPA_SWI_DM_X1,			
+	BPA_SWI_DM_Y1,			
+	BPA_SWI_DM_X2,			
+	BPA_SWI_DM_Y2,			
+	BPA_SWI_DM_K1,			
+	BPA_SWI_DM_K2,			
+	BPA_SWI_DM_DOWNSL,		
+	BPA_SWI_DM_UPSL,		
+	BPA_SWI_DM_GAMMAMIN,		
+	BPA_SWI_DM_IMARGIN,		
+	BPA_SWI_DM_DGAMMIN,		
+
+	BPA_SWI_DM_KEYNAME,
+	BPA_SWI_DM_BUSPTR,
+};
+struct	_BpaMDBSwi_DM_
+{
+	char		szCardKey[MDB_CHARLEN_SHORTEST];
+	char		szBus_Name[MDB_CHARLEN_BPABUS];
+	float		fBus_kV;
+	char		cMOD;
+	float		fTvp;
+	float		fIMAX;
+	float		fIMIN;
+	float		fTidmes;
+	float		fKp_I;
+	float		fTi_I;
+	float		fMax_I;
+	float		fMin_I;
+	float		fTGamMes;
+	float		fKp_Gam;
+	float		fTi_Gam;
+	float		fMax_Gam;
+	float		fMin_Gam;
+	float		fTvpSmpall;
+	char		cDISA;
+
+	float		fTVDCOL;
+	float		fX1;
+	float		fY1;
+	float		fX2;
+	float		fY2;
+	float		fK1;
+	float		fK2;
+	float		fDownSL;
+	float		fUpSL;
+	float		fGammaMin;
+	float		fImargin;
+	float		fDGamMin;
+
+	char		szKeyName[MDB_CHARLEN_SHORTER];
+	int			nDCBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_DM_	tagBpaSwi_DM;
+
+//////////////////////////////////////////////////////////////////////////
+enum	_BpaMDBEnum_SwiField_DN_
+{
+	BPA_SWI_DN_CARDKEY,
+	BPA_SWI_DN_BUS_NAME,
+	BPA_SWI_DN_BUS_KV,
+	BPA_SWI_DN_MOD,
+	BPA_SWI_DN_TVP,
+	BPA_SWI_DN_IMAX,
+	BPA_SWI_DN_IMIN,
+	BPA_SWI_DN_P_I,
+	BPA_SWI_DN_T_I,
+	BPA_SWI_DN_P_U,
+	BPA_SWI_DN_T_U,
+	BPA_SWI_DN_P_GAM,
+	BPA_SWI_DN_T_GAM,
+	BPA_SWI_DN_VACLOW,
+	BPA_SWI_DN_TVACLOW,
+	BPA_SWI_DN_IDLOW,
+	BPA_SWI_DN_TIDLOW,
+	BPA_SWI_DN_TLIM,
+	BPA_SWI_DN_TP,
+	BPA_SWI_DN_IOVL,
+	BPA_SWI_DN_TIMAX,
+	BPA_SWI_DN_TMAXLIM,
+	BPA_SWI_DN_DISA,
+
+	BPA_SWI_DN_TVDCOL,		
+	BPA_SWI_DN_X1,			
+	BPA_SWI_DN_Y1,			
+	BPA_SWI_DN_X2,			
+	BPA_SWI_DN_Y2,			
+	BPA_SWI_DN_K1,			
+	BPA_SWI_DN_K2,			
+	BPA_SWI_DN_DOWNSL,		
+	BPA_SWI_DN_UPSL,		
+	BPA_SWI_DN_ALPHASTOP,	
+	BPA_SWI_DN_GAMAAMIN,	
+	BPA_SWI_DN_TVPSMALL,	
+
+	BPA_SWI_DN_KEYNAME,
+	BPA_SWI_DN_BUSPTR,
+};
+struct	_BpaMDBSwi_DN_
+{
+	char		szCardKey[MDB_CHARLEN_SHORTEST];
+	char		szBus_Name[MDB_CHARLEN_BPABUS];
+	float		fBus_kV;
+	char		cMOD;
+	float		fTvp;
+	float		fIMAX;
+	float		fIMIN;
+	float		fP_I;
+	float		fT_I;
+	float		fP_U;
+	float		fT_U;
+	float		fP_Gam;
+	float		fT_Gam;
+	float		fVacLow;
+	float		fTVacLow;
+	float		fIdLow;
+	float		fTIdLow;
+	float		fTlim;
+	float		fTp;
+	float		fIovl;
+	float		fTimax;
+	float		fTmaxlim;
+	char		cDISA;
+
+	float		fTVDCOL;
+	float		fX1;
+	float		fY1;
+	float		fX2;
+	float		fY2;
+	float		fK1;
+	float		fK2;
+	float		fDownSL;
+	float		fUpSL;
+	float		fAlphaStop;
+	float		fGamaaMin;
+	float		fTvpSmall;
+
+	char		szKeyName[MDB_CHARLEN_SHORTER];
+	int			nDCBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_DN_	tagBpaSwi_DN;
+
+//////////////////////////////////////////////////////////////////////////
+enum	_BpaMDBEnum_SwiField_DA_
+{
+	BPA_SWI_DA_CARDKEY,
+	BPA_SWI_DA_BUS_NAME,
+	BPA_SWI_DA_BUS_KV,
+	BPA_SWI_DA_G_AMAX,
+	BPA_SWI_DA_T_AMAX,
+	BPA_SWI_DA_GAMMAREF,
+	BPA_SWI_DA_GAMMAMIN,
+	BPA_SWI_DA_KP_VCA,
+	BPA_SWI_DA_TI_VCA,
+	BPA_SWI_DA_K1_RA,
+	BPA_SWI_DA_K2_RA,
+	BPA_SWI_DA_CDL,
+	BPA_SWI_DA_D1,
+	BPA_SWI_DA_DECR,
+	BPA_SWI_DA_T_GA,
+	BPA_SWI_DA_TD_RET,
+	BPA_SWI_DA_TH_RET,
+	BPA_SWI_DA_TH_RES,
+	BPA_SWI_DA_DISA,
+	BPA_SWI_DA_DBG,
+
+	BPA_SWI_DA_MOD,
+	BPA_SWI_DA_LEAD,
+	BPA_SWI_DA_OPN,
+	BPA_SWI_DA_BC_ON,
+	BPA_SWI_DA_UDLOW,
+	BPA_SWI_DA_UDHIGH,
+	BPA_SWI_DA_UDTUP,
+	BPA_SWI_DA_UDTDN,
+	BPA_SWI_DA_IOMIN_VDCL,
+	BPA_SWI_DA_IOMIN,
+	BPA_SWI_DA_ID_T,
+	BPA_SWI_DA_GAIN,
+	BPA_SWI_DA_KP,
+	BPA_SWI_DA_TI,
+	BPA_SWI_DA_G_CF,
+	BPA_SWI_DA_K_CF,
+	BPA_SWI_DA_T_DN_CF,
+	BPA_SWI_DA_A,
+
+	BPA_SWI_DA_KEYNAME,
+	BPA_SWI_DA_BUSPTR,
+};
+
+struct	_BpaMDBSwi_DA_
+{
+	char		szCardKey[MDB_CHARLEN_SHORTEST];
+	char		szBus_Name[MDB_CHARLEN_BPABUS];
+	float		fBus_kV;
+	float		fG_Amax;
+	float		fT_Amax;
+	float		fGammaRef;
+	float		fGammaMin;
+	float		fKp_vca;
+	float		fTi_vca;
+	float		fK1_ra;
+	float		fK2_ra;
+	float		fCdl;
+	float		fD1;
+	float		fDecr;
+	float		fT_ga;
+	float		fTd_ret;
+	float		fTh_ret;
+	float		fTh_res;
+	char		cDISA;
+	char		cDBG;
+
+	char		szMOD[MDB_CHARLEN_SHORTEST];
+	char		szLEAD[MDB_CHARLEN_SHORTEST];
+	char		szOPN[MDB_CHARLEN_SHORTEST];
+	char		szBC_ON[MDB_CHARLEN_SHORTEST];
+	float		fUdlow;
+	float		fUdhigh;
+	float		fUdtup;
+	float		fUdtdn;
+	float		fIomin_vdcl;
+	float		fIomin;
+	float		fId_t;
+	float		fGain;
+	float		fKp;
+	float		fTi;
+	float		fG_cf;
+	float		fK_cf;
+	float		fT_dn_cf;
+	char		cA;
+
+	char		szKeyName[MDB_CHARLEN_SHORTER];
+	int			nDCBus;
+}	DISALIGN;
+typedef	struct	_BpaMDBSwi_DA_	tagBpaSwi_DA;
+
+//////////////////////////////////////////////////////////////////////////
 enum	_BpaMDBEnum_SwiField_V_
 {
 	BPA_SWI_V_CARDKEY=0,
@@ -3701,7 +4159,6 @@ enum	_BpaMDBEnum_SwiField_V_
 	BPA_SWI_V_KEYNAME,
 	BPA_SWI_V_BUSPTR,
 };
-
 struct	_BpaMDBSwi_V_
 {
 	char		szCardKey[MDB_CHARLEN_SHORTEST] ;
@@ -4355,6 +4812,7 @@ enum	_BpaMDBEnum_SwiField_RE_
 	BPA_SWI_RE_TBRK,
 	BPA_SWI_RE_NAME_CON,
 	BPA_SWI_RE_KV_CON,
+	BPA_SWI_RE_KEYNAME,
 	BPA_SWI_RE_BUSPTR,
 };
 
@@ -4387,6 +4845,7 @@ struct	_BpaMDBSwi_RE_
 	float		fTBRK;
 	char		szNAME_CON[MDB_CHARLEN_BPABUS];
 	float		fKV_CON;
+	char		szKeyName[MDB_CHARLEN_SHORTER];
 	int			iRBus;
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_RE_	tagBpaSwi_RE;
@@ -4420,6 +4879,7 @@ enum	_BpaMDBEnum_SwiField_RW_
 	BPA_SWI_RW_DELAY9,
 	BPA_SWI_RW_DELAY10,
 	BPA_SWI_RW_TBRK,
+	BPA_SWI_RW_KEYNAME,
 	BPA_SWI_RW_BUSPTR,
 };
 
@@ -4452,6 +4912,7 @@ struct	_BpaMDBSwi_RW_
 	float		fDelay9;
 	float		fDelay10;
 	float		fTbrk;
+	char		szKeyName[MDB_CHARLEN_SHORTER];
 	int			iRBus;
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_RW_	tagBpaSwi_RW;
@@ -4472,6 +4933,7 @@ enum	_BpaMDBEnum_SwiField_RA_
 	BPA_SWI_RA_CKV2,
 	BPA_SWI_RA_CV2,
 	BPA_SWI_RA_CT2,
+	BPA_SWI_RA_KEYNAME,
 };
 
 struct	_BpaMDBSwi_RA_
@@ -4490,6 +4952,7 @@ struct	_BpaMDBSwi_RA_
 	float		fCkV2;
 	float		fCV2;
 	float		fCT2;
+	char		szKeyName[MDB_CHARLEN_SHORT];
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_RA_	tagBpaSwi_RA;
 
@@ -4505,6 +4968,7 @@ enum	_BpaMDBEnum_SwiField_RU_
 	BPA_SWI_RU_TRELAY,
 	BPA_SWI_RU_TTRIP,
 	BPA_SWI_RU_TDELAY,
+	BPA_SWI_RU_KEYNAME,
 };
 
 struct	_BpaMDBSwi_RU_
@@ -4519,6 +4983,7 @@ struct	_BpaMDBSwi_RU_
 	float		fTRelay;
 	float		fTTrip;
 	float		fTDelay;
+	char		szKeyName[MDB_CHARLEN_SHORT];
 }	DISALIGN;
 typedef	struct	_BpaMDBSwi_RU_	tagBpaSwi_RU;
 
@@ -4563,9 +5028,11 @@ enum	_SWIEnum_Table_	{
 	BPA_DAT_GEN,
 	BPA_DAT_LOAD,
 	BPA_DAT_TRAN,
-	BPA_DAT_EDGELINE,
+	BPA_DAT_EDGEACLINE,
 	BPA_DAT_EDGEWIND,
 	BPA_DAT_EDGELINEHG,
+	BPA_DAT_EDGEDCLINE,
+	BPA_DAT_EDGER,
 	BPA_DAT_RADIATE,
 	BPA_SCC_FMOVE,
 	BPA_SWI_CASE,
@@ -4575,6 +5042,8 @@ enum	_SWIEnum_Table_	{
 	BPA_SWI_GEN,
 	BPA_SWI_DAMP,
 	BPA_SWI_WGEGEN,
+	BPA_SWI_WGWGEN,
+	BPA_SWI_PV,
 	BPA_SWI_GENLN,
 	BPA_SWI_EXCIT68,
 	BPA_SWI_EXCIT81,
@@ -4617,6 +5086,11 @@ enum	_SWIEnum_Table_	{
 	BPA_SWI_LOHG,
 	BPA_SWI_XR,
 	BPA_SWI_D,
+	BPA_SWI_DT,
+	BPA_SWI_DF,
+	BPA_SWI_DM,
+	BPA_SWI_DN,
+	BPA_SWI_DA,
 	BPA_SWI_V,
 	BPA_SWI_VG,
 	BPA_SWI_LAB,
@@ -4700,16 +5174,20 @@ const	int	MaxBpaDatVDip				=100*MaxBpaDatACBus;
 const	int	MaxBpaDatGen				=MaxBpaDatACBus/10;
 const	int	MaxBpaDatLoad				=MaxBpaDatACBus/4;
 const	int	MaxBpaDatTran				=3*MaxBpaDatWind/2;
-const	int	MaxBpaDatEdgeLine			=MaxBpaDatACLine*2;
+const	int	MaxBpaDatEdgeACLine			=MaxBpaDatACLine*2;
 const	int	MaxBpaDatEdgeWind			=MaxBpaDatWind*2;
 const	int	MaxBpaDatEdgeLineHG			=MaxBpaDatLineHG*2;
+const	int	MaxBpaDatEdgeDCLine			=MaxBpaDatDCLine*2;
+const	int	MaxBpaDatEdgeR				=MaxBpaDatR*2;
 const	int	MaxBpaDatRadiate			=8000;
 const	int	MaxBpaSccFMove				=100;
 
 const	int	MaxBpaSwiGen				=6400;
 const	int	MaxBpaSwiDamp				=MaxBpaSwiGen;
 const	int	MaxBpaSwiWGEGen				=2000;
-const	int	MaxBpaSwiGENLN				=1000;
+const	int	MaxBpaSwiWGWGen				=1000;
+const	int	MaxBpaSwiPV					=1000;
+const	int	MaxBpaSwiGENLN				=500;
 const	int	MaxBpaSwiEXC68				=MaxBpaSwiGen;
 const	int	MaxBpaSwiEXC81				=MaxBpaSwiGen;
 const	int	MaxBpaSwiEXCMV				=MaxBpaSwiGen;
@@ -4759,6 +5237,11 @@ const	int MaxBpaSwiLOHG				=MaxBpaDatLineHG;
 const	int MaxBpaSwiXR					=MaxBpaDatACBus;
 
 const	int MaxBpaSwiD					=MaxBpaDatDCBus;
+const	int MaxBpaSwiDT					=MaxBpaDatDCBus;
+const	int MaxBpaSwiDF					=MaxBpaDatDCBus;
+const	int MaxBpaSwiDM					=MaxBpaDatDCBus;
+const	int MaxBpaSwiDN					=MaxBpaDatDCBus;
+const	int MaxBpaSwiDA					=MaxBpaDatDCBus;
 
 const	int MaxBpaSwiV					=1000;
 const	int MaxBpaSwiVG					=500;
@@ -4805,10 +5288,12 @@ const	int	BpaDatGen_Offset			=(BpaDatZIL_Offset			+MaxBpaDatZIL		*sizeof(tagBpaD
 const	int	BpaDatLoad_Offset			=(BpaDatGen_Offset			+MaxBpaDatGen		*sizeof(tagBpaDat_Gen));
 const	int	BpaDatTran_Offset			=(BpaDatLoad_Offset			+MaxBpaDatLoad		*sizeof(tagBpaDat_Load));
 
-const	int	BpaDatEdgeLine_Offset		=(BpaDatTran_Offset			+MaxBpaDatTran		*sizeof(tagBpaDat_Tran));
-const	int	BpaDatEdgeWind_Offset		=(BpaDatEdgeLine_Offset		+MaxBpaDatEdgeLine	*sizeof(tagBpaDat_EdgeLine));
+const	int	BpaDatEdgeACLine_Offset		=(BpaDatTran_Offset			+MaxBpaDatTran		*sizeof(tagBpaDat_Tran));
+const	int	BpaDatEdgeWind_Offset		=(BpaDatEdgeACLine_Offset	+MaxBpaDatEdgeACLine*sizeof(tagBpaDat_EdgeACLine));
 const	int BpaDatEdgeLineHG_Offset		=(BpaDatEdgeWind_Offset		+MaxBpaDatEdgeWind	*sizeof(tagBpaDat_EdgeWind));
-const	int BpaDatRadiate_Offset		=(BpaDatEdgeLineHG_Offset	+MaxBpaDatEdgeLineHG*sizeof(tagBpaDat_EdgeLineHG));
+const	int	BpaDatEdgeDCLine_Offset		=(BpaDatEdgeLineHG_Offset	+MaxBpaDatEdgeLineHG*sizeof(tagBpaDat_EdgeLineHG));
+const	int	BpaDatEdgeR_Offset			=(BpaDatEdgeDCLine_Offset	+MaxBpaDatEdgeDCLine*sizeof(tagBpaDat_EdgeDCLine));
+const	int BpaDatRadiate_Offset		=(BpaDatEdgeR_Offset		+MaxBpaDatEdgeR		*sizeof(tagBpaDat_EdgeR));
 
 const	int BpaSccFMove_Offset			=(BpaDatRadiate_Offset		+MaxBpaDatRadiate	*sizeof(tagBpaDat_Radiate));
 
@@ -4820,7 +5305,9 @@ const	int	BpaSwiFF_Offset				=(BpaSwiF0_Offset			+MaxBpaSwiF0		*sizeof(tagBpaSwi
 const	int	BpaSwiGen_Offset			=(BpaSwiFF_Offset			+MaxBpaSwiFF		*sizeof(tagBpaSwi_FF));
 const	int	BpaSwiDamp_Offset			=(BpaSwiGen_Offset			+MaxBpaSwiGen		*sizeof(tagBpaSwi_Gen));
 const	int	BpaSwiWGEGen_Offset			=(BpaSwiDamp_Offset			+MaxBpaSwiDamp		*sizeof(tagBpaSwi_Damp));
-const	int	BpaSwiGenLN_Offset			=(BpaSwiWGEGen_Offset		+MaxBpaSwiWGEGen	*sizeof(tagBpaSwi_WGEGen));
+const	int	BpaSwiWGWGen_Offset			=(BpaSwiWGEGen_Offset		+MaxBpaSwiWGEGen	*sizeof(tagBpaSwi_WGEGen));
+const	int	BpaSwiPV_Offset				=(BpaSwiWGWGen_Offset		+MaxBpaSwiWGWGen	*sizeof(tagBpaSwi_WGWGen));
+const	int	BpaSwiGenLN_Offset			=(BpaSwiPV_Offset			+MaxBpaSwiPV		*sizeof(tagBpaSwi_PV));
 
 const	int	BpaSwiExc68_Offset			=(BpaSwiGenLN_Offset		+MaxBpaSwiGENLN		*sizeof(tagBpaSwi_GenLn));
 const	int	BpaSwiExc81_Offset			=(BpaSwiExc68_Offset		+MaxBpaSwiEXC68		*sizeof(tagBpaSwi_Exc68));
@@ -4869,8 +5356,13 @@ const	int BpaSwiLOHG_Offset			=(BpaSwiXO_Offset			+MaxBpaSwiXO		*sizeof(tagBpaSw
 const	int BpaSwiXR_Offset				=(BpaSwiLOHG_Offset			+MaxBpaSwiLOHG		*sizeof(tagBpaSwi_LOHG));
 
 const	int BpaSwiD_Offset				=(BpaSwiXR_Offset			+MaxBpaSwiXR		*sizeof(tagBpaSwi_XR));
+const	int BpaSwiDT_Offset				=(BpaSwiD_Offset			+MaxBpaSwiD			*sizeof(tagBpaSwi_D));
+const	int BpaSwiDF_Offset				=(BpaSwiDT_Offset			+MaxBpaSwiDT		*sizeof(tagBpaSwi_DT));
+const	int BpaSwiDM_Offset				=(BpaSwiDF_Offset			+MaxBpaSwiDF		*sizeof(tagBpaSwi_DF));
+const	int BpaSwiDN_Offset				=(BpaSwiDM_Offset			+MaxBpaSwiDM		*sizeof(tagBpaSwi_DM));
+const	int BpaSwiDA_Offset				=(BpaSwiDN_Offset			+MaxBpaSwiDN		*sizeof(tagBpaSwi_DN));
 
-const	int BpaSwiV_Offset				=(BpaSwiD_Offset			+MaxBpaSwiD			*sizeof(tagBpaSwi_D));
+const	int BpaSwiV_Offset				=(BpaSwiDA_Offset			+MaxBpaSwiDA		*sizeof(tagBpaSwi_DA));
 const	int BpaSwiVG_Offset				=(BpaSwiV_Offset			+MaxBpaSwiV			*sizeof(tagBpaSwi_V));
 
 const	int BpaSwiLAB_Offset			=(BpaSwiVG_Offset			+MaxBpaSwiVG		*sizeof(tagBpaSwi_VG));
@@ -4902,6 +5394,7 @@ struct	_Bpa_CardComb_
 typedef	struct	_Bpa_CardComb_	tagBpaCardComb;
 
 static	tagBpaCardComb	g_BpaCardCombArray[]={
+	{	"B",	"+",	"",		BpaDatCategory_Dat, BpaDatCategory_Dat, BpaSwiCategory_Dat, },
 	{	"FX",	"FX+",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
 	{	"SB",	"SB+",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
 	{	"SH",	"SH+",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
@@ -4915,7 +5408,9 @@ static	tagBpaCardComb	g_BpaCardCombArray[]={
 	{	"RW",	"RW+",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
 	{	"UF",	"UF+",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
 	{	"UV",	"UV+",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
-	{	"B",	"+",	"",		BpaDatCategory_Dat, BpaDatCategory_Dat, BpaSwiCategory_Dat, },
+	{	"DM",	"DMZ",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
+	{	"DN",	"DNZ",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
+	{	"DA",	"DAZ",	"",		BpaSwiCategory_Dat, BpaSwiCategory_Dat, BpaSwiCategory_Dat, },
 };
 
 #if	!defined(__GNUG__)	&&	!defined(__GNUC__)

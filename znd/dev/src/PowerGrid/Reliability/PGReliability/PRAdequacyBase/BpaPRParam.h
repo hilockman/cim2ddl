@@ -6,9 +6,11 @@
 #include "../../../../MemDB/PRMemDB/PRMemDB.h"
 using namespace PRMemDB;
 
+#include "PRAdequacyBaseExp.h"
+
 namespace	PRAdequacyBase
 {
-	class CBpaPRParam
+	class PRADEQUACYBASE_EXP CBpaPRParam
 	{
 	public:
 		CBpaPRParam(void);

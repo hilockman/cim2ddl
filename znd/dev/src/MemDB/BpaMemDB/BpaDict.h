@@ -2,7 +2,7 @@
 
 #include	"BpaMemDBDefine.h"
 
-struct	_Bpa_Dict_
+typedef	struct	_Bpa_Dict_
 {
 	const char*	szTable;			//	BPA数据输入后放置的表
 	const char*	szCardKey;			//	BPA的数据卡标记
@@ -19,8 +19,7 @@ struct	_Bpa_Dict_
 	unsigned char	bFieldCategory;				//	潮流还是稳定数据，表明是从潮流文件中读取还是从稳定文件中读取
 	unsigned char	bFieldModabled;				//	字段可修改标记
 	//char*	szFieldComment;
-}	DISALIGN;
-typedef	struct	_Bpa_Dict_	tagBpa_Dict;
+}	tagBpa_Dict;
 
 typedef	struct	_BpaDictIndex_
 {
@@ -30,9 +29,8 @@ typedef	struct	_BpaDictIndex_
 	std::vector<tagBpa_Dict>	dkFieldArray;
 }	tagBpaDictIndex;
 
-struct	_Bpa_Key2I_
+typedef	struct	_Bpa_Key2I_
 {
 	const char*	szKey;
 	short	nInteger;
-}	DISALIGN;
-typedef	struct	_Bpa_Key2I_	tagBpaKey2I;
+}	tagBpaKey2I;

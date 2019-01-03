@@ -21,7 +21,9 @@
 19,DCBus_ACV,交流侧母线电压(kV),DOUBLE,4
 20,DCBus_Angle,触发/关断角(度),DOUBLE,4
 21,ACBus,换流变压器一次侧母线索引,INTEGER,4
-22,ACIsland,交流岛,INTEGER,2
-23,Sub,母线所属BPA厂站,STRING,16
-24,Alias,直流母线别名,STRING,64
-25,Status,状态,INTEGER,1
+22,pRLine,母线线路索引,INTEGER,4
+23,pRTran,母线变压器索引,INTEGER,4
+24,ACIsland,交流岛,INTEGER,2
+25,Sub,母线所属BPA厂站,STRING,16
+26,Alias,直流母线别名,STRING,64
+27,Status,状态,INTEGER,1

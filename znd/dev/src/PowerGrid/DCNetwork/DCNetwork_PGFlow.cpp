@@ -35,15 +35,17 @@ namespace	DCNetwork
 
 		for (nDev=0; nDev<pPGBlock->m_nRecordNum[PG_SYNCHRONOUSMACHINE]; nDev++)
 		{
-			if (pPGBlock->m_SynchronousMachineArray[nDev].nIsland != nIsland)
-				continue;
 			if (pPGBlock->m_SynchronousMachineArray[nDev].bOutage)
+				continue;
+			if (pPGBlock->m_SynchronousMachineArray[nDev].nIsland != nIsland)
 				continue;
 			if (fabs(pPGBlock->m_SynchronousMachineArray[nDev].fPlanP) > FLT_MIN)
 				m_nNumGen++;
 		}
 		for (nDev=0; nDev<pPGBlock->m_nRecordNum[PG_ENERGYCONSUMER]; nDev++)
 		{
+			if (pPGBlock->m_EnergyConsumerArray[nDev].bOutage)
+				continue;
 			if (pPGBlock->m_EnergyConsumerArray[nDev].nIsland != nIsland)
 				continue;
 			m_nNumLoad++;
@@ -81,9 +83,9 @@ namespace	DCNetwork
 		m_nSlackBus=0;
 		for (nDev=0; nDev<pPGBlock->m_nRecordNum[PG_SYNCHRONOUSMACHINE]; nDev++)
 		{
-			if (pPGBlock->m_SynchronousMachineArray[nDev].nIsland != nIsland)
-				continue;
 			if (pPGBlock->m_SynchronousMachineArray[nDev].bOutage)
+				continue;
+			if (pPGBlock->m_SynchronousMachineArray[nDev].nIsland != nIsland)
 				continue;
 
 			if (fabs(pPGBlock->m_SynchronousMachineArray[nDev].fPlanP) > FLT_MIN)
@@ -95,11 +97,13 @@ namespace	DCNetwork
 			}
 
 			if (strcmp(pPGBlock->m_SynchronousMachineArray[nDev].szSub, pPGBlock->m_IslandArray[nIsland].szSlackSub) == 0 &&
-				strcmp(pPGBlock->m_SynchronousMachineArray[nDev].szName, pPGBlock->m_IslandArray[nIsland].szSlackGen) == 0)
+				strcmp(pPGBlock->m_SynchronousMachineArray[nDev].szName, pPGBlock->m_IslandArray[nIsland].szSlackDevName) == 0)
 				m_nSlackBus=pPGBlock->m_SynchronousMachineArray[nDev].nTopoBus;
 		}
 		for (nDev=0; nDev<pPGBlock->m_nRecordNum[PG_ENERGYCONSUMER]; nDev++)
 		{
+			if (pPGBlock->m_EnergyConsumerArray[nDev].bOutage)
+				continue;
 			if (pPGBlock->m_EnergyConsumerArray[nDev].nIsland != nIsland)
 				continue;
 
@@ -128,6 +132,8 @@ namespace	DCNetwork
 
 		for (nIsland=0; nIsland<pPGBlock->m_nRecordNum[PG_ISLAND]; nIsland++)
 		{
+			if (pPGBlock->m_IslandArray[nIsland].bDCIsland)
+				continue;
 			if (pPGBlock->m_IslandArray[nIsland].bDead)
 				continue;
 
@@ -162,30 +168,30 @@ namespace	DCNetwork
 			fDltD=pPGBlock->m_TopoBusArray[pPGBlock->m_ACLineSegmentArray[nDev].nTopoBusI].fD-pPGBlock->m_TopoBusArray[pPGBlock->m_ACLineSegmentArray[nDev].nTopoBusJ].fD;
 			if (!bTripFlow)
 			{
-				pPGBlock->m_ACLineSegmentArray[nDev].fPi=pPGBlock->m_ACLineSegmentArray[nDev].fPz=0;
+				pPGBlock->m_ACLineSegmentArray[nDev].fPi=pPGBlock->m_ACLineSegmentArray[nDev].fPj=0;
 				if (pPGBlock->m_ACLineSegmentArray[nDev].nIsland > 0 && !pPGBlock->m_ACLineSegmentArray[nDev].bOpen && !pPGBlock->m_ACLineSegmentArray[nDev].bOutage)
 				{
 					pPGBlock->m_ACLineSegmentArray[nDev].fPi=(float)( pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_ACLineSegmentArray[nDev].fX);
-					pPGBlock->m_ACLineSegmentArray[nDev].fPz=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_ACLineSegmentArray[nDev].fX);
+					pPGBlock->m_ACLineSegmentArray[nDev].fPj=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_ACLineSegmentArray[nDev].fX);
 
 					if (pPGBlock->m_ACLineSegmentArray[nDev].nTopoBusI == m_nSlackBus)
 						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_ACLineSegmentArray[nDev].fPi;
 					else if (pPGBlock->m_ACLineSegmentArray[nDev].nTopoBusJ == m_nSlackBus)
-						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_ACLineSegmentArray[nDev].fPz;
+						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_ACLineSegmentArray[nDev].fPj;
 				}
 			}
 			else
 			{
-				pPGBlock->m_ACLineSegmentArray[nDev].fPi=pPGBlock->m_ACLineSegmentArray[nDev].fPz=0;
+				pPGBlock->m_ACLineSegmentArray[nDev].fPi=pPGBlock->m_ACLineSegmentArray[nDev].fPj=0;
 				if (pPGBlock->m_ACLineSegmentArray[nDev].nIsland > 0 && !pPGBlock->m_ACLineSegmentArray[nDev].bOpen && !pPGBlock->m_ACLineSegmentArray[nDev].bOutage)
 				{
 					pPGBlock->m_ACLineSegmentArray[nDev].fPi=(float)( pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_ACLineSegmentArray[nDev].fX);
-					pPGBlock->m_ACLineSegmentArray[nDev].fPz=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_ACLineSegmentArray[nDev].fX);
+					pPGBlock->m_ACLineSegmentArray[nDev].fPj=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_ACLineSegmentArray[nDev].fX);
 
 					if (pPGBlock->m_ACLineSegmentArray[nDev].nTopoBusI == m_nSlackBus)
 						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_ACLineSegmentArray[nDev].fPi;
 					else if (pPGBlock->m_ACLineSegmentArray[nDev].nTopoBusJ == m_nSlackBus)
-						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_ACLineSegmentArray[nDev].fPz;
+						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_ACLineSegmentArray[nDev].fPj;
 				}
 			}
 		}
@@ -198,30 +204,30 @@ namespace	DCNetwork
 			fDltD=pPGBlock->m_TopoBusArray[pPGBlock->m_TransformerWindingArray[nDev].nTopoBusI].fD-pPGBlock->m_TopoBusArray[pPGBlock->m_TransformerWindingArray[nDev].nTopoBusJ].fD;
 			if (!bTripFlow)
 			{
-				pPGBlock->m_TransformerWindingArray[nDev].fPi=pPGBlock->m_TransformerWindingArray[nDev].fPz=0;
+				pPGBlock->m_TransformerWindingArray[nDev].fPi=pPGBlock->m_TransformerWindingArray[nDev].fPj=0;
 				if (pPGBlock->m_TransformerWindingArray[nDev].nIsland > 0 && !pPGBlock->m_TransformerWindingArray[nDev].bOpen && !pPGBlock->m_TransformerWindingArray[nDev].bOutage)
 				{
 					pPGBlock->m_TransformerWindingArray[nDev].fPi=(float)( pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_TransformerWindingArray[nDev].fX);
-					pPGBlock->m_TransformerWindingArray[nDev].fPz=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_TransformerWindingArray[nDev].fX);
+					pPGBlock->m_TransformerWindingArray[nDev].fPj=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_TransformerWindingArray[nDev].fX);
 
 					if (pPGBlock->m_TransformerWindingArray[nDev].nTopoBusI == m_nSlackBus)
 						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_TransformerWindingArray[nDev].fPi;
 					else if (pPGBlock->m_TransformerWindingArray[nDev].nTopoBusJ == m_nSlackBus)
-						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_TransformerWindingArray[nDev].fPz;
+						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_TransformerWindingArray[nDev].fPj;
 				}
 			}
 			else
 			{
-				pPGBlock->m_TransformerWindingArray[nDev].fPi=pPGBlock->m_TransformerWindingArray[nDev].fPz=0;
+				pPGBlock->m_TransformerWindingArray[nDev].fPi=pPGBlock->m_TransformerWindingArray[nDev].fPj=0;
 				if (pPGBlock->m_TransformerWindingArray[nDev].nIsland > 0 && !pPGBlock->m_TransformerWindingArray[nDev].bOpen && !pPGBlock->m_TransformerWindingArray[nDev].bOutage)
 				{
 					pPGBlock->m_TransformerWindingArray[nDev].fPi=(float)( pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_TransformerWindingArray[nDev].fX);
-					pPGBlock->m_TransformerWindingArray[nDev].fPz=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_TransformerWindingArray[nDev].fX);
+					pPGBlock->m_TransformerWindingArray[nDev].fPj=(float)(-pPGBlock->m_System.fBasePower*fDltD/pPGBlock->m_TransformerWindingArray[nDev].fX);
 
 					if (pPGBlock->m_TransformerWindingArray[nDev].nTopoBusI == m_nSlackBus)
 						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_TransformerWindingArray[nDev].fPi;
 					else if (pPGBlock->m_TransformerWindingArray[nDev].nTopoBusJ == m_nSlackBus)
-						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_TransformerWindingArray[nDev].fPz;
+						pPGBlock->m_TopoBusArray[m_nSlackBus].fGenP += pPGBlock->m_TransformerWindingArray[nDev].fPj;
 				}
 			}
 		}

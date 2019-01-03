@@ -3,7 +3,7 @@
 #include "PGMemDB.h"
 #include "PGMemDBExtern.h"
 
-extern	void	Log(const char* m_lpszPGMemDBLogFile, const char* pformat, ...);
+extern	void	Log(const char* m_lpszPGMemDBLogFile, char* pformat, ...);
 namespace PGMemDB 
 {
 	//	对于3/2线路或变压器，因为该接线下所有设备是通过节点判断，在BUSIJ中有所反映。
@@ -20,7 +20,7 @@ namespace PGMemDB
 			if (pPGBlock->m_ACLineSegmentArray[nLine].bOutage != 0)
 				continue;
 
-			//Log(m_lpszPGMemDBLogFile, "线路单侧备用判断 %s (%s-%s-%s)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
+			//log_info("线路单侧备用判断 %s (%s-%s-%s)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
 
 			nVolt=PGFindRecordbyKey(pPGBlock, PG_VOLTAGELEVEL, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
 			PGTraverseVolt(pPGBlock, pPGBlock->m_ACLineSegmentArray[nLine].nNodeI, Y_CheckStatus, Y_CheckStatus, N_BusBound, N_BreakerBound, nNodeNum, nNodeArray);
@@ -66,7 +66,7 @@ namespace PGMemDB
 			if (nConBra <= 1 && nConSht == 0 && nConBus == 0)
 			{
 				pPGBlock->m_ACLineSegmentArray[nLine].bOutage = 1;
-				Log(m_lpszPGMemDBLogFile, "    线路I不连接设备 %s (%s-%s-%s)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
+				log_info("    线路I不连接设备 %s (%s-%s-%s)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
 			}
 
 			nVolt=PGFindRecordbyKey(pPGBlock, PG_VOLTAGELEVEL, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltJ);
@@ -113,7 +113,7 @@ namespace PGMemDB
 			if (nConBra <= 1 && nConSht == 0 && nConBus == 0)
 			{
 				pPGBlock->m_ACLineSegmentArray[nLine].bOutage += 2;
-				Log(m_lpszPGMemDBLogFile, "    线路J不连接设备 %s (%s-%s-%s)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
+				log_info("    线路J不连接设备 %s (%s-%s-%s)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].szSubI, pPGBlock->m_ACLineSegmentArray[nLine].szSubJ, pPGBlock->m_ACLineSegmentArray[nLine].szVoltI);
 			}
 		}
 		
@@ -121,12 +121,12 @@ namespace PGMemDB
 		{
 			if (pPGBlock->m_ACLineSegmentArray[nLine].bOutage != 0)
 			{
-				//Log(m_lpszPGMemDBLogFile, "检修或备用线路 %s (%d-%d-%d)\n", 
+				//log_info("检修或备用线路 %s (%d-%d-%d)\n", 
 				//	pPGBlock->m_ACLineSegmentArray[nLine].szName, 
 				//	pPGBlock->m_ACLineSegmentArray[nLine].bOutage, 
 				//	pPGBlock->m_EdgeACLineSegmentArray[pPGBlock->m_ACLineSegmentArray[nLine].iRln2].lnop, 
 				//	pPGBlock->m_EdgeACLineSegmentArray[pPGBlock->m_ACLineSegmentArray[nLine].zRln2].lnop);
-				//Log(m_lpszPGMemDBLogFile, "检修或备用线路 %s (%d)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].bOutage);
+				//log_info("检修或备用线路 %s (%d)\n", pPGBlock->m_ACLineSegmentArray[nLine].szName, pPGBlock->m_ACLineSegmentArray[nLine].bOutage);
 			}
 		}
 	}
@@ -193,12 +193,12 @@ namespace PGMemDB
 					}
 				}
 
-				//Log(m_lpszPGMemDBLogFile, "  I(%d)=%d %d %d\n", pPGBlock->m_TransformerWindingArray[nWind].nNodeI, nConBra, nConSht, nConBus);
+				//log_info("  I(%d)=%d %d %d\n", pPGBlock->m_TransformerWindingArray[nWind].nNodeI, nConBra, nConSht, nConBus);
 
 				if (nConSht == 0 && nConBus == 0 && nConBra <= 1)
 				{
 					pPGBlock->m_TransformerWindingArray[nWind].bOutage = 1;
-					//Log(m_lpszPGMemDBLogFile, "    变压器I不连接设备 %s-%s\n", pPGBlock->m_TransformerWindingArray[nWind].szSub, pPGBlock->m_TransformerWindingArray[nWind].szName);
+					//log_info("    变压器I不连接设备 %s-%s\n", pPGBlock->m_TransformerWindingArray[nWind].szSub, pPGBlock->m_TransformerWindingArray[nWind].szName);
 				}
 
 				nVolt=pPGBlock->m_TransformerWindingArray[nWind].nVoltJ;
@@ -242,11 +242,11 @@ namespace PGMemDB
 						}
 					}
 				}
-				//Log(m_lpszPGMemDBLogFile, "  J(%d)=%d %d %d\n", pPGBlock->m_TransformerWindingArray[nWind].nNodeJ, nConBra, nConSht, nConBus);
+				//log_info("  J(%d)=%d %d %d\n", pPGBlock->m_TransformerWindingArray[nWind].nNodeJ, nConBra, nConSht, nConBus);
 				if (nConSht == 0 && nConBus == 0 && nConBra <= 1)
 				{
 					pPGBlock->m_TransformerWindingArray[nWind].bOutage = 2;
-					//Log(m_lpszPGMemDBLogFile, "    变压器J不连接设备 %s-%s\n", pPGBlock->m_TransformerWindingArray[nWind].szSub, pPGBlock->m_TransformerWindingArray[nWind].szName);
+					//log_info("    变压器J不连接设备 %s-%s\n", pPGBlock->m_TransformerWindingArray[nWind].szSub, pPGBlock->m_TransformerWindingArray[nWind].szName);
 				}
 			}
 		}
@@ -336,7 +336,7 @@ namespace PGMemDB
 						else
 							pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].bOutage = 2;
 
-						Log(m_lpszPGMemDBLogFile, "三卷变压器(%d)备用 %s-%s-%s\n", nWind, pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].szSub, pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].szVoltI, pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].szName);
+						log_info("三卷变压器(%d)备用 %s-%s-%s\n", nWind, pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].szSub, pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].szVoltI, pPGBlock->m_TransformerWindingArray[nWindArray[nWind]].szName);
 					}
 				}
 			}
@@ -349,7 +349,7 @@ namespace PGMemDB
 		for (nWind=0; nWind<pPGBlock->m_nRecordNum[PG_TRANSFORMERWINDING]; nWind++)
 		{
 			if (pPGBlock->m_TransformerWindingArray[nWind].bOutage != 0)
-				Log(m_lpszPGMemDBLogFile, "变压器状态 %s-%s (检修=%d)\n", pPGBlock->m_TransformerWindingArray[nWind].szSub, pPGBlock->m_TransformerWindingArray[nWind].szName, pPGBlock->m_TransformerWindingArray[nWind].bOutage);
+				log_info("变压器状态 %s-%s (检修=%d)\n", pPGBlock->m_TransformerWindingArray[nWind].szSub, pPGBlock->m_TransformerWindingArray[nWind].szName, pPGBlock->m_TransformerWindingArray[nWind].bOutage);
 		}
 	}
 
@@ -523,7 +523,7 @@ namespace PGMemDB
 				if (pPGBlock->m_SynchronousMachineArray[i].nNode < 0)
 					continue;
 
-				if (fabs(pPGBlock->m_IslandArray[pPGBlock->m_SynchronousMachineArray[i].nIsland].fUnitP) > 0.1)
+				if (fabs(pPGBlock->m_IslandArray[pPGBlock->m_SynchronousMachineArray[i].nIsland].fGenP) > 0.1)
 				{
 					pPGBlock->m_SynchronousMachineArray[i].bOutage=0;
 				}
@@ -541,7 +541,7 @@ namespace PGMemDB
 				if (pPGBlock->m_EnergyConsumerArray[i].nNode < 0)
 					continue;
 
-				if (pPGBlock->m_IslandArray[pPGBlock->m_EnergyConsumerArray[i].nIsland].fUnitP > 0.1)
+				if (pPGBlock->m_IslandArray[pPGBlock->m_EnergyConsumerArray[i].nIsland].fGenP > 0.1)
 				{
 					pPGBlock->m_EnergyConsumerArray[i].bOutage=0;
 				}
@@ -556,7 +556,7 @@ namespace PGMemDB
 			{
 				if (pPGBlock->m_ShuntCompensatorArray[i].nNode < 0)
 					continue;
-				if (pPGBlock->m_IslandArray[pPGBlock->m_ShuntCompensatorArray[i].nIsland].fUnitP > 0.1)
+				if (pPGBlock->m_IslandArray[pPGBlock->m_ShuntCompensatorArray[i].nIsland].fGenP > 0.1)
 					pPGBlock->m_ShuntCompensatorArray[i].bOutage=0;
 				else
 					pPGBlock->m_ShuntCompensatorArray[i].fQ=pPGBlock->m_ShuntCompensatorArray[i].fA=0;
@@ -566,7 +566,7 @@ namespace PGMemDB
 			//	与岛相连的设备设置投运，在CHECKLINE和CHECKTRAN中判断是否停运
 			for (i=0; i<pPGBlock->m_nRecordNum[PG_ACLINESEGMENT]; i++)
 			{
-				if (pPGBlock->m_IslandArray[pPGBlock->m_ACLineSegmentArray[i].nIsland].fUnitP > 0.1)
+				if (pPGBlock->m_IslandArray[pPGBlock->m_ACLineSegmentArray[i].nIsland].fGenP > 0.1)
 				{
 					pPGBlock->m_ACLineSegmentArray[i].bOutage=0;
 					//pPGBlock->m_EdgeACLineSegmentArray[pPGBlock->m_ACLineSegmentArray[i].iRln2].lnop=pPGBlock->m_EdgeACLineSegmentArray[pPGBlock->m_ACLineSegmentArray[i].zRln2].lnop=0;
@@ -574,7 +574,7 @@ namespace PGMemDB
 			}
 			for (i=0; i<pPGBlock->m_nRecordNum[PG_TRANSFORMERWINDING]; i++)
 			{
-				if (pPGBlock->m_IslandArray[pPGBlock->m_TransformerWindingArray[i].nIsland].fUnitP > 0.1)
+				if (pPGBlock->m_IslandArray[pPGBlock->m_TransformerWindingArray[i].nIsland].fGenP > 0.1)
 				{
 					pPGBlock->m_TransformerWindingArray[i].bOutage=0;
 					//pPGBlock->m_EdgeTransformerWindingArray[pPGBlock->m_TransformerWindingArray[i].iRWind2].bOutage=pPGBlock->m_EdgeTransformerWindingArray[pPGBlock->m_TransformerWindingArray[i].zRWind2].bOutage=0;

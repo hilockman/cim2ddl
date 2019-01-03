@@ -3,7 +3,7 @@
 1,FStateNo,状态序号,INTEGER,4
 2,LTFault,支路故障,INTEGER,1
 3,MIsland,多岛故障,INTEGER,1
-4,LossGenP,发电出力损失(MW),DOUBLE,4
+4,LossGenP,发电出力损失(兆瓦),DOUBLE,4
 5,BseFile,Bse文件名,STRING,256
 6,SwiFile,Swi文件名,STRING,256
 7,OutFile,Out文件名,STRING,256

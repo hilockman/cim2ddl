@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,JobId,工作ID,INTEGER,4
+1,Name,文件名称,STRING,64
+2,Type,文件类型,STRING,8
+3,Content,任务内容,STRING,64

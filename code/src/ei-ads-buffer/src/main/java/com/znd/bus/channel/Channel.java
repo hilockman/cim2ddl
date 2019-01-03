@@ -2,6 +2,8 @@ package com.znd.bus.channel;
 
 import java.io.Closeable;
 
+import com.znd.bus.server.Topic;
+
 public interface Channel extends Closeable {
      void send(ChannelMessage message);
      void register(Listener listener);
@@ -13,4 +15,7 @@ public interface Channel extends Closeable {
      
 	ChannelType getType();
 	String getName();
+	
+	Topic getTopic();
+	
 }

@@ -5,7 +5,32 @@ public class Topic {
 	private VerbEnum verb;
 	private String noun;
 	
+	private String name;
 	
+	public static VerbTypeEnum type(VerbEnum verb) {
+		switch (verb) {
+		case get:
+			return VerbTypeEnum.Request;
+		case create: 
+		case change: 
+		case delete: 
+		case close: 
+		case cancel: 
+		case execute:
+			return VerbTypeEnum.Tansaction;
+		case reply:
+			return VerbTypeEnum.Response;
+		case created:
+		case changed:
+		case deleted:
+		case closed:
+		case canceled:
+		case executed:
+			return VerbTypeEnum.Event;
+		default:
+			return VerbTypeEnum.Unknown;
+		}
+	}
 	public static class TopicEnd {
 
 		private Topic topic;
@@ -64,9 +89,10 @@ public class Topic {
 
 	}
 	
-	private Topic(VerbEnum verb, String noun) {
+	public Topic(VerbEnum verb, String noun) {
 		this.verb = verb;
 		this.noun = noun;
+		this.name = formName(verb, noun);
 		
 	}
 	
@@ -78,6 +104,16 @@ public class Topic {
 	public static TopicEnd out(VerbEnum verb, NounEnum noun) {
 		return new TopicEnd(verb, noun, Direction.out);
 	}	
+	
+	public static TopicEnd in_and_out(VerbEnum verb, NounEnum noun) {
+		return new TopicEnd(verb, noun, Direction.in_and_out);
+	}
+	
+	public static TopicEnd in_and_out(VerbEnum verb, String noun) {
+		return new TopicEnd(verb, noun, Direction.in_and_out);
+	}
+	
+	
 	
 	public static TopicEnd in(VerbEnum verb, String noun) {
 		return new TopicEnd(verb, noun, Direction.in);
@@ -110,23 +146,23 @@ public class Topic {
 	}
 	
 	public String getName() {
-		return formName(verb, noun);
+		return name;
 	}
 	
 	public static String formName(VerbEnum verb, String noun) {
 		return verb.name() + '_' + noun;
 	}
 	
-//	public static Topic parse(String name) {
-//		int pos = name.indexOf('_');
-//		if (pos < 0)
-//			return null;
-//		
-//		VerbEnum verb = Enum.valueOf(VerbEnum.class, name.substring(0, pos));
-//		String noun = name.substring(pos + 1);
-//		
-//		return new Topic(verb, noun);
-//	}
+	public static Topic parse(String name) {
+		int pos = name.indexOf('_');
+		if (pos < 0)
+			return null;
+		
+		VerbEnum verb = Enum.valueOf(VerbEnum.class, name.substring(0, pos));
+		String noun = name.substring(pos + 1);
+		
+		return new Topic(verb, noun);
+	}
 
 	@Override
 	public String toString() {

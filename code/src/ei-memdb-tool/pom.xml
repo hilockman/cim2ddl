@@ -30,6 +30,12 @@
 			<artifactId>ei-memdb-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+    	<dependency>
+		    <groupId>${znd.groupId}</groupId>
+		    <artifactId>ZhongNDMemDB</artifactId>
+		    <version>4.0</version>
+		</dependency>		
 	</dependencies>
 	<build>
 		<plugins>

@@ -155,6 +155,15 @@ function ResultFunction(rt) {
 	}
 }
 
+function defaultErrorFunction(xhr, e) {
+	console.log("code :"+xhr.status +'\n'+ xhr.responseText);
+	if (xhr.status == 500)
+		window.location.href = "/500.html?error="+encodeURIComponent(xhr.responseText);
+	else if (xhr.status == 404) {
+		window.location.href = "/404.html?error="+encodeURIComponent(xhr.responseText);
+	}
+}
+
 var AjaxFunction =  function (url, callBack, failCallBack) {
      var result;
      
@@ -162,7 +171,7 @@ var AjaxFunction =  function (url, callBack, failCallBack) {
 	        url: this.baseUrl+url,
 	        success: callBack != undefined ? callBack : function(record) { result = record; },
 	        async: callBack == undefined ? false : true,
-	        error: failCallBack	== undefined ? function(e){console.log(e);} : failCallBack		        
+	        error: failCallBack	== undefined ? defaultErrorFunction : failCallBack		        
 	    });
 	 
 	 
@@ -175,6 +184,10 @@ function ModelFunction() {
 	this.baseUrl = '/model/';
 	this.getAll = function(callBack, failCallBack) { return this.query('all', callBack, failCallBack);};
 	this.getRoots =  function(callBack, failCallBack) { return this.query('roots', callBack, failCallBack);};
+	this.getFile  = function(folder, file, callBack, failCallBack) {
+		console.log('getFile:'+folder+", file:"+file);
+		return this.query('file/'+folder+'/'+file, callBack, failCallBack);
+	}
 }  
 
 ModelFunction.prototype.query =  AjaxFunction;
@@ -184,6 +197,7 @@ modelApi = new ModelFunction();
 function NodeFunction() {
 	this.baseUrl = 'node/';
 	this.getNodes = function(callBack, failCallBack) { return this.query('all', callBack, failCallBack);};
+
 }  
 
 NodeFunction.prototype.query = AjaxFunction;
@@ -191,9 +205,11 @@ NodeFunction.prototype.query = AjaxFunction;
 var nodeApi = new NodeFunction();
 
 function JobFunction() {
-	this.baseUrl = 'job/';
+	this.baseUrl = '/job/';
 	this.getJobs = function(callBack, failCallBack) { return this.query('all', callBack, failCallBack);};	
 	this.newJobName = function(callBack, failCallBack) { return this.query('newjobname', callBack, failCallBack);};
+	this.getJob = function(id, callBack, failCallBack) { return this.query(id, callBack, failCallBack);};
+	this.getJobResult = function(id, callBack, failCallBack) { return this.query("result/?id="+id, callBack, failCallBack);};
 	//this.getConfig = function(jobType, callBack, failCallBack) { return this.query("config/"+jobType, callBack, failCallBack);};
 }
 
@@ -221,3 +237,94 @@ AdsFunctions.prototype.query = AjaxFunction;
 var adsApi = new AdsFunctions();
 
 
+/**
+item format
+{
+    id:"",
+	name:"",
+	alias:"",
+	childCount:0,
+	children:[]
+}
+
+function click(span) {
+}
+
+**/ 
+function buildTree(ul, rootItems, defaultItem, click) {
+
+  ul.children().remove();
+  if (rootItems === undefined || rootItems == null)
+	  return;
+  
+  var dent = 0;
+  var items = [];
+  let defaultSpan;
+  
+  function fillTree(dent, items, parent) {
+      let lis = [];
+      let i = 0;
+
+	  for (i in items) {
+		  var item = items[i];
+		  var hasChild = (item.childCount > 0 && item.children.length > 0);
+		  var isDefault = (defaultItem === item);
+
+		  let ii = $('<i></i>')
+           .attr("class", 'fa '+(hasChild ? "fa-minus-circle" : "fa-leaf"))
+		  let span = $('<span></span>')
+           .attr('title', item.name)
+           .attr('class', (isDefault ? "selected": ""))
+           .append(ii, " "+(item.alias ? item.alias : item.name)+(item.childCount > 0 ? '('+item.childCount+')': ""));
+		  let li = $('<li></li>')
+           .attr('class', (dent == 0? 'parent_li' : ''))
+           .attr('parent', (parent ? parent.id : "-1"))
+           .attr('id', item.id);
+		
+		  if (isDefault) {
+			  defaultSpan = span;
+		  }
+		  
+		  if (hasChild) {
+		      let child_lis = fillTree(dent++, item.children, item);
+		      let child_ul = $('<ul></ul>').append(child_lis);
+		      li.append(span, child_ul);
+	       } else
+	           li.append(span);
+	           lis.push(li);
+		  }
+
+	  return lis;
+  }
+  
+   ul.append(fillTree(dent, rootItems, null));
+	  
+   $('.tree li:has(ul)').addClass('parent_li').find(' > span');
+   $('.tree li.parent_li > span > i').on('click', function (e) {
+       var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
+       if (children.is(":visible")) {
+           children.hide('fast');
+           $(this).addClass('fa-plus-circle').removeClass('fa-minus-circle');
+       } else {
+           children.show('fast');
+           $(this).addClass('fa-minus-circle').removeClass('fa-plus-circle');
+       }
+       e.stopPropagation();
+   });
+   
+   
+   $('.tree li > span').on('click', function (e) {
+	  let span = $(this); 
+	  if (click)
+		  click(span);
+	  $('.tree li > span').removeClass('selected');
+	  span.addClass('selected');
+   }); 
+	
+   
+   if (defaultSpan && click) {
+	  click(defaultSpan);
+	  
+   }
+
+}

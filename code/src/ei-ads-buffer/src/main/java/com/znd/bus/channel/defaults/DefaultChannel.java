@@ -9,17 +9,21 @@ import com.znd.bus.channel.Channel;
 import com.znd.bus.channel.ChannelMessage;
 import com.znd.bus.channel.ChannelType;
 import com.znd.bus.channel.Listener;
+import com.znd.bus.server.Topic;
+import com.znd.ei.Utils;
 
 public class DefaultChannel implements Channel {
 
 	private final String name;
 	private final ChannelType type;
 	private final List<Listener> listeners = new ArrayList<>();
+	private final Topic topic;
 	
-	private static final ExecutorService pool = Executors.newCachedThreadPool();
+	private static final ExecutorService pool = Utils.threadPool();
 	
 	public DefaultChannel(String name, ChannelType type) {
 		this.name = name;
+		this.topic = Topic.parse(name);
 		this.type = type;
 		
 	}
@@ -59,6 +63,10 @@ public class DefaultChannel implements Channel {
 	@Override
 	public String getName() {
 		return name;
+	}
+	@Override
+	public Topic getTopic() {
+		return this.topic;
 	}
 
 }

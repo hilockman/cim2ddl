@@ -1,0 +1,98 @@
+.container-flex
+{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content:space-around;
+	padding-left:20px;
+	padding-right:20px;
+}
+.half-box {
+  flex-basis:50%;
+  padding-right:20px;	
+}
+#job-info-box {
+	height:100%;	
+}
+
+#job-config-box {
+	height:100%;
+}
+
+#job-result-box {
+	flex-basis: 100%;
+}
+
+#job-result-box {
+  margin-top: 10px;
+}
+
+
+#job-result-box h1 {
+
+border-bottom : 0;
+}
+
+
+
+.job-box {
+	box-shadow:1px 2px 4px rgba(0, 0, 0, .5);
+	padding: 10px 10px;	
+}
+
+ 
+ /* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+		
+}
+
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+		background-color: inherit;
+		float: left;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		padding: 14px 16px;
+		transition: 0.3s;
+}
+
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+		background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+		background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+		display: none;
+		border: 1px solid #ccc;
+		border-top: none;
+		width:100%;
+
+}
+
+.job-box > .tabcontent > .table-box {
+overflow : auto;
+}
+
+.job-box  table >tbody> tr > td, .job-box  table >tbody> tr > td {
+height : 10px;
+padding : 2px;
+font-size : 0.9em;
+}
+
+.job-box .chart-box {
+margin-top : 100px;
+margin-bottom : auto;
+}
+
+		

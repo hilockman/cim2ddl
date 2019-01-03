@@ -1,0 +1,5 @@
+序号,名称,描述,类型,长度
+0,DCBusName,直流母线名称,STRING,10
+1,DCBuskV,直流母线电压(kV),DOUBLE,4
+2,WindName,调压器名称,STRING,32
+3,WindPtr,调压器索引,INTEGER,4

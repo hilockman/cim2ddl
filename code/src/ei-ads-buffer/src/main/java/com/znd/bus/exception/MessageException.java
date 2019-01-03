@@ -1,7 +1,7 @@
 package com.znd.bus.exception;
 
 
-public class MessageException extends RuntimeException {
+public class MessageException extends AdsException {
 
 	public MessageException(Throwable e) {
 		super(e);

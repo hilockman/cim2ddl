@@ -11,6 +11,7 @@
 9,Gen_QMin,最小无功出力(MVar),DOUBLE,4
 10,Gen_VHold,"安排的电压,PV值(pu)",DOUBLE,4
 11,Gen_ACBusPtr,母线索引,INTEGER,4
-12,Gen_WingGen,风电机组,INTEGER,1
-13,Gen_EQ,等值电源,INTEGER,1
-14,Gen_Status,状态,INTEGER,1
+12,Gen_WTGen,风电机组,INTEGER,1
+13,Gen_PVGen,光伏模型,INTEGER,1
+14,Gen_EQ,等值电源,INTEGER,1
+15,Gen_Status,状态,INTEGER,1

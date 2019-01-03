@@ -17,6 +17,8 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferContext;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.config.TableMeta;
+import com.znd.bus.exception.ExecutionException;
+import com.znd.bus.exception.StatementException;
 import com.znd.bus.executor.Executor;
 import com.znd.bus.mapping.MappedStatement;
 import com.znd.bus.statement.Statement;
@@ -86,8 +88,20 @@ public class DefaultBuffer implements Buffer {
 		
 		StatementHandler parameterHandler = config.newStatementHandler(executor, mappedStatement, parameter);		
 		Statement ps = parameterHandler.newStatement();		
-		parameterHandler.parepared(ps);		
-		return executor.query(mappedStatement, ps);
+		try {
+			parameterHandler.parepared(ps);
+		} catch (StatementException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return null;
+		}		
+		try {
+			return executor.query(mappedStatement, ps);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -167,8 +181,20 @@ private Collection<Object> getParameters(Object parameter) {
 		MappedStatement mappedStatement = config.getMappedStatement(statement);
 		StatementHandler parameterHandler = config.newStatementHandler(executor, mappedStatement, getParameters(wrapCollection(parameter)));		
 		Statement ps = parameterHandler.newStatement();		
-		parameterHandler.parepared(ps);		
-		return executor.update(mappedStatement, ps);
+		try {
+			parameterHandler.parepared(ps);
+		} catch (StatementException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return -1;
+		}		
+		try {
+			return executor.update(mappedStatement, ps);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
 		
 //		Collection<Object> parameters = getParameters(wrapCollection(parameter));
 //		MappedStatement mappedStatement = config.getMappedStatement(statement);
@@ -183,8 +209,20 @@ private Collection<Object> getParameters(Object parameter) {
 		
 		StatementHandler parameterHandler = config.newStatementHandler(executor, mappedStatement, parameter);		
 		Statement ps = parameterHandler.newStatement();		
-		parameterHandler.parepared(ps);		
-		return executor.delete(mappedStatement, ps);
+		try {
+			parameterHandler.parepared(ps);
+		} catch (StatementException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return -1;
+		}		
+		try {
+			return executor.delete(mappedStatement, ps);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	@Override
@@ -271,8 +309,19 @@ private Collection<Object> getParameters(Object parameter) {
 	{		
 		StatementHandler parameterHandler = config.newStatementHandler(executor, mappedStatement, objects);		
 		Statement ps = parameterHandler.newStatement();		
-		parameterHandler.parepared(ps);		
-		executor.insert(mappedStatement, ps);
+		try {
+			parameterHandler.parepared(ps);
+		} catch (StatementException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return;
+		}		
+		try {
+			executor.insert(mappedStatement, ps);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

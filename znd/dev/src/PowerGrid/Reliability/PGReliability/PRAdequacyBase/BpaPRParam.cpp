@@ -1,11 +1,10 @@
 #include <float.h>
+#include <algorithm>
 #include "BpaPRParam.h"
 #include "../../../../Common/TinyXML/tinyxmlglobal.h"
-#include <algorithm>
-using namespace std;
-
-extern	const	char*	g_lpszLogFile;
-extern	void	Log(const char* lpszLogFile, const char* pformat, ...);
+#include "../../../../../include/ilog.h"
+//extern	const	char*	g_lpszLogFile;
+//extern	void	Log(const char* lpszLogFile, char* pformat, ...);
 namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
@@ -162,8 +161,8 @@ namespace	PRAdequacyBase
 			pPRBlock->m_HVDCArray[nParam].fRrep=0;
 			pPRBlock->m_HVDCArray[nParam].fGoodProb=0;
 			pPRBlock->m_HVDCArray[nParam].fFailProb=0;
+			pPRBlock->m_HVDCArray[nParam].nRParamType = PRDevice_RParamType_Common;
 		}
-
 
 		TiXmlElement		*pLine, *pElement, *pFDevice;
 		TiXmlAttribute		*pAttr;
@@ -207,6 +206,8 @@ namespace	PRAdequacyBase
 
 					if (pPRBlock->m_nRecordNum[PR_COMMRPARAM] < g_PRMemDBInterface.PRGetTableMax(PR_COMMRPARAM))
 						memcpy(&pPRBlock->m_CommRParamArray[pPRBlock->m_nRecordNum[PR_COMMRPARAM]++], &sRParam, sizeof(tagPRCommRParam));
+					else
+						log_error("表 %s 容量超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_COMMRPARAM));
 
 					pElement = pElement->NextSiblingElement();
 				}
@@ -247,6 +248,8 @@ namespace	PRAdequacyBase
 
 						if (pPRBlock->m_nRecordNum[PR_MANUALFAULT] < g_PRMemDBInterface.PRGetTableMax(PR_MANUALFAULT))
 							memcpy(&pPRBlock->m_ManualFaultArray[pPRBlock->m_nRecordNum[PR_MANUALFAULT]++], &sMFault, sizeof(tagPRManualFault));
+						else
+							log_error("表 %s 容量超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_MANUALFAULT));
 
 						pFDevice = pFDevice->NextSiblingElement();
 					}
@@ -289,6 +292,8 @@ namespace	PRAdequacyBase
 						}
 						if (pPRBlock->m_nRecordNum[PR_COMMONFAULT] < g_PRMemDBInterface.PRGetTableMax(PR_COMMONFAULT))
 							memcpy(&pPRBlock->m_CommonFaultArray[pPRBlock->m_nRecordNum[PR_COMMONFAULT]++], &sCommon, sizeof(tagPRCommonFault));
+						else
+							log_error("表 %s 容量超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_COMMONFAULT));
 
 						pFDevice = pFDevice->NextSiblingElement();
 					}
@@ -368,19 +373,19 @@ namespace	PRAdequacyBase
 					pAttr=pElement->FirstAttribute();
 					while (pAttr != NULL)
 					{
-						if (_stricmp(pAttr->Name(), "ParamType") == 0)		nParamType	=atoi(pAttr->Value());
-						else if (_stricmp(pAttr->Name(), "DevType") == 0)	nDevType	=g_PRMemDBInterface.PRGetTableIndex(pAttr->Value());
-						else if (_stricmp(pAttr->Name(), "KeyWord") == 0)	strKeyWord	=pAttr->Value();
-						else if (_stricmp(pAttr->Name(), "Rerr") == 0)		fRerr		=atof(pAttr->Value());
-						else if (_stricmp(pAttr->Name(), "Trep") == 0)		fTrep		=atof(pAttr->Value());
-						else if (_stricmp(pAttr->Name(), "SeriesBus") == 0)	strDevBus	=pAttr->Value();
-						else if (_stricmp(pAttr->Name(), "ACBus") == 0)		strDevBus	=pAttr->Value();
+						if (_stricmp(pAttr->Name(), "ParamType") == 0)			nParamType	=atoi(pAttr->Value());
+						else if (_stricmp(pAttr->Name(), "DevType") == 0)		nDevType	=g_PRMemDBInterface.PRGetTableIndex(pAttr->Value());
+						else if (_stricmp(pAttr->Name(), "KeyWord") == 0)		strKeyWord	=pAttr->Value();
+						else if (_stricmp(pAttr->Name(), "Rerr") == 0)			fRerr		=atof(pAttr->Value());
+						else if (_stricmp(pAttr->Name(), "Trep") == 0)			fTrep		=atof(pAttr->Value());
+						else if (_stricmp(pAttr->Name(), "SeriesBus") == 0)		strDevBus	=pAttr->Value();
+						else if (_stricmp(pAttr->Name(), "ACBus") == 0)			strDevBus	=pAttr->Value();
 						else if (_stricmp(pAttr->Name(), "DCBusI") == 0)		strDevBus	=pAttr->Value();
-						else if (_stricmp(pAttr->Name(), "ParallelBus") == 0)strAuxBus	=pAttr->Value();
-						else if (_stricmp(pAttr->Name(), "DCBus") == 0)		strAuxBus	=pAttr->Value();
+						else if (_stricmp(pAttr->Name(), "ParallelBus") == 0)	strAuxBus	=pAttr->Value();
+						else if (_stricmp(pAttr->Name(), "DCBus") == 0)			strAuxBus	=pAttr->Value();
 						else if (_stricmp(pAttr->Name(), "DCBusJ") == 0)		strAuxBus	=pAttr->Value();
-						else if (_stricmp(pAttr->Name(), "Aux") == 0)		fAux		=atof(pAttr->Value());
-						else if (_stricmp(pAttr->Name(), "Type") == 0)		nAuxType	=atoi(pAttr->Value());
+						else if (_stricmp(pAttr->Name(), "Aux") == 0)			fAux		=atof(pAttr->Value());
+						else if (_stricmp(pAttr->Name(), "Type") == 0)			nAuxType	=atoi(pAttr->Value());
 
 						pAttr=pAttr->Next();
 					}
@@ -389,6 +394,7 @@ namespace	PRAdequacyBase
 						switch (nDevType)
 						{
 						case	PR_GENERATOR:
+						case	PR_POWERLOAD:
 						case	PR_ACBUS:
 						case	PR_ACLINE:
 						case	PR_WIND:
@@ -433,7 +439,6 @@ namespace	PRAdequacyBase
 				pPRBlock->m_CommonFaultArray[nParam].nDevIndex = g_PRMemDBInterface.PRFindRecordbyKey(pPRBlock, pPRBlock->m_CommonFaultArray[nParam].nDevType, pPRBlock->m_CommonFaultArray[nParam].szDevName);
 			}
 		}
-
 		g_PRMemDBInterface.PRMaint(pPRBlock);
 
 		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_CONVERTER]; nDev++)
@@ -535,6 +540,18 @@ namespace	PRAdequacyBase
 			pSubElement->SetDoubleAttribute("Trep",	pPRBlock->m_GeneratorArray[nDev].fTrep);
 			pSubElement->SetAttribute("Aux",		pPRBlock->m_GeneratorArray[nDev].bEQGen);
 		}
+		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_POWERLOAD]; nDev++)
+		{
+			pSubElement = new TiXmlElement("RParam");
+			pElement->LinkEndChild(pSubElement);
+
+			pSubElement->SetAttribute("ParamType",	pPRBlock->m_PowerLoadArray[nDev].nRParamType);
+			pSubElement->SetAttribute("DevType",	g_PRMemDBInterface.PRGetTableName(PR_POWERLOAD));
+			pSubElement->SetAttribute("KeyWord",	pPRBlock->m_PowerLoadArray[nDev].szName);
+			pSubElement->SetDoubleAttribute("Rerr",	pPRBlock->m_PowerLoadArray[nDev].fRerr);
+			pSubElement->SetDoubleAttribute("Trep",	pPRBlock->m_PowerLoadArray[nDev].fTrep);
+			pSubElement->SetAttribute("Aux",		pPRBlock->m_PowerLoadArray[nDev].bEQLoad);
+		}
 
 		for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
 		{
@@ -598,7 +615,7 @@ namespace	PRAdequacyBase
 			pSubElement = new TiXmlElement("RParam");
 			pElement->LinkEndChild(pSubElement);
 
-			pSubElement->SetAttribute("ParamType",	PRDevice_RParamType_Device);
+			pSubElement->SetAttribute("ParamType",	pPRBlock->m_HVDCArray[nDev].nRParamType);
 			pSubElement->SetAttribute("DevType",	g_PRMemDBInterface.PRGetTableName(PR_HVDC));
 			pSubElement->SetAttribute("KeyWord",	pPRBlock->m_HVDCArray[nDev].szName);
 			pSubElement->SetDoubleAttribute("Rerr",	pPRBlock->m_HVDCArray[nDev].fRerr);
@@ -808,6 +825,19 @@ namespace	PRAdequacyBase
 					if (pPRBlock->m_CommRParamArray[nParam].fTrep > FLT_MIN)	pPRBlock->m_WindArray[nDevice].fRrep=(float)(8760.0/pPRBlock->m_CommRParamArray[nParam].fTrep);
 				}
 				break;
+			case	PR_HVDC:
+				pPRBlock->m_HVDCArray[nDevice].nRParamType = PRDevice_RParamType_Common;
+				if (pPRBlock->m_CommRParamArray[nParam].fDnVLmt <= pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDevice].nIBus].fkV &&
+					pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDevice].nIBus].fkV < pPRBlock->m_CommRParamArray[nParam].fUpVLmt)
+				{
+					if (pPRBlock->m_HVDCArray[nDevice].fLength > FLT_MIN)	//	可靠性参数为百公里
+						pPRBlock->m_HVDCArray[nDevice].fRerr=pPRBlock->m_CommRParamArray[nParam].fRerr*pPRBlock->m_HVDCArray[nDevice].fLength/100;
+					else
+						pPRBlock->m_HVDCArray[nDevice].fRerr=pPRBlock->m_CommRParamArray[nParam].fRerr*10;	//	直流线路缺省按1000公里计
+					pPRBlock->m_HVDCArray[nDevice].fTrep=pPRBlock->m_CommRParamArray[nParam].fTrep;
+					if (pPRBlock->m_CommRParamArray[nParam].fTrep > FLT_MIN)	pPRBlock->m_HVDCArray[nDevice].fRrep=(float)(8760.0/pPRBlock->m_CommRParamArray[nParam].fTrep);
+				}
+				break;
 			}
 		}
 
@@ -859,6 +889,19 @@ namespace	PRAdequacyBase
 					pPRBlock->m_WindArray[nDevice].fRerr=pPRBlock->m_CommRParamArray[nParam].fRerr/100;	//	可靠性参数为百台
 					pPRBlock->m_WindArray[nDevice].fTrep=pPRBlock->m_CommRParamArray[nParam].fTrep;
 					if (pPRBlock->m_CommRParamArray[nParam].fTrep > FLT_MIN)	pPRBlock->m_WindArray[nDevice].fRrep=(float)(8760.0/pPRBlock->m_CommRParamArray[nParam].fTrep);
+				}
+				break;
+			case	PR_HVDC:
+				pPRBlock->m_HVDCArray[nDevice].nRParamType = PRDevice_RParamType_Common;
+				if (pPRBlock->m_CommRParamArray[nParam].fDnVLmt <= pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDevice].nIBus].fkV &&
+					pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDevice].nIBus].fkV < pPRBlock->m_CommRParamArray[nParam].fUpVLmt)
+				{
+					if (pPRBlock->m_HVDCArray[nDevice].fLength > FLT_MIN)	//	可靠性参数为百公里
+						pPRBlock->m_HVDCArray[nDevice].fRerr=pPRBlock->m_CommRParamArray[nParam].fRerr*pPRBlock->m_HVDCArray[nDevice].fLength/100;
+					else
+						pPRBlock->m_HVDCArray[nDevice].fRerr=pPRBlock->m_CommRParamArray[nParam].fRerr;
+					pPRBlock->m_HVDCArray[nDevice].fTrep=pPRBlock->m_CommRParamArray[nParam].fTrep;
+					if (pPRBlock->m_CommRParamArray[nParam].fTrep > FLT_MIN)	pPRBlock->m_HVDCArray[nDevice].fRrep=(float)(8760.0/pPRBlock->m_CommRParamArray[nParam].fTrep);
 				}
 				break;
 			}
@@ -928,7 +971,10 @@ namespace	PRAdequacyBase
 		{
 			for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
 			{
-				if (pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nIBus].fkV < fDnV || pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nIBus].fkV >= fUpV)
+				if (pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nIBus].fkV < fDnV ||
+					pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nIBus].fkV >= fUpV)
+					continue;
+				if (sqrt(pPRBlock->m_ACLineArray[nDev].fR*pPRBlock->m_ACLineArray[nDev].fR + pPRBlock->m_ACLineArray[nDev].fX*pPRBlock->m_ACLineArray[nDev].fX) < 0.00012)
 					continue;
 
 				if (_stricmp(lpszKeyWord, "ALL") == 0 || (_stricmp(pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nIBus].szZone, lpszKeyWord) == 0 || _stricmp(pPRBlock->m_ACBusArray[pPRBlock->m_ACLineArray[nDev].nZBus].szZone, lpszKeyWord) == 0))
@@ -957,6 +1003,28 @@ namespace	PRAdequacyBase
 					pPRBlock->m_WindArray[nDev].fTrep=fTrep;
 					if (fTrep > FLT_MIN)	pPRBlock->m_WindArray[nDev].fRrep=(float)(8760.0/fTrep);
 					pPRBlock->m_WindArray[nDev].nRParamType = PRDevice_RParamType_Common;
+				}
+			}
+		}
+		else if (nDevType == PR_HVDC)
+		{
+			for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_HVDC]; nDev++)
+			{
+				if (pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDev].nIBus].fkV < fDnV ||
+					pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDev].nIBus].fkV >= fUpV)
+					continue;
+
+				if (_stricmp(lpszKeyWord, "ALL") == 0 ||
+					(_stricmp(pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDev].nRBus].szZone, lpszKeyWord) == 0 ||
+					_stricmp(pPRBlock->m_ACBusArray[pPRBlock->m_HVDCArray[nDev].nIBus].szZone, lpszKeyWord) == 0))
+				{
+					if (pPRBlock->m_HVDCArray[nDev].fLength > FLT_MIN)	//	可靠性参数为百公里
+						pPRBlock->m_HVDCArray[nDev].fRerr=fRerr*pPRBlock->m_HVDCArray[nDev].fLength/100;
+					else
+						pPRBlock->m_HVDCArray[nDev].fRerr=fRerr;
+					pPRBlock->m_HVDCArray[nDev].fTrep=fTrep;
+					if (fTrep > FLT_MIN)	pPRBlock->m_HVDCArray[nDev].fRrep=(float)(8760.0/fTrep);
+					pPRBlock->m_HVDCArray[nDev].nRParamType = PRDevice_RParamType_Common;
 				}
 			}
 		}
@@ -1032,6 +1100,7 @@ namespace	PRAdequacyBase
 				pPRBlock->m_HVDCArray[nDev].fRerr=fRerr;	//	可靠性具体设备参数为实际使用参数
 				pPRBlock->m_HVDCArray[nDev].fTrep=fTrep;
 				if (fTrep > FLT_MIN)	pPRBlock->m_HVDCArray[nDev].fRrep=(float)(8760.0/fTrep);
+				pPRBlock->m_HVDCArray[nDev].nRParamType = PRDevice_RParamType_Device;
 				return;
 			}
 		}
@@ -1075,7 +1144,7 @@ namespace	PRAdequacyBase
 							break;
 						}
 					}
-					for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
+					for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
 					{
 						if (_stricmp(pPRBlock->m_ACLineArray[nDev].szName, pPRBlock->m_TCSCArray[pPRBlock->m_nRecordNum[PR_TCSC]].szName) == 0)
 						{
@@ -1088,7 +1157,7 @@ namespace	PRAdequacyBase
 					pPRBlock->m_nRecordNum[PR_TCSC]++;
 				}
 				else
-					Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_TCSC));
+					log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_TCSC));
 			}
 		}
 		else if (nDevType == PR_UPFC)
@@ -1137,7 +1206,7 @@ namespace	PRAdequacyBase
 							break;
 						}
 					}
-					for (nDev=1; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
+					for (nDev=0; nDev<pPRBlock->m_nRecordNum[PR_ACLINE]; nDev++)
 					{
 						if (_stricmp(pPRBlock->m_ACLineArray[nDev].szName, pPRBlock->m_UPFCArray[pPRBlock->m_nRecordNum[PR_UPFC]].szName) == 0)
 						{
@@ -1155,7 +1224,7 @@ namespace	PRAdequacyBase
 					pPRBlock->m_nRecordNum[PR_UPFC]++;
 				}
 				else
-					Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_UPFC));
+					log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_UPFC));
 			}
 		}
 		else if (nDevType == PR_CONVERTER)
@@ -1190,7 +1259,7 @@ namespace	PRAdequacyBase
 					pPRBlock->m_nRecordNum[PR_CONVERTER]++;
 				}
 				else
-					Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_CONVERTER));
+					log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_CONVERTER));
 
 				if (pPRBlock->m_nRecordNum[PR_DCBUS] < g_PRMemDBInterface.PRGetTableMax(PR_DCBUS)-1)
 				{
@@ -1199,7 +1268,7 @@ namespace	PRAdequacyBase
 					pPRBlock->m_nRecordNum[PR_DCBUS]++;
 				}
 				else
-					Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_DCBUS));
+					log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_DCBUS));
 			}
 		}
 		else if (nDevType == PR_DCLINE)
@@ -1230,7 +1299,7 @@ namespace	PRAdequacyBase
 					pPRBlock->m_nRecordNum[PR_DCLINE]++;
 				}
 				else
-					Log(g_lpszLogFile, "        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_DCLINE));
+					log_error("        ********** %s 数据库超限\n", g_PRMemDBInterface.PRGetTableDesp(PR_DCLINE));
 			}
 		}
 	}

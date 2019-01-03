@@ -1,14 +1,121 @@
+/************ reset*********** */
+
 * {
 	box-sizing: border-box;
 }
-html, body {
+
+html {
 	height: 100%;
-	margin: 0;
+}
+
+body {
+	height: 100%;
+	font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC","WenQuanYi Micro Hei","sans-serif";
+	line-height: 1.8;
+	position: relative;
+    margin: 0;
 	padding: 0;
 	overflow:auto;
 }
 
+h1 {
+	font-size:2em;
+}
 
+textarea {
+  resize: none;
+}
+
+.h2 {
+	border:0;
+	border-left: 2px solid #000;
+	font-size: 1.5em;
+	color:#0044cc;
+	padding:3px 5px;
+	margin-top:0;
+}
+
+
+/*****************color*******************/
+.black {
+	color:#000;
+}
+
+
+.bg-blue {
+	background-color:#06c9ff;
+}
+
+.bg-light-blue {
+	background-color:#8dd9efba;
+}
+
+
+
+.border-blue {
+	border-color:#06c9ff;
+}
+
+.texture-blue {
+	background: linear-gradient(to right, 
+	#06c9ff, #fff);
+}
+
+.box-shadow {
+	box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+/*****layout*****/
+
+/*********monitor-row*************/
+.row {
+	padding : 0 20px;
+	border:none;
+	margin:0;
+}
+
+.monitor-row {
+   padding-bottom: 15px;
+   min-height: 200px;
+   border:none;
+}
+.monitor-tip {
+	display:none;
+}
+
+.monitor-border {
+	border:0;
+	border-bottom:1px solid #eee;
+	margin-top:10px;
+}
+/*********.monitor-row end*************/
+
+.content-row {
+	position:absolute;
+	top:40px;
+	bottom:45px;
+	left:0;
+	right:0;
+
+}
+.content-row-left {
+	padding:0;
+	height:100%;
+}
+.content-row-right {
+	padding: 0;
+	padding-left:5px;	
+	height:100%;
+}
+	
+
+
+
+
+
+/*****.layout end*******/
+
+/*******************module*************************/
 .navbar-brand,
 .navbar-nav li a {
     line-height: 30px;
@@ -25,27 +132,37 @@ html, body {
 
 .container-fluid {
     margin: 0;
-    padding: 50px 0px 20px 0px;	
+    padding: 40px 0 40px 0;	
     position:relative;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
 }
+
+.container {
+    margin: 0;
+    padding: 0 0 0 0;	
+    position:relative;
+    min-height: 100%;
+    width:100%;
+}
+
+
+
 
 footer {
 	    text-align:center;
-		clear: both;
 		margin: 0;
-		padding: 8px 0;
+		padding: 2px 0;
+	
 		
 		width: 100%;
-		line-height:20px;
+		/*line-height:20px;*/
 		background: #f0f0f0;
-		border-top: 0px solid #fff;
+		/*border-top: 0px solid #fff;*/
 		/*background: #fdfcf8 url(/ui2017/footer.png) top left repeat-x;*/
-		font-family:PingFangSC-Regular, '微软雅黑', Verdana, Arial, '宋体';
 		
-		position: absolute;
-		bottom:0;
+		
+	position: absolute;
+	bottom:0;
 }
 
 footer p {
@@ -57,6 +174,9 @@ footer p {
     margin-right: 5px;
 }
 
+/*******************module end*************************/
+
+/*******************unit*************************/
 .modal-dialog{
    position: absolute;
    left: 50%;
@@ -67,3 +187,110 @@ footer p {
    top: 50%;
    margin-top: -250px;
 } 
+
+
+
+/* tree  */
+.tree-nav {
+		overflow: auto;
+	min-height: 100%;
+	   border:1px solid #999;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+
+.tree {
+
+    min-height:100%;
+    padding:0px;
+    margin-bottom:20px;
+    background-color:#fbfbfb;
+}
+
+.tree>ul {
+	padding:5px
+}
+.tree li {
+    list-style-type:none;
+    margin:0;
+    padding:5px 5px 0 5px;
+    position:relative
+}
+.tree li::before, .tree li::after {
+    content:'';
+    left:-20px;
+    position:absolute;
+    right:auto
+}
+.tree li::before {
+    border-left:1px solid #999;
+    bottom:50px;
+    height:100%;
+    top:0;
+    width:1px
+}
+.tree li::after {
+    border-top:1px solid #999;
+    height:20px;
+    top:25px;
+    width:25px
+}
+.tree li span {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border:1px solid #999;
+    border-radius:5px;
+    display:inline-block;
+    padding:3px 5px;
+    /*padding:0;*/
+    text-decoration:none
+}
+
+
+.tree li.parent_li>span {
+    cursor:pointer
+}
+.tree>ul>li::before, .tree>ul>li::after {
+    border:0
+}
+.tree li:last-child::before {
+    height:30px
+}
+
+.tree li span.selected{
+   /*border: 1px solid #888;*/
+   background-color: #06c9ff;
+}
+	
+.tree li.parent_li>span:hover {
+    background:#8dd9ef;
+    border:1px solid #94a0b4;
+    color:#000
+}
+/* tree  end */
+
+
+/**.bootstrap table***/
+.bootstrap-table {
+	overflow: auto;
+	max-height:100%;
+}
+/**\.bootstrap table*/
+
+/*********button ****************/
+button.btn-default:hover {
+	background-color:#8dd9ef;
+}
+
+.btn-default i {
+	padding-right: 3px;
+}
+
+
+/*******************unit end*************************/
+
+

@@ -2,7 +2,7 @@
 #include "PGMemDB.h"
 #include "PGMemDBExtern.h"
 
-extern	void	Log(const char* m_lpszPGMemDBLogFile, const char* pformat, ...);
+extern	void	Log(const char* m_lpszPGMemDBLogFile, char* pformat, ...);
 namespace	PGMemDB
 {
 	typedef	struct	_TempNode_
@@ -79,9 +79,14 @@ namespace	PGMemDB
 		pPGBlock->m_nRecordNum[PG_EDGEBREAKER]=0;
 		pPGBlock->m_nRecordNum[PG_EDGEDISCONNECTOR]=0;
 		pPGBlock->m_nRecordNum[PG_EDGEACLINESEGMENT]=0;
-		pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]=0;
 		pPGBlock->m_nRecordNum[PG_EDGETRANSFORMERWINDING]=0;
 		pPGBlock->m_nRecordNum[PG_EDGESERIESCOMPENSATOR]=0;
+
+		pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]=0;
+		pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]=0;
+		pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]=0;
+		pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]=0;
+		pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]=0;
 
 		dBeg=clock();
 		if (pPGBlock->m_nRecordNum[PG_COMPANY] >= 2)
@@ -222,7 +227,7 @@ namespace	PGMemDB
 		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormTieline£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormTieline£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		dBeg=clock();
 		m_tNodeArray.clear();
@@ -238,7 +243,6 @@ namespace	PGMemDB
 			nodeBuf.strName	=(	pPGBlock->m_DisconnectorArray[i].szNodeJ);
 			m_tNodeArray.push_back(nodeBuf);
 		}
-
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_BREAKER]; i++)
 		{
 			nodeBuf.strSub	=(	pPGBlock->m_BreakerArray[i].szSub);
@@ -251,7 +255,6 @@ namespace	PGMemDB
 			nodeBuf.strName	=(	pPGBlock->m_BreakerArray[i].szNodeJ);
 			m_tNodeArray.push_back(nodeBuf);
 		}
-
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_ACLINESEGMENT]; i++)
 		{
 			nodeBuf.strSub	=(	pPGBlock->m_ACLineSegmentArray[i].szSubI);
@@ -264,7 +267,6 @@ namespace	PGMemDB
 			nodeBuf.strName	=(	pPGBlock->m_ACLineSegmentArray[i].szNodeJ);
 			m_tNodeArray.push_back(nodeBuf);
 		}
-
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_TRANSFORMERWINDING]; i++)
 		{
 			nodeBuf.strSub	=(	pPGBlock->m_TransformerWindingArray[i].szSub);
@@ -275,19 +277,6 @@ namespace	PGMemDB
 			nodeBuf.strSub	=(	pPGBlock->m_TransformerWindingArray[i].szSub);
 			nodeBuf.strVolt	=(	pPGBlock->m_TransformerWindingArray[i].szVoltJ);
 			nodeBuf.strName	=(	pPGBlock->m_TransformerWindingArray[i].szNodeJ);
-			m_tNodeArray.push_back(nodeBuf);
-		}
-
-		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCLINESEGMENT]; i++)
-		{
-			nodeBuf.strSub	=(	pPGBlock->m_DCLineSegmentArray[i].szSubI);
-			nodeBuf.strVolt	=(	pPGBlock->m_DCLineSegmentArray[i].szVoltI);
-			nodeBuf.strName	=(	pPGBlock->m_DCLineSegmentArray[i].szNodeI);
-			m_tNodeArray.push_back(nodeBuf);
-
-			nodeBuf.strSub	=(	pPGBlock->m_DCLineSegmentArray[i].szSubJ);
-			nodeBuf.strVolt	=(	pPGBlock->m_DCLineSegmentArray[i].szVoltJ);
-			nodeBuf.strName	=(	pPGBlock->m_DCLineSegmentArray[i].szNodeJ);
 			m_tNodeArray.push_back(nodeBuf);
 		}
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_SERIESCOMPENSATOR]; i++)
@@ -303,26 +292,87 @@ namespace	PGMemDB
 			m_tNodeArray.push_back(nodeBuf);
 		}
 
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCLINESEGMENT]; i++)
+		{
+			nodeBuf.strSub	=(	pPGBlock->m_DCLineSegmentArray[i].szSubI);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCLineSegmentArray[i].szVoltI);
+			nodeBuf.strName	=(	pPGBlock->m_DCLineSegmentArray[i].szNodeI);
+			m_tNodeArray.push_back(nodeBuf);
+
+			nodeBuf.strSub	=(	pPGBlock->m_DCLineSegmentArray[i].szSubJ);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCLineSegmentArray[i].szVoltJ);
+			nodeBuf.strName	=(	pPGBlock->m_DCLineSegmentArray[i].szNodeJ);
+			m_tNodeArray.push_back(nodeBuf);
+		}
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_RECTIFIERINVERTER]; i++)
 		{
 			nodeBuf.strSub	=(	pPGBlock->m_RectifierInverterArray[i].szSub);
-			nodeBuf.strVolt	=(	pPGBlock->m_RectifierInverterArray[i].szVolt1);
-			nodeBuf.strName	=(	pPGBlock->m_RectifierInverterArray[i].szNode1);
+			nodeBuf.strVolt	=(	pPGBlock->m_RectifierInverterArray[i].szVoltAC);
+			nodeBuf.strName	=(	pPGBlock->m_RectifierInverterArray[i].szNodeAC);
 			m_tNodeArray.push_back(nodeBuf);
-		
+
 			nodeBuf.strSub	=(	pPGBlock->m_RectifierInverterArray[i].szSub);
-			nodeBuf.strVolt	=(	pPGBlock->m_RectifierInverterArray[i].szVolt2);
-			nodeBuf.strName	=(	pPGBlock->m_RectifierInverterArray[i].szNode2);
+			nodeBuf.strVolt	=(	pPGBlock->m_RectifierInverterArray[i].szVoltDC);
+			nodeBuf.strName	=(	pPGBlock->m_RectifierInverterArray[i].szNodeDCP);
 			m_tNodeArray.push_back(nodeBuf);
-		
+
 			nodeBuf.strSub	=(	pPGBlock->m_RectifierInverterArray[i].szSub);
-			nodeBuf.strVolt	=(	pPGBlock->m_RectifierInverterArray[i].szVolt3);
-			nodeBuf.strName	=(	pPGBlock->m_RectifierInverterArray[i].szNode3);
+			nodeBuf.strVolt	=(	pPGBlock->m_RectifierInverterArray[i].szVoltDC);
+			nodeBuf.strName	=(	pPGBlock->m_RectifierInverterArray[i].szNodeDCN);
 			m_tNodeArray.push_back(nodeBuf);
 		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_ACDCCONVERTER]; i++)
+		{
+			nodeBuf.strSub	=(	pPGBlock->m_ACDCConverterArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_ACDCConverterArray[i].szVoltAC);
+			nodeBuf.strName	=(	pPGBlock->m_ACDCConverterArray[i].szNodeAC);
+			m_tNodeArray.push_back(nodeBuf);
+
+			nodeBuf.strSub	=(	pPGBlock->m_ACDCConverterArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_ACDCConverterArray[i].szVoltDC);
+			nodeBuf.strName	=(	pPGBlock->m_ACDCConverterArray[i].szNodeDC);
+			m_tNodeArray.push_back(nodeBuf);
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCDCCONVERTER]; i++)
+		{
+			nodeBuf.strSub	=(	pPGBlock->m_DCDCConverterArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCDCConverterArray[i].szVoltI);
+			nodeBuf.strName	=(	pPGBlock->m_DCDCConverterArray[i].szNodeI);
+			m_tNodeArray.push_back(nodeBuf);
+
+			nodeBuf.strSub	=(	pPGBlock->m_DCDCConverterArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCDCConverterArray[i].szVoltJ);
+			nodeBuf.strName	=(	pPGBlock->m_DCDCConverterArray[i].szNodeJ);
+			m_tNodeArray.push_back(nodeBuf);
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCBREAKER]; i++)
+		{
+			nodeBuf.strSub	=(	pPGBlock->m_DCBreakerArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCBreakerArray[i].szVolt);
+			nodeBuf.strName	=(	pPGBlock->m_DCBreakerArray[i].szNodeI);
+			m_tNodeArray.push_back(nodeBuf);
+
+			nodeBuf.strSub	=(	pPGBlock->m_DCBreakerArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCBreakerArray[i].szVolt);
+			nodeBuf.strName	=(	pPGBlock->m_DCBreakerArray[i].szNodeJ);
+			m_tNodeArray.push_back(nodeBuf);
+		}
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCSHORTCIRCUITLIMIT]; i++)
+		{
+			nodeBuf.strSub	=(	pPGBlock->m_DCShortCircuitLimitArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCShortCircuitLimitArray[i].szVolt);
+			nodeBuf.strName	=(	pPGBlock->m_DCShortCircuitLimitArray[i].szNodeI);
+			m_tNodeArray.push_back(nodeBuf);
+
+			nodeBuf.strSub	=(	pPGBlock->m_DCShortCircuitLimitArray[i].szSub);
+			nodeBuf.strVolt	=(	pPGBlock->m_DCShortCircuitLimitArray[i].szVolt);
+			nodeBuf.strName	=(	pPGBlock->m_DCShortCircuitLimitArray[i].szNodeJ);
+			m_tNodeArray.push_back(nodeBuf);
+		}
+
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormConnectivityNode£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormConnectivityNode£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		dBeg=clock();
 		sortTempNodeArray(0, (int)m_tNodeArray.size()-1);
@@ -356,8 +406,9 @@ namespace	PGMemDB
 		m_tNodeArray.clear();
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "ProcConnectivityNode£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("ProcConnectivityNode£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
+		//////////////////////////////////////////////////////////////////////////
 		dBeg=clock();
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_BREAKER]; i++)
 		{
@@ -375,7 +426,7 @@ namespace	PGMemDB
 		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormBreaker2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormBreaker2£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		dBeg=clock();
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_DISCONNECTOR]; i++)
@@ -394,7 +445,7 @@ namespace	PGMemDB
 		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormDisconnector2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormDisconnector2£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		dBeg=clock();
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_ACLINESEGMENT]; i++)
@@ -413,26 +464,7 @@ namespace	PGMemDB
 		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormACLineSegment2£¨∫ƒ ±%d∫¡√Î\n", nDur);
-
-		dBeg=clock();
-		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCLINESEGMENT]; i++)
-		{
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szSub,	pPGBlock->m_DCLineSegmentArray[i].szSubI);
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szVolt,	pPGBlock->m_DCLineSegmentArray[i].szVoltI);
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szNode,	pPGBlock->m_DCLineSegmentArray[i].szNodeI);
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szName,	pPGBlock->m_DCLineSegmentArray[i].szName);
-			pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]++;
-
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szSub,	pPGBlock->m_DCLineSegmentArray[i].szSubJ);
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szVolt,	pPGBlock->m_DCLineSegmentArray[i].szVoltJ);
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szNode,	pPGBlock->m_DCLineSegmentArray[i].szNodeJ);
-			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szName,	pPGBlock->m_DCLineSegmentArray[i].szName);
-			pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]++;
-		}
-		dEnd=clock();
-		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormDCLineSegment2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormACLineSegment2£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		dBeg=clock();
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_TRANSFORMERWINDING]; i++)
@@ -451,7 +483,7 @@ namespace	PGMemDB
 		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormTransformerWinding2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormTransformerWinding2£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		dBeg=clock();
 		for (i=0; i<pPGBlock->m_nRecordNum[PG_SERIESCOMPENSATOR]; i++)
@@ -470,17 +502,118 @@ namespace	PGMemDB
 		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "FormSeriesCompensator2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+		log_info("FormSeriesCompensator2£¨∫ƒ ±%d∫¡√Î\n", nDur);
 
 		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEBREAKER);
 		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEDISCONNECTOR);
 		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEACLINESEGMENT);
-		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEDCLINESEGMENT);
 		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGETRANSFORMERWINDING);
 		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGESERIESCOMPENSATOR);
 
+		//////////////////////////////////////////////////////////////////////////
+		dBeg=clock();
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCLINESEGMENT]; i++)
+		{
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szSub,	pPGBlock->m_DCLineSegmentArray[i].szSubI);
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szVolt,	pPGBlock->m_DCLineSegmentArray[i].szVoltI);
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szNode,	pPGBlock->m_DCLineSegmentArray[i].szNodeI);
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szName,	pPGBlock->m_DCLineSegmentArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]++;
+
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szSub,	pPGBlock->m_DCLineSegmentArray[i].szSubJ);
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szVolt,	pPGBlock->m_DCLineSegmentArray[i].szVoltJ);
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szNode,	pPGBlock->m_DCLineSegmentArray[i].szNodeJ);
+			strcpy(pPGBlock->m_EdgeDCLineSegmentArray[pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]].szName,	pPGBlock->m_DCLineSegmentArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDCLINESEGMENT]++;
+		}
 		dEnd=clock();
 		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
-		Log(m_lpszPGMemDBLogFile, "fromDerivedDevice£¨∫ƒ ±%d∫¡√Î \n", nDur);
+		log_info("FormDCLineSegment2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+
+		dBeg=clock();
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_ACDCCONVERTER]; i++)
+		{
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szSub,	pPGBlock->m_ACDCConverterArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szVolt,	pPGBlock->m_ACDCConverterArray[i].szVoltAC);
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szNode,	pPGBlock->m_ACDCConverterArray[i].szNodeAC);
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szName,	pPGBlock->m_ACDCConverterArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]++;
+
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szSub,	pPGBlock->m_ACDCConverterArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szVolt,	pPGBlock->m_ACDCConverterArray[i].szVoltDC);
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szNode,	pPGBlock->m_ACDCConverterArray[i].szNodeDC);
+			strcpy(pPGBlock->m_EdgeADConverterArray[pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]].szName,	pPGBlock->m_ACDCConverterArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEADCONVERTER]++;
+		}
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		log_info("FormACDCConverter2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+
+		dBeg=clock();
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCDCCONVERTER]; i++)
+		{
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szSub,	pPGBlock->m_DCDCConverterArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szVolt,	pPGBlock->m_DCDCConverterArray[i].szVoltI);
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szNode,	pPGBlock->m_DCDCConverterArray[i].szNodeI);
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szName,	pPGBlock->m_DCDCConverterArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]++;
+
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szSub,	pPGBlock->m_DCDCConverterArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szVolt,	pPGBlock->m_DCDCConverterArray[i].szVoltJ);
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szNode,	pPGBlock->m_DCDCConverterArray[i].szNodeJ);
+			strcpy(pPGBlock->m_EdgeDDConverterArray[pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]].szName,	pPGBlock->m_DCDCConverterArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDDCONVERTER]++;
+		}
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		log_info("FormDCDCConverter2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+
+		dBeg=clock();
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCBREAKER]; i++)
+		{
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szSub,	pPGBlock->m_DCBreakerArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szVolt,	pPGBlock->m_DCBreakerArray[i].szVolt);
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szNode,	pPGBlock->m_DCBreakerArray[i].szNodeI);
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szName,	pPGBlock->m_DCBreakerArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]++;
+
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szSub,	pPGBlock->m_DCBreakerArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szVolt,	pPGBlock->m_DCBreakerArray[i].szVolt);
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szNode,	pPGBlock->m_DCBreakerArray[i].szNodeJ);
+			strcpy(pPGBlock->m_EdgeDCBreakerArray[pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]].szName,	pPGBlock->m_DCBreakerArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDCBREAKER]++;
+		}
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		log_info("FormDCBreaker2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+
+		dBeg=clock();
+		for (i=0; i<pPGBlock->m_nRecordNum[PG_DCSHORTCIRCUITLIMIT]; i++)
+		{
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szSub,	pPGBlock->m_DCShortCircuitLimitArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szVolt,	pPGBlock->m_DCShortCircuitLimitArray[i].szVolt);
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szNode,	pPGBlock->m_DCShortCircuitLimitArray[i].szNodeI);
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szName,	pPGBlock->m_DCShortCircuitLimitArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]++;
+
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szSub,	pPGBlock->m_DCShortCircuitLimitArray[i].szSub);
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szVolt,	pPGBlock->m_DCShortCircuitLimitArray[i].szVolt);
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szNode,	pPGBlock->m_DCShortCircuitLimitArray[i].szNodeJ);
+			strcpy(pPGBlock->m_EdgeDCShortCircuitLimitArray[pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]].szName,	pPGBlock->m_DCShortCircuitLimitArray[i].szName);
+			pPGBlock->m_nRecordNum[PG_EDGEDCSHORTCIRCUITLIMIT]++;
+		}
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		log_info("FormDCShortCircuitLimit2£¨∫ƒ ±%d∫¡√Î\n", nDur);
+
+		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEDCLINESEGMENT);
+		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEADCONVERTER);
+		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEDDCONVERTER);
+		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEDCBREAKER);
+		MemDBBase::MDBSort<tagPGBlock>(pPGBlock, PG_EDGEDCSHORTCIRCUITLIMIT);
+
+		dEnd=clock();
+		nDur=(int)((1000.0*(double)(dEnd-dBeg))/CLOCKS_PER_SEC);
+		log_info("fromDerivedDevice£¨∫ƒ ±%d∫¡√Î \n", nDur);
 	}
 }

@@ -22,12 +22,12 @@ public class AppUtil {
 	public static final String GC_RELIABILITY_INDEX = "GCReliabilityIndex";
 
 	public static Process executeWithLogger(String appPath, AppLogger appLogger,
-			String... args) {
+			Object... args) {
 		StringBuffer cmd = new StringBuffer();
 		cmd.append(appPath);
 
-		List<String> params = Arrays.asList(args);
-		for (String param : params) {
+		List<Object> params = Arrays.asList(args);
+		for (Object param : params) {
 			cmd.append(" " + param);
 		}
 		if (appLogger != null) {
@@ -57,12 +57,12 @@ public class AppUtil {
 	 * @param appPath
 	 * @param T
 	 */
-	public static Process executeWithoutLogger(String appPath, String... args) {
+	public static Process executeWithoutLogger(String appPath, Object... args) {
 		return executeWithLogger(appPath, null, args);
 	}
 	
 	
-	public static Process execute(String appPath, String... args) {
+	public static Process execute(String appPath, Object... args) {
 		return executeWithLogger(appPath, (log) -> {
 			System.out.println(log);
 		}, args);

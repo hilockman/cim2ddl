@@ -18,7 +18,7 @@ HEADERS += DCNetwork.h
 
 CONFIG -= qt
 
-LIBS += -ltinyxml -lPRMemDB -lPGMemDB
+LIBS += -ltinyxml -lbase -lPRMemDB -lPGMemDB
 
 DEFINES += DCNETWORK_EXPORTS
 

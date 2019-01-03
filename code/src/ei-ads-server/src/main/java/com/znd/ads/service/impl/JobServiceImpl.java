@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -14,19 +15,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
+import com.znd.ads.exception.FactoryException;
 import com.znd.ads.exception.JobException;
 import com.znd.ads.mapper.CalcJobMapper;
 import com.znd.ads.service.JobService;
 import com.znd.bus.channel.Channel;
-import com.znd.bus.channel.MessageCodeEnum;
 import com.znd.bus.common.buffer.CalcJobBuffer;
 import com.znd.bus.common.buffer.ModelFileBuffer;
-import com.znd.bus.common.buffer.ModelSourceBuffer;
 import com.znd.bus.common.model.CalcJob;
 import com.znd.bus.common.model.CalcJobStateEnum;
 import com.znd.bus.common.model.ModelFile;
+import com.znd.bus.exception.AdsException;
 import com.znd.bus.server.AdapterService;
 import com.znd.bus.server.BusService;
 import com.znd.bus.server.NounEnum;
@@ -38,6 +40,7 @@ import com.znd.bus.server.message.ResponseMessageType;
 import com.znd.ei.Utils;
 
 @Service
+@DependsOn("defaultBufferConfig")
 public class JobServiceImpl implements JobService {
 	private final Logger logger = LoggerFactory
 			.getLogger(JobService.class);
@@ -54,8 +57,8 @@ public class JobServiceImpl implements JobService {
 	@Autowired
 	private ModelFileBuffer modelFileMapper;
 
-	@Autowired
-	private ModelSourceBuffer modelSourceBuffer;
+//	@Autowired
+//	private ModelSourceBuffer modelSourceBuffer;
 	
 	@Autowired
 	private Channel jobChannel;
@@ -66,6 +69,10 @@ public class JobServiceImpl implements JobService {
 	
 	private AdapterService adapter;
 		
+	
+	@Autowired
+	private MyBufferFactoryRegistory factoryRegistory;
+	
 	public JobServiceImpl() {
 		
 	}
@@ -94,7 +101,12 @@ public class JobServiceImpl implements JobService {
 	
 	@PostConstruct
 	public void init() {
-		adapter = busService.registAdapter(new JobAdapter(), "JobControlAdapter", Topic.in(VerbEnum.execute, NounEnum.job));
+		try {
+			adapter = busService.registAdapter(new JobAdapter(), "JobControlAdapter", Topic.in(VerbEnum.execute, NounEnum.job));
+		} catch (AdsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		reload();
 	}
 	
@@ -151,11 +163,15 @@ public class JobServiceImpl implements JobService {
 //			throw new JobException("Fail to cancel job :"+jobId+", job is running.");
 //		}
 		job.setState(CalcJobStateEnum.stop);
+		job.setStep(0);
+		job.setMaxStep(0);
+		job.setStart(null);
+		job.setEnd(null);
 		jobMapper.update(job);
 		jobBuffer.update(job);
 		
 		logger.info("Job : {} stopped.", jobId);
-		
+		//adapter.sendPublish(VerbEnum., noun, content)
 	}
 
 
@@ -223,13 +239,15 @@ public class JobServiceImpl implements JobService {
 		
 		//发送消息
 		
-		logger.info("sendMessage : cc = {}, content = {}. ",
-				MessageCodeEnum.start_job, jobId);
-		
+		logger.info("sendMessage : verb = {}, noun = {}, content = {}. ",
+				VerbEnum.execute, NounEnum.job, jobId);
+
+		job.setStep(0);
+		job.setMaxStep(0);		
 		job.setStart(new Date());
 		job.setElapse(null);
 		job.setEnd(null);
-		job.setState(CalcJobStateEnum.waiting);
+		job.setState(CalcJobStateEnum.running);
 		jobBuffer.update(job);
 		
 		//jobChannel.send(new ChannelMessage(MessageCodeEnum.start_job, jobId));
@@ -284,6 +302,64 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public List<CalcJob> findByModel(String modelId) {
 		return jobBuffer.findByModel(modelId);
+	}
+
+	@Override
+	public Object getResult(String id) throws FactoryException {
+		MyBufferFactory factory = factoryRegistory.getFactory(id);
+		if (factory == null)
+			return null;
+		List<Map<String, String>> list = factory.getRecordMaps("System");
+		if (list == null || list.size() < 1)
+			return null;
+		
+		return list.get(0);
+	}
+
+	@Override
+	public String getFile(String folder, String file) {
+		Path path = Paths.get(cachedDir, folder);
+		File rootDir = path.toFile();
+		if (!rootDir.exists()) {			
+			return null;
+		}
+		
+		
+	 	//加载模型文件到buffer中		
+		File[] files =  rootDir.listFiles();
+		
+		if (files != null && files.length > 0) {
+			byte[] buff = new byte[1024];
+			try {
+				for (File f : files) {
+						String fileName = f.getName();
+						if (fileName.compareTo(file) != 0)
+							continue;
+						
+						InputStream is = new FileInputStream(f);
+						//int off = 0;
+
+						int readCount = 0;
+						StringBuilder sb = new StringBuilder();
+						while ((readCount = is.read(buff, 0, buff.length)) > 0) {
+						
+							sb.append(new String(buff, 0,readCount));
+	
+							//off += readCount;
+						}
+						is.close();
+						
+						return sb.toString();
+
+				}
+			} catch (Exception e) {
+				throw new RuntimeException("Fail to update model file :"+folder);
+			}		
+		}
+		
+		return null;
+		
+
 	}
 
 

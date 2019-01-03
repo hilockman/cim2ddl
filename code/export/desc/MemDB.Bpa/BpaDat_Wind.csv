@@ -35,12 +35,13 @@
 33,IniBusJ,Ini母线名称2,STRING,10
 34,InikVJ,Ini基准电压2(kV),DOUBLE,4
 35,IniLoop,Ini并联线路的回路标志,INTEGER,1
-36,iRBus,变压器I母线索引,INTEGER,4
-37,zRBus,变压器Z母线索引,INTEGER,4
+36,BusIPtr,变压器I母线索引,INTEGER,4
+37,BusJPtr,变压器J母线索引,INTEGER,4
 38,RCard,"受控变压器(直流母线侧R=1-I,R=2-J)",INTEGER,1
 39,Alias,变压器别名,STRING,64
 40,RtTPI,RT母线1的固定分接头,DOUBLE,4
 41,RtTPJ,RT母线2的固定分接头,DOUBLE,4
 42,Status,状态,INTEGER,1
-43,InRing,环网设备,INTEGER,1
-44,Radiate,所在辐射网,INTEGER,2
+43,TranPtr,变压器索引,INTEGER,4
+44,InRing,环网设备,INTEGER,1
+45,Radiate,所在辐射网,INTEGER,2

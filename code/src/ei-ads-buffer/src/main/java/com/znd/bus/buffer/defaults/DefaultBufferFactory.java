@@ -7,6 +7,9 @@ import com.znd.bus.buffer.Buffer;
 import com.znd.bus.buffer.BufferFactory;
 import com.znd.bus.buffer.BufferFactoryBuilder;
 import com.znd.bus.config.BufferConfig;
+import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.BufferException;
+import com.znd.bus.exception.MessageException;
 import com.znd.bus.log.BufferLogger;
 import com.znd.bus.log.BufferLoggerFactory;
 import com.znd.bus.log.LogBuffer;
@@ -21,7 +24,7 @@ public class DefaultBufferFactory implements BufferFactory {
 
 	
 		
-	public DefaultBufferFactory(BufferConfig config)
+	public DefaultBufferFactory(BufferConfig config) throws BindingException, BufferException, MessageException
 	{	
 		config.buildAll();
 				

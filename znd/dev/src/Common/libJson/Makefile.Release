@@ -123,6 +123,7 @@ $(OBJECTS) $(LIBS)
 <<
 	cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.lib D:\GitHub\cim2ddl\znd\dev\lib_release
 	 if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb move /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.pdb D:\GitHub\cim2ddl\znd/binary/win64/release/pdb
+	 cmd /c if exist D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll copy /y D:\GitHub\cim2ddl\znd\binary\win64\release\bin\*.dll D:\GitHub\cim2ddl\znd\bin
 	
 
 qmake: FORCE

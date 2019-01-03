@@ -13,6 +13,7 @@ import java.util.Map;
 import com.znd.bus.buffer.Buffer;
 import com.znd.bus.config.BufferConfig;
 import com.znd.bus.exception.BindingException;
+import com.znd.bus.exception.MappingError;
 import com.znd.bus.mapping.RawArrayBufferMapper;
 
 public class MapperProxy<T> implements InvocationHandler{
@@ -78,7 +79,7 @@ public class MapperProxy<T> implements InvocationHandler{
 	  }  
 	  
 	  
-	  private MapperMethod cachedMapperMethod(Method method) {
+	  private MapperMethod cachedMapperMethod(Method method) throws BindingException, MappingError {
 		    MapperMethod mapperMethod = methodCache.get(method);
 		    if (mapperMethod == null) {
 		    	 synchronized(method) {

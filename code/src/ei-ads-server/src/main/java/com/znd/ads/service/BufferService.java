@@ -2,6 +2,7 @@ package com.znd.ads.service;
 
 import java.util.List;
 
+import com.znd.ads.exception.FactoryException;
 import com.znd.ads.model.CategoryInfo;
 import com.znd.bus.common.model.CategoryTypeEnum;
 import com.znd.bus.config.ColumnMeta;
@@ -20,7 +21,7 @@ public interface BufferService {
 	 */
 	List<CategoryInfo> getDbNodes();
 
-	List<CategoryInfo> getTableNodes(String dbid, CategoryTypeEnum type);
+	List<CategoryInfo> getTableNodes(String dbid, CategoryTypeEnum type) throws FactoryException;
 
 	
 //	void sendMessage(ChannelMessage message);
@@ -28,10 +29,10 @@ public interface BufferService {
 	
 //	List getLogs();
 
-	List<String[]> getRecords(String dbid, String tableid);
+	List<String[]> getRecords(String dbid, String tableid) throws FactoryException;
 
-	List<ColumnMeta> getTableColumns(String dbid, String tableid);
+	List<ColumnMeta> getTableColumns(String dbid, String tableid) throws FactoryException;
 	
-	void removeRecords(String dbid, String tableid, String[] ids);
+	void removeRecords(String dbid, String tableid, String[] ids) throws FactoryException;
 
 }

@@ -7,7 +7,7 @@ namespace	PRAdequacyBase
 {
 	extern	CPRMemDBInterface	g_PRMemDBInterface;
 
-	static	const char*	g_lpszDeskName = "SecurityDesktop";
+	static char	g_lpszDeskName[] = "SecurityDesktop";
 	const	int	m_nCalcTimeOut=300000;
 
 	unsigned __stdcall 	SecurityEstimateCalThreaad(void* lParam)
@@ -49,7 +49,7 @@ namespace	PRAdequacyBase
 
 
 			memset(&si, 0, sizeof(si));
-			si.lpDesktop = (LPTSTR)g_lpszDeskName;
+			si.lpDesktop = g_lpszDeskName;
 			si.cb =sizeof(si);
 			si.dwFlags=STARTF_USESHOWWINDOW;
 			si.wShowWindow=SW_HIDE;

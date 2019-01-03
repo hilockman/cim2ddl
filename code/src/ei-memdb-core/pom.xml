@@ -22,7 +22,7 @@
     	<dependency>
 		    <groupId>${znd.groupId}</groupId>
 		    <artifactId>ZhongNDMemDB</artifactId>
-		    <version>${znd.version}</version>
+		    <version>${znd-memdb.version}</version>
 		</dependency>
   </dependencies>
 </project>

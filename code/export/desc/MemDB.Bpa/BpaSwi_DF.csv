@@ -1,0 +1,17 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,DCBus_Name,直流母线名称,STRING,10
+2,DCBus_KV,直流母线基准电压(kV),DOUBLE,4
+3,DF_DVDT,直流系统可能发生换相失败的电压变化率的门槛值,DOUBLE,4
+4,DF_Vf1,直流系统可能发生换相失败的电压的门槛值,DOUBLE,4
+5,DF_Vf2,直流系统可能发生换相失败的电压的门槛值,DOUBLE,4
+6,DF_DT,换相失败发生到直流系统闭锁的时间,DOUBLE,4
+7,DF_Vrs,直流系统恢复换相的电压的门槛值,DOUBLE,4
+8,DF_C1,从恢复换相到T1时刻(秒)直流功率恢复的百分数,DOUBLE,4
+9,DF_T1,T1时间,DOUBLE,4
+10,DF_C2,从恢复换相到T2时刻(秒)直流功率恢复的百分数,DOUBLE,4
+11,DF_T2,T2时间,DOUBLE,4
+12,DF_C3,从恢复换相到T3时刻(秒)直流功率恢复的百分数,DOUBLE,4
+13,DF_T3,T3时间,DOUBLE,4
+14,KeyName,数据库主键,STRING,16
+15,BusPtr,直流母线索引,INTEGER,4

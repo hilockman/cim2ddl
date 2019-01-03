@@ -2,7 +2,7 @@
 0,Name,名称,STRING,32
 1,BusAC,交流节点名称,STRING,32
 2,BusDC,直流节点名称,STRING,32
-3,SchedPower,安排的功率(MW),DOUBLE,4
+3,SchedPower,安排的功率(兆瓦),DOUBLE,4
 4,Type,变换器类型,INTEGER,1
 5,Rerr,故障率(次/年),DOUBLE,8
 6,Rrep,修复率(次/年),DOUBLE,8

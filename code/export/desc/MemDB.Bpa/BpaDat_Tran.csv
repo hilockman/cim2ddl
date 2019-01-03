@@ -6,3 +6,4 @@
 4,iRWindH,高压绕组索引,INTEGER,4
 5,iRWindM,中压绕组索引,INTEGER,4
 6,iRWindL,低压绕组索引,INTEGER,4
+7,Status,状态,INTEGER,1

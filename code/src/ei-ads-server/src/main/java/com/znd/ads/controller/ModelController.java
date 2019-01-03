@@ -87,5 +87,9 @@ public class ModelController {
     	}
     }
     
+    @GetMapping("/file/{folder}/{fileName}")
+    public @ResponseBody AdsResult getFile(@PathVariable String folder, @PathVariable String fileName) {
+    	return AdsResult.ok(jobService.getFile(folder, fileName));
+    }
 }
 

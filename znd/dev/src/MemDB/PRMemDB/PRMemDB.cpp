@@ -12,7 +12,7 @@ namespace	PRMemDB
 	const	char*	lpszLogFile="PRMemDB.log";
 	void	CPRMemDBInterface::PRMemDBClearLog()
 	{
-//#ifdef DEBUG
+#ifdef _DEBUG
 		char	szTempPath[260], szFileName[260];
 
 #if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(_WIN64) || defined(__WIN64__) || defined(WIN64))
@@ -25,7 +25,7 @@ namespace	PRMemDB
 		FILE*	fp=fopen(szFileName, "w");
 		fflush(fp);
 		fclose(fp);
-//#endif
+#endif
 	}
 
 	void	CPRMemDBInterface::PRMemDBLog(const char* pformat, ...)
@@ -33,7 +33,7 @@ namespace	PRMemDB
 		va_list args;
 		va_start( args, pformat );
 
-//#ifdef DEBUG
+#ifdef _DEBUG
 		char	szTempPath[260], szFileName[260];
 		FILE*	fp;
 
@@ -52,12 +52,12 @@ namespace	PRMemDB
 			fflush(fp);
 			fclose(fp);
 		}
-//#endif
+#endif
 
 		va_end(args);
 	}
 
-	const int CPRMemDBInterface::GetBlockSize(void) const
+	int CPRMemDBInterface::GetBlockSize(void) const
 	{
 		register int	i;
 
@@ -199,7 +199,7 @@ namespace	PRMemDB
 		return lpBlockMap;
 	}
 
-	const int CPRMemDBInterface::PRGetBlockSize() const
+	int CPRMemDBInterface::PRGetBlockSize() const
 	{
 		return GetBlockSize();
 	}
@@ -212,7 +212,7 @@ namespace	PRMemDB
 			MemDBBase::Exit_MDBBlock(lpszBlockMap, g_nPRBlockKey);
 	}
 
-	const int CPRMemDBInterface::PRGetFieldEnumNum(const int nTable, const int nField) const
+	int CPRMemDBInterface::PRGetFieldEnumNum(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 		{
@@ -224,7 +224,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldEnumValue(const int nTable, const int nField, const char* lpszEnumName) const
+	int CPRMemDBInterface::PRGetFieldEnumValue(const int nTable, const int nField, const char* lpszEnumName) const
 	{
 		register int	i;
 		if (nTable >= 0 && nTable < PRGetTableNum())
@@ -256,7 +256,7 @@ namespace	PRMemDB
 		return "";
 	}
 
-	const int	CPRMemDBInterface::PRGetFieldEnumStringArray(const int nTable, const int nField, int& nEnumNum, char szEnumArray[][MDB_CHARLEN])
+	int	CPRMemDBInterface::PRGetFieldEnumStringArray(const int nTable, const int nField, int& nEnumNum, char szEnumArray[][MDB_CHARLEN]) const
 	{
 		register int	i;
 
@@ -274,7 +274,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetTablePrimaryKeyNum(const int nTable) const
+	int CPRMemDBInterface::PRGetTablePrimaryKeyNum(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 			return g_PRTableDictArray[nTable].sPrimaryKey.nPrimaryKeyNum;
@@ -282,7 +282,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetTablePrimaryKey(const int nTable, const int nRest) const
+	int CPRMemDBInterface::PRGetTablePrimaryKey(const int nTable, const int nRest) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 		{
@@ -293,19 +293,33 @@ namespace	PRMemDB
 		return -1;
 	}
 
-	const int CPRMemDBInterface::PRGetTableNum() const
+	int CPRMemDBInterface::PRIsFieldPrimaryKey(const int nTable, const int nField)
+	{
+		if (nTable >= 0 && nTable < PRGetTableNum())
+		{
+			for (int nKey=0; nKey<PRGetTablePrimaryKeyNum(nTable); nKey++)
+			{
+				if (nField == PRGetTablePrimaryKey(nTable, nKey))
+					return 1;
+			}
+		}
+
+		return 0;
+	}
+
+	int CPRMemDBInterface::PRGetTableNum() const
 	{
 		return sizeof(g_PRTableDictArray)/sizeof(tagMemDBTable);
 	}
 
-	const int CPRMemDBInterface::PRGetTableMax(const int nTable) const
+	int CPRMemDBInterface::PRGetTableMax(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 			return g_PRTableDictArray[nTable].nRecordMax;
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetTableFieldNum(const int nTable) const
+	int CPRMemDBInterface::PRGetTableFieldNum(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 			return g_PRTableDictArray[nTable].nFieldNum;
@@ -313,7 +327,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetTableIndex(const char* lpszTableName) const
+	int CPRMemDBInterface::PRGetTableIndex(const char* lpszTableName) const
 	{
 		register int	i;
 
@@ -340,7 +354,7 @@ namespace	PRMemDB
 		return -1;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldIndex(const int nTable, const char* lpszFieldName) const
+	int CPRMemDBInterface::PRGetFieldIndex(const int nTable, const char* lpszFieldName) const
 	{
 		register int	i;
 
@@ -374,7 +388,7 @@ namespace	PRMemDB
 		return "";
 	}
 
-	const int CPRMemDBInterface::PRGetTableCategory(const int nTable) const
+	int CPRMemDBInterface::PRGetTableCategory(const int nTable) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 			return g_PRTableDictArray[nTable].nCategory;
@@ -401,7 +415,7 @@ namespace	PRMemDB
 		return "";
 	}
 
-	const int CPRMemDBInterface::PRGetFieldLen(const int nTable, const int nField) const
+	int CPRMemDBInterface::PRGetFieldLen(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 		{
@@ -411,7 +425,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldType(const int nTable, const int nField) const
+	int CPRMemDBInterface::PRGetFieldType(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 		{
@@ -421,7 +435,7 @@ namespace	PRMemDB
 		return -1;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldCategory(const int nTable, const int nField) const
+	int CPRMemDBInterface::PRGetFieldCategory(const int nTable, const int nField) const
 	{
 		if (nTable >= 0 && nTable < PRGetTableNum())
 		{
@@ -433,7 +447,7 @@ namespace	PRMemDB
 		return -1;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldNameArray(const int nTable, char* lpszRetString) const
+	int CPRMemDBInterface::PRGetFieldNameArray(const int nTable, char* lpszRetString) const
 	{
 		strcpy(lpszRetString, "");
 		if (nTable >= 0 && nTable < PRGetTableNum())
@@ -459,7 +473,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldDespArray(const int nTable, char* lpszRetString) const
+	int CPRMemDBInterface::PRGetFieldDespArray(const int nTable, char* lpszRetString) const
 	{
 		strcpy(lpszRetString, "");
 		if (nTable >= 0 && nTable < PRGetTableNum())
@@ -486,7 +500,7 @@ namespace	PRMemDB
 	}
 
 
-	const int CPRMemDBInterface::PRGetFieldCategoryArray(const int nTable, char* lpszRetString) const
+	int CPRMemDBInterface::PRGetFieldCategoryArray(const int nTable, char* lpszRetString) const
 	{
 		strcpy(lpszRetString, "");
 		if (nTable >= 0 && nTable < PRGetTableNum())
@@ -511,7 +525,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldTypeArray(const int nTable, char* lpszRetString) const
+	int CPRMemDBInterface::PRGetFieldTypeArray(const int nTable, char* lpszRetString) const
 	{
 		strcpy(lpszRetString, "");
 		if (nTable >= 0 && nTable < PRGetTableNum())
@@ -536,7 +550,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldLenArray(const int nTable, char* lpszRetString) const
+	int CPRMemDBInterface::PRGetFieldLenArray(const int nTable, char* lpszRetString) const
 	{
 		strcpy(lpszRetString, "");
 		if (nTable >= 0 && nTable < PRGetTableNum())
@@ -561,7 +575,7 @@ namespace	PRMemDB
 		return 0;
 	}
 
-	const int CPRMemDBInterface::PRGetFieldCategoryNum() const
+	int CPRMemDBInterface::PRGetFieldCategoryNum() const
 	{
 		return sizeof(MDBFeldCategoryStringArray)/sizeof(char*);
 	}
@@ -571,7 +585,7 @@ namespace	PRMemDB
 		return MDBFeldCategoryStringArray[nCatrgory];
 	}
 
-	const int CPRMemDBInterface::PRGetFieldCategoryValue(const char* lpszCatrgory) const
+	int CPRMemDBInterface::PRGetFieldCategoryValue(const char* lpszCatrgory) const
 	{
 		register int	i;
 		for (i=0; i<sizeof(MDBFeldCategoryStringArray)/sizeof(char*); i++)

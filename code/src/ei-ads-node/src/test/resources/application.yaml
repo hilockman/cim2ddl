@@ -47,8 +47,8 @@ ads:
      lifecycle: 60000
   temp:
     dir: ./temp
-  appDir: D:/GitHub/cim2ddl/znd/bin_x64
-  #appDir: E:/ZNDCWare/bin_x64
+  appDir: D:/GitHub/cim2ddl/znd
+  #appDir: E:/ZNDCWare
 
 reliability:
   listenPort: 9002

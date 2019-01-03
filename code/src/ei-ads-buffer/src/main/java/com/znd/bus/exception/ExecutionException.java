@@ -1,7 +1,7 @@
 package com.znd.bus.exception;
 
 
-public class ExecutionException extends RuntimeException {
+public class ExecutionException extends AdsException {
 
 	/**
 	 * 

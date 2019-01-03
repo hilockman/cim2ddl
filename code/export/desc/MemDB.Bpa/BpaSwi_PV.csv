@@ -1,0 +1,15 @@
+序号,名称,描述,类型,长度
+0,CardKey,卡类型,STRING,8
+1,ACBus_Name,电机母线名,STRING,10
+2,ACBus_kV,电机母线电压(kV),DOUBLE,4
+3,Gen_ID,电机识别码,INTEGER,1
+4,T,实际温度(℃),DOUBLE,4
+5,S,光照强度(W/m1),DOUBLE,4
+6,Uoc,单体电池标准条件下的开路电压(V),DOUBLE,4
+7,Isc,单体电池标准条件下的短路电流(A),DOUBLE,4
+8,Um,单体电池标准条件下的最大功率点电压(V),DOUBLE,4
+9,Im,单体电池标准条件下的最大功率点电流(A),DOUBLE,4
+10,N1,光伏阵列并联电池组数,INTEGER,2
+11,N2,光伏阵列串联电池组数,INTEGER,2
+12,KeyName,数据库主键,STRING,16
+13,BusPtr,发电机母线索引,INTEGER,4
